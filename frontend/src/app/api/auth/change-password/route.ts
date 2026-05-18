@@ -20,7 +20,7 @@
  */
 
 import type { NextRequest } from "next/server";
-import * as argon2 from "argon2";
+import { hashPassword, verifyPassword } from "@/lib/server/auth/password";
 import { getAuthenticatedUser } from "@/lib/server/auth/current-user";
 import { getPostgresPool } from "@/lib/server/database/postgres";
 import { apiError, apiSuccess, NO_STORE_HEADERS } from "@/lib/server/utils/api-response";
@@ -124,11 +124,9 @@ export async function POST(request: NextRequest) {
 
     /*
      * Skip verification for seeded demo accounts whose hash is a placeholder
-     * string that argon2.verify would reject outright. In production all real
-     * accounts have proper argon2id hashes, so this only affects the 10 demo
-     * users created by the seed script.
+     * string that verifyPassword would reject outright.
      */
-    if (!storedHash.startsWith("$argon2id$") || storedHash.includes("DEMO_PLACEHOLDER")) {
+    if (storedHash.includes("DEMO_PLACEHOLDER")) {
       return apiError(
         "WRONG_PASSWORD",
         "Incorrect current password.",
@@ -138,8 +136,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    /* ── 5. Verify the current password using argon2.verify ── */
-    const isValid = await argon2.verify(storedHash, currentPassword);
+    /* ── 5. Verify the current password using verifyPassword ── */
+    const isValid = await verifyPassword(currentPassword, storedHash);
 
     if (!isValid) {
       return apiError(
@@ -151,13 +149,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    /* ── 6. Hash the new password with argon2id ── */
-    const newHash = await argon2.hash(newPassword, {
-      type: argon2.argon2id,
-      memoryCost: 65536,  /* 64 MiB — matches the sign-up route */
-      timeCost: 3,
-      parallelism: 4,
-    });
+    /* ── 6. Hash the new password with scrypt ── */
+    const newHash = await hashPassword(newPassword);
 
     /* ── 7. Write the new hash to the database ── */
     await pool.query(

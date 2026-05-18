@@ -109,17 +109,38 @@ function mapSubjectChapters(rows: Awaited<ReturnType<typeof getChaptersBySubject
   }));
 }
 
+type FallbackChapterItem = string | {
+  slug: string;
+  name: string;
+  description?: string;
+  dayCount?: number;
+  questionCount?: number;
+  difficulty?: "easy" | "medium" | "hard";
+};
+
 /** Maps static learning-plan chapter strings to structured chapter cards. */
-function buildFallbackChapters(chapters: string[], totalDays: number): SubjectPlanChapter[] {
+function buildFallbackChapters(chapters: FallbackChapterItem[], totalDays: number): SubjectPlanChapter[] {
   const daysPerChapter = Math.max(1, Math.round(totalDays / Math.max(chapters.length, 1)));
-  return chapters.map((name, index) => ({
-    slug: slugifyChapterName(name),
-    name,
-    description: "Structured concept notes, solved examples, and adaptive practice questions.",
-    dayCount: index === 0 ? daysPerChapter + 1 : daysPerChapter,
-    questionCount: 15,
-    difficulty: index < 2 ? "easy" : index > chapters.length - 3 ? "hard" : "medium",
-  }));
+  return chapters.map((item, index) => {
+    if (typeof item === "string") {
+      return {
+        slug: slugifyChapterName(item),
+        name: item,
+        description: "Structured concept notes, solved examples, and adaptive practice questions.",
+        dayCount: index === 0 ? daysPerChapter + 1 : daysPerChapter,
+        questionCount: 15,
+        difficulty: index < 2 ? "easy" : index > chapters.length - 3 ? "hard" : "medium",
+      };
+    }
+    return {
+      slug: item.slug || slugifyChapterName(item.name),
+      name: item.name,
+      description: item.description ?? "Structured concept notes, solved examples, and adaptive practice questions.",
+      dayCount: item.dayCount ?? (index === 0 ? daysPerChapter + 1 : daysPerChapter),
+      questionCount: item.questionCount ?? 15,
+      difficulty: item.difficulty ?? (index < 2 ? "easy" : index > chapters.length - 3 ? "hard" : "medium"),
+    };
+  });
 }
 
 /** Creates a typed fallback for classes when DB records are not reachable yet. */
