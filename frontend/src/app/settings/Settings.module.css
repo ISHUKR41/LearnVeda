@@ -1,24 +1,31 @@
 /*
  * FILE: Settings.module.css
  * LOCATION: src/app/settings/Settings.module.css
- * PURPOSE: Styles for the account settings page.
- *          Covers: page layout, section cards, form fields, track selector,
- *          and the danger zone delete button.
+ * PURPOSE: All styles for the Account Settings page (/settings).
+ *          Covers the full page layout, section cards with coloured icon badges,
+ *          form fields and input states, track selector grid, password strength
+ *          indicator, notification toggles, sign-out/danger buttons, and the
+ *          guest guard card shown to unauthenticated visitors.
+ *
+ *          Every class is scoped to this module — no global side-effects.
+ *          Uses only design-system tokens from globals.css; no hardcoded colours.
+ *
  * USED BY: src/app/settings/page.tsx
- * LAST UPDATED: 2026-05-16
+ * LAST UPDATED: 2026-05-18
  */
 
 /* =====================================================================
- * PAGE LAYOUT
+ * PAGE SHELL
+ * Full-height page with the dark navy secondary background
  * ===================================================================== */
 .page {
   min-height: calc(100vh - var(--navbar-height));
   background: var(--color-bg-primary);
-  padding: var(--space-8) var(--space-5) var(--space-16);
+  padding: var(--space-8) var(--space-4) var(--space-16);
 }
 
 .container {
-  max-width: 720px;
+  max-width: 680px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -27,42 +34,71 @@
 
 /* =====================================================================
  * PAGE HEADER
+ * Back link + icon badge + title row
  * ===================================================================== */
 .pageHeader {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-5);
+  margin-bottom: var(--space-2);
 }
 
+/* Small "← Back to Profile" link above the title */
 .backLink {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   font-size: var(--font-size-small);
   color: var(--color-text-secondary);
-  font-weight: 500;
-  transition: color 0.15s;
+  font-weight: var(--font-weight-medium);
   text-decoration: none;
+  transition: color var(--transition-fast);
+  width: fit-content;
 }
 
 .backLink:hover { color: var(--color-text-primary); }
 
+/* Flex row: icon badge + title stack */
+.pageHeaderContent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+/* Round dark badge holding the Settings2 icon */
+.pageHeaderIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
 .pageTitle {
-  font-family: var(--font-family-heading);
+  font-family: var(--font-heading);
   font-size: var(--font-size-h2);
-  font-weight: 800;
+  font-weight: var(--font-weight-extrabold);
   color: var(--color-text-primary);
   margin: 0 0 var(--space-1);
+  line-height: var(--line-height-tight);
 }
 
 .pageSubtitle {
   font-size: var(--font-size-small);
   color: var(--color-text-secondary);
   margin: 0;
+  line-height: var(--line-height-normal);
 }
 
 /* =====================================================================
- * SETTINGS SECTION CARD
+ * SECTION CARD
+ * Each settings group lives in a bordered card with a coloured header
  * ===================================================================== */
 .section {
   background: var(--color-bg-card);
@@ -70,8 +106,14 @@
   border-radius: var(--radius-2xl);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-normal);
 }
 
+.section:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Header bar inside each section card */
 .sectionHeader {
   display: flex;
   align-items: center;
@@ -81,31 +123,39 @@
   background: var(--color-bg-secondary);
 }
 
-.sectionIcon {
-  width: 32px;
-  height: 32px;
+/*
+ * Icon badge whose background colour is driven by the --section-accent
+ * CSS custom property set inline by the SettingsSection component.
+ */
+.sectionIconWrap {
+  width: 30px;
+  height: 30px;
   border-radius: var(--radius-md);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  /* Tint with the section accent at 15% opacity */
+  background: color-mix(in srgb, var(--section-accent, var(--color-primary)) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--section-accent, var(--color-primary)) 30%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-secondary);
+  color: var(--section-accent, var(--color-primary));
+  flex-shrink: 0;
 }
 
 .sectionTitle {
   font-size: var(--font-size-h4);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   margin: 0;
 }
 
+/* Padded content region inside each section */
 .sectionBody {
   padding: var(--space-6);
 }
 
 /* =====================================================================
- * FORM FIELDS
+ * FORM LAYOUT
+ * Stacked field groups with consistent spacing
  * ===================================================================== */
 .form {
   display: flex;
@@ -113,61 +163,182 @@
   gap: var(--space-5);
 }
 
+/* Single field: label + input/control + note */
 .field {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
 }
 
+/* Field label — always visible, never placeholder-only */
 .label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: var(--font-size-small);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
 }
 
+/* "(read only)" annotation inside a label */
 .labelNote {
-  font-weight: 400;
+  font-weight: var(--font-weight-regular);
   color: var(--color-text-tertiary);
 }
 
+/* Character counter shown next to the display-name label (e.g. "12/60") */
+.labelCount {
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* =====================================================================
+ * INPUT FIELD
+ * ===================================================================== */
 .input {
   width: 100%;
-  padding: var(--space-3) var(--space-4);
+  padding: 0.6875rem var(--space-4);   /* 11px top/bottom for comfortable click area */
   background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-lg);
   font-size: var(--font-size-body);
+  font-family: var(--font-body);
   color: var(--color-text-primary);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   outline: none;
+  box-sizing: border-box;
 }
+
+.input::placeholder { color: var(--color-text-tertiary); }
 
 .input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-lightest);
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
+/* Disabled/read-only state — email field */
 .inputDisabled {
   opacity: 0.6;
   cursor: not-allowed;
   background: var(--color-bg-tertiary);
 }
 
+/* Error state — mismatched confirm password */
+.inputError {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 15%, transparent);
+}
+
+/* Wrapper that overlays the lock icon inside the email read-only input */
+.inputReadOnlyWrap {
+  position: relative;
+}
+
+.inputReadOnlyIcon {
+  position: absolute;
+  right: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+}
+
+/* Helper text beneath a field */
 .fieldNote {
   font-size: var(--font-size-xsmall);
   color: var(--color-text-tertiary);
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
+}
+
+/* Inline error message beneath a field */
+.fieldError {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-danger);
+  line-height: var(--line-height-normal);
+}
+
+/* =====================================================================
+ * PASSWORD FIELD
+ * ===================================================================== */
+
+/* Wrapper for input + eye-toggle button */
+.passwordWrap {
+  position: relative;
+}
+
+.passwordWrap .input {
+  /* Reserve space for the toggle button so it doesn't overlap text */
+  padding-right: 3rem;
+}
+
+/* Eye / eye-off toggle button inside password inputs */
+.passwordToggle {
+  position: absolute;
+  right: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color var(--transition-fast);
+}
+
+.passwordToggle:hover { color: var(--color-text-primary); }
+
+/* Password strength progress bar */
+.pwStrengthBar {
+  height: 4px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: var(--space-2);
+}
+
+/*
+ * Filled portion of the strength bar.
+ * Width is set via --pw-width; colour is set via --pw-color
+ * (both injected as inline CSS custom properties from page.tsx).
+ */
+.pwStrengthFill {
+  height: 100%;
+  width: var(--pw-width, 0%);
+  background: var(--pw-color, var(--color-danger));
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+/* Security note shown at the top of the Security section */
+.securityNote {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  line-height: var(--line-height-normal);
 }
 
 /* =====================================================================
  * TRACK SELECTOR
+ * Five pill buttons — one per learning track — driven by --track-color
  * ===================================================================== */
 .trackGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
   gap: var(--space-2);
 }
 
+/* Individual track option button */
 .trackOption {
   display: flex;
   align-items: center;
@@ -177,64 +348,83 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   font-size: var(--font-size-small);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
   text-align: left;
+  /* Vertical stack of label + description */
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  position: relative;
 }
 
 .trackOption:hover {
-  border-color: var(--color-primary);
-  color: var(--color-text-primary);
-}
-
-.trackOptionSelected {
-  /* Border and background tinted with the track's brand colour via CSS custom property */
   border-color: var(--track-color, var(--color-primary));
-  background: color-mix(in srgb, var(--track-color, var(--color-primary)) 7%, transparent);
-  font-weight: 700;
   color: var(--color-text-primary);
 }
 
-.trackDot {
-  /* Background driven by --track-color CSS custom property set in page.tsx */
-  background: var(--track-color, var(--color-primary));
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
+/* When selected, tint the background and highlight the border */
+.trackOptionSelected {
+  border-color: var(--track-color, var(--color-primary));
+  background: color-mix(in srgb, var(--track-color, var(--color-primary)) 9%, transparent);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
 }
 
-/* Lock icon wrapper shown on the guest guard screen — replaces inline style */
-.lockIconWrap {
-  width: 64px;
-  height: 64px;
+/* Coloured dot in the top-left of each track option */
+.trackDot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--color-bg-tertiary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto var(--space-6);
+  background: var(--track-color, var(--color-primary));
+  flex-shrink: 0;
+  margin-bottom: var(--space-1);
+}
+
+/* Bold track name */
+.trackLabel {
+  display: block;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Muted description below the track name */
+.trackDesc {
+  display: block;
+  font-size: var(--font-size-xsmall);
   color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Checkmark icon shown on the selected option */
+.trackCheck {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  color: var(--track-color, var(--color-primary));
 }
 
 /* =====================================================================
- * BUTTONS
+ * BUTTONS — Save / Sign Out / Danger
  * ===================================================================== */
+
+/* Primary save / action button */
 .saveBtn {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
+  padding: 0.6875rem var(--space-6);
   background: var(--color-primary);
   color: #fff;
   border: none;
   border-radius: var(--radius-lg);
   font-size: var(--font-size-small);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   cursor: pointer;
-  transition: filter 0.15s, transform 0.1s;
+  transition: filter var(--transition-fast), transform var(--transition-fast);
   align-self: flex-start;
 }
 
@@ -244,137 +434,277 @@
 }
 
 .saveBtn:disabled {
-  opacity: 0.7;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
+/* Green success variant — shown briefly after a successful save */
+.saveBtnSuccess {
+  background: var(--color-success);
+}
+
+/* Animated spinner used inside the save button while loading */
+@keyframes settingsSpin {
+  to { transform: rotate(360deg); }
+}
+
+.btnSpinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: settingsSpin 0.7s linear infinite;
+}
+
 /* =====================================================================
- * COMING SOON PLACEHOLDER
+ * NOTIFICATION TOGGLES
+ * Each row has an info side (label + description) and an on/off toggle
  * ===================================================================== */
-.comingSoon {
+.toggleList {
   display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-4);
-  background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-lg);
+  flex-direction: column;
+  gap: 0;
 }
 
-.comingSoonTitle {
+/* Single toggle row */
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.toggleRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.toggleRow:first-child {
+  padding-top: 0;
+}
+
+.toggleInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+  min-width: 0;
+}
+
+.toggleLabel {
   font-size: var(--font-size-small);
-  font-weight: 700;
-  color: var(--color-text-secondary);
-  margin-bottom: 4px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
 }
 
-.comingSoonText {
+.toggleDesc {
   font-size: var(--font-size-xsmall);
   color: var(--color-text-tertiary);
-  line-height: 1.55;
+  line-height: var(--line-height-normal);
+}
+
+/* The pill-shaped toggle track */
+.toggle {
+  width: 44px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-tertiary);
+  border: 1.5px solid var(--color-border);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.toggle:hover {
+  border-color: var(--color-primary);
+}
+
+/* Active (on) state */
+.toggleOn {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* Sliding circle inside the toggle */
+.toggleThumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-text-tertiary);
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.toggleOn .toggleThumb {
+  transform: translateX(20px);
+  background: #fff;
 }
 
 /* =====================================================================
  * ACCOUNT ACTIONS
+ * Sign out + danger zone grouped at the bottom
  * ===================================================================== */
 .accountActions {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-5);
 }
 
+/* Secondary sign-out button */
 .signOutBtn {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
+  padding: 0.6875rem var(--space-5);
   background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-lg);
   font-size: var(--font-size-small);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   align-self: flex-start;
 }
 
 .signOutBtn:hover {
   background: var(--color-bg-tertiary);
   color: var(--color-text-primary);
+  border-color: var(--color-text-tertiary);
 }
 
+/* Red danger zone card */
+.dangerZone {
+  padding: var(--space-5);
+  background: color-mix(in srgb, var(--color-danger) 5%, transparent);
+  border: 1.5px solid color-mix(in srgb, var(--color-danger) 25%, transparent);
+  border-radius: var(--radius-xl);
+}
+
+.dangerZoneTitle {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-danger);
+  margin: 0 0 var(--space-2);
+}
+
+.dangerZoneDesc {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  margin: 0 0 var(--space-4);
+}
+
+/* Destructive action button */
 .dangerBtn {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
-  background: var(--color-danger-lightest);
-  border: 1px solid var(--color-danger-light);
+  padding: 0.6875rem var(--space-5);
+  background: transparent;
+  border: 1.5px solid var(--color-danger);
   border-radius: var(--radius-lg);
   font-size: var(--font-size-small);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-danger);
   cursor: pointer;
-  transition: filter 0.15s;
+  transition: background var(--transition-fast), filter var(--transition-fast);
   align-self: flex-start;
 }
 
 .dangerBtn:hover {
-  filter: brightness(1.05);
+  background: color-mix(in srgb, var(--color-danger) 10%, transparent);
 }
 
 /* =====================================================================
  * GUEST GUARD
+ * Full-page centred card shown when the user is not authenticated
  * ===================================================================== */
 .guestWrap {
   min-height: calc(100vh - var(--navbar-height));
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-8) var(--space-5);
+  padding: var(--space-8) var(--space-4);
 }
 
 .guestCard {
   max-width: 420px;
+  width: 100%;
   text-align: center;
-  padding: var(--space-10) var(--space-8);
+  padding: var(--space-12) var(--space-8);
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-md);
 }
 
+/* Lock icon circle */
+.guestIconWrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-6);
+  color: var(--color-text-tertiary);
+}
+
 .guestTitle {
-  font-family: var(--font-family-heading);
+  font-family: var(--font-heading);
   font-size: var(--font-size-h3);
-  font-weight: 800;
+  font-weight: var(--font-weight-extrabold);
   color: var(--color-text-primary);
-  margin-bottom: var(--space-3);
+  margin: 0 0 var(--space-3);
 }
 
 .guestText {
   font-size: var(--font-size-small);
   color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin-bottom: var(--space-5);
+  line-height: var(--line-height-relaxed);
+  margin: 0 0 var(--space-6);
 }
 
+/* Primary CTA button on the guest card */
 .signInLink {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-3) var(--space-6);
+  padding: 0.6875rem var(--space-6);
   background: var(--color-primary);
   color: #fff;
   border-radius: var(--radius-lg);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   font-size: var(--font-size-small);
-  transition: filter 0.15s;
   text-decoration: none;
+  transition: filter var(--transition-fast), transform var(--transition-fast);
 }
 
 .signInLink:hover {
   filter: brightness(1.1);
+  transform: translateY(-1px);
   color: #fff;
+}
+
+/* =====================================================================
+ * RESPONSIVE ADJUSTMENTS
+ * Tighten spacing on very narrow viewports
+ * ===================================================================== */
+@media (max-width: 480px) {
+  .sectionBody   { padding: var(--space-4); }
+  .sectionHeader { padding: var(--space-3) var(--space-4); }
+  .trackGrid     { grid-template-columns: repeat(2, 1fr); }
+  .guestCard     { padding: var(--space-8) var(--space-5); }
+  .pageHeaderContent { flex-direction: column; }
+  .pageHeaderIcon    { width: 40px; height: 40px; }
 }

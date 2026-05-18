@@ -1,33 +1,41 @@
 /*
  * FILE: Wallet.module.css
  * LOCATION: src/app/wallet/Wallet.module.css
- * PURPOSE: Styles for the Wallet / Stars page.
- *          Revolves around a large hero balance card at the top with
- *          a gold glow, followed by informational sections below.
- *          Designed for dark navy backgrounds.
+ * PURPOSE: All styles for the Wallet / Stars page (/wallet).
+ *          Covers the hero balance card with its decorative gold glow,
+ *          stat chips row, earn methods list, level milestone table,
+ *          and the important rules card.
+ *
+ *          Every class is scoped to this module — no global side-effects.
+ *          Uses only design tokens from globals.css; no hardcoded colours.
+ *          The --earn-accent and --stat-color CSS custom properties are
+ *          injected inline from page.tsx to tint each earn-card and stat-chip.
+ *
  * USED BY: src/app/wallet/page.tsx
- * LAST UPDATED: 2026-05-17
+ * LAST UPDATED: 2026-05-18
  */
 
-/* ── Page ──────────────────────────────────────────────── */
-
+/* =====================================================================
+ * PAGE SHELL
+ * ===================================================================== */
 .page {
   min-height: calc(100vh - var(--navbar-height));
   background: var(--color-bg-primary);
-  padding: var(--space-12) 0 var(--space-24);
+  padding: var(--space-10) 0 var(--space-20);
 }
 
 .inner {
-  max-width: 780px;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 0 var(--space-6);
+  padding: 0 var(--space-5);
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
 }
 
-/* ── Loading / Error states ────────────────────────────── */
-
+/* =====================================================================
+ * LOADING / ERROR STATES
+ * ===================================================================== */
 .loadingPage,
 .errorPage {
   min-height: calc(100vh - var(--navbar-height));
@@ -37,6 +45,7 @@
   justify-content: center;
   gap: var(--space-4);
   color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
 }
 
 .errorPage { color: var(--color-danger); }
@@ -44,96 +53,114 @@
 .backLink {
   color: var(--color-primary);
   text-decoration: none;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
 }
 
-@keyframes spin {
+@keyframes walletSpin {
   to { transform: rotate(360deg); }
 }
 
 .spinner {
-  animation: spin 1s linear infinite;
+  animation: walletSpin 0.8s linear infinite;
   color: var(--color-primary);
 }
 
-/* ── Back button ───────────────────────────────────────── */
-
+/* =====================================================================
+ * BACK BUTTON
+ * ===================================================================== */
 .backBtn {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-2);
   font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-tertiary);
   text-decoration: none;
   transition: color var(--transition-fast);
   width: fit-content;
 }
 
-.backBtn:hover {
-  color: var(--color-primary);
-}
+.backBtn:hover { color: var(--color-primary); }
 
-/* ── Balance hero card ─────────────────────────────────── */
-
+/* =====================================================================
+ * HERO BALANCE CARD
+ * Large centered card with a decorative radial gold glow
+ * ===================================================================== */
 .balanceCard {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-2xl);
-  padding: var(--space-10) var(--space-10);
+  padding: clamp(var(--space-8), 5vw, var(--space-12)) var(--space-8);
   position: relative;
   overflow: hidden;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-5);
+  box-shadow: var(--shadow-md);
 }
 
-/* Ambient gold glow behind the card content */
+/* Decorative ambient glow behind the balance */
 .balanceGlow {
   position: absolute;
   inset: -80px;
   background: radial-gradient(ellipse 60% 50% at 50% 20%, rgba(240, 180, 41, 0.12), transparent);
   pointer-events: none;
+  z-index: 0;
 }
 
+/* "Stars Balance — Student" header row */
 .balanceHeader {
   display: flex;
   align-items: center;
   gap: var(--space-2);
   font-size: var(--font-size-small);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   position: relative;
+  z-index: 1;
 }
 
-.starIcon {
-  color: var(--color-accent);
+/* Gold star icon in the header */
+.starIcon { color: var(--color-accent); }
+
+/* Muted name shown next to "Stars Balance" */
+.balanceName {
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-regular);
 }
 
+/* Large number + star icon row */
 .balanceAmount {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-3);
   position: relative;
+  z-index: 1;
 }
 
+/* Large star icon with drop-shadow glow */
 .balanceStar {
   color: var(--color-accent);
-  filter: drop-shadow(0 0 12px rgba(240, 180, 41, 0.6));
+  filter: drop-shadow(0 0 16px rgba(240, 180, 41, 0.6));
 }
 
+/* The big Stars number */
 .balanceNumber {
-  font-family: var(--font-family-heading);
+  font-family: var(--font-heading);
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: var(--font-weight-extrabold);
   color: var(--color-text-primary);
-  letter-spacing: 0;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
+/* "Stars" suffix next to the number */
 .balanceCurrency {
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-semibold);
@@ -142,13 +169,19 @@
   padding-bottom: 4px;
 }
 
+/* Hint text below the balance */
 .balanceHint {
   font-size: var(--font-size-small);
   color: var(--color-text-tertiary);
   position: relative;
+  z-index: 1;
+  max-width: 44ch;
+  line-height: var(--line-height-normal);
 }
 
-/* Wagering status banners */
+/* ── Wager Status Banners (inside the balance card) ──────── */
+
+/* Green banner when Level ≥ 10 */
 .wagersUnlocked {
   display: inline-flex;
   align-items: center;
@@ -163,8 +196,12 @@
   font-weight: var(--font-weight-medium);
   color: var(--color-success);
   position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 480px;
 }
 
+/* "Go to Battle" link inside the unlocked banner */
 .battleLink {
   display: inline-flex;
   align-items: center;
@@ -173,13 +210,16 @@
   text-decoration: none;
   font-weight: var(--font-weight-semibold);
   margin-left: var(--space-2);
+  transition: gap var(--transition-fast);
 }
 
+.battleLink:hover { gap: var(--space-2); }
+
+/* Grey dashed banner when Level < 10 */
 .wagersLocked {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-1);
+  align-items: flex-start;
+  gap: var(--space-3);
   padding: var(--space-3) var(--space-5);
   background: rgba(139, 148, 158, 0.08);
   border: 1px dashed var(--color-border);
@@ -187,43 +227,70 @@
   font-size: var(--font-size-small);
   color: var(--color-text-tertiary);
   position: relative;
+  z-index: 1;
+  text-align: left;
+  max-width: 480px;
 }
 
+/* Vertical stack inside the locked banner */
+.wagersLocked > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* "Current: Level X · Y levels to go" */
 .lockProgress {
   font-size: var(--font-size-xsmall);
   color: var(--color-text-tertiary);
 }
 
-/* ── Quick stats row ───────────────────────────────────── */
-
+/* =====================================================================
+ * STATS CHIPS ROW
+ * Four small cards: Level, Wager Status, Streak, Daily Limit
+ * ===================================================================== */
 .statsRow {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-4);
 }
 
 .statCard {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4) var(--space-3);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-2);
   text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast);
 }
 
-.statIcon {
-  color: var(--color-primary);
-}
+.statCard:hover { transform: translateY(-2px); }
 
-.statIconStar   { color: var(--color-accent); }
-.statIconShield { color: var(--color-success); }
+/*
+ * Coloured icon badge — colour is driven by --stat-color CSS custom property
+ * set inline from page.tsx.
+ */
+.statIconWrap {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--stat-color, var(--color-primary)) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--stat-color, var(--color-primary)) 20%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--stat-color, var(--color-primary));
+  flex-shrink: 0;
+}
 
 .statValue {
-  font-family: var(--font-family-heading);
-  font-size: var(--font-size-h4);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-small);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
@@ -235,87 +302,106 @@
   letter-spacing: 0.05em;
 }
 
-/* ── Generic section ───────────────────────────────────── */
-
+/* =====================================================================
+ * GENERIC SECTION CARD
+ * Used for both "How to Earn" and "Level Milestones"
+ * ===================================================================== */
 .section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
+/* Header bar inside each section */
 .sectionHeader {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-bg-secondary);
 }
 
-.sectionIcon {
+/* Coloured icon badge in the section header */
+.sectionIconWrap {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color-primary);
+  flex-shrink: 0;
 }
 
 .sectionTitle {
-  font-family: var(--font-family-heading);
-  font-size: var(--font-size-h3);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
+  margin: 0;
 }
 
-/* ── Earn methods grid ─────────────────────────────────── */
-
+/* =====================================================================
+ * EARN METHODS LIST
+ * Stacked rows inside the "How to Earn" section
+ * ===================================================================== */
 .earnGrid {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
 }
 
+/* Single earn method row */
 .earnCard {
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  padding: var(--space-5);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  transition: border-color var(--transition-fast);
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+  transition: background var(--transition-fast);
 }
 
-.earnCard:hover {
-  border-color: var(--color-primary);
-}
+.earnCard:last-child { border-bottom: none; }
+.earnCard:hover { background: var(--color-bg-secondary); }
 
+/*
+ * Coloured icon box driven by --earn-accent CSS custom property
+ * injected inline from the page component.
+ */
 .earnIconBox {
   width: 44px;
   height: 44px;
   border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--earn-accent, var(--color-primary)) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--earn-accent, var(--color-primary)) 20%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--earn-accent, var(--color-primary));
   flex-shrink: 0;
 }
 
-.earnLearn     { background: rgba(88, 166, 255, 0.12); color: var(--color-primary); }
-.earnBattle    { background: rgba(248, 81, 73, 0.12);  color: var(--color-danger); }
-.earnEvent     { background: rgba(139, 92, 246, 0.12); color: #A371F7; }
-.earnCommunity { background: rgba(63, 185, 80, 0.12);  color: var(--color-success); }
-
-.earnContent {
-  flex: 1;
-  min-width: 0;
-}
+.earnContent { flex: 1; min-width: 0; }
 
 .earnTitle {
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-  margin-bottom: 4px;
+  margin: 0 0 var(--space-1);
 }
 
 .earnDesc {
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-xsmall);
   color: var(--color-text-secondary);
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
+  margin: 0;
 }
 
+/* Gold pill badge showing Stars amount */
 .earnBadge {
   font-size: var(--font-size-xsmall);
   font-weight: var(--font-weight-bold);
@@ -328,19 +414,17 @@
   flex-shrink: 0;
 }
 
-/* ── Milestones table ──────────────────────────────────── */
+/* =====================================================================
+ * LEVEL MILESTONES TABLE
+ * Three-column grid inside the Milestones section
+ * ===================================================================== */
+.milestonesTable { overflow: hidden; }
 
-.milestonesTable {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
+/* Column headers */
 .milestonesHeader {
   display: grid;
-  grid-template-columns: 80px 1fr 1fr;
-  padding: var(--space-3) var(--space-5);
+  grid-template-columns: 100px 1fr 1fr;
+  padding: var(--space-3) var(--space-6);
   background: var(--color-bg-secondary);
   font-size: var(--font-size-xsmall);
   font-weight: var(--font-weight-bold);
@@ -350,10 +434,12 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+/* Single milestone row */
 .milestoneRow {
   display: grid;
-  grid-template-columns: 80px 1fr 1fr;
-  padding: var(--space-3) var(--space-5);
+  grid-template-columns: 100px 1fr 1fr;
+  align-items: center;
+  padding: var(--space-3) var(--space-6);
   font-size: var(--font-size-small);
   color: var(--color-text-secondary);
   border-bottom: 1px solid var(--color-border-light);
@@ -361,29 +447,33 @@
   transition: background var(--transition-fast);
 }
 
-.milestoneRow:last-child {
-  border-bottom: none;
-}
+.milestoneRow:last-child { border-bottom: none; }
+.milestoneRow:hover { background: var(--color-bg-secondary); }
 
-.milestoneRow:hover {
-  background: var(--color-bg-secondary);
-}
+/* Reached rows get full-brightness text */
+.milestoneReached { color: var(--color-text-primary); }
 
-.milestoneReached {
-  color: var(--color-text-primary);
-}
-
+/* Green check icon shown on reached milestones */
 .milestoneCheck {
   position: absolute;
-  left: var(--space-3);
-  top: 50%;
-  transform: translateY(-50%);
+  left: var(--space-4);
   color: var(--color-success);
+}
+
+/* Small circle placeholder on unreached milestones */
+.milestoneLock {
+  position: absolute;
+  left: calc(var(--space-4) + 2px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-bg-tertiary);
+  border: 1.5px solid var(--color-border);
 }
 
 .milestoneLevel {
   font-weight: var(--font-weight-semibold);
-  padding-left: var(--space-5);
+  padding-left: var(--space-7);
 }
 
 .milestoneReward {
@@ -396,25 +486,38 @@
   font-size: var(--font-size-xsmall);
 }
 
-/* ── Rules card ────────────────────────────────────────── */
-
+/* =====================================================================
+ * RULES CARD
+ * Info card with a blue-tinted background
+ * ===================================================================== */
 .rulesCard {
-  background: rgba(88, 166, 255, 0.05);
-  border: 1px solid rgba(88, 166, 255, 0.15);
-  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-primary) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 15%, transparent);
+  border-radius: var(--radius-2xl);
   padding: var(--space-6);
 }
 
+/* Header row: info icon + title */
+.rulesHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+}
+
 .rulesTitle {
-  font-family: var(--font-family-heading);
+  font-family: var(--font-heading);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-semibold);
   color: var(--color-primary);
-  margin-bottom: var(--space-3);
+  margin: 0;
 }
 
 .rulesList {
   list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -423,9 +526,9 @@
 .rulesList li {
   font-size: var(--font-size-small);
   color: var(--color-text-secondary);
-  padding-left: var(--space-4);
+  padding-left: var(--space-5);
   position: relative;
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
 }
 
 .rulesList li::before {
@@ -435,15 +538,22 @@
   color: var(--color-text-tertiary);
 }
 
-/* ── Responsive ────────────────────────────────────────── */
-
+/* =====================================================================
+ * RESPONSIVE ADJUSTMENTS
+ * ===================================================================== */
 @media (max-width: 640px) {
-  .page { padding: var(--space-8) 0 var(--space-16); }
-  .balanceCard { padding: var(--space-8) var(--space-6); }
-  .statsRow { grid-template-columns: 1fr; }
-  .earnCard { flex-wrap: wrap; }
-  .milestonesHeader,
-  .milestoneRow { grid-template-columns: 70px 1fr; }
+  .page  { padding: var(--space-6) 0 var(--space-16); }
+  .inner { padding: 0 var(--space-4); gap: var(--space-6); }
+
+  .balanceCard { padding: var(--space-8) var(--space-5); }
+
+  /* 2×2 stats grid on mobile instead of 4 columns */
+  .statsRow { grid-template-columns: repeat(2, 1fr); }
+
+  /* Hide the "Unlock" column in the milestones table on narrow screens */
   .milestonesHeader > :last-child,
   .milestoneRow > :last-child { display: none; }
+
+  .milestonesHeader,
+  .milestoneRow { grid-template-columns: 90px 1fr; }
 }

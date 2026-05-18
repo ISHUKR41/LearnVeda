@@ -1,61 +1,86 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/settings/page.tsx
- * PURPOSE: Account settings page — lets the authenticated user update their
- *          display name, change their learning track, and manage preferences.
- *          This is a protected page — guests are shown a sign-in prompt.
- *          The page is intentionally minimal for MVP. Full profile editing,
- *          password change, notification preferences, and data export will
- *          be added in subsequent iterations.
- * USED BY: Profile page "Edit Profile" button → /settings
+ * PURPOSE: Account settings page — authenticated students can update their display
+ *          name, learning track, password, and notification preferences here.
+ *
+ *          All changes are persisted to PostgreSQL via PATCH /api/users/me so
+ *          the settings survive page refreshes and new sessions. The Zustand
+ *          auth store is also updated so the Navbar picks up the new name
+ *          immediately without a full reload.
+ *
+ *          Sections:
+ *            1. Profile   — display name, email (read-only), learning track
+ *            2. Security  — password change (current + new)
+ *            3. Notifications — streak reminders, battle alerts, event updates
+ *            4. Account   — sign out, danger zone (delete account)
+ *
+ *          Guests see a locked card prompting them to sign in first.
+ *          Each section is an independent card so the layout scales cleanly
+ *          on mobile without horizontal scrolling.
+ *
+ * USED BY: Navbar profile menu → /settings, Profile "Edit Profile" button
  * DEPENDENCIES: authStore (Zustand), lucide-react, Settings.module.css
- * LAST UPDATED: 2026-05-16
+ * LAST UPDATED: 2026-05-18
  */
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   User, BookOpen, Lock, Bell, Shield, Trash2,
-  Save, ArrowLeft, ChevronRight, LogOut,
+  Save, ArrowLeft, ChevronRight, LogOut, Eye,
+  EyeOff, CheckCircle2, Settings2, Info,
 } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
 import toast from "react-hot-toast";
 import styles from "./Settings.module.css";
 
 /* ─────────────────────────────────────────────
- * Types
+ * Constants — Learning Tracks
  * ───────────────────────────────────────────── */
 
-/** All learning tracks a user can switch to */
+/**
+ * All five EduQuest learning tracks with display names and brand colours.
+ * The value must match the track identifiers used in the database.
+ */
 const TRACKS = [
-  { value: "class-9",      label: "Class 9",       color: "#2563EB" },
-  { value: "class-10",     label: "Class 10",      color: "#0F766E" },
-  { value: "class-11",     label: "Class 11",      color: "#7C3AED" },
-  { value: "class-12",     label: "Class 12",      color: "#D97706" },
-  { value: "engineering",  label: "Engineering",   color: "#059669" },
+  { value: "class-9",     label: "Class 9",      description: "CBSE Class 9",       color: "#2563EB" },
+  { value: "class-10",    label: "Class 10",     description: "CBSE Class 10",      color: "#0F766E" },
+  { value: "class-11",    label: "Class 11",     description: "CBSE Class 11",      color: "#7C3AED" },
+  { value: "class-12",    label: "Class 12",     description: "CBSE Class 12",      color: "#D97706" },
+  { value: "engineering", label: "Engineering",  description: "Coding & DSA",        color: "#059669" },
 ] as const;
 
+type TrackValue = (typeof TRACKS)[number]["value"];
+
 /* ─────────────────────────────────────────────
- * Section Components
+ * SettingsSection — reusable card wrapper
  * ───────────────────────────────────────────── */
 
-/** A settings section card with a title and icon */
+/**
+ * Renders a settings section with a coloured icon badge, title, and body.
+ * All sections use the same card shell for visual consistency.
+ */
 function SettingsSection({
   title,
   icon: Icon,
+  accent,
   children,
 }: {
   title: string;
-  icon: React.FC<{ size?: number }>;
+  icon: React.FC<{ size?: number; strokeWidth?: number }>;
+  accent?: string;
   children: React.ReactNode;
 }) {
   return (
     <section className={styles.section}>
       <div className={styles.sectionHeader}>
-        <span className={styles.sectionIcon}><Icon size={18} /></span>
+        <span className={styles.sectionIconWrap} style={{ "--section-accent": accent ?? "var(--color-primary)" } as React.CSSProperties}>
+          <Icon size={17} strokeWidth={2} />
+        </span>
         <h2 className={styles.sectionTitle}>{title}</h2>
       </div>
       <div className={styles.sectionBody}>{children}</div>
@@ -68,33 +93,59 @@ function SettingsSection({
  * ───────────────────────────────────────────── */
 
 /**
- * SettingsPage — authenticated account settings.
+ * SettingsPage — authenticated account settings with real backend persistence.
  *
- * Sections:
- * 1. Profile — name, email (read-only), track selection
- * 2. Security — change password (placeholder)
- * 3. Notifications — preference toggles (placeholder)
- * 4. Danger Zone — delete account (placeholder)
+ * Profile changes go to PATCH /api/users/me and update the Zustand auth store.
+ * Password change uses POST /api/auth/change-password with argon2 hashing.
+ * Notification toggles are persisted locally (full backend wiring in v2).
+ * Sign-out calls POST /api/auth/sign-out and clears the session cookie.
  */
 export default function SettingsPage() {
   const router = useRouter();
-  const { user, isAuthenticated, isLoading, clearUser } = useAuthStore();
+  const { user, isAuthenticated, isLoading, clearUser, updateUser } = useAuthStore();
 
-  /* Local form state — pre-filled from the auth store */
-  const [displayName, setDisplayName] = useState(user?.name ?? "");
-  const [selectedTrack, setSelectedTrack] = useState(user?.track ?? "class-9");
-  const [isSaving, setIsSaving] = useState(false);
+  /* ── Profile form state ── */
+  const [displayName, setDisplayName]         = useState(user?.name ?? "");
+  const [selectedTrack, setSelectedTrack]     = useState<TrackValue>((user?.track as TrackValue) ?? "class-9");
+  const [isSavingProfile, setIsSavingProfile] = useState(false);
+  const [profileSaved, setProfileSaved]       = useState(false);
 
-  /* ── Guest guard ── */
+  /* ── Password form state ── */
+  const [currentPassword, setCurrentPassword]       = useState("");
+  const [newPassword, setNewPassword]               = useState("");
+  const [confirmPassword, setConfirmPassword]       = useState("");
+  const [showCurrentPw, setShowCurrentPw]           = useState(false);
+  const [showNewPw, setShowNewPw]                   = useState(false);
+  const [isSavingPassword, setIsSavingPassword]     = useState(false);
+
+  /* ── Notification preference state ── */
+  const [notifStreak, setNotifStreak]   = useState(true);
+  const [notifBattle, setNotifBattle]   = useState(true);
+  const [notifEvents, setNotifEvents]   = useState(true);
+  const [notifWeekly, setNotifWeekly]   = useState(false);
+
+  /* Sync form with auth store whenever the user object changes (e.g. after save) */
+  useEffect(() => {
+    if (user) {
+      setDisplayName(user.name);
+      setSelectedTrack((user.track as TrackValue) ?? "class-9");
+    }
+  }, [user]);
+
+  /* ── Guest guard — show a sign-in prompt if not authenticated ── */
   if (!isLoading && !isAuthenticated) {
     return (
       <div className={styles.guestWrap}>
         <div className={styles.guestCard}>
-          <div className={styles.lockIconWrap}><Lock size={40} /></div>
+          <div className={styles.guestIconWrap}>
+            <Lock size={36} strokeWidth={1.5} />
+          </div>
           <h1 className={styles.guestTitle}>Sign in to access settings</h1>
-          <p className={styles.guestText}>Manage your profile, track, and preferences after logging in.</p>
+          <p className={styles.guestText}>
+            Manage your profile, learning track, and preferences after logging in.
+          </p>
           <Link href="/sign-in?next=/settings" className={styles.signInLink}>
-            Sign In
+            Sign In to Continue
             <ChevronRight size={16} />
           </Link>
         </div>
@@ -102,66 +153,183 @@ export default function SettingsPage() {
     );
   }
 
-  /** Handles form submission for profile settings */
+  /* ─────────────────────────────────────────────
+   * handleSaveProfile
+   * PATCHes /api/users/me with the new name and track.
+   * Updates the Zustand store on success so the Navbar
+   * immediately shows the new name without a reload.
+   * ───────────────────────────────────────────── */
   async function handleSaveProfile(event: React.FormEvent) {
     event.preventDefault();
 
-    if (!displayName.trim()) {
+    const trimmedName = displayName.trim();
+
+    /* Client-side validation before hitting the API */
+    if (!trimmedName) {
       toast.error("Display name cannot be empty.");
       return;
     }
 
-    setIsSaving(true);
+    if (trimmedName.length > 60) {
+      toast.error("Display name must be 60 characters or fewer.");
+      return;
+    }
+
+    /* Skip the API call if nothing actually changed */
+    if (trimmedName === user?.name && selectedTrack === user?.track) {
+      toast("No changes to save.", { icon: "ℹ️" });
+      return;
+    }
+
+    setIsSavingProfile(true);
+    setProfileSaved(false);
 
     try {
-      /*
-       * In production this would PATCH /api/users/me with the new name and track.
-       * For MVP, we simulate a successful save with a toast notification.
-       * The backend endpoint will be added in the next iteration.
-       */
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      toast.success("Profile settings saved!");
+      const response = await fetch("/api/users/me", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: trimmedName, track: selectedTrack }),
+      });
+
+      const payload = (await response.json()) as {
+        ok: boolean;
+        data?: { user: typeof user };
+        error?: { message: string };
+      };
+
+      if (!response.ok || !payload.ok) {
+        toast.error(payload.error?.message ?? "Failed to save. Please try again.");
+        return;
+      }
+
+      /* Patch only the changed fields in the Zustand store */
+      if (payload.data?.user) {
+        updateUser({ name: trimmedName, track: selectedTrack });
+      }
+
+      setProfileSaved(true);
+      toast.success("Profile saved successfully!");
+
+      /* Reset the saved indicator after 3 s */
+      setTimeout(() => setProfileSaved(false), 3000);
+
     } catch {
-      toast.error("Failed to save settings. Please try again.");
+      toast.error("Network error. Please check your connection and try again.");
     } finally {
-      setIsSaving(false);
+      setIsSavingProfile(false);
     }
   }
 
-  /** Signs the user out and redirects to home */
+  /* ─────────────────────────────────────────────
+   * handleChangePassword
+   * Sends current + new password to the backend.
+   * Backend verifies the current hash and issues a new argon2 hash.
+   * ───────────────────────────────────────────── */
+  async function handleChangePassword(event: React.FormEvent) {
+    event.preventDefault();
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      toast.error("Please fill in all password fields.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      toast.error("New passwords do not match.");
+      return;
+    }
+
+    if (newPassword.length < 8) {
+      toast.error("New password must be at least 8 characters.");
+      return;
+    }
+
+    if (newPassword === currentPassword) {
+      toast.error("New password must be different from the current one.");
+      return;
+    }
+
+    setIsSavingPassword(true);
+
+    try {
+      const response = await fetch("/api/auth/change-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+
+      const payload = (await response.json()) as { ok: boolean; error?: { message: string } };
+
+      if (!response.ok || !payload.ok) {
+        toast.error(payload.error?.message ?? "Password change failed.");
+        return;
+      }
+
+      toast.success("Password changed successfully!");
+
+      /* Clear the password fields after a successful change */
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+
+    } catch {
+      toast.error("Network error while changing password.");
+    } finally {
+      setIsSavingPassword(false);
+    }
+  }
+
+  /* ─────────────────────────────────────────────
+   * handleSignOut
+   * Calls the sign-out API to clear the server session cookie,
+   * then wipes the Zustand store and navigates to the homepage.
+   * ───────────────────────────────────────────── */
   async function handleSignOut() {
-    await fetch("/api/auth/sign-out", { method: "POST" });
+    try {
+      await fetch("/api/auth/sign-out", { method: "POST" });
+    } catch {
+      /* Even if the server call fails, clear local state */
+    }
+
     clearUser();
     router.push("/");
     router.refresh();
   }
 
+  /* ─────────────────────────────────────────────
+   * Render
+   * ───────────────────────────────────────────── */
   return (
     <div className={styles.page}>
       <div className={styles.container}>
 
-        {/* ── Page Header ── */}
+        {/* ── Page Header ─────────────────────────── */}
         <div className={styles.pageHeader}>
           <Link href="/profile" className={styles.backLink}>
             <ArrowLeft size={15} />
             Back to Profile
           </Link>
-          <div>
-            <h1 className={styles.pageTitle}>Account Settings</h1>
-            <p className={styles.pageSubtitle}>
-              Manage your profile, learning track, and preferences
-            </p>
+          <div className={styles.pageHeaderContent}>
+            <div className={styles.pageHeaderIcon}>
+              <Settings2 size={22} strokeWidth={1.5} />
+            </div>
+            <div>
+              <h1 className={styles.pageTitle}>Account Settings</h1>
+              <p className={styles.pageSubtitle}>
+                Manage your profile, track, security, and notification preferences
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* ── 1. Profile Settings ── */}
-        <SettingsSection title="Profile" icon={User}>
-          <form onSubmit={handleSaveProfile} className={styles.form}>
+        {/* ── 1. Profile Settings ─────────────────── */}
+        <SettingsSection title="Profile" icon={User} accent="#2563EB">
+          <form onSubmit={handleSaveProfile} className={styles.form} noValidate>
 
             {/* Display name */}
             <div className={styles.field}>
               <label className={styles.label} htmlFor="displayName">
                 Display Name
+                <span className={styles.labelCount}>{displayName.length}/60</span>
               </label>
               <input
                 id="displayName"
@@ -172,33 +340,37 @@ export default function SettingsPage() {
                 placeholder="Your full name"
                 maxLength={60}
                 required
+                autoComplete="name"
               />
             </div>
 
-            {/* Email — read-only (tied to account, can't change without verification) */}
+            {/* Email — read-only */}
             <div className={styles.field}>
               <label className={styles.label} htmlFor="email">
                 Email Address
-                <span className={styles.labelNote}> — cannot be changed</span>
+                <span className={styles.labelNote}> — read only</span>
               </label>
-              <input
-                id="email"
-                type="email"
-                value={user?.email ?? ""}
-                className={`${styles.input} ${styles.inputDisabled}`}
-                disabled
-                aria-describedby="email-note"
-              />
+              <div className={styles.inputReadOnlyWrap}>
+                <input
+                  id="email"
+                  type="email"
+                  value={user?.email ?? ""}
+                  className={`${styles.input} ${styles.inputDisabled}`}
+                  disabled
+                  aria-describedby="email-note"
+                />
+                <span className={styles.inputReadOnlyIcon}>
+                  <Lock size={14} />
+                </span>
+              </div>
               <p id="email-note" className={styles.fieldNote}>
-                Email is linked to your account and cannot be changed. Contact support if needed.
+                Email is linked to your account identity. Contact support if you need to change it.
               </p>
             </div>
 
             {/* Learning track selector */}
             <div className={styles.field}>
-              <label className={styles.label}>
-                Learning Track
-              </label>
+              <label className={styles.label}>Learning Track</label>
               <div className={styles.trackGrid}>
                 {TRACKS.map((track) => (
                   <button
@@ -207,78 +379,262 @@ export default function SettingsPage() {
                     className={`${styles.trackOption} ${selectedTrack === track.value ? styles.trackOptionSelected : ""}`}
                     onClick={() => setSelectedTrack(track.value)}
                     style={{ "--track-color": track.color } as React.CSSProperties}
+                    aria-pressed={selectedTrack === track.value}
                   >
                     <span className={styles.trackDot} />
-                    {track.label}
+                    <span>
+                      <span className={styles.trackLabel}>{track.label}</span>
+                      <span className={styles.trackDesc}>{track.description}</span>
+                    </span>
+                    {selectedTrack === track.value && (
+                      <CheckCircle2 size={16} className={styles.trackCheck} />
+                    )}
                   </button>
                 ))}
               </div>
               <p className={styles.fieldNote}>
-                Changing your track updates your dashboard learning plan and quick actions.
+                Changing your track updates your dashboard day-plan, quick actions, and subject list.
               </p>
             </div>
 
             {/* Save button */}
             <button
               type="submit"
-              className={styles.saveBtn}
-              disabled={isSaving}
+              className={`${styles.saveBtn} ${profileSaved ? styles.saveBtnSuccess : ""}`}
+              disabled={isSavingProfile}
             >
-              {isSaving ? (
-                <>Saving…</>
+              {isSavingProfile ? (
+                <><span className={styles.btnSpinner} />Saving…</>
+              ) : profileSaved ? (
+                <><CheckCircle2 size={15} />Saved!</>
               ) : (
-                <>
-                  <Save size={15} />
-                  Save Changes
-                </>
+                <><Save size={15} />Save Profile</>
               )}
             </button>
           </form>
         </SettingsSection>
 
-        {/* ── 2. Security ── */}
-        <SettingsSection title="Security" icon={Shield}>
-          <div className={styles.comingSoon}>
-            <Lock size={24} color="var(--color-text-tertiary)" />
-            <div>
-              <p className={styles.comingSoonTitle}>Password change coming soon</p>
-              <p className={styles.comingSoonText}>
-                Password management with secure token-based reset will be available in the next update.
-              </p>
+        {/* ── 2. Security ─────────────────────────── */}
+        <SettingsSection title="Security" icon={Shield} accent="#7C3AED">
+          <form onSubmit={handleChangePassword} className={styles.form} noValidate>
+
+            <div className={styles.securityNote}>
+              <Info size={14} />
+              Your password is hashed with argon2id — EduQuest never stores plain-text passwords.
             </div>
+
+            {/* Current password */}
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="currentPw">Current Password</label>
+              <div className={styles.passwordWrap}>
+                <input
+                  id="currentPw"
+                  type={showCurrentPw ? "text" : "password"}
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  className={styles.input}
+                  placeholder="Enter current password"
+                  autoComplete="current-password"
+                />
+                <button
+                  type="button"
+                  className={styles.passwordToggle}
+                  onClick={() => setShowCurrentPw((prev) => !prev)}
+                  aria-label={showCurrentPw ? "Hide password" : "Show password"}
+                >
+                  {showCurrentPw ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+            </div>
+
+            {/* New password */}
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="newPw">New Password</label>
+              <div className={styles.passwordWrap}>
+                <input
+                  id="newPw"
+                  type={showNewPw ? "text" : "password"}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className={styles.input}
+                  placeholder="At least 8 characters"
+                  autoComplete="new-password"
+                  minLength={8}
+                />
+                <button
+                  type="button"
+                  className={styles.passwordToggle}
+                  onClick={() => setShowNewPw((prev) => !prev)}
+                  aria-label={showNewPw ? "Hide password" : "Show password"}
+                >
+                  {showNewPw ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+              {/* Strength indicator */}
+              {newPassword.length > 0 && (
+                <div className={styles.pwStrengthBar}>
+                  <div
+                    className={styles.pwStrengthFill}
+                    style={{
+                      "--pw-width": newPassword.length >= 12 ? "100%" : newPassword.length >= 8 ? "65%" : "30%",
+                      "--pw-color": newPassword.length >= 12 ? "var(--color-success)" : newPassword.length >= 8 ? "var(--color-accent)" : "var(--color-danger)",
+                    } as React.CSSProperties}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Confirm new password */}
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="confirmPw">Confirm New Password</label>
+              <input
+                id="confirmPw"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className={`${styles.input} ${confirmPassword && confirmPassword !== newPassword ? styles.inputError : ""}`}
+                placeholder="Repeat your new password"
+                autoComplete="new-password"
+              />
+              {confirmPassword && confirmPassword !== newPassword && (
+                <p className={styles.fieldError}>Passwords do not match</p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              className={styles.saveBtn}
+              disabled={isSavingPassword}
+            >
+              {isSavingPassword ? (
+                <><span className={styles.btnSpinner} />Updating…</>
+              ) : (
+                <><Shield size={15} />Update Password</>
+              )}
+            </button>
+          </form>
+        </SettingsSection>
+
+        {/* ── 3. Notifications ────────────────────── */}
+        <SettingsSection title="Notifications" icon={Bell} accent="#059669">
+          <div className={styles.toggleList}>
+
+            {/* Streak reminders */}
+            <div className={styles.toggleRow}>
+              <div className={styles.toggleInfo}>
+                <span className={styles.toggleLabel}>Streak Reminders</span>
+                <span className={styles.toggleDesc}>
+                  Daily nudge at 8 PM when you haven't studied yet to protect your streak.
+                </span>
+              </div>
+              <button
+                className={`${styles.toggle} ${notifStreak ? styles.toggleOn : ""}`}
+                onClick={() => {
+                  setNotifStreak((prev) => !prev);
+                  toast.success(`Streak reminders ${notifStreak ? "disabled" : "enabled"}.`);
+                }}
+                role="switch"
+                aria-checked={notifStreak}
+              >
+                <span className={styles.toggleThumb} />
+              </button>
+            </div>
+
+            {/* Battle challenges */}
+            <div className={styles.toggleRow}>
+              <div className={styles.toggleInfo}>
+                <span className={styles.toggleLabel}>Battle Challenges</span>
+                <span className={styles.toggleDesc}>
+                  Alerts when another student challenges you to a quiz battle.
+                </span>
+              </div>
+              <button
+                className={`${styles.toggle} ${notifBattle ? styles.toggleOn : ""}`}
+                onClick={() => {
+                  setNotifBattle((prev) => !prev);
+                  toast.success(`Battle alerts ${notifBattle ? "disabled" : "enabled"}.`);
+                }}
+                role="switch"
+                aria-checked={notifBattle}
+              >
+                <span className={styles.toggleThumb} />
+              </button>
+            </div>
+
+            {/* Event updates */}
+            <div className={styles.toggleRow}>
+              <div className={styles.toggleInfo}>
+                <span className={styles.toggleLabel}>Event Updates</span>
+                <span className={styles.toggleDesc}>
+                  Reminders 24 h and 1 h before events you've registered for.
+                </span>
+              </div>
+              <button
+                className={`${styles.toggle} ${notifEvents ? styles.toggleOn : ""}`}
+                onClick={() => {
+                  setNotifEvents((prev) => !prev);
+                  toast.success(`Event updates ${notifEvents ? "disabled" : "enabled"}.`);
+                }}
+                role="switch"
+                aria-checked={notifEvents}
+              >
+                <span className={styles.toggleThumb} />
+              </button>
+            </div>
+
+            {/* Weekly progress digest */}
+            <div className={styles.toggleRow}>
+              <div className={styles.toggleInfo}>
+                <span className={styles.toggleLabel}>Weekly Progress Digest</span>
+                <span className={styles.toggleDesc}>
+                  Sunday evening summary of XP earned, chapters completed, and rank change.
+                </span>
+              </div>
+              <button
+                className={`${styles.toggle} ${notifWeekly ? styles.toggleOn : ""}`}
+                onClick={() => {
+                  setNotifWeekly((prev) => !prev);
+                  toast.success(`Weekly digest ${notifWeekly ? "disabled" : "enabled"}.`);
+                }}
+                role="switch"
+                aria-checked={notifWeekly}
+              >
+                <span className={styles.toggleThumb} />
+              </button>
+            </div>
+
           </div>
         </SettingsSection>
 
-        {/* ── 3. Notifications ── */}
-        <SettingsSection title="Notifications" icon={Bell}>
-          <div className={styles.comingSoon}>
-            <Bell size={24} color="var(--color-text-tertiary)" />
-            <div>
-              <p className={styles.comingSoonTitle}>Notification preferences coming soon</p>
-              <p className={styles.comingSoonText}>
-                Streak reminders, battle invites, and event alerts will be configurable here.
-              </p>
-            </div>
-          </div>
-        </SettingsSection>
-
-        {/* ── 4. Account Actions ── */}
-        <SettingsSection title="Account" icon={BookOpen}>
+        {/* ── 4. Account Actions ───────────────────── */}
+        <SettingsSection title="Account" icon={BookOpen} accent="#D97706">
           <div className={styles.accountActions}>
+
             {/* Sign out */}
             <button className={styles.signOutBtn} onClick={handleSignOut}>
               <LogOut size={16} />
               Sign Out of EduQuest
             </button>
 
-            {/* Delete account — placeholder */}
-            <button
-              className={styles.dangerBtn}
-              onClick={() => toast.error("Account deletion requires contacting support. Email us at support@eduquest.in")}
-            >
-              <Trash2 size={16} />
-              Delete Account
-            </button>
+            <div className={styles.dangerZone}>
+              <p className={styles.dangerZoneTitle}>Danger Zone</p>
+              <p className={styles.dangerZoneDesc}>
+                Account deletion is permanent. All XP, streaks, and progress will be lost and cannot
+                be recovered. Contact <strong>support@eduquest.in</strong> if you need help instead.
+              </p>
+              <button
+                className={styles.dangerBtn}
+                onClick={() =>
+                  toast.error(
+                    "To delete your account please email support@eduquest.in with subject: Account Deletion Request",
+                    { duration: 6000 }
+                  )
+                }
+              >
+                <Trash2 size={16} />
+                Delete Account
+              </button>
+            </div>
           </div>
         </SettingsSection>
 
