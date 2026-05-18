@@ -7,24 +7,141 @@
  */
 
 .page {
-  padding: var(--space-8) 0 var(--space-16);
   background-color: var(--color-bg-secondary);
   min-height: calc(100vh - var(--navbar-height));
 }
 
+/* ── Hero Banner ─────────────────────────────────────────────────────────────
+   Full-width crimson/amber hero. Red gradient signals "high-stakes competition"
+   and differentiates the Battle Arena from the calmer blue/green pages.
+   ─────────────────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-16) var(--space-6) var(--space-12);
+  background: linear-gradient(135deg, #1A0000 0%, #2D0A00 45%, #1C0D00 100%);
+  margin-bottom: var(--space-10);
+  text-align: center;
+}
+
+/* Large blurred red radial orb — decorative background glow */
+.heroOrb {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(239, 68, 68, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Eyebrow chip — labels the page type above the hero title */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-5);
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  color: #FCA5A5;
+  letter-spacing: 0.02em;
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: var(--font-weight-extrabold);
+  color: white;
+  margin: 0 0 var(--space-4);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.heroSubtitle {
+  font-size: var(--font-size-h5);
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 520px;
+  margin: 0 auto var(--space-8);
+  line-height: 1.6;
+}
+
+/* Horizontal stats bar inside hero */
+.heroStats {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-6);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--radius-full);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.heroStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.heroStatValue {
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-bold);
+  color: #FCA5A5;
+  line-height: 1;
+}
+
+.heroStatLabel {
+  font-size: var(--font-size-xsmall);
+  color: rgba(255, 255, 255, 0.50);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.heroStatDivider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+/* ── Page body below hero ─────────────────────────────────────────────────── */
 .inner {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0 var(--space-4);
+  padding: 0 var(--space-4) var(--space-16);
 }
 
-@media (min-width: 768px) { .inner { padding: 0 var(--space-6); } }
+@media (min-width: 768px) { .inner { padding: 0 var(--space-6) var(--space-16); } }
 
 .lobbyHeader {
   text-align: center;
-  margin-bottom: var(--space-10);
+  margin-bottom: var(--space-8);
 }
 
+/* Used for the lobby subtitle h2 (below hero) */
+.lobbyTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+/* Legacy .title kept for backward compat in case other components reference it */
 .title {
   font-family: var(--font-heading);
   font-size: var(--font-size-h1);

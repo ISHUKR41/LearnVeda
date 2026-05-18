@@ -34,6 +34,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden; /* clips the heroOrb radial glow that extends beyond bounds */
 }
 
 .eyebrow {
@@ -70,6 +71,7 @@
 .statsBar {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-6);
   padding: var(--space-4) var(--space-6);
   background: rgba(255, 255, 255, 0.05);
@@ -77,11 +79,20 @@
   border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 255, 255, 0.1);
   width: max-content;
+  max-width: 100%;
 }
 
 .statItem {
   display: flex;
   flex-direction: column;
+  gap: 2px;
+}
+
+.statDivider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
 }
 
 .statValue {
@@ -89,13 +100,165 @@
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-bold);
   color: white;
+  line-height: 1.1;
 }
 
 .statLabel {
   font-size: var(--font-size-xsmall);
-  color: var(--color-text-tertiary);
+  color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.07em;
+  font-weight: var(--font-weight-medium);
+}
+
+/* ─── Hero decorative orb ─── */
+.heroOrb {
+  position: absolute;
+  top: -80px;
+  right: -60px;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(5, 150, 105, 0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ─── Selector loading skeleton ─── */
+.selectorSkeleton {
+  height: 360px;
+  border-radius: var(--radius-2xl);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+/* ─── Why Section ─── */
+.whySection {
+  margin-bottom: var(--space-14);
+  margin-top: var(--space-4);
+}
+
+.whySectionHeader {
+  margin-bottom: var(--space-6);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 640px)  { .whyGrid { grid-template-columns: repeat(3, 1fr); } }
+
+.whyCard {
+  padding: var(--space-6);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.whyIcon {
+  width: 40px;
+  height: 40px;
+  background: rgba(5, 150, 105, 0.12);
+  color: #34D399;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.whyTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.whyDesc {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ─── CTA Banner ─── */
+.ctaBanner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+  padding: var(--space-8);
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(135deg, #0F172A 0%, #064E3B 100%);
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  margin-bottom: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .ctaBanner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.ctaText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ctaTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: white;
+  margin: 0;
+}
+
+.ctaSubtext {
+  font-size: var(--font-size-small);
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.ctaButton:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
 }
 
 /* Stream Tabs */

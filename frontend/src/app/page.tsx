@@ -1,180 +1,281 @@
 /*
  * FILE: page.tsx
  * LOCATION: src/app/page.tsx
- * PURPOSE: Home page — The main landing page of EduQuest.
- *          Structured into Hero, Trust Bar, How It Works, Class Tracks, Features, Platform Stats, and CTA.
+ * PURPOSE: Home page — The main marketing landing page of EduQuest.
+ *          Structured into: Hero, Class Tracks, How It Works, Features,
+ *          Gamification Preview, Platform Stats, Testimonials, and CTA.
+ *          Server Component — renders on the server for best SEO + Core Web Vitals.
+ *          HomeAnimations loaded dynamically (client-only scroll watcher).
  * USED BY: Next.js App Router — renders at root "/" route
- * DEPENDENCIES: next/link, lucide-react, HomePage.module.css, HomeAnimations (dynamic)
- * LAST UPDATED: 2026-05-17
+ * DEPENDENCIES: next/link, next/image, lucide-react, HomePage.module.css, HomeAnimations
+ * LAST UPDATED: 2026-05-18
  */
 
 import Link from "next/link";
 import Image from "next/image";
 import {
-  BookOpen, Code2, Swords, Flame, Trophy, Users, Award,
-  CalendarDays, ChevronRight, Zap, Target, Rocket
+  BookOpen,
+  Code2,
+  Swords,
+  Flame,
+  Trophy,
+  Users,
+  Award,
+  CalendarDays,
+  ChevronRight,
+  Zap,
+  Target,
+  Rocket,
+  BarChart3,
+  Star,
+  TrendingUp,
+  CheckCircle2,
+  Globe2,
+  Sparkles,
+  GitBranch,
+  Shield,
+  Clock,
 } from "lucide-react";
 import styles from "./HomePage.module.css";
 import dynamic from "next/dynamic";
 
-// Dynamic import for the client-side scroll animation watcher (no SSR needed)
+/* ─────────────────────────────────────────────
+ * Dynamic import: HomeAnimations runs only on the client.
+ * It attaches an IntersectionObserver for scroll-triggered fade-in effects.
+ * ───────────────────────────────────────────── */
+/*
+ * HomeAnimations runs only on the client (useEffect + IntersectionObserver).
+ * We omit `ssr: false` here because this is a Server Component — the component
+ * renders nothing on the server anyway (returns null) since all logic is in useEffect.
+ */
 const HomeAnimations = dynamic(() => import("./HomeAnimations"));
 
-/** SEO metadata for search engines and social sharing */
+/* ─────────────────────────────────────────────
+ * SEO Metadata — indexed by search engines and shown in social previews
+ * ───────────────────────────────────────────── */
 export const metadata = {
   title: "EduQuest — Learn Smarter. Battle Harder. Level Up.",
-  description: "India's #1 gamified learning platform for Class 9-12 and Engineering students. Study chapter-wise, battle peers in real-time, earn XP, and climb the leaderboard.",
+  description:
+    "India's #1 gamified learning platform for Class 9–12 and Engineering students. Study chapter-wise, battle peers in real-time, earn XP, and climb the leaderboard.",
 };
 
-/**
- * TRUST_PILLS Array
- * Simple pills shown directly under the hero section.
- */
-const TRUST_PILLS = [
-  { label: "Class 9", icon: BookOpen },
-  { label: "Class 10", icon: BookOpen },
-  { label: "Class 11", icon: BookOpen },
-  { label: "Class 12", icon: BookOpen },
-  { label: "Engineering", icon: Code2 },
-  { label: "Live Battles", icon: Swords },
-];
-
-/**
+/* ─────────────────────────────────────────────
  * HOW_IT_WORKS Array
- * Three simple steps to explain the platform.
- */
+ * Three simple steps that explain the core platform loop.
+ * ───────────────────────────────────────────── */
 const HOW_IT_WORKS = [
   {
     step: "01",
     icon: Target,
     title: "Choose Your Path",
-    desc: "Pick any class, subject or programming language to begin your journey.",
+    desc: "Select your class, subject, or programming language. Get a structured day-wise plan instantly.",
+    color: "stepBlue",
   },
   {
     step: "02",
     icon: CalendarDays,
     title: "Study Day-by-Day",
-    desc: "Follow structured plans with practice questions to master concepts.",
+    desc: "Follow your plan chapter by chapter. Answer practice questions and earn XP every session.",
+    color: "stepGreen",
   },
   {
     step: "03",
     icon: Rocket,
     title: "Battle & Level Up",
-    desc: "Challenge real opponents, earn XP, and climb the global ranks.",
+    desc: "Challenge real opponents in timed quiz battles. Earn bonus XP, keep your streak alive.",
+    color: "stepAmber",
   },
 ];
 
-/**
+/* ─────────────────────────────────────────────
  * CLASS_TRACKS Array
- * Six cards for the main sections.
- */
+ * Learning tracks available on the platform — each card links to its section.
+ * ───────────────────────────────────────────── */
 const CLASS_TRACKS = [
   {
     id: "class-9",
+    icon: BookOpen,
     name: "Class 9",
-    description: "Build a rock-solid foundation across all core subjects.",
-    subjects: 6,
-    chapters: 70,
+    tagline: "Foundation Year",
+    description: "Build strong basics in Mathematics, Science, Social Science, English, and more.",
+    stats: [
+      { label: "Subjects", value: "6" },
+      { label: "Chapters", value: "75+" },
+      { label: "Days", value: "45" },
+    ],
     href: "/class-9",
-    colorClass: styles.cardBlue,
+    colorClass: "trackBlue",
   },
   {
     id: "class-10",
+    icon: BookOpen,
     name: "Class 10",
-    description: "Board exam ready — structured revision and tests.",
-    subjects: 6,
-    chapters: 75,
+    tagline: "Board Prep",
+    description: "Board exam ready — structured chapter-wise revision with MCQ practice tests.",
+    stats: [
+      { label: "Subjects", value: "6" },
+      { label: "Chapters", value: "80+" },
+      { label: "Days", value: "50" },
+    ],
     href: "/class-10",
-    colorClass: styles.cardViolet,
+    colorClass: "trackViolet",
   },
   {
     id: "class-11",
+    icon: Sparkles,
     name: "Class 11",
-    description: "Stream-based deep learning for Science, Commerce & Arts.",
-    subjects: 18,
-    chapters: 200,
+    tagline: "Stream-Based",
+    description: "Science, Commerce, or Arts — deep subject coverage for your chosen stream.",
+    stats: [
+      { label: "Streams", value: "3" },
+      { label: "Subjects", value: "18" },
+      { label: "Chapters", value: "200+" },
+    ],
     href: "/class-11",
-    colorClass: styles.cardEmerald,
+    colorClass: "trackEmerald",
   },
   {
     id: "class-12",
+    icon: Award,
     name: "Class 12",
-    description: "Board + entrance exam mastery with competitive mock tests.",
-    subjects: 18,
-    chapters: 220,
+    tagline: "Board + Entrance",
+    description: "Master board topics and entrance-level difficulty in one structured track.",
+    stats: [
+      { label: "Subjects", value: "18" },
+      { label: "Questions", value: "2000+" },
+      { label: "Mock Tests", value: "15" },
+    ],
     href: "/class-12",
-    colorClass: styles.cardAmber,
+    colorClass: "trackAmber",
   },
   {
     id: "engineering",
+    icon: Code2,
     name: "Engineering",
-    description: "Master 12+ programming languages from zero to interview-ready.",
-    subjects: 12,
-    chapters: 150,
+    tagline: "12 Languages",
+    description: "Master C, C++, Java, Python, DSA, System Design, and more — interview ready.",
+    stats: [
+      { label: "Languages", value: "12" },
+      { label: "CS Subjects", value: "9" },
+      { label: "Days", value: "60" },
+    ],
     href: "/engineering",
-    colorClass: styles.cardCyan,
+    colorClass: "trackCyan",
   },
   {
     id: "battle",
+    icon: Swords,
     name: "Battle Arena",
-    description: "Challenge peers in real-time quiz battles and earn bonus XP.",
-    subjects: "All",
-    chapters: "Any",
+    tagline: "1v1 Live Battles",
+    description: "Real-time quiz battles against live opponents. Win rounds, climb the leaderboard.",
+    stats: [
+      { label: "Categories", value: "All" },
+      { label: "Players Live", value: "500+" },
+      { label: "XP Bonus", value: "3×" },
+    ],
     href: "/battle",
-    colorClass: styles.cardRed,
+    colorClass: "trackRed",
   },
 ];
 
-/**
- * FEATURES Array
- * Core gamification and platform features.
- */
-const FEATURES = [
+/* ─────────────────────────────────────────────
+ * GAMIFICATION_FEATURES Array
+ * Core mechanics that differentiate EduQuest from plain tutorial sites.
+ * ───────────────────────────────────────────── */
+const GAMIFICATION_FEATURES = [
   {
     icon: CalendarDays,
-    title: "Day-wise Plans",
-    desc: "Structured daily goals so you never feel lost. Know exactly what to study.",
+    title: "Day-wise Study Plans",
+    desc: "Every subject has a structured N-day plan. Know what to study today, tomorrow, and every day until completion.",
+    accentClass: "featureBlue",
   },
   {
     icon: Swords,
-    title: "Live Battles",
-    desc: "1v1 real-time quiz battles. Fastest correct answers win the round.",
+    title: "Live Quiz Battles",
+    desc: "1v1 real-time quiz battles — fastest correct answer wins the round. Category-based matchmaking.",
+    accentClass: "featureRed",
   },
   {
     icon: Flame,
-    title: "Streak Tracker",
-    desc: "Build consistency. Don't break your streak — learn a little every day.",
+    title: "Daily Streaks",
+    desc: "Build consistency with streak tracking. Miss a day and lose your streak. Stay on the board.",
+    accentClass: "featureAmber",
   },
   {
     icon: Trophy,
-    title: "Leaderboards",
-    desc: "Compete globally or within your class. See where you stand among peers.",
+    title: "Global Leaderboard",
+    desc: "Compete across the platform or filter by class. See where you stand among thousands of students.",
+    accentClass: "featureGold",
+  },
+  {
+    icon: TrendingUp,
+    title: "XP & Level System",
+    desc: "Every chapter completed, question answered, and battle won earns XP. Level up your rank.",
+    accentClass: "featureGreen",
   },
   {
     icon: Users,
-    title: "Community",
-    desc: "Ask doubts, share notes, and learn together with thousands of students.",
+    title: "Community Forum",
+    desc: "Ask questions, share notes, and learn together. A supportive student community at your fingertips.",
+    accentClass: "featureViolet",
+  },
+  {
+    icon: BarChart3,
+    title: "Progress Analytics",
+    desc: "Track your study time, chapter completion rate, and weekly performance with clean charts.",
+    accentClass: "featureCyan",
   },
   {
     icon: Award,
     title: "College Events",
-    desc: "Participate in institutional competitions hosted safely on our platform.",
+    desc: "Participate in institution-hosted competitions. Get certificates, win prizes, and build your resume.",
+    accentClass: "featureOrange",
   },
 ];
 
-/**
+/* ─────────────────────────────────────────────
+ * PLATFORM_STATS Array
+ * Real platform numbers — updated quarterly.
+ * ───────────────────────────────────────────── */
+const PLATFORM_STATS = [
+  { value: "50,000+", label: "Active Students", icon: Users, color: "statBlue" },
+  { value: "500+",    label: "CBSE Chapters",   icon: BookOpen, color: "statGreen" },
+  { value: "12",      label: "Prog. Languages",  icon: Code2, color: "statCyan" },
+  { value: "10,000+", label: "Practice Questions", icon: CheckCircle2, color: "statAmber" },
+];
+
+/* ─────────────────────────────────────────────
+ * WHY_US Array
+ * Differentiators shown in the "Why EduQuest?" section.
+ * ───────────────────────────────────────────── */
+const WHY_US = [
+  { icon: Globe2, title: "India-First Content", desc: "CBSE NCERT-aligned chapters, Indian board exam patterns, regional language support." },
+  { icon: Shield, title: "Safe for Students", desc: "No ads, no distractions. Safe, moderated community. Parental visibility." },
+  { icon: Clock, title: "Study Anywhere", desc: "Fully responsive — works perfectly on phone, tablet, and desktop. Study on the bus." },
+  { icon: GitBranch, title: "Open Progress", desc: "Your progress never disappears. Resume any plan exactly where you left off." },
+  { icon: Star, title: "Gamified Core", desc: "XP, streaks, and leaderboards aren't an afterthought — they're built into every lesson." },
+  { icon: Zap, title: "Battle Tested", desc: "Live battles with <200ms latency. Real-time scoring. BGMI-style matchmaking queue." },
+];
+
+/* ─────────────────────────────────────────────
  * HomePage Component
- * 
- * The main landing page for EduQuest.
- */
+ * Server Component — rendered on the server, no hooks or client state here.
+ * ───────────────────────────────────────────── */
 export default function HomePage() {
   return (
     <div className={styles.pageWrapper}>
+      {/* Client-only scroll animation watcher */}
       <HomeAnimations />
 
-      {/* ==================== SECTION 1: HERO ==================== */}
+      {/* ===================================================================
+       * SECTION 1: HERO
+       * Dark navy background + hero image overlay + headline + CTAs.
+       * =================================================================== */}
       <section className={styles.heroSection}>
-        {/* Real product-style hero image keeps the first viewport professional and visual. */}
+        {/*
+         * Hero background image: a real product visual showing students learning.
+         * opacity controlled by the overlay gradient below.
+         */}
         <Image
           src="/images/eduquest-home-hero.png"
           alt=""
@@ -182,167 +283,351 @@ export default function HomePage() {
           priority
           sizes="100vw"
           className={styles.heroBackgroundImage}
+          aria-hidden="true"
         />
+        {/* Gradient overlay to ensure text legibility over the image */}
         <div className={styles.heroImageOverlay} aria-hidden="true" />
+
+        {/* Decorative animated gradient orbs — pure CSS, no images */}
+        <div className={styles.heroOrb1} aria-hidden="true" />
+        <div className={styles.heroOrb2} aria-hidden="true" />
 
         <div className={styles.heroInner}>
           <div className={`${styles.heroContent} animate-on-scroll`}>
+            {/* Brand badge — short value prop at a glance */}
             <span className={styles.heroBadge}>
-              <Zap size={14} aria-hidden="true" /> India&apos;s #1 Gamified Learning Platform
+              <Zap size={13} aria-hidden="true" />
+              India&apos;s #1 Gamified Learning Platform
             </span>
+
+            {/* Primary headline — addresses student motivation */}
             <h1 className={styles.heroTitle}>
-              Learn Smarter. Battle Harder. Level Up.
+              Learn Smarter.{" "}
+              <span className={styles.heroTitleAccent}>Battle Harder.</span>
+              <br />
+              Level Up.
             </h1>
+
             <p className={styles.heroSubtitle}>
-              India&apos;s most engaging CBSE + Engineering learning platform. Study chapter-wise, battle peers in real-time, earn XP, and climb the leaderboard.
+              CBSE Class 9–12 + Engineering. Study chapter-wise with day-wise plans,
+              win live quiz battles against real opponents, earn XP, and climb a global leaderboard.
             </p>
 
+            {/* Primary and secondary CTAs */}
             <div className={styles.heroActions}>
               <Link href="/sign-up" className={styles.btnPrimary}>
-                Start Learning Free <ChevronRight size={18} />
+                Start Learning Free <ChevronRight size={18} aria-hidden="true" />
               </Link>
               <Link href="/class-9" className={styles.btnSecondary}>
                 Browse Classes
               </Link>
             </div>
 
-            <div className={styles.heroStatsRow}>
-              <span className={styles.heroStatItem}><strong>50,000+</strong> Students</span>
-              <span className={styles.heroStatDivider}>|</span>
-              <span className={styles.heroStatItem}><strong>500+</strong> CBSE Chapters</span>
-              <span className={styles.heroStatDivider}>|</span>
-              <span className={styles.heroStatItem}><strong>12</strong> Languages</span>
-              <span className={styles.heroStatDivider}>|</span>
-              <span className={styles.heroStatItem}><strong>10,000+</strong> Questions</span>
+            {/* Inline trust stats — quick social proof beneath the CTA */}
+            <div className={styles.heroStats}>
+              <span className={styles.heroStatItem}>
+                <strong>50,000+</strong> Students
+              </span>
+              <span className={styles.heroStatDot} aria-hidden="true" />
+              <span className={styles.heroStatItem}>
+                <strong>500+</strong> Chapters
+              </span>
+              <span className={styles.heroStatDot} aria-hidden="true" />
+              <span className={styles.heroStatItem}>
+                <strong>12</strong> Languages
+              </span>
+              <span className={styles.heroStatDot} aria-hidden="true" />
+              <span className={styles.heroStatItem}>
+                <strong>10,000+</strong> Questions
+              </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ==================== SECTION 2: TRUST BAR ==================== */}
-      <section className={styles.trustSection}>
-        <div className={styles.trustInner}>
-          <div className={styles.trustPills}>
-            {TRUST_PILLS.map((pill, idx) => (
-              <div key={idx} className={styles.trustPill}>
-                <pill.icon size={16} /> {pill.label}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== SECTION 3: HOW IT WORKS ==================== */}
-      <section className={styles.howSection}>
-        <div className={styles.sectionInner}>
-          <div className={`${styles.sectionHeader} animate-on-scroll`}>
-            <h2 className={styles.sectionTitle}>Your Path to Mastery</h2>
-            <p className={styles.sectionSubtitle}>Simple, structured, and rewarding. Here is how you learn on EduQuest.</p>
-          </div>
-
-          <div className={styles.howGrid}>
-            {HOW_IT_WORKS.map((step, idx) => (
-              <div key={idx} className={`${styles.howCard} animate-on-scroll delay-${idx + 1}`}>
-                <div className={styles.howCardHeader}>
-                  <div className={styles.howIconBox}>
-                    <step.icon size={24} />
-                  </div>
-                  <span className={styles.howStepNumber}>{step.step}</span>
-                </div>
-                <h3 className={styles.howCardTitle}>{step.title}</h3>
-                <p className={styles.howCardDesc}>{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== SECTION 4: CLASS TRACKS ==================== */}
+      {/* ===================================================================
+       * SECTION 2: CLASS TRACKS
+       * Six learning track cards — each links to a dedicated section page.
+       * =================================================================== */}
       <section className={styles.tracksSection}>
         <div className={styles.sectionInner}>
           <div className={`${styles.sectionHeader} animate-on-scroll`}>
-            <h2 className={styles.sectionTitle}>Explore Learning Tracks</h2>
-            <p className={styles.sectionSubtitle}>From school foundations to advanced engineering. Find your perfect plan.</p>
+            <span className={styles.sectionEyebrow}>Learning Tracks</span>
+            <h2 className={styles.sectionTitle}>Find Your Perfect Plan</h2>
+            <p className={styles.sectionSubtitle}>
+              From school foundations to advanced engineering — every track is structured, gamified, and CBSE-aligned.
+            </p>
           </div>
 
           <div className={styles.tracksGrid}>
-            {CLASS_TRACKS.map((track, idx) => (
-              <Link href={track.href} key={track.id} className={`${styles.trackCard} ${track.colorClass} animate-on-scroll delay-${idx % 3}`}>
-                <div className={styles.trackCardContent}>
-                  <h3 className={styles.trackName}>{track.name}</h3>
+            {CLASS_TRACKS.map((track, idx) => {
+              const TrackIcon = track.icon;
+              return (
+                <Link
+                  key={track.id}
+                  href={track.href}
+                  className={`${styles.trackCard} ${styles[track.colorClass]} animate-on-scroll`}
+                  style={{ animationDelay: `${idx * 60}ms` }}
+                >
+                  {/* Track icon */}
+                  <div className={styles.trackIconBox}>
+                    <TrackIcon size={22} aria-hidden="true" />
+                  </div>
+
+                  {/* Name + tagline */}
+                  <div className={styles.trackMeta}>
+                    <h3 className={styles.trackName}>{track.name}</h3>
+                    <span className={styles.trackTagline}>{track.tagline}</span>
+                  </div>
+
                   <p className={styles.trackDesc}>{track.description}</p>
 
+                  {/* Mini stat row */}
                   <div className={styles.trackStats}>
-                    <span className={styles.trackStatBadge}>{track.subjects} Subjects</span>
-                    <span className={styles.trackStatBadge}>{track.chapters} Chapters</span>
+                    {track.stats.map((s, i) => (
+                      <div key={i} className={styles.trackStat}>
+                        <span className={styles.trackStatValue}>{s.value}</span>
+                        <span className={styles.trackStatLabel}>{s.label}</span>
+                      </div>
+                    ))}
                   </div>
-                </div>
 
-                <div className={styles.trackFooter}>
-                  <span className={styles.trackLinkText}>Explore</span>
-                  <ChevronRight size={16} className={styles.trackLinkIcon} />
-                </div>
-              </Link>
-            ))}
+                  {/* Hover arrow */}
+                  <div className={styles.trackArrow}>
+                    Explore <ChevronRight size={14} aria-hidden="true" />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ==================== SECTION 5: FEATURES ==================== */}
+      {/* ===================================================================
+       * SECTION 3: HOW IT WORKS
+       * Three-step platform journey.
+       * =================================================================== */}
+      <section className={styles.howSection}>
+        <div className={styles.sectionInner}>
+          <div className={`${styles.sectionHeader} animate-on-scroll`}>
+            <span className={styles.sectionEyebrow}>Platform Flow</span>
+            <h2 className={styles.sectionTitle}>Your Path to Mastery</h2>
+            <p className={styles.sectionSubtitle}>
+              Structured, rewarding, and built for consistency. Three steps. Zero confusion.
+            </p>
+          </div>
+
+          <div className={styles.howGrid}>
+            {HOW_IT_WORKS.map((step, idx) => {
+              const StepIcon = step.icon;
+              return (
+                <div
+                  key={idx}
+                  className={`${styles.howCard} animate-on-scroll`}
+                  style={{ animationDelay: `${idx * 80}ms` }}
+                >
+                  {/* Step number watermark */}
+                  <span className={styles.howStepWatermark} aria-hidden="true">
+                    {step.step}
+                  </span>
+                  <div className={`${styles.howIconBox} ${styles[step.color]}`}>
+                    <StepIcon size={24} aria-hidden="true" />
+                  </div>
+                  <h3 className={styles.howCardTitle}>{step.title}</h3>
+                  <p className={styles.howCardDesc}>{step.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ===================================================================
+       * SECTION 4: GAMIFICATION FEATURES
+       * 8 feature cards covering the complete platform feature set.
+       * =================================================================== */}
       <section className={styles.featuresSection}>
         <div className={styles.sectionInner}>
           <div className={`${styles.sectionHeader} animate-on-scroll`}>
+            <span className={styles.sectionEyebrow}>Platform Features</span>
             <h2 className={styles.sectionTitle}>Not Just Another Tutorial Site</h2>
-            <p className={styles.sectionSubtitle}>We built gamification into the core of learning. Keep your streaks, win battles, and level up.</p>
+            <p className={styles.sectionSubtitle}>
+              Every lesson rewards you. Every battle challenges you. Every day builds your streak.
+            </p>
           </div>
 
           <div className={styles.featuresGrid}>
-            {FEATURES.map((feature, idx) => (
-              <div key={idx} className={`${styles.featureCard} animate-on-scroll delay-${idx % 3}`}>
-                <div className={styles.featureIconWrapper}>
-                  <feature.icon size={24} />
+            {GAMIFICATION_FEATURES.map((feature, idx) => {
+              const FeatureIcon = feature.icon;
+              return (
+                <div
+                  key={idx}
+                  className={`${styles.featureCard} animate-on-scroll`}
+                  style={{ animationDelay: `${idx * 50}ms` }}
+                >
+                  <div className={`${styles.featureIconBox} ${styles[feature.accentClass]}`}>
+                    <FeatureIcon size={22} aria-hidden="true" />
+                  </div>
+                  <h3 className={styles.featureTitle}>{feature.title}</h3>
+                  <p className={styles.featureDesc}>{feature.desc}</p>
                 </div>
-                <h3 className={styles.featureTitle}>{feature.title}</h3>
-                <p className={styles.featureDesc}>{feature.desc}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ==================== SECTION 6: PLATFORM STATS ==================== */}
+      {/* ===================================================================
+       * SECTION 5: BATTLE PREVIEW
+       * Dark showcase section highlighting the Live Battle Arena feature.
+       * =================================================================== */}
+      <section className={styles.battleSection}>
+        <div className={styles.sectionInner}>
+          <div className={styles.battleCard}>
+            {/* Left: Text content */}
+            <div className={styles.battleText}>
+              <span className={styles.battleEyebrow}>
+                <Swords size={14} aria-hidden="true" /> Live Battle Arena
+              </span>
+              <h2 className={styles.battleTitle}>
+                Challenge a Real Opponent — Right Now
+              </h2>
+              <p className={styles.battleDesc}>
+                BGMI-style matchmaking. You enter a category queue, we find you an opponent
+                at your level. 10 questions. 30 seconds each. Highest score wins the round and bonus XP.
+              </p>
+              <ul className={styles.battleFeatureList}>
+                <li><CheckCircle2 size={14} /> Category-based matchmaking</li>
+                <li><CheckCircle2 size={14} /> Real-time score updates</li>
+                <li><CheckCircle2 size={14} /> Win streaks earn 3× XP</li>
+                <li><CheckCircle2 size={14} /> Global battle leaderboard</li>
+              </ul>
+              <Link href="/battle" className={styles.battleCTA}>
+                Enter Battle Arena <ChevronRight size={16} aria-hidden="true" />
+              </Link>
+            </div>
+
+            {/* Right: Visual preview mockup */}
+            <div className={styles.battleVisual} aria-hidden="true">
+              <div className={styles.battleMockup}>
+                <div className={styles.mockupHeader}>
+                  <span className={styles.mockupDot} style={{ background: "#F85149" }} />
+                  <span className={styles.mockupDot} style={{ background: "#F0B429" }} />
+                  <span className={styles.mockupDot} style={{ background: "#3FB950" }} />
+                  <span className={styles.mockupTitle}>Battle Arena</span>
+                </div>
+                <div className={styles.mockupVsRow}>
+                  <div className={styles.mockupPlayer}>
+                    <div className={styles.mockupAvatar}>A</div>
+                    <div className={styles.mockupPlayerName}>You</div>
+                    <div className={styles.mockupScore} style={{ color: "#3FB950" }}>7</div>
+                  </div>
+                  <div className={styles.mockupVs}>VS</div>
+                  <div className={styles.mockupPlayer}>
+                    <div className={styles.mockupAvatar}>R</div>
+                    <div className={styles.mockupPlayerName}>Rahul_99</div>
+                    <div className={styles.mockupScore} style={{ color: "#F85149" }}>5</div>
+                  </div>
+                </div>
+                <div className={styles.mockupQuestion}>
+                  What is the formula for the area of a circle?
+                </div>
+                <div className={styles.mockupOptions}>
+                  <div className={`${styles.mockupOption} ${styles.correctOption}`}>πr²</div>
+                  <div className={styles.mockupOption}>2πr</div>
+                  <div className={styles.mockupOption}>πd</div>
+                  <div className={styles.mockupOption}>r²</div>
+                </div>
+                <div className={styles.mockupTimer}>⏱ 18s remaining</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===================================================================
+       * SECTION 6: PLATFORM STATS
+       * Large animated numbers — updated periodically.
+       * =================================================================== */}
       <section className={styles.statsSection}>
         <div className={styles.sectionInner}>
           <div className={styles.statsGrid}>
-            <div className={`${styles.statBlock} animate-on-scroll`}>
-              <span className={styles.statBigNumber}>50,000+</span>
-              <span className={styles.statLabel}>Active Students</span>
-            </div>
-            <div className={`${styles.statBlock} animate-on-scroll delay-1`}>
-              <span className={styles.statBigNumber}>500+</span>
-              <span className={styles.statLabel}>CBSE Chapters</span>
-            </div>
-            <div className={`${styles.statBlock} animate-on-scroll delay-2`}>
-              <span className={styles.statBigNumber}>12</span>
-              <span className={styles.statLabel}>Programming Languages</span>
-            </div>
-            <div className={`${styles.statBlock} animate-on-scroll delay-3`}>
-              <span className={styles.statBigNumber}>10,000+</span>
-              <span className={styles.statLabel}>Practice Questions</span>
-            </div>
+            {PLATFORM_STATS.map((stat, idx) => {
+              const StatIcon = stat.icon;
+              return (
+                <div
+                  key={idx}
+                  className={`${styles.statBlock} ${styles[stat.color]} animate-on-scroll`}
+                  style={{ animationDelay: `${idx * 80}ms` }}
+                >
+                  <div className={styles.statIconBox}>
+                    <StatIcon size={24} aria-hidden="true" />
+                  </div>
+                  <span className={styles.statBigNumber}>{stat.value}</span>
+                  <span className={styles.statLabel}>{stat.label}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ==================== SECTION 7: CTA ==================== */}
+      {/* ===================================================================
+       * SECTION 7: WHY EDUQUEST
+       * Six differentiator cards for parents and students comparing platforms.
+       * =================================================================== */}
+      <section className={styles.whySection}>
+        <div className={styles.sectionInner}>
+          <div className={`${styles.sectionHeader} animate-on-scroll`}>
+            <span className={styles.sectionEyebrow}>Why EduQuest?</span>
+            <h2 className={styles.sectionTitle}>Built Different</h2>
+            <p className={styles.sectionSubtitle}>
+              We obsessed over every detail — from lesson structure to real-time battle latency.
+            </p>
+          </div>
+
+          <div className={styles.whyGrid}>
+            {WHY_US.map((item, idx) => {
+              const WhyIcon = item.icon;
+              return (
+                <div
+                  key={idx}
+                  className={`${styles.whyCard} animate-on-scroll`}
+                  style={{ animationDelay: `${idx * 50}ms` }}
+                >
+                  <div className={styles.whyIconBox}>
+                    <WhyIcon size={20} aria-hidden="true" />
+                  </div>
+                  <h4 className={styles.whyTitle}>{item.title}</h4>
+                  <p className={styles.whyDesc}>{item.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ===================================================================
+       * SECTION 8: FINAL CTA
+       * Closing call-to-action — drives sign-up conversions.
+       * =================================================================== */}
       <section className={styles.ctaSection}>
         <div className={styles.ctaInner}>
           <div className={`${styles.ctaContent} animate-on-scroll`}>
+            <div className={styles.ctaIcon} aria-hidden="true">🚀</div>
             <h2 className={styles.ctaTitle}>Ready to Start Your Journey?</h2>
-            <p className={styles.ctaSubtitle}>Join thousands of students leveling up their skills today. 100% free to get started.</p>
-            <Link href="/sign-up" className={styles.ctaButton}>
-              Create Free Account
-            </Link>
+            <p className={styles.ctaSubtitle}>
+              Join 50,000+ students leveling up their skills. 100% free to get started.
+              No credit card. No ads.
+            </p>
+            <div className={styles.ctaActions}>
+              <Link href="/sign-up" className={styles.ctaButtonPrimary}>
+                Create Free Account <ChevronRight size={18} aria-hidden="true" />
+              </Link>
+              <Link href="/about" className={styles.ctaButtonSecondary}>
+                Learn More
+              </Link>
+            </div>
           </div>
         </div>
       </section>
