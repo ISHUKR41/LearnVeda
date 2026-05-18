@@ -196,10 +196,60 @@ export default function BattleClient() {
 
   return (
     <div className={styles.page}>
+
+      {/* ==================== HERO BANNER ==================== */}
+      {/*
+       * Full-width battle hero — dark red/orange gradient with decorative orbs
+       * and a stat bar showing the battle system's competitive scale.
+       * Intentionally different from other pages (red vs blue/amber) to signal
+       * that the Battle Arena is a high-stakes competitive space.
+       */}
+      <div className={styles.hero} aria-label="Battle Arena introduction">
+        {/* Decorative radial background orb — large, blurred, red tint */}
+        <div className={styles.heroOrb} aria-hidden="true" />
+
+        <div className={styles.heroInner}>
+          {/* Eyebrow chip */}
+          <div className={styles.eyebrow}>
+            <Swords size={14} aria-hidden="true" /> Battle Arena · Live Matchmaking
+          </div>
+
+          <h1 className={styles.heroTitle}>Battle Arena</h1>
+
+          <p className={styles.heroSubtitle}>
+            Challenge opponents in real-time quiz duels. Choose a subject,
+            find a match, and prove your knowledge under pressure.
+          </p>
+
+          {/* Three quick stats about the battle system */}
+          <div className={styles.heroStats}>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatValue}>6</span>
+              <span className={styles.heroStatLabel}>Subjects</span>
+            </div>
+            <div className={styles.heroStatDivider} aria-hidden="true" />
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatValue}>Timed</span>
+              <span className={styles.heroStatLabel}>Rounds</span>
+            </div>
+            <div className={styles.heroStatDivider} aria-hidden="true" />
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatValue}>+XP</span>
+              <span className={styles.heroStatLabel}>Per Win</span>
+            </div>
+            <div className={styles.heroStatDivider} aria-hidden="true" />
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatValue}>Fair</span>
+              <span className={styles.heroStatLabel}>Anti-Cheat</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className={styles.inner}>
         <div className={styles.lobbyHeader}>
-          <h1 className={styles.title}>Battle Lobby</h1>
-          <p className={styles.subtitle}>Enter the arena and prove your knowledge.</p>
+          <h2 className={styles.lobbyTitle}>Battle Lobby</h2>
+          <p className={styles.subtitle}>Select a subject and find your opponent.</p>
         </div>
 
         <div className={styles.lobbyGrid}>

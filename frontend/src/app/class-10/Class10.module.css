@@ -274,6 +274,157 @@
 :global(.dark) .iconAmber  { background: rgba(217, 119, 6, 0.15); color: #FCD34D; }
 :global(.dark) .iconRed    { background: rgba(220, 38, 38, 0.15); color: #FCA5A5; }
 
+/* ─── Hero Decorative Orb ──────────────────────────────────────────────────── */
+
+.heroOrb {
+  position: absolute;
+  top: -80px;
+  right: -60px;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ─── Stats Divider (thin vertical pipe) ───────────────────────────────────── */
+
+.statDivider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+/* ─── Section Header (title + subtitle group) ──────────────────────────────── */
+
+.sectionHeader {
+  margin-bottom: var(--space-8);
+}
+
+.sectionSubtitle {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  max-width: 580px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ─── Why Section ───────────────────────────────────────────────────────────── */
+
+.whySection {
+  margin-bottom: var(--space-14);
+}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 640px)  { .whyGrid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .whyGrid { grid-template-columns: repeat(4, 1fr); } }
+
+.whyCard {
+  padding: var(--space-6);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.whyIcon {
+  width: 40px;
+  height: 40px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #D97706;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.whyTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.whyDesc {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ─── CTA Banner ────────────────────────────────────────────────────────────── */
+
+.ctaBanner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+  padding: var(--space-8);
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(135deg, #1C0F00 0%, #2D1800 100%);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  margin-bottom: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .ctaBanner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.ctaText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ctaTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: white;
+  margin: 0;
+}
+
+.ctaSubtext {
+  font-size: var(--font-size-small);
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: #D97706;
+  color: white;
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.ctaButton:hover {
+  background: #B45309;
+  transform: translateY(-1px);
+}
+
 /* ─── Callout / Tips Section ────────────────────────────────────────────────── */
 
 .calloutSection {

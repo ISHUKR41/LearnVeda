@@ -96,21 +96,35 @@ export default function SignInPage() {
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
+        {/*
+         * Left benefits panel — only rendered on wide screens (≥900px).
+         * Three sections spaced evenly: badge at top, headline + text in middle,
+         * security stat pills at the bottom.
+         */}
         <section className={styles.panel} aria-label="Secure login benefits">
+
+          {/* Top — security badge */}
           <div className={styles.panelBadge}>
             <ShieldCheck size={16} />
             Secure Student Workspace
           </div>
-          <h2 className={styles.panelTitle}>Pick up exactly where you stopped.</h2>
-          <p className={styles.panelText}>
-            Your streaks, battles, class progress, and coding plans stay connected
-            through one protected EduQuest account.
-          </p>
+
+          {/* Middle — headline and description */}
+          <div className={styles.panelBody}>
+            <h2 className={styles.panelTitle}>Pick up exactly where you stopped.</h2>
+            <p className={styles.panelText}>
+              Your streaks, battles, class progress, and coding plans stay connected
+              through one protected EduQuest account.
+            </p>
+          </div>
+
+          {/* Bottom — security feature pills */}
           <div className={styles.panelStats}>
             <span>7-day sessions</span>
             <span>Rate-limited auth</span>
             <span>httpOnly cookies</span>
           </div>
+
         </section>
 
         <div className={styles.card}>

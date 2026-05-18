@@ -19,12 +19,16 @@ import {
   ArrowRight,
   BookOpen,
   CheckCircle2,
+  Flame,
   Globe,
   GraduationCap,
   Loader2,
   Lock,
   Mail,
   ShieldCheck,
+  Swords,
+  Target,
+  Trophy,
   User,
   Zap,
 } from "lucide-react";
@@ -138,17 +142,71 @@ export default function SignUpPage() {
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
+        {/*
+         * Left benefits panel — only rendered on wide screens (≥980px).
+         * Three sections: badge at top, feature mini-cards in middle, tagline at bottom.
+         */}
         <section className={styles.promisePanel} aria-label="EduQuest account benefits">
+
+          {/* Top badge */}
           <div className={styles.promiseBadge}>
             <GraduationCap size={16} />
             Student-first onboarding
           </div>
-          <h2 className={styles.promiseTitle}>One account for classes, coding, battles, and progress.</h2>
-          <div className={styles.promiseList}>
-            <span><CheckCircle2 size={16} /> Track class chapters</span>
-            <span><CheckCircle2 size={16} /> Unlock battle readiness</span>
-            <span><CheckCircle2 size={16} /> Keep streaks and XP safe</span>
+
+          {/* Middle — four feature highlight cards */}
+          <div className={styles.promiseMid}>
+            <div className={styles.promiseCard}>
+              <div className={`${styles.promiseIcon} ${styles.blue}`} aria-hidden="true">
+                <Target size={18} />
+              </div>
+              <div>
+                <p className={styles.promiseCardTitle}>Structured Day-Wise Plans</p>
+                <p className={styles.promiseCardDesc}>15-60 day plans for every class and coding track. No guesswork.</p>
+              </div>
+            </div>
+
+            <div className={styles.promiseCard}>
+              <div className={`${styles.promiseIcon} ${styles.amber}`} aria-hidden="true">
+                <Flame size={18} />
+              </div>
+              <div>
+                <p className={styles.promiseCardTitle}>Daily Streak + XP</p>
+                <p className={styles.promiseCardDesc}>Earn XP every session, maintain your streak, climb the leaderboard.</p>
+              </div>
+            </div>
+
+            <div className={styles.promiseCard}>
+              <div className={`${styles.promiseIcon} ${styles.green}`} aria-hidden="true">
+                <Swords size={18} />
+              </div>
+              <div>
+                <p className={styles.promiseCardTitle}>Real-Time Battle Arena</p>
+                <p className={styles.promiseCardDesc}>Challenge peers in timed quiz duels with anti-cheat protection.</p>
+              </div>
+            </div>
+
+            <div className={styles.promiseCard}>
+              <div className={`${styles.promiseIcon} ${styles.purple}`} aria-hidden="true">
+                <Trophy size={18} />
+              </div>
+              <div>
+                <p className={styles.promiseCardTitle}>Global Leaderboard</p>
+                <p className={styles.promiseCardDesc}>Rank against students across India — filter by class or subject.</p>
+              </div>
+            </div>
           </div>
+
+          {/* Bottom tagline and checklist */}
+          <div className={styles.promiseBottom}>
+            <h2 className={styles.promiseTitle}>One account for classes, coding, battles, and progress.</h2>
+            <div className={styles.promiseList}>
+              <span><CheckCircle2 size={15} /> Track chapter progress across all subjects</span>
+              <span><CheckCircle2 size={15} /> Unlock battle readiness and matchmaking</span>
+              <span><CheckCircle2 size={15} /> Streaks, XP, and rank always saved securely</span>
+            </div>
+          </div>
+
         </section>
 
         <div className={styles.card}>

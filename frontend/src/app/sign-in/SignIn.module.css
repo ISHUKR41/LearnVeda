@@ -30,51 +30,79 @@
   }
 }
 
+/* Left panel — shown on wide screens only.
+   space-between distributes content: badge at top, body in middle, stats at bottom.
+   Decorative glow at top-right mirrors the primary blue brand colour. */
 .panel {
   display: none;
   padding: var(--space-8);
-  background: #0F172A;
+  background: linear-gradient(160deg, #0F172A 0%, #0B1220 100%);
   color: white;
   border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative radial blue glow */
+.panel::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.18) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 @media (min-width: 900px) {
   .panel {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
     min-height: 520px;
   }
 }
 
+/* Badge sits at the very top */
 .panelBadge {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
-  margin-bottom: auto;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(37, 99, 235, 0.15);
+  border: 1px solid rgba(37, 99, 235, 0.3);
   border-radius: var(--radius-md);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
+  color: #93C5FD;
+  position: relative;
+  z-index: 1;
+}
+
+/* Middle body content */
+.panelBody {
+  position: relative;
+  z-index: 1;
 }
 
 .panelTitle {
-  max-width: 420px;
-  margin-top: var(--space-12);
-  margin-bottom: var(--space-4);
+  max-width: 380px;
+  margin: 0 0 var(--space-4);
   color: white;
-  font-size: var(--font-size-h1);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.2;
 }
 
 .panelText {
-  max-width: 460px;
-  color: rgba(255, 255, 255, 0.78);
+  max-width: 400px;
+  color: rgba(255, 255, 255, 0.65);
   line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-body);
 }
 
 .panelStats {

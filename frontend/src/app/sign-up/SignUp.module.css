@@ -33,49 +33,135 @@
   }
 }
 
+/* Left panel — visible only on wide screens. Uses space-between so the badge
+   sits at the top, the feature cards fill the middle, and the tagline anchors
+   at the bottom. Background echoes the dark-navy design system. */
 .promisePanel {
   display: none;
   padding: var(--space-8);
   color: white;
-  background: #102A43;
+  background: linear-gradient(160deg, #102A43 0%, #0B1E36 100%);
   border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Subtle decorative radial glow at top-right */
+.promisePanel::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 @media (min-width: 980px) {
   .promisePanel {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
     min-height: 680px;
   }
 }
 
+/* Badge at the very top of the panel */
 .promiseBadge {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
-  margin-bottom: auto;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   border-radius: var(--radius-md);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
+  color: #6EE7B7;
+  position: relative;
+  z-index: 1;
+}
+
+/* Middle section — feature highlight mini-cards */
+.promiseMid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  position: relative;
+  z-index: 1;
+}
+
+/* Individual feature card inside the left panel */
+.promiseCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+}
+
+/* Colored icon circle for each feature card */
+.promiseIcon {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: white;
+}
+
+.promiseIcon.blue  { background: linear-gradient(135deg, #3B82F6, #06B6D4); }
+.promiseIcon.amber { background: linear-gradient(135deg, #F59E0B, #F97316); }
+.promiseIcon.green { background: linear-gradient(135deg, #10B981, #14B8A6); }
+.promiseIcon.purple{ background: linear-gradient(135deg, #8B5CF6, #A855F7); }
+
+/* Feature card text */
+.promiseCardTitle {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  color: white;
+  margin: 0 0 0.15rem;
+}
+.promiseCardDesc {
+  font-size: var(--font-size-small);
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Bottom tagline section */
+.promiseBottom {
+  position: relative;
+  z-index: 1;
 }
 
 .promiseTitle {
-  margin-top: var(--space-12);
-  margin-bottom: var(--space-5);
+  margin: 0 0 var(--space-4);
   color: white;
-  font-size: var(--font-size-h1);
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  line-height: 1.4;
 }
 
 .promiseList {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
+}
+
+/* Individual check item */
+.promiseList span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: rgba(255, 255, 255, 0.70);
+  font-size: var(--font-size-small);
 }
 
 .promiseList span {
