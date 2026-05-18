@@ -1,0 +1,188 @@
+/*
+ * FILE: HowItWorks.module.css
+ * LOCATION: src/components/Home/HowItWorks/HowItWorks.module.css
+ * PURPOSE: Minimalistic styling for the 3-step grid on the homepage.
+ */
+
+.howSection {
+  background: var(--color-bg-primary, #ffffff);
+  padding: 6rem 0;
+  position: relative;
+}
+
+:global(.dark) .howSection {
+  background: #060913;
+}
+
+.sectionInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionTitle {
+  font-family: var(--font-family-heading, 'Inter', sans-serif);
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--color-text-primary, #0f172a);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+:global(.dark) .sectionTitle {
+  color: #f8fafc;
+}
+
+.sectionSubtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary, #64748b);
+  line-height: 1.6;
+}
+
+:global(.dark) .sectionSubtitle {
+  color: #94a3b8;
+}
+
+.howGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.howCard {
+  background: var(--color-bg-card, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+:global(.dark) .howCard {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+
+.howCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.howCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+:global(.dark) .howCard:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  border-color: #334155;
+}
+
+.howCard:hover::before {
+  opacity: 1;
+}
+
+.howCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.howIconBox {
+  width: 64px;
+  height: 64px;
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+:global(.dark) .howIconBox {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
+.howCard:hover .howIconBox {
+  transform: scale(1.1) rotate(-5deg);
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.howStepNumber {
+  font-family: var(--font-family-heading, 'Inter', sans-serif);
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--color-border, #e2e8f0);
+  line-height: 0.8;
+  opacity: 0.5;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .howStepNumber {
+  color: #1e293b;
+}
+
+.howCard:hover .howStepNumber {
+  color: #cbd5e1;
+}
+
+:global(.dark) .howCard:hover .howStepNumber {
+  color: #334155;
+}
+
+.howCardTitle {
+  font-family: var(--font-family-heading, 'Inter', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary, #0f172a);
+}
+
+:global(.dark) .howCardTitle {
+  color: #f8fafc;
+}
+
+.howCardDesc {
+  color: var(--color-text-secondary, #64748b);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+:global(.dark) .howCardDesc {
+  color: #94a3b8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .howGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .howSection {
+    padding: 4rem 0;
+  }
+  .howGrid {
+    grid-template-columns: 1fr;
+  }
+}

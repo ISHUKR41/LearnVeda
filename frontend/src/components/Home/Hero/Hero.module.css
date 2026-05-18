@@ -1,0 +1,219 @@
+/*
+ * FILE: Hero.module.css
+ * LOCATION: src/components/Home/Hero/Hero.module.css
+ * PURPOSE: Minimalistic and highly professional CSS for the Hero component.
+ * Features fluid typography, advanced glassmorphism, and hardware-accelerated animations.
+ */
+
+.heroSection {
+  position: relative;
+  min-height: min(95vh, 900px);
+  display: flex;
+  align-items: center;
+  background: #060913; /* Deep professional dark background */
+  padding: calc(var(--navbar-height, 80px) + 4rem) 0 5rem;
+  overflow: hidden;
+}
+
+.heroBackgroundImage {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.65;
+  transition: transform 10s ease-out; /* Slow zoom effect on load */
+  animation: heroZoom 20s infinite alternate ease-in-out;
+}
+
+@keyframes heroZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
+.heroImageOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(6, 9, 19, 0.98) 0%, rgba(6, 9, 19, 0.85) 45%, rgba(6, 9, 19, 0.3) 100%),
+    linear-gradient(180deg, rgba(6, 9, 19, 0.2) 0%, rgba(6, 9, 19, 0.95) 100%);
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 10;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.heroContent {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(59, 130, 246, 0.1); /* Subtle blue tint */
+  color: #93C5FD;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.iconPulse {
+  animation: pulseIcon 2s infinite;
+}
+
+@keyframes pulseIcon {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.heroTitle {
+  font-family: var(--font-family-heading, 'Inter', sans-serif);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em; /* Modern tight tracking */
+}
+
+.highlightText {
+  background: linear-gradient(135deg, #60A5FA, #A78BFA, #F472B6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-family: var(--font-family-body, 'Inter', sans-serif);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  max-width: 680px;
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #2563EB, #4F46E5);
+  color: #FFFFFF;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid transparent;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.arrowIcon {
+  transition: transform 0.3s ease;
+}
+
+.btnPrimary:hover .arrowIcon {
+  transform: translateX(4px);
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  font-weight: 600;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.heroStatsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.heroStatItem strong {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-family: var(--font-family-heading, 'Inter', sans-serif);
+  margin-right: 0.25rem;
+}
+
+.heroStatDivider {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .heroSection {
+    min-height: auto;
+    padding: calc(var(--navbar-height, 70px) + 3rem) 0 4rem;
+  }
+  .heroImageOverlay {
+    background: linear-gradient(180deg, rgba(6, 9, 19, 0.95) 0%, rgba(6, 9, 19, 0.8) 50%, rgba(6, 9, 19, 0.98) 100%);
+  }
+  .heroInner, .heroContent {
+    align-items: stretch;
+    text-align: left;
+  }
+  .heroActions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .btnPrimary, .btnSecondary {
+    width: 100%;
+  }
+  .heroStatsRow {
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+}

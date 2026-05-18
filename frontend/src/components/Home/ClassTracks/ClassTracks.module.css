@@ -1,0 +1,209 @@
+/*
+ * FILE: ClassTracks.module.css
+ * LOCATION: src/components/Home/ClassTracks/ClassTracks.module.css
+ * PURPOSE: Styles for the ClassTracks component. Features colorful card borders and clean hover states.
+ */
+
+.tracksSection {
+  background: var(--color-bg-secondary, #f8fafc);
+  padding: 6rem 0;
+}
+
+:global(.dark) .tracksSection {
+  background: #0b1120;
+}
+
+.sectionInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionTitle {
+  font-family: var(--font-family-heading, 'Inter', sans-serif);
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--color-text-primary, #0f172a);
+  margin-bottom: 1rem;
+}
+
+:global(.dark) .sectionTitle {
+  color: #f8fafc;
+}
+
+.sectionSubtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary, #64748b);
+  line-height: 1.6;
+}
+
+:global(.dark) .sectionSubtitle {
+  color: #94a3b8;
+}
+
+.tracksGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.trackCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-card, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left-width: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+:global(.dark) .trackCard {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+
+.trackCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+:global(.dark) .trackCard:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  border-right-color: #334155;
+  border-top-color: #334155;
+  border-bottom-color: #334155;
+}
+
+.cardBlue { border-left-color: #3B82F6; }
+.cardViolet { border-left-color: #8B5CF6; }
+.cardEmerald { border-left-color: #10B981; }
+.cardAmber { border-left-color: #F59E0B; }
+.cardCyan { border-left-color: #06B6D4; }
+.cardRed { border-left-color: #EF4444; }
+
+/* Subtle gradient background on hover */
+.trackCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cardBlue::after { background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), transparent); }
+.cardViolet::after { background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), transparent); }
+.cardEmerald::after { background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent); }
+.cardAmber::after { background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), transparent); }
+.cardCyan::after { background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), transparent); }
+.cardRed::after { background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), transparent); }
+
+.trackCard:hover::after {
+  opacity: 1;
+}
+
+.trackCardContent {
+  flex: 1;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.trackName {
+  font-family: var(--font-family-heading, 'Inter', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary, #0f172a);
+}
+
+:global(.dark) .trackName {
+  color: #f8fafc;
+}
+
+.trackDesc {
+  color: var(--color-text-secondary, #64748b);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+:global(.dark) .trackDesc {
+  color: #94a3b8;
+}
+
+.trackStats {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.trackStatBadge {
+  background: var(--color-bg-secondary, #f1f5f9);
+  color: var(--color-text-secondary, #475569);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+:global(.dark) .trackStatBadge {
+  background: #1e293b;
+  color: #94a3b8;
+}
+
+.trackFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-border, #e2e8f0);
+  padding-top: 1.5rem;
+  color: var(--color-primary, #3b82f6);
+  font-weight: 600;
+  font-size: 0.875rem;
+  position: relative;
+  z-index: 1;
+}
+
+:global(.dark) .trackFooter {
+  border-top-color: #1e293b;
+  color: #60a5fa;
+}
+
+.trackLinkIcon {
+  transition: transform 0.3s ease;
+}
+
+.trackCard:hover .trackLinkIcon {
+  transform: translateX(6px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .tracksGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .tracksSection {
+    padding: 4rem 0;
+  }
+  .tracksGrid {
+    grid-template-columns: 1fr;
+  }
+}

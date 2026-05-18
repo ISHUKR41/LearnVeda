@@ -1,0 +1,55 @@
+/*
+ * FILE: CTA.module.css
+ * LOCATION: src/components/Home/CTA/CTA.module.css
+ * PURPOSE: Styles for the CTA component.
+ * LAST UPDATED: 2026-05-18
+ */
+
+.ctaSection {
+  padding: var(--space-20) var(--space-6);
+  background: var(--color-bg-primary);
+}
+
+.ctaInner {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+}
+
+.ctaContent {
+  background: linear-gradient(135deg, #1E3A8A 0%, #312E81 100%);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-16) var(--space-8);
+  text-align: center;
+  color: white;
+}
+
+.ctaTitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-4);
+}
+
+.ctaSubtitle {
+  font-size: var(--font-size-body);
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--space-8);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaButton {
+  display: inline-flex;
+  padding: var(--space-3) var(--space-8);
+  background: white;
+  color: #1E3A8A;
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: transform var(--transition-fast);
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+}

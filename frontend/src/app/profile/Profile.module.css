@@ -1,0 +1,528 @@
+/*
+ * FILE: Profile.module.css
+ * LOCATION: src/app/profile/Profile.module.css
+ * PURPOSE: All styles for the user Profile page.
+ *          This module is ONLY for the /profile route — no global side-effects.
+ *          Covers: profile hero, XP bar, streak display, stats grid, activity heatmap,
+ *          subject progress, badge collection, and edit profile button.
+ * USED BY: src/app/profile/page.tsx
+ * LAST UPDATED: 2026-05-16
+ */
+
+/* =====================================================================
+ * PAGE SHELL
+ * Full-page wrapper with a subtle gradient background
+ * ===================================================================== */
+.page {
+  min-height: calc(100vh - var(--navbar-height));
+  background: var(--color-bg-secondary);
+  padding: var(--space-8) 0 var(--space-16);
+}
+
+.container {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+/* =====================================================================
+ * PROFILE HERO CARD
+ * Large card at top with avatar, name, level, and XP bar
+ * ===================================================================== */
+.heroCard {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--color-border);
+  padding: var(--space-8) var(--space-8);
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-md);
+}
+
+.heroInner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+/* The circular avatar with the user's initial or image */
+.avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), #7C3AED);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  font-family: var(--font-heading);
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.35);
+  position: relative;
+}
+
+/* Level badge overlaid on the bottom-right of the avatar */
+.avatarLevelBadge {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: var(--font-size-xsmall);
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 99px;
+  border: 2px solid var(--color-bg-card);
+  white-space: nowrap;
+}
+
+.heroInfo {
+  flex: 1;
+  min-width: 200px;
+}
+
+.heroName {
+  font-family: var(--font-heading);
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+  margin: 0 0 var(--space-1);
+}
+
+.heroEmail {
+  font-size: var(--font-size-small);
+  color: var(--color-text-tertiary);
+  margin: 0 0 var(--space-3);
+}
+
+.heroMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* Track badge (e.g. "Class 9" or "Engineering") */
+.trackBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--color-primary-lightest);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary-lighter);
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: var(--font-size-xsmall);
+  font-weight: 600;
+}
+
+/* Streak indicator in the hero */
+.streakBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--color-accent-lightest);
+  color: var(--color-accent);
+  border: 1px solid #FDE68A;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: var(--font-size-xsmall);
+  font-weight: 600;
+}
+
+/* "Edit Profile" button in the top-right of the hero card */
+.editBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-decoration: none;
+}
+
+.editBtn:hover {
+  background: var(--color-bg-card-hover);
+  color: var(--color-text-primary);
+}
+
+/* =====================================================================
+ * XP PROGRESS BAR
+ * Shows progress from current level to next level
+ * ===================================================================== */
+.xpSection {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.xpHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--space-2);
+}
+
+.xpLabel {
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.xpNumbers {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
+}
+
+.xpBarTrack {
+  height: 10px;
+  border-radius: 99px;
+  background: var(--color-bg-tertiary);
+  overflow: hidden;
+}
+
+/* The filled portion of the XP bar — width driven by --xp-w CSS custom property */
+.xpBarFill {
+  width: var(--xp-w, 0%);
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--color-primary), #7C3AED);
+  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =====================================================================
+ * STATS GRID
+ * 4 stat cards: Total XP, Battles Won, Questions Solved, Chapters Done
+ * ===================================================================== */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+@media (max-width: 768px) {
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .statsGrid { grid-template-columns: 1fr 1fr; }
+}
+
+.statCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Colored icon circle above the stat number — four fixed colours per stat type */
+.statIconWrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-3);
+}
+
+/* Per-stat-type background + icon colour — replaces inline style={{ background }} */
+.statIconXp        { background: #EFF6FF; color: #2563EB; }
+.statIconBattle    { background: #EEF2FF; color: #6366F1; }
+.statIconQuestions { background: #ECFDF5; color: #10B981; }
+.statIconChapters  { background: #FFFBEB; color: #D97706; }
+
+/* Not-logged-in lock icon circle — replaces big inline style object */
+.notLoggedInIconWrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-6);
+  color: var(--color-text-tertiary);
+}
+
+/* Empty-state containers (subject progress + recent activity) */
+.emptyState {
+  text-align: center;
+  padding: var(--space-8) 0;
+  color: var(--color-text-tertiary);
+}
+
+.emptyStateIcon {
+  margin: 0 auto var(--space-3);
+  opacity: 0.4;
+  display: block;
+}
+
+.emptyStateText {
+  font-size: var(--font-size-small);
+}
+
+.emptyStateLink {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Skeleton: hero card, avatar, name, email, xp bar */
+.skeletonHeroCard   { min-height: 200px; }
+.skeletonAvatar     { width: 88px; height: 88px; border-radius: 50%; margin: 0 auto var(--space-4); }
+.skeletonName       { width: 220px; height: 24px; margin: 0 auto var(--space-2); }
+.skeletonEmail      { width: 160px; height: 14px; margin: 0 auto var(--space-4); }
+.skeletonXpBar      { width: 100%; height: 10px; border-radius: 8px; }
+.skeletonStatIcon   { width: 44px; height: 44px; border-radius: 12px; margin: 0 auto var(--space-3); }
+.skeletonStatValue  { width: 60px; height: 28px; margin: 0 auto var(--space-2); }
+.skeletonStatLabel  { width: 80px; height: 12px; margin: 0 auto; }
+
+.statValue {
+  font-family: var(--font-heading);
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.statLabel {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* =====================================================================
+ * TWO-COLUMN LAYOUT
+ * Left: subject progress. Right: recent activity / badges.
+ * ===================================================================== */
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+@media (max-width: 860px) {
+  .twoCol { grid-template-columns: 1fr; }
+}
+
+/* =====================================================================
+ * SECTION CARD
+ * Reusable card for subject progress, badges, etc.
+ * ===================================================================== */
+.sectionCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* =====================================================================
+ * SUBJECT PROGRESS LIST
+ * Progress bars per subject within the left column card
+ * ===================================================================== */
+.subjectList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.subjectItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.subjectHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subjectName {
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.subjectPercent {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
+}
+
+.progressTrack {
+  height: 7px;
+  border-radius: 99px;
+  background: var(--color-bg-tertiary);
+  overflow: hidden;
+}
+
+.progressFill {
+  /* Width + color driven by CSS custom properties set in the component */
+  width: var(--progress-w, 0%);
+  background: var(--progress-color, var(--color-primary));
+  height: 100%;
+  border-radius: 99px;
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =====================================================================
+ * RECENT ACTIVITY LIST
+ * Right column — last 5 actions the user took
+ * ===================================================================== */
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.activityItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.activityIcon {
+  /* Background + text color driven by CSS custom properties set in the component */
+  background: var(--activity-bg, var(--color-bg-tertiary));
+  color: var(--activity-color, var(--color-text-secondary));
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.activityText {
+  flex: 1;
+  min-width: 0;
+}
+
+.activityTitle {
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activityTime {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+}
+
+.activityXp {
+  font-size: var(--font-size-xsmall);
+  font-weight: 700;
+  color: var(--color-success);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+/* =====================================================================
+ * NOT LOGGED IN STATE
+ * Shown when a guest visits the /profile route
+ * ===================================================================== */
+.notLoggedIn {
+  min-height: calc(100vh - var(--navbar-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+}
+
+.notLoggedInCard {
+  text-align: center;
+  max-width: 420px;
+}
+
+.notLoggedInTitle {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.notLoggedInText {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+  line-height: 1.6;
+}
+
+.ctaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.ctaLink:hover {
+  background: var(--color-primary-hover);
+}
+
+/* =====================================================================
+ * RESPONSIVE ADJUSTMENTS
+ * ===================================================================== */
+@media (max-width: 640px) {
+  .heroInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .editBtn {
+    align-self: flex-start;
+  }
+
+  .heroCard {
+    padding: var(--space-5);
+  }
+}

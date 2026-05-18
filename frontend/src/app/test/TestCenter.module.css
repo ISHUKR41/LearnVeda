@@ -1,0 +1,220 @@
+/*
+ * FILE: TestCenter.module.css
+ * LOCATION: src/app/test/TestCenter.module.css
+ * PURPOSE: Route-local styling for the Test Center page. The layout keeps
+ *          assessment navigation calm, readable, and separate from unrelated
+ *          marketing or dashboard styling.
+ * USED BY: src/app/test/page.tsx
+ * LAST UPDATED: 2026-05-12
+ */
+
+.page {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4) var(--space-16);
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+}
+
+.hero {
+  display: grid;
+  gap: var(--space-6);
+  align-items: stretch;
+  margin-bottom: var(--space-8);
+}
+
+@media (min-width: 980px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.85fr);
+  }
+}
+
+.heroCopy,
+.statusPanel,
+.laneCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.heroCopy {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.kicker,
+.statusHeader,
+.foundationList span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.kicker {
+  margin-bottom: var(--space-4);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-primary);
+  background: var(--color-primary-lightest);
+  border: 1px solid var(--color-primary-lighter);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+}
+
+.heroCopy h1,
+.foundationBand h2 {
+  font-family: var(--font-family-heading);
+  color: var(--color-text-primary);
+}
+
+.heroCopy h1 {
+  max-width: 780px;
+  margin-bottom: var(--space-4);
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1.1;
+}
+
+.heroCopy p,
+.laneCard p,
+.statusPanel li {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.heroCopy p {
+  max-width: 760px;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.primaryAction,
+.secondaryAction,
+.inlineLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.primaryAction,
+.secondaryAction {
+  min-height: 3rem;
+  padding: 0 var(--space-5);
+}
+
+.primaryAction {
+  color: white;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+}
+
+.secondaryAction {
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.statusPanel {
+  padding: var(--space-6);
+}
+
+.statusHeader {
+  margin-bottom: var(--space-4);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.statusPanel ul {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.lanes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.laneCard {
+  padding: var(--space-6);
+}
+
+.laneIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: var(--space-4);
+  color: var(--color-primary);
+  background: var(--color-primary-lightest);
+  border-radius: var(--radius-lg);
+}
+
+.laneCard h2 {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h4);
+}
+
+.inlineLink {
+  margin-top: var(--space-4);
+  color: var(--color-primary);
+}
+
+.foundationBand {
+  display: grid;
+  gap: var(--space-5);
+  align-items: center;
+  padding: var(--space-6);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+@media (min-width: 960px) {
+  .foundationBand {
+    grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.8fr);
+  }
+}
+
+.foundationBand span {
+  color: var(--color-primary);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+}
+
+.foundationBand h2 {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-h3);
+  line-height: 1.2;
+}
+
+.foundationList {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.foundationList span {
+  min-height: 2.75rem;
+  padding: 0 var(--space-4);
+  color: var(--color-text-primary);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}

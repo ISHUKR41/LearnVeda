@@ -1,0 +1,352 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ==========================================
+// 1. USER MANAGEMENT & ROLES
+// ==========================================
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  phone         String?   @unique
+  passwordHash  String?
+  role          String    @default("STUDENT") // GUEST, STUDENT, ENG_LEARNER, ORGANIZER, TEACHER, PARENT, ADMIN, MODERATOR, PROCTOR
+  
+  // Gamification & Progress
+  points        Int       @default(0)
+  xp            Int       @default(0)
+  currentLevel  Int       @default(1)
+  currentStreak Int       @default(0)
+  highestStreak Int       @default(0)
+  lastActive    DateTime  @default(now())
+  
+  // Minors & Safety
+  isMinor       Boolean   @default(false)
+  parentEmail   String?   // For consent and progress reports
+  
+  // Account status
+  isActive      Boolean   @default(true)
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  progress      UserProgress[]
+  testScores    TestScore[]
+  matchParticipants MatchParticipant[]
+  posts         CommunityPost[]
+  comments      CommunityComment[]
+  eventRegistrations EventRegistration[]
+  codingSubmissions CodingSubmission[]
+  achievements  UserAchievement[]
+  studentProfile StudentProfile?
+}
+
+model StudentProfile {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  classId     String?
+  stream      String?
+  board       String    @default("CBSE")
+  targetExams String?
+  skillLevel  String    @default("beginner")
+  languagePreference String @default("english")
+  phone       String?
+  parentPhone String?
+  institution String?
+  totalPoints Int       @default(0)
+  currentLevel Int      @default(1)
+  currentStreak Int     @default(0)
+  longestStreak Int     @default(0)
+  xpMultiplier Float    @default(1.0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user        User      @relation(fields: [userId], references: [id])
+  class       ClassCategory? @relation(fields: [classId], references: [id])
+}
+
+// ==========================================
+// 2. ACADEMIC STRUCTURE (Classes 9-12)
+// ==========================================
+
+model ClassCategory {
+  id          String    @id @default(cuid())
+  name        String    // e.g., "Class 9", "Class 10", "Class 11", "Class 12", "Engineering"
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  subjects    Subject[]
+  communities CommunityCategory[]
+  studentProfiles StudentProfile[]
+}
+
+model Stream {
+  id          String    @id @default(cuid())
+  name        String    // e.g., "Science", "Commerce", "Humanities", "Common"
+  description String?
+  
+  subjects    Subject[]
+}
+
+model Subject {
+  id          String    @id @default(cuid())
+  name        String    // e.g., "Mathematics", "Physics", "Computer Science"
+  classId     String
+  streamId    String?   // Nullable because Class 9/10 don't have streams
+  
+  class       ClassCategory @relation(fields: [classId], references: [id])
+  stream      Stream?       @relation(fields: [streamId], references: [id])
+  chapters    Chapter[]
+  matches     Match[]
+}
+
+model Chapter {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  orderIndex  Int       @default(0)
+  subjectId   String
+
+  subject     Subject   @relation(fields: [subjectId], references: [id])
+  topics      Topic[]
+  progress    UserProgress[]
+  tests       MockTest[]
+}
+
+model Topic {
+  id          String    @id @default(cuid())
+  title       String
+  content     String?   // Markdown or rich text content
+  youtubeLink String?   // Video lecture or help link
+  orderIndex  Int       @default(0)
+  chapterId   String
+
+  chapter     Chapter   @relation(fields: [chapterId], references: [id])
+  questions   Question[]
+}
+
+// ==========================================
+// 3. ENGINEERING & CODING STRUCTURE
+// ==========================================
+
+model CodingLanguage {
+  id          String    @id @default(cuid())
+  name        String    // e.g., "Python", "Java", "C++"
+  description String?
+  
+  problems    CodingProblem[]
+  plans       LearningPlan[]
+}
+
+model CodingProblem {
+  id            String    @id @default(cuid())
+  title         String
+  description   String
+  difficulty    String    // EASY, MEDIUM, HARD
+  languageId    String
+  starterCode   String?
+  testCases     String    // JSON format
+  youtubeLink   String?   // Help video
+
+  language      CodingLanguage @relation(fields: [languageId], references: [id])
+  submissions   CodingSubmission[]
+}
+
+model CodingSubmission {
+  id            String    @id @default(cuid())
+  userId        String
+  problemId     String
+  code          String
+  status        String    // PASSED, FAILED, ERROR
+  executionTime Int?      // in ms
+  submittedAt   DateTime  @default(now())
+
+  user          User           @relation(fields: [userId], references: [id])
+  problem       CodingProblem  @relation(fields: [problemId], references: [id])
+}
+
+model LearningPlan {
+  id            String    @id @default(cuid())
+  name          String    // e.g., "30-Day Beginner Plan"
+  languageId    String
+  durationDays  Int
+
+  language      CodingLanguage @relation(fields: [languageId], references: [id])
+}
+
+// ==========================================
+// 4. TESTING, PRACTICE & PROGRESS
+// ==========================================
+
+model Question {
+  id          String    @id @default(cuid())
+  content     String
+  options     String    // JSON string of options
+  answer      String
+  explanation String?
+  youtubeLink String?   // Video solution link
+  difficulty  String    @default("MEDIUM") // EASY, MEDIUM, HARD
+  
+  topicId     String?
+  testId      String?
+
+  topic       Topic?    @relation(fields: [topicId], references: [id])
+  test        MockTest? @relation(fields: [testId], references: [id])
+}
+
+model MockTest {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  chapterId   String?
+  duration    Int       // in minutes
+  isProctored Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+
+  chapter     Chapter?  @relation(fields: [chapterId], references: [id])
+  questions   Question[]
+  scores      TestScore[]
+}
+
+model TestScore {
+  id          String    @id @default(cuid())
+  testId      String
+  userId      String
+  score       Int
+  total       Int
+  completedAt DateTime  @default(now())
+
+  test        MockTest  @relation(fields: [testId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+model UserProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  chapterId   String
+  completed   Boolean   @default(false)
+  score       Int?
+  updatedAt   DateTime  @updatedAt
+
+  user        User      @relation(fields: [userId], references: [id])
+  chapter     Chapter   @relation(fields: [chapterId], references: [id])
+
+  @@unique([userId, chapterId])
+}
+
+// ==========================================
+// 5. MATCH ARENA (Safe Gamified Battles)
+// ==========================================
+
+model Match {
+  id          String    @id @default(cuid())
+  subjectId   String
+  status      String    // WAITING, ACTIVE, COMPLETED, CANCELLED
+  startTime   DateTime  @default(now())
+  endTime     DateTime?
+
+  subject     Subject   @relation(fields: [subjectId], references: [id])
+  participants MatchParticipant[]
+}
+
+model MatchParticipant {
+  id          String    @id @default(cuid())
+  matchId     String
+  userId      String
+  score       Int       @default(0)
+  isWinner    Boolean   @default(false)
+
+  match       Match     @relation(fields: [matchId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+// ==========================================
+// 6. COMMUNITY & DISCUSSION
+// ==========================================
+
+model CommunityCategory {
+  id          String    @id @default(cuid())
+  name        String
+  classId     String?
+
+  class       ClassCategory? @relation(fields: [classId], references: [id])
+  posts       CommunityPost[]
+}
+
+model CommunityPost {
+  id          String    @id @default(cuid())
+  title       String
+  content     String
+  authorId    String
+  categoryId  String
+  upvotes     Int       @default(0)
+  createdAt   DateTime  @default(now())
+
+  author      User      @relation(fields: [authorId], references: [id])
+  category    CommunityCategory @relation(fields: [categoryId], references: [id])
+  comments    CommunityComment[]
+}
+
+model CommunityComment {
+  id            String    @id @default(cuid())
+  content       String
+  postId        String
+  authorId      String
+  isMentorReply Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+
+  post          CommunityPost @relation(fields: [postId], references: [id])
+  author        User          @relation(fields: [authorId], references: [id])
+}
+
+// ==========================================
+// 7. EVENTS & COLLEGE COMPETITIONS
+// ==========================================
+
+model Event {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  organizerId String    // Admin or Organizer role user
+  startTime   DateTime
+  endTime     DateTime
+  isProctored Boolean   @default(false)
+
+  registrations EventRegistration[]
+}
+
+model EventRegistration {
+  id          String    @id @default(cuid())
+  eventId     String
+  userId      String
+  registeredAt DateTime @default(now())
+
+  event       Event     @relation(fields: [eventId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+// ==========================================
+// 8. REWARDS & ACHIEVEMENTS
+// ==========================================
+
+model UserAchievement {
+  id          String    @id @default(cuid())
+  userId      String
+  title       String
+  description String
+  badgeIcon   String?
+  awardedAt   DateTime  @default(now())
+
+  user        User      @relation(fields: [userId], references: [id])
+}

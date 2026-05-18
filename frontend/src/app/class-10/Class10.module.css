@@ -1,0 +1,317 @@
+/*
+ * FILE: Class10.module.css
+ * LOCATION: src/app/class-10/Class10.module.css
+ * PURPOSE: Route-local styles for the Class 10 Board Exam Preparation page.
+ *          Amber/orange accent distinguishes Class 10 (board exam focus) from
+ *          Class 9 (blue), Class 11/12 (green/brown). All class names match
+ *          exactly what page.tsx uses.
+ * USED BY: src/app/class-10/page.tsx
+ * DEPENDENCIES: src/styles/globals.css custom properties
+ * LAST UPDATED: 2026-05-17
+ */
+
+/* ─── Page Wrapper ──────────────────────────────────────────────────────────── */
+
+.page {
+  padding: var(--space-8) 0 var(--space-16);
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+.inner {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .inner {
+    padding: 0 var(--space-6);
+  }
+}
+
+/* ─── Hero Section ──────────────────────────────────────────────────────────── */
+
+/* Deep amber-brown gradient — marks this as the serious board prep page */
+.hero {
+  position: relative;
+  min-height: 320px;
+  padding: var(--space-12) var(--space-8);
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(135deg, #1C0F00 0%, #2D1800 50%, #3D2200 100%);
+  color: white;
+  margin-bottom: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Amber radial highlight keeps the board-prep hero visually distinct. */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Amber eyebrow badge */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: var(--radius-full);
+  color: #FCD34D;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-4);
+  width: max-content;
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.1;
+  margin-bottom: var(--space-4);
+  max-width: 800px;
+}
+
+.heroSubtitle {
+  font-size: var(--font-size-h4);
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: var(--space-8);
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* ─── Stats Bar ─────────────────────────────────────────────────────────────── */
+
+.statsBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-6);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: max-content;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.statValue {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: white;
+}
+
+.statLabel {
+  font-size: var(--font-size-xsmall);
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ─── Section Headings ──────────────────────────────────────────────────────── */
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-6);
+  display: inline-block;
+  position: relative;
+  color: var(--color-text-primary);
+}
+
+/* Amber underline accent unique to Class 10 */
+.sectionTitle::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 40px;
+  height: 4px;
+  background-color: #D97706;
+  border-radius: var(--radius-full);
+}
+
+/* ─── Subject Grid ──────────────────────────────────────────────────────────── */
+
+.subjectGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-12);
+}
+
+@media (min-width: 768px) {
+  .subjectGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .subjectGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ─── Subject Card ──────────────────────────────────────────────────────────── */
+
+.subjectCard {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid #D97706;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  text-decoration: none;
+}
+
+.subjectCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-left-color: #F59E0B;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.subjectIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+}
+
+.subjectName {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.subjectDesc {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: var(--space-6);
+  flex-grow: 1;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.chapterCount {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.startBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  color: #D97706;
+  transition: opacity var(--transition-fast);
+}
+
+.subjectCard:hover .startBtn {
+  opacity: 0.8;
+}
+
+/* ─── Subject Icon Color Variants ───────────────────────────────────────────
+ * Each subject has its own background + foreground color.
+ * These replace the old inline style={{ background: ..., color: ... }} pattern.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+.iconBlue   { background: #EFF6FF; color: #2563EB; }
+.iconIndigo { background: #EEF2FF; color: #4F46E5; }
+.iconGreen  { background: #ECFDF5; color: #059669; }
+.iconViolet { background: #F5F3FF; color: #7C3AED; }
+.iconAmber  { background: #FFFBEB; color: #D97706; }
+.iconRed    { background: #FEF2F2; color: #DC2626; }
+
+/* Dark mode: brighter tints for dark backgrounds */
+:global(.dark) .iconBlue   { background: rgba(37, 99, 235, 0.15); color: #60A5FA; }
+:global(.dark) .iconIndigo { background: rgba(79, 70, 229, 0.15); color: #818CF8; }
+:global(.dark) .iconGreen  { background: rgba(5, 150, 105, 0.15); color: #34D399; }
+:global(.dark) .iconViolet { background: rgba(124, 58, 237, 0.15); color: #A78BFA; }
+:global(.dark) .iconAmber  { background: rgba(217, 119, 6, 0.15); color: #FCD34D; }
+:global(.dark) .iconRed    { background: rgba(220, 38, 38, 0.15); color: #FCA5A5; }
+
+/* ─── Callout / Tips Section ────────────────────────────────────────────────── */
+
+.calloutSection {
+  background: var(--color-bg-secondary);
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid #D97706;
+  margin-top: var(--space-4);
+}
+
+.calloutText {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 0;
+}
+
+/* ─── Mobile Responsive ─────────────────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .hero {
+    padding: var(--space-8) var(--space-5);
+    min-height: auto;
+  }
+
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .statsBar {
+    width: 100%;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .calloutSection {
+    padding: var(--space-6) var(--space-5);
+  }
+}

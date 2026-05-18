@@ -1,0 +1,304 @@
+/*
+ * FILE: Contact.module.css
+ * LOCATION: src/app/contact/Contact.module.css
+ * PURPOSE: Production-grade page-specific styles for the Contact page.
+ *          Contains hero section, contact method cards, FAQ section,
+ *          and a contact form layout.
+ * USED BY: src/app/contact/page.tsx
+ * LAST UPDATED: 2026-05-11
+ */
+
+/* ==================== PAGE CONTAINER ==================== */
+.page {
+  width: 100%;
+}
+
+/* ==================== HERO SECTION ==================== */
+/* Full-width hero with subtle gradient overlay. */
+.hero {
+  position: relative;
+  padding: var(--space-16) var(--space-4) var(--space-12);
+  text-align: center;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(59, 130, 246, 0.08), transparent),
+    var(--color-bg-primary);
+}
+
+/* Inner container for the hero content. */
+.heroInner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Kicker badge — small uppercase pill label. */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-primary);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Main heading */
+.heroTitle {
+  margin-bottom: var(--space-5);
+  font-family: var(--font-family-heading);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.15;
+  color: var(--color-text-primary);
+}
+
+/* Subtitle */
+.heroSubtitle {
+  max-width: 560px;
+  margin: 0 auto;
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  line-height: var(--line-height-relaxed);
+}
+
+/* ==================== CONTACT METHODS SECTION ==================== */
+/* Grid of contact method cards — each shows a different way to reach EduQuest. */
+.methodsSection {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4) var(--space-16);
+}
+
+@media (min-width: 768px) {
+  .methodsSection {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+}
+
+/* Methods grid — responsive 3-column layout. */
+.methodsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+/* Individual method card — interactive with hover effects. */
+.methodCard {
+  padding: var(--space-6);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.methodCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+/* Method card icon — centered gradient circle.
+ * Background driven by --icon-gradient CSS custom property set in page.tsx. */
+.methodIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 auto var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--icon-gradient, var(--color-primary));
+  color: white;
+}
+
+/* Method card heading */
+.methodCard h3 {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* Method card description */
+.methodCard p {
+  margin-bottom: var(--space-3);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Method card contact detail — email or link styled as primary color. */
+.methodDetail {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-primary);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.methodDetail:hover {
+  text-decoration: underline;
+}
+
+/* ==================== FAQ SECTION ==================== */
+/* Frequently asked questions — displayed as expandable cards. */
+.faqSection {
+  padding: var(--space-16) var(--space-4);
+  background: var(--color-bg-secondary);
+}
+
+@media (min-width: 768px) {
+  .faqSection {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+}
+
+/* FAQ inner container */
+.faqInner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* FAQ header — centered text */
+.faqHeader {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+/* Section label — consistent with other pages. */
+.sectionLabel {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  color: var(--color-primary);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Section title */
+.sectionTitle {
+  margin-bottom: var(--space-4);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* Section subtitle */
+.sectionSubtitle {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* FAQ list container */
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Individual FAQ item — card style with question and answer. */
+.faqItem {
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-fast);
+}
+
+.faqItem:hover {
+  border-color: var(--color-primary);
+}
+
+/* FAQ question — bold text. */
+.faqQuestion {
+  margin-bottom: var(--space-2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* FAQ answer — muted text. */
+.faqAnswer {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-relaxed);
+}
+
+/* ==================== CTA SECTION ==================== */
+.ctaSection {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-4);
+}
+
+.ctaCard {
+  text-align: center;
+  padding: var(--space-12) var(--space-8);
+  background: linear-gradient(135deg, #1e3a5f, #1e40af);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.ctaTitle {
+  margin-bottom: var(--space-4);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: white;
+}
+
+.ctaSubtitle {
+  max-width: 520px;
+  margin: 0 auto var(--space-6);
+  color: rgba(255, 255, 255, 0.78);
+  line-height: var(--line-height-relaxed);
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: white;
+  color: #1e3a5f;
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.ctaBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ==================== ENTRANCE ANIMATION ==================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.methodsSection,
+.faqSection,
+.ctaSection {
+  animation: fadeInUp 0.6s ease-out;
+}

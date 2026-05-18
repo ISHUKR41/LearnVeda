@@ -1,0 +1,97 @@
+/*
+ * FILE: StreakCounter.module.css
+ * LOCATION: src/components/gamification/StreakCounter.module.css
+ * PURPOSE: Styles for the StreakCounter gamification component.
+ * USED BY: StreakCounter.tsx
+ * LAST UPDATED: 2026-05-16
+ */
+
+/* ── Full wrapper ── */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+/* ── Main counter: icon + number side by side ── */
+.counter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Pulsing glow animation for 30+ day elite streaks */
+.glowing {
+  filter: drop-shadow(0 0 8px currentColor);
+  animation: streakGlow 2s ease-in-out infinite;
+}
+
+@keyframes streakGlow {
+  0%, 100% { filter: drop-shadow(0 0 4px currentColor); }
+  50%       { filter: drop-shadow(0 0 14px currentColor); }
+}
+
+/* Flame icon — inherits color from parent */
+.flameIcon {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.wrapper:hover .flameIcon {
+  transform: scale(1.15);
+}
+
+/* Large streak count number */
+.count {
+  font-family: var(--font-family-stats);
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+/* Streak tier label text */
+.label {
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* "Longest: X days" sub-label */
+.longestStreak {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+}
+
+.longestStreak strong {
+  color: var(--color-text-secondary);
+  font-weight: 700;
+}
+
+/* At-risk warning banner */
+.atRiskBanner {
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-xsmall);
+  color: var(--color-accent);
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ── Compact inline variant ── */
+.compact {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-family-stats);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  cursor: default;
+  white-space: nowrap;
+}

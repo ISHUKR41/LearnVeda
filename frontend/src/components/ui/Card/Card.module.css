@@ -1,0 +1,89 @@
+/*
+ * FILE: Card.module.css
+ * LOCATION: src/components/ui/Card/Card.module.css
+ * PURPOSE: Styles for the shared Card component — all variants,
+ *          accent bar, header/body/footer sub-components.
+ * USED BY: src/components/ui/Card/Card.tsx
+ * LAST UPDATED: 2026-05-11
+ */
+
+/* ==================== BASE CARD ==================== */
+/* All cards share this foundation — background, border, radius, padding.
+   Variants override shadow and hover behavior. */
+.card {
+  position: relative;
+  padding: var(--space-6);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+/* Remove padding when the noPadding prop is used. */
+.noPadding {
+  padding: 0;
+}
+
+/* ==================== VARIANTS ==================== */
+/* Default — standard card with subtle shadow. */
+.default {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Elevated — stronger shadow for visual prominence. */
+.elevated {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Outlined — no shadow, just border. */
+.outlined {
+  box-shadow: none;
+}
+
+/* Interactive — lifts on hover for clickable items. */
+.interactive {
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+/* ==================== ACCENT BAR ==================== */
+/* When the accentColor prop is provided, a colored bar appears at the top. */
+.hasAccent::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--card-accent);
+}
+
+/* ==================== SUB-COMPONENTS ==================== */
+/* Card header — top section with bottom border separator. */
+.header {
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Card body — main content area. No extra styling needed. */
+.body {
+  /* The body inherits padding from the parent card. */
+}
+
+/* Card footer — bottom section with top border separator. */
+.footer {
+  padding-top: var(--space-4);
+  margin-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}

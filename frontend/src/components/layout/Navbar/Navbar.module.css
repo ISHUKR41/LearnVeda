@@ -1,0 +1,406 @@
+/*
+ * FILE: Navbar.module.css
+ * LOCATION: src/components/layout/Navbar/Navbar.module.css
+ * PURPOSE: Styles for the Navbar component.
+ * USED BY: src/components/layout/Navbar/Navbar.tsx
+ * LAST UPDATED: 2026-05-17
+ */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  width: 100%;
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--transition-normal), backdrop-filter var(--transition-normal);
+}
+
+/* Scrolled state — glass effect works on dark navy background by default */
+.navbarScrolled {
+  background: rgba(13, 17, 23, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom-color: rgba(48, 54, 61, 0.6);
+}
+
+/* Light-mode scrolled override */
+[data-theme="light"] .navbarScrolled {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.navbarInner {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LOGO — EduQuest brand mark with gradient text */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+
+.logoIcon {
+  color: var(--color-primary);
+}
+
+.logoText {
+  font-family: var(--font-family-heading);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  /* Electric blue → violet gradient matching the MCP premium identity */
+  background: linear-gradient(135deg, var(--color-primary) 0%, #A371F7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0;
+}
+
+/* DESKTOP NAV */
+.navLinks {
+  display: none;
+  align-items: center;
+  gap: var(--space-6);
+  list-style: none;
+}
+
+@media (min-width: 1024px) {
+  .navLinks { display: flex; }
+}
+
+.navItem {
+  position: relative;
+}
+
+.navLink, .navBtn {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) 0;
+  transition: color var(--transition-fast);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navLink:hover, .navBtn:hover, .active {
+  color: var(--color-primary);
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.dropdownLink,
+.dropdownButton {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast), color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  text-align: left;
+}
+
+.dropdownLink:hover,
+.dropdownButton:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-primary);
+}
+
+.dropdownButton {
+  cursor: pointer;
+}
+
+/* NAV ICON BUTTON — Search, Bell, Battle icons in the right rail */
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.iconBtn:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-primary);
+}
+
+/* Battle button gets a distinct danger tint on hover */
+.battleBtn:hover {
+  color: var(--color-danger);
+}
+
+/* ACTIONS */
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.themeToggle {
+  color: var(--color-text-secondary);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast);
+}
+
+.themeToggle:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-primary);
+}
+
+.authButtons {
+  display: none;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .authButtons { display: flex; }
+}
+
+.btnGhost {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast), color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btnGhost:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-primary);
+}
+
+/* Account menu — compact authenticated shortcut list for production navigation */
+.accountMenu {
+  position: relative;
+}
+
+.accountButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  transition: border-color var(--transition-fast), color var(--transition-fast),
+              background var(--transition-fast);
+}
+
+.accountButton:hover {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.accountDropdown {
+  right: 0;
+  left: auto;
+  min-width: 210px;
+}
+
+/* Danger ghost button — for sign-out icon */
+.btnDanger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--color-text-tertiary);
+  border-radius: var(--radius-md);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.btnDanger:hover {
+  background: var(--color-danger-lightest);
+  color: var(--color-danger);
+}
+
+.btnPrimary {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  background: var(--color-primary);
+  color: white;
+  text-decoration: none;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  transition: opacity var(--transition-fast);
+}
+
+.btnPrimary:hover {
+  opacity: 0.9;
+}
+
+.skeleton {
+  width: 150px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-secondary);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.mobileToggle {
+  display: flex;
+  color: var(--color-text-secondary);
+}
+
+@media (min-width: 1024px) {
+  .mobileToggle { display: none; }
+}
+
+/* MOBILE DRAWER */
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: var(--z-modal-backdrop);
+}
+
+.mobileDrawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  background: var(--color-bg-card);
+  border-left: 1px solid var(--color-border);
+  z-index: var(--z-modal);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.drawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-8);
+}
+
+.closeBtn {
+  color: var(--color-text-secondary);
+}
+
+.drawerSection {
+  margin-bottom: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.drawerSectionTitle {
+  font-size: var(--font-size-xsmall);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-2);
+}
+
+.drawerLink {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: var(--space-2) 0;
+  border-left: 2px solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.drawerLink:hover {
+  color: var(--color-primary);
+  border-left-color: var(--color-primary);
+  padding-left: var(--space-2);
+}
+
+.drawerAuth {
+  margin-top: auto;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.drawerBtnPrimary {
+  text-align: center;
+  background: var(--color-primary);
+  color: white;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.drawerBtnSecondary {
+  text-align: center;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}

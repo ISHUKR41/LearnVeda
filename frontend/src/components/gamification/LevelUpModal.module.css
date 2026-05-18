@@ -1,0 +1,159 @@
+/*
+ * FILE: LevelUpModal.module.css
+ * LOCATION: src/components/gamification/LevelUpModal.module.css
+ * PURPOSE: Styles for the level-up celebration modal overlay.
+ *          Includes the dark backdrop, centred modal panel, animated entrance,
+ *          large level number, tier badge, and continue button.
+ * USED BY: LevelUpModal.tsx
+ * LAST UPDATED: 2026-05-16
+ */
+
+/* ── Dark backdrop ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: backdropIn 0.25s ease-out;
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Modal panel ── */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9100;
+  width: min(480px, calc(100vw - 2rem));
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10) var(--space-8) var(--space-8);
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+  animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translate(-50%, -48%) scale(0.9); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1);   }
+}
+
+/* ── Close button (top-right) ── */
+.closeBtn {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--color-text-tertiary);
+  transition: background 0.15s, color 0.15s;
+}
+
+.closeBtn:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
+/* ── Large icon badge ── */
+.levelBadge {
+  width: 80px;
+  height: 80px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin: 0 auto var(--space-5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: badgeBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+@keyframes badgeBounce {
+  from { transform: scale(0.6); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* ── "LEVEL UP!" label ── */
+.levelUpLabel {
+  font-family: var(--font-family-stats);
+  font-size: var(--font-size-xsmall);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-2);
+}
+
+/* ── The new level number ── */
+.levelNumber {
+  font-family: var(--font-family-heading);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 900;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-3);
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+/* ── Tier name pill ── */
+.tierName {
+  display: inline-block;
+  padding: 4px 16px;
+  border-radius: 99px;
+  font-size: var(--font-size-small);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
+}
+
+/* ── Achievement message ── */
+.message {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 360px;
+  margin: 0 auto var(--space-3);
+}
+
+/* ── Hint text ── */
+.hint {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-6);
+}
+
+/* ── Continue button ── */
+.continueBtn {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  color: #fff;
+  font-size: var(--font-size-body);
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.1s;
+  border: none;
+}
+
+.continueBtn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.continueBtn:active {
+  transform: translateY(0);
+}

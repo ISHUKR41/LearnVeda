@@ -1,0 +1,140 @@
+/*
+ * FILE: Features.module.css
+ * LOCATION: src/components/Home/Features/Features.module.css
+ * PURPOSE: Minimalistic and professional styles for the Features section.
+ */
+
+.featuresSection {
+  background: var(--color-bg-primary, #ffffff);
+  padding: 6rem 0;
+}
+
+:global(.dark) .featuresSection {
+  background: #060913;
+}
+
+.sectionInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionTitle {
+  font-family: var(--font-family-heading, 'Inter', sans-serif);
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--color-text-primary, #0f172a);
+  margin-bottom: 1rem;
+}
+
+:global(.dark) .sectionTitle {
+  color: #f8fafc;
+}
+
+.sectionSubtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary, #64748b);
+  line-height: 1.6;
+}
+
+:global(.dark) .sectionSubtitle {
+  color: #94a3b8;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.featureCard {
+  background: var(--color-bg-card, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:global(.dark) .featureCard {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+
+.featureCard:hover {
+  border-color: var(--color-primary, #3b82f6);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+:global(.dark) .featureCard:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+.featureIconWrapper {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(124, 58, 237, 0.1));
+  color: var(--color-primary, #3b82f6);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+:global(.dark) .featureIconWrapper {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(124, 58, 237, 0.2));
+  color: #60a5fa;
+}
+
+.featureCard:hover .featureIconWrapper {
+  transform: scale(1.1);
+}
+
+.featureTitle {
+  font-family: var(--font-family-heading, 'Inter', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary, #0f172a);
+}
+
+:global(.dark) .featureTitle {
+  color: #f8fafc;
+}
+
+.featureDesc {
+  color: var(--color-text-secondary, #64748b);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+:global(.dark) .featureDesc {
+  color: #94a3b8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .featuresGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .featuresSection {
+    padding: 4rem 0;
+  }
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+}

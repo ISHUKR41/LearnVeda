@@ -1,0 +1,133 @@
+/*
+ * FILE: Footer.module.css
+ * LOCATION: src/components/layout/Footer/Footer.module.css
+ * PURPOSE: Styles for the footer.
+ * USED BY: src/components/layout/Footer/Footer.tsx
+ * LAST UPDATED: 2026-05-17
+ */
+
+.footer {
+  background: #0B1120;
+  color: rgba(255, 255, 255, 0.7);
+  padding: var(--space-16) 0 var(--space-8);
+  margin-top: auto;
+}
+
+.footerInner {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--space-10);
+  margin-bottom: var(--space-12);
+}
+
+@media (max-width: 1024px) {
+  .footerGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12) var(--space-8);
+  }
+  .brandCol {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .footerGrid {
+    grid-template-columns: 1fr;
+  }
+  .brandCol {
+    grid-column: span 1;
+  }
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: white;
+}
+
+.logoIcon {
+  color: #60A5FA;
+}
+
+.logoText {
+  font-family: var(--font-family-heading);
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+}
+
+.tagline {
+  font-size: var(--font-size-small);
+  line-height: 1.6;
+  max-width: 300px;
+}
+
+.linkCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.colTitle {
+  color: white;
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body);
+  margin-bottom: var(--space-2);
+}
+
+.link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: var(--font-size-small);
+  transition: color var(--transition-fast);
+}
+
+.link:hover {
+  color: var(--color-primary);
+}
+
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.copyright {
+  font-size: var(--font-size-xsmall);
+}
+
+.bottomLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.bottomLink {
+  color: rgba(255, 255, 255, 0.6);
+  transition: color var(--transition-fast);
+  font-size: var(--font-size-xsmall);
+  text-decoration: none;
+}
+
+.bottomLink:hover {
+  color: white;
+}

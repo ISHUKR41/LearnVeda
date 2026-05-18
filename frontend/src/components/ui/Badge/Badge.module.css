@@ -1,0 +1,105 @@
+/*
+ * FILE: Badge.module.css
+ * LOCATION: src/components/ui/Badge/Badge.module.css
+ * PURPOSE: Styles for the shared Badge component — all color variants,
+ *          sizes, icon support, and pulsing dot indicator.
+ * USED BY: src/components/ui/Badge/Badge.tsx
+ * LAST UPDATED: 2026-05-11
+ */
+
+/* ==================== BASE BADGE ==================== */
+/* All badges share this base — inline-flex layout, pill shape, font sizing. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ==================== SIZE VARIANTS ==================== */
+/* Small — for inline badge use next to text. */
+.sm {
+  padding: 2px var(--space-2);
+  font-size: 0.65rem;
+}
+
+/* Medium — default badge size. */
+.md {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-xsmall);
+}
+
+/* Large — prominent labels. */
+.lg {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-small);
+}
+
+/* ==================== COLOR VARIANTS ==================== */
+/* Default — neutral gray tones. */
+.default {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+/* Primary — brand indigo tones. */
+.primary {
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--color-primary);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+}
+
+/* Success — green tones for positive states. */
+.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* Warning — amber tones for caution states. */
+.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: #D97706;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* Danger — red tones for errors or negative states. */
+.danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: #DC2626;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Info — blue tones for informational states. */
+.info {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563EB;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* ==================== PULSING DOT ==================== */
+/* Small colored dot that pulses to indicate an active/live state. */
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ==================== ICON SLOT ==================== */
+/* Container for the optional icon before the label text. */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}

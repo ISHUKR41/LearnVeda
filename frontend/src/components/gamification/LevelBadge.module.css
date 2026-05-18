@@ -1,0 +1,45 @@
+/*
+ * FILE: LevelBadge.module.css
+ * LOCATION: src/components/gamification/LevelBadge.module.css
+ * PURPOSE: Styles for the LevelBadge component — tier-coloured pill badge.
+ * USED BY: LevelBadge.tsx
+ * LAST UPDATED: 2026-05-16
+ */
+
+/* ── Base badge (all sizes share these) ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border-radius: 99px;
+  color: #fff;
+  font-family: var(--font-family-stats);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  user-select: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Size variants ── */
+
+/* Small — for leaderboard rows, community avatars */
+.sm {
+  padding: 2px 7px;
+  font-size: 10px;
+}
+
+/* Medium (default) — for profile cards and dashboard */
+.md {
+  padding: 3px 10px;
+  font-size: var(--font-size-xsmall);
+}
+
+/* Large — for the profile hero section */
+.lg {
+  padding: 5px 14px;
+  font-size: var(--font-size-small);
+  gap: 5px;
+}

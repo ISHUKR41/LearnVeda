@@ -1,0 +1,449 @@
+/*
+ * FILE: Wallet.module.css
+ * LOCATION: src/app/wallet/Wallet.module.css
+ * PURPOSE: Styles for the Wallet / Stars page.
+ *          Revolves around a large hero balance card at the top with
+ *          a gold glow, followed by informational sections below.
+ *          Designed for dark navy backgrounds.
+ * USED BY: src/app/wallet/page.tsx
+ * LAST UPDATED: 2026-05-17
+ */
+
+/* ── Page ──────────────────────────────────────────────── */
+
+.page {
+  min-height: calc(100vh - var(--navbar-height));
+  background: var(--color-bg-primary);
+  padding: var(--space-12) 0 var(--space-24);
+}
+
+.inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* ── Loading / Error states ────────────────────────────── */
+
+.loadingPage,
+.errorPage {
+  min-height: calc(100vh - var(--navbar-height));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  color: var(--color-text-secondary);
+}
+
+.errorPage { color: var(--color-danger); }
+
+.backLink {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--color-primary);
+}
+
+/* ── Back button ───────────────────────────────────────── */
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-small);
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  width: fit-content;
+}
+
+.backBtn:hover {
+  color: var(--color-primary);
+}
+
+/* ── Balance hero card ─────────────────────────────────── */
+
+.balanceCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10) var(--space-10);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* Ambient gold glow behind the card content */
+.balanceGlow {
+  position: absolute;
+  inset: -80px;
+  background: radial-gradient(ellipse 60% 50% at 50% 20%, rgba(240, 180, 41, 0.12), transparent);
+  pointer-events: none;
+}
+
+.balanceHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  position: relative;
+}
+
+.starIcon {
+  color: var(--color-accent);
+}
+
+.balanceAmount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  position: relative;
+}
+
+.balanceStar {
+  color: var(--color-accent);
+  filter: drop-shadow(0 0 12px rgba(240, 180, 41, 0.6));
+}
+
+.balanceNumber {
+  font-family: var(--font-family-heading);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-text-primary);
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.balanceCurrency {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  align-self: flex-end;
+  padding-bottom: 4px;
+}
+
+.balanceHint {
+  font-size: var(--font-size-small);
+  color: var(--color-text-tertiary);
+  position: relative;
+}
+
+/* Wagering status banners */
+.wagersUnlocked {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: rgba(63, 185, 80, 0.12);
+  border: 1px solid rgba(63, 185, 80, 0.3);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-success);
+  position: relative;
+}
+
+.battleLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  margin-left: var(--space-2);
+}
+
+.wagersLocked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-5);
+  background: rgba(139, 148, 158, 0.08);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-small);
+  color: var(--color-text-tertiary);
+  position: relative;
+}
+
+.lockProgress {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+}
+
+/* ── Quick stats row ───────────────────────────────────── */
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.statCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.statIcon {
+  color: var(--color-primary);
+}
+
+.statIconStar   { color: var(--color-accent); }
+.statIconShield { color: var(--color-success); }
+
+.statValue {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.statLabel {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Generic section ───────────────────────────────────── */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sectionIcon {
+  color: var(--color-primary);
+}
+
+.sectionTitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* ── Earn methods grid ─────────────────────────────────── */
+
+.earnGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.earnCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-fast);
+}
+
+.earnCard:hover {
+  border-color: var(--color-primary);
+}
+
+.earnIconBox {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.earnLearn     { background: rgba(88, 166, 255, 0.12); color: var(--color-primary); }
+.earnBattle    { background: rgba(248, 81, 73, 0.12);  color: var(--color-danger); }
+.earnEvent     { background: rgba(139, 92, 246, 0.12); color: #A371F7; }
+.earnCommunity { background: rgba(63, 185, 80, 0.12);  color: var(--color-success); }
+
+.earnContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.earnTitle {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.earnDesc {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.earnBadge {
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  background: rgba(240, 180, 41, 0.1);
+  border: 1px solid rgba(240, 180, 41, 0.2);
+  border-radius: var(--radius-full);
+  padding: 3px 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Milestones table ──────────────────────────────────── */
+
+.milestonesTable {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.milestonesHeader {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-bg-secondary);
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.milestoneRow {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+  position: relative;
+  transition: background var(--transition-fast);
+}
+
+.milestoneRow:last-child {
+  border-bottom: none;
+}
+
+.milestoneRow:hover {
+  background: var(--color-bg-secondary);
+}
+
+.milestoneReached {
+  color: var(--color-text-primary);
+}
+
+.milestoneCheck {
+  position: absolute;
+  left: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-success);
+}
+
+.milestoneLevel {
+  font-weight: var(--font-weight-semibold);
+  padding-left: var(--space-5);
+}
+
+.milestoneReward {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-medium);
+}
+
+.milestoneUnlock {
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-xsmall);
+}
+
+/* ── Rules card ────────────────────────────────────────── */
+
+.rulesCard {
+  background: rgba(88, 166, 255, 0.05);
+  border: 1px solid rgba(88, 166, 255, 0.15);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+
+.rulesTitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+
+.rulesList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.rulesList li {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  padding-left: var(--space-4);
+  position: relative;
+  line-height: 1.5;
+}
+
+.rulesList li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--color-text-tertiary);
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .page { padding: var(--space-8) 0 var(--space-16); }
+  .balanceCard { padding: var(--space-8) var(--space-6); }
+  .statsRow { grid-template-columns: 1fr; }
+  .earnCard { flex-wrap: wrap; }
+  .milestonesHeader,
+  .milestoneRow { grid-template-columns: 70px 1fr; }
+  .milestonesHeader > :last-child,
+  .milestoneRow > :last-child { display: none; }
+}

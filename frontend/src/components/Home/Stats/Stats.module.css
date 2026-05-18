@@ -1,0 +1,60 @@
+/*
+ * FILE: Stats.module.css
+ * LOCATION: src/components/Home/Stats/Stats.module.css
+ * PURPOSE: Styles for the Stats component.
+ * LAST UPDATED: 2026-05-18
+ */
+
+.statsSection {
+  background: #0B1120;
+  padding: var(--space-20) 0;
+  color: white;
+}
+
+.sectionInner {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-8);
+  text-align: center;
+}
+
+.statBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.statBigNumber {
+  font-family: var(--font-family-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--font-weight-extrabold);
+  background: linear-gradient(135deg, #60A5FA, #A78BFA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.statLabel {
+  font-size: var(--font-size-small);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: var(--font-weight-medium);
+}
+
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-10) var(--space-6);
+  }
+}
+
+@media (max-width: 480px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}

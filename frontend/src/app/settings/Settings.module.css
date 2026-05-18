@@ -1,0 +1,380 @@
+/*
+ * FILE: Settings.module.css
+ * LOCATION: src/app/settings/Settings.module.css
+ * PURPOSE: Styles for the account settings page.
+ *          Covers: page layout, section cards, form fields, track selector,
+ *          and the danger zone delete button.
+ * USED BY: src/app/settings/page.tsx
+ * LAST UPDATED: 2026-05-16
+ */
+
+/* =====================================================================
+ * PAGE LAYOUT
+ * ===================================================================== */
+.page {
+  min-height: calc(100vh - var(--navbar-height));
+  background: var(--color-bg-primary);
+  padding: var(--space-8) var(--space-5) var(--space-16);
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* =====================================================================
+ * PAGE HEADER
+ * ===================================================================== */
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  transition: color 0.15s;
+  text-decoration: none;
+}
+
+.backLink:hover { color: var(--color-text-primary); }
+
+.pageTitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h2);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-1);
+}
+
+.pageSubtitle {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* =====================================================================
+ * SETTINGS SECTION CARD
+ * ===================================================================== */
+.section {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-bg-secondary);
+}
+
+.sectionIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-h4);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.sectionBody {
+  padding: var(--space-6);
+}
+
+/* =====================================================================
+ * FORM FIELDS
+ * ===================================================================== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.labelNote {
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+.input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-lightest);
+}
+
+.inputDisabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--color-bg-tertiary);
+}
+
+.fieldNote {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+  line-height: 1.5;
+}
+
+/* =====================================================================
+ * TRACK SELECTOR
+ * ===================================================================== */
+.trackGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-2);
+}
+
+.trackOption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-3);
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  text-align: left;
+}
+
+.trackOption:hover {
+  border-color: var(--color-primary);
+  color: var(--color-text-primary);
+}
+
+.trackOptionSelected {
+  /* Border and background tinted with the track's brand colour via CSS custom property */
+  border-color: var(--track-color, var(--color-primary));
+  background: color-mix(in srgb, var(--track-color, var(--color-primary)) 7%, transparent);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.trackDot {
+  /* Background driven by --track-color CSS custom property set in page.tsx */
+  background: var(--track-color, var(--color-primary));
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Lock icon wrapper shown on the guest guard screen — replaces inline style */
+.lockIconWrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-6);
+  color: var(--color-text-tertiary);
+}
+
+/* =====================================================================
+ * BUTTONS
+ * ===================================================================== */
+.saveBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.1s;
+  align-self: flex-start;
+}
+
+.saveBtn:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.saveBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* =====================================================================
+ * COMING SOON PLACEHOLDER
+ * ===================================================================== */
+.comingSoon {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+}
+
+.comingSoonTitle {
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.comingSoonText {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+  line-height: 1.55;
+}
+
+/* =====================================================================
+ * ACCOUNT ACTIONS
+ * ===================================================================== */
+.accountActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.signOutBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  align-self: flex-start;
+}
+
+.signOutBtn:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
+.dangerBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-danger-lightest);
+  border: 1px solid var(--color-danger-light);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: var(--color-danger);
+  cursor: pointer;
+  transition: filter 0.15s;
+  align-self: flex-start;
+}
+
+.dangerBtn:hover {
+  filter: brightness(1.05);
+}
+
+/* =====================================================================
+ * GUEST GUARD
+ * ===================================================================== */
+.guestWrap {
+  min-height: calc(100vh - var(--navbar-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-5);
+}
+
+.guestCard {
+  max-width: 420px;
+  text-align: center;
+  padding: var(--space-10) var(--space-8);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
+}
+
+.guestTitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h3);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.guestText {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-5);
+}
+
+.signInLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  font-weight: 700;
+  font-size: var(--font-size-small);
+  transition: filter 0.15s;
+  text-decoration: none;
+}
+
+.signInLink:hover {
+  filter: brightness(1.1);
+  color: #fff;
+}

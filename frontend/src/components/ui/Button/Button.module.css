@@ -1,0 +1,151 @@
+/*
+ * FILE: Button.module.css
+ * LOCATION: src/components/ui/Button/Button.module.css
+ * PURPOSE: Styles for the shared Button component — all variants, sizes,
+ *          loading state, and hover/focus behaviors.
+ * USED BY: src/components/ui/Button/Button.tsx
+ * LAST UPDATED: 2026-05-11
+ */
+
+/* ==================== BASE BUTTON ==================== */
+/* All buttons share this base — flexbox layout, cursor, transitions.
+   Individual variants override colors and backgrounds. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+/* Disabled state — applied to all variants uniformly. */
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ==================== SIZE VARIANTS ==================== */
+/* Small — compact button for toolbars and tight spaces. */
+.sm {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-xsmall);
+}
+
+/* Medium — default size for most buttons. */
+.md {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-small);
+}
+
+/* Large — prominent CTA buttons. */
+.lg {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--font-size-body);
+}
+
+/* ==================== STYLE VARIANTS ==================== */
+/* Primary — gradient background, white text, shadow. */
+.primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.primary:hover:not(:disabled) {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Secondary — muted background, dark text. */
+.secondary {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-text-tertiary);
+}
+
+/* Outline — transparent background with visible border. */
+.outline {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.outline:hover:not(:disabled) {
+  background: rgba(79, 70, 229, 0.06);
+}
+
+/* Ghost — minimal button with no visible container. */
+.ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+/* Danger — destructive action styling (red tones). */
+.danger {
+  background: var(--color-danger);
+  color: white;
+}
+
+.danger:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ==================== FULL WIDTH ==================== */
+.fullWidth {
+  width: 100%;
+}
+
+/* ==================== LOADING STATE ==================== */
+.loading {
+  pointer-events: none;
+}
+
+/* Spinner animation for loading state. */
+.spinner {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==================== ICON SLOTS ==================== */
+.iconLeft,
+.iconRight {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Label text wrapper */
+.label {
+  display: inline-flex;
+  align-items: center;
+}

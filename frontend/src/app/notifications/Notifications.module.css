@@ -1,0 +1,308 @@
+/*
+ * FILE: Notifications.module.css
+ * LOCATION: src/app/notifications/Notifications.module.css
+ * PURPOSE: Styles for the Notifications inbox page.
+ *          Clean list layout with coloured left-stripes for unread items.
+ *          Matches the dark navy EduQuest design system.
+ * USED BY: src/app/notifications/page.tsx
+ * LAST UPDATED: 2026-05-17
+ */
+
+/* ── Page Shell ────────────────────────────────────────── */
+
+.page {
+  min-height: calc(100vh - var(--navbar-height));
+  background: var(--color-bg-primary);
+  padding: var(--space-12) 0 var(--space-24);
+}
+
+.inner {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ── Loading / Error full-page states ─────────────────── */
+
+.loadingPage,
+.errorPage {
+  min-height: calc(100vh - var(--navbar-height));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body);
+}
+
+.errorPage {
+  color: var(--color-danger);
+}
+
+.backLink {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: var(--font-size-small);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--color-primary);
+}
+
+/* ── Header ────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-small);
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.backBtn:hover {
+  color: var(--color-primary);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.titleIcon {
+  color: var(--color-primary);
+}
+
+.title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.unreadBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-bold);
+}
+
+.markReadBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.markReadBtn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.markReadBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ── Notification List ─────────────────────────────────── */
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.notifLink {
+  display: block;
+  text-decoration: none;
+}
+
+.notifCard {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.notifLink:hover .notifCard {
+  border-color: var(--color-primary);
+  transform: translateX(2px);
+}
+
+/* Unread state — slightly different background + blue stripe */
+.unread {
+  background: rgba(88, 166, 255, 0.04);
+  border-color: rgba(88, 166, 255, 0.2);
+}
+
+.unreadStripe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color-primary);
+  border-radius: 2px 0 0 2px;
+}
+
+/* Coloured icon bubbles per notification type */
+.notifIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.typeBattle    { background: rgba(248, 81, 73, 0.12); color: var(--color-danger); }
+.typeStreak    { background: rgba(240, 180, 41, 0.12); color: var(--color-accent); }
+.typeLevel     { background: rgba(88, 166, 255, 0.12); color: var(--color-primary); }
+.typeCommunity { background: rgba(63, 185, 80, 0.12);  color: var(--color-success); }
+.typeEvent     { background: rgba(139, 92, 246, 0.12); color: #A371F7; }
+.typeSystem    { background: rgba(139, 148, 158, 0.12); color: var(--color-text-secondary); }
+
+.notifContent {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.notifTitle {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+.notifMessage {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.notifTime {
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-1);
+}
+
+.notifTrophy {
+  color: var(--color-accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── Empty State ───────────────────────────────────────── */
+
+.emptyState {
+  text-align: center;
+  padding: var(--space-20) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.emptyIcon {
+  color: var(--color-text-tertiary);
+  opacity: 0.4;
+}
+
+.emptyTitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.emptyText {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  max-width: 340px;
+  line-height: 1.6;
+}
+
+.emptyAction {
+  margin-top: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-small);
+  transition: opacity var(--transition-fast);
+}
+
+.emptyAction:hover {
+  opacity: 0.9;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .page {
+    padding: var(--space-8) 0 var(--space-16);
+  }
+
+  .notifCard {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .title {
+    font-size: var(--font-size-h3);
+  }
+}

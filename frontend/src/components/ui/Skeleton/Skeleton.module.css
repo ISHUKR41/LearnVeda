@@ -1,0 +1,56 @@
+/*
+ * FILE: Skeleton.module.css
+ * LOCATION: src/components/ui/Skeleton/Skeleton.module.css
+ * PURPOSE: Styles for the Skeleton loading placeholder — shimmer animation
+ *          and shape variants for text, circular, and rectangular shapes.
+ * USED BY: src/components/ui/Skeleton/Skeleton.tsx
+ * LAST UPDATED: 2026-05-11
+ */
+
+/* ==================== BASE SKELETON ==================== */
+/* All skeletons share the shimmer animation and neutral background.
+   The shimmer is a pure CSS gradient animation — no JS dependency. */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-secondary) 25%,
+    var(--color-bg-tertiary, rgba(0, 0, 0, 0.06)) 50%,
+    var(--color-bg-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Shimmer animation — moves the gradient from left to right. */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ==================== SHAPE VARIANTS ==================== */
+/* Text — rounded rectangle mimicking a text line. */
+.text {
+  border-radius: var(--radius-md);
+}
+
+/* Circular — perfect circle for avatar placeholders. */
+.circular {
+  border-radius: 50%;
+}
+
+/* Rectangular — sharp-cornered rectangle for image/card placeholders. */
+.rectangular {
+  border-radius: var(--radius-lg);
+}
+
+/* ==================== MULTI-LINE STACK ==================== */
+/* Container for multiple skeleton text lines. */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}

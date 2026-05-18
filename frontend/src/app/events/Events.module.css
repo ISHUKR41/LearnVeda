@@ -1,0 +1,337 @@
+/*
+ * FILE: Events.module.css
+ * PURPOSE: Events page styles — hero section, status tabs, and event cards. Improved design.
+ * USED BY: src/app/events/EventsClient.tsx and EventsLoadingSkeleton.tsx
+ * LAST UPDATED: 2026-05-17
+ */
+
+.page {
+  padding: var(--space-8) 0 var(--space-16);
+  background-color: var(--color-bg-secondary);
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+.inner {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+@media (min-width: 768px) { .inner { padding: 0 var(--space-6); } }
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #0F172A, #1E293B);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-12);
+  margin-bottom: var(--space-10);
+  overflow: hidden;
+  position: relative;
+  color: white;
+}
+
+.heroContent {
+  flex: 1;
+  z-index: 1;
+  max-width: 600px;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-4);
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: var(--font-size-h4);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: var(--line-height-relaxed);
+}
+
+.heroImage {
+  /* Replaces former inline style={{ width: "100%", height: "auto" }} */
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-8);
+  }
+  
+  .heroImage {
+    margin-top: var(--space-8);
+    width: 300px;
+    height: auto;
+  }
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+  border: 1px solid transparent;
+}
+
+.noticeSuccess { background-color: var(--color-success-lightest); color: var(--color-success); border-color: var(--color-success-light); }
+.noticeError { background-color: var(--color-danger-lightest); color: var(--color-danger); border-color: var(--color-danger-light); }
+.noticeInfo { background-color: var(--color-primary-lightest); color: var(--color-primary); border-color: var(--color-primary-light); }
+
+.noticeLink {
+  margin-left: auto;
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+}
+
+/* Status tabs */
+.filters {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-10);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  scrollbar-width: none;
+}
+
+.filters::-webkit-scrollbar { display: none; }
+
+.filterBtn {
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.filterBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.filterBtnActive {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+/* Event Grid */
+.eventGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: var(--space-8);
+}
+
+.eventCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+}
+
+.eventCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-primary-light);
+}
+
+.eventBanner {
+  /* Background gradient comes from --event-gradient CSS custom property set in TSX */
+  background: var(--event-gradient, linear-gradient(135deg, var(--color-primary), #6366F1));
+  height: 180px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.eventIcon {
+  opacity: 0.25;
+}
+
+.statusBadgeWrapper {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+}
+
+.statusBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.statuslive { background-color: var(--color-success); color: white; }
+.statusupcoming { background-color: var(--color-primary); color: white; }
+.statuscompleted { background-color: var(--color-text-tertiary); color: white; }
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: var(--radius-full);
+  animation: pulseDot 1.5s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.eventBody {
+  padding: var(--space-6);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.eventTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.eventOrg {
+  font-size: var(--font-size-small);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-4);
+}
+
+.eventMeta {
+  display: flex;
+  gap: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+}
+
+.eventDesc {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-6);
+  flex: 1;
+}
+
+.eventActions {
+  margin-top: auto;
+}
+
+.actionBtn {
+  width: 100%;
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-bold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  transition: all var(--transition-fast);
+  border: none;
+}
+
+.btnPrimary { background-color: var(--color-primary); color: white; }
+.btnPrimary:hover { background-color: var(--color-primary-hover); }
+
+.btnSuccess { background-color: var(--color-success); color: white; }
+
+.btnDisabled { background-color: var(--color-bg-tertiary); color: var(--color-text-tertiary); cursor: not-allowed; }
+
+.loadingPanel, .emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-20);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  color: var(--color-text-secondary);
+  gap: var(--space-4);
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--color-primary);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 640px) {
+  .eventGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dynamic route skeleton shown while the client-side Events bundle loads. */
+.loadingShell {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4) var(--space-16);
+}
+
+.skeletonShimmer {
+  background: linear-gradient(90deg, var(--color-bg-tertiary) 25%, var(--color-bg-secondary) 50%, var(--color-bg-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.loadingHero {
+  width: 100%;
+  min-height: 300px;
+  margin-bottom: var(--space-8);
+  border-radius: var(--radius-2xl);
+}
+
+.loadingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+}
+
+.loadingCard {
+  min-height: 360px;
+  border-radius: var(--radius-xl);
+}

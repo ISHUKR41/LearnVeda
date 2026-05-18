@@ -1,0 +1,346 @@
+/*
+ * FILE: Matchmaking.module.css
+ * LOCATION: src/app/battle/matchmaking/Matchmaking.module.css
+ * PURPOSE: All styles for the Battle Matchmaking waiting room page.
+ *          Shows an animated searching screen while the system finds an opponent
+ *          of the same class, subject, and similar level range.
+ *          This module is ONLY for the /battle/matchmaking route.
+ * USED BY: src/app/battle/matchmaking/page.tsx
+ * LAST UPDATED: 2026-05-16
+ */
+
+/* =====================================================================
+ * PAGE WRAPPER
+ * Dark, immersive background matching the battle theme
+ * ===================================================================== */
+.page {
+  min-height: calc(100vh - var(--navbar-height));
+  background: linear-gradient(180deg, #050d1a 0%, #0a1628 60%, #050d1a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle animated radial glow behind the card */
+.page::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(37, 99, 235, 0.18) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulseGlow 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes pulseGlow {
+  from { opacity: 0.6; transform: translate(-50%, -50%) scale(0.9); }
+  to   { opacity: 1;   transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* =====================================================================
+ * MAIN CARD
+ * Central panel that contains the radar, status, and cancel button
+ * ===================================================================== */
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10) var(--space-10);
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* =====================================================================
+ * RADAR ANIMATION
+ * Spinning radar sweep that simulates searching for an opponent
+ * ===================================================================== */
+.radarWrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto var(--space-8);
+}
+
+/* The outer radar circle */
+.radarCircle {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 99, 235, 0.25);
+}
+
+/* Inner rings for depth */
+.radarCircle::before,
+.radarCircle::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radarCircle::before { width: 70%; height: 70%; }
+.radarCircle::after  { width: 40%; height: 40%; }
+
+/* The spinning sweep line */
+.radarSweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 60%,
+    rgba(37, 99, 235, 0.6) 100%
+  );
+  animation: radarSpin 2s linear infinite;
+}
+
+@keyframes radarSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Center dot of the radar */
+.radarCenter {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #2563EB;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.8);
+}
+
+/* Blinking dots that simulate opponents being scanned */
+.radarDot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.7);
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.8);
+  animation: radarBlink 1.5s ease-in-out infinite;
+}
+
+.radarDot:nth-child(1) { top: 20%; left: 65%;  animation-delay: 0s;    }
+.radarDot:nth-child(2) { top: 60%; left: 20%;  animation-delay: 0.5s;  }
+.radarDot:nth-child(3) { top: 75%; left: 75%;  animation-delay: 1s;    }
+
+@keyframes radarBlink {
+  0%, 100% { opacity: 0; }
+  50%       { opacity: 1; }
+}
+
+/* =====================================================================
+ * STATUS TEXTS
+ * ===================================================================== */
+.statusTitle {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 var(--space-2);
+  letter-spacing: 0;
+}
+
+.statusSubtitle {
+  font-size: var(--font-size-small);
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 var(--space-6);
+  line-height: 1.6;
+}
+
+/* Timer showing how long we've been searching */
+.timer {
+  font-family: var(--font-mono);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #2563EB;
+  margin: 0 0 var(--space-6);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+}
+
+/* =====================================================================
+ * BATTLE PREFERENCES SUMMARY
+ * Shows what subject and class the user selected for this battle
+ * ===================================================================== */
+.preferenceChips {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 5px 12px;
+  border-radius: 99px;
+  font-size: var(--font-size-xsmall);
+  font-weight: 600;
+}
+
+/* =====================================================================
+ * ANIMATED ELLIPSIS (searching...)
+ * ===================================================================== */
+.dots span {
+  display: inline-block;
+  animation: dotBounce 1.4s ease-in-out infinite;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.25rem;
+}
+
+.dots span:nth-child(1) { animation-delay: 0s; }
+.dots span:nth-child(2) { animation-delay: 0.2s; }
+.dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: translateY(0);    opacity: 0.3; }
+  40%           { transform: translateY(-6px); opacity: 1;   }
+}
+
+/* =====================================================================
+ * CANCEL BUTTON
+ * ===================================================================== */
+.cancelBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(239, 68, 68, 0.12);
+  color: #FCA5A5;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-decoration: none;
+  margin-top: var(--space-2);
+}
+
+.cancelBtn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #FECACA;
+}
+
+/* =====================================================================
+ * FOUND MATCH STATE
+ * Animated state that appears when an opponent is found
+ * ===================================================================== */
+.foundCard {
+  animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.foundTitle {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, #60A5FA, #A78BFA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-2);
+}
+
+.foundOpponent {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-size-small);
+  margin-bottom: var(--space-6);
+}
+
+/* Countdown before the battle starts */
+.countdown {
+  font-family: var(--font-mono);
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #10B981;
+  text-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+  animation: countPulse 1s ease-in-out infinite;
+}
+
+@keyframes countPulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.08); }
+}
+
+/* Match-found avatar — green celebration circle above "Match Found!" heading */
+.matchAvatarWrap {
+  margin-bottom: var(--space-4);
+}
+
+.matchAvatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10B981, #059669);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+  color: white;
+}
+
+/* Opponent name highlight — white within the "You are battling X" sentence */
+.opponentName {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Small hint text below the countdown number — replaces inline style */
+.countdownHint {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: var(--font-size-small);
+  margin-top: var(--space-2);
+}
+
+/* Suspense fallback card — centered text variant of the main card */
+.suspenseCard {
+  text-align: center;
+}
+
+/* Loading text inside the suspense fallback */
+.suspenseText {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--font-size-small);
+}
+
+/* =====================================================================
+ * RESPONSIVE
+ * ===================================================================== */
+@media (max-width: 480px) {
+  .card {
+    padding: var(--space-8) var(--space-6);
+  }
+  .timer { font-size: 1.75rem; }
+}

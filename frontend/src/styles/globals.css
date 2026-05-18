@@ -1,0 +1,1086 @@
+/*
+ * FILE: globals.css
+ * LOCATION: src/styles/globals.css
+ * PURPOSE: Global design system for EduQuest platform. Contains CSS custom properties
+ *          (design tokens) for colors, typography, spacing, animations, and base styles.
+ *          This file is the single source of truth for the entire visual identity.
+ * USED BY: Imported in src/app/layout.tsx — applied to every page in the application.
+ * DEPENDENCIES: Tailwind CSS v4, @fontsource/inter,
+ *               @fontsource/sora, @fontsource/space-grotesk,
+ *               @fontsource/jetbrains-mono
+ * LAST UPDATED: 2026-05-12
+ * AUTHOR NOTE: All color values follow the EduQuest brand palette. Do not add page-specific
+ *              styles here. Each page has its own CSS module. Only global tokens and resets here.
+ */
+
+/* ============================================================
+ * SECTION 1: Tailwind CSS Import
+ * Brings in Tailwind's utility classes for use across the app.
+ * ============================================================ */
+@import "tailwindcss";
+
+/* ============================================================
+ * SECTION 2: Self-Hosted Font Imports
+ * These @fontsource files are bundled with the app, so production pages do not
+ * depend on Google Fonts network requests. Inter handles UI text, Space Grotesk
+ * handles crisp product headings, Space Grotesk remains available for legacy
+ * routes, and JetBrains Mono handles metrics/code.
+ * ============================================================ */
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/inter/800.css";
+@import "@fontsource/inter/900.css";
+@import "@fontsource/sora/400.css";
+@import "@fontsource/sora/500.css";
+@import "@fontsource/sora/600.css";
+@import "@fontsource/sora/700.css";
+@import "@fontsource/sora/800.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/600.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/600.css";
+
+/* ============================================================
+ * SECTION 3: CSS Custom Properties (Design Tokens)
+ * These variables define the entire visual language of EduQuest.
+ * Changing these values will update the look across the entire platform.
+ * ============================================================ */
+:root {
+  /* --- Color Palette: Default is DARK NAVY (matches EduQuest MCP premium design) ---
+   * Electric blue accent (#58A6FF), deep navy backgrounds (#0D1117, #161B22),
+   * off-white text (#E6EDF3) — inspired by GitHub Dark and VS Code themes.
+   * This creates the premium, focused atmosphere needed for a competitive learning platform.
+   */
+
+  /* Primary: Electric Blue — energetic, tech-forward, used for all CTAs */
+  --color-primary: #58A6FF;
+  --color-primary-hover: #388BFD;
+  --color-primary-light: #1F6FEB;
+  --color-primary-lighter: #1E3A8A;
+  --color-primary-lightest: #0D2147;
+
+  /* Secondary: Teal — balances the blue */
+  --color-secondary: #39D5CC;
+  --color-secondary-hover: #2DD4BF;
+  --color-secondary-light: #0E4444;
+  --color-secondary-lightest: #0A2E2E;
+
+  /* Accent: Warm Amber — rewards, achievements, streaks */
+  --color-accent: #F0B429;
+  --color-accent-hover: #D97706;
+  --color-accent-light: #92400E;
+  --color-accent-lightest: #3B1A00;
+
+  /* Success: Bright Green — correct answers, level-ups, wins */
+  --color-success: #3FB950;
+  --color-success-hover: #2EA043;
+  --color-success-light: #1A5C24;
+  --color-success-lightest: #0D2F14;
+
+  /* Danger: Vivid Red — wrong answers, errors, losses */
+  --color-danger: #F85149;
+  --color-danger-hover: #DA3633;
+  --color-danger-light: #6E1C1C;
+  --color-danger-lightest: #3A0E0E;
+
+  /* Warning: Orange-Amber — streak alerts, deadlines */
+  --color-warning: #D29922;
+  --color-warning-light: #7D4E17;
+  --color-warning-lightest: #3B2009;
+
+  /* Dark Navy Backgrounds — deep focus environment for long study sessions */
+  --color-bg-primary: #0D1117;
+  --color-bg-secondary: #161B22;
+  --color-bg-tertiary: #21262D;
+  --color-bg-card: #161B22;
+  --color-bg-card-hover: #1C2128;
+
+  /* Off-White Text — comfortable to read on dark backgrounds */
+  --color-text-primary: #E6EDF3;
+  --color-text-secondary: #8B949E;
+  --color-text-tertiary: #6E7681;
+  --color-text-inverse: #0D1117;
+
+  /* Dark Borders — subtle separators that don't break visual flow */
+  --color-border: #30363D;
+  --color-border-light: #21262D;
+  --color-border-focus: #58A6FF;
+
+  /* Overlay — for modals and drawers */
+  --color-overlay: rgba(0, 0, 0, 0.75);
+
+  /* --- Typography Scale (8-point grid system) --- */
+  --font-family-heading: "Sora", "Inter", system-ui, -apple-system, sans-serif;
+  --font-family-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-family-code: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  --font-family-stats: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  /* Short-form aliases for convenience in CSS modules */
+  --font-heading: "Sora", "Inter", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  --font-size-display: 3.5rem;      /* 56px — hero headlines */
+  --font-size-h1: 2.25rem;     /* 36px — page titles */
+  --font-size-h2: 1.75rem;    /* 28px — section titles */
+  --font-size-h3: 1.375rem;   /* 22px — card titles */
+  --font-size-h4: 1.125rem;     /* 18px — subsection titles */
+  --font-size-body: clamp(0.9375rem, 1vw + 0.5rem, 1rem); /* 15px to 16px — default reading size */
+  --font-size-small: 0.875rem;    /* 14px — labels, metadata */
+  --font-size-xsmall: 0.75rem;    /* 12px — timestamps, fine print */
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* --- Spacing Scale (8-point grid) --- */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px — tiny spacing */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px — standard spacing */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px — medium spacing */
+  --space-7: 1.75rem;   /* 28px — medium-large spacing */
+  --space-8: 2rem;      /* 32px — large spacing */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px — extra large */
+  --space-16: 4rem;     /* 64px — section margins */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* --- Border Radius --- */
+  --radius-sm: 0.375rem;    /* 6px — subtle rounding */
+  --radius-md: 0.5rem;      /* 8px — standard cards */
+  --radius-lg: 0.75rem;     /* 12px — buttons, inputs */
+  --radius-xl: 1rem;        /* 16px — large cards */
+  --radius-2xl: 1.5rem;     /* 24px — hero sections */
+  --radius-full: 9999px;    /* Pill shape — badges, avatars */
+
+  /* --- Shadows (Elevation System) --- */
+  /* Deeper shadows for dark backgrounds */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  --shadow-glow-primary: 0 0 24px rgba(88, 166, 255, 0.25);
+  --shadow-glow-accent: 0 0 24px rgba(240, 180, 41, 0.25);
+  --shadow-glow-success: 0 0 24px rgba(63, 185, 80, 0.25);
+
+  /* --- Transitions & Animations --- */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+  --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* --- Z-Index Scale --- */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+
+  /* --- Layout --- */
+  --navbar-height: 4rem;         /* 64px */
+  --sidebar-width: 16rem;        /* 256px */
+  --max-content-width: 80rem;    /* 1280px */
+  --max-reading-width: 48rem;    /* 768px */
+}
+
+/* ============================================================
+ * SECTION 4A: Light Mode Tokens (opt-in via data-theme="light")
+ * Users who prefer light mode get a clean white/gray palette.
+ * Dark mode is the DEFAULT for EduQuest — matches the premium MCP design.
+ * ============================================================ */
+[data-theme="light"] {
+  --color-primary: #2563EB;
+  --color-primary-hover: #1D4ED8;
+  --color-primary-light: #38BDF8;
+  --color-primary-lighter: #BAE6FD;
+  --color-primary-lightest: #EFF6FF;
+
+  --color-secondary: #0F766E;
+  --color-secondary-hover: #115E59;
+  --color-secondary-light: #5EEAD4;
+  --color-secondary-lightest: #F0FDFA;
+
+  --color-accent: #D97706;
+  --color-accent-hover: #B45309;
+  --color-accent-light: #FBBF24;
+  --color-accent-lightest: #FFFBEB;
+
+  --color-success: #10B981;
+  --color-success-hover: #059669;
+  --color-success-light: #6EE7B7;
+  --color-success-lightest: #ECFDF5;
+
+  --color-danger: #EF4444;
+  --color-danger-hover: #DC2626;
+  --color-danger-light: #FCA5A5;
+  --color-danger-lightest: #FEF2F2;
+
+  --color-warning: #F59E0B;
+  --color-warning-light: #FDE68A;
+  --color-warning-lightest: #FFFBEB;
+
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8FAFC;
+  --color-bg-tertiary: #F1F5F9;
+  --color-bg-card: #FFFFFF;
+  --color-bg-card-hover: #F9FAFB;
+
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94A3B8;
+  --color-text-inverse: #FFFFFF;
+
+  --color-border: #E5E7EB;
+  --color-border-light: #F3F4F6;
+  --color-border-focus: #4F46E5;
+
+  --color-overlay: rgba(0, 0, 0, 0.5);
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-glow-primary: 0 0 20px rgba(79, 70, 229, 0.15);
+  --shadow-glow-accent: 0 0 20px rgba(245, 158, 11, 0.15);
+  --shadow-glow-success: 0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+/* ============================================================
+ * SECTION 4B: Dark Mode — kept for explicit [data-theme="dark"] compatibility
+ * Since :root now defaults to dark, this block only reinforces the values.
+ * ============================================================ */
+[data-theme="dark"],
+.dark {
+  /* All dark values are already the :root defaults above — this block
+     exists for components that set data-theme="dark" explicitly */
+  --color-primary: #58A6FF;
+  --color-primary-hover: #388BFD;
+  --color-border-focus: #58A6FF;
+}
+
+/* ============================================================
+ * SECTION 5: Global Base Styles
+ * Resets and foundational styles applied to all elements.
+ * ============================================================ */
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Base body styles */
+body {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  overflow-x: hidden;
+}
+
+/* Ensure all elements use border-box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Headings use the heading font family */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+}
+
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+h4 { font-size: var(--font-size-h4); }
+
+/* Code elements use the code font */
+code, pre, kbd, samp {
+  font-family: var(--font-family-code);
+}
+
+/* Links — styled consistently */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Images — responsive by default */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Button reset — removes browser defaults */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+/* Input/textarea — consistent styling */
+input, textarea, select {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+}
+
+/* ============================================================
+ * SECTION 6: Utility Classes
+ * Custom utility classes that Tailwind doesn't provide out of the box.
+ * ============================================================ */
+
+/* Container with max-width and auto centering */
+.container-app {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .container-app {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-app {
+    padding-left: var(--space-8);
+    padding-right: var(--space-8);
+  }
+}
+
+/* Gradient text effect — used for hero headings */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism card effect — used for premium-feeling cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+}
+
+.dark .glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ============================================================
+ * SECTION 7: Animation Keyframes
+ * Reusable animations used across multiple components.
+ * ============================================================ */
+
+/* Fade in from below — used for page/card entrance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in — simple opacity transition */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Pulse glow — used for active streak indicators */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(79, 70, 229, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
+  }
+}
+
+/* Float animation — used for hero illustrations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Shimmer — used for skeleton loading placeholders */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ============================================================
+ * SECTION 8A: Skeleton Loader Base Style
+ * Applied via .skeleton class for pulsing placeholder elements.
+ * ============================================================ */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-tertiary) 25%,
+    var(--color-bg-secondary) 50%,
+    var(--color-bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* Spin — used for loading spinners */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Scale bounce — used for correct answer celebrations */
+@keyframes scaleBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Slide in from right — used for toast notifications */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animation utility classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, var(--color-bg-tertiary) 25%, var(--color-bg-secondary) 50%, var(--color-bg-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.animate-scale-bounce {
+  animation: scaleBounce 0.3s ease-out;
+}
+
+/* ============================================================
+ * SECTION 8: Scrollbar Styling
+ * Custom scrollbar for a polished look on webkit browsers.
+ * ============================================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* ============================================================
+ * SECTION 9: Selection & Focus Styles
+ * Consistent selection highlighting and keyboard focus indicators.
+ * ============================================================ */
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+/* Accessible focus ring — visible only for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Remove focus outline for mouse clicks */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ============================================================
+ * SECTION 10: Hero & Dark Section Design Tokens
+ * Colors and gradients for dark/navy sections like the homepage
+ * hero banner, page banners, and engineering/battle dark panels.
+ * ============================================================ */
+
+:root {
+  /* Dark hero backgrounds — used for homepage hero, page banners */
+  --color-hero-bg: #0B1120;
+  --color-hero-surface: #141B2D;
+  --color-hero-surface-2: #1A2235;
+  --color-hero-border: rgba(255, 255, 255, 0.08);
+  --color-hero-text: #F8FAFC;
+  --color-hero-text-muted: rgba(248, 250, 252, 0.65);
+
+  /* Gradient backgrounds */
+  --gradient-hero: linear-gradient(135deg, #0B1120 0%, #141B2D 50%, #0F172A 100%);
+  --gradient-primary: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%);
+  --gradient-accent: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
+  --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  --gradient-hero-card: linear-gradient(135deg, rgba(37, 99, 235, 0.12) 0%, rgba(79, 70, 229, 0.06) 100%);
+
+  /* Fluid typography — scales smoothly between mobile and desktop */
+  --font-size-display-2xl: clamp(2.25rem, 4vw + 1.25rem, 4.5rem);
+  --font-size-display-xl:  clamp(1.875rem, 3vw + 1rem, 3.5rem);
+  --font-size-display-lg:  clamp(1.5rem, 2.5vw + 0.75rem, 2.5rem);
+  --font-size-display-md:  clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem);
+
+  /* Letter spacing scale */
+  --tracking-tighter: 0em;
+  --tracking-tight:   0em;
+  --tracking-normal:   0em;
+  --tracking-wide:     0.025em;
+  --tracking-wider:    0.05em;
+  --tracking-widest:   0.1em;
+
+  /* Extra spacing */
+  --space-28: 7rem;
+  --space-32: 8rem;
+  --space-40: 10rem;
+  --space-48: 12rem;
+
+  /* Stats/metric font — Space Grotesk for numbers */
+  --font-stats: "Space Grotesk", "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* ============================================================
+ * SECTION 11: Button Utility Classes
+ * Shared base button pattern used across all pages via globals.
+ * Individual page modules extend these with page-specific overrides.
+ * ============================================================ */
+
+/* --- Base button reset and shared properties --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-family-body);
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.btn:hover  { transform: translateY(-1px); }
+.btn:active { transform: translateY(0px);  }
+
+/* Primary — filled blue */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+  color: #FFFFFF;
+}
+
+/* Secondary — outlined blue */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.btn-secondary:hover {
+  background-color: var(--color-primary-lightest);
+  color: var(--color-primary-hover);
+}
+
+/* Ghost — light border */
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border-color: var(--color-border);
+}
+.btn-ghost:hover {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+/* Hero ghost — for use on dark backgrounds */
+.btn-hero-ghost {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+.btn-hero-ghost:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+}
+
+/* Accent — amber */
+.btn-accent {
+  background-color: var(--color-accent);
+  color: #FFFFFF;
+  border-color: var(--color-accent);
+}
+.btn-accent:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.35);
+  color: #FFFFFF;
+}
+
+/* Size variants */
+.btn-sm  { padding: var(--space-2) var(--space-4); font-size: 0.8125rem; }
+.btn-lg  { padding: var(--space-4) var(--space-8); font-size: 1rem;      }
+.btn-xl  { padding: var(--space-5) var(--space-10); font-size: 1.0625rem; }
+
+/* ============================================================
+ * SECTION 12: Badge & Chip Utility Classes
+ * Small inline labels for difficulty, status, level, tags.
+ * ============================================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-full);
+  line-height: 1.5;
+  white-space: nowrap;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.badge-primary  { background: var(--color-primary-lightest);  color: var(--color-primary);      }
+.badge-success  { background: var(--color-success-lightest);  color: var(--color-success-hover); }
+.badge-warning  { background: var(--color-warning-lightest);  color: var(--color-accent-hover);  }
+.badge-danger   { background: var(--color-danger-lightest);   color: var(--color-danger-hover);  }
+.badge-neutral  { background: var(--color-bg-tertiary);       color: var(--color-text-secondary);}
+
+/* For use on dark/hero sections */
+.badge-dark {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Difficulty badges — used on chapter/question cards */
+.badge-easy   { background: #ECFDF5; color: #059669; }
+.badge-medium { background: #EFF6FF; color: #2563EB; }
+.badge-hard   { background: #FEF2F2; color: #DC2626; }
+
+/* ============================================================
+ * SECTION 13: Layout Section Utilities
+ * Reusable section padding patterns shared across all pages.
+ * ============================================================ */
+
+/* Standard section wrapper — use for all full-width sections */
+.section     { padding: var(--space-16) 0; }
+.section-sm  { padding: var(--space-10) 0; }
+.section-lg  { padding: var(--space-24) 0; }
+
+/* Dark hero section — for homepage hero, page banners */
+.hero-dark {
+  background: var(--gradient-hero);
+  color: var(--color-hero-text);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dot-grid overlay for hero sections */
+.dot-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+/* Gradient border card effect */
+.gradient-border {
+  position: relative;
+  border-radius: var(--radius-xl);
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ============================================================
+ * SECTION 14: Additional Keyframes
+ * ============================================================ */
+
+/* Slide in from below — for scroll-triggered section reveals */
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* Scale in — for modal and card pop-ins */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+/* Blue glow pulse — for primary action buttons and active elements */
+@keyframes glowPrimary {
+  0%, 100% { box-shadow: 0 0 8px rgba(37, 99, 235, 0.25); }
+  50%       { box-shadow: 0 0 24px rgba(37, 99, 235, 0.55), 0 0 48px rgba(37, 99, 235, 0.2); }
+}
+
+/* Grow from zero width — for progress bars */
+@keyframes growWidth {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Stagger helper utility classes — apply to list items for cascade effect */
+.stagger-1 { animation-delay:   0ms; }
+.stagger-2 { animation-delay:  80ms; }
+.stagger-3 { animation-delay: 160ms; }
+.stagger-4 { animation-delay: 240ms; }
+.stagger-5 { animation-delay: 320ms; }
+.stagger-6 { animation-delay: 400ms; }
+
+/* Animation utility classes */
+.animate-slide-in-up { animation: slideInUp 0.5s ease-out forwards; }
+.animate-scale-in    { animation: scaleIn   0.3s ease-out forwards; }
+.animate-glow        { animation: glowPrimary 2.5s ease-in-out infinite; }
+
+/* ============================================================
+ * SECTION 15: Dark Section Text Utilities
+ * Helper classes for text and labels inside dark hero sections.
+ * ============================================================ */
+
+/* Pill label for dark sections (e.g. "Class 9 • 6 Subjects") */
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-semibold);
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+/* Blue-to-purple gradient text — for hero headings */
+.gradient-text-hero {
+  background: linear-gradient(135deg, #60A5FA 0%, #A78BFA 50%, #F0ABFC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Amber gradient text — for accent highlights */
+.gradient-text-amber {
+  background: linear-gradient(135deg, #FCD34D 0%, #F97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+ * SECTION 16: Form Input Base Styles
+ * Shared form input pattern — extended in page CSS modules.
+ * ============================================================ */
+
+.input-base {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+  appearance: none;
+}
+.input-base:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+.input-base::placeholder { color: var(--color-text-tertiary); }
+.input-base:disabled     { opacity: 0.5; cursor: not-allowed; }
+
+/* ============================================================
+ * SECTION 17: Typography Scale Utilities
+ * Named text classes that enforce the typography system.
+ * ============================================================ */
+
+.text-display-2xl {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-display-2xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.08;
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-display-xl {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-display-xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.12;
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-display-lg {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-display-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.18;
+}
+
+.text-display-md {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-display-md);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+}
+
+/* Stats numbers — Space Grotesk tabular figures */
+.text-stats {
+  font-family: var(--font-stats);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Root layout main content area — flex-grow so footer always sits at the bottom */
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section eyebrow label — small all-caps above section headings */
+.text-eyebrow {
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+/* ============================================================
+ * SECTION 18: Additional Keyframes & Utility Classes
+ * Extends Section 7 with more specific animation patterns.
+ * ============================================================ */
+
+/* Slide in from the top — used for dropdown menus */
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Bounce in — used for achievement/XP pop-up celebrations */
+@keyframes bounceIn {
+  0%   { opacity: 0; transform: scale(0.6); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  80%  { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+/* Horizontal sweep — used for progress bar fills */
+@keyframes sweepRight {
+  from { width: 0%; }
+  to   { width: var(--progress-width, 100%); }
+}
+
+/* Typewriter cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Number count-up pulse — subtle scale on stat numbers */
+@keyframes countPulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* Animation utility extensions */
+.animate-slide-in-down { animation: slideInDown 0.25s ease-out forwards; }
+.animate-bounce-in     { animation: bounceIn   0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-count-pulse   { animation: countPulse 0.3s ease-out; }
+
+/* Glass morphism shorthand — matches .glass-card but simpler name */
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+}
+
+.dark .glass {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+/* Subtle card hover lift — apply to any interactive card */
+.card-lift {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Divider — horizontal rule that matches the design system */
+.divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-8) 0;
+}
+
+/* Visually hidden — accessible off-screen text for screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Truncate text at one line with ellipsis */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Two-line clamp */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Three-line clamp */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==================== GLOBAL SCROLL ANIMATIONS ==================== */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+

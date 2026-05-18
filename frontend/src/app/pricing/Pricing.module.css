@@ -1,0 +1,538 @@
+/*
+ * FILE: Pricing.module.css
+ * LOCATION: src/app/pricing/Pricing.module.css
+ * PURPOSE: All styles for the professional 3-tier Pricing page.
+ *          Covers hero, plan cards, comparison table, and trust section.
+ *          CSS Modules scope guarantees no bleed into other pages.
+ * USED BY: src/app/pricing/page.tsx
+ * LAST UPDATED: 2026-05-16
+ */
+
+/* =====================================================================
+ * PAGE WRAPPER
+ * ===================================================================== */
+
+.page {
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+/* =====================================================================
+ * SECTION 1: HERO
+ * ===================================================================== */
+
+.hero {
+  padding: var(--space-16) 0 var(--space-12);
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.06) 0%, transparent 100%);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.heroInner {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  text-align: center;
+}
+
+/* Kicker badge */
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 5px var(--space-4);
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--color-primary);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-5);
+}
+
+/* Main heading */
+.heroTitle {
+  font-family: var(--font-family-heading);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+/* Subtitle */
+.heroSubtitle {
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* =====================================================================
+ * SECTION 2: PLAN CARDS
+ * ===================================================================== */
+
+.plansSection {
+  padding: var(--space-12) 0 var(--space-16);
+}
+
+.plansInner {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Three column layout — stacks on mobile */
+.plansGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .plansGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .plansGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Individual plan card */
+.planCard {
+  position: relative;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.planCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Popular plan card — elevated with extra border and scale */
+.planCardPopular {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-8px);
+}
+
+.planCardPopular:hover {
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-xl);
+}
+
+@media (max-width: 1024px) {
+  .planCardPopular {
+    transform: none;
+  }
+
+  .planCardPopular:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* "Most Requested" ribbon at top of popular card */
+.popularBadge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: 5px;
+  background: linear-gradient(135deg, #7C3AED, #2563EB);
+  color: white;
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Gradient header section of the card.
+ * Background driven by --plan-gradient CSS custom property set in page.tsx. */
+.planHeader {
+  padding: var(--space-6) var(--space-6) var(--space-5);
+  background: var(--plan-gradient, linear-gradient(135deg, var(--color-primary), #6366F1));
+  color: white;
+}
+
+/* Adjust if popular badge is present — move header down */
+.planCardPopular .planHeader {
+  padding-top: calc(var(--space-6) + 28px);
+}
+
+/* Badge above plan name */
+.planBadge {
+  display: inline-block;
+  padding: 3px var(--space-3);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-3);
+  backdrop-filter: blur(4px);
+}
+
+/* Plan name */
+.planName {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+  color: white;
+  margin-bottom: var(--space-3);
+}
+
+/* Price display */
+.planPricing {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+}
+
+.planPrice {
+  font-family: var(--font-family-stats);
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+}
+
+.planPeriod {
+  font-size: var(--font-size-small);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Plan description */
+.planDesc {
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+/* CTA button inside card */
+.planCta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin: var(--space-5) var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+/* Primary CTA (Pro / popular) */
+.planCtaPrimary {
+  background: linear-gradient(135deg, #7C3AED, #2563EB);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.planCtaPrimary:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+  color: white;
+}
+
+/* Secondary CTA (Free, School) */
+.planCtaSecondary {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+.planCtaSecondary:hover {
+  background: var(--color-primary-lightest);
+  border-color: var(--color-primary-lighter);
+  color: var(--color-primary);
+}
+
+/* Feature list */
+.featureList {
+  list-style: none;
+  padding: 0 var(--space-6) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+/* Individual feature row */
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Check icons */
+.featureCheckIncluded {
+  color: var(--color-success);
+  flex-shrink: 0;
+}
+
+.featureCheckExcluded {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+/* Feature labels */
+.featureLabelIncluded {
+  font-size: var(--font-size-small);
+  color: var(--color-text-primary);
+}
+
+.featureLabelExcluded {
+  font-size: var(--font-size-small);
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+}
+
+/* =====================================================================
+ * SECTION 3: COMPARISON TABLE
+ * ===================================================================== */
+
+.comparisonSection {
+  padding: var(--space-16) 0;
+  background: var(--color-bg-secondary);
+}
+
+.comparisonInner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.comparisonHeader {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: var(--space-3);
+}
+
+.sectionTitle {
+  font-family: var(--font-family-heading);
+  font-size: clamp(1.5rem, 3vw, var(--font-size-h2));
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: 0;
+}
+
+/* Horizontal scroll wrapper for table on small screens */
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+}
+
+/* Comparison table */
+.compTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Table header */
+.thFeature {
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-border);
+  background: var(--color-bg-secondary);
+}
+
+.thPlan {
+  padding: var(--space-4) var(--space-6);
+  text-align: center;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-border);
+  border-left: 1px solid var(--color-border-light);
+  background: var(--color-bg-secondary);
+  white-space: nowrap;
+}
+
+/* Table body rows — alternating background */
+.tableRow {
+  border-bottom: 1px solid var(--color-border-light);
+  transition: background var(--transition-fast);
+}
+
+.tableRow:hover {
+  background: var(--color-bg-secondary);
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+/* Feature name cell */
+.tdFeature {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--font-size-small);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+.tableIcon {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+/* Check/minus cells */
+.tdCheck {
+  padding: var(--space-3) var(--space-6);
+  text-align: center;
+  border-left: 1px solid var(--color-border-light);
+}
+
+.checkYes {
+  color: var(--color-success);
+}
+
+.checkNo {
+  color: var(--color-border);
+}
+
+/* =====================================================================
+ * SECTION 4: TRUST
+ * ===================================================================== */
+
+.trustSection {
+  padding: var(--space-16) 0 var(--space-20);
+}
+
+.trustInner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Three trust cards in a row */
+.trustGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  margin-bottom: var(--space-16);
+}
+
+@media (max-width: 768px) {
+  .trustGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Individual trust card */
+.trustCard {
+  padding: var(--space-6);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.trustIcon {
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+
+.trustCard h3 {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h4);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.trustCard p {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Final CTA banner */
+.finalCta {
+  text-align: center;
+  padding: var(--space-12) var(--space-8);
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #7c3aed 100%);
+  border-radius: var(--radius-2xl);
+}
+
+.finalCta h2 {
+  font-family: var(--font-family-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  color: white;
+  margin-bottom: var(--space-3);
+}
+
+.finalCta p {
+  font-size: var(--font-size-body);
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: var(--space-8);
+}
+
+.finalCtaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  background: white;
+  color: var(--color-primary);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: var(--shadow-lg);
+}
+
+.finalCtaBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+  color: var(--color-primary);
+}
+
+/* Mobile padding adjustments */
+@media (max-width: 640px) {
+  .comparisonInner,
+  .plansInner,
+  .trustInner,
+  .heroInner {
+    padding: 0 var(--space-4);
+  }
+
+  .finalCta {
+    padding: var(--space-8) var(--space-5);
+    border-radius: var(--radius-xl);
+  }
+}

@@ -1,0 +1,99 @@
+/*
+ * FILE: AppState.module.css
+ * LOCATION: src/app/AppState.module.css
+ * PURPOSE: Shared route-state styles for app-level loading, error, and 404
+ *          screens. These states belong to the application shell, not one page.
+ * USED BY: src/app/loading.tsx, src/app/error.tsx, src/app/not-found.tsx
+ * LAST UPDATED: 2026-05-11
+ */
+
+.statePage {
+  min-height: calc(100vh - var(--navbar-height));
+  display: grid;
+  place-items: center;
+  padding: var(--space-10) var(--space-4);
+  background: var(--color-bg-secondary);
+}
+
+.stateCard {
+  width: 100%;
+  max-width: 560px;
+  padding: var(--space-8);
+  text-align: center;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.stateIcon {
+  width: 3rem;
+  height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+  color: white;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-success));
+  border-radius: var(--radius-lg);
+}
+
+.stateTitle {
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-h3);
+}
+
+.stateText {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.stateActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.stateButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  color: white;
+  background: var(--color-primary);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+}
+
+.stateButtonSecondary {
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.loadingRows {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.loadingRow {
+  height: 0.9rem;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--color-bg-tertiary) 25%, var(--color-bg-secondary) 50%, var(--color-bg-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.loadingRow:nth-child(2) {
+  width: 78%;
+  margin: 0 auto;
+}
+
+.loadingRow:nth-child(3) {
+  width: 52%;
+  margin: 0 auto;
+}

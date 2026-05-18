@@ -1,0 +1,13 @@
+/*
+ * FILE: Privacy.module.css
+ * LOCATION: src/app/privacy/Privacy.module.css
+ * PURPOSE: Page-specific legal content styles for Privacy Policy.
+ * USED BY: src/app/privacy/page.tsx
+ * LAST UPDATED: 2026-05-11
+ */
+
+.page { max-width: 760px; margin: 0 auto; padding: var(--space-12) var(--space-4) var(--space-16); }
+.kicker { color: var(--color-primary); font-size: var(--font-size-small); font-weight: var(--font-weight-semibold); text-transform: uppercase; }
+.page h1 { margin: var(--space-3) 0 var(--space-5); font-size: var(--font-size-h1); }
+.page h2 { margin: var(--space-8) 0 var(--space-2); font-size: var(--font-size-h4); }
+.page p { color: var(--color-text-secondary); line-height: var(--line-height-relaxed); }
