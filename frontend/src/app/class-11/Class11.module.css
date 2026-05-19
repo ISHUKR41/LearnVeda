@@ -25,16 +25,40 @@
 /* Hero Section */
 .hero {
   position: relative;
-  min-height: 320px;
-  padding: var(--space-12) var(--space-8);
-  border-radius: var(--radius-2xl);
-  background: linear-gradient(135deg, #0F172A 0%, #064E3B 100%);
+  min-height: 340px;
+  padding: var(--space-14) var(--space-10);
+  border-radius: var(--radius-xl);
+  background: #0F172A;
   color: white;
   margin-bottom: var(--space-8);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden; /* clips the heroOrb radial glow that extends beyond bounds */
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+/* Hero background image — route-owned bitmap optimized by next/image */
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: center right;
+  opacity: 0.96;
+}
+
+/* Overlay to keep text legible */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    95deg,
+    rgba(15, 23, 42, 0.95) 0%,
+    rgba(15, 23, 42, 0.82) 45%,
+    rgba(15, 23, 42, 0.5) 72%,
+    rgba(15, 23, 42, 0.28) 100%
+  );
+  pointer-events: none;
 }
 
 .eyebrow {
@@ -50,11 +74,12 @@
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-4);
   width: max-content;
+  letter-spacing: 0;
 }
 
 .heroTitle {
   font-family: var(--font-heading);
-  font-size: var(--font-size-display);
+  font-size: 3.25rem;
   font-weight: var(--font-weight-extrabold);
   line-height: 1.1;
   margin-bottom: var(--space-4);
@@ -62,8 +87,8 @@
 }
 
 .heroSubtitle {
-  font-size: var(--font-size-h4);
-  color: var(--color-text-tertiary);
+  font-size: var(--font-size-body-large);
+  color: rgba(255, 255, 255, 0.72);
   margin-bottom: var(--space-8);
   max-width: 600px;
 }
@@ -107,20 +132,19 @@
   font-size: var(--font-size-xsmall);
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0;
   font-weight: var(--font-weight-medium);
 }
 
-/* ─── Hero decorative orb ─── */
+/* Kept for JSX compatibility; visual depth now comes from the hero image. */
 .heroOrb {
-  position: absolute;
-  top: -80px;
-  right: -60px;
-  width: 480px;
-  height: 480px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(5, 150, 105, 0.18) 0%, transparent 65%);
-  pointer-events: none;
+  display: none;
+}
+
+/* Hero content above illustration layers */
+.heroContent {
+  position: relative;
+  z-index: 2;
 }
 
 /* ─── Selector loading skeleton ─── */
@@ -423,11 +447,16 @@
   .hero {
     padding: var(--space-8) var(--space-5);
     min-height: auto;
+    border-radius: var(--radius-lg);
   }
-  .heroTitle { font-size: 2.5rem; }
+  .heroTitle { font-size: 2rem; }
   .statsBar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
-    flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-3);
+    padding: var(--space-4);
   }
+
+  .statDivider { display: none; }
 }

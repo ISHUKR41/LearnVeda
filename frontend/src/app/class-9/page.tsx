@@ -11,6 +11,7 @@
  */
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   BookOpen,
@@ -81,7 +82,8 @@ export default async function Class9Page() {
    * Fetch all subjects for the "class-9" track from the curriculum repository.
    * Returns an array of TrackSubjectCard objects with:
    *   { id, name, description, chapterCount, iconName }
-   * Falls back to the static catalog if the database is unavailable.
+   * Local development can fall back to the static catalog when PostgreSQL is
+   * unavailable; strict production requires real database rows.
    */
   const subjects = await getTrackSubjects("class-9");
 
@@ -96,41 +98,54 @@ export default async function Class9Page() {
 
         {/* ==================== HERO ==================== */}
         <div className={styles.hero}>
-          {/* Decorative blue radial glow orb — pure CSS, no image dependency */}
+          {/* Route-owned bitmap hero image — optimized through Next.js Image. */}
+          <Image
+            src="/images/class-9-hero.png"
+            alt="Class 9 foundation learning background"
+            fill
+            priority
+            className={styles.heroMedia}
+            sizes="(max-width: 1200px) 100vw, 1200px"
+          />
+          <div className={styles.heroOverlay} aria-hidden="true" />
+
+          {/* Decorative blue radial glow orb — pure CSS for depth */}
           <div className={styles.heroOrb} aria-hidden="true" />
 
-          {/* Eyebrow chip — establishes context at a glance */}
-          <div className={styles.eyebrow}>
-            <BookOpen size={14} aria-hidden="true" /> Class 9 · CBSE
-          </div>
-
-          <h1 className={styles.heroTitle}>Master the Fundamentals</h1>
-
-          <p className={styles.heroSubtitle}>
-            Build a rock-solid foundation across all Class 9 subjects.
-            Structured day-wise plans, practice questions, and daily XP rewards keep you on track.
-          </p>
-
-          {/* Stats bar — derived from live repository data */}
-          <div className={styles.statsBar}>
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>{subjects.length}</span>
-              <span className={styles.statLabel}>Subjects</span>
+          <div className={styles.heroContent}>
+            {/* Eyebrow chip — establishes context at a glance */}
+            <div className={styles.eyebrow}>
+              <BookOpen size={14} aria-hidden="true" /> Class 9 · CBSE
             </div>
-            <div className={styles.statDivider} aria-hidden="true" />
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>{totalChapters}+</span>
-              <span className={styles.statLabel}>Chapters</span>
-            </div>
-            <div className={styles.statDivider} aria-hidden="true" />
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>{totalQuestions.toLocaleString()}+</span>
-              <span className={styles.statLabel}>Practice Questions</span>
-            </div>
-            <div className={styles.statDivider} aria-hidden="true" />
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>45 Days</span>
-              <span className={styles.statLabel}>Average Plan</span>
+
+            <h1 className={styles.heroTitle}>Master the Fundamentals</h1>
+
+            <p className={styles.heroSubtitle}>
+              Build a rock-solid foundation across all Class 9 subjects.
+              Structured day-wise plans, practice questions, and daily XP rewards keep you on track.
+            </p>
+
+            {/* Stats bar — derived from live repository data */}
+            <div className={styles.statsBar}>
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>{subjects.length}</span>
+                <span className={styles.statLabel}>Subjects</span>
+              </div>
+              <div className={styles.statDivider} aria-hidden="true" />
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>{totalChapters}+</span>
+                <span className={styles.statLabel}>Chapters</span>
+              </div>
+              <div className={styles.statDivider} aria-hidden="true" />
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>{totalQuestions.toLocaleString()}+</span>
+                <span className={styles.statLabel}>Practice Questions</span>
+              </div>
+              <div className={styles.statDivider} aria-hidden="true" />
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>45 Days</span>
+                <span className={styles.statLabel}>Average Plan</span>
+              </div>
             </div>
           </div>
         </div>

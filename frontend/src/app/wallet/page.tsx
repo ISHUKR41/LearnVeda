@@ -34,7 +34,7 @@ import { useRouter } from "next/navigation";
 import {
   Star, TrendingUp, Lock, Zap, Swords, Users,
   CheckCircle, ArrowLeft, Loader2, BookOpen, Trophy,
-  Shield, AlertCircle, ChevronRight, Info,
+  AlertCircle, ChevronRight, Info,
   Flame, BarChart3,
 } from "lucide-react";
 import styles from "./Wallet.module.css";

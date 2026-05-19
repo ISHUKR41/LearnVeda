@@ -2,10 +2,10 @@
  * FILE: get-platform-repository.ts
  * LOCATION: src/lib/server/repositories/get-platform-repository.ts
  * PURPOSE: Single backend storage entry point. Services call this getter so the
- *          concrete adapter can later change from JSON to PostgreSQL without
- *          route-level or service-level rewrites.
+ *          concrete adapter can change without route-level or service-level
+ *          rewrites. Production intentionally fails closed to PostgreSQL.
  * USED BY: Backend services and current-user lookup
- * LAST UPDATED: 2026-05-12
+ * LAST UPDATED: 2026-05-19
  */
 
 import { jsonPlatformRepository } from "@/lib/server/repositories/json-platform-repository";
@@ -16,11 +16,15 @@ export type PersistenceAdapterName = "json-file-mvp" | "postgresql";
 
 /**
  * Resolves which persistence adapter this runtime should use.
- * Production defaults to PostgreSQL because local JSON files are not safe for
+ * Production only allows PostgreSQL because local JSON files are not safe for
  * multiple server instances, deploy rollbacks, or real student data. Local
  * development keeps the JSON adapter by default so the app remains easy to run.
  */
 export function getPersistenceAdapterName(): PersistenceAdapterName {
+  if (process.env.NODE_ENV === "production" && process.env.EDUQUEST_PERSISTENCE_ADAPTER === "json") {
+    throw new Error("The JSON persistence adapter is blocked in production. Set EDUQUEST_PERSISTENCE_ADAPTER=postgres.");
+  }
+
   if (process.env.EDUQUEST_PERSISTENCE_ADAPTER === "postgres") {
     return "postgresql";
   }

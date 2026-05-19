@@ -22,8 +22,8 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-10);
+  align-items: flex-end;
+  margin-bottom: var(--space-8);
   gap: var(--space-4);
 }
 
@@ -33,10 +33,11 @@
 
 .title {
   font-family: var(--font-heading);
-  font-size: var(--font-size-h1);
+  font-size: clamp(2rem, 4vw, var(--font-size-h1));
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
+  letter-spacing: 0;
 }
 
 .subtitle {
@@ -51,29 +52,49 @@
   padding: var(--space-3) var(--space-6);
   background-color: var(--color-primary);
   color: white;
-  border-radius: var(--radius-lg);
-  font-weight: var(--font-weight-bold);
-  transition: all var(--transition-normal);
-  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
 }
 
 .newPostBtn:hover {
   background-color: var(--color-primary-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.newPostBtn:focus-visible,
+.categoryCard:focus-visible,
+.cancelBtn:focus-visible,
+.submitBtn:focus-visible,
+.statBtn:focus-visible,
+.postMenuBtn:focus-visible,
+.readMoreLink:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
 }
 
 .layout {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: var(--space-8);
+  grid-template-columns: minmax(15rem, 17.5rem) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
 }
 
-/* Sidebar */
+/* Sidebar: keep filters compact and sticky on desktop so learners can scan quickly. */
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: var(--space-6);
+}
+
+@media (min-width: 1025px) {
+  .sidebar {
+    position: sticky;
+    top: calc(var(--navbar-height) + var(--space-6));
+  }
 }
 
 .searchBar {
@@ -83,8 +104,9 @@
   padding: var(--space-3) var(--space-4);
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   color: var(--color-text-tertiary);
+  box-shadow: var(--shadow-sm);
 }
 
 .searchInput {
@@ -99,6 +121,11 @@
   outline: none;
 }
 
+.searchBar:focus-within {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
 .sidebarTitle {
   display: flex;
   align-items: center;
@@ -107,7 +134,7 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-text-tertiary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--tracking-wider);
   margin-bottom: var(--space-4);
 }
 
@@ -122,24 +149,30 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   color: var(--color-text-secondary);
-  transition: all var(--transition-fast);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   width: 100%;
   text-align: left;
   background: none;
-  border: none;
+  border: 1px solid transparent;
 }
 
 .categoryCard:hover {
-  background-color: var(--color-bg-tertiary);
+  background-color: var(--color-bg-card);
+  border-color: var(--color-border);
   color: var(--color-text-primary);
 }
 
 .categoryCardActive {
   background-color: var(--color-primary-lightest);
   color: var(--color-primary);
-  font-weight: var(--font-weight-bold);
+  border-color: var(--color-primary-lighter);
+  font-weight: var(--font-weight-semibold);
+}
+
+.categoryName {
+  min-width: 0;
 }
 
 .categoryIcon {
@@ -162,11 +195,11 @@
 /* Create Post Form */
 .createPost {
   background: var(--color-bg-card);
-  border: 1px solid var(--color-primary-light);
-  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   padding: var(--space-6);
   margin-bottom: var(--space-8);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .formTitle {
@@ -194,12 +227,14 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text-primary);
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
 }
 
 .formInput:focus, .formTextarea:focus {
   outline: none;
   border-color: var(--color-primary);
+  background-color: var(--color-bg-card);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .formTextarea {
@@ -217,21 +252,35 @@
 .cancelBtn {
   padding: var(--space-2) var(--space-6);
   color: var(--color-text-secondary);
-  font-weight: var(--font-weight-bold);
-  background: none;
-  border: none;
+  font-weight: var(--font-weight-semibold);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.cancelBtn:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
 }
 
 .submitBtn {
   padding: var(--space-3) var(--space-8);
   background-color: var(--color-primary);
   color: white;
-  border-radius: var(--radius-lg);
-  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
   display: flex;
   align-items: center;
   gap: var(--space-2);
   border: none;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.submitBtn:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .formNotice {
@@ -244,31 +293,32 @@
 .noticeSuccess { background-color: var(--color-success-lightest); color: var(--color-success); }
 .noticeError { background-color: var(--color-danger-lightest); color: var(--color-danger); }
 
-/* Post List */
+/* Post List: card spacing is intentionally quiet so titles and comments carry the hierarchy. */
 .postList {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-4);
 }
 
 .postCard {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   padding: var(--space-6);
-  transition: all var(--transition-normal);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
   box-shadow: var(--shadow-sm);
 }
 
 .postCard:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-lighter);
 }
 
 .postHeader {
   display: flex;
   justify-content: space-between;
+  gap: var(--space-3);
   margin-bottom: var(--space-4);
 }
 
@@ -282,7 +332,7 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: var(--radius-full);
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   color: white;
   display: flex;
   align-items: center;
@@ -300,6 +350,7 @@
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-small);
   color: var(--color-text-primary);
+  line-height: 1.4;
 }
 
 .authorLevel {
@@ -320,6 +371,18 @@
   color: var(--color-text-tertiary);
   background: none;
   border: none;
+  border-radius: var(--radius-md);
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.postMenuBtn:hover {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
 }
 
 .postContent {
@@ -332,11 +395,13 @@
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-2);
   color: var(--color-text-primary);
+  line-height: 1.35;
 }
 
 .postExcerpt {
   color: var(--color-text-secondary);
   font-size: var(--font-size-body);
+  line-height: 1.7;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -353,12 +418,12 @@
 .tagChip {
   font-size: 10px;
   text-transform: uppercase;
-  font-weight: var(--font-weight-bold);
-  padding: 2px 8px;
-  background-color: var(--color-bg-tertiary);
-  color: var(--color-text-tertiary);
-  border-radius: var(--radius-sm);
-  letter-spacing: 0.05em;
+  font-weight: var(--font-weight-semibold);
+  padding: 3px 8px;
+  background-color: var(--color-primary-lightest);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+  letter-spacing: var(--tracking-wider);
 }
 
 .postFooter {
@@ -384,6 +449,8 @@
   transition: color var(--transition-fast);
   background: none;
   border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-1);
 }
 
 .statBtn:hover {
@@ -400,8 +467,9 @@
 
 .readMoreLink {
   font-size: var(--font-size-small);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-primary);
+  white-space: nowrap;
 }
 
 .loadingState, .emptyState {
@@ -409,9 +477,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-20);
+  padding: var(--space-16);
   background: var(--color-bg-card);
-  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   color: var(--color-text-secondary);
   gap: var(--space-4);
 }
@@ -433,18 +502,52 @@
   
   .sidebar {
     order: -1;
+    gap: var(--space-4);
+  }
+
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   }
 }
 
 @media (max-width: 640px) {
+  .page {
+    padding-top: var(--space-6);
+  }
+
   .header {
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: var(--space-6);
   }
   
   .newPostBtn {
     width: 100%;
     justify-content: center;
+  }
+
+  .createPost,
+  .postCard {
+    padding: var(--space-5);
+  }
+
+  .formActions,
+  .postFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cancelBtn,
+  .submitBtn,
+  .readMoreLink {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .postStats {
+    justify-content: space-between;
   }
 }
 

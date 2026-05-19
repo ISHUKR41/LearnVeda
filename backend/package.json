@@ -1,19 +1,33 @@
 {
-  "name": "backend",
+  "name": "eduquest-backend",
   "version": "1.0.0",
-  "description": "This folder documents the backend boundary requested by the MCP plans. The live backend code currently lives in `src/app/api` and `src/lib/server` so the Next.js App Router can serve API routes without a separate deployment package.",
-  "main": "index.js",
+  "description": "EduQuest backend API server — Express 5 + TypeScript + PostgreSQL + Prisma ORM. Handles authentication, academic content, battle system, wallet, community, events, and notifications.",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "ts-node src/index.ts",
+    "dev": "ts-node --transpile-only src/index.ts",
+    "dev:watch": "nodemon --exec ts-node --transpile-only src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "seed": "ts-node --transpile-only src/seeds/seed.ts",
+    "db:migrate": "npx prisma migrate dev",
+    "db:push": "npx prisma db push",
+    "db:generate": "npx prisma generate",
+    "db:studio": "npx prisma studio",
+    "lint": "eslint src/ --ext .ts",
+    "test": "echo \"Tests not yet configured\" && exit 0"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "education",
+    "gamification",
+    "quiz-battles",
+    "cbse",
+    "engineering"
+  ],
+  "author": "EduQuest Team",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
@@ -25,7 +39,9 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/morgan": "^1.9.9",
     "@types/node": "^25.8.0",
+    "@types/pg": "^8.20.0",
     "nodemon": "^3.1.14",
     "prisma": "^7.8.0",
     "ts-node": "^10.9.2",

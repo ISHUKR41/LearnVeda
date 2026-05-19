@@ -49,65 +49,65 @@
  * Changing these values will update the look across the entire platform.
  * ============================================================ */
 :root {
-  /* --- Color Palette: Default is DARK NAVY (matches EduQuest MCP premium design) ---
-   * Electric blue accent (#58A6FF), deep navy backgrounds (#0D1117, #161B22),
-   * off-white text (#E6EDF3) — inspired by GitHub Dark and VS Code themes.
-   * This creates the premium, focused atmosphere needed for a competitive learning platform.
+  /* --- Color Palette: Light mode is the default production surface ---
+   * The root tokens now favor bright neutral backgrounds for daily study.
+   * Blue, teal, amber, green, and red stay as small semantic accents, while
+   * the explicit dark-theme block below keeps focused low-light study intact.
    */
 
-  /* Primary: Electric Blue — energetic, tech-forward, used for all CTAs */
-  --color-primary: #58A6FF;
-  --color-primary-hover: #388BFD;
-  --color-primary-light: #1F6FEB;
-  --color-primary-lighter: #1E3A8A;
-  --color-primary-lightest: #0D2147;
+  /* Primary: Academic blue — clear, trustworthy, and restrained for CTAs */
+  --color-primary: #2563EB;
+  --color-primary-hover: #1D4ED8;
+  --color-primary-light: #60A5FA;
+  --color-primary-lighter: #BFDBFE;
+  --color-primary-lightest: #EFF6FF;
 
   /* Secondary: Teal — balances the blue */
-  --color-secondary: #39D5CC;
-  --color-secondary-hover: #2DD4BF;
-  --color-secondary-light: #0E4444;
-  --color-secondary-lightest: #0A2E2E;
+  --color-secondary: #0F766E;
+  --color-secondary-hover: #115E59;
+  --color-secondary-light: #5EEAD4;
+  --color-secondary-lightest: #F0FDFA;
 
   /* Accent: Warm Amber — rewards, achievements, streaks */
-  --color-accent: #F0B429;
-  --color-accent-hover: #D97706;
-  --color-accent-light: #92400E;
-  --color-accent-lightest: #3B1A00;
+  --color-accent: #D97706;
+  --color-accent-hover: #B45309;
+  --color-accent-light: #FBBF24;
+  --color-accent-lightest: #FFFBEB;
 
   /* Success: Bright Green — correct answers, level-ups, wins */
-  --color-success: #3FB950;
-  --color-success-hover: #2EA043;
-  --color-success-light: #1A5C24;
-  --color-success-lightest: #0D2F14;
+  --color-success: #10B981;
+  --color-success-hover: #059669;
+  --color-success-light: #6EE7B7;
+  --color-success-lightest: #ECFDF5;
 
   /* Danger: Vivid Red — wrong answers, errors, losses */
-  --color-danger: #F85149;
-  --color-danger-hover: #DA3633;
-  --color-danger-light: #6E1C1C;
-  --color-danger-lightest: #3A0E0E;
+  --color-danger: #EF4444;
+  --color-danger-hover: #DC2626;
+  --color-danger-light: #FCA5A5;
+  --color-danger-lightest: #FEF2F2;
 
   /* Warning: Orange-Amber — streak alerts, deadlines */
-  --color-warning: #D29922;
-  --color-warning-light: #7D4E17;
-  --color-warning-lightest: #3B2009;
+  --color-warning: #F59E0B;
+  --color-warning-light: #FDE68A;
+  --color-warning-lightest: #FFFBEB;
 
-  /* Dark Navy Backgrounds — deep focus environment for long study sessions */
-  --color-bg-primary: #0D1117;
-  --color-bg-secondary: #161B22;
-  --color-bg-tertiary: #21262D;
-  --color-bg-card: #161B22;
-  --color-bg-card-hover: #1C2128;
+  /* Neutral surfaces — clean hierarchy without visual clutter */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8FAFC;
+  --color-bg-tertiary: #EEF2F7;
+  --color-bg-card: #FFFFFF;
+  --color-bg-card-hover: #F9FAFB;
 
-  /* Off-White Text — comfortable to read on dark backgrounds */
-  --color-text-primary: #E6EDF3;
-  --color-text-secondary: #8B949E;
-  --color-text-tertiary: #6E7681;
-  --color-text-inverse: #0D1117;
+  /* Text colors — high contrast for long study and discussion pages */
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94A3B8;
+  --color-text-inverse: #FFFFFF;
 
-  /* Dark Borders — subtle separators that don't break visual flow */
-  --color-border: #30363D;
-  --color-border-light: #21262D;
-  --color-border-focus: #58A6FF;
+  /* Borders — visible enough for structure, quiet enough for reading */
+  --color-border: #E2E8F0;
+  --color-border-light: #F1F5F9;
+  --color-border-focus: #2563EB;
 
   /* Overlay — for modals and drawers */
   --color-overlay: rgba(0, 0, 0, 0.75);
@@ -129,6 +129,7 @@
   --font-size-h3: 1.375rem;   /* 22px — card titles */
   --font-size-h4: 1.125rem;     /* 18px — subsection titles */
   --font-size-body: clamp(0.9375rem, 1vw + 0.5rem, 1rem); /* 15px to 16px — default reading size */
+  --font-size-body-large: 1.0625rem; /* 17px — long-form discussion reading size */
   --font-size-small: 0.875rem;    /* 14px — labels, metadata */
   --font-size-xsmall: 0.75rem;    /* 12px — timestamps, fine print */
 
@@ -167,14 +168,14 @@
   --radius-full: 9999px;    /* Pill shape — badges, avatars */
 
   /* --- Shadows (Elevation System) --- */
-  /* Deeper shadows for dark backgrounds */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
-  --shadow-glow-primary: 0 0 24px rgba(88, 166, 255, 0.25);
-  --shadow-glow-accent: 0 0 24px rgba(240, 180, 41, 0.25);
-  --shadow-glow-success: 0 0 24px rgba(63, 185, 80, 0.25);
+  /* Low elevation keeps the SaaS interface professional and fast-feeling. */
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 8px 20px -12px rgba(15, 23, 42, 0.22);
+  --shadow-lg: 0 18px 34px -24px rgba(15, 23, 42, 0.28);
+  --shadow-xl: 0 24px 48px -30px rgba(15, 23, 42, 0.32);
+  --shadow-glow-primary: 0 0 20px rgba(37, 99, 235, 0.14);
+  --shadow-glow-accent: 0 0 20px rgba(217, 119, 6, 0.14);
+  --shadow-glow-success: 0 0 20px rgba(16, 185, 129, 0.14);
 
   /* --- Transitions & Animations --- */
   --transition-fast: 150ms ease;
@@ -262,16 +263,67 @@
 }
 
 /* ============================================================
- * SECTION 4B: Dark Mode — kept for explicit [data-theme="dark"] compatibility
- * Since :root now defaults to dark, this block only reinforces the values.
+ * SECTION 4B: Dark Mode Tokens (opt-in via data-theme="dark")
+ * These values mirror the previous focused navy experience. Keeping the full
+ * token set here means dark mode is explicit and does not accidentally inherit
+ * light surfaces from :root.
  * ============================================================ */
 [data-theme="dark"],
 .dark {
-  /* All dark values are already the :root defaults above — this block
-     exists for components that set data-theme="dark" explicitly */
   --color-primary: #58A6FF;
   --color-primary-hover: #388BFD;
+  --color-primary-light: #1F6FEB;
+  --color-primary-lighter: #1E3A8A;
+  --color-primary-lightest: #0D2147;
+
+  --color-secondary: #39D5CC;
+  --color-secondary-hover: #2DD4BF;
+  --color-secondary-light: #0E4444;
+  --color-secondary-lightest: #0A2E2E;
+
+  --color-accent: #F0B429;
+  --color-accent-hover: #D97706;
+  --color-accent-light: #92400E;
+  --color-accent-lightest: #3B1A00;
+
+  --color-success: #3FB950;
+  --color-success-hover: #2EA043;
+  --color-success-light: #1A5C24;
+  --color-success-lightest: #0D2F14;
+
+  --color-danger: #F85149;
+  --color-danger-hover: #DA3633;
+  --color-danger-light: #6E1C1C;
+  --color-danger-lightest: #3A0E0E;
+
+  --color-warning: #D29922;
+  --color-warning-light: #7D4E17;
+  --color-warning-lightest: #3B2009;
+
+  --color-bg-primary: #0D1117;
+  --color-bg-secondary: #161B22;
+  --color-bg-tertiary: #21262D;
+  --color-bg-card: #161B22;
+  --color-bg-card-hover: #1C2128;
+
+  --color-text-primary: #E6EDF3;
+  --color-text-secondary: #8B949E;
+  --color-text-tertiary: #6E7681;
+  --color-text-inverse: #0D1117;
+
+  --color-border: #30363D;
+  --color-border-light: #21262D;
   --color-border-focus: #58A6FF;
+
+  --color-overlay: rgba(0, 0, 0, 0.75);
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  --shadow-glow-primary: 0 0 24px rgba(88, 166, 255, 0.25);
+  --shadow-glow-accent: 0 0 24px rgba(240, 180, 41, 0.25);
+  --shadow-glow-success: 0 0 24px rgba(63, 185, 80, 0.25);
 }
 
 /* ============================================================
@@ -1083,4 +1135,3 @@ input, textarea, select {
 .delay-1 { transition-delay: 0.1s; }
 .delay-2 { transition-delay: 0.2s; }
 .delay-3 { transition-delay: 0.3s; }
-

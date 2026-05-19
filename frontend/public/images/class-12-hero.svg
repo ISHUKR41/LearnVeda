@@ -1,0 +1,23 @@
+<svg width="1440" height="720" viewBox="0 0 1440 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- EduQuest Class 12 hero illustration: premium amber-gold for high-stakes exams -->
+  <defs>
+    <linearGradient id="c12-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="55%" stop-color="#78350F"/>
+      <stop offset="100%" stop-color="#4C1D00"/>
+    </linearGradient>
+    <radialGradient id="c12-orb" cx="0" cy="0" r="1" gradientTransform="translate(1120 140) scale(420)">
+      <stop offset="0%" stop-color="#FBBF24" stop-opacity="0.35"/>
+      <stop offset="70%" stop-color="#FBBF24" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1440" height="720" fill="url(#c12-gradient)"/>
+  <rect width="1440" height="720" fill="url(#c12-orb)"/>
+  <g opacity="0.3" stroke="#FCD34D" stroke-width="1.2">
+    <path d="M170 150H520V430H170Z"/>
+    <path d="M580 210H930V550H580Z"/>
+    <path d="M990 250H1320V560H990Z"/>
+  </g>
+  <circle cx="300" cy="570" r="150" fill="#F59E0B" fill-opacity="0.12"/>
+  <circle cx="1220" cy="520" r="190" fill="#FBBF24" fill-opacity="0.12"/>
+</svg>

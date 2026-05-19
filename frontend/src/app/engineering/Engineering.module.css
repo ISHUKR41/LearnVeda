@@ -185,22 +185,18 @@
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Monogram badge — large styled initial(s) of the language name */
+/* Language badge — Lucide icon with the language's own accent color */
 .langBadge {
   width: 52px;
   height: 52px;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-family-stats);
-  font-size: 1.1rem;
-  font-weight: 900;
   /* Tinted background + foreground derived from the CSS variable */
   background: color-mix(in srgb, var(--lang-accent, #58A6FF) 15%, transparent);
   color: var(--lang-accent, #58A6FF);
   flex-shrink: 0;
-  letter-spacing: -0.02em;
 }
 
 .langName {

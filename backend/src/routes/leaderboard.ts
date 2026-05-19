@@ -120,7 +120,7 @@ router.get("/", async (req: Request, res: Response) => {
  * Query params: scope (default: "global")
  * ───────────────────────────────────────────── */
 router.get("/:userId", async (req: Request, res: Response) => {
-  const { userId } = req.params;
+  const userId = String(req.params.userId);
 
   const scope = VALID_SCOPES.has(String(req.query.scope))
     ? String(req.query.scope)

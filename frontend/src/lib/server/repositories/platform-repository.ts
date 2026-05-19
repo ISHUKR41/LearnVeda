@@ -41,6 +41,7 @@ export interface BattleRepository {
 /** Community persistence contract required by the discussion feed. */
 export interface CommunityRepository {
   listPosts(): Promise<CommunityPost[]>;
+  findPostById(id: string, options?: { incrementViews?: boolean }): Promise<CommunityPost | null>;
   createPost(input: {
     author: PublicUser;
     title: string;

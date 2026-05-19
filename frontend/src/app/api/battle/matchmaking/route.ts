@@ -12,6 +12,7 @@
 import type { NextRequest } from "next/server";
 import { getAuthenticatedUser } from "@/lib/server/auth/current-user";
 import { checkRateLimit, getClientKey } from "@/lib/server/security/rate-limit";
+import { requireSameOriginRequest } from "@/lib/server/security/origin-guard";
 import { queueBattleMatch } from "@/lib/server/services/battle-service";
 import { apiError, apiSuccess, NO_STORE_HEADERS, readJsonBody } from "@/lib/server/utils/api-response";
 import { battleMatchmakingSchema } from "@/lib/validation/auth";
@@ -20,6 +21,12 @@ export const runtime = "nodejs";
 
 /** Creates a fair-match ticket for a selected battle category. */
 export async function POST(request: NextRequest) {
+  const originError = requireSameOriginRequest(request);
+
+  if (originError) {
+    return originError;
+  }
+
   const user = await getAuthenticatedUser(request);
 
   if (!user) {

@@ -8,7 +8,7 @@
  * LAST UPDATED: 2026-05-12
  */
 
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+-- CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 CREATE TABLE IF NOT EXISTS eduquest_users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

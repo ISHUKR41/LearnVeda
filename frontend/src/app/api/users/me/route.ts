@@ -23,6 +23,7 @@
 import type { NextRequest } from "next/server";
 import { getAuthenticatedUser } from "@/lib/server/auth/current-user";
 import { getPostgresPool } from "@/lib/server/database/postgres";
+import { requireSameOriginRequest } from "@/lib/server/security/origin-guard";
 import { apiError, apiSuccess, NO_STORE_HEADERS } from "@/lib/server/utils/api-response";
 
 export const runtime = "nodejs";
@@ -98,6 +99,12 @@ export async function GET(request: NextRequest) {
  *   { "name": "Aryan Sharma", "track": "class-12" }
  */
 export async function PATCH(request: NextRequest) {
+  const originError = requireSameOriginRequest(request);
+
+  if (originError) {
+    return originError;
+  }
+
   /* ── 1. Verify the session cookie ── */
   const user = await getAuthenticatedUser(request);
 

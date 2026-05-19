@@ -2,30 +2,20 @@
  * FILE: run-migrations.ts
  * LOCATION: src/lib/server/database/migrations/run-migrations.ts
  * PURPOSE: Small PostgreSQL migration runner for production setup. It creates a
- *          migration history table, runs each SQL file exactly once, and records
- *          the result so future deploys are repeatable.
+ *          migration history table, runs each SQL file exactly once, records a
+ *          checksum, and blocks deploys if an already-applied file changes.
  * USED BY: npm run db:migrate
- * DEPENDENCIES: node:fs/promises, node:path, postgres.ts
- * LAST UPDATED: 2026-05-12
+ * DEPENDENCIES: migration-status.ts, postgres.ts
+ * LAST UPDATED: 2026-05-19
  */
 
-import { readdir, readFile } from "node:fs/promises";
-import path from "node:path";
+import "dotenv/config";
+import { listMigrationDefinitions, type MigrationFileDefinition } from "../migration-status";
 import { closePostgresPool, getPostgresPool, withPostgresTransaction } from "../postgres";
 
 interface AppliedMigrationRow {
   name: string;
-}
-
-const MIGRATIONS_DIRECTORY = __dirname;
-
-/** Returns every migration file in stable numeric order. */
-async function listMigrationFiles(): Promise<string[]> {
-  const entries = await readdir(MIGRATIONS_DIRECTORY);
-
-  return entries
-    .filter((entry) => /^\d+_.+\.sql$/.test(entry))
-    .sort((left, right) => left.localeCompare(right));
+  checksum: string | null;
 }
 
 /** Ensures the migration history table exists before any migration is checked. */
@@ -33,30 +23,73 @@ async function ensureMigrationTable(): Promise<void> {
   await getPostgresPool().query(`
     CREATE TABLE IF NOT EXISTS eduquest_schema_migrations (
       name TEXT PRIMARY KEY,
+      checksum TEXT,
       applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
+  `);
+
+  await getPostgresPool().query(`
+    ALTER TABLE eduquest_schema_migrations
+    ADD COLUMN IF NOT EXISTS checksum TEXT
   `);
 }
 
 /** Reads the migration names that have already been applied to this database. */
-async function listAppliedMigrations(): Promise<Set<string>> {
+async function listAppliedMigrations(): Promise<Map<string, AppliedMigrationRow>> {
   const result = await getPostgresPool().query<AppliedMigrationRow>(
-    "SELECT name FROM eduquest_schema_migrations",
+    "SELECT name, checksum FROM eduquest_schema_migrations",
   );
 
-  return new Set(result.rows.map((row) => row.name));
+  return new Map(result.rows.map((row) => [row.name, row]));
+}
+
+/** Fails fast when an applied SQL file no longer matches its recorded checksum. */
+function assertAppliedMigrationsAreImmutable(
+  migrationDefinitions: MigrationFileDefinition[],
+  appliedMigrations: Map<string, AppliedMigrationRow>,
+): void {
+  for (const migration of migrationDefinitions) {
+    const applied = appliedMigrations.get(migration.name);
+
+    if (!applied || !applied.checksum) {
+      continue;
+    }
+
+    if (applied.checksum !== migration.checksum) {
+      throw new Error(
+        `Migration checksum mismatch for ${migration.name}. Create a new migration instead of editing an applied migration.`,
+      );
+    }
+  }
+}
+
+/** Adds checksums to legacy applied rows created before checksum tracking. */
+async function backfillMissingChecksums(
+  migrationDefinitions: MigrationFileDefinition[],
+  appliedMigrations: Map<string, AppliedMigrationRow>,
+): Promise<void> {
+  for (const migration of migrationDefinitions) {
+    const applied = appliedMigrations.get(migration.name);
+
+    if (!applied || applied.checksum) {
+      continue;
+    }
+
+    await getPostgresPool().query(
+      "UPDATE eduquest_schema_migrations SET checksum = $1 WHERE name = $2 AND checksum IS NULL",
+      [migration.checksum, migration.name],
+    );
+    appliedMigrations.set(migration.name, { name: migration.name, checksum: migration.checksum });
+  }
 }
 
 /** Runs one migration and records it in the same transaction. */
-async function applyMigration(fileName: string): Promise<void> {
-  const migrationPath = path.join(MIGRATIONS_DIRECTORY, fileName);
-  const sql = await readFile(migrationPath, "utf8");
-
+async function applyMigration(migration: MigrationFileDefinition): Promise<void> {
   await withPostgresTransaction(async (client) => {
-    await client.query(sql);
+    await client.query(migration.sql);
     await client.query(
-      "INSERT INTO eduquest_schema_migrations (name) VALUES ($1)",
-      [fileName],
+      "INSERT INTO eduquest_schema_migrations (name, checksum) VALUES ($1, $2)",
+      [migration.name, migration.checksum],
     );
   });
 }
@@ -65,18 +98,21 @@ async function applyMigration(fileName: string): Promise<void> {
 async function main(): Promise<void> {
   await ensureMigrationTable();
 
-  const migrationFiles = await listMigrationFiles();
+  const migrationDefinitions = await listMigrationDefinitions();
   const appliedMigrations = await listAppliedMigrations();
-  const pendingMigrations = migrationFiles.filter((fileName) => !appliedMigrations.has(fileName));
+  assertAppliedMigrationsAreImmutable(migrationDefinitions, appliedMigrations);
+  await backfillMissingChecksums(migrationDefinitions, appliedMigrations);
+
+  const pendingMigrations = migrationDefinitions.filter((migration) => !appliedMigrations.has(migration.name));
 
   if (pendingMigrations.length === 0) {
     console.log("EduQuest database is already up to date.");
     return;
   }
 
-  for (const fileName of pendingMigrations) {
-    console.log(`Applying migration: ${fileName}`);
-    await applyMigration(fileName);
+  for (const migration of pendingMigrations) {
+    console.log(`Applying migration: ${migration.name}`);
+    await applyMigration(migration);
   }
 
   console.log(`Applied ${pendingMigrations.length} EduQuest migration(s).`);

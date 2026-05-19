@@ -11,6 +11,11 @@ This document tracks what is currently real in the repository and what remains b
 - Redis-ready rate limiter and runtime readiness endpoints.
 - Self-hosted fonts through `@fontsource` packages.
 - Dynamic loading on key interactive routes such as dashboard, battle, community, events, and leaderboard.
+- Admin review console for event host applications with status updates and review notes.
+- Strict production data mode now prevents static fallback counters/curriculum from being mistaken for live PostgreSQL data.
+- Demo database seeding is blocked in production unless explicitly approved with `EDUQUEST_ALLOW_DEMO_SEED=true`.
+- PostgreSQL performance/search indexes cover leaderboard, dashboard, notifications, community, battle history, host application review, and full-text search paths.
+- Class 9–12 pages now use route-owned bitmap hero assets, and Class 10 reads subjects from the same database-backed curriculum path as Class 9.
 
 ## Fixed In This Pass
 
@@ -22,9 +27,8 @@ This document tracks what is currently real in the repository and what remains b
 
 ## Remaining Production Work
 
-- Add an admin review UI for approving or rejecting host applications.
 - Add real-time battle rooms with a Socket.IO or managed WebSocket service.
 - Add background workers for email, notification fanout, certificates, and event reminders.
 - Add automated tests for API routes, repository adapters, accessibility, and browser flows.
-- Add optimized WebP/AVIF image variants for every top-level route.
+- Add WebP/AVIF variants for the new route-owned PNG hero assets.
 - Decide whether Prisma remains optional tooling or becomes the primary data-access layer.

@@ -10,6 +10,7 @@
  */
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { GraduationCap, Award, Target, Shield, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import styles from "./Class12.module.css";
@@ -68,46 +69,58 @@ export default function Class12Page() {
 
         {/* ==================== HERO ==================== */}
         <div className={styles.hero}>
+          <Image
+            src="/images/class-12-hero.png"
+            alt="Class 12 board and entrance preparation background"
+            fill
+            priority
+            className={styles.heroMedia}
+            sizes="(max-width: 1200px) 100vw, 1200px"
+          />
+          <div className={styles.heroOverlay} aria-hidden="true" />
+
           {/* Decorative orb — gold/amber for Class 12 high-stakes identity */}
           <div className={styles.heroOrb} aria-hidden="true" />
 
-          <div className={styles.eyebrow}>
-            <GraduationCap size={14} aria-hidden="true" /> Class 12 · Board + Entrance
-          </div>
-
-          <h1 className={styles.heroTitle}>Board & Entrance Exam Prep</h1>
-
-          <p className={styles.heroSubtitle}>
-            Master board exams and ace entrance tests with structured revision and mock tests.
-            Specialized plans for JEE, NEET, CUET, and board excellence.
-          </p>
-
-          {/* Stats bar with dividers */}
-          <div className={styles.statsBar}>
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>3</span>
-              <span className={styles.statLabel}>Streams</span>
+          <div className={styles.heroContent}>
+            <div className={styles.eyebrow}>
+              <GraduationCap size={14} aria-hidden="true" /> Class 12 · Board + Entrance
             </div>
 
-            <div className={styles.statDivider} aria-hidden="true" />
+            <h1 className={styles.heroTitle}>Board & Entrance Exam Prep</h1>
 
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>100+</span>
-              <span className={styles.statLabel}>Mock Tests</span>
-            </div>
+            <p className={styles.heroSubtitle}>
+              Master board exams and ace entrance tests with structured revision and mock tests.
+              Specialized plans for JEE, NEET, CUET, and board excellence.
+            </p>
 
-            <div className={styles.statDivider} aria-hidden="true" />
+            {/* Stats bar with dividers */}
+            <div className={styles.statsBar}>
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>3</span>
+                <span className={styles.statLabel}>Streams</span>
+              </div>
 
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>18</span>
-              <span className={styles.statLabel}>Total Subjects</span>
-            </div>
+              <div className={styles.statDivider} aria-hidden="true" />
 
-            <div className={styles.statDivider} aria-hidden="true" />
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>100+</span>
+                <span className={styles.statLabel}>Mock Tests</span>
+              </div>
 
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>2000+</span>
-              <span className={styles.statLabel}>Questions</span>
+              <div className={styles.statDivider} aria-hidden="true" />
+
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>18</span>
+                <span className={styles.statLabel}>Total Subjects</span>
+              </div>
+
+              <div className={styles.statDivider} aria-hidden="true" />
+
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>2000+</span>
+                <span className={styles.statLabel}>Questions</span>
+              </div>
             </div>
           </div>
         </div>

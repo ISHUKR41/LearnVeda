@@ -1,0 +1,23 @@
+<svg width="1440" height="640" viewBox="0 0 1440 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- EduQuest Admin Ops hero illustration: neutral slate for operational clarity -->
+  <defs>
+    <linearGradient id="admin-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1120"/>
+      <stop offset="60%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <radialGradient id="admin-orb" cx="0" cy="0" r="1" gradientTransform="translate(1100 120) scale(380)">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.25"/>
+      <stop offset="70%" stop-color="#38BDF8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1440" height="640" fill="url(#admin-gradient)"/>
+  <rect width="1440" height="640" fill="url(#admin-orb)"/>
+  <g opacity="0.25" stroke="#93C5FD" stroke-width="1.2">
+    <path d="M140 140H520V420H140Z"/>
+    <path d="M600 200H980V540H600Z"/>
+    <path d="M1040 240H1320V520H1040Z"/>
+  </g>
+  <circle cx="280" cy="520" r="150" fill="#2563EB" fill-opacity="0.12"/>
+  <circle cx="1200" cy="500" r="170" fill="#38BDF8" fill-opacity="0.12"/>
+</svg>

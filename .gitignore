@@ -52,3 +52,16 @@ next-env.d.ts
 
 # large planning docs
 Merged_Website_MCP_Final_Master_Plan.md
+
+# logs
+*.log
+frontend/*.log
+backend/*.log
+
+# agents
+.agents/
+
+# build directories
+backend/dist/
+dist/
+

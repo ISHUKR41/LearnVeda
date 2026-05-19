@@ -8,7 +8,7 @@
  *          This is the outermost shell — every route renders inside this component.
  * USED BY: Next.js App Router — automatically applied to every page in src/app/
  * DEPENDENCIES: globals.css, Navbar, Footer, Providers, @fontsource fonts
- * LAST UPDATED: 2026-05-16
+ * LAST UPDATED: 2026-05-19
  * AUTHOR NOTE: This file must remain a SERVER component. All "use client" logic
  *              is isolated inside the Providers wrapper. Never add "use client"
  *              to this file — it would force the entire layout to render on the client.
@@ -125,7 +125,7 @@ interface RootLayoutProps {
  */
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
         {/*
          * Providers wraps everything that needs client-side context.

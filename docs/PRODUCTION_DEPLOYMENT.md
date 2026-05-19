@@ -17,12 +17,14 @@ Use this checklist before sending real learners or event participants to EduQues
 2. Run `npm run db:migrate`.
 3. Confirm `/api/readiness` returns a ready status in the target environment.
 4. Smoke test sign-up, sign-in, dashboard, events, community, search, notifications, and profile.
+5. Do not run `npm run db:seed` against production unless the target is an approved staging/demo database and `EDUQUEST_ALLOW_DEMO_SEED=true` is intentionally set.
 
 ## Scaling Notes
 
 - PostgreSQL is the durable source of truth for users, progress, events, community, audit logs, and jobs.
 - Redis is required for distributed rate limiting today and should later own matchmaking queues, live counters, and worker queues.
 - Keep the JSON adapter only for local development because it is not safe for multi-instance production traffic.
+- Keep static fallback data disabled for public production traffic so missing PostgreSQL records are visible during release checks.
 
 ## Release Gates
 

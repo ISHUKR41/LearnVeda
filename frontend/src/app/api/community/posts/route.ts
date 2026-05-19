@@ -12,6 +12,7 @@ import type { NextRequest } from "next/server";
 import { getAuthenticatedUser } from "@/lib/server/auth/current-user";
 import { loadCommunityFeed, publishCommunityPost } from "@/lib/server/services/community-service";
 import { checkRateLimit, getClientKey } from "@/lib/server/security/rate-limit";
+import { requireSameOriginRequest } from "@/lib/server/security/origin-guard";
 import { apiError, apiSuccess, NO_STORE_HEADERS, readJsonBody } from "@/lib/server/utils/api-response";
 import { communityPostSchema } from "@/lib/validation/auth";
 
@@ -25,6 +26,12 @@ export async function GET() {
 
 /** Creates a new community post for the signed-in user. */
 export async function POST(request: NextRequest) {
+  const originError = requireSameOriginRequest(request);
+
+  if (originError) {
+    return originError;
+  }
+
   const user = await getAuthenticatedUser(request);
 
   if (!user) {

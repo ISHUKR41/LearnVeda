@@ -12,6 +12,7 @@ import type { NextRequest } from "next/server";
 import { getAuthenticatedUser } from "@/lib/server/auth/current-user";
 import { registerStudentForEvent } from "@/lib/server/services/events-service";
 import { checkRateLimit, getClientKey } from "@/lib/server/security/rate-limit";
+import { requireSameOriginRequest } from "@/lib/server/security/origin-guard";
 import { apiError, apiSuccess, NO_STORE_HEADERS, readJsonBody } from "@/lib/server/utils/api-response";
 import { eventRegistrationSchema } from "@/lib/validation/auth";
 
@@ -19,6 +20,12 @@ export const runtime = "nodejs";
 
 /** Registers the current user for a live/upcoming event. */
 export async function POST(request: NextRequest) {
+  const originError = requireSameOriginRequest(request);
+
+  if (originError) {
+    return originError;
+  }
+
   const user = await getAuthenticatedUser(request);
 
   if (!user) {

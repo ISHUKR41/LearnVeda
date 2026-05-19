@@ -1,0 +1,23 @@
+<svg width="1440" height="720" viewBox="0 0 1440 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- EduQuest Class 11 hero illustration: emerald streams for multi-track learning -->
+  <defs>
+    <linearGradient id="c11-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="55%" stop-color="#064E3B"/>
+      <stop offset="100%" stop-color="#0B3B2E"/>
+    </linearGradient>
+    <radialGradient id="c11-orb" cx="0" cy="0" r="1" gradientTransform="translate(1080 140) scale(420)">
+      <stop offset="0%" stop-color="#34D399" stop-opacity="0.35"/>
+      <stop offset="70%" stop-color="#34D399" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1440" height="720" fill="url(#c11-gradient)"/>
+  <rect width="1440" height="720" fill="url(#c11-orb)"/>
+  <g opacity="0.28" stroke="#6EE7B7" stroke-width="1.2">
+    <path d="M160 140H500V420H160Z"/>
+    <path d="M560 200H900V540H560Z"/>
+    <path d="M980 240H1320V560H980Z"/>
+  </g>
+  <circle cx="300" cy="560" r="150" fill="#10B981" fill-opacity="0.12"/>
+  <circle cx="1210" cy="520" r="190" fill="#34D399" fill-opacity="0.12"/>
+</svg>

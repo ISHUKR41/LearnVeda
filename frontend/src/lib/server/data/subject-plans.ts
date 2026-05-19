@@ -2,9 +2,9 @@
  * FILE: subject-plans.ts
  * LOCATION: src/lib/server/data/subject-plans.ts
  * PURPOSE: Server-only curriculum aggregation helpers that combine route params,
- *          DB-backed subjects/chapters/questions, and static fallback catalogs.
+ *          DB-backed subjects/chapters/questions, and local-only fallback catalogs.
  * USED BY: Class pages, subject pages, and chapter practice routes
- * LAST UPDATED: 2026-05-18
+ * LAST UPDATED: 2026-05-19
  */
 
 import { CLASSES_SIMPLE } from "@/lib/constants";
@@ -14,6 +14,7 @@ import {
   getSimpleClassPlan,
   getStreamClassPlan,
 } from "@/lib/curriculum/learning-catalog";
+import { shouldAllowStaticFallbackData } from "@/lib/server/env";
 import type {
   CurriculumQuestion,
   CurriculumSubject,
@@ -193,7 +194,13 @@ function mapTrackSubjectCard(subject: CurriculumSubject, track: SupportedTrack):
   };
 }
 
-/** Returns track-level subject cards from DB with safe static fallback. */
+/**
+ * Returns track-level subject cards from PostgreSQL.
+ *
+ * Static fallback data is allowed only for local previews. In strict production
+ * mode the function returns an empty list when the database cannot provide real
+ * curriculum rows, making data issues visible to readiness checks and QA.
+ */
 export async function getTrackSubjects(track: "class-9" | "class-10"): Promise<TrackSubjectCard[]> {
   try {
     const subjects = await getSubjectsByTrack(track);
@@ -201,7 +208,11 @@ export async function getTrackSubjects(track: "class-9" | "class-10"): Promise<T
       return subjects.map((subject) => mapTrackSubjectCard(subject, track));
     }
   } catch {
-    // Fallback below.
+    // Local fallback below; strict production must not hide DB failures.
+  }
+
+  if (!shouldAllowStaticFallbackData()) {
+    return [];
   }
 
   const fallback = CLASSES_SIMPLE.find((item) => item.id === track);
@@ -214,7 +225,7 @@ export async function getTrackSubjects(track: "class-9" | "class-10"): Promise<T
   }));
 }
 
-/** Returns one subject plan from DB and falls back to static curriculum data. */
+/** Returns one subject plan from DB with local-only fallback curriculum data. */
 export async function getSubjectPlanForRoute(input: {
   track: SupportedTrack;
   subject: string;
@@ -247,7 +258,11 @@ export async function getSubjectPlanForRoute(input: {
       };
     }
   } catch {
-    // Fallback below.
+    // Local fallback below; strict production must not hide DB failures.
+  }
+
+  if (!shouldAllowStaticFallbackData()) {
+    return null;
   }
 
   return buildFallbackClassPlan(input.track, input.subject, input.stream);
@@ -301,7 +316,11 @@ export async function getChapterPracticeSnapshot(input: {
       };
     }
   } catch {
-    // Fallback below.
+    // Local fallback below; strict production must not hide DB failures.
+  }
+
+  if (!shouldAllowStaticFallbackData()) {
+    return null;
   }
 
   const fallbackPlan = await getSubjectPlanForRoute({
@@ -330,4 +349,3 @@ export async function getChapterPracticeSnapshot(input: {
 export function getEngineeringPlanSnapshot(slug: string) {
   return getEngineeringPlan(slug);
 }
-

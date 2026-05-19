@@ -237,6 +237,11 @@ function getInitials(name: string): string {
     .toUpperCase();
 }
 
+/** Returns true for ids that PostgreSQL can safely compare against UUID columns. */
+function isUuid(value: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
+
 /** Removes password hashes before user data is sent to browser clients. */
 function toPublicUser(user: StoredUser): PublicUser {
   return {
@@ -342,6 +347,30 @@ export const postgresPlatformRepository: PlatformRepository = {
       );
 
       return result.rows.map(mapCommunityPostRow);
+    },
+
+    async findPostById(id, options) {
+      if (!isUuid(id)) {
+        return null;
+      }
+
+      const result = options?.incrementViews
+        ? await queryPostgres<CommunityPostRow>(
+            `UPDATE eduquest_community_posts
+             SET views = views + 1
+             WHERE id = $1
+             RETURNING id, author_id, author_name, title, body, tags, likes, comments, views, created_at`,
+            [id],
+          )
+        : await queryPostgres<CommunityPostRow>(
+            `SELECT id, author_id, author_name, title, body, tags, likes, comments, views, created_at
+             FROM eduquest_community_posts
+             WHERE id = $1
+             LIMIT 1`,
+            [id],
+          );
+
+      return result.rows[0] ? mapCommunityPostRow(result.rows[0]) : null;
     },
 
     async createPost(input) {

@@ -2,19 +2,17 @@
  * FILE: page.tsx
  * LOCATION: src/app/class-10/page.tsx
  * PURPOSE: Class 10 landing page — board exam focused, CBSE NCERT-aligned syllabus.
- *          Displays all six subjects, a stats bar, a "Why Class 10?" section, and a CTA.
+ *          Displays database-backed subjects, a stats bar, a "Why Class 10?"
+ *          section, and a CTA.
  * USED BY: Next.js App Router — renders at "/class-10"
- * DEPENDENCIES: next/link, lucide-react, Class10.module.css
- * LAST UPDATED: 2026-05-18
+ * DEPENDENCIES: next/link, next/image, lucide-react, subject-plans,
+ *               lucide-icon-map, Class10.module.css
+ * LAST UPDATED: 2026-05-19
  */
 
 import Link from "next/link";
+import Image from "next/image";
 import {
-  BookOpen,
-  Calculator,
-  FlaskConical,
-  Globe,
-  Languages,
   ArrowRight,
   Target,
   Clock,
@@ -22,6 +20,8 @@ import {
   Shield,
   ChevronRight,
 } from "lucide-react";
+import { getTrackSubjects } from "@/lib/server/data/subject-plans";
+import { resolveCurriculumIcon } from "@/lib/ui/lucide-icon-map";
 import styles from "./Class10.module.css";
 
 export const metadata = {
@@ -31,60 +31,18 @@ export const metadata = {
 };
 
 /* ─────────────────────────────────────────────
- * SUBJECTS Array
- * Each subject maps to a subject detail page via its id slug.
- * iconClass drives the colored icon background in the CSS module.
+ * Icon color mapping — stable subject IDs get route-local visual accents.
+ * Subjects not listed here still render with the default board-prep amber.
  * ───────────────────────────────────────────── */
-const SUBJECTS = [
-  {
-    id: "mathematics-standard",
-    name: "Maths Standard",
-    icon: Calculator,
-    chapters: 15,
-    desc: "Board-focused standard mathematics — algebra, geometry, statistics, and timed practice tests.",
-    iconClass: "iconBlue",
-  },
-  {
-    id: "mathematics-basic",
-    name: "Maths Basic",
-    icon: Calculator,
-    chapters: 15,
-    desc: "Concept-first mathematics plan for confident board exam performance with step-by-step guidance.",
-    iconClass: "iconIndigo",
-  },
-  {
-    id: "science",
-    name: "Science",
-    icon: FlaskConical,
-    chapters: 16,
-    desc: "Chemistry, Physics, and Biology in one track — all NCERT chapters mapped to board-pattern practice.",
-    iconClass: "iconGreen",
-  },
-  {
-    id: "social-science",
-    name: "Social Science",
-    icon: Globe,
-    chapters: 20,
-    desc: "High-retention History, Civics, Geography, and Economics revision with map practice.",
-    iconClass: "iconViolet",
-  },
-  {
-    id: "english",
-    name: "English",
-    icon: BookOpen,
-    chapters: 12,
-    desc: "Literature, writing, and grammar preparation with model answers and scoring practice.",
-    iconClass: "iconAmber",
-  },
-  {
-    id: "hindi",
-    name: "Hindi",
-    icon: Languages,
-    chapters: 12,
-    desc: "Chapter-wise Hindi literature and grammar with exam-pattern answers for board preparation.",
-    iconClass: "iconRed",
-  },
-];
+const ICON_STYLE_BY_SUBJECT: Record<string, string> = {
+  "mathematics-standard": "iconBlue",
+  "mathematics-basic": "iconIndigo",
+  science: "iconGreen",
+  "social-science": "iconViolet",
+  english: "iconAmber",
+  hindi: "iconRed",
+  "computer-applications": "iconCyan",
+};
 
 /* ─────────────────────────────────────────────
  * WHY_CARDS Array
@@ -116,9 +74,18 @@ const WHY_CARDS = [
 /* ─────────────────────────────────────────────
  * Class10Page Component — Server Component
  * ───────────────────────────────────────────── */
-export default function Class10Page() {
-  /* Derive total chapter count from all subjects for the stats bar */
-  const totalChapters = SUBJECTS.reduce((sum, s) => sum + s.chapters, 0);
+export default async function Class10Page() {
+  /*
+   * Fetches Class 10 subjects from the same database-backed curriculum
+   * repository used by the subject detail pages. Local development may still
+   * use fallback data when PostgreSQL is not connected, but strict production
+   * never silently swaps real DB data for static values.
+   */
+  const subjects = await getTrackSubjects("class-10");
+
+  /* Derive hero stats from the repository payload instead of hardcoded cards. */
+  const totalChapters = subjects.reduce((sum, subject) => sum + subject.chapterCount, 0);
+  const totalQuestions = subjects.reduce((sum, subject) => sum + subject.chapterCount * 20, 0);
 
   return (
     <div className={styles.page}>
@@ -126,47 +93,60 @@ export default function Class10Page() {
 
         {/* ==================== HERO ==================== */}
         <div className={styles.hero}>
+          {/* Route-owned bitmap hero image — optimized through Next.js Image. */}
+          <Image
+            src="/images/class-10-hero.png"
+            alt="Class 10 board preparation background"
+            fill
+            priority
+            className={styles.heroMedia}
+            sizes="(max-width: 1200px) 100vw, 1200px"
+          />
+          <div className={styles.heroOverlay} aria-hidden="true" />
+
           {/* Decorative amber radial orb — amber = board exam urgency */}
           <div className={styles.heroOrb} aria-hidden="true" />
 
-          {/* Eyebrow chip */}
-          <div className={styles.eyebrow}>
-            <Target size={14} aria-hidden="true" /> Class 10 · Board Exam
-          </div>
-
-          <h1 className={styles.heroTitle}>Board Exam Preparation</h1>
-
-          <p className={styles.heroSubtitle}>
-            Structured CBSE Class 10 revision. Master all six subjects chapter-by-chapter
-            and walk into board exams fully prepared.
-          </p>
-
-          {/* Stats bar with dividers between items */}
-          <div className={styles.statsBar}>
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>6</span>
-              <span className={styles.statLabel}>Subjects</span>
+          <div className={styles.heroContent}>
+            {/* Eyebrow chip */}
+            <div className={styles.eyebrow}>
+              <Target size={14} aria-hidden="true" /> Class 10 · Board Exam
             </div>
 
-            <div className={styles.statDivider} aria-hidden="true" />
+            <h1 className={styles.heroTitle}>Board Exam Preparation</h1>
 
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>{totalChapters}+</span>
-              <span className={styles.statLabel}>Chapters</span>
-            </div>
+            <p className={styles.heroSubtitle}>
+              Structured CBSE Class 10 revision. Master every available subject
+              chapter-by-chapter and walk into board exams fully prepared.
+            </p>
 
-            <div className={styles.statDivider} aria-hidden="true" />
+            {/* Stats bar with dividers between items */}
+            <div className={styles.statsBar}>
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>{subjects.length}</span>
+                <span className={styles.statLabel}>Subjects</span>
+              </div>
 
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>1000+</span>
-              <span className={styles.statLabel}>Board Questions</span>
-            </div>
+              <div className={styles.statDivider} aria-hidden="true" />
 
-            <div className={styles.statDivider} aria-hidden="true" />
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>{totalChapters}+</span>
+                <span className={styles.statLabel}>Chapters</span>
+              </div>
 
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>60 Days</span>
-              <span className={styles.statLabel}>Revision Plan</span>
+              <div className={styles.statDivider} aria-hidden="true" />
+
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>{totalQuestions.toLocaleString()}+</span>
+                <span className={styles.statLabel}>Board Questions</span>
+              </div>
+
+              <div className={styles.statDivider} aria-hidden="true" />
+
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>60 Days</span>
+                <span className={styles.statLabel}>Revision Plan</span>
+              </div>
             </div>
           </div>
         </div>
@@ -175,14 +155,16 @@ export default function Class10Page() {
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Your Subjects</h2>
           <p className={styles.sectionSubtitle}>
-            Six structured plans — one per subject. Each chapter builds on the last,
+            Board-focused plans for every active subject. Each chapter builds on the last,
             with timed practice questions after every session.
           </p>
         </div>
 
         <div className={styles.subjectGrid}>
-          {SUBJECTS.map((subject) => {
-            const SubjectIcon = subject.icon;
+          {subjects.map((subject) => {
+            const SubjectIcon = resolveCurriculumIcon(subject.iconName);
+            const iconClass = ICON_STYLE_BY_SUBJECT[subject.id] ?? "iconAmber";
+
             return (
               <Link
                 key={subject.id}
@@ -190,17 +172,17 @@ export default function Class10Page() {
                 className={styles.subjectCard}
               >
                 <div className={styles.cardHeader}>
-                  <div className={`${styles.subjectIcon} ${styles[subject.iconClass]}`}>
+                  <div className={`${styles.subjectIcon} ${styles[iconClass]}`}>
                     <SubjectIcon size={22} aria-hidden="true" />
                   </div>
                   <h3 className={styles.subjectName}>{subject.name}</h3>
                 </div>
 
-                <p className={styles.subjectDesc}>{subject.desc}</p>
+                <p className={styles.subjectDesc}>{subject.description}</p>
 
                 <div className={styles.cardFooter}>
                   <span className={styles.chapterCount}>
-                    {subject.chapters} Chapters
+                    {subject.chapterCount} Chapters
                   </span>
                   <span className={styles.startBtn}>
                     Start Revision <ArrowRight size={14} aria-hidden="true" />

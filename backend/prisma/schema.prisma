@@ -1,5 +1,19 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// ==============================================================================
+// FILE: schema.prisma
+// LOCATION: backend/prisma/schema.prisma
+// PURPOSE: Complete database schema for the EduQuest educational platform.
+//          Defines all tables for users, academic content (Class 9-12),
+//          engineering/coding content, gamification (XP, levels, streaks),
+//          battle/matchmaking system, community forums, events, wallet,
+//          notifications, and admin management.
+//
+// DATABASE: PostgreSQL 16 via Prisma ORM
+// USED BY: All backend services and controllers
+// LAST UPDATED: 2026-05-19
+//
+// IMPORTANT: Run `npx prisma migrate dev` after any schema changes.
+//            Run `npx prisma generate` to update the Prisma Client.
+// ==============================================================================
 
 generator client {
   provider = "prisma-client-js"
@@ -9,255 +23,468 @@ datasource db {
   provider = "postgresql"
 }
 
-// ==========================================
-// 1. USER MANAGEMENT & ROLES
-// ==========================================
+// ==============================================================================
+// 1. USER MANAGEMENT & AUTHENTICATION
+// ==============================================================================
+// Core user table — handles all roles: Student, Parent, Teacher, Admin, etc.
+// Gamification fields (XP, level, streak) are stored directly for fast queries.
+// ==============================================================================
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
+  name          String
   email         String    @unique
   phone         String?   @unique
-  passwordHash  String?
-  role          String    @default("STUDENT") // GUEST, STUDENT, ENG_LEARNER, ORGANIZER, TEACHER, PARENT, ADMIN, MODERATOR, PROCTOR
+  passwordHash  String    // bcrypt hashed password — never store plain text
+  avatar        String?   // URL to user's profile picture in S3/R2
   
-  // Gamification & Progress
-  points        Int       @default(0)
-  xp            Int       @default(0)
-  currentLevel  Int       @default(1)
-  currentStreak Int       @default(0)
-  highestStreak Int       @default(0)
-  lastActive    DateTime  @default(now())
+  // Role-based access control — determines permissions across the platform
+  // GUEST: Limited read-only access
+  // STUDENT: Full learning + battle + community access
+  // PARENT: View child's progress (linked via parentEmail)
+  // TEACHER: Create content, mentor in community
+  // ORGANIZER: Host events and competitions
+  // ADMIN: Full platform management
+  // MODERATOR: Community moderation powers
+  role          String    @default("STUDENT")
   
-  // Minors & Safety
-  isMinor       Boolean   @default(false)
-  parentEmail   String?   // For consent and progress reports
+  // ── Gamification & Progress ──
+  // These fields are denormalized for performance — avoids JOIN on every page load
+  points        Int       @default(0)    // Total points earned from all activities
+  xp            Int       @default(0)    // Experience points — determines level
+  currentLevel  Int       @default(1)    // Current level (1-100), calculated from XP
+  currentStreak Int       @default(0)    // Consecutive days of activity
+  highestStreak Int       @default(0)    // All-time best streak
+  lastActive    DateTime  @default(now()) // Last activity timestamp for streak calc
   
-  // Account status
-  isActive      Boolean   @default(true)
+  // ── Academic Info ──
+  classLevel    String?   // "class-9", "class-10", "class-11", "class-12", "engineering"
+  stream        String?   // "science", "commerce", "arts" (for Class 11/12)
+  board         String    @default("CBSE")
   
+  // ── Safety & Compliance ──
+  isMinor       Boolean   @default(false)  // Under 18 — enables parental controls
+  parentEmail   String?   // Parent's email for progress reports and consent
+  
+  // ── Account Status ──
+  isActive      Boolean   @default(true)   // Soft delete — deactivate instead of delete
+  isVerified    Boolean   @default(false)  // Email verification status
+  
+  // ── Timestamps ──
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  // Relations
-  progress      UserProgress[]
-  testScores    TestScore[]
+  // ── Relations ──
+  profile           StudentProfile?
+  progress          UserProgress[]
+  testScores        TestScore[]
   matchParticipants MatchParticipant[]
-  posts         CommunityPost[]
-  comments      CommunityComment[]
+  posts             CommunityPost[]
+  comments          CommunityComment[]
+  postLikes         PostLike[]
   eventRegistrations EventRegistration[]
   codingSubmissions CodingSubmission[]
-  achievements  UserAchievement[]
-  studentProfile StudentProfile?
+  achievements      UserAchievement[]
+  wallet            Wallet?
+  walletTransactions WalletTransaction[]
+  notifications     Notification[]
+  streakHistory     StreakRecord[]
+  sessions          UserSession[]
+
+  @@index([email])
+  @@index([currentLevel])
+  @@index([xp])
+  @@index([classLevel])
+  @@index([role])
 }
 
+// ==============================================================================
+// User Sessions — Tracks active login sessions for security
+// Supports "logout from all devices" and suspicious activity detection
+// ==============================================================================
+model UserSession {
+  id            String    @id @default(cuid())
+  userId        String
+  token         String    @unique  // JWT refresh token hash
+  deviceInfo    String?   // Browser/OS info for display in settings
+  ipAddress     String?   // IP address at login time
+  expiresAt     DateTime  // Refresh token expiry
+  createdAt     DateTime  @default(now())
+
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+}
+
+// ==============================================================================
+// Student Profile — Extended info for academic students
+// Separated from User to keep the main table lean
+// ==============================================================================
 model StudentProfile {
-  id          String    @id @default(cuid())
-  userId      String    @unique
-  classId     String?
-  stream      String?
-  board       String    @default("CBSE")
-  targetExams String?
-  skillLevel  String    @default("beginner")
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  classId        String?
+  stream         String?   // science, commerce, arts
+  board          String    @default("CBSE")
+  targetExams    String?   // "JEE, NEET, BOARDS" — comma-separated
+  skillLevel     String    @default("beginner") // beginner, intermediate, advanced
   languagePreference String @default("english")
-  phone       String?
-  parentPhone String?
-  institution String?
-  totalPoints Int       @default(0)
-  currentLevel Int      @default(1)
-  currentStreak Int     @default(0)
-  longestStreak Int     @default(0)
-  xpMultiplier Float    @default(1.0)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  institution    String?   // School or college name
+  
+  // ── Gamification Multipliers ──
+  xpMultiplier   Float     @default(1.0) // Bonus XP for premium users or streaks
+  
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
-  user        User      @relation(fields: [userId], references: [id])
-  class       ClassCategory? @relation(fields: [classId], references: [id])
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  class          ClassCategory? @relation(fields: [classId], references: [id])
 }
 
-// ==========================================
-// 2. ACADEMIC STRUCTURE (Classes 9-12)
-// ==========================================
+// ==============================================================================
+// 2. ACADEMIC STRUCTURE — Classes 9, 10, 11, 12
+// ==============================================================================
+// Hierarchical content: Class → Subject → Chapter → Topic → Question
+// Each level has its own model for maximum flexibility and querying
+// ==============================================================================
 
 model ClassCategory {
   id          String    @id @default(cuid())
-  name        String    // e.g., "Class 9", "Class 10", "Class 11", "Class 12", "Engineering"
+  name        String    // "Class 9", "Class 10", "Class 11", "Class 12", "Engineering"
+  slug        String    @unique // "class-9", "class-10", etc.
   description String?
+  icon        String?   // Icon URL or Lucide icon name
+  color       String?   // Brand color for this class (hex)
+  orderIndex  Int       @default(0)
+  isActive    Boolean   @default(true)
+  
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  subjects    Subject[]
-  communities CommunityCategory[]
+  subjects        Subject[]
+  communities     CommunityCategory[]
   studentProfiles StudentProfile[]
+
+  @@index([slug])
 }
 
 model Stream {
   id          String    @id @default(cuid())
-  name        String    // e.g., "Science", "Commerce", "Humanities", "Common"
+  name        String    // "Science PCM", "Science PCB", "Commerce", "Arts/Humanities"
+  slug        String    @unique
   description String?
+  classLevel  String?   // "class-11", "class-12" — streams only apply to 11th/12th
   
   subjects    Subject[]
 }
 
 model Subject {
   id          String    @id @default(cuid())
-  name        String    // e.g., "Mathematics", "Physics", "Computer Science"
+  name        String    // "Mathematics", "Physics", "Computer Science"
+  slug        String    // "mathematics", "physics"
+  description String?
+  icon        String?   // Lucide icon name for UI display
+  color       String?   // Subject brand color
   classId     String
-  streamId    String?   // Nullable because Class 9/10 don't have streams
+  streamId    String?   // Nullable — Class 9/10 don't have streams
+  orderIndex  Int       @default(0)
+  isActive    Boolean   @default(true)
   
-  class       ClassCategory @relation(fields: [classId], references: [id])
+  class       ClassCategory @relation(fields: [classId], references: [id], onDelete: Cascade)
   stream      Stream?       @relation(fields: [streamId], references: [id])
   chapters    Chapter[]
   matches     Match[]
+
+  @@unique([slug, classId])
+  @@index([classId])
+  @@index([streamId])
 }
 
 model Chapter {
   id          String    @id @default(cuid())
-  title       String
+  title       String    // "Number Systems", "Motion"
+  slug        String
   description String?
   orderIndex  Int       @default(0)
   subjectId   String
+  
+  // ── Content metadata ──
+  estimatedMinutes Int  @default(60)  // Estimated study time
+  difficulty       String @default("MEDIUM") // EASY, MEDIUM, HARD
 
-  subject     Subject   @relation(fields: [subjectId], references: [id])
+  subject     Subject   @relation(fields: [subjectId], references: [id], onDelete: Cascade)
   topics      Topic[]
   progress    UserProgress[]
   tests       MockTest[]
+
+  @@unique([slug, subjectId])
+  @@index([subjectId])
 }
 
 model Topic {
   id          String    @id @default(cuid())
-  title       String
-  content     String?   // Markdown or rich text content
-  youtubeLink String?   // Video lecture or help link
+  title       String    // "Types of Numbers", "Real Numbers on Number Line"
+  slug        String
+  content     String?   @db.Text // Rich text/markdown theory content
+  youtubeUrl  String?   // Video lecture URL
   orderIndex  Int       @default(0)
   chapterId   String
-
-  chapter     Chapter   @relation(fields: [chapterId], references: [id])
+  
+  // ── Content type flags ──
+  hasAnimation  Boolean @default(false)
+  hasSimulation Boolean @default(false)
+  
+  chapter     Chapter   @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   questions   Question[]
+
+  @@unique([slug, chapterId])
+  @@index([chapterId])
 }
 
-// ==========================================
-// 3. ENGINEERING & CODING STRUCTURE
-// ==========================================
+// ==============================================================================
+// 3. ENGINEERING & CODING SECTION
+// ==============================================================================
+// Supports multiple programming languages with day-by-day learning plans
+// Each language has structured daily lessons with theory + practice problems
+// ==============================================================================
 
 model CodingLanguage {
   id          String    @id @default(cuid())
-  name        String    // e.g., "Python", "Java", "C++"
-  description String?
+  name        String    // "Python", "Java", "C++"
+  slug        String    @unique // "python", "java", "cpp"
+  description String?   @db.Text
+  icon        String?   // Language icon URL
+  color       String?   // Brand color
+  difficulty  String    @default("BEGINNER") // BEGINNER, INTERMEDIATE, ADVANCED
   
   problems    CodingProblem[]
   plans       LearningPlan[]
+  dailyLessons DailyLesson[]
+}
+
+// Day-by-day learning plan for each language (e.g., "30-Day Python Plan")
+model LearningPlan {
+  id            String    @id @default(cuid())
+  name          String    // "30-Day Python Mastery"
+  slug          String    @unique
+  languageId    String
+  durationDays  Int       // Total days in the plan
+  description   String?   @db.Text
+  difficulty    String    @default("BEGINNER")
+
+  language      CodingLanguage @relation(fields: [languageId], references: [id], onDelete: Cascade)
+  dailyLessons  DailyLesson[]
+}
+
+// Individual daily lesson within a plan
+model DailyLesson {
+  id            String    @id @default(cuid())
+  dayNumber     Int       // Day 1, Day 2, etc.
+  title         String    // "Variables and Data Types"
+  description   String?   @db.Text
+  theoryContent String?   @db.Text // Markdown theory
+  youtubeUrl    String?   // Video lecture
+  planId        String
+  languageId    String
+  
+  plan          LearningPlan   @relation(fields: [planId], references: [id], onDelete: Cascade)
+  language      CodingLanguage @relation(fields: [languageId], references: [id])
+  problems      CodingProblem[]
+
+  @@unique([dayNumber, planId])
+  @@index([planId])
 }
 
 model CodingProblem {
   id            String    @id @default(cuid())
-  title         String
-  description   String
+  title         String    // "Sum of Two Numbers"
+  description   String    @db.Text
   difficulty    String    // EASY, MEDIUM, HARD
   languageId    String
-  starterCode   String?
-  testCases     String    // JSON format
-  youtubeLink   String?   // Help video
-
-  language      CodingLanguage @relation(fields: [languageId], references: [id])
+  dailyLessonId String?
+  starterCode   String?   @db.Text // Boilerplate code
+  solutionCode  String?   @db.Text // Reference solution
+  testCases     String    @db.Text // JSON: [{input, expected}]
+  youtubeUrl    String?   // Video solution walkthrough
+  points        Int       @default(10)
+  
+  language      CodingLanguage @relation(fields: [languageId], references: [id], onDelete: Cascade)
+  dailyLesson   DailyLesson?   @relation(fields: [dailyLessonId], references: [id])
   submissions   CodingSubmission[]
+
+  @@index([languageId])
+  @@index([difficulty])
 }
 
 model CodingSubmission {
   id            String    @id @default(cuid())
   userId        String
   problemId     String
-  code          String
-  status        String    // PASSED, FAILED, ERROR
-  executionTime Int?      // in ms
+  code          String    @db.Text // Submitted code
+  language      String    // Language used for submission
+  status        String    // PASSED, FAILED, ERROR, TIMEOUT
+  executionTime Int?      // Execution time in milliseconds
+  memoryUsed    Int?      // Memory used in KB
+  testsPassed   Int       @default(0)
+  testsTotal    Int       @default(0)
+  errorMessage  String?   @db.Text
   submittedAt   DateTime  @default(now())
 
-  user          User           @relation(fields: [userId], references: [id])
-  problem       CodingProblem  @relation(fields: [problemId], references: [id])
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem       CodingProblem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([problemId])
 }
 
-model LearningPlan {
-  id            String    @id @default(cuid())
-  name          String    // e.g., "30-Day Beginner Plan"
-  languageId    String
-  durationDays  Int
-
-  language      CodingLanguage @relation(fields: [languageId], references: [id])
-}
-
-// ==========================================
-// 4. TESTING, PRACTICE & PROGRESS
-// ==========================================
+// ==============================================================================
+// 4. QUESTION & TESTING SYSTEM
+// ==============================================================================
+// Supports multiple question types: MCQ, True/False, Short Answer, Fill-in-Blank
+// Each question has difficulty levels, point values, and YouTube hint links
+// ==============================================================================
 
 model Question {
   id          String    @id @default(cuid())
-  content     String
-  options     String    // JSON string of options
-  answer      String
-  explanation String?
-  youtubeLink String?   // Video solution link
+  content     String    @db.Text // Question text (supports markdown + LaTeX)
+  
+  // ── Question Type ──
+  // MCQ: Multiple choice (4 options)
+  // TRUE_FALSE: Boolean answer
+  // SHORT_ANSWER: Text input (matched against answer)
+  // FILL_BLANK: Fill in the blank
+  // NUMERIC: Number input
+  type        String    @default("MCQ")
+  
+  options     String?   @db.Text // JSON array: ["Option A", "Option B", "Option C", "Option D"]
+  answer      String    // Correct answer text or option index
+  explanation String?   @db.Text // Detailed solution explanation
+  youtubeUrl  String?   // Video solution/hint link
+  imageUrl    String?   // Question image (diagrams, graphs)
+  
   difficulty  String    @default("MEDIUM") // EASY, MEDIUM, HARD
+  points      Int       @default(10) // Points awarded for correct answer
   
   topicId     String?
   testId      String?
 
   topic       Topic?    @relation(fields: [topicId], references: [id])
   test        MockTest? @relation(fields: [testId], references: [id])
+
+  @@index([topicId])
+  @@index([testId])
+  @@index([difficulty])
 }
 
 model MockTest {
   id          String    @id @default(cuid())
-  title       String
+  title       String    // "Chapter 1 Test — Number Systems"
   description String?
   chapterId   String?
-  duration    Int       // in minutes
-  isProctored Boolean   @default(false)
+  duration    Int       // Test duration in minutes
+  totalMarks  Int       @default(100)
+  passMarks   Int       @default(33)
+  
+  // ── Test type ──
+  // PRACTICE: No time pressure, hints available
+  // TIMED: Countdown timer, no hints
+  // MOCK: Simulates real exam conditions
+  // BATTLE: Used in competitive matches
+  testType    String    @default("PRACTICE")
+  
+  isProctored Boolean   @default(false) // Requires safe browser mode
+  isActive    Boolean   @default(true)
   createdAt   DateTime  @default(now())
 
   chapter     Chapter?  @relation(fields: [chapterId], references: [id])
   questions   Question[]
   scores      TestScore[]
+
+  @@index([chapterId])
 }
 
 model TestScore {
   id          String    @id @default(cuid())
   testId      String
   userId      String
-  score       Int
-  total       Int
+  score       Int       // Marks obtained
+  total       Int       // Total marks
+  percentage  Float?    // Calculated percentage
+  timeTaken   Int?      // Time taken in seconds
+  answers     String?   @db.Text // JSON: [{questionId, userAnswer, isCorrect}]
   completedAt DateTime  @default(now())
 
-  test        MockTest  @relation(fields: [testId], references: [id])
-  user        User      @relation(fields: [userId], references: [id])
+  test        MockTest  @relation(fields: [testId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([testId])
 }
+
+// ==============================================================================
+// 5. USER PROGRESS TRACKING
+// ==============================================================================
 
 model UserProgress {
   id          String    @id @default(cuid())
   userId      String
   chapterId   String
   completed   Boolean   @default(false)
-  score       Int?
+  score       Int?      // Chapter mastery score (0-100)
+  timeSpent   Int       @default(0) // Time spent in minutes
+  lastStudied DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  user        User      @relation(fields: [userId], references: [id])
-  chapter     Chapter   @relation(fields: [chapterId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter     Chapter   @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
   @@unique([userId, chapterId])
+  @@index([userId])
 }
 
-// ==========================================
-// 5. MATCH ARENA (Safe Gamified Battles)
-// ==========================================
+// Streak history — one record per day per user
+model StreakRecord {
+  id          String    @id @default(cuid())
+  userId      String
+  date        DateTime  @db.Date // Just the date, no time
+  questionsAnswered Int @default(0)
+  pointsEarned Int     @default(0)
+  minutesStudied Int   @default(0)
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@index([userId])
+}
+
+// ==============================================================================
+// 6. MATCH/BATTLE ARENA — BGMI-Style Real-Time Competition
+// ==============================================================================
+// Matches pair students of similar level (±2 levels) in the same subject
+// Both players answer the same questions simultaneously
+// ==============================================================================
 
 model Match {
   id          String    @id @default(cuid())
   subjectId   String
-  status      String    // WAITING, ACTIVE, COMPLETED, CANCELLED
+  
+  // ── Match Status Lifecycle ──
+  // WAITING → ACTIVE → COMPLETED/CANCELLED
+  status      String    @default("WAITING")
+  
+  mode        String    @default("RANKED") // RANKED, CASUAL, EVENT
+  questionsCount Int    @default(10) // Number of questions in the match
+  timePerQuestion Int   @default(30) // Seconds per question
+  
   startTime   DateTime  @default(now())
   endTime     DateTime?
-
+  
   subject     Subject   @relation(fields: [subjectId], references: [id])
   participants MatchParticipant[]
+
+  @@index([status])
+  @@index([subjectId])
 }
 
 model MatchParticipant {
@@ -265,88 +492,282 @@ model MatchParticipant {
   matchId     String
   userId      String
   score       Int       @default(0)
+  correctAnswers Int    @default(0)
+  wrongAnswers   Int    @default(0)
+  avgResponseTime Float? // Average response time in seconds
   isWinner    Boolean   @default(false)
+  xpEarned    Int       @default(0)
+  
+  match       Match     @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  match       Match     @relation(fields: [matchId], references: [id])
-  user        User      @relation(fields: [userId], references: [id])
+  @@unique([matchId, userId])
+  @@index([userId])
 }
 
-// ==========================================
-// 6. COMMUNITY & DISCUSSION
-// ==========================================
+// ==============================================================================
+// 7. COMMUNITY & DISCUSSION FORUMS
+// ==============================================================================
+// Organized by class, subject, and engineering language
+// Supports posts, comments, likes, and moderation
+// ==============================================================================
 
 model CommunityCategory {
   id          String    @id @default(cuid())
-  name        String
+  name        String    // "Class 9 Mathematics", "Python Community"
+  slug        String    @unique
+  description String?
+  icon        String?
   classId     String?
+  isActive    Boolean   @default(true)
 
   class       ClassCategory? @relation(fields: [classId], references: [id])
   posts       CommunityPost[]
+
+  @@index([classId])
 }
 
 model CommunityPost {
   id          String    @id @default(cuid())
   title       String
-  content     String
+  content     String    @db.Text
   authorId    String
   categoryId  String
-  upvotes     Int       @default(0)
+  
+  // ── Engagement Metrics ──
+  likesCount  Int       @default(0)
+  commentsCount Int     @default(0)
+  viewsCount  Int       @default(0)
+  
+  // ── Moderation ──
+  isPinned    Boolean   @default(false)
+  isResolved  Boolean   @default(false) // For doubt posts
+  isFlagged   Boolean   @default(false) // Reported content
+  
+  tags        String?   // Comma-separated tags
+  
   createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
-  author      User      @relation(fields: [authorId], references: [id])
-  category    CommunityCategory @relation(fields: [categoryId], references: [id])
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  category    CommunityCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   comments    CommunityComment[]
+  likes       PostLike[]
+
+  @@index([authorId])
+  @@index([categoryId])
+  @@index([createdAt])
 }
 
 model CommunityComment {
   id            String    @id @default(cuid())
-  content       String
+  content       String    @db.Text
   postId        String
   authorId      String
-  isMentorReply Boolean   @default(false)
+  parentId      String?   // For nested replies
+  isMentorReply Boolean   @default(false) // Highlighted for teacher/mentor replies
+  likesCount    Int       @default(0)
   createdAt     DateTime  @default(now())
 
-  post          CommunityPost @relation(fields: [postId], references: [id])
-  author        User          @relation(fields: [authorId], references: [id])
+  post          CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author        User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent        CommunityComment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies       CommunityComment[] @relation("CommentReplies")
+
+  @@index([postId])
+  @@index([authorId])
 }
 
-// ==========================================
-// 7. EVENTS & COLLEGE COMPETITIONS
-// ==========================================
+// Separate like tracking — prevents duplicate likes from same user
+model PostLike {
+  id          String    @id @default(cuid())
+  postId      String
+  userId      String
+  createdAt   DateTime  @default(now())
+
+  post        CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId]) // One like per user per post
+}
+
+// ==============================================================================
+// 8. EVENTS & COLLEGE COMPETITIONS
+// ==============================================================================
+// Colleges and institutions can host coding competitions and quizzes
+// Supports registration, proctoring, and result management
+// ==============================================================================
 
 model Event {
   id          String    @id @default(cuid())
   title       String
-  description String
-  organizerId String    // Admin or Organizer role user
+  description String    @db.Text
+  organizerId String    // User ID of the organizer
+  
+  // ── Event Details ──
+  eventType   String    @default("COMPETITION") // COMPETITION, HACKATHON, QUIZ, WORKSHOP
+  venue       String?   // Physical venue or "Online"
+  maxParticipants Int?  // Capacity limit
+  
+  // ── Scheduling ──
   startTime   DateTime
   endTime     DateTime
+  registrationDeadline DateTime?
+  
+  // ── Security ──
   isProctored Boolean   @default(false)
+  requiresSafeBrowser Boolean @default(false)
+  
+  // ── Status ──
+  // DRAFT → PUBLISHED → LIVE → COMPLETED → ARCHIVED
+  status      String    @default("DRAFT")
+  
+  // ── Branding ──
+  bannerUrl   String?   // Event banner image
+  collegeName String?   // Hosting college/institution name
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   registrations EventRegistration[]
+
+  @@index([status])
+  @@index([startTime])
 }
 
 model EventRegistration {
   id          String    @id @default(cuid())
   eventId     String
   userId      String
+  status      String    @default("REGISTERED") // REGISTERED, CONFIRMED, CANCELLED, COMPLETED
   registeredAt DateTime @default(now())
 
-  event       Event     @relation(fields: [eventId], references: [id])
-  user        User      @relation(fields: [userId], references: [id])
+  event       Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@index([userId])
 }
 
-// ==========================================
-// 8. REWARDS & ACHIEVEMENTS
-// ==========================================
+// ==============================================================================
+// 9. WALLET & VIRTUAL CURRENCY (Stars/Credits)
+// ==============================================================================
+// Stars are the platform's virtual currency — earned through learning activities
+// Can be used in battles, to unlock premium content, or redeemed for rewards
+// ==============================================================================
+
+model Wallet {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  balance     Int       @default(0)   // Current Stars balance
+  totalEarned Int       @default(0)   // Lifetime Stars earned
+  totalSpent  Int       @default(0)   // Lifetime Stars spent
+  
+  // ── Subscription ──
+  isPremium   Boolean   @default(false)
+  subscriptionEnd DateTime? // When premium expires
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model WalletTransaction {
+  id          String    @id @default(cuid())
+  userId      String
+  amount      Int       // Positive = credit, Negative = debit
+  
+  // ── Transaction Types ──
+  // EARN_QUESTION: Points from answering questions
+  // EARN_STREAK: Bonus for maintaining streak
+  // EARN_BATTLE: Won a battle
+  // EARN_ACHIEVEMENT: Unlocked an achievement
+  // SPEND_BATTLE: Battle entry fee
+  // SPEND_PURCHASE: Purchased something
+  // SUBSCRIPTION: Premium subscription payment
+  type        String
+  
+  description String?   // Human-readable description
+  referenceId String?   // Link to related entity (battle ID, etc.)
+  
+  balanceBefore Int     // Balance before this transaction
+  balanceAfter  Int     // Balance after this transaction
+  
+  createdAt   DateTime  @default(now())
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+// ==============================================================================
+// 10. ACHIEVEMENTS & BADGES
+// ==============================================================================
 
 model UserAchievement {
   id          String    @id @default(cuid())
   userId      String
-  title       String
+  achievementId String  // Reference to achievement definition
+  title       String    // "First Blood", "10-Day Streak", "Battle Champion"
   description String
-  badgeIcon   String?
+  badgeIcon   String?   // Icon URL or name
+  category    String    @default("GENERAL") // LEARNING, STREAK, BATTLE, COMMUNITY
+  xpReward    Int       @default(0)
   awardedAt   DateTime  @default(now())
 
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@index([userId])
+}
+
+// ==============================================================================
+// 11. NOTIFICATIONS
+// ==============================================================================
+// In-app notification system — supports multiple types and priority levels
+// ==============================================================================
+
+model Notification {
+  id          String    @id @default(cuid())
+  userId      String
+  
+  // ── Notification Types ──
+  // SYSTEM: Platform announcements
+  // ACHIEVEMENT: Badge/level unlocked
+  // BATTLE: Match found, battle result
+  // COMMUNITY: Reply to your post, mention
+  // EVENT: Event reminder, registration confirmation
+  // STREAK: Streak milestone, streak about to break
+  type        String
+  
+  title       String
+  message     String
+  actionUrl   String?   // Deep link to relevant page
+  isRead      Boolean   @default(false)
+  priority    String    @default("NORMAL") // LOW, NORMAL, HIGH, URGENT
+  
+  createdAt   DateTime  @default(now())
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@index([createdAt])
+}
+
+// ==============================================================================
+// 12. LEVEL DEFINITIONS
+// ==============================================================================
+// Defines XP thresholds for each level (1-100)
+// Seeded once during database initialization
+// ==============================================================================
+
+model LevelDefinition {
+  id          String    @id @default(cuid())
+  level       Int       @unique // Level number (1-100)
+  xpRequired  Int       // Total XP needed to reach this level
+  title       String    // Level title: "Newcomer", "Scholar", "Master"
+  badgeColor  String?   // Badge color for this level tier
 }

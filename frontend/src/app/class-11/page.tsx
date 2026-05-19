@@ -10,6 +10,7 @@
  */
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { GraduationCap, BookOpen, TrendingUp, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import styles from "./Class11.module.css";
@@ -63,46 +64,58 @@ export default function Class11Page() {
 
         {/* ==================== HERO ==================== */}
         <div className={styles.hero}>
+          <Image
+            src="/images/class-11-hero.png"
+            alt="Class 11 stream learning background"
+            fill
+            priority
+            className={styles.heroMedia}
+            sizes="(max-width: 1200px) 100vw, 1200px"
+          />
+          <div className={styles.heroOverlay} aria-hidden="true" />
+
           {/* Decorative orb — green/emerald for Class 11 identity */}
           <div className={styles.heroOrb} aria-hidden="true" />
 
-          <div className={styles.eyebrow}>
-            <GraduationCap size={14} aria-hidden="true" /> Class 11
-          </div>
-
-          <h1 className={styles.heroTitle}>Choose Your Stream</h1>
-
-          <p className={styles.heroSubtitle}>
-            Deep learning in your chosen stream — Science, Commerce, or Arts.
-            Specialized plans tailored for your academic path and future goals.
-          </p>
-
-          {/* Stats bar with dividers */}
-          <div className={styles.statsBar}>
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>3</span>
-              <span className={styles.statLabel}>Streams</span>
+          <div className={styles.heroContent}>
+            <div className={styles.eyebrow}>
+              <GraduationCap size={14} aria-hidden="true" /> Class 11
             </div>
 
-            <div className={styles.statDivider} aria-hidden="true" />
+            <h1 className={styles.heroTitle}>Choose Your Stream</h1>
 
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>5–6</span>
-              <span className={styles.statLabel}>Subjects per stream</span>
-            </div>
+            <p className={styles.heroSubtitle}>
+              Deep learning in your chosen stream — Science, Commerce, or Arts.
+              Specialized plans tailored for your academic path and future goals.
+            </p>
 
-            <div className={styles.statDivider} aria-hidden="true" />
+            {/* Stats bar with dividers */}
+            <div className={styles.statsBar}>
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>3</span>
+                <span className={styles.statLabel}>Streams</span>
+              </div>
 
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>18</span>
-              <span className={styles.statLabel}>Total Subjects</span>
-            </div>
+              <div className={styles.statDivider} aria-hidden="true" />
 
-            <div className={styles.statDivider} aria-hidden="true" />
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>5–6</span>
+                <span className={styles.statLabel}>Subjects per stream</span>
+              </div>
 
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>200+</span>
-              <span className={styles.statLabel}>Chapters</span>
+              <div className={styles.statDivider} aria-hidden="true" />
+
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>18</span>
+                <span className={styles.statLabel}>Total Subjects</span>
+              </div>
+
+              <div className={styles.statDivider} aria-hidden="true" />
+
+              <div className={styles.statItem}>
+                <span className={styles.statValue}>200+</span>
+                <span className={styles.statLabel}>Chapters</span>
+              </div>
             </div>
           </div>
         </div>

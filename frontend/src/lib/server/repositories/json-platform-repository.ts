@@ -14,8 +14,10 @@ import {
   createCommunityPost,
   createMatchmakingTicket,
   createUser,
+  findCommunityPostById,
   findUserByEmail,
   findUserById,
+  incrementCommunityPostViews,
   listCommunityPosts,
   listMatchmakingTicketsForUser,
   listPublicUsersByRank,
@@ -68,6 +70,11 @@ export const jsonPlatformRepository: PlatformRepository = {
   },
   community: {
     listPosts: listCommunityPosts,
+    async findPostById(id, options) {
+      return options?.incrementViews
+        ? incrementCommunityPostViews(id)
+        : findCommunityPostById(id);
+    },
     createPost: createCommunityPost,
   },
   events: {

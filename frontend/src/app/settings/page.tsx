@@ -21,7 +21,7 @@
  *
  * USED BY: Navbar profile menu → /settings, Profile "Edit Profile" button
  * DEPENDENCIES: authStore (Zustand), lucide-react, Settings.module.css
- * LAST UPDATED: 2026-05-18
+ * LAST UPDATED: 2026-05-19
  */
 
 "use client";
@@ -124,11 +124,15 @@ export default function SettingsPage() {
   const [notifEvents, setNotifEvents]   = useState(true);
   const [notifWeekly, setNotifWeekly]   = useState(false);
 
-  /* Sync form with auth store whenever the user object changes (e.g. after save) */
+  /* Sync form with auth store whenever the user object changes after login/load. */
   useEffect(() => {
     if (user) {
-      setDisplayName(user.name);
-      setSelectedTrack((user.track as TrackValue) ?? "class-9");
+      const syncTimer = window.setTimeout(() => {
+        setDisplayName(user.name);
+        setSelectedTrack((user.track as TrackValue) ?? "class-9");
+      }, 0);
+
+      return () => window.clearTimeout(syncTimer);
     }
   }, [user]);
 
@@ -524,7 +528,7 @@ export default function SettingsPage() {
               <div className={styles.toggleInfo}>
                 <span className={styles.toggleLabel}>Streak Reminders</span>
                 <span className={styles.toggleDesc}>
-                  Daily nudge at 8 PM when you haven't studied yet to protect your streak.
+                  Daily nudge at 8 PM when you haven&apos;t studied yet to protect your streak.
                 </span>
               </div>
               <button
@@ -566,7 +570,7 @@ export default function SettingsPage() {
               <div className={styles.toggleInfo}>
                 <span className={styles.toggleLabel}>Event Updates</span>
                 <span className={styles.toggleDesc}>
-                  Reminders 24 h and 1 h before events you've registered for.
+                  Reminders 24 h and 1 h before events you&apos;ve registered for.
                 </span>
               </div>
               <button

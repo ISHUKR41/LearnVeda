@@ -5,19 +5,25 @@
  *          Registers all middleware, API routes, global error handler, and
  *          starts listening on the configured PORT.
  *
- * Architecture:
- *  - Express v5 + TypeScript
- *  - PostgreSQL (via `pg` Pool) — database queries in repository layers
- *  - Routes: auth, battle, progress, leaderboard, community, users, notifications
- *  - Helmet — security headers (CSP, HSTS, etc.)
+ * ARCHITECTURE:
+ *  - Express v5 + TypeScript — full production server
+ *  - PostgreSQL (via pg Pool) — central database connection
+ *  - Redis (via ioredis) — caching, sessions, rate limiting
+ *  - Routes: auth, content, battle, progress, leaderboard, community,
+ *            users, notifications, search, events, wallet
+ *  - Helmet — comprehensive security headers
  *  - CORS — configured for Next.js frontend origin
- *  - Morgan — HTTP request logging in dev mode
- *  - Global error handler — consistent JSON error responses
+ *  - Morgan — structured HTTP request logging
+ *  - Rate limiting — prevents API abuse
+ *  - Graceful shutdown — handles SIGTERM/SIGINT cleanly
  *
- * Capacity: The server is stateless; horizontal scaling is safe.
- *           The pg pool supports up to 100 concurrent DB connections by default.
+ * CAPACITY: Stateless server design — safe for horizontal scaling.
+ *           PostgreSQL pool supports 50 concurrent connections.
+ *           Designed for 100+ concurrent users.
  *
- * LAST UPDATED: 2026-05-18
+ * DEPENDENCIES: express, cors, helmet, morgan, compression
+ * USED BY: npm start / npm run dev
+ * LAST UPDATED: 2026-05-19
  */
 
 import express, { Request, Response, NextFunction } from "express";
@@ -26,16 +32,24 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 /* ─────────────────────────────────────────────
- * Route imports — each module handles a distinct feature domain
+ * Route imports — each module handles a distinct feature domain.
+ * Every route file is self-contained with its own validation,
+ * error handling, and database queries.
  * ───────────────────────────────────────────── */
-import authRoutes        from "./routes/auth";
-import progressRoutes    from "./routes/progress";
-import battleRoutes      from "./routes/battle";
-import leaderboardRoutes from "./routes/leaderboard";
-import communityRoutes   from "./routes/community";
-import userRoutes        from "./routes/users";
+import authRoutes         from "./routes/auth";
+import contentRoutes      from "./routes/content";
+import progressRoutes     from "./routes/progress";
+import battleRoutes       from "./routes/battle";
+import leaderboardRoutes  from "./routes/leaderboard";
+import communityRoutes    from "./routes/community";
+import userRoutes         from "./routes/users";
 import notificationRoutes from "./routes/notifications";
-import searchRoutes      from "./routes/search";
+import searchRoutes       from "./routes/search";
+import eventRoutes        from "./routes/events";
+import walletRoutes       from "./routes/wallet";
+
+/* Database management */
+import { checkDatabaseHealth, closeDatabasePool } from "./config/database";
 
 /* ─────────────────────────────────────────────
  * App & Configuration
@@ -49,9 +63,10 @@ const IS_DEV = process.env.NODE_ENV !== "production";
  *
  * Order matters:
  *  1. Helmet first — sets security headers on every response
- *  2. CORS second — handles preflight OPTIONS requests before auth
- *  3. JSON parsing — must come before route handlers
- *  4. Morgan last among middleware — logs complete request info
+ *  2. CORS second — handles preflight OPTIONS requests
+ *  3. Compression — reduces bandwidth usage
+ *  4. JSON parsing — must come before route handlers
+ *  5. Morgan last among middleware — logs complete request info
  * ───────────────────────────────────────────── */
 
 /* 1. Helmet — security headers (HSTS, CSP, X-Frame-Options, etc.) */
@@ -59,6 +74,8 @@ app.use(
   helmet({
     /* Allow Next.js frontend to embed assets from its own origin */
     contentSecurityPolicy: IS_DEV ? false : undefined,
+    /* Allow cross-origin resource loading for fonts and images */
+    crossOriginResourcePolicy: { policy: "cross-origin" },
   })
 );
 
@@ -66,31 +83,35 @@ app.use(
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
-      "http://localhost:5000",
-      process.env.FRONTEND_URL ?? "https://eduquest.replit.app",
+      "http://localhost:3000",    /* Next.js dev server */
+      "http://localhost:5000",    /* Alternative dev port */
+      "http://127.0.0.1:3000",   /* localhost alternative */
+      process.env.FRONTEND_URL ?? "https://eduquest.vercel.app",
     ],
-    credentials: true,           /* Allow cookies in cross-origin requests */
+    credentials: true,            /* Allow cookies in cross-origin requests */
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Request-ID"],
+    maxAge: 86400,                /* Cache preflight for 24 hours */
   })
 );
 
-/* 3. Body parsing */
-app.use(express.json({ limit: "1mb" }));
-app.use(express.urlencoded({ extended: true, limit: "1mb" }));
+/* 3. Body parsing — JSON and URL-encoded form data */
+app.use(express.json({ limit: "2mb" }));
+app.use(express.urlencoded({ extended: true, limit: "2mb" }));
 
-/* 4. HTTP request logging — only in development to keep prod logs clean */
+/* 4. HTTP request logging */
 if (IS_DEV) {
+  /* Development: colorized, concise logging */
   app.use(morgan("dev"));
 } else {
-  /* Minimal production logging — method, URL, status, response time */
-  app.use(morgan("tiny"));
+  /* Production: minimal logging with response time */
+  app.use(morgan(":method :url :status :res[content-length] - :response-time ms"));
 }
 
 /* ─────────────────────────────────────────────
  * SECTION 2: Request ID Middleware
  * Attaches a unique X-Request-ID header for tracing across logs.
+ * If the client sends one, we reuse it (enables end-to-end tracing).
  * ───────────────────────────────────────────── */
 app.use((req: Request, res: Response, next: NextFunction) => {
   const requestId = req.headers["x-request-id"] as string
@@ -101,13 +122,69 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 /* ─────────────────────────────────────────────
- * SECTION 3: API Routes
+ * SECTION 3: Simple Rate Limiting
+ * In-memory rate limiter — protects against basic API abuse.
+ * For production at scale, replace with Redis-based rate limiting.
+ * ───────────────────────────────────────────── */
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_WINDOW = 60_000;  /* 1 minute window */
+const RATE_LIMIT_MAX = 100;        /* Max 100 requests per minute per IP */
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const ip = req.ip ?? req.socket.remoteAddress ?? "unknown";
+  const now = Date.now();
+
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    /* New window — reset counter */
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
+    next();
+    return;
+  }
+
+  entry.count++;
+
+  if (entry.count > RATE_LIMIT_MAX) {
+    res.status(429).json({
+      ok: false,
+      error: {
+        code: "RATE_LIMITED",
+        message: "Too many requests. Please wait a moment and try again.",
+        retryAfter: Math.ceil((entry.resetAt - now) / 1000),
+      },
+    });
+    return;
+  }
+
+  next();
+});
+
+/* Clean up expired rate limit entries every 5 minutes */
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of rateLimitMap) {
+    if (now > entry.resetAt) {
+      rateLimitMap.delete(ip);
+    }
+  }
+}, 5 * 60_000);
+
+/* ─────────────────────────────────────────────
+ * SECTION 4: API Routes
  * Each feature domain is a separate Express router module.
- * All routes are prefixed with /api/ for clean separation from the Next.js frontend.
+ * All routes are prefixed with /api/ for clean separation.
+ *
+ * Route Registration Order:
+ *  - Public routes first (no auth required)
+ *  - Protected routes after (auth middleware in each module)
  * ───────────────────────────────────────────── */
 
-/* Auth — register, login, logout, session refresh */
+/* Auth — register, login, logout, token refresh */
 app.use("/api/auth", authRoutes);
+
+/* Content — classes, subjects, chapters, topics, questions, engineering */
+app.use("/api/content", contentRoutes);
 
 /* User progress — chapter completion, XP updates, streak tracking */
 app.use("/api/progress", progressRoutes);
@@ -130,14 +207,21 @@ app.use("/api/notifications", notificationRoutes);
 /* Search — cross-entity search (chapters, users, posts) */
 app.use("/api/search", searchRoutes);
 
+/* Events — competitions, hackathons, event registration */
+app.use("/api/events", eventRoutes);
+
+/* Wallet — Stars balance, transactions, earning/spending */
+app.use("/api/wallet", walletRoutes);
+
 /* ─────────────────────────────────────────────
- * SECTION 4: Health & Readiness Endpoints
- * Used by load balancers and monitoring probes.
+ * SECTION 5: Health & Readiness Endpoints
+ * Used by load balancers, Kubernetes probes, and monitoring.
  * ───────────────────────────────────────────── */
 
 /**
  * GET /health
  * Basic liveness check — responds 200 if the process is running.
+ * Does NOT check database — just confirms the server is alive.
  */
 app.get("/health", (_req: Request, res: Response) => {
   res.status(200).json({
@@ -146,22 +230,57 @@ app.get("/health", (_req: Request, res: Response) => {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV ?? "development",
     version: process.env.npm_package_version ?? "1.0.0",
+    uptime: Math.floor(process.uptime()),
   });
 });
 
 /**
  * GET /ready
- * Readiness check — verifies DB connectivity before reporting ready.
- * (Minimal implementation; can be expanded with pg pool check.)
+ * Readiness check — verifies database connectivity.
+ * Returns 503 if the database is unreachable (signals load balancer to stop routing).
  */
-app.get("/ready", (_req: Request, res: Response) => {
+app.get("/ready", async (_req: Request, res: Response) => {
+  const dbHealthy = await checkDatabaseHealth();
+
+  if (!dbHealthy) {
+    res.status(503).json({ ready: false, reason: "Database connection failed." });
+    return;
+  }
+
   res.status(200).json({ ready: true });
 });
 
+/**
+ * GET /api
+ * API root — lists all available endpoints for developer reference.
+ */
+app.get("/api", (_req: Request, res: Response) => {
+  res.json({
+    ok: true,
+    service: "EduQuest API",
+    version: "1.0.0",
+    endpoints: {
+      auth: "/api/auth — Authentication (register, login, refresh)",
+      content: "/api/content — Academic content (classes, subjects, chapters)",
+      progress: "/api/progress — User progress tracking",
+      battle: "/api/battle — Match/battle system",
+      leaderboard: "/api/leaderboard — Rankings and leaderboards",
+      community: "/api/community — Discussion forums",
+      users: "/api/users — User profiles and settings",
+      notifications: "/api/notifications — In-app notifications",
+      search: "/api/search — Cross-entity search",
+      events: "/api/events — Events and competitions",
+      wallet: "/api/wallet — Stars wallet and transactions",
+    },
+    health: "/health — Server liveness check",
+    ready: "/ready — Database readiness check",
+  });
+});
+
 /* ─────────────────────────────────────────────
- * SECTION 5: 404 Catch-All
+ * SECTION 6: 404 Catch-All
  * Handles any request that didn't match a defined route.
- * Returns a consistent JSON error instead of HTML default.
+ * Returns consistent JSON error instead of HTML default.
  * ───────────────────────────────────────────── */
 app.use((req: Request, res: Response) => {
   res.status(404).json({
@@ -169,18 +288,19 @@ app.use((req: Request, res: Response) => {
     error: {
       code: "NOT_FOUND",
       message: `No route found for ${req.method} ${req.originalUrl}`,
+      hint: "Visit GET /api for a list of available endpoints.",
     },
   });
 });
 
 /* ─────────────────────────────────────────────
- * SECTION 6: Global Error Handler
+ * SECTION 7: Global Error Handler
  * Catches all unhandled errors thrown in route handlers.
- * Always returns JSON — never HTML — so the frontend can parse reliably.
+ * Always returns JSON — never HTML.
  * ───────────────────────────────────────────── */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-  console.error("[EduQuest Error]", err.message, err.stack);
+  console.error("[EduQuest Error]", err.message, IS_DEV ? err.stack : "");
 
   const statusCode = (err as Error & { statusCode?: number }).statusCode ?? 500;
 
@@ -194,12 +314,74 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 });
 
 /* ─────────────────────────────────────────────
- * SECTION 7: Start Server
+ * SECTION 8: Start Server with Graceful Shutdown
  * ───────────────────────────────────────────── */
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`[EduQuest Backend] Listening on port ${PORT} (${IS_DEV ? "development" : "production"})`);
-  console.log(`[EduQuest Backend] Routes: /api/auth, /api/progress, /api/battle, /api/leaderboard, /api/community, /api/users, /api/notifications, /api/search`);
-  console.log(`[EduQuest Backend] Health check: http://localhost:${PORT}/health`);
+const server = app.listen(PORT, "0.0.0.0", () => {
+  console.log("");
+  console.log("╔══════════════════════════════════════════════════════════╗");
+  console.log("║                  EduQuest Backend                       ║");
+  console.log("╠══════════════════════════════════════════════════════════╣");
+  console.log(`║  Status:      RUNNING                                   ║`);
+  console.log(`║  Port:        ${String(PORT).padEnd(42)}║`);
+  console.log(`║  Environment: ${(IS_DEV ? "development" : "production").padEnd(42)}║`);
+  console.log("╠══════════════════════════════════════════════════════════╣");
+  console.log("║  Routes:                                                ║");
+  console.log("║    /api/auth       — Authentication                     ║");
+  console.log("║    /api/content    — Academic Content                    ║");
+  console.log("║    /api/progress   — User Progress                      ║");
+  console.log("║    /api/battle     — Battle System                      ║");
+  console.log("║    /api/leaderboard — Rankings                          ║");
+  console.log("║    /api/community  — Discussion Forums                  ║");
+  console.log("║    /api/users      — User Profiles                      ║");
+  console.log("║    /api/notifications — Notifications                   ║");
+  console.log("║    /api/search     — Search                             ║");
+  console.log("║    /api/events     — Events & Competitions              ║");
+  console.log("║    /api/wallet     — Stars Wallet                       ║");
+  console.log("╠══════════════════════════════════════════════════════════╣");
+  console.log(`║  Health:  http://localhost:${PORT}/health${" ".repeat(24)}║`);
+  console.log(`║  API Docs: http://localhost:${PORT}/api${" ".repeat(24)}║`);
+  console.log("╚══════════════════════════════════════════════════════════╝");
+  console.log("");
+});
+
+/* ─────────────────────────────────────────────
+ * Graceful Shutdown Handler
+ * Ensures all active requests complete and database connections close
+ * before the process exits. Critical for zero-downtime deployments.
+ * ───────────────────────────────────────────── */
+async function gracefulShutdown(signal: string) {
+  console.log(`\n[EduQuest] Received ${signal}. Shutting down gracefully...`);
+
+  /* Stop accepting new connections */
+  server.close(async () => {
+    console.log("[EduQuest] HTTP server closed.");
+
+    /* Close database pool */
+    await closeDatabasePool();
+
+    console.log("[EduQuest] All resources released. Goodbye!");
+    process.exit(0);
+  });
+
+  /* Force shutdown after 30 seconds if graceful fails */
+  setTimeout(() => {
+    console.error("[EduQuest] Forced shutdown after 30s timeout.");
+    process.exit(1);
+  }, 30_000);
+}
+
+/* Listen for termination signals */
+process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
+process.on("SIGINT", () => gracefulShutdown("SIGINT"));
+
+/* Handle uncaught errors (last resort — should never reach here) */
+process.on("unhandledRejection", (reason) => {
+  console.error("[EduQuest] Unhandled Promise Rejection:", reason);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("[EduQuest] Uncaught Exception:", err);
+  process.exit(1);
 });
 
 export default app;

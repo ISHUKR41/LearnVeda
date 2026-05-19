@@ -1,14 +1,19 @@
 /**
  * FILE: seed.ts
  * LOCATION: src/lib/server/database/seed.ts
- * PURPOSE: Seeds the EduQuest PostgreSQL database with realistic demo data.
+ * PURPOSE: Seeds the EduQuest PostgreSQL database with local/staging demo data.
  *          Inserts: 10 leaderboard users, 10 community posts, 6 events.
  *          All INSERTs use ON CONFLICT DO NOTHING — safe to run multiple times.
  * USED BY: npm run db:seed
- * LAST UPDATED: 2026-05-18
+ * LAST UPDATED: 2026-05-19
+ *
+ * PRODUCTION SAFETY:
+ *   This script intentionally inserts named demo learners and placeholder
+ *   account hashes. It is blocked in production unless
+ *   EDUQUEST_ALLOW_DEMO_SEED=true is set for an approved staging/demo database.
  *
  * TABLE SCHEMAS (actual columns):
- *   eduquest_users: id, name, email, password_hash, track, level, xp, streak, created_at
+ *   eduquest_users: id, name, email, password_hash, track, role, level, xp, streak, created_at
  *   eduquest_community_posts: id, author_id, author_name, title, body,
  *                             tags TEXT[], likes, comments, views, created_at
  *   eduquest_events: id TEXT, title, description, event_date_label, location,
@@ -16,12 +21,17 @@
  *                    gradient, is_public, sort_order, created_at, updated_at
  *   eduquest_event_registrations: id, event_id TEXT, user_id UUID, created_at
  *                                 UNIQUE(event_id, user_id)
+ *   eduquest_host_applications: reference_number, institution_name, event_name, status, reviewed_at
+ *   eduquest_notifications: user_id, type, title, message, action_url, created_at
  */
 
+import "dotenv/config";
+import { assertDemoSeedIsAllowed } from "../env";
 import { closePostgresPool, getPostgresPool } from "./postgres";
 
 /* ─────────────────────────────────────────────
  * Demo user data — stable UUIDs allow idempotent cross-table references
+ * Includes one admin account for production-like admin review flows.
  * ───────────────────────────────────────────── */
 const DEMO_USERS = [
   { id: "11111111-1111-1111-1111-111111111101", name: "Aryan Sharma",    email: "aryan@demo.edu",    track: "class-12",    level: 9,  xp: 8420, streak: 47 },
@@ -34,6 +44,7 @@ const DEMO_USERS = [
   { id: "11111111-1111-1111-1111-111111111108", name: "Meera Verma",      email: "meera@demo.edu",    track: "class-9",     level: 5,  xp: 3750, streak: 14 },
   { id: "11111111-1111-1111-1111-111111111109", name: "Aditya Joshi",     email: "aditya@demo.edu",   track: "class-10",    level: 5,  xp: 3100, streak: 5  },
   { id: "11111111-1111-1111-1111-111111111110", name: "Kavya Reddy",      email: "kavya@demo.edu",    track: "class-9",     level: 4,  xp: 2540, streak: 8  },
+  { id: "11111111-1111-1111-1111-111111111111", name: "Admin Ops",        email: "admin@eduquest.in", track: "engineering", level: 12, xp: 15200, streak: 120, role: "admin" },
 ];
 
 /*
@@ -215,22 +226,141 @@ const DEMO_EVENTS = [
 ];
 
 /* ─────────────────────────────────────────────
+ * Demo host applications — used by the admin review console
+ * ───────────────────────────────────────────── */
+const DEMO_HOST_APPLICATIONS = [
+  {
+    referenceNumber: "EQ-HOST-2026-ALPINE",
+    institutionName: "Alpine Institute of Technology",
+    institutionType: "college",
+    city: "Pune",
+    state: "Maharashtra",
+    website: "https://alpineit.edu",
+    organizerName: "Dr. Nikhil Rao",
+    organizerEmail: "events@alpineit.edu",
+    organizerPhone: "+91-98765-43210",
+    organizerRole: "Dean of Student Affairs",
+    eventName: "Campus Coding League 2026",
+    eventType: "coding",
+    eventDate: "2026-06-22",
+    expectedParticipants: 320,
+    targetAudience: "Engineering students across Pune region",
+    eventDescription: "Multi-round coding league with DSA, systems, and web tracks.",
+    needsSafeBrowser: true,
+    needsCertificates: true,
+    needsLeaderboard: true,
+    needsPrizeIntegration: true,
+    status: "pending",
+    submittedByUserId: "11111111-1111-1111-1111-111111111103",
+  },
+  {
+    referenceNumber: "EQ-HOST-2026-SUNRISE",
+    institutionName: "Sunrise Public School",
+    institutionType: "school",
+    city: "Jaipur",
+    state: "Rajasthan",
+    website: "https://sunriseps.edu.in",
+    organizerName: "Ritu Malhotra",
+    organizerEmail: "ritu.malhotra@sunriseps.edu.in",
+    organizerPhone: "+91-90000-12345",
+    organizerRole: "Academic Coordinator",
+    eventName: "Class 10 Science Quiz Fest",
+    eventType: "quiz",
+    eventDate: "2026-05-28",
+    expectedParticipants: 180,
+    targetAudience: "Class 10 CBSE science students",
+    eventDescription: "Quiz rounds based on NCERT and previous year board patterns.",
+    needsSafeBrowser: false,
+    needsCertificates: true,
+    needsLeaderboard: true,
+    needsPrizeIntegration: false,
+    status: "needs_info",
+    submittedByUserId: "11111111-1111-1111-1111-111111111104",
+  },
+  {
+    referenceNumber: "EQ-HOST-2026-VISTA",
+    institutionName: "Vista Coaching Institute",
+    institutionType: "coaching",
+    city: "Lucknow",
+    state: "Uttar Pradesh",
+    website: "https://vistacoaching.in",
+    organizerName: "Aman Tripathi",
+    organizerEmail: "events@vistacoaching.in",
+    organizerPhone: "+91-99887-66554",
+    organizerRole: "Program Manager",
+    eventName: "JEE Sprint Mock Championship",
+    eventType: "olympiad",
+    eventDate: "2026-06-10",
+    expectedParticipants: 540,
+    targetAudience: "Class 12 JEE aspirants",
+    eventDescription: "Mock championship with timed rounds and adaptive difficulty.",
+    needsSafeBrowser: true,
+    needsCertificates: true,
+    needsLeaderboard: true,
+    needsPrizeIntegration: true,
+    status: "approved",
+    submittedByUserId: "11111111-1111-1111-1111-111111111101",
+    reviewedByUserId: "11111111-1111-1111-1111-111111111111",
+    reviewNotes: "Approved — provide safe browser and leaderboard branding.",
+  },
+];
+
+/* ─────────────────────────────────────────────
+ * Demo notifications — real-looking user alerts for dashboards
+ * ───────────────────────────────────────────── */
+const DEMO_NOTIFICATIONS = [
+  {
+    userId: "11111111-1111-1111-1111-111111111101",
+    type: "level_up",
+    title: "Level 10 unlocked!",
+    message: "You hit Level 10. New battle arena tiers are now available.",
+    actionUrl: "/battle",
+  },
+  {
+    userId: "11111111-1111-1111-1111-111111111102",
+    type: "streak",
+    title: "7-day streak streaked",
+    message: "Keep it going — complete today's plan to hit 8 days.",
+    actionUrl: "/dashboard",
+  },
+  {
+    userId: "11111111-1111-1111-1111-111111111103",
+    type: "event",
+    title: "Event tomorrow",
+    message: "Python Hackathon starts tomorrow at 10 AM. Get your team ready.",
+    actionUrl: "/events",
+  },
+];
+
+/* ─────────────────────────────────────────────
  * Main seed function
  * ───────────────────────────────────────────── */
 async function seed(): Promise<void> {
+  assertDemoSeedIsAllowed();
+
   const pool = getPostgresPool();
   console.log("EduQuest seed: starting…");
 
   /* ── 1. Demo Users ───────────────────────────────────────────────────────── */
-  console.log("  Seeding 10 demo users…");
+  console.log("  Seeding demo users…");
   for (const user of DEMO_USERS) {
     await pool.query(
       `INSERT INTO eduquest_users
-         (id, name, email, password_hash, track, level, xp, streak, created_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8,
+         (id, name, email, password_hash, track, role, level, xp, streak, created_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,
                NOW() - (RANDOM() * INTERVAL '90 days'))
        ON CONFLICT (id) DO NOTHING`,
-      [user.id, user.name, user.email, DEMO_HASH, user.track, user.level, user.xp, user.streak]
+      [
+        user.id,
+        user.name,
+        user.email,
+        DEMO_HASH,
+        user.track,
+        user.role ?? "student",
+        user.level,
+        user.xp,
+        user.streak,
+      ]
     );
   }
 
@@ -302,6 +432,80 @@ async function seed(): Promise<void> {
        VALUES ($1, $2, NOW())
        ON CONFLICT (event_id, user_id) DO NOTHING`,
       [reg.event_id, reg.user_id]
+    );
+  }
+
+  /* ── 5. Host Applications ───────────────────────────────────────────────── */
+  console.log("  Seeding host applications…");
+  for (const app of DEMO_HOST_APPLICATIONS) {
+    await pool.query(
+      `INSERT INTO eduquest_host_applications (
+         reference_number,
+         institution_name, institution_type, city, state, website,
+         organizer_name, organizer_email, organizer_phone, organizer_role,
+         event_name, event_type, event_date, expected_participants,
+         target_audience, event_description,
+         needs_safe_browser, needs_certificates, needs_leaderboard, needs_prize_integration,
+         status, submitted_by_user_id, reviewed_by_user_id, review_notes,
+         created_at, updated_at, reviewed_at
+       )
+       VALUES (
+         $1,
+         $2, $3, $4, $5, $6,
+         $7, $8, $9, $10,
+         $11, $12, $13::date, $14,
+         $15, $16,
+         $17, $18, $19, $20,
+         $21, $22, $23, $24,
+         NOW() - (RANDOM() * INTERVAL '20 days'),
+         NOW(),
+         CASE WHEN $21 IN ('approved', 'rejected', 'needs_info') THEN NOW() ELSE NULL END
+       )
+       ON CONFLICT (reference_number) DO NOTHING`,
+      [
+        app.referenceNumber,
+        app.institutionName,
+        app.institutionType,
+        app.city,
+        app.state,
+        app.website,
+        app.organizerName,
+        app.organizerEmail,
+        app.organizerPhone,
+        app.organizerRole,
+        app.eventName,
+        app.eventType,
+        app.eventDate,
+        app.expectedParticipants,
+        app.targetAudience,
+        app.eventDescription,
+        app.needsSafeBrowser,
+        app.needsCertificates,
+        app.needsLeaderboard,
+        app.needsPrizeIntegration,
+        app.status,
+        app.submittedByUserId,
+        app.reviewedByUserId ?? null,
+        app.reviewNotes ?? null,
+      ]
+    );
+  }
+
+  /* ── 6. Notifications ───────────────────────────────────────────────────── */
+  console.log("  Seeding notifications…");
+  for (const notification of DEMO_NOTIFICATIONS) {
+    await pool.query(
+      `INSERT INTO eduquest_notifications
+         (user_id, type, title, message, action_url, is_read, created_at)
+       VALUES ($1, $2, $3, $4, $5, FALSE, NOW() - (RANDOM() * INTERVAL '7 days'))
+       ON CONFLICT DO NOTHING`,
+      [
+        notification.userId,
+        notification.type,
+        notification.title,
+        notification.message,
+        notification.actionUrl,
+      ]
     );
   }
 

@@ -15,9 +15,10 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Menu, X, Sun, Moon, BookOpen, ChevronDown, LogOut, Zap,
-  Search, Bell, Flame, Swords, User, Wallet, Settings
+  Search, Bell, Flame, Swords, User, Wallet, Settings, ShieldCheck
 } from "lucide-react";
 import styles from "./Navbar.module.css";
+import type { PublicUser } from "@/types/auth";
 
 /**
  * Navbar Component
@@ -36,13 +37,16 @@ function NavbarShell({ pathname }: NavbarShellProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDesktopGroup, setActiveDesktopGroup] = useState<string | null>(null);
   const [isDark, setIsDark] = useState(() => {
-    if (typeof window === "undefined") return true;
+    if (typeof window === "undefined") return false;
     const stored = localStorage.getItem("eduquest-theme");
-    return stored ? stored === "dark" : true;
+    // Default new sessions to the polished light theme, while preserving the
+    // user's saved choice so the theme toggle remains stable across visits.
+    return stored ? stored === "dark" : false;
   });
   const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
   const [sessionState, setSessionState] = useState<"checking" | "guest" | "authenticated">("checking");
+  const [currentUser, setCurrentUser] = useState<PublicUser | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -70,9 +74,23 @@ function NavbarShell({ pathname }: NavbarShellProps) {
     async function loadSession() {
       try {
         const res = await fetch("/api/auth/me", { cache: "no-store" });
-        if (isMounted) setSessionState(res.ok ? "authenticated" : "guest");
+        if (!isMounted) return;
+
+        if (res.ok) {
+          const payload = await res.json();
+          const user = payload?.data?.user ?? null;
+          setCurrentUser(user);
+          setSessionState(user ? "authenticated" : "guest");
+          return;
+        }
+
+        setCurrentUser(null);
+        setSessionState("guest");
       } catch {
-        if (isMounted) setSessionState("guest");
+        if (isMounted) {
+          setCurrentUser(null);
+          setSessionState("guest");
+        }
       }
     }
     loadSession();
@@ -88,6 +106,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
   const handleSignOut = async () => {
     await fetch("/api/auth/sign-out", { method: "POST" });
     setSessionState("guest");
+    setCurrentUser(null);
     setIsMobileMenuOpen(false);
     router.push("/");
     router.refresh();
@@ -107,6 +126,8 @@ function NavbarShell({ pathname }: NavbarShellProps) {
   const toggleDesktopGroup = (group: string) => {
     setActiveDesktopGroup(prev => prev === group ? null : group);
   };
+
+  const isAdmin = currentUser?.role === "admin";
 
   return (
     <nav className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ""}`} role="navigation">
@@ -216,6 +237,11 @@ function NavbarShell({ pathname }: NavbarShellProps) {
                       <Link href="/wallet" className={styles.dropdownLink} role="menuitem"><Wallet size={14} /> Wallet</Link>
                       <Link href="/settings" className={styles.dropdownLink} role="menuitem"><Settings size={14} /> Settings</Link>
                       <Link href="/notifications" className={styles.dropdownLink} role="menuitem"><Bell size={14} /> Notifications</Link>
+                      {isAdmin && (
+                        <Link href="/admin/host-applications" className={styles.dropdownLink} role="menuitem">
+                          <ShieldCheck size={14} /> Admin Review
+                        </Link>
+                      )}
                       <button onClick={handleSignOut} className={styles.dropdownButton} role="menuitem">
                         <LogOut size={14} /> Sign Out
                       </button>
@@ -280,8 +306,13 @@ function NavbarShell({ pathname }: NavbarShellProps) {
                    <Link href="/dashboard" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
                    <Link href="/profile" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><User size={16} /> Profile</Link>
                    <Link href="/wallet" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><Wallet size={16} /> Wallet</Link>
-                   <Link href="/settings" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><Settings size={16} /> Settings</Link>
-                   <button onClick={handleSignOut} className={styles.drawerBtnSecondary}>Sign Out</button>
+                    <Link href="/settings" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><Settings size={16} /> Settings</Link>
+                    {isAdmin && (
+                      <Link href="/admin/host-applications" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>
+                        <ShieldCheck size={16} /> Admin Review
+                      </Link>
+                    )}
+                    <button onClick={handleSignOut} className={styles.drawerBtnSecondary}>Sign Out</button>
                  </>
                ) : (
                  <>

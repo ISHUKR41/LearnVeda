@@ -1,0 +1,229 @@
+/*
+ * FILE: CommunityPostDetail.module.css
+ * LOCATION: src/app/community/post/[id]/CommunityPostDetail.module.css
+ * PURPOSE: Route-local styles for the community post detail page. Keeping these
+ *          rules separate prevents the feed page from accidentally changing the
+ *          reading experience for a single discussion.
+ * USED BY: page.tsx and loading.tsx in this folder
+ * LAST UPDATED: 2026-05-19
+ */
+
+.page {
+  min-height: calc(100vh - var(--navbar-height));
+  background: var(--color-bg-secondary);
+  padding: var(--space-8) var(--space-4) var(--space-16);
+}
+
+.shell {
+  width: min(100%, 54rem);
+  margin: 0 auto;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-md);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.backLink:hover {
+  color: var(--color-primary);
+}
+
+.backLink:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.article {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.articleHeader {
+  padding: var(--space-8);
+  border-bottom: 1px solid var(--color-border-light);
+  background:
+    linear-gradient(180deg, rgba(37, 99, 235, 0.06), rgba(37, 99, 235, 0)),
+    var(--color-bg-card);
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-5);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-small);
+}
+
+.authorPill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-bold);
+}
+
+.title {
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  line-height: 1.12;
+  margin: 0 0 var(--space-5);
+  letter-spacing: 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tag {
+  border-radius: var(--radius-full);
+  background: var(--color-primary-lightest);
+  color: var(--color-primary);
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-semibold);
+  padding: 0.35rem 0.7rem;
+}
+
+.body {
+  padding: var(--space-8);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body-large);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--color-border-light);
+  background: var(--color-bg-secondary);
+}
+
+.stat {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  min-width: 0;
+}
+
+.stat + .stat {
+  border-left: 1px solid var(--color-border-light);
+}
+
+.emptyState {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.emptyState h1 {
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  margin-bottom: var(--space-3);
+}
+
+.emptyState p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-bg-tertiary) 25%, var(--color-bg-secondary) 50%, var(--color-bg-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-lg);
+}
+
+.skeletonTitle {
+  height: 3rem;
+  width: min(38rem, 80%);
+  margin: var(--space-8);
+}
+
+.skeletonLine {
+  height: 1rem;
+  margin: var(--space-4) var(--space-8);
+}
+
+.skeletonLineShort {
+  width: 58%;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: var(--space-6) var(--space-3) var(--space-12);
+  }
+
+  .articleHeader,
+  .body {
+    padding: var(--space-5);
+  }
+
+  .metaRow {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat {
+    justify-content: flex-start;
+  }
+
+  .stat + .stat {
+    border-left: 0;
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .emptyState {
+    padding: var(--space-8) var(--space-5);
+  }
+}

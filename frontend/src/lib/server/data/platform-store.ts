@@ -329,6 +329,25 @@ export async function listCommunityPosts(): Promise<CommunityPost[]> {
   );
 }
 
+/** Finds one community post by id for detail pages and direct API reads. */
+export async function findCommunityPostById(id: string): Promise<CommunityPost | null> {
+  return withStore((store) => store.communityPosts.find((post) => post.id === id) ?? null);
+}
+
+/** Increments a community post view counter while returning the updated post. */
+export async function incrementCommunityPostViews(id: string): Promise<CommunityPost | null> {
+  return withStore((store) => {
+    const post = store.communityPosts.find((item) => item.id === id);
+
+    if (!post) {
+      return null;
+    }
+
+    post.views += 1;
+    return post;
+  }, { persist: true });
+}
+
 /** Creates a new community post from a signed-in user. */
 export async function createCommunityPost(input: {
   author: PublicUser;

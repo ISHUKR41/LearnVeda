@@ -27,30 +27,52 @@
 /* ==================== HERO SECTION ==================== */
 .hero {
   position: relative;
-  min-height: 320px;
+  min-height: 340px;
   padding: var(--space-14) var(--space-10);
-  border-radius: var(--radius-2xl);
-  /* Deep navy gradient — consistent with the MCP dark-navy brand identity */
-  background: linear-gradient(135deg, #0B1120 0%, #0F1D3A 50%, #0D1D3B 100%);
+  border-radius: var(--radius-xl);
+  /* Calm dark fallback shown only while the route-owned bitmap loads. */
+  background: #0B1120;
   color: white;
   margin-bottom: var(--space-10);
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  border: 1px solid rgba(88, 166, 255, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.18);
 }
 
-/* Decorative radial glow — no external image dependency */
-.heroOrb {
+/* Hero background image — route-owned bitmap optimized by next/image */
+.heroMedia {
   position: absolute;
-  top: -80px;
-  right: -60px;
-  width: 480px;
-  height: 480px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(88, 166, 255, 0.15) 0%, transparent 65%);
+  inset: 0;
+  object-fit: cover;
+  object-position: center right;
+  opacity: 0.96;
+}
+
+/* Gradient overlay keeps text readable on top of the artwork */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    95deg,
+    rgba(11, 17, 32, 0.95) 0%,
+    rgba(11, 17, 32, 0.8) 45%,
+    rgba(11, 17, 32, 0.5) 72%,
+    rgba(11, 17, 32, 0.28) 100%
+  );
   pointer-events: none;
+}
+
+/* Kept for JSX compatibility; visual decoration now comes from the hero image. */
+.heroOrb {
+  display: none;
+}
+
+/* Hero content stays above the image + overlay layers */
+.heroContent {
+  position: relative;
+  z-index: 2;
 }
 
 /* Eyebrow chip above the heading */
@@ -67,12 +89,12 @@
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-5);
   width: max-content;
-  letter-spacing: 0.03em;
+  letter-spacing: 0;
 }
 
 .heroTitle {
   font-family: var(--font-family-heading);
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-size: 3.25rem;
   font-weight: var(--font-weight-extrabold);
   line-height: 1.1;
   margin-bottom: var(--space-4);
@@ -122,7 +144,7 @@
   font-size: var(--font-size-xsmall);
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0;
   font-weight: var(--font-weight-medium);
 }
 
@@ -397,14 +419,17 @@
   .hero {
     padding: var(--space-8) var(--space-5);
     min-height: auto;
+    border-radius: var(--radius-lg);
   }
 
   .heroTitle { font-size: 2rem; }
 
   .statsBar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
-    flex-wrap: wrap;
-    gap: var(--space-3) var(--space-4);
+    gap: var(--space-3);
+    padding: var(--space-4);
   }
 
   .statDivider { display: none; }

@@ -10,7 +10,7 @@ export const getUserProgress = async (req: Request, res: Response): Promise<void
     const { userId } = req.params;
 
     const progress = await prisma.userProgress.findMany({
-      where: { userId },
+      where: { userId: String(userId) },
       include: {
         chapter: true,
       },

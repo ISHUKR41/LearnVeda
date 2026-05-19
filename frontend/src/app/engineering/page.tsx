@@ -6,9 +6,9 @@
  *          links to a structured day-wise learning plan (/engineering/[slug]).
  * USED BY: Next.js App Router — renders at "/engineering"
  * DEPENDENCIES: next/link, next/image, lucide-react, Engineering.module.css, constants.ts
- * LAST UPDATED: 2026-05-18
- * NOTE: Language icons use accent-colored monogram badges (no external SVG CDN needed).
- *       Skill track icons map to Lucide components via the SKILL_ICONS record.
+ * LAST UPDATED: 2026-05-19
+ * NOTE: Language cards use stable Lucide-backed badges and keep the page local
+ *       to the repo's icon system instead of adding another icon dependency.
  */
 
 import Link from "next/link";
@@ -71,6 +71,26 @@ const SKILL_ACCENTS: Record<string, string> = {
   "git-github":            "skillAccentOrange",
   "competitive-programming": "skillAccentGold",
   "interview-prep":        "skillAccentTeal",
+};
+
+/**
+ * LANGUAGE_BADGES maps language IDs to the Lucide icon component that best
+ * represents the language family. This keeps the cards more professional than
+ * plain monogram tiles without introducing a new icon library.
+ */
+const LANGUAGE_BADGES: Record<string, React.ComponentType<{ size?: number; "aria-hidden"?: "true" }>> = {
+  "c-language": Code2,
+  cpp: Code2,
+  java: Code2,
+  python: Database,
+  javascript: Globe,
+  typescript: Code2,
+  rust: Workflow,
+  kotlin: Workflow,
+  swift: Zap,
+  sql: Database,
+  dart: Globe,
+  ruby: Star,
 };
 
 /* ─────────────────────────────────────────────
@@ -156,9 +176,12 @@ export default function EngineeringPage() {
                 className={styles.langCard}
                 style={{ "--lang-accent": lang.color } as React.CSSProperties}
               >
-                {/* Language monogram badge — uses the language's own accent color */}
+                {/* Language badge — uses a stable Lucide icon plus the route accent. */}
                 <div className={styles.langBadge} aria-hidden="true">
-                  {lang.name.substring(0, lang.name.length > 4 ? 2 : lang.name.length)}
+                  {(() => {
+                    const LanguageIcon = LANGUAGE_BADGES[lang.id] ?? Code2;
+                    return <LanguageIcon size={24} aria-hidden="true" />;
+                  })()}
                 </div>
 
                 {/* Language name */}
