@@ -1,4 +1,4 @@
-modules = ["nodejs-20"]
+modules = ["nodejs-20", "postgresql-16"]
 [agent]
 expertMode = true
 stack = "BEST_EFFORT_FALLBACK"
@@ -35,3 +35,7 @@ externalPort = 80
 
 [userenv.shared]
 EDUQUEST_PERSISTENCE_ADAPTER = "postgres"
+EDUQUEST_SESSION_SECRET = "1d5c6db4a1862d6e5b671817d698900864b5275ad9ce48eed40691cd915766cd"
+
+[nix]
+channel = "stable-25_05"

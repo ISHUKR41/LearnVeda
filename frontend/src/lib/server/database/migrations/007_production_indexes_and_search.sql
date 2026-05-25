@@ -65,36 +65,98 @@ CREATE INDEX IF NOT EXISTS eduquest_host_applications_review_queue_idx
 
 -- ─────────────────────────────────────────────
 -- POSTGRESQL FULL-TEXT SEARCH
--- The MCP says to start with PostgreSQL search before introducing a dedicated
--- search service. Expression GIN indexes make subject, chapter, and community
--- search useful without extra infrastructure.
+-- Expression GIN indexes using to_tsvector() are rejected because the function
+-- is not IMMUTABLE when a config argument is present. Instead we add a plain
+-- tsvector column maintained by BEFORE INSERT/UPDATE triggers, then index that
+-- column. A plain column index is always accepted.
 -- ─────────────────────────────────────────────
-CREATE INDEX IF NOT EXISTS eduquest_subjects_search_idx
-  ON eduquest_subjects
-  USING GIN (
-    to_tsvector(
-      'english',
-      coalesce(name, '') || ' ' || coalesce(description, '') || ' ' || coalesce(track, '') || ' ' || coalesce(stream, '')
-    )
+
+-- subjects search
+ALTER TABLE eduquest_subjects
+  ADD COLUMN IF NOT EXISTS search_vector tsvector;
+
+UPDATE eduquest_subjects
+SET search_vector = to_tsvector(
+  'english',
+  coalesce(name, '') || ' ' || coalesce(description, '') || ' ' || coalesce(track, '') || ' ' || coalesce(stream, '')
+);
+
+CREATE OR REPLACE FUNCTION eduquest_subjects_search_vector_update()
+  RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  NEW.search_vector := to_tsvector(
+    'english',
+    coalesce(NEW.name, '') || ' ' || coalesce(NEW.description, '') || ' ' || coalesce(NEW.track, '') || ' ' || coalesce(NEW.stream, '')
   );
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS eduquest_subjects_search_vector_trg ON eduquest_subjects;
+CREATE TRIGGER eduquest_subjects_search_vector_trg
+  BEFORE INSERT OR UPDATE ON eduquest_subjects
+  FOR EACH ROW EXECUTE FUNCTION eduquest_subjects_search_vector_update();
+
+CREATE INDEX IF NOT EXISTS eduquest_subjects_search_idx
+  ON eduquest_subjects USING GIN (search_vector);
+
+-- chapters search
+ALTER TABLE eduquest_chapters
+  ADD COLUMN IF NOT EXISTS search_vector tsvector;
+
+UPDATE eduquest_chapters
+SET search_vector = to_tsvector(
+  'english',
+  coalesce(name, '') || ' ' || coalesce(description, '') || ' ' || coalesce(difficulty, '')
+);
+
+CREATE OR REPLACE FUNCTION eduquest_chapters_search_vector_update()
+  RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  NEW.search_vector := to_tsvector(
+    'english',
+    coalesce(NEW.name, '') || ' ' || coalesce(NEW.description, '') || ' ' || coalesce(NEW.difficulty, '')
+  );
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS eduquest_chapters_search_vector_trg ON eduquest_chapters;
+CREATE TRIGGER eduquest_chapters_search_vector_trg
+  BEFORE INSERT OR UPDATE ON eduquest_chapters
+  FOR EACH ROW EXECUTE FUNCTION eduquest_chapters_search_vector_update();
 
 CREATE INDEX IF NOT EXISTS eduquest_chapters_search_idx
-  ON eduquest_chapters
-  USING GIN (
-    to_tsvector(
-      'english',
-      coalesce(name, '') || ' ' || coalesce(description, '') || ' ' || coalesce(difficulty, '')
-    )
+  ON eduquest_chapters USING GIN (search_vector);
+
+-- community posts search
+ALTER TABLE eduquest_community_posts
+  ADD COLUMN IF NOT EXISTS search_vector tsvector;
+
+UPDATE eduquest_community_posts
+SET search_vector = to_tsvector(
+  'english',
+  coalesce(title, '') || ' ' || coalesce(body, '') || ' ' || array_to_string(tags, ' ')
+);
+
+CREATE OR REPLACE FUNCTION eduquest_community_posts_search_vector_update()
+  RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  NEW.search_vector := to_tsvector(
+    'english',
+    coalesce(NEW.title, '') || ' ' || coalesce(NEW.body, '') || ' ' || array_to_string(NEW.tags, ' ')
   );
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS eduquest_community_posts_search_vector_trg ON eduquest_community_posts;
+CREATE TRIGGER eduquest_community_posts_search_vector_trg
+  BEFORE INSERT OR UPDATE ON eduquest_community_posts
+  FOR EACH ROW EXECUTE FUNCTION eduquest_community_posts_search_vector_update();
 
 CREATE INDEX IF NOT EXISTS eduquest_community_posts_search_idx
-  ON eduquest_community_posts
-  USING GIN (
-    to_tsvector(
-      'english',
-      coalesce(title, '') || ' ' || coalesce(body, '') || ' ' || array_to_string(tags, ' ')
-    )
-  );
+  ON eduquest_community_posts USING GIN (search_vector);
 
 -- ─────────────────────────────────────────────
 -- JSONB SUPPORT INDEXES
