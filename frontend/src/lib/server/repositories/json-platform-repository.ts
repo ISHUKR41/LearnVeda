@@ -13,7 +13,9 @@ import {
   createBackgroundJob,
   createCommunityPost,
   createMatchmakingTicket,
+  createSessionRecord,
   createUser,
+  findActiveSessionByTokenId,
   findCommunityPostById,
   findUserByEmail,
   findUserById,
@@ -23,6 +25,7 @@ import {
   listPublicUsersByRank,
   listRegisteredEventIds,
   registerForEvent,
+  revokeSession,
   toPublicUser,
 } from "@/lib/server/data/platform-store";
 import { getSerializableEvents } from "@/lib/events/event-catalog";
@@ -146,6 +149,11 @@ export const jsonPlatformRepository: PlatformRepository = {
         trackRank: trackIndex >= 0 ? trackIndex + 1 : null,
       };
     },
+  },
+  sessions: {
+    create: createSessionRecord,
+    findActiveByTokenId: findActiveSessionByTokenId,
+    revoke: revokeSession,
   },
   audit: {
     create: createAuditLog,

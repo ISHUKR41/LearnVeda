@@ -57,6 +57,6 @@ export async function POST(request: NextRequest) {
   }
 
   const response = apiSuccess({ user }, { message: "Signed in successfully.", headers: NO_STORE_HEADERS });
-  attachSessionCookie(response, createSessionToken(user));
+  attachSessionCookie(response, createSessionToken(user).token);
   return response;
 }

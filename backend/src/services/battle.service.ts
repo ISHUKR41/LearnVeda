@@ -353,3 +353,229 @@ export async function completeMatch(matchId: string) {
     client.release();
   }
 }
+
+/* ─────────────────────────────────────────────
+ * WAGER & WALLET HELPERS
+ * ───────────────────────────────────────────── */
+
+/**
+ * Validates player requirements for entry into wagered matchmaking.
+ * Validates level gate (Level 10+), wager limit (500 Stars max per match),
+ * daily wager limit (1000 Stars max total in last 24h), and sufficient wallet balance.
+ */
+export async function validateWagerRequirements(
+  userId: string,
+  wager: number
+): Promise<{ success: boolean; error?: string }> {
+  if (wager <= 0) {
+    return { success: true };
+  }
+
+  if (wager > 500) {
+    return { success: false, error: "Single-match wager cannot exceed 500 Stars." };
+  }
+
+  try {
+    // 1. Level Check (Wagered battles restricted to Level 10+)
+    const userResult = await pool.query(
+      `SELECT "currentLevel" FROM "User" WHERE id = $1`,
+      [userId]
+    );
+
+    if (userResult.rows.length === 0) {
+      return { success: false, error: "User not found." };
+    }
+
+    if (userResult.rows[0].currentLevel < 10) {
+      return { success: false, error: "Level 10 is required to participate in wagered battles." };
+    }
+
+    // 2. Balance Check (Verify enough Stars exist in Wallet)
+    let walletResult = await pool.query(
+      `SELECT balance FROM "Wallet" WHERE "userId" = $1`,
+      [userId]
+    );
+
+    // Auto-create wallet with starter Stars if not exists
+    if (walletResult.rows.length === 0) {
+      walletResult = await pool.query(
+        `INSERT INTO "Wallet" (id, "userId", balance, "totalEarned", "totalSpent", "isPremium", "createdAt", "updatedAt")
+         VALUES (gen_random_uuid()::text, $1, 100, 100, 0, FALSE, NOW(), NOW())
+         RETURNING balance`,
+        [userId]
+      );
+    }
+
+    const currentBalance = walletResult.rows[0].balance;
+    if (currentBalance < wager) {
+      return { success: false, error: `Insufficient Stars. Current balance: ${currentBalance}, required: ${wager}` };
+    }
+
+    // 3. Daily Wager Limit Check (Max 1000 Stars wagered in last 24 hours)
+    const dailyResult = await pool.query(
+      `SELECT COALESCE(SUM(ABS(amount)), 0) AS "totalWageredToday"
+       FROM "WalletTransaction"
+       WHERE "userId" = $1
+         AND type = 'SPEND_BATTLE'
+         AND "createdAt" > NOW() - INTERVAL '24 hours'`,
+      [userId]
+    );
+
+    const totalWageredToday = Number(dailyResult.rows[0].totalWageredToday);
+    if (totalWageredToday + wager > 1000) {
+      return { success: false, error: `Daily wager limit of 1000 Stars reached. Remaining allowance: ${1000 - totalWageredToday} Stars.` };
+    }
+
+    return { success: true };
+  } catch (err) {
+    console.error("[battle.service] Wager validation error:", err);
+    return { success: false, error: "Database error during wager validation." };
+  }
+}
+
+/**
+ * Deducts the wager amount from the user's wallet at the start of a match.
+ * Performs a transaction with pessimistic locking to prevent double-spending.
+ */
+export async function deductWager(userId: string, matchId: string, wager: number): Promise<void> {
+  if (wager <= 0) return;
+
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    const walletResult = await client.query(
+      `SELECT id, balance FROM "Wallet" WHERE "userId" = $1 FOR UPDATE`,
+      [userId]
+    );
+
+    if (walletResult.rows.length === 0) {
+      throw new Error(`Wallet not found for user ${userId}`);
+    }
+
+    const currentBalance = walletResult.rows[0].balance;
+    if (currentBalance < wager) {
+      throw new Error(`Insufficient funds for user ${userId} to deduct wager`);
+    }
+
+    const newBalance = currentBalance - wager;
+
+    // Update wallet balance
+    await client.query(
+      `UPDATE "Wallet"
+       SET balance = $1, "totalSpent" = "totalSpent" + $2, "updatedAt" = NOW()
+       WHERE "userId" = $3`,
+      [newBalance, wager, userId]
+    );
+
+    // Record spend transaction
+    await client.query(
+      `INSERT INTO "WalletTransaction"
+         (id, "userId", amount, type, description, "referenceId", "balanceBefore", "balanceAfter", "createdAt")
+       VALUES (gen_random_uuid()::text, $1, $2, 'SPEND_BATTLE', $3, $4, $5, $6, NOW())`,
+      [userId, -wager, `Wager for battle match ${matchId}`, matchId, currentBalance, newBalance]
+    );
+
+    await client.query("COMMIT");
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error("[battle.service] Wager deduction error:", err);
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+/**
+ * Distributes payouts at the end of a match.
+ * If match ends in a draw, both players get fully refunded.
+ * If there is a winner, they receive the entire pool (2x wager).
+ */
+export async function distributeWagerPayout(
+  matchId: string,
+  winnerId: string | null,
+  loserId: string | null,
+  wager: number
+): Promise<void> {
+  if (wager <= 0) return;
+
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    if (!winnerId) {
+      // True draw — refund wagers to both players
+      const participants = await client.query(
+        `SELECT "userId" FROM "MatchParticipant" WHERE "matchId" = $1`,
+        [matchId]
+      );
+
+      for (const row of participants.rows) {
+        const userId = row.userId;
+        const walletResult = await client.query(
+          `SELECT balance FROM "Wallet" WHERE "userId" = $1 FOR UPDATE`,
+          [userId]
+        );
+
+        if (walletResult.rows.length > 0) {
+          const currentBalance = walletResult.rows[0].balance;
+          const newBalance = currentBalance + wager;
+
+          // Refund wallet
+          await client.query(
+            `UPDATE "Wallet"
+             SET balance = $1, "totalSpent" = GREATEST(0, "totalSpent" - $2), "updatedAt" = NOW()
+             WHERE "userId" = $3`,
+            [newBalance, wager, userId]
+          );
+
+          // Add refund transaction record
+          await client.query(
+            `INSERT INTO "WalletTransaction"
+               (id, "userId", amount, type, description, "referenceId", "balanceBefore", "balanceAfter", "createdAt")
+             VALUES (gen_random_uuid()::text, $1, $2, 'EARN_BATTLE', $3, $4, $5, $6, NOW())`,
+            [userId, wager, `Wager refund for battle draw in ${matchId}`, matchId, currentBalance, newBalance]
+          );
+        }
+      }
+    } else {
+      // Winner takes all: 2 * wager payout
+      const poolAmount = wager * 2;
+
+      const walletResult = await client.query(
+        `SELECT balance FROM "Wallet" WHERE "userId" = $1 FOR UPDATE`,
+        [winnerId]
+      );
+
+      if (walletResult.rows.length > 0) {
+        const currentBalance = walletResult.rows[0].balance;
+        const newBalance = currentBalance + poolAmount;
+
+        // Payout to winner
+        await client.query(
+          `UPDATE "Wallet"
+           SET balance = $1, "totalEarned" = "totalEarned" + $2, "updatedAt" = NOW()
+           WHERE "userId" = $3`,
+          [newBalance, poolAmount, winnerId]
+        );
+
+        // Record earn transaction
+        await client.query(
+          `INSERT INTO "WalletTransaction"
+             (id, "userId", amount, type, description, "referenceId", "balanceBefore", "balanceAfter", "createdAt")
+           VALUES (gen_random_uuid()::text, $1, $2, 'EARN_BATTLE', $3, $4, $5, $6, NOW())`,
+          [winnerId, poolAmount, `Won battle pool for match ${matchId}`, matchId, currentBalance, newBalance]
+        );
+      }
+    }
+
+    await client.query("COMMIT");
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error("[battle.service] Wager payout distribution error:", err);
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+

@@ -20,6 +20,8 @@ export type AuditAction =
   | "auth.sign_up.succeeded"
   | "auth.sign_in.succeeded"
   | "auth.sign_in.failed"
+  | "auth.session.created"
+  | "auth.session.revoked"
   | "battle.matchmaking.queued"
   | "community.post.created"
   | "event.registration.created"

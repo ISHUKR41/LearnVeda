@@ -291,6 +291,241 @@ function mapQuestions(rows: CurriculumQuestion[]): ChapterPracticeQuestion[] {
   });
 }
 
+/**
+ * Generates dynamic, context-appropriate fallback questions for local previews
+ * when the database does not contain pre-seeded questions for a chapter.
+ *
+ * FILE: subject-plans.ts
+ * LOCATION: src/lib/server/data/subject-plans.ts
+ * PURPOSE: Generate fallback questions for development/local testing.
+ * USED BY: getChapterPracticeSnapshot
+ */
+function generateFallbackQuestionsForChapter(
+  subjectName: string,
+  chapterName: string,
+): ChapterPracticeQuestion[] {
+  const sub = subjectName.toLowerCase();
+
+  if (sub.includes("math")) {
+    return [
+      {
+        id: "fb-math-1",
+        text: `Which of the following is a fundamental concept in ${chapterName}?`,
+        difficulty: "easy",
+        options: ["Rational definition", "Irrational derivation", "Axiomatic proof", "None of the above"],
+        answer: "Axiomatic proof",
+        explanation: `In ${chapterName}, establishing truth requires starting from basic axioms and using logical proof steps.`,
+        points: 10,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-math-2",
+        text: `Solve: If x + 5 = 12, what is the value of x?`,
+        difficulty: "easy",
+        options: ["5", "7", "12", "17"],
+        answer: "7",
+        explanation: "Subtracting 5 from both sides of the equation gives x = 12 - 5 = 7.",
+        points: 10,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-math-3",
+        text: "Which of these represents a prime number?",
+        difficulty: "medium",
+        options: ["9", "15", "17", "21"],
+        answer: "17",
+        explanation: "17 is only divisible by 1 and itself, making it a prime number. The others are composite numbers.",
+        points: 20,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-math-4",
+        text: `What is the primary formula used to solve standard problems in ${chapterName}?`,
+        difficulty: "medium",
+        options: ["Pythagorean theorem", "Quadratic formula", "Euclid's division lemma", "Depends on specific sub-topic"],
+        answer: "Depends on specific sub-topic",
+        explanation: "Different sections of this chapter focus on specialized geometric, algebraic, or numerical relations.",
+        points: 20,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-math-5",
+        text: "What type of number is Pi (π)?",
+        difficulty: "hard",
+        options: ["Integer", "Rational number", "Irrational number", "Whole number"],
+        answer: "Irrational number",
+        explanation: "Pi has a non-terminating, non-repeating decimal expansion, so it cannot be expressed as a simple fraction.",
+        points: 35,
+        youtubeHintUrl: null,
+      },
+    ];
+  }
+
+  if (sub.includes("science") || sub.includes("physics") || sub.includes("chemistry") || sub.includes("biology")) {
+    return [
+      {
+        id: "fb-sci-1",
+        text: `Which of the following is the SI unit of measurement related to ${chapterName}?`,
+        difficulty: "easy",
+        options: ["Joule", "Newton", "Kelvin", "Depends on physical quantity"],
+        answer: "Depends on physical quantity",
+        explanation: `Depending on which concept of ${chapterName} is being measured, the unit can be for force, energy, temperature, or mass.`,
+        points: 10,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-sci-2",
+        text: "What is the smallest unit of matter that retains all chemical properties of an element?",
+        difficulty: "easy",
+        options: ["Molecule", "Atom", "Electron", "Proton"],
+        answer: "Atom",
+        explanation: "An atom is the basic building block of chemistry and the smallest unit of an element that retains its identity.",
+        points: 10,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-sci-3",
+        text: "What state of matter has a definite volume but no definite shape?",
+        difficulty: "medium",
+        options: ["Solid", "Liquid", "Gas", "Plasma"],
+        answer: "Liquid",
+        explanation: "Liquids flow and take the shape of their container, but they maintain a constant volume regardless of shape.",
+        points: 20,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-sci-4",
+        text: `What is a core observation when conducting experiments in ${chapterName}?`,
+        difficulty: "medium",
+        options: ["Mass is always lost", "Conservation principles hold true", "Temperature stays perfectly constant", "Reactions always produce light"],
+        answer: "Conservation principles hold true",
+        explanation: "Fundamental laws of physics and chemistry dictate that energy, momentum, and mass are conserved in closed systems.",
+        points: 20,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-sci-5",
+        text: "Which cell organelle is known as the powerhouse of the cell?",
+        difficulty: "hard",
+        options: ["Nucleus", "Ribosome", "Mitochondria", "Golgi apparatus"],
+        answer: "Mitochondria",
+        explanation: "Mitochondria generate most of the chemical energy (ATP) needed to power the cell's biochemical reactions.",
+        points: 35,
+        youtubeHintUrl: null,
+      },
+    ];
+  }
+
+  if (sub.includes("computer") || sub.includes("code") || sub.includes("python") || sub.includes("application")) {
+    return [
+      {
+        id: "fb-comp-1",
+        text: "Which of the following is a valid variable name in programming languages?",
+        difficulty: "easy",
+        options: ["2myVar", "_my_var", "my-var", "class"],
+        answer: "_my_var",
+        explanation: "Identifiers cannot start with a digit, cannot contain hyphens, and cannot use reserved keywords like 'class'. They can start with underscores.",
+        points: 10,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-comp-2",
+        text: "What is the correct tag for inserting a line break in HTML?",
+        difficulty: "easy",
+        options: ["<break>", "<lb>", "<br>", "<next>"],
+        answer: "<br>",
+        explanation: "The <br> tag is an empty tag used to insert a single line break in HTML documents.",
+        points: 10,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-comp-3",
+        text: "Which data structure follows the Last-In-First-Out (LIFO) principle?",
+        difficulty: "medium",
+        options: ["Queue", "Stack", "Linked List", "Tree"],
+        answer: "Stack",
+        explanation: "A stack is a linear data structure where elements are added and removed from the same end (LIFO).",
+        points: 20,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-comp-4",
+        text: `What is the main security risk associated with ${chapterName} processes?`,
+        difficulty: "medium",
+        options: ["Malware injection", "Data loss", "Identity theft", "All of the above"],
+        answer: "All of the above",
+        explanation: "Modern computer networks and operations face threats including malicious software, physical storage faults, and phishing.",
+        points: 20,
+        youtubeHintUrl: null,
+      },
+      {
+        id: "fb-comp-5",
+        text: "What is the time complexity of searching in a balanced binary search tree?",
+        difficulty: "hard",
+        options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+        answer: "O(log n)",
+        explanation: "In a balanced BST, each step divides the search space in half, resulting in logarithmic time complexity O(log n).",
+        points: 35,
+        youtubeHintUrl: null,
+      },
+    ];
+  }
+
+  // Generic/fallback questions for English, Social Science, Hindi, or general streams
+  return [
+    {
+      id: "fb-gen-1",
+      text: `Which option best summarizes the core theme of ${chapterName}?`,
+      difficulty: "easy",
+      options: ["Historical evolution", "Grammatical syntax", "Structural analysis", "Context-dependent theory"],
+      answer: "Context-dependent theory",
+      explanation: `Studying ${chapterName} requires understanding the specific contextual settings, terminology, and definitions.`,
+      points: 10,
+      youtubeHintUrl: null,
+    },
+    {
+      id: "fb-gen-2",
+      text: "Which of the following is a synonym of the word 'diligent'?",
+      difficulty: "easy",
+      options: ["Lazy", "Careful", "Hardworking", "Sloppy"],
+      answer: "Hardworking",
+      explanation: "Diligent means showing care and conscientiousness in one's work or duties, which is synonymous with hardworking.",
+      points: 10,
+      youtubeHintUrl: null,
+    },
+    {
+      id: "fb-gen-3",
+      text: `What is a primary objective when studying modules in ${subjectName}?`,
+      difficulty: "medium",
+      options: ["Memorizing dates blindly", "Rote learning definitions", "Developing critical thinking and analytical analysis", "Passing exams with minimum effort"],
+      answer: "Developing critical thinking and analytical analysis",
+      explanation: "EduQuest focuses on building conceptual clarity and analytical logic rather than mechanical memorization.",
+      points: 20,
+      youtubeHintUrl: null,
+    },
+    {
+      id: "fb-gen-4",
+      text: "Which of these is considered a secondary source in historical research?",
+      difficulty: "medium",
+      options: ["A diary written during the event", "A biography written 50 years later", "An official treaty document", "A photograph of the event"],
+      answer: "A biography written 50 years later",
+      explanation: "Secondary sources interpret, analyze, or synthesize primary sources. A biography written later is a secondary source.",
+      points: 20,
+      youtubeHintUrl: null,
+    },
+    {
+      id: "fb-gen-5",
+      text: "What is the main benefit of structured revision plans?",
+      difficulty: "hard",
+      options: ["They eliminate the need to study", "They guarantee 100% marks without effort", "They optimize memory recall and reduce exam anxiety", "They make quizzes completely optional"],
+      answer: "They optimize memory recall and reduce exam anxiety",
+      explanation: "Spaced repetition and structured review have been scientifically proven to build long-term retention and confidence.",
+      points: 35,
+      youtubeHintUrl: null,
+    },
+  ];
+}
+
 /** Returns chapter practice content with DB-first and static fallback behavior. */
 export async function getChapterPracticeSnapshot(input: {
   track: SupportedTrack;
@@ -304,7 +539,10 @@ export async function getChapterPracticeSnapshot(input: {
     const subject = await getSubjectBySlug(subjectSlug);
     const chapter = await getChapterBySlug(subjectSlug, sanitizeSlugSegment(input.chapter));
     if (subject && chapter) {
-      const questions = mapQuestions(await getQuestionsByChapterSlug(subjectSlug, chapter.slug, 40));
+      let questions = mapQuestions(await getQuestionsByChapterSlug(subjectSlug, chapter.slug, 40));
+      if (questions.length === 0 && shouldAllowStaticFallbackData()) {
+        questions = generateFallbackQuestionsForChapter(subject.name, chapter.name);
+      }
       return {
         subjectName: subject.name,
         chapterName: chapter.name,
@@ -341,7 +579,7 @@ export async function getChapterPracticeSnapshot(input: {
     chapterDifficulty: fallbackChapter.difficulty,
     chapterDays: fallbackChapter.dayCount,
     chapterQuestionCount: fallbackChapter.questionCount,
-    questions: [],
+    questions: generateFallbackQuestionsForChapter(fallbackPlan.title, fallbackChapter.name),
   };
 }
 

@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
       { status: 201, message: "Account created successfully.", headers: NO_STORE_HEADERS },
     );
 
-    attachSessionCookie(response, createSessionToken(user));
+    attachSessionCookie(response, createSessionToken(user).token);
     return response;
   } catch (error) {
     if (error instanceof Error && error.message === "USER_ALREADY_EXISTS") {

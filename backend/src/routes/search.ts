@@ -4,24 +4,19 @@
  * PURPOSE: REST API routes for cross-entity search on EduQuest.
  *          Supports searching across users (leaderboard), community posts,
  *          and chapter titles. Returns categorized results.
+ *          Reuses the global singleton database pool and maps queries to correct Prisma models.
  * USED BY: backend/src/index.ts → /api/search
- * DEPENDENCIES: express, pg Pool
- * LAST UPDATED: 2026-05-18
+ * DEPENDENCIES: express, ../config/database
+ * LAST UPDATED: 2026-05-25
  *
  * Endpoints:
  *  GET /api/search?q=query&type=all|users|posts|chapters
  */
 
 import { Router, Request, Response } from "express";
-import { Pool } from "pg";
+import pool from "../config/database";
 
 const router = Router();
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  max: 10,
-  idleTimeoutMillis: 30_000,
-});
 
 /* ─────────────────────────────────────────────
  * GET /api/search
@@ -62,9 +57,9 @@ router.get("/", async (req: Request, res: Response) => {
     /* ── Search Users ── */
     if (type === "all" || type === "users") {
       const usersResult = await pool.query(
-        `SELECT id, name, xp, current_level AS level, COALESCE(track, 'general') AS track
-         FROM eduquest_users
-         WHERE name ILIKE $1 AND is_active = TRUE
+        `SELECT id, name, xp, "currentLevel" AS level, COALESCE("classLevel", 'general') AS track
+         FROM "User"
+         WHERE name ILIKE $1 AND "isActive" = TRUE
          ORDER BY xp DESC
          LIMIT $2`,
         [`%${safeQuery}%`, limit]
@@ -75,14 +70,31 @@ router.get("/", async (req: Request, res: Response) => {
     /* ── Search Community Posts ── */
     if (type === "all" || type === "posts") {
       const postsResult = await pool.query(
-        `SELECT id, title, category, author_name AS "authorName", created_at AS "createdAt"
-         FROM eduquest_community_posts
-         WHERE title ILIKE $1 OR content ILIKE $1
-         ORDER BY created_at DESC
+        `SELECT p.id, p.title, c.slug AS category, u.name AS "authorName", p."createdAt" AS "createdAt"
+         FROM "CommunityPost" p
+         JOIN "User" u ON p."authorId" = u.id
+         JOIN "CommunityCategory" c ON p."categoryId" = c.id
+         WHERE p.title ILIKE $1 OR p.content ILIKE $1
+         ORDER BY p."createdAt" DESC
          LIMIT $2`,
         [`%${safeQuery}%`, limit]
       );
       results.posts = postsResult.rows;
+    }
+
+    /* ── Search Chapters ── */
+    if (type === "all" || type === "chapters") {
+      const chaptersResult = await pool.query(
+        `SELECT c.id, c.title, c.slug, s.slug AS "subjectSlug", cc.slug AS "classSlug"
+         FROM "Chapter" c
+         JOIN "Subject" s ON c."subjectId" = s.id
+         JOIN "ClassCategory" cc ON s."classId" = cc.id
+         WHERE c.title ILIKE $1
+         ORDER BY c."orderIndex" ASC
+         LIMIT $2`,
+        [`%${safeQuery}%`, limit]
+      );
+      results.chapters = chaptersResult.rows;
     }
 
     res.json({

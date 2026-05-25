@@ -14,6 +14,11 @@ import type {
   MatchmakingTicket,
 } from "@/lib/server/data/platform-store";
 import type { AuditLogEntry, CreateAuditLogInput } from "@/lib/server/audit/audit-log";
+import type {
+  CreateSessionRecordInput,
+  RevokeSessionInput,
+  StoredSessionRecord,
+} from "@/lib/server/auth/session-records";
 import type { BackgroundJobIntent, CreateBackgroundJobInput } from "@/lib/server/jobs/job-intents";
 import type { LearningTrack, PublicUser, StoredUser } from "@/types/auth";
 
@@ -30,6 +35,13 @@ export interface UserRepository {
   findById(id: string): Promise<StoredUser | null>;
   create(input: CreateRepositoryUserInput): Promise<PublicUser>;
   toPublic(user: StoredUser): PublicUser;
+}
+
+/** Server-side session registry used for revocation and production audits. */
+export interface SessionRepository {
+  create(input: CreateSessionRecordInput): Promise<StoredSessionRecord>;
+  findActiveByTokenId(tokenId: string): Promise<StoredSessionRecord | null>;
+  revoke(input: RevokeSessionInput): Promise<void>;
 }
 
 /** Battle persistence contract required by matchmaking flows. */
@@ -117,6 +129,7 @@ export interface BackgroundJobRepository {
 /** Complete backend repository surface consumed by services. */
 export interface PlatformRepository {
   users: UserRepository;
+  sessions: SessionRepository;
   battles: BattleRepository;
   community: CommunityRepository;
   events: EventRepository;

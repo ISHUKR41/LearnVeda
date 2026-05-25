@@ -476,6 +476,7 @@ model Match {
   mode        String    @default("RANKED") // RANKED, CASUAL, EVENT
   questionsCount Int    @default(10) // Number of questions in the match
   timePerQuestion Int   @default(30) // Seconds per question
+  wager       Int       @default(0)  // Stars wagered in the match
   
   startTime   DateTime  @default(now())
   endTime     DateTime?

@@ -344,3 +344,64 @@
   }
   .timer { font-size: 1.75rem; }
 }
+
+/* =====================================================================
+ * ERROR STATE
+ * Displayed when Socket.io connection fails or queue errors occur
+ * ===================================================================== */
+.errorWrap {
+  text-align: center;
+  padding: var(--space-6) 0;
+}
+
+.errorIcon {
+  color: #EF4444;
+  margin-bottom: var(--space-4);
+}
+
+.errorTitle {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 var(--space-2);
+}
+
+.errorMsg {
+  font-size: var(--font-size-small);
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 var(--space-6);
+  line-height: 1.6;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =====================================================================
+ * WAGER INDICATOR — shown on the "Match Found" card
+ * ===================================================================== */
+.wagerIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-2) var(--space-4);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: #FBBF24;
+  margin-bottom: var(--space-6);
+}
+
+.wagerStar {
+  color: #FBBF24;
+}
+
+/* Wager chip variant — amber accent for wager in preference chips */
+.chipWager {
+  background: rgba(245, 158, 11, 0.1) !important;
+  border-color: rgba(245, 158, 11, 0.25) !important;
+  color: #FBBF24 !important;
+}
+

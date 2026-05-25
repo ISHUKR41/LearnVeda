@@ -9,13 +9,20 @@
  * LAST UPDATED: 2026-05-11
  */
 
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
 import type { NextRequest, NextResponse } from "next/server";
 import { getSessionSecret } from "@/lib/server/env";
 import type { PublicUser, SessionPayload } from "@/types/auth";
 
 export const SESSION_COOKIE_NAME = "eduquest_session";
 export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
+
+/** Returned when the backend creates a signed cookie and server-side row. */
+export interface CreatedSessionToken {
+  token: string;
+  tokenId: string;
+  expiresAt: string;
+}
 
 /** Allows local production smoke tests over HTTP while keeping deploys secure by default. */
 function shouldUseSecureCookie(): boolean {
@@ -53,18 +60,45 @@ function safeEqual(a: string, b: string): boolean {
   return timingSafeEqual(left, right);
 }
 
+/** Runtime guard for parsed cookie payloads before trusting their fields. */
+function isSessionPayload(value: unknown): value is SessionPayload {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const payload = value as Partial<SessionPayload>;
+  return (
+    typeof payload.sid === "string"
+    && typeof payload.sub === "string"
+    && typeof payload.email === "string"
+    && typeof payload.name === "string"
+    && typeof payload.role === "string"
+    && typeof payload.iat === "number"
+    && typeof payload.exp === "number"
+  );
+}
+
 /** Creates a signed session token for a public user. */
-export function createSessionToken(user: PublicUser): string {
+export function createSessionToken(user: PublicUser): CreatedSessionToken {
+  const tokenId = randomUUID();
+  const nowSeconds = Math.floor(Date.now() / 1000);
+  const expiresAtSeconds = nowSeconds + SESSION_TTL_SECONDS;
   const payload: SessionPayload = {
+    sid: tokenId,
     sub: user.id,
     email: user.email,
     name: user.name,
     role: user.role,
-    exp: Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS,
+    iat: nowSeconds,
+    exp: expiresAtSeconds,
   };
   const body = toBase64Url(JSON.stringify(payload));
   const signature = signTokenBody(body);
-  return `${body}.${signature}`;
+  return {
+    token: `${body}.${signature}`,
+    tokenId,
+    expiresAt: new Date(expiresAtSeconds * 1000).toISOString(),
+  };
 }
 
 /** Verifies and decodes a session token, returning null when invalid or expired. */
@@ -80,7 +114,11 @@ export function verifySessionToken(token: string | undefined): SessionPayload | 
   }
 
   try {
-    const payload = JSON.parse(fromBase64Url(body)) as SessionPayload;
+    const payload = JSON.parse(fromBase64Url(body));
+    if (!isSessionPayload(payload)) {
+      return null;
+    }
+
     const nowSeconds = Math.floor(Date.now() / 1000);
     return payload.exp > nowSeconds ? payload : null;
   } catch {

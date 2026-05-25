@@ -22,6 +22,11 @@ import type {
 } from "@/lib/server/jobs/job-intents";
 import type { PlatformRepository } from "@/lib/server/repositories/platform-repository";
 import type { LearningTrack, PublicUser, StoredUser, UserRole } from "@/types/auth";
+import type {
+  CreateSessionRecordInput,
+  RevokeSessionInput,
+  StoredSessionRecord,
+} from "@/lib/server/auth/session-records";
 
 interface UserRow {
   id: string;
@@ -114,6 +119,18 @@ interface BackgroundJobRow {
   attempts: number;
   created_at: Date | string;
   run_after: Date | string;
+}
+
+interface SessionRow {
+  token_id: string;
+  user_id: string;
+  expires_at: Date | string;
+  client_key: string | null;
+  user_agent: string | null;
+  created_at: Date | string;
+  last_seen_at: Date | string;
+  revoked_at: Date | string | null;
+  revoke_reason: string | null;
 }
 
 /** Converts database timestamp values to the ISO strings expected by the UI. */
@@ -227,6 +244,21 @@ function mapBackgroundJobRow(row: BackgroundJobRow): BackgroundJobIntent {
   };
 }
 
+/** Converts one database session row into the shared StoredSessionRecord contract. */
+function mapSessionRow(row: SessionRow): StoredSessionRecord {
+  return {
+    tokenId: row.token_id,
+    userId: row.user_id,
+    expiresAt: toIsoString(row.expires_at),
+    clientKey: row.client_key ?? undefined,
+    userAgent: row.user_agent,
+    createdAt: toIsoString(row.created_at),
+    lastSeenAt: toIsoString(row.last_seen_at),
+    revokedAt: row.revoked_at ? toIsoString(row.revoked_at) : null,
+    revokeReason: row.revoke_reason,
+  };
+}
+
 /** Builds compact initials for leaderboard avatars without another profile query. */
 function getInitials(name: string): string {
   return name
@@ -309,6 +341,48 @@ export const postgresPlatformRepository: PlatformRepository = {
     },
 
     toPublic: toPublicUser,
+  },
+
+  sessions: {
+    async create(input) {
+      const result = await queryPostgres<SessionRow>(
+        `INSERT INTO eduquest_sessions (
+           token_id, user_id, expires_at, client_key, user_agent
+         )
+         VALUES ($1, $2, $3, $4, $5)
+         RETURNING token_id, user_id, expires_at, client_key, user_agent, created_at, last_seen_at, revoked_at, revoke_reason`,
+        [
+          input.tokenId,
+          input.userId,
+          input.expiresAt,
+          input.clientKey ?? null,
+          input.userAgent ?? null,
+        ],
+      );
+
+      return mapSessionRow(result.rows[0]);
+    },
+
+    async findActiveByTokenId(tokenId) {
+      const result = await queryPostgres<SessionRow>(
+        `SELECT token_id, user_id, expires_at, client_key, user_agent, created_at, last_seen_at, revoked_at, revoke_reason
+         FROM eduquest_sessions
+         WHERE token_id = $1 AND revoked_at IS NULL AND expires_at > NOW()
+         LIMIT 1`,
+        [tokenId],
+      );
+
+      return result.rows[0] ? mapSessionRow(result.rows[0]) : null;
+    },
+
+    async revoke(input) {
+      await queryPostgres(
+        `UPDATE eduquest_sessions
+         SET revoked_at = NOW(), revoke_reason = $1
+         WHERE token_id = $2`,
+        [input.reason, input.tokenId],
+      );
+    },
   },
 
   battles: {

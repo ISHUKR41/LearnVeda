@@ -47,9 +47,11 @@ export interface StoredUser extends PublicUser {
 
 /** Session payload stored inside the signed httpOnly cookie. */
 export interface SessionPayload {
+  sid: string;
   sub: string;
   email: string;
   name: string;
   role: UserRole;
+  iat: number;
   exp: number;
 }

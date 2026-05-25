@@ -4,31 +4,21 @@
  * PURPOSE: REST API routes for the EduQuest global leaderboard.
  *          Supports filtering by scope (global, class-9, class-10, class-11,
  *          class-12, engineering) and returns paginated ranked entries.
+ *          Tuned for high concurrent loads using the hybrid cache layer.
  * USED BY: backend/src/index.ts → /api/leaderboard
- * DEPENDENCIES: express, pg Pool (database/pool), query-sanitize utilities
- * LAST UPDATED: 2026-05-18
+ * DEPENDENCIES: express, pg Pool (database/pool), ../config/cache
+ * LAST UPDATED: 2026-05-24
  *
  * Endpoints:
- *  GET /api/leaderboard              — top 50 entries, scope=global by default
- *  GET /api/leaderboard/:userId      — single user's rank in a given scope
+ *  GET /api/leaderboard              — top 50 entries, scope=global by default (cached)
+ *  GET /api/leaderboard/:userId      — single user's rank in a given scope (cached)
  */
 
 import { Router, Request, Response } from "express";
-import { Pool } from "pg";
+import pool from "../config/database";
+import { cache, CACHE_TTL } from "../config/cache";
 
 const router = Router();
-
-/* ─────────────────────────────────────────────
- * Database Pool
- * Reuse a single Pool across all leaderboard queries.
- * Connection string is read from the DATABASE_URL environment variable.
- * ───────────────────────────────────────────── */
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  max: 20,                /* Maximum simultaneous connections */
-  idleTimeoutMillis: 30_000,
-  connectionTimeoutMillis: 5_000,
-});
 
 /* ─────────────────────────────────────────────
  * Valid scope values — prevents SQL injection via the scope query param.
@@ -45,6 +35,7 @@ const VALID_SCOPES = new Set([
 /* ─────────────────────────────────────────────
  * GET /api/leaderboard
  * Returns the top N students sorted by XP descending.
+ * Cached for 2 minutes to prevent heavy DB rankings scans.
  *
  * Query params:
  *  scope  — one of VALID_SCOPES (default: "global")
@@ -62,49 +53,70 @@ router.get("/", async (req: Request, res: Response) => {
   const limit  = Math.min(parseInt(String(req.query.limit  ?? "50"), 10), 100);
   const offset = Math.max(parseInt(String(req.query.offset ?? "0"),  10), 0);
 
+  const cacheKey = `leaderboard:${scope}:l_${limit}:o_${offset}`;
+
   try {
-    /*
-     * Build the WHERE clause based on scope.
-     * For "global" we return all users; for class/engineering scopes we
-     * filter on the user's current track stored in eduquest_users.
-     */
-    const whereClause = scope === "global"
-      ? ""
-      : "WHERE LOWER(u.track) = LOWER($3)";
+    const cachedLeaderboard = await cache.getOrSet(cacheKey, async () => {
+      /*
+       * Build the WHERE clause based on scope.
+       * For "global" we return all users; for class/engineering scopes we
+       * filter on the user's classLevel.
+       */
+      const whereClause = scope === "global"
+        ? "WHERE u.role = 'STUDENT' AND u.\"isActive\" = TRUE"
+        : "WHERE u.role = 'STUDENT' AND u.\"isActive\" = TRUE AND LOWER(u.\"classLevel\") = LOWER($3)";
 
-    const params: (string | number)[] = [limit, offset];
-    if (scope !== "global") params.push(scope);
+      const params: (string | number)[] = [limit, offset];
+      if (scope !== "global") params.push(scope);
 
-    const queryText = `
-      SELECT
-        u.id                                      AS "userId",
-        u.name,
-        u.xp,
-        u.current_level                           AS level,
-        u.current_streak                          AS streak,
-        COALESCE(u.track, 'general')              AS track,
-        RANK() OVER (ORDER BY u.xp DESC)          AS rank,
-        UPPER(LEFT(COALESCE(u.name, 'A'), 2))     AS initials
-      FROM eduquest_users u
-      ${whereClause}
-      ORDER BY u.xp DESC
-      LIMIT $1 OFFSET $2
-    `;
+      // Fetch leaderboard entries with rank window function
+      const queryText = `
+        SELECT
+          u.id                                      AS "userId",
+          u.name,
+          u.xp,
+          u."currentLevel"                          AS level,
+          u."currentStreak"                         AS streak,
+          COALESCE(u."classLevel", 'general')       AS track,
+          RANK() OVER (ORDER BY u.xp DESC)          AS rank,
+          UPPER(LEFT(COALESCE(u.name, 'A'), 2))     AS initials
+        FROM "User" u
+        ${whereClause}
+        ORDER BY u.xp DESC
+        LIMIT $1 OFFSET $2
+      `;
 
-    const result = await pool.query(queryText, params);
+      // Also get the total count of student users for pagination calculation
+      const countParams = scope !== "global" ? [scope] : [];
+      const countQuery = `
+        SELECT COUNT(*)::int AS total
+        FROM "User" u
+        ${scope === "global" ? "WHERE u.role = 'STUDENT' AND u.\"isActive\" = TRUE" : "WHERE u.role = 'STUDENT' AND u.\"isActive\" = TRUE AND LOWER(u.\"classLevel\") = LOWER($1)"}
+      `;
+
+      const [entriesResult, countResult] = await Promise.all([
+        pool.query(queryText, params),
+        pool.query(countQuery, countParams)
+      ]);
+
+      return {
+        entries: entriesResult.rows,
+        total: countResult.rows[0]?.total ?? 0
+      };
+    }, CACHE_TTL.LEADERBOARD);
 
     res.json({
       ok: true,
       data: {
         scope,
-        entries: result.rows,
-        total:   result.rowCount ?? result.rows.length,
+        entries: cachedLeaderboard.entries,
+        total: cachedLeaderboard.total,
         limit,
         offset,
       },
     });
   } catch (err) {
-    console.error("[leaderboard] DB error:", err);
+    console.error("[leaderboard] DB/Cache error:", err);
     res.status(500).json({
       ok: false,
       error: { message: "Failed to fetch leaderboard data." },
@@ -115,6 +127,7 @@ router.get("/", async (req: Request, res: Response) => {
 /* ─────────────────────────────────────────────
  * GET /api/leaderboard/:userId
  * Returns a single user's leaderboard entry (rank, XP, level, streak).
+ * Cached for 2 minutes to prevent heavy DB scan operations.
  *
  * Path params: userId
  * Query params: scope (default: "global")
@@ -131,42 +144,48 @@ router.get("/:userId", async (req: Request, res: Response) => {
     return;
   }
 
+  const cacheKey = `leaderboard:user:${userId}:${scope}`;
+
   try {
-    const whereScope = scope !== "global"
-      ? "AND LOWER(u2.track) = LOWER($2)"
-      : "";
+    const cachedUserRank = await cache.getOrSet(cacheKey, async () => {
+      const whereScope = scope !== "global"
+        ? "WHERE u2.role = 'STUDENT' AND u2.\"isActive\" = TRUE AND LOWER(u2.\"classLevel\") = LOWER($2)"
+        : "WHERE u2.role = 'STUDENT' AND u2.\"isActive\" = TRUE";
 
-    const params: string[] = [userId];
-    if (scope !== "global") params.push(scope);
+      const params: string[] = [userId];
+      if (scope !== "global") params.push(scope);
 
-    const queryText = `
-      WITH ranked AS (
-        SELECT
-          u2.id,
-          u2.name,
-          u2.xp,
-          u2.current_level  AS level,
-          u2.current_streak AS streak,
-          COALESCE(u2.track, 'general') AS track,
-          RANK() OVER (ORDER BY u2.xp DESC) AS rank
-        FROM eduquest_users u2
-        WHERE 1=1 ${whereScope}
-      )
-      SELECT *
-      FROM ranked
-      WHERE id = $1
-    `;
+      // CTE to rank all users within the selected scope, then filter to target user
+      const queryText = `
+        WITH ranked AS (
+          SELECT
+            u2.id,
+            u2.name,
+            u2.xp,
+            u2."currentLevel"  AS level,
+            u2."currentStreak" AS streak,
+            COALESCE(u2."classLevel", 'general') AS track,
+            RANK() OVER (ORDER BY u2.xp DESC) AS rank
+          FROM "User" u2
+          ${whereScope}
+        )
+        SELECT *
+        FROM ranked
+        WHERE id = $1
+      `;
 
-    const result = await pool.query(queryText, params);
+      const result = await pool.query(queryText, params);
+      return result.rows[0] ?? null;
+    }, CACHE_TTL.LEADERBOARD);
 
-    if (result.rows.length === 0) {
-      res.status(404).json({ ok: false, error: { message: "User not found." } });
+    if (!cachedUserRank) {
+      res.status(404).json({ ok: false, error: { message: "User rank not found in this scope." } });
       return;
     }
 
-    res.json({ ok: true, data: { entry: result.rows[0], scope } });
+    res.json({ ok: true, data: { entry: cachedUserRank, scope } });
   } catch (err) {
-    console.error("[leaderboard/:userId] DB error:", err);
+    console.error("[leaderboard/:userId] DB/Cache error:", err);
     res.status(500).json({ ok: false, error: { message: "Failed to fetch user rank." } });
   }
 });

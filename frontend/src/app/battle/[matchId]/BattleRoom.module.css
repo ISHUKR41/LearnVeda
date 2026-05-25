@@ -1,0 +1,703 @@
+/**
+ * FILE: BattleRoom.module.css
+ * LOCATION: src/app/battle/[matchId]/BattleRoom.module.css
+ * PURPOSE: All styles for the real-time Battle Room page.
+ *          Covers the full-screen dark arena layout: player scoreboard,
+ *          question panel, timer ring, option buttons, result overlays,
+ *          and end-of-match summary modal.
+ *          This module is ONLY for the /battle/[matchId] route.
+ * USED BY: src/app/battle/[matchId]/page.tsx
+ * LAST UPDATED: 2026-05-22
+ */
+
+/* =====================================================================
+ * PAGE WRAPPER
+ * Full-screen dark arena with competitive red/orange accents
+ * ===================================================================== */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(170deg, #0A0A0F 0%, #10101A 50%, #0D0D14 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  font-family: var(--font-body);
+}
+
+/* Subtle background glow — centered radial from top */
+.page::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(239, 68, 68, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =====================================================================
+ * TOP BAR — Match info + timer
+ * ===================================================================== */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  z-index: 2;
+}
+
+.matchInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.matchBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #FCA5A5;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.questionCounter {
+  font-size: var(--font-size-small);
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+}
+
+/* =====================================================================
+ * TIMER DISPLAY — prominent countdown
+ * ===================================================================== */
+.timerSection {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.timerRing {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 3px solid rgba(37, 99, 235, 0.4);
+  transition: border-color 0.3s, color 0.3s;
+}
+
+/* Timer warning state (under 10 seconds) */
+.timerWarning {
+  border-color: rgba(245, 158, 11, 0.6) !important;
+  color: #FBBF24 !important;
+  animation: timerPulse 0.8s ease-in-out infinite;
+}
+
+/* Timer critical state (under 5 seconds) */
+.timerCritical {
+  border-color: rgba(239, 68, 68, 0.7) !important;
+  color: #EF4444 !important;
+  animation: timerPulse 0.4s ease-in-out infinite;
+}
+
+@keyframes timerPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* =====================================================================
+ * SCOREBOARD — Side-by-side player panels
+ * ===================================================================== */
+.scoreboard {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  position: relative;
+  z-index: 2;
+}
+
+.playerPanel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+  transition: border-color 0.3s;
+}
+
+/* Highlight the player who just answered correctly */
+.playerPanelCorrect {
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+}
+
+.playerPanelWrong {
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+/* Opponent panel is right-aligned */
+.opponentPanel {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.playerAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.myAvatar {
+  background: linear-gradient(135deg, #2563EB, #3B82F6);
+  color: white;
+}
+
+.oppAvatar {
+  background: linear-gradient(135deg, #DC2626, #EF4444);
+  color: white;
+}
+
+.playerName {
+  font-weight: 700;
+  font-size: var(--font-size-small);
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.playerLevel {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+
+.playerScore {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* VS divider between scoreboard panels */
+.vsDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.1em;
+}
+
+/* =====================================================================
+ * QUESTION AREA — main content zone
+ * ===================================================================== */
+.questionArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6) var(--space-6) var(--space-8);
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.questionCard {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8) var(--space-8);
+  margin-bottom: var(--space-6);
+  animation: fadeSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.questionText {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.7;
+  text-align: center;
+  margin: 0;
+}
+
+/* =====================================================================
+ * ANSWER OPTIONS — grid of clickable buttons
+ * ===================================================================== */
+.optionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.optionBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--radius-xl);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.optionBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.optionBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Option letter prefix (A, B, C, D) */
+.optionLetter {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+/* Selected answer state */
+.optionSelected {
+  background: rgba(37, 99, 235, 0.15) !important;
+  border-color: rgba(37, 99, 235, 0.5) !important;
+  color: #ffffff !important;
+}
+
+.optionSelected .optionLetter {
+  background: #2563EB !important;
+  color: #ffffff !important;
+}
+
+/* Correct answer reveal */
+.optionCorrect {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.5) !important;
+}
+
+.optionCorrect .optionLetter {
+  background: #10B981 !important;
+  color: #ffffff !important;
+}
+
+/* Wrong answer reveal */
+.optionWrong {
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+}
+
+.optionWrong .optionLetter {
+  background: #EF4444 !important;
+  color: #ffffff !important;
+}
+
+/* =====================================================================
+ * STATUS INDICATOR — "Waiting for opponent", "Both answered", etc.
+ * ===================================================================== */
+.statusBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: var(--space-4);
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  animation: statusBlink 1.2s ease-in-out infinite;
+}
+
+@keyframes statusBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* =====================================================================
+ * MATCH END OVERLAY — full-screen results modal
+ * ===================================================================== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  animation: overlayFadeIn 0.3s ease both;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.resultCard {
+  background: rgba(15, 15, 25, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10) var(--space-8);
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  animation: resultSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes resultSlideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.resultIconWin {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-4);
+  box-shadow: 0 0 40px rgba(245, 158, 11, 0.3);
+  color: white;
+}
+
+.resultIconLoss {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6B7280, #4B5563);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-4);
+  color: white;
+}
+
+.resultIconTie {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-4);
+  color: white;
+}
+
+.resultTitle {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 0 0 var(--space-2);
+}
+
+.resultTitleWin {
+  background: linear-gradient(90deg, #F59E0B, #FBBF24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.resultTitleLoss {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.resultTitleTie {
+  background: linear-gradient(90deg, #60A5FA, #A78BFA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.resultSubtitle {
+  font-size: var(--font-size-small);
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 var(--space-6);
+}
+
+/* Final scores grid in the result card */
+.resultScores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.resultScoreItem {
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+}
+
+.resultScoreLabel {
+  display: block;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.resultScoreValue {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* Rewards section in result card */
+.resultRewards {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.rewardChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+}
+
+.rewardXP {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34D399;
+}
+
+.rewardStars {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #FBBF24;
+}
+
+/* Back to lobby button */
+.resultBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-8);
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  border: none;
+  border-radius: var(--radius-lg);
+  color: white;
+  font-size: var(--font-size-body);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.resultBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+}
+
+/* =====================================================================
+ * CHEAT WARNING TOAST
+ * ===================================================================== */
+.cheatWarning {
+  position: fixed;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: rgba(239, 68, 68, 0.9);
+  border: 1px solid rgba(239, 68, 68, 0.6);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-small);
+  font-weight: 700;
+  color: white;
+  animation: toastSlideUp 0.3s ease both, toastFadeOut 0.3s 2.7s ease both;
+  box-shadow: 0 8px 32px rgba(239, 68, 68, 0.3);
+}
+
+@keyframes toastSlideUp {
+  from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+@keyframes toastFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; pointer-events: none; }
+}
+
+/* =====================================================================
+ * LOADING / CONNECTING STATE
+ * ===================================================================== */
+.loadingWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  position: relative;
+  z-index: 2;
+}
+
+.loadingSpinner {
+  animation: spin 1s linear infinite;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loadingText {
+  font-size: var(--font-size-body);
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+}
+
+/* =====================================================================
+ * OPPONENT DISCONNECTED INDICATOR
+ * ===================================================================== */
+.disconnectedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-full);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #FCA5A5;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  animation: statusBlink 1s ease-in-out infinite;
+}
+
+/* =====================================================================
+ * RESPONSIVE — Mobile & Tablet Adjustments
+ * ===================================================================== */
+@media (max-width: 768px) {
+  .scoreboard {
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .playerName {
+    max-width: 80px;
+    font-size: 0.75rem;
+  }
+
+  .playerScore {
+    font-size: 1.1rem;
+  }
+
+  .questionCard {
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .questionText {
+    font-size: 1rem;
+  }
+
+  .optionsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .resultCard {
+    padding: var(--space-8) var(--space-5);
+  }
+}
+
+@media (max-width: 480px) {
+  .topBar {
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .timerRing {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+  }
+}

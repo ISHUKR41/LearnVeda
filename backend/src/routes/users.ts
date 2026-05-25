@@ -2,39 +2,25 @@
  * FILE: users.ts
  * LOCATION: backend/src/routes/users.ts
  * PURPOSE: REST API routes for EduQuest user profiles and account settings.
- *          Supports reading public profiles, updating user display info,
- *          and fetching user statistics for the dashboard.
+ *          Provides endpoints for reading user profile summaries, details,
+ *          gamification stats, and updating profile settings.
+ *          Integrated with proper JWT auth verification and hybrid caching.
  * USED BY: backend/src/index.ts → /api/users
- * DEPENDENCIES: express, pg Pool
- * LAST UPDATED: 2026-05-18
+ * DEPENDENCIES: express, pg Pool, ../middlewares/auth.middleware, ../config/cache
+ * LAST UPDATED: 2026-05-24
  *
  * Endpoints:
- *  GET    /api/users/:userId           — public user profile
- *  GET    /api/users/:userId/stats     — extended stats (battles, chapters, XP history)
+ *  GET    /api/users/:userId           — public user profile (cached)
+ *  GET    /api/users/:userId/stats     — extended stats (battles, chapters, XP history) (cached)
  *  PUT    /api/users/:userId/profile   — update display name / settings (auth required)
  */
 
 import { Router, Request, Response } from "express";
-import { Pool } from "pg";
+import pool from "../config/database";
+import { authMiddleware } from "../middlewares/auth.middleware";
+import { cache, CACHE_TTL } from "../config/cache";
 
 const router = Router();
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  max: 10,
-  idleTimeoutMillis: 30_000,
-});
-
-/* ─────────────────────────────────────────────
- * Helpers
- * ───────────────────────────────────────────── */
-
-/** Extracts userId from Bearer token (placeholder for full JWT middleware). */
-function extractUserId(req: Request): string | null {
-  const authHeader = req.headers.authorization;
-  if (!authHeader?.startsWith("Bearer ")) return null;
-  return authHeader.slice(7) ?? null;
-}
 
 /** Sanitizes a display name — strips HTML, trims whitespace, enforces max length. */
 function sanitizeName(name: unknown): string | null {
@@ -49,8 +35,9 @@ function sanitizeName(name: unknown): string | null {
 
 /* ─────────────────────────────────────────────
  * GET /api/users/:userId
- * Returns a public user profile (name, level, XP, streak, track).
+ * Returns a public user profile (name, level, XP, streak, classLevel).
  * Does NOT return email, phone, or password-related fields.
+ * Cached to support high concurrent profiling loads.
  * ───────────────────────────────────────────── */
 router.get("/:userId", async (req: Request, res: Response) => {
   const { userId } = req.params;
@@ -60,30 +47,40 @@ router.get("/:userId", async (req: Request, res: Response) => {
     return;
   }
 
-  try {
-    const result = await pool.query(
-      `SELECT
-         id,
-         name,
-         xp,
-         current_level     AS level,
-         current_streak    AS streak,
-         highest_streak    AS "highestStreak",
-         COALESCE(track, 'general') AS track,
-         created_at        AS "joinedAt"
-       FROM eduquest_users
-       WHERE id = $1 AND is_active = TRUE`,
-      [userId]
-    );
+  const cacheKey = `user:profile:${userId}`;
 
-    if (result.rows.length === 0) {
+  try {
+    const cachedProfile = await cache.getOrSet(cacheKey, async () => {
+      const result = await pool.query(
+        `SELECT
+           id,
+           name,
+           xp,
+           "currentLevel"     AS level,
+           "currentStreak"    AS streak,
+           "highestStreak"    AS "highestStreak",
+           COALESCE("classLevel", 'general') AS track,
+           "createdAt"        AS "joinedAt"
+         FROM "User"
+         WHERE id = $1 AND "isActive" = TRUE`,
+        [userId]
+      );
+
+      if (result.rows.length === 0) {
+        return null;
+      }
+
+      return result.rows[0];
+    }, CACHE_TTL.USER);
+
+    if (!cachedProfile) {
       res.status(404).json({ ok: false, error: { message: "User not found." } });
       return;
     }
 
-    res.json({ ok: true, data: { user: result.rows[0] } });
+    res.json({ ok: true, data: { user: cachedProfile } });
   } catch (err) {
-    console.error("[users/:userId GET] DB error:", err);
+    console.error("[users/:userId GET] DB/Cache error:", err);
     res.status(500).json({ ok: false, error: { message: "Failed to fetch user profile." } });
   }
 });
@@ -91,6 +88,7 @@ router.get("/:userId", async (req: Request, res: Response) => {
 /* ─────────────────────────────────────────────
  * GET /api/users/:userId/stats
  * Returns extended gamification stats: battle record, chapter progress, XP breakdown.
+ * Cached to prevent complex JOIN aggregations.
  * ───────────────────────────────────────────── */
 router.get("/:userId/stats", async (req: Request, res: Response) => {
   const { userId } = req.params;
@@ -100,70 +98,71 @@ router.get("/:userId/stats", async (req: Request, res: Response) => {
     return;
   }
 
+  const cacheKey = `user:stats:${userId}`;
+
   try {
-    /* Battle stats — wins, losses, total matches */
-    const battleResult = await pool.query(
-      `SELECT
-         COUNT(*)                                         AS "totalBattles",
-         COUNT(*) FILTER (WHERE result = 'win')          AS wins,
-         COUNT(*) FILTER (WHERE result = 'loss')         AS losses,
-         ROUND(
-           COUNT(*) FILTER (WHERE result = 'win') * 100.0
-           / NULLIF(COUNT(*), 0),
-           1
-         )                                               AS "winRate"
-       FROM eduquest_matchmaking_tickets
-       WHERE user_id = $1 AND status = 'matched'`,
-      [userId]
-    );
+    const cachedStats = await cache.getOrSet(cacheKey, async () => {
+      /* Battle stats — wins, losses, total matches from MatchParticipant + Match */
+      const battleResult = await pool.query(
+        `SELECT
+           COUNT(*)::int AS "totalBattles",
+           COUNT(*) FILTER (WHERE mp."isWinner" = TRUE)::int AS wins,
+           COUNT(*) FILTER (WHERE mp."isWinner" = FALSE AND m.status = 'COMPLETED')::int AS losses,
+           ROUND(
+             COALESCE(COUNT(*) FILTER (WHERE mp."isWinner" = TRUE) * 100.0 / NULLIF(COUNT(*), 0), 0),
+             1
+           )::float AS "winRate"
+         FROM "MatchParticipant" mp
+         JOIN "Match" m ON mp."matchId" = m.id
+         WHERE mp."userId" = $1 AND m.status = 'COMPLETED'`,
+        [userId]
+      );
 
-    /* Chapter progress stats */
-    const progressResult = await pool.query(
-      `SELECT
-         COUNT(*)                                              AS "totalChapters",
-         COUNT(*) FILTER (WHERE is_completed = TRUE)         AS "completedChapters",
-         COALESCE(SUM(score), 0)                              AS "totalScore"
-       FROM eduquest_user_progress
-       WHERE user_id = $1`,
-      [userId]
-    );
+      /* Chapter progress stats from UserProgress */
+      const progressResult = await pool.query(
+        `SELECT
+           COUNT(*)::int AS "totalChapters",
+           COUNT(*) FILTER (WHERE up.completed = TRUE)::int AS "completedChapters",
+           COALESCE(SUM(score), 0)::int AS "totalScore"
+         FROM "UserProgress" up
+         WHERE up."userId" = $1`,
+        [userId]
+      );
 
-    const battleStats    = battleResult.rows[0]   ?? {};
-    const progressStats  = progressResult.rows[0] ?? {};
+      return {
+        battles: battleResult.rows[0] ?? { totalBattles: 0, wins: 0, losses: 0, winRate: 0 },
+        progress: progressResult.rows[0] ?? { totalChapters: 0, completedChapters: 0, totalScore: 0 },
+      };
+    }, CACHE_TTL.USER);
 
     res.json({
       ok: true,
       data: {
         userId,
-        battles:  battleStats,
-        progress: progressStats,
+        battles: cachedStats.battles,
+        progress: cachedStats.progress,
       },
     });
   } catch (err) {
-    console.error("[users/:userId/stats GET] DB error:", err);
+    console.error("[users/:userId/stats GET] DB/Cache error:", err);
     res.status(500).json({ ok: false, error: { message: "Failed to fetch user stats." } });
   }
 });
 
 /* ─────────────────────────────────────────────
  * PUT /api/users/:userId/profile
- * Updates a user's display name and/or preferences.
+ * Updates a user's display name and/or class level.
  * Only the authenticated user can update their own profile.
+ * Invalidates user profile and stats cache.
  *
- * Body: { name?: string, track?: string, languagePreference?: string }
+ * Body: { name?: string, track?: string }
  * ───────────────────────────────────────────── */
-router.put("/:userId/profile", async (req: Request, res: Response) => {
+router.put("/:userId/profile", authMiddleware, async (req: Request, res: Response) => {
   const { userId } = req.params;
-  const requesterId = extractUserId(req);
+  const requester = req.user;
 
-  /* Require authentication */
-  if (!requesterId) {
-    res.status(401).json({ ok: false, error: { message: "Authentication required." } });
-    return;
-  }
-
-  /* Users can only edit their own profile (no impersonation) */
-  if (requesterId !== userId) {
+  /* Users can only edit their own profile */
+  if (requester?.userId !== userId) {
     res.status(403).json({ ok: false, error: { message: "You can only edit your own profile." } });
     return;
   }
@@ -188,7 +187,7 @@ router.put("/:userId/profile", async (req: Request, res: Response) => {
 
   if (track !== undefined) {
     params.push(String(track).slice(0, 32));
-    updates.push(`track = $${params.length}`);
+    updates.push(`"classLevel" = $${params.length}`);
   }
 
   if (updates.length === 0) {
@@ -197,14 +196,14 @@ router.put("/:userId/profile", async (req: Request, res: Response) => {
   }
 
   params.push(userId);
-  updates.push(`updated_at = NOW()`);
+  updates.push(`"updatedAt" = NOW()`);
 
   try {
     const result = await pool.query(
-      `UPDATE eduquest_users
+      `UPDATE "User"
        SET ${updates.join(", ")}
        WHERE id = $${params.length}
-       RETURNING id, name, xp, current_level AS level, current_streak AS streak`,
+       RETURNING id, name, xp, "currentLevel" AS level, "currentStreak" AS streak`,
       params
     );
 
@@ -212,6 +211,12 @@ router.put("/:userId/profile", async (req: Request, res: Response) => {
       res.status(404).json({ ok: false, error: { message: "User not found." } });
       return;
     }
+
+    // Write-Through: Invalidate target user cache endpoints so updates reflect immediately
+    await cache.del(`user:profile:${userId}`);
+    await cache.del(`user:stats:${userId}`);
+    // Also delete user leaderboard cache entries since streak or name might have changed
+    await cache.invalidateByPrefix("leaderboard:");
 
     res.json({ ok: true, data: { user: result.rows[0] } });
   } catch (err) {

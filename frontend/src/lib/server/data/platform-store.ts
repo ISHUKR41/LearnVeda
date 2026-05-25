@@ -22,6 +22,12 @@ import path from "node:path";
 import type { AuditLogEntry, CreateAuditLogInput } from "@/lib/server/audit/audit-log";
 import type { BackgroundJobIntent, CreateBackgroundJobInput } from "@/lib/server/jobs/job-intents";
 import type { LearningTrack, PublicUser, StoredUser } from "@/types/auth";
+import type {
+  CreateSessionRecordInput,
+  RevokeSessionInput,
+  StoredSessionRecord,
+} from "@/lib/server/auth/session-records";
+import { isStoredSessionExpired } from "@/lib/server/auth/session-records";
 
 interface CreateUserInput {
   name: string;
@@ -65,6 +71,7 @@ interface PlatformStore {
   eventRegistrations: EventRegistration[];
   auditLogs: AuditLogEntry[];
   backgroundJobs: BackgroundJobIntent[];
+  sessions: StoredSessionRecord[];
 }
 
 interface StoreRuntime {
@@ -108,6 +115,7 @@ function createDefaultStore(): PlatformStore {
     eventRegistrations: [],
     auditLogs: [],
     backgroundJobs: [],
+    sessions: [],
     communityPosts: [
       {
         id: "seed-quadratic-equations",
@@ -160,6 +168,7 @@ function normalizeStore(rawStore: unknown): PlatformStore {
     || (parsed.eventRegistrations && !Array.isArray(parsed.eventRegistrations))
     || (parsed.auditLogs && !Array.isArray(parsed.auditLogs))
     || (parsed.backgroundJobs && !Array.isArray(parsed.backgroundJobs))
+    || (parsed.sessions && !Array.isArray(parsed.sessions))
   ) {
     throw new Error("PLATFORM_STORE_INVALID");
   }
@@ -171,6 +180,7 @@ function normalizeStore(rawStore: unknown): PlatformStore {
     eventRegistrations: parsed.eventRegistrations ?? [],
     auditLogs: parsed.auditLogs ?? [],
     backgroundJobs: parsed.backgroundJobs ?? [],
+    sessions: parsed.sessions ?? [],
   };
 }
 
@@ -475,3 +485,41 @@ export async function createBackgroundJob(input: CreateBackgroundJobInput): Prom
     return job;
   }, { persist: true });
 }
+
+/** Creates and persists a new server-side session record. */
+export async function createSessionRecord(input: CreateSessionRecordInput): Promise<StoredSessionRecord> {
+  return withStore((store) => {
+    const record: StoredSessionRecord = {
+      ...input,
+      createdAt: new Date().toISOString(),
+      lastSeenAt: new Date().toISOString(),
+      revokedAt: null,
+      revokeReason: null,
+    };
+    store.sessions.push(record);
+    return record;
+  }, { persist: true });
+}
+
+/** Finds an active session record by its token ID. */
+export async function findActiveSessionByTokenId(tokenId: string): Promise<StoredSessionRecord | null> {
+  return withStore((store) => {
+    const session = store.sessions.find((s) => s.tokenId === tokenId) ?? null;
+    if (session && (session.revokedAt || isStoredSessionExpired(session))) {
+      return null;
+    }
+    return session;
+  });
+}
+
+/** Revokes a session record by token ID. */
+export async function revokeSession(input: RevokeSessionInput): Promise<void> {
+  return withStore((store) => {
+    const session = store.sessions.find((s) => s.tokenId === input.tokenId);
+    if (session) {
+      session.revokedAt = new Date().toISOString();
+      session.revokeReason = input.reason;
+    }
+  }, { persist: true });
+}
+

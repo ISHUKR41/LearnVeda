@@ -26,10 +26,18 @@
  * LAST UPDATED: 2026-05-19
  */
 
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import compression from "compression";
+import hpp from "hpp";
+import { rateLimiter } from "./middlewares/rateLimiter";
+import { closeRedisClient, probeRedis } from "./config/redis";
+import logger from "./utils/logger";
 
 /* ─────────────────────────────────────────────
  * Route imports — each module handles a distinct feature domain.
@@ -48,6 +56,9 @@ import searchRoutes       from "./routes/search";
 import eventRoutes        from "./routes/events";
 import walletRoutes       from "./routes/wallet";
 
+import { createServer } from "http";
+import { initSocket } from "./services/socket.service";
+
 /* Database management */
 import { checkDatabaseHealth, closeDatabasePool } from "./config/database";
 
@@ -57,6 +68,9 @@ import { checkDatabaseHealth, closeDatabasePool } from "./config/database";
 const app = express();
 const PORT = parseInt(process.env.PORT ?? "4000", 10);
 const IS_DEV = process.env.NODE_ENV !== "production";
+const server = createServer(app);
+initSocket(server);
+
 
 /* ─────────────────────────────────────────────
  * SECTION 1: Security & Parsing Middleware
@@ -95,7 +109,16 @@ app.use(
   })
 );
 
-/* 3. Body parsing — JSON and URL-encoded form data */
+/* 3. Response compression — gzip/brotli for reduced bandwidth */
+app.use(compression({
+  threshold: 1024, // Only compress responses larger than 1KB
+  level: 6,        // Balanced compression level (1=fast, 9=best)
+}));
+
+/* 4. HTTP Parameter Pollution protection */
+app.use(hpp());
+
+/* 5. Body parsing — JSON and URL-encoded form data */
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true, limit: "2mb" }));
 
@@ -122,53 +145,88 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 /* ─────────────────────────────────────────────
- * SECTION 3: Simple Rate Limiting
- * In-memory rate limiter — protects against basic API abuse.
- * For production at scale, replace with Redis-based rate limiting.
+ * SECTION 2.5: Health & Readiness Endpoints (Bypasses Rate Limiter)
+ * Registered before the global rate limiter to ensure load balancers
+ * and monitoring probes are never rate limited or blocked during failures.
  * ───────────────────────────────────────────── */
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
-const RATE_LIMIT_WINDOW = 60_000;  /* 1 minute window */
-const RATE_LIMIT_MAX = 100;        /* Max 100 requests per minute per IP */
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const ip = req.ip ?? req.socket.remoteAddress ?? "unknown";
-  const now = Date.now();
+/**
+ * GET /health
+ * Basic liveness check — responds 200 if the process is running.
+ */
+app.get("/health", (_req: Request, res: Response) => {
+  res.status(200).json({
+    status: "ok",
+    service: "eduquest-backend",
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV ?? "development",
+    version: process.env.npm_package_version ?? "1.0.0",
+    uptime: Math.floor(process.uptime()),
+  });
+});
 
-  const entry = rateLimitMap.get(ip);
+/**
+ * GET /ready
+ * Readiness check — verifies database and Redis connectivity.
+ */
+app.get("/ready", async (_req: Request, res: Response) => {
+  const dbHealthy = await checkDatabaseHealth();
+  const redisHealthy = await probeRedis();
+  const isRedisActive = Boolean(process.env.REDIS_URL);
 
-  if (!entry || now > entry.resetAt) {
-    /* New window — reset counter */
-    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
-    next();
-    return;
-  }
-
-  entry.count++;
-
-  if (entry.count > RATE_LIMIT_MAX) {
-    res.status(429).json({
-      ok: false,
-      error: {
-        code: "RATE_LIMITED",
-        message: "Too many requests. Please wait a moment and try again.",
-        retryAfter: Math.ceil((entry.resetAt - now) / 1000),
-      },
+  if (!dbHealthy || (isRedisActive && !redisHealthy)) {
+    res.status(503).json({
+      ready: false,
+      database: dbHealthy ? "healthy" : "unreachable",
+      redis: isRedisActive ? (redisHealthy ? "healthy" : "unreachable") : "not_configured"
     });
     return;
   }
 
-  next();
+  res.status(200).json({
+    ready: true,
+    database: "healthy",
+    redis: isRedisActive ? "healthy" : "not_configured"
+  });
 });
 
-/* Clean up expired rate limit entries every 5 minutes */
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, entry] of rateLimitMap) {
-    if (now > entry.resetAt) {
-      rateLimitMap.delete(ip);
-    }
-  }
-}, 5 * 60_000);
+/**
+ * GET /api
+ * API root — lists all available endpoints for developer reference.
+ */
+app.get("/api", (_req: Request, res: Response) => {
+  res.json({
+    ok: true,
+    service: "EduQuest API",
+    version: "1.0.0",
+    endpoints: {
+      auth: "/api/auth — Authentication (register, login, refresh)",
+      content: "/api/content — Academic content (classes, subjects, chapters)",
+      progress: "/api/progress — User progress tracking",
+      battle: "/api/battle — Match/battle system",
+      leaderboard: "/api/leaderboard — Rankings and leaderboards",
+      community: "/api/community — Discussion forums",
+      users: "/api/users — User profiles and settings",
+      notifications: "/api/notifications — In-app notifications",
+      search: "/api/search — Cross-entity search",
+      events: "/api/events — Events and competitions",
+      wallet: "/api/wallet — Stars wallet and transactions",
+    },
+    health: "/health — Server liveness check",
+    ready: "/ready — Database readiness check",
+  });
+});
+
+/* ─────────────────────────────────────────────
+ * SECTION 3: Production Rate Limiting
+ * Uses a Redis-backed rate limiter for distributed scaling,
+ * falling back to process-local in-memory limiting if Redis is offline.
+ * ───────────────────────────────────────────── */
+app.use(rateLimiter({
+  windowMs: 60_000, // 1 minute window
+  limit: 100,       // Max 100 requests per minute per client IP
+  keyPrefix: "api-global",
+}));
 
 /* ─────────────────────────────────────────────
  * SECTION 4: API Routes
@@ -218,64 +276,7 @@ app.use("/api/wallet", walletRoutes);
  * Used by load balancers, Kubernetes probes, and monitoring.
  * ───────────────────────────────────────────── */
 
-/**
- * GET /health
- * Basic liveness check — responds 200 if the process is running.
- * Does NOT check database — just confirms the server is alive.
- */
-app.get("/health", (_req: Request, res: Response) => {
-  res.status(200).json({
-    status: "ok",
-    service: "eduquest-backend",
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV ?? "development",
-    version: process.env.npm_package_version ?? "1.0.0",
-    uptime: Math.floor(process.uptime()),
-  });
-});
-
-/**
- * GET /ready
- * Readiness check — verifies database connectivity.
- * Returns 503 if the database is unreachable (signals load balancer to stop routing).
- */
-app.get("/ready", async (_req: Request, res: Response) => {
-  const dbHealthy = await checkDatabaseHealth();
-
-  if (!dbHealthy) {
-    res.status(503).json({ ready: false, reason: "Database connection failed." });
-    return;
-  }
-
-  res.status(200).json({ ready: true });
-});
-
-/**
- * GET /api
- * API root — lists all available endpoints for developer reference.
- */
-app.get("/api", (_req: Request, res: Response) => {
-  res.json({
-    ok: true,
-    service: "EduQuest API",
-    version: "1.0.0",
-    endpoints: {
-      auth: "/api/auth — Authentication (register, login, refresh)",
-      content: "/api/content — Academic content (classes, subjects, chapters)",
-      progress: "/api/progress — User progress tracking",
-      battle: "/api/battle — Match/battle system",
-      leaderboard: "/api/leaderboard — Rankings and leaderboards",
-      community: "/api/community — Discussion forums",
-      users: "/api/users — User profiles and settings",
-      notifications: "/api/notifications — In-app notifications",
-      search: "/api/search — Cross-entity search",
-      events: "/api/events — Events and competitions",
-      wallet: "/api/wallet — Stars wallet and transactions",
-    },
-    health: "/health — Server liveness check",
-    ready: "/ready — Database readiness check",
-  });
-});
+/* Health and readiness endpoints are registered in Section 2.5 above */
 
 /* ─────────────────────────────────────────────
  * SECTION 6: 404 Catch-All
@@ -316,7 +317,8 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 /* ─────────────────────────────────────────────
  * SECTION 8: Start Server with Graceful Shutdown
  * ───────────────────────────────────────────── */
-const server = app.listen(PORT, "0.0.0.0", () => {
+server.listen(PORT, "0.0.0.0", () => {
+  logger.info(`EduQuest backend started on port ${PORT}`, { environment: IS_DEV ? "development" : "production" });
   console.log("");
   console.log("╔══════════════════════════════════════════════════════════╗");
   console.log("║                  EduQuest Backend                       ║");
@@ -358,6 +360,9 @@ async function gracefulShutdown(signal: string) {
 
     /* Close database pool */
     await closeDatabasePool();
+
+    /* Close Redis client pool */
+    await closeRedisClient();
 
     console.log("[EduQuest] All resources released. Goodbye!");
     process.exit(0);
