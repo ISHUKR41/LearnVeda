@@ -19,9 +19,9 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,   // Don't advertise Next.js version in HTTP headers
   compress: true,            // Enable Brotli/Gzip on all responses
 
-  /* ── Turbopack dev-server root (Replit requires absolute path) ─── */
+  /* ── Turbopack dev-server root ─── */
   turbopack: {
-    root: "/home/runner/workspace/frontend",
+    root: process.cwd(),
   },
 
   /* ── Replit preview iframe compatibility ─────────────────── */
