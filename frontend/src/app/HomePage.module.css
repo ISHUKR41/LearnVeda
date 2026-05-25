@@ -1041,3 +1041,218 @@
   .ctaContent { padding: var(--space-10) var(--space-5); }
   .sectionInner { padding: 0 var(--space-4); }
 }
+
+/* ============================================================
+ * SECTION 6: STUDENT TESTIMONIALS
+ * Three card grid with stars, quote, and author attribution.
+ * ============================================================ */
+
+.testimonialsSection {
+  padding: var(--space-20) 0;
+  background: var(--color-bg-secondary);
+}
+
+.testimonialsGrid {
+  display:               grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:                   var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .testimonialsGrid { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 640px) and (max-width: 900px) {
+  .testimonialsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.testimonialCard {
+  background:    var(--color-bg-card);
+  border:        1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  padding:       var(--space-7);
+  display:       flex;
+  flex-direction: column;
+  gap:           var(--space-4);
+  transition:    transform 0.2s, box-shadow 0.2s;
+  box-shadow:    var(--shadow-sm);
+}
+
+.testimonialCard:hover {
+  transform:  translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* 5-star rating row */
+.testimonialStars {
+  display:     flex;
+  gap:         2px;
+  color:       #F59E0B;
+}
+
+/* Quote body text */
+.testimonialText {
+  font-size:   var(--font-size-small);
+  color:       var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  font-style:  italic;
+  flex:        1;
+}
+
+/* Author row: avatar + name + meta */
+.testimonialAuthor {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-3);
+}
+
+.testimonialAvatar {
+  width:           40px;
+  height:          40px;
+  border-radius:   var(--radius-full);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-size:       var(--font-size-small);
+  font-weight:     var(--font-weight-bold);
+  color:           white;
+  flex-shrink:     0;
+}
+
+.testimonialName {
+  font-size:   var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  color:       var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.testimonialMeta {
+  font-size: var(--font-size-xsmall);
+  color:     var(--color-text-tertiary);
+}
+
+/* ============================================================
+ * SECTION 8: LEADERBOARD PREVIEW
+ * Clean ranked list of top students from the live database.
+ * ============================================================ */
+
+.leaderPreviewSection {
+  padding:    var(--space-20) 0;
+  background: var(--color-bg-primary);
+}
+
+.leaderPreviewList {
+  max-width:    560px;
+  margin:       0 auto;
+  background:   var(--color-bg-card);
+  border:       1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  overflow:     hidden;
+  box-shadow:   var(--shadow-md);
+}
+
+.leaderPreviewRow {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--space-3);
+  padding:         var(--space-4) var(--space-5);
+  border-bottom:   1px solid var(--color-border-light);
+  transition:      background 0.15s;
+}
+
+.leaderPreviewRow:hover {
+  background: var(--color-bg-card-hover);
+}
+
+/* First place row gets a subtle gold highlight */
+.leaderRowFirst {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.06), transparent);
+}
+
+.leaderRank {
+  font-size:   1.125rem;
+  width:       32px;
+  text-align:  center;
+  flex-shrink: 0;
+}
+
+.leaderAvatar {
+  width:           36px;
+  height:          36px;
+  border-radius:   var(--radius-full);
+  background:      linear-gradient(135deg, var(--color-primary), var(--color-secondary, #10B981));
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-size:       var(--font-size-xsmall);
+  font-weight:     var(--font-weight-bold);
+  color:           white;
+  flex-shrink:     0;
+}
+
+.leaderInfo {
+  flex:           1;
+  display:        flex;
+  flex-direction: column;
+  gap:            2px;
+  min-width:      0;
+}
+
+.leaderName {
+  font-size:   var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  color:       var(--color-text-primary);
+  white-space: nowrap;
+  overflow:    hidden;
+  text-overflow: ellipsis;
+}
+
+.leaderMeta {
+  font-size: var(--font-size-xsmall);
+  color:     var(--color-text-tertiary);
+  text-transform: capitalize;
+}
+
+.leaderStats {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-2);
+  flex-shrink: 0;
+}
+
+.leaderXp {
+  font-size:   var(--font-size-xsmall);
+  font-weight: var(--font-weight-bold);
+  color:       var(--color-primary);
+}
+
+.leaderStreak {
+  display:     flex;
+  align-items: center;
+  gap:         2px;
+  font-size:   var(--font-size-xsmall);
+  color:       #F59E0B;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* "View Full Leaderboard" link row at the bottom */
+.leaderViewAll {
+  padding: var(--space-4) var(--space-5);
+  text-align: center;
+}
+
+.viewAllLink {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             var(--space-1);
+  font-size:       var(--font-size-small);
+  font-weight:     var(--font-weight-semibold);
+  color:           var(--color-primary);
+  text-decoration: none;
+  transition:      gap 0.15s, color 0.15s;
+}
+
+.viewAllLink:hover {
+  gap:   var(--space-2);
+  color: var(--color-primary-hover, #1D4ED8);
+}

@@ -1,15 +1,17 @@
 /*
  * FILE: DashboardClient.tsx
  * LOCATION: src/app/dashboard/DashboardClient.tsx
- * PURPOSE: Interactive dashboard UI that fetches protected dashboard data and
- *          wallet balance from the backend API. Shows loading/error states and
- *          redirects guests to sign in. Includes:
- *          - Stats grid (streak, XP, battles, rank)
- *          - Level progress bar with real XP thresholds from /api/levels
- *          - Stars (wallet) balance card
- *          - Quick actions, streak calendar, recent activity
+ * PURPOSE: Interactive dashboard UI — fetches protected data and renders:
+ *   - Stats grid (streak / XP / battles / rank)
+ *   - Level progress bar with real XP thresholds from /api/levels
+ *   - Stars wallet balance card
+ *   - GitHub-style 12-week activity contribution graph (from /api/activity)
+ *   - Achievements badge grid with earned/locked status (from /api/achievements)
+ *   - Streak calendar (last 7 days)
+ *   - Quick actions and recent activity feed
  * USED BY: src/app/dashboard/page.tsx
- * DEPENDENCIES: next/navigation, lucide-react, Dashboard.module.css
+ * DEPENDENCIES: next/navigation, lucide-react, Dashboard.module.css,
+ *               /api/dashboard, /api/wallet, /api/levels, /api/activity, /api/achievements
  * LAST UPDATED: 2026-05-25
  */
 
@@ -21,7 +23,9 @@ import { useEffect, useState } from "react";
 import {
   AlertCircle,
   ArrowRight,
+  Award,
   BookOpen,
+  CalendarDays,
   Clock,
   Code2,
   Flame,
@@ -38,8 +42,7 @@ import type { DashboardSnapshot } from "@/lib/server/data/dashboard";
 import styles from "./Dashboard.module.css";
 
 /* ─────────────────────────────────────────────
- * Icon maps — keyed by the tone string from the API response.
- * Using a const assertion so TypeScript knows the exact keys.
+ * Icon maps — keyed by tone string from API response
  * ───────────────────────────────────────────── */
 const STAT_ICONS = {
   streak:  Flame,
@@ -56,8 +59,9 @@ const ACTION_ICONS = {
 } as const;
 
 /* ─────────────────────────────────────────────
- * Type definitions
+ * Type definitions for all API response shapes
  * ───────────────────────────────────────────── */
+
 interface DashboardApiResponse {
   ok: boolean;
   data?: DashboardSnapshot;
@@ -92,6 +96,60 @@ interface LevelApiResponse {
   data?: { current: LevelData | null; next: LevelData | null };
 }
 
+/* ── New types for activity graph and achievements (added 2026-05-25) ──────── */
+
+/** One day entry in the activity graph response */
+interface ActivityDay {
+  date:      string;  /* ISO date string, e.g. "2026-04-15" */
+  count:     number;  /* questions answered that day */
+  /** 0 = none · 1 = 1-5 · 2 = 6-20 · 3 = 21-50 · 4 = 51+ (mirrors GitHub graph) */
+  intensity: 0 | 1 | 2 | 3 | 4;
+}
+
+interface ActivityApiResponse {
+  ok: boolean;
+  data?: {
+    days:          ActivityDay[];
+    activeDays:    number;
+    currentStreak: number;
+    longestStreak: number;
+  };
+}
+
+/** One achievement row (merged definition + earned status) */
+interface AchievementData {
+  id:          string;
+  slug:        string;
+  name:        string;
+  description: string;
+  category:    string;
+  badgeColor:  string;
+  xpReward:    number;
+  earned:      boolean;
+  awardedAt:   string | null;
+}
+
+interface AchievementsApiResponse {
+  ok: boolean;
+  data?: {
+    achievements: AchievementData[];
+    summary: { total: number; earned: number; percent: number };
+  };
+}
+
+/* ─────────────────────────────────────────────
+ * INTENSITY_COLORS
+ * Maps activity intensity level 0–4 to fill colors.
+ * Palette mirrors GitHub's contribution graph (dark → green).
+ * ───────────────────────────────────────────── */
+const INTENSITY_COLORS: Record<number, string> = {
+  0: "var(--color-bg-tertiary, #21262D)",
+  1: "#0e4429",
+  2: "#006d32",
+  3: "#26a641",
+  4: "#39d353",
+};
+
 /* ─────────────────────────────────────────────
  * DashboardSkeleton
  * Pulse-animated skeleton shown while the protected API responds.
@@ -118,14 +176,13 @@ function DashboardSkeleton() {
 /* ─────────────────────────────────────────────
  * WalletCard
  * Shows the user's Stars balance with a mini spend/earn summary.
- * Data is fetched in parallel with the dashboard snapshot.
  * ───────────────────────────────────────────── */
 function WalletCard({ wallet }: { wallet: WalletData | null }) {
   if (!wallet) {
     return (
       <div className={styles.card}>
         <h2 className={styles.cardTitle}>
-          <Coins size={18} aria-hidden="true" /> Stars Wallet
+          <Wallet size={18} aria-hidden="true" /> Stars Wallet
         </h2>
         <p className={styles.walletEmpty}>Your wallet is loading…</p>
       </div>
@@ -173,7 +230,7 @@ function WalletCard({ wallet }: { wallet: WalletData | null }) {
 
 /* ─────────────────────────────────────────────
  * LevelProgressCard
- * Shows XP bar with real thresholds from the /api/levels endpoint.
+ * Shows the XP progress bar towards the next level using real thresholds.
  * ───────────────────────────────────────────── */
 function LevelProgressCard({
   snapshot,
@@ -185,26 +242,22 @@ function LevelProgressCard({
   nextLevel: LevelData | null;
 }) {
   /*
-   * Use level data from the API if available, otherwise fall back to
-   * the snapshot's xpToNextLevel value for the progress calculation.
+   * Progress calculation:
+   *   progressXp = how much XP the user has earned WITHIN the current level
+   *   xpToNext   = total XP needed to complete the current level
+   *   xpProgress = percentage complete (0–100)
    */
-  const xpRequired = currentLevel?.xpRequired ?? 0;
-  const xpToNext   = nextLevel
+  const xpRequired  = currentLevel?.xpRequired ?? 0;
+  const xpToNext    = nextLevel
     ? nextLevel.xpRequired - xpRequired
     : snapshot.xpToNextLevel;
 
-  const currentXp = snapshot.user.xp;
+  const currentXp   = snapshot.user.xp;
+  const progressXp  = Math.max(0, currentXp - xpRequired);
+  const xpProgress  = xpToNext > 0 ? Math.min(100, (progressXp / xpToNext) * 100) : 100;
 
-  /*
-   * Progress = how far into the current level the user is, as a percentage.
-   * e.g. Level 5 requires 500 XP, level 6 requires 750 XP.
-   *      User has 620 XP → 120 / 250 = 48%.
-   */
-  const progressXp = Math.max(0, currentXp - xpRequired);
-  const xpProgress = xpToNext > 0 ? Math.min(100, (progressXp / xpToNext) * 100) : 100;
-
-  const badgeColor = currentLevel?.badgeColor ?? "#6B7280";
-  const levelTitle = currentLevel?.title      ?? "Learner";
+  const badgeColor  = currentLevel?.badgeColor ?? "#6B7280";
+  const levelTitle  = currentLevel?.title       ?? "Learner";
 
   return (
     <div className={styles.card}>
@@ -235,18 +288,18 @@ function LevelProgressCard({
         <span>Lv. {snapshot.user.level + 1}</span>
       </div>
 
-      {/* XP bar */}
+      {/* Animated XP bar */}
       <div className={styles.xpBar}>
         <div
           className={styles.xpBarFill}
           style={{
-            "--xp-w":    `${xpProgress}%`,
-            background:  `linear-gradient(90deg, ${badgeColor}, ${badgeColor}99)`,
+            "--xp-w":   `${xpProgress}%`,
+            background: `linear-gradient(90deg, ${badgeColor}, ${badgeColor}99)`,
           } as React.CSSProperties}
         />
       </div>
 
-      {/* XP numbers */}
+      {/* Numeric XP info */}
       <div className={styles.xpInfo}>
         <span>{currentXp.toLocaleString("en-IN")} XP total</span>
         <span>
@@ -260,8 +313,225 @@ function LevelProgressCard({
 }
 
 /* ─────────────────────────────────────────────
+ * ActivityGraph
+ * Renders a 12-week GitHub-style contribution grid.
+ * Each cell = one day; fill color encodes question volume (intensity 0–4).
+ * The grid is padded so the first column always starts on Sunday.
+ * Fetches from GET /api/activity?userId=<id>&days=84.
+ * ───────────────────────────────────────────── */
+function ActivityGraph({ userId }: { userId: string }) {
+  const [days,       setDays]       = useState<ActivityDay[]>([]);
+  const [activeDays, setActiveDays] = useState(0);
+  const [curStreak,  setCurStreak]  = useState(0);
+  const [isLoading,  setIsLoading]  = useState(true);
+
+  useEffect(() => {
+    if (!userId) return;
+    setIsLoading(true);
+
+    fetch(`/api/activity?userId=${encodeURIComponent(userId)}&days=84`, {
+      cache: "no-store",
+    })
+      .then(r => (r.ok ? r.json() : null))
+      .then((payload: ActivityApiResponse | null) => {
+        if (payload?.ok && payload.data) {
+          setDays(payload.data.days);
+          setActiveDays(payload.data.activeDays);
+          setCurStreak(payload.data.currentStreak);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setIsLoading(false));
+  }, [userId]);
+
+  /*
+   * Pad the day array so the first visible cell falls on Sunday (col 0).
+   * Sunday = getDay() === 0. We insert null sentinel values for empty cells.
+   */
+  const paddedDays: (ActivityDay | null)[] = [];
+  if (days.length > 0) {
+    const firstDow = new Date(`${days[0].date}T00:00:00`).getDay();
+    for (let i = 0; i < firstDow; i++) paddedDays.push(null);
+  }
+  paddedDays.push(...days);
+
+  /* Number of weeks = number of columns in the CSS grid */
+  const totalCols = Math.max(12, Math.ceil(paddedDays.length / 7));
+
+  return (
+    <div className={styles.card}>
+      {/* Header row: title + summary stats */}
+      <div className={styles.activityGraphHeader}>
+        <h2 className={styles.cardTitle}>
+          <CalendarDays size={18} aria-hidden="true" /> Activity Graph
+        </h2>
+        <div className={styles.activityGraphMeta}>
+          <span className={styles.activityMetaStat}>{activeDays} active days</span>
+          <span className={styles.activityMetaStat}>
+            <Flame size={12} style={{ color: "var(--color-warning)" }} aria-hidden="true" />
+            {curStreak}d streak
+          </span>
+        </div>
+      </div>
+
+      {isLoading ? (
+        /* Skeleton grid while data loads */
+        <div className={styles.activityLoadingGrid}>
+          {Array.from({ length: 84 }).map((_, i) => (
+            <div key={i} className={styles.activityCellSkeleton} />
+          ))}
+        </div>
+      ) : days.length === 0 ? (
+        <p className={styles.activityEmpty}>
+          Start answering questions to build your activity graph! 🌱
+        </p>
+      ) : (
+        <div className={styles.activityGraphWrap}>
+          {/*
+           * CSS Grid with grid-auto-flow: column fills cells column-by-column
+           * (week-by-week), giving the GitHub calendar layout.
+           * grid-template-rows: repeat(7, 1fr) = one row per day of week.
+           */}
+          <div
+            className={styles.activityGrid}
+            style={{ gridTemplateColumns: `repeat(${totalCols}, 1fr)` }}
+            aria-label="Study activity over the last 12 weeks"
+          >
+            {paddedDays.map((day, i) => (
+              <div
+                key={i}
+                className={styles.activityCell}
+                style={{
+                  background: day ? INTENSITY_COLORS[day.intensity] : "transparent",
+                  visibility: day ? "visible" : "hidden",
+                }}
+                title={day ? `${day.date}: ${day.count} questions` : undefined}
+                role={day ? "img" : undefined}
+                aria-label={day ? `${day.date}: ${day.count} questions answered` : undefined}
+              />
+            ))}
+          </div>
+
+          {/* Intensity legend */}
+          <div className={styles.activityLegend} aria-label="Activity intensity legend">
+            <span className={styles.legendLabel}>Less</span>
+            {([0, 1, 2, 3, 4] as const).map(intensity => (
+              <div
+                key={intensity}
+                className={styles.legendCell}
+                style={{ background: INTENSITY_COLORS[intensity] }}
+              />
+            ))}
+            <span className={styles.legendLabel}>More</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+ * AchievementsCard
+ * Shows a compact grid of earned and locked achievement badges.
+ * Earned badges glow with the achievement's brand color.
+ * Locked badges are dimmed to guide the user on what to unlock next.
+ * Fetches from GET /api/achievements?userId=<id>.
+ * ───────────────────────────────────────────── */
+function AchievementsCard({ userId }: { userId: string }) {
+  const [achievements, setAchievements] = useState<AchievementData[]>([]);
+  const [summary, setSummary]           = useState({ total: 0, earned: 0, percent: 0 });
+
+  useEffect(() => {
+    if (!userId) return;
+    fetch(`/api/achievements?userId=${encodeURIComponent(userId)}`)
+      .then(r => (r.ok ? r.json() : null))
+      .then((payload: AchievementsApiResponse | null) => {
+        if (payload?.ok && payload.data) {
+          /* Show max 12 achievements (4×3 grid at typical widths) */
+          setAchievements(payload.data.achievements.slice(0, 12));
+          setSummary(payload.data.summary);
+        }
+      })
+      .catch(() => {});
+  }, [userId]);
+
+  return (
+    <div className={styles.card}>
+      {/* Header: title + progress count */}
+      <div className={styles.achievementHeader}>
+        <h2 className={styles.cardTitle}>
+          <Trophy size={18} aria-hidden="true" /> Achievements
+        </h2>
+        <span className={styles.achievementProgress}>
+          {summary.earned}/{summary.total}
+        </span>
+      </div>
+
+      {/* Overall completion bar */}
+      <div
+        className={styles.achievementProgressBar}
+        role="progressbar"
+        aria-valuenow={summary.percent}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`${summary.percent}% achievements earned`}
+      >
+        <div
+          className={styles.achievementProgressFill}
+          style={{ width: `${summary.percent}%` }}
+        />
+      </div>
+
+      {/* Badge grid */}
+      <div className={styles.achievementGrid}>
+        {achievements.length === 0
+          ? /* Placeholder tiles while data loads or achievements not seeded */
+            Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className={`${styles.achievementBadge} ${styles.achievementLocked}`}>
+                <div className={styles.achievementIcon}>
+                  <Star size={14} aria-hidden="true" />
+                </div>
+                <span className={styles.achievementName}>Locked</span>
+              </div>
+            ))
+          : achievements.map(ach => (
+              <div
+                key={ach.id}
+                className={`${styles.achievementBadge} ${ach.earned ? styles.achievementEarned : styles.achievementLocked}`}
+                title={`${ach.name} — ${ach.description}${ach.earned ? " ✓" : " (locked)"}`}
+              >
+                <div
+                  className={styles.achievementIcon}
+                  style={
+                    ach.earned
+                      ? {
+                          background: `${ach.badgeColor}22`,
+                          color:       ach.badgeColor,
+                          border:     `1.5px solid ${ach.badgeColor}55`,
+                        }
+                      : {}
+                  }
+                >
+                  {ach.earned
+                    ? <Award size={14} aria-hidden="true" />
+                    : <Star size={14}  aria-hidden="true" />}
+                </div>
+                <span className={styles.achievementName}>{ach.name}</span>
+                {ach.earned && (
+                  <span className={styles.achievementXp}>+{ach.xpReward}</span>
+                )}
+              </div>
+            ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
  * DashboardClient — main exported component
- * Fetches snapshot, wallet, and level data in parallel.
+ * Fetches dashboard snapshot, wallet, levels, and then renders all sections.
+ * The activity graph and achievements card receive the userId from the snapshot
+ * and handle their own data fetching independently.
  * ───────────────────────────────────────────── */
 export default function DashboardClient() {
   const router = useRouter();
@@ -273,6 +543,13 @@ export default function DashboardClient() {
   const [error,        setError]        = useState("");
   const [isLoading,    setIsLoading]    = useState(true);
 
+  /*
+   * userId is extracted from the dashboard snapshot once it loads.
+   * It is passed to the ActivityGraph and AchievementsCard sub-components
+   * so they can fetch their own personalised data.
+   */
+  const [userId, setUserId] = useState<string>("");
+
   useEffect(() => {
     let isMounted = true;
 
@@ -282,14 +559,16 @@ export default function DashboardClient() {
 
       try {
         /*
-         * Fetch the dashboard snapshot first so we know the user's level.
-         * Then fetch wallet and level data in parallel for speed.
+         * Step 1: Fetch the dashboard snapshot.
+         * This is the primary data source — gives us user info, stats, streakDays,
+         * quickActions, and recentActivity.
          */
-        const dashRes = await fetch("/api/dashboard", { cache: "no-store" });
+        const dashRes     = await fetch("/api/dashboard", { cache: "no-store" });
         const dashPayload = (await dashRes.json()) as DashboardApiResponse;
 
         if (!isMounted) return;
 
+        /* Redirect to sign in if the session has expired */
         if (dashRes.status === 401) {
           router.push("/sign-in");
           return;
@@ -303,7 +582,17 @@ export default function DashboardClient() {
         const snap = dashPayload.data;
         setSnapshot(snap);
 
-        /* Now fetch wallet + level data in parallel */
+        /*
+         * Extract the user ID from the snapshot for the activity graph and achievements.
+         * Cast to generic record so we can read optional id without TS error.
+         */
+        const uid = ((snap.user as unknown) as Record<string, string>).id ?? "";
+        if (uid) setUserId(uid);
+
+        /*
+         * Step 2: Fetch wallet and level data in parallel for speed.
+         * These are independent of each other so we fire them together.
+         */
         const [walletRes, levelRes] = await Promise.all([
           fetch("/api/wallet", { cache: "no-store" }),
           fetch(`/api/levels?user_level=${snap.user.level}`, {
@@ -314,7 +603,7 @@ export default function DashboardClient() {
 
         const [walletPayload, levelPayload] = await Promise.all([
           walletRes.json() as Promise<WalletApiResponse>,
-          levelRes.json() as Promise<LevelApiResponse>,
+          levelRes.json()  as Promise<LevelApiResponse>,
         ]);
 
         if (isMounted) {
@@ -323,7 +612,7 @@ export default function DashboardClient() {
           }
           if (levelPayload.ok && levelPayload.data) {
             setCurrentLevel(levelPayload.data.current ?? null);
-            setNextLevel(levelPayload.data.next ?? null);
+            setNextLevel(levelPayload.data.next    ?? null);
           }
         }
       } catch {
@@ -331,23 +620,16 @@ export default function DashboardClient() {
           setError("Network error while loading your dashboard.");
         }
       } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
+        if (isMounted) setIsLoading(false);
       }
     }
 
     loadDashboard();
-
-    return () => {
-      isMounted = false;
-    };
+    return () => { isMounted = false; };
   }, [router]);
 
   /* ── Loading state ─────────────────────────────────────────── */
-  if (isLoading) {
-    return <DashboardSkeleton />;
-  }
+  if (isLoading) return <DashboardSkeleton />;
 
   /* ── Error state ───────────────────────────────────────────── */
   if (error || !snapshot) {
@@ -391,7 +673,7 @@ export default function DashboardClient() {
           </div>
         </div>
 
-        {/* ── Stats grid (streak / XP / battles / rank) ──────── */}
+        {/* ── Stats grid: streak / XP / battles / rank ───────── */}
         <div className={styles.statsGrid}>
           {snapshot.stats.map((stat) => {
             const Icon = STAT_ICONS[stat.tone];
@@ -412,7 +694,7 @@ export default function DashboardClient() {
         {/* ── Main two-column grid ────────────────────────────── */}
         <div className={styles.mainGrid}>
 
-          {/* LEFT COLUMN: Level progress + Quick actions + Wallet */}
+          {/* ── LEFT COLUMN: Level + Quick Actions + Wallet ──── */}
           <div className={styles.columnStack}>
 
             {/* Level progress bar with real XP thresholds */}
@@ -422,7 +704,7 @@ export default function DashboardClient() {
               nextLevel={nextLevel}
             />
 
-            {/* Quick actions */}
+            {/* Quick actions — links to study, battle, etc. */}
             <div className={styles.card}>
               <h2 className={styles.cardTitle}>Quick Actions</h2>
               <div className={styles.quickActions}>
@@ -448,10 +730,17 @@ export default function DashboardClient() {
             <WalletCard wallet={wallet} />
           </div>
 
-          {/* RIGHT COLUMN: Streak calendar + Recent activity */}
+          {/* ── RIGHT COLUMN: Activity + Streak + Achievements + Activity Feed ── */}
           <div className={styles.columnStack}>
 
-            {/* Streak calendar — last 7 days */}
+            {/*
+             * GitHub-style 12-week activity graph.
+             * Conditionally rendered: requires userId from the snapshot.
+             * ActivityGraph handles its own loading/empty states internally.
+             */}
+            {userId && <ActivityGraph userId={userId} />}
+
+            {/* Streak calendar — last 7 days with visual status dots */}
             <div className={styles.card}>
               <h2 className={styles.cardTitle}>
                 <Flame size={18} className={styles.streakIcon} aria-hidden="true" />
@@ -466,7 +755,10 @@ export default function DashboardClient() {
                 {snapshot.streakDays.slice(-7).map((day) => (
                   <div key={day.isoDate} className={styles.streakDayWrapper}>
                     <div
-                      className={`${styles.streakDay} ${day.status === "active" ? styles.streakDayActive : ""} ${day.status === "today" ? styles.streakDayToday : ""} ${day.status === "missed" ? styles.streakDayMissed : ""}`}
+                      className={`${styles.streakDay}
+                        ${day.status === "active" ? styles.streakDayActive : ""}
+                        ${day.status === "today"  ? styles.streakDayToday  : ""}
+                        ${day.status === "missed" ? styles.streakDayMissed : ""}`}
                       title={day.status}
                     />
                     <span className={styles.streakDayLabel}>
@@ -477,7 +769,13 @@ export default function DashboardClient() {
               </div>
             </div>
 
-            {/* Recent activity list */}
+            {/*
+             * Achievements badge grid — up to 12 earned/locked badges.
+             * Conditionally rendered: requires userId from the snapshot.
+             */}
+            {userId && <AchievementsCard userId={userId} />}
+
+            {/* Recent activity feed */}
             <div className={styles.card}>
               <h2 className={styles.cardTitle}>
                 <Clock size={18} aria-hidden="true" />
@@ -495,6 +793,7 @@ export default function DashboardClient() {
                 ))}
               </ul>
             </div>
+
           </div>
         </div>
       </div>

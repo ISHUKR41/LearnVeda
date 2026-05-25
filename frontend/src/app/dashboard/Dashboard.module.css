@@ -756,3 +756,225 @@
     min-width: auto;
   }
 }
+
+/* ─────────────────────────────────────────────
+ * Activity Graph — GitHub-style contribution grid
+ * ───────────────────────────────────────────── */
+
+.activityGraphHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.activityGraphMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.activityMetaStat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xsmall);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.activityGraphWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding-bottom: var(--space-1);
+}
+
+/*
+ * The grid itself: cells fill column-by-column (weeks) via grid-auto-flow: column.
+ * 7 rows = 7 days per week. Column count is set inline via style.
+ */
+.activityGrid {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
+  gap: 3px;
+  min-width: max-content;
+}
+
+.activityCell {
+  width:         11px;
+  height:        11px;
+  border-radius: 2px;
+  transition:    opacity 0.15s;
+}
+
+.activityCell:hover {
+  opacity: 0.8;
+  outline: 1px solid rgba(255, 255, 255, 0.3);
+  outline-offset: 1px;
+}
+
+/* Skeleton loading state — matches grid dimensions */
+.activityLoadingGrid {
+  display: grid;
+  grid-template-rows: repeat(7, 11px);
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-flow: column;
+  gap: 3px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.activityCellSkeleton {
+  width:         11px;
+  height:        11px;
+  border-radius: 2px;
+  background:    var(--color-bg-tertiary);
+}
+
+.activityEmpty {
+  font-size: var(--font-size-small);
+  color:     var(--color-text-tertiary);
+  text-align: center;
+  padding:   var(--space-8) 0;
+}
+
+/* Legend row below the grid */
+.activityLegend {
+  display:     flex;
+  align-items: center;
+  gap:         4px;
+  margin-top:  var(--space-1);
+}
+
+.legendLabel {
+  font-size: 10px;
+  color:     var(--color-text-tertiary);
+}
+
+.legendCell {
+  width:         11px;
+  height:        11px;
+  border-radius: 2px;
+}
+
+/* ─────────────────────────────────────────────
+ * Achievements Card
+ * ───────────────────────────────────────────── */
+
+.achievementHeader {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  margin-bottom:   var(--space-3);
+}
+
+.achievementProgress {
+  font-size:   var(--font-size-xsmall);
+  color:       var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+  background:  var(--color-bg-tertiary);
+  border:      1px solid var(--color-border);
+  padding:     2px var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+/* Overall completion bar */
+.achievementProgressBar {
+  width:         100%;
+  height:        4px;
+  background:    var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow:      hidden;
+  margin-bottom: var(--space-4);
+}
+
+.achievementProgressFill {
+  height:        100%;
+  background:    linear-gradient(90deg, var(--color-primary), var(--color-success));
+  border-radius: var(--radius-full);
+  transition:    width 0.6s ease;
+}
+
+/*
+ * Badge grid: up to 12 badges in a responsive wrap layout.
+ * Each badge is a small column: icon + name + XP reward (if earned).
+ */
+.achievementGrid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap:                   var(--space-3);
+}
+
+.achievementBadge {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  text-align:     center;
+  gap:            var(--space-1);
+  padding:        var(--space-3) var(--space-2);
+  border-radius:  var(--radius-md);
+  border:         1px solid var(--color-border-light);
+  transition:     transform 0.15s, box-shadow 0.15s;
+  cursor:         default;
+}
+
+.achievementEarned {
+  background: var(--color-bg-card);
+}
+
+.achievementEarned:hover {
+  transform:  translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.achievementLocked {
+  background: var(--color-bg-secondary);
+  opacity:    0.45;
+}
+
+.achievementIcon {
+  width:           32px;
+  height:          32px;
+  border-radius:   var(--radius-md);
+  background:      var(--color-bg-tertiary);
+  border:          1px solid var(--color-border-light);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  color:           var(--color-text-tertiary);
+}
+
+.achievementName {
+  font-size:   9px;
+  font-weight: var(--font-weight-semibold);
+  color:       var(--color-text-secondary);
+  line-height: 1.2;
+  max-width:   100%;
+  overflow:    hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.achievementXp {
+  font-size:   9px;
+  font-weight: var(--font-weight-bold);
+  color:       var(--color-success);
+}
+
+/* ── Responsive tweaks for the new cards ──── */
+@media (max-width: 768px) {
+  .activityCell,
+  .activityCellSkeleton,
+  .legendCell {
+    width:  9px;
+    height: 9px;
+  }
+
+  .achievementGrid {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  }
+}
