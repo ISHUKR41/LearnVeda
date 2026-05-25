@@ -12,6 +12,9 @@
 import dynamic from "next/dynamic";
 import CommunityLoadingSkeleton from "./CommunityLoadingSkeleton";
 
+/* ISR: community posts change frequently, revalidate every 2 minutes */
+export const revalidate = 120;
+
 export const metadata = {
   title: "Community",
   description: "Join discussions, ask questions, and help others on the EduQuest community forums.",

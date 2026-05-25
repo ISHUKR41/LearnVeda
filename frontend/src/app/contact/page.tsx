@@ -22,6 +22,9 @@ import {
 } from "lucide-react";
 import styles from "./Contact.module.css";
 
+/* ISR: Contact page rarely changes — revalidate every 24 hours */
+export const revalidate = 86400;
+
 /** SEO metadata — ensures proper indexing of the Contact page. */
 export const metadata = {
   title: "Contact EduQuest — Support, Partnerships & Events",

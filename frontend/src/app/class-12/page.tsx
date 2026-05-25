@@ -15,6 +15,9 @@ import { GraduationCap, Award, Target, Shield, ChevronRight } from "lucide-react
 import Link from "next/link";
 import styles from "./Class12.module.css";
 
+/* ISR: Revalidate every hour — stream/subject list rarely changes */
+export const revalidate = 3600;
+
 export const metadata = {
   title: "Class 12 — Board & Entrance Exam Prep | EduQuest",
   description:

@@ -35,6 +35,9 @@ import styles from "./Engineering.module.css";
 /* ─────────────────────────────────────────────
  * SEO Metadata
  * ───────────────────────────────────────────── */
+/* ISR: Revalidate every hour — engineering track content rarely changes */
+export const revalidate = 3600;
+
 export const metadata = {
   title: "Engineering Track — 12+ Languages & CS Subjects | EduQuest",
   description:

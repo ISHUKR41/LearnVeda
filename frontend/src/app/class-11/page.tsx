@@ -15,6 +15,9 @@ import { GraduationCap, BookOpen, TrendingUp, ChevronRight } from "lucide-react"
 import Link from "next/link";
 import styles from "./Class11.module.css";
 
+/* ISR: Revalidate every hour — stream/subject list rarely changes */
+export const revalidate = 3600;
+
 export const metadata = {
   title: "Class 11 — Choose Your Stream | EduQuest",
   description:

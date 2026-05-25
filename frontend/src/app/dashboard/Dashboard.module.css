@@ -537,6 +537,133 @@
 }
 
 /* ─────────────────────────────────────────────
+ * Wallet Card — Stars balance + earn/spend summary
+ * ───────────────────────────────────────────── */
+
+/* Wallet card gets a subtle amber tint to distinguish it from other cards */
+.walletCard {
+  border-color: rgba(245, 158, 11, 0.2);
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.04) 0%,
+    transparent 60%
+  );
+}
+
+/* Large balance display */
+.walletBalance {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-4) 0;
+}
+
+/* Star icon in the wallet balance row */
+.walletStar {
+  color: #f59e0b;
+  flex-shrink: 0;
+}
+
+/* The big balance number */
+.walletBalanceNumber {
+  font-family: var(--font-family-stats, "Space Grotesk", monospace);
+  font-size: 2rem;
+  font-weight: var(--font-weight-extrabold, 800);
+  color: var(--color-text-primary, #e6edf3);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* "Stars" label after the number */
+.walletBalanceLabel {
+  font-size: var(--font-size-small, 14px);
+  color: var(--color-text-tertiary, #6e7681);
+  font-weight: var(--font-weight-medium, 500);
+  margin-top: 4px;
+}
+
+/* Earn / Spend row */
+.walletStats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--color-border, #30363d);
+  border-bottom: 1px solid var(--color-border, #30363d);
+  margin-bottom: var(--space-3);
+}
+
+.walletStatItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.walletStatValue {
+  font-family: var(--font-family-stats, "Space Grotesk", monospace);
+  font-size: var(--font-size-small, 14px);
+  font-weight: var(--font-weight-bold, 700);
+  letter-spacing: -0.01em;
+}
+
+.walletStatLabel {
+  font-size: var(--font-size-xsmall, 12px);
+  color: var(--color-text-tertiary, #6e7681);
+}
+
+/* Vertical divider between earn and spend */
+.walletStatDivider {
+  width: 1px;
+  height: 28px;
+  background: var(--color-border, #30363d);
+}
+
+/* Small hint text below the wallet stats */
+.walletEmpty,
+.walletHint {
+  font-size: var(--font-size-xsmall, 12px);
+  color: var(--color-text-tertiary, #6e7681);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────
+ * Level Progress Card — badge pill + real XP bar
+ * ───────────────────────────────────────────── */
+
+/* Row containing the level badge pill and "next level" label */
+.levelBadgeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+/*
+ * Pill badge showing current level + title.
+ * Colors are dynamically set via inline style from the level's badgeColor.
+ */
+.levelBadgePill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full, 9999px);
+  font-size: var(--font-size-xsmall, 12px);
+  font-weight: var(--font-weight-semibold, 600);
+  letter-spacing: 0.02em;
+}
+
+/* "Next: Level N · Title" hint on the right side */
+.levelNextLabel {
+  font-size: var(--font-size-xsmall, 12px);
+  color: var(--color-text-tertiary, #6e7681);
+  white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────────
  * Responsive Layouts (Section 42 Breakpoints)
  * ───────────────────────────────────────────── */
 

@@ -16,6 +16,9 @@ import BattleLoadingSkeleton from "./BattleLoadingSkeleton";
  * SEO metadata for the Battle page — stays server-side because page.tsx
  * is a server component. The heavy client JS loads asynchronously.
  */
+/* ISR: Battle shell revalidates every 5 minutes */
+export const revalidate = 300;
+
 export const metadata = {
   title: "Battle Arena",
   description: "Challenge opponents in real-time quiz battles. Win XP and climb the ranks on EduQuest.",

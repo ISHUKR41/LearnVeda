@@ -28,6 +28,9 @@ import { resolveCurriculumIcon } from "@/lib/ui/lucide-icon-map";
 /* ─────────────────────────────────────────────
  * SEO Metadata
  * ───────────────────────────────────────────── */
+/* ISR: Revalidate every hour — subject list rarely changes */
+export const revalidate = 3600;
+
 export const metadata = {
   title: "Class 9 — All CBSE Subjects | EduQuest",
   description:

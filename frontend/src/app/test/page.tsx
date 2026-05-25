@@ -51,6 +51,9 @@ import styles from "./TestCenter.module.css";
  * Metadata — used by Next.js for SEO
  * ───────────────────────────────────────────── */
 
+/* ISR: Test Center shell revalidates every 30 minutes */
+export const revalidate = 1800;
+
 export const metadata = {
   title: "Test Center — Practice, Mocks & Assessments | EduQuest",
   description:

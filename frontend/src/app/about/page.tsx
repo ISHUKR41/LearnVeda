@@ -23,6 +23,9 @@ import {
 } from "lucide-react";
 import styles from "./About.module.css";
 
+/* ISR: About page content rarely changes — revalidate every 24 hours */
+export const revalidate = 86400;
+
 /** SEO metadata — ensures search engines index this page with proper title and description. */
 export const metadata = {
   title: "About EduQuest — Our Mission & Vision",

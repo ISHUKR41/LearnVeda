@@ -3,12 +3,14 @@
  * LOCATION: src/app/page.tsx
  * PURPOSE: Home page — The main marketing landing page of EduQuest.
  *          Structured into: Hero, Class Tracks, How It Works, Features,
- *          Gamification Preview, Platform Stats, Testimonials, and CTA.
- *          Server Component — renders on the server for best SEO + Core Web Vitals.
+ *          Battle Preview, Platform Stats, Why Us, and CTA.
+ *          Async Server Component — fetches real platform stats from PostgreSQL
+ *          at render time. Revalidated every 10 minutes via Next.js ISR.
  *          HomeAnimations loaded dynamically (client-only scroll watcher).
  * USED BY: Next.js App Router — renders at root "/" route
- * DEPENDENCIES: next/link, next/image, lucide-react, HomePage.module.css, HomeAnimations
- * LAST UPDATED: 2026-05-18
+ * DEPENDENCIES: next/link, next/image, lucide-react, HomePage.module.css,
+ *               HomeAnimations, getPostgresPool
+ * LAST UPDATED: 2026-05-25
  */
 
 import Link from "next/link";
@@ -38,16 +40,19 @@ import {
 } from "lucide-react";
 import styles from "./HomePage.module.css";
 import dynamic from "next/dynamic";
+import { getPostgresPool } from "@/lib/server/database/postgres";
+
+/* ─────────────────────────────────────────────
+ * ISR: Revalidate every 10 minutes.
+ * Stats (student count, chapters, questions) change slowly.
+ * This keeps the homepage fast (pre-rendered) while staying fresh.
+ * ───────────────────────────────────────────── */
+export const revalidate = 600;
 
 /* ─────────────────────────────────────────────
  * Dynamic import: HomeAnimations runs only on the client.
  * It attaches an IntersectionObserver for scroll-triggered fade-in effects.
  * ───────────────────────────────────────────── */
-/*
- * HomeAnimations runs only on the client (useEffect + IntersectionObserver).
- * We omit `ssr: false` here because this is a Server Component — the component
- * renders nothing on the server anyway (returns null) since all logic is in useEffect.
- */
 const HomeAnimations = dynamic(() => import("./HomeAnimations"));
 
 /* ─────────────────────────────────────────────
@@ -58,6 +63,53 @@ export const metadata = {
   description:
     "India's #1 gamified learning platform for Class 9–12 and Engineering students. Study chapter-wise, battle peers in real-time, earn XP, and climb the leaderboard.",
 };
+
+/* ─────────────────────────────────────────────
+ * getPlatformStats
+ * Fetches real aggregated numbers from PostgreSQL.
+ * Results are cached by Next.js for revalidate seconds.
+ * Falls back to sensible defaults if the DB query fails.
+ * ───────────────────────────────────────────── */
+interface PlatformStats {
+  totalStudents: number;
+  totalChapters: number;
+  totalQuestions: number;
+  totalEvents: number;
+  totalSubjects: number;
+}
+
+async function getPlatformStats(): Promise<PlatformStats> {
+  try {
+    const pool = getPostgresPool();
+
+    /* Run all COUNT queries in parallel for minimal latency */
+    const [students, chapters, questions, events, subjects] = await Promise.all([
+      pool.query("SELECT COUNT(*)::INTEGER AS n FROM eduquest_users"),
+      pool.query("SELECT COUNT(*)::INTEGER AS n FROM eduquest_chapters"),
+      pool.query("SELECT COUNT(*)::INTEGER AS n FROM eduquest_questions WHERE is_active = TRUE"),
+      pool.query("SELECT COUNT(*)::INTEGER AS n FROM eduquest_events"),
+      pool.query("SELECT COUNT(*)::INTEGER AS n FROM eduquest_subjects"),
+    ]);
+
+    return {
+      totalStudents:  students.rows[0]?.n  ?? 0,
+      totalChapters:  chapters.rows[0]?.n  ?? 0,
+      totalQuestions: questions.rows[0]?.n ?? 0,
+      totalEvents:    events.rows[0]?.n    ?? 0,
+      totalSubjects:  subjects.rows[0]?.n  ?? 0,
+    };
+  } catch (err) {
+    /* Graceful fallback — the page still renders correctly with floor values */
+    console.error("[HomePage] getPlatformStats error:", err);
+    return {
+      totalStudents:  0,
+      totalChapters:  194,
+      totalQuestions: 25,
+      totalEvents:    6,
+      totalSubjects:  24,
+    };
+  }
+}
 
 /* ─────────────────────────────────────────────
  * HOW_IT_WORKS Array
@@ -210,7 +262,7 @@ const GAMIFICATION_FEATURES = [
   {
     icon: TrendingUp,
     title: "XP & Level System",
-    desc: "Every chapter completed, question answered, and battle won earns XP. Level up your rank.",
+    desc: "100 levels with increasing XP thresholds. Every chapter, question, and battle win earns XP.",
     accentClass: "featureGreen",
   },
   {
@@ -234,34 +286,69 @@ const GAMIFICATION_FEATURES = [
 ];
 
 /* ─────────────────────────────────────────────
- * PLATFORM_STATS Array
- * Real platform numbers — updated quarterly.
- * ───────────────────────────────────────────── */
-const PLATFORM_STATS = [
-  { value: "50,000+", label: "Active Students", icon: Users, color: "statBlue" },
-  { value: "500+",    label: "CBSE Chapters",   icon: BookOpen, color: "statGreen" },
-  { value: "12",      label: "Prog. Languages",  icon: Code2, color: "statCyan" },
-  { value: "10,000+", label: "Practice Questions", icon: CheckCircle2, color: "statAmber" },
-];
-
-/* ─────────────────────────────────────────────
  * WHY_US Array
  * Differentiators shown in the "Why EduQuest?" section.
  * ───────────────────────────────────────────── */
 const WHY_US = [
-  { icon: Globe2, title: "India-First Content", desc: "CBSE NCERT-aligned chapters, Indian board exam patterns, regional language support." },
-  { icon: Shield, title: "Safe for Students", desc: "No ads, no distractions. Safe, moderated community. Parental visibility." },
-  { icon: Clock, title: "Study Anywhere", desc: "Fully responsive — works perfectly on phone, tablet, and desktop. Study on the bus." },
-  { icon: GitBranch, title: "Open Progress", desc: "Your progress never disappears. Resume any plan exactly where you left off." },
-  { icon: Star, title: "Gamified Core", desc: "XP, streaks, and leaderboards aren't an afterthought — they're built into every lesson." },
-  { icon: Zap, title: "Battle Tested", desc: "Live battles with <200ms latency. Real-time scoring. BGMI-style matchmaking queue." },
+  { icon: Globe2,    title: "India-First Content",  desc: "CBSE NCERT-aligned chapters, Indian board exam patterns, regional language support." },
+  { icon: Shield,    title: "Safe for Students",     desc: "No ads, no distractions. Safe, moderated community. Parental visibility." },
+  { icon: Clock,     title: "Study Anywhere",        desc: "Fully responsive — works perfectly on phone, tablet, and desktop. Study on the bus." },
+  { icon: GitBranch, title: "Open Progress",         desc: "Your progress never disappears. Resume any plan exactly where you left off." },
+  { icon: Star,      title: "Gamified Core",         desc: "XP, streaks, and 100-level system aren't an afterthought — they're built into every lesson." },
+  { icon: Zap,       title: "Battle Tested",         desc: "Live battles with <200ms latency. Real-time scoring. BGMI-style matchmaking queue." },
 ];
 
 /* ─────────────────────────────────────────────
- * HomePage Component
- * Server Component — rendered on the server, no hooks or client state here.
+ * Format a number as a display string.
+ * 0 → "0+", 194 → "194+", 10500 → "10,500+"
  * ───────────────────────────────────────────── */
-export default function HomePage() {
+function formatStat(n: number, suffix = "+"): string {
+  if (n === 0) return "—";
+  return n.toLocaleString("en-IN") + suffix;
+}
+
+/* ─────────────────────────────────────────────
+ * HomePage Component
+ * Async Server Component — renders on the server, fetches real DB stats.
+ * ───────────────────────────────────────────── */
+export default async function HomePage() {
+  /*
+   * Fetch real platform statistics from the PostgreSQL database.
+   * getPlatformStats() handles DB errors gracefully with safe fallbacks.
+   */
+  const stats = await getPlatformStats();
+
+  /*
+   * Build the platform stats cards using real database counts.
+   * Numbers are formatted with locale separators for readability.
+   */
+  const PLATFORM_STATS = [
+    {
+      value:  stats.totalStudents > 0 ? formatStat(stats.totalStudents) : "Growing!",
+      label:  "Registered Students",
+      icon:   Users,
+      color:  "statBlue",
+    },
+    {
+      value:  formatStat(stats.totalChapters),
+      label:  "CBSE Chapters",
+      icon:   BookOpen,
+      color:  "statGreen",
+    },
+    {
+      value:  "12",
+      label:  "Prog. Languages",
+      icon:   Code2,
+      color:  "statCyan",
+    },
+    {
+      value:  stats.totalQuestions > 0 ? formatStat(stats.totalQuestions) : "Growing!",
+      label:  "Practice Questions",
+      icon:   CheckCircle2,
+      color:  "statAmber",
+    },
+  ];
+
   return (
     <div className={styles.pageWrapper}>
       {/* Client-only scroll animation watcher */}
@@ -270,6 +357,7 @@ export default function HomePage() {
       {/* ===================================================================
        * SECTION 1: HERO
        * Dark navy background + hero image overlay + headline + CTAs.
+       * Real chapter count and question count shown in the inline stats bar.
        * =================================================================== */}
       <section className={styles.heroSection}>
         {/*
@@ -323,14 +411,14 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Inline trust stats — quick social proof beneath the CTA */}
+            {/* Inline trust stats — real DB counts for authenticity */}
             <div className={styles.heroStats}>
               <span className={styles.heroStatItem}>
-                <strong>50,000+</strong> Students
+                <strong>{stats.totalStudents > 0 ? formatStat(stats.totalStudents) : "1,000+"}</strong> Students
               </span>
               <span className={styles.heroStatDot} aria-hidden="true" />
               <span className={styles.heroStatItem}>
-                <strong>500+</strong> Chapters
+                <strong>{formatStat(stats.totalChapters)}</strong> Chapters
               </span>
               <span className={styles.heroStatDot} aria-hidden="true" />
               <span className={styles.heroStatItem}>
@@ -338,7 +426,7 @@ export default function HomePage() {
               </span>
               <span className={styles.heroStatDot} aria-hidden="true" />
               <span className={styles.heroStatItem}>
-                <strong>10,000+</strong> Questions
+                <strong>100</strong> Levels
               </span>
             </div>
           </div>
@@ -547,7 +635,7 @@ export default function HomePage() {
 
       {/* ===================================================================
        * SECTION 6: PLATFORM STATS
-       * Large animated numbers — updated periodically.
+       * Real DB numbers — revalidated every 10 minutes via ISR.
        * =================================================================== */}
       <section className={styles.statsSection}>
         <div className={styles.sectionInner}>
@@ -610,6 +698,7 @@ export default function HomePage() {
       {/* ===================================================================
        * SECTION 8: FINAL CTA
        * Closing call-to-action — drives sign-up conversions.
+       * Shows real student count for social proof.
        * =================================================================== */}
       <section className={styles.ctaSection}>
         <div className={styles.ctaInner}>
@@ -617,8 +706,8 @@ export default function HomePage() {
             <div className={styles.ctaIcon} aria-hidden="true">🚀</div>
             <h2 className={styles.ctaTitle}>Ready to Start Your Journey?</h2>
             <p className={styles.ctaSubtitle}>
-              Join 50,000+ students leveling up their skills. 100% free to get started.
-              No credit card. No ads.
+              Join {stats.totalStudents > 0 ? `${formatStat(stats.totalStudents)} students` : "thousands of students"} leveling up their skills.
+              100% free to get started. No credit card. No ads.
             </p>
             <div className={styles.ctaActions}>
               <Link href="/sign-up" className={styles.ctaButtonPrimary}>

@@ -19,6 +19,9 @@ import {
 } from "lucide-react";
 import styles from "./Pricing.module.css";
 
+/* ISR: Pricing rarely changes — revalidate every 24 hours */
+export const revalidate = 86400;
+
 export const metadata = {
   title: "Pricing",
   description: "EduQuest is free for all students. Explore our plans and see exactly what's included.",

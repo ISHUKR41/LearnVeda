@@ -1,12 +1,16 @@
 /*
  * FILE: DashboardClient.tsx
  * LOCATION: src/app/dashboard/DashboardClient.tsx
- * PURPOSE: Interactive dashboard UI that fetches protected dashboard data from
- *          the backend API, shows loading/error states, and redirects guests to
- *          sign in. Improved visual design with zap icons, progress bars, and activity lists.
+ * PURPOSE: Interactive dashboard UI that fetches protected dashboard data and
+ *          wallet balance from the backend API. Shows loading/error states and
+ *          redirects guests to sign in. Includes:
+ *          - Stats grid (streak, XP, battles, rank)
+ *          - Level progress bar with real XP thresholds from /api/levels
+ *          - Stars (wallet) balance card
+ *          - Quick actions, streak calendar, recent activity
  * USED BY: src/app/dashboard/page.tsx
  * DEPENDENCIES: next/navigation, lucide-react, Dashboard.module.css
- * LAST UPDATED: 2026-05-17
+ * LAST UPDATED: 2026-05-25
  */
 
 "use client";
@@ -27,33 +31,71 @@ import {
   Trophy,
   Users,
   Zap,
+  Wallet,
+  Medal,
 } from "lucide-react";
 import type { DashboardSnapshot } from "@/lib/server/data/dashboard";
 import styles from "./Dashboard.module.css";
 
+/* ─────────────────────────────────────────────
+ * Icon maps — keyed by the tone string from the API response.
+ * Using a const assertion so TypeScript knows the exact keys.
+ * ───────────────────────────────────────────── */
 const STAT_ICONS = {
-  streak: Flame,
-  xp: Zap,
-  battle: Swords,
-  rank: Trophy,
+  streak:  Flame,
+  xp:      Zap,
+  battle:  Swords,
+  rank:    Trophy,
 } as const;
 
 const ACTION_ICONS = {
-  learn: BookOpen,
-  battle: Swords,
-  code: Code2,
+  learn:     BookOpen,
+  battle:    Swords,
+  code:      Code2,
   community: Users,
 } as const;
 
+/* ─────────────────────────────────────────────
+ * Type definitions
+ * ───────────────────────────────────────────── */
 interface DashboardApiResponse {
   ok: boolean;
   data?: DashboardSnapshot;
   error?: { message: string };
 }
 
-/** 
- * Skeleton UI shown while the protected dashboard API responds. 
- */
+interface WalletData {
+  balance:      number;
+  totalEarned:  number;
+  totalSpent:   number;
+}
+
+interface WalletApiResponse {
+  ok: boolean;
+  data?: { wallet: WalletData; transactions: unknown[]; total: number };
+  error?: { message: string };
+}
+
+interface LevelData {
+  levelNumber: number;
+  xpRequired:  number;
+  xpToNext:    number;
+  title:       string;
+  badgeName:   string;
+  badgeIcon:   string;
+  badgeColor:  string;
+  perks:       Record<string, unknown>;
+}
+
+interface LevelApiResponse {
+  ok: boolean;
+  data?: { current: LevelData | null; next: LevelData | null };
+}
+
+/* ─────────────────────────────────────────────
+ * DashboardSkeleton
+ * Pulse-animated skeleton shown while the protected API responds.
+ * ───────────────────────────────────────────── */
 function DashboardSkeleton() {
   return (
     <div className={styles.page}>
@@ -73,14 +115,163 @@ function DashboardSkeleton() {
   );
 }
 
-/** 
- * Fetches personalized dashboard data and renders the student workspace. 
- */
+/* ─────────────────────────────────────────────
+ * WalletCard
+ * Shows the user's Stars balance with a mini spend/earn summary.
+ * Data is fetched in parallel with the dashboard snapshot.
+ * ───────────────────────────────────────────── */
+function WalletCard({ wallet }: { wallet: WalletData | null }) {
+  if (!wallet) {
+    return (
+      <div className={styles.card}>
+        <h2 className={styles.cardTitle}>
+          <Coins size={18} aria-hidden="true" /> Stars Wallet
+        </h2>
+        <p className={styles.walletEmpty}>Your wallet is loading…</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`${styles.card} ${styles.walletCard}`}>
+      <h2 className={styles.cardTitle}>
+        <Wallet size={18} aria-hidden="true" /> Stars Wallet
+      </h2>
+
+      {/* Large balance number */}
+      <div className={styles.walletBalance}>
+        <Star size={20} className={styles.walletStar} aria-hidden="true" />
+        <span className={styles.walletBalanceNumber}>
+          {wallet.balance.toLocaleString("en-IN")}
+        </span>
+        <span className={styles.walletBalanceLabel}>Stars</span>
+      </div>
+
+      {/* Earn / spend summary row */}
+      <div className={styles.walletStats}>
+        <div className={styles.walletStatItem}>
+          <span className={styles.walletStatValue} style={{ color: "var(--color-success)" }}>
+            +{wallet.totalEarned.toLocaleString("en-IN")}
+          </span>
+          <span className={styles.walletStatLabel}>Earned</span>
+        </div>
+        <div className={styles.walletStatDivider} />
+        <div className={styles.walletStatItem}>
+          <span className={styles.walletStatValue} style={{ color: "var(--color-danger)" }}>
+            -{wallet.totalSpent.toLocaleString("en-IN")}
+          </span>
+          <span className={styles.walletStatLabel}>Spent</span>
+        </div>
+      </div>
+
+      <p className={styles.walletHint}>
+        Earn Stars by answering questions correctly and winning battles.
+      </p>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+ * LevelProgressCard
+ * Shows XP bar with real thresholds from the /api/levels endpoint.
+ * ───────────────────────────────────────────── */
+function LevelProgressCard({
+  snapshot,
+  currentLevel,
+  nextLevel,
+}: {
+  snapshot: DashboardSnapshot;
+  currentLevel: LevelData | null;
+  nextLevel: LevelData | null;
+}) {
+  /*
+   * Use level data from the API if available, otherwise fall back to
+   * the snapshot's xpToNextLevel value for the progress calculation.
+   */
+  const xpRequired = currentLevel?.xpRequired ?? 0;
+  const xpToNext   = nextLevel
+    ? nextLevel.xpRequired - xpRequired
+    : snapshot.xpToNextLevel;
+
+  const currentXp = snapshot.user.xp;
+
+  /*
+   * Progress = how far into the current level the user is, as a percentage.
+   * e.g. Level 5 requires 500 XP, level 6 requires 750 XP.
+   *      User has 620 XP → 120 / 250 = 48%.
+   */
+  const progressXp = Math.max(0, currentXp - xpRequired);
+  const xpProgress = xpToNext > 0 ? Math.min(100, (progressXp / xpToNext) * 100) : 100;
+
+  const badgeColor = currentLevel?.badgeColor ?? "#6B7280";
+  const levelTitle = currentLevel?.title      ?? "Learner";
+
+  return (
+    <div className={styles.card}>
+      <h2 className={styles.cardTitle}>
+        <TrendingUp size={18} aria-hidden="true" /> Level Progress
+      </h2>
+
+      {/* Level badge row */}
+      <div className={styles.levelBadgeRow}>
+        <div
+          className={styles.levelBadgePill}
+          style={{ background: `${badgeColor}22`, border: `1px solid ${badgeColor}55`, color: badgeColor }}
+        >
+          <Medal size={12} aria-hidden="true" />
+          Level {snapshot.user.level} · {levelTitle}
+        </div>
+        {nextLevel && (
+          <span className={styles.levelNextLabel}>
+            Next: Level {nextLevel.levelNumber} · {nextLevel.title}
+          </span>
+        )}
+      </div>
+
+      {/* XP bar header */}
+      <div className={styles.xpProgressHeader}>
+        <span>Lv. {snapshot.user.level}</span>
+        <span>{Math.round(xpProgress)}% complete</span>
+        <span>Lv. {snapshot.user.level + 1}</span>
+      </div>
+
+      {/* XP bar */}
+      <div className={styles.xpBar}>
+        <div
+          className={styles.xpBarFill}
+          style={{
+            "--xp-w":    `${xpProgress}%`,
+            background:  `linear-gradient(90deg, ${badgeColor}, ${badgeColor}99)`,
+          } as React.CSSProperties}
+        />
+      </div>
+
+      {/* XP numbers */}
+      <div className={styles.xpInfo}>
+        <span>{currentXp.toLocaleString("en-IN")} XP total</span>
+        <span>
+          {xpToNext > progressXp
+            ? `${(xpToNext - progressXp).toLocaleString("en-IN")} XP to level ${snapshot.user.level + 1}`
+            : "Max level!"}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+ * DashboardClient — main exported component
+ * Fetches snapshot, wallet, and level data in parallel.
+ * ───────────────────────────────────────────── */
 export default function DashboardClient() {
   const router = useRouter();
-  const [snapshot, setSnapshot] = useState<DashboardSnapshot | null>(null);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+
+  const [snapshot,     setSnapshot]     = useState<DashboardSnapshot | null>(null);
+  const [wallet,       setWallet]       = useState<WalletData | null>(null);
+  const [currentLevel, setCurrentLevel] = useState<LevelData | null>(null);
+  const [nextLevel,    setNextLevel]    = useState<LevelData | null>(null);
+  const [error,        setError]        = useState("");
+  const [isLoading,    setIsLoading]    = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -90,22 +281,51 @@ export default function DashboardClient() {
       setError("");
 
       try {
-        const response = await fetch("/api/dashboard", { cache: "no-store" });
-        const payload = (await response.json()) as DashboardApiResponse;
+        /*
+         * Fetch the dashboard snapshot first so we know the user's level.
+         * Then fetch wallet and level data in parallel for speed.
+         */
+        const dashRes = await fetch("/api/dashboard", { cache: "no-store" });
+        const dashPayload = (await dashRes.json()) as DashboardApiResponse;
 
         if (!isMounted) return;
 
-        if (response.status === 401) {
+        if (dashRes.status === 401) {
           router.push("/sign-in");
           return;
         }
 
-        if (!response.ok || !payload.ok || !payload.data) {
-          setError(payload.error?.message ?? "Unable to load dashboard.");
+        if (!dashRes.ok || !dashPayload.ok || !dashPayload.data) {
+          setError(dashPayload.error?.message ?? "Unable to load dashboard.");
           return;
         }
 
-        setSnapshot(payload.data);
+        const snap = dashPayload.data;
+        setSnapshot(snap);
+
+        /* Now fetch wallet + level data in parallel */
+        const [walletRes, levelRes] = await Promise.all([
+          fetch("/api/wallet", { cache: "no-store" }),
+          fetch(`/api/levels?user_level=${snap.user.level}`, {
+            cache: "force-cache",
+            next: { revalidate: 86400 },
+          }),
+        ]);
+
+        const [walletPayload, levelPayload] = await Promise.all([
+          walletRes.json() as Promise<WalletApiResponse>,
+          levelRes.json() as Promise<LevelApiResponse>,
+        ]);
+
+        if (isMounted) {
+          if (walletPayload.ok && walletPayload.data?.wallet) {
+            setWallet(walletPayload.data.wallet);
+          }
+          if (levelPayload.ok && levelPayload.data) {
+            setCurrentLevel(levelPayload.data.current ?? null);
+            setNextLevel(levelPayload.data.next ?? null);
+          }
+        }
       } catch {
         if (isMounted) {
           setError("Network error while loading your dashboard.");
@@ -124,10 +344,12 @@ export default function DashboardClient() {
     };
   }, [router]);
 
+  /* ── Loading state ─────────────────────────────────────────── */
   if (isLoading) {
     return <DashboardSkeleton />;
   }
 
+  /* ── Error state ───────────────────────────────────────────── */
   if (error || !snapshot) {
     return (
       <div className={styles.page}>
@@ -145,21 +367,23 @@ export default function DashboardClient() {
     );
   }
 
-  const xpProgress = Math.min(100, (snapshot.user.xp / snapshot.xpToNextLevel) * 100);
+  /* ── Derived values ────────────────────────────────────────── */
   const firstName = snapshot.user.name.split(" ")[0];
-  const hours = new Date().getHours();
-  const greeting = hours < 12 ? "Good morning" : hours < 18 ? "Good afternoon" : "Good evening";
+  const hours     = new Date().getHours();
+  const greeting  = hours < 12 ? "Good morning" : hours < 18 ? "Good afternoon" : "Good evening";
 
   return (
     <div className={styles.page}>
       <div className={styles.inner}>
+
+        {/* ── Welcome row ────────────────────────────────────── */}
         <div className={styles.welcomeRow}>
           <div className={styles.greetingSection}>
             <h1 className={styles.welcomeTitle}>
               {greeting}, {firstName}! <Zap size={24} className={styles.welcomeZap} />
             </h1>
             <p className={styles.welcomeSub}>
-              Your {snapshot.user.track.replace("-", " ")} workspace is ready for today.
+              Your {snapshot.user.track.replace(/-/g, " ")} workspace is ready for today.
             </p>
           </div>
           <div className={styles.levelBadge}>
@@ -167,6 +391,7 @@ export default function DashboardClient() {
           </div>
         </div>
 
+        {/* ── Stats grid (streak / XP / battles / rank) ──────── */}
         <div className={styles.statsGrid}>
           {snapshot.stats.map((stat) => {
             const Icon = STAT_ICONS[stat.tone];
@@ -184,26 +409,20 @@ export default function DashboardClient() {
           })}
         </div>
 
+        {/* ── Main two-column grid ────────────────────────────── */}
         <div className={styles.mainGrid}>
-          <div className={styles.columnStack}>
-            <div className={styles.card}>
-              <h2 className={styles.cardTitle}>
-                <TrendingUp size={18} />
-                Level Progress
-              </h2>
-              <div className={styles.xpProgressHeader}>
-                <span>Level {snapshot.user.level}</span>
-                <span>Level {snapshot.user.level + 1}</span>
-              </div>
-              <div className={styles.xpBar}>
-                <div className={styles.xpBarFill} style={{ "--xp-w": `${xpProgress}%` } as React.CSSProperties} />
-              </div>
-              <div className={styles.xpInfo}>
-                <span>{snapshot.user.xp} XP total</span>
-                <span>{snapshot.xpToNextLevel - snapshot.user.xp} XP to go ({Math.round(xpProgress)}%)</span>
-              </div>
-            </div>
 
+          {/* LEFT COLUMN: Level progress + Quick actions + Wallet */}
+          <div className={styles.columnStack}>
+
+            {/* Level progress bar with real XP thresholds */}
+            <LevelProgressCard
+              snapshot={snapshot}
+              currentLevel={currentLevel}
+              nextLevel={nextLevel}
+            />
+
+            {/* Quick actions */}
             <div className={styles.card}>
               <h2 className={styles.cardTitle}>Quick Actions</h2>
               <div className={styles.quickActions}>
@@ -224,15 +443,25 @@ export default function DashboardClient() {
                 })}
               </div>
             </div>
+
+            {/* Stars wallet card */}
+            <WalletCard wallet={wallet} />
           </div>
 
+          {/* RIGHT COLUMN: Streak calendar + Recent activity */}
           <div className={styles.columnStack}>
+
+            {/* Streak calendar — last 7 days */}
             <div className={styles.card}>
               <h2 className={styles.cardTitle}>
-                <Flame size={18} className={styles.streakIcon} />
+                <Flame size={18} className={styles.streakIcon} aria-hidden="true" />
                 Streak Calendar
               </h2>
-              <p className={styles.streakCountText}>You are on a {snapshot.user.streak} day streak!</p>
+              <p className={styles.streakCountText}>
+                {snapshot.user.streak > 0
+                  ? `You are on a ${snapshot.user.streak}-day streak! 🔥`
+                  : "Study today to start your streak!"}
+              </p>
               <div className={styles.streakGrid}>
                 {snapshot.streakDays.slice(-7).map((day) => (
                   <div key={day.isoDate} className={styles.streakDayWrapper}>
@@ -248,9 +477,10 @@ export default function DashboardClient() {
               </div>
             </div>
 
+            {/* Recent activity list */}
             <div className={styles.card}>
               <h2 className={styles.cardTitle}>
-                <Clock size={18} />
+                <Clock size={18} aria-hidden="true" />
                 Recent Activity
               </h2>
               <ul className={styles.activityList}>

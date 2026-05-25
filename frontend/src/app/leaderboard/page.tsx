@@ -16,6 +16,9 @@ import LeaderboardLoadingSkeleton from "./LeaderboardLoadingSkeleton";
  * SEO metadata for the Leaderboard page — stays server-side because page.tsx
  * is a server component. The heavy client JS loads asynchronously.
  */
+/* ISR: leaderboard revalidates every 5 minutes */
+export const revalidate = 300;
+
 export const metadata = {
   title: "Leaderboard",
   description: "See where you stand among the best learners on EduQuest. Global and class-specific rankings.",

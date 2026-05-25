@@ -30,6 +30,9 @@ import {
 } from "lucide-react";
 import styles from "./Features.module.css";
 
+/* ISR: Features page content rarely changes — revalidate every 12 hours */
+export const revalidate = 43200;
+
 /** SEO metadata — helps search engines properly index the Features page. */
 export const metadata = {
   title: "Features — EduQuest Platform Capabilities",

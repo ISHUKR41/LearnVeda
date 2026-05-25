@@ -13,6 +13,9 @@
 import dynamic from "next/dynamic";
 import EventsLoadingSkeleton from "./EventsLoadingSkeleton";
 
+/* ISR: events list revalidates every 5 minutes */
+export const revalidate = 300;
+
 export const metadata = {
   title: "Events",
   description: "Participate in academic competitions, coding hackathons, and knowledge tournaments.",

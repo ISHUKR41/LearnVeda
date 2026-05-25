@@ -24,6 +24,9 @@ import { getTrackSubjects } from "@/lib/server/data/subject-plans";
 import { resolveCurriculumIcon } from "@/lib/ui/lucide-icon-map";
 import styles from "./Class10.module.css";
 
+/* ISR: Revalidate every hour — subject list rarely changes */
+export const revalidate = 3600;
+
 export const metadata = {
   title: "Class 10 — CBSE Board Exam Preparation | EduQuest",
   description:
