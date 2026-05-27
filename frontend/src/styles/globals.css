@@ -107,15 +107,24 @@
   --font-body: var(--font-sans-next), "Inter", "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-mono-next), "JetBrains Mono", "Courier New", Courier, monospace;
 
-  --font-size-display: 3.5rem;      /* 56px — hero headlines */
-  --font-size-h1: 2.25rem;     /* 36px — page titles */
-  --font-size-h2: 1.75rem;    /* 28px — section titles */
-  --font-size-h3: 1.375rem;   /* 22px — card titles */
-  --font-size-h4: 1.125rem;     /* 18px — subsection titles */
-  --font-size-body: clamp(0.9375rem, 1vw + 0.5rem, 1rem); /* 15px to 16px — default reading size */
-  --font-size-body-large: 1.0625rem; /* 17px — long-form discussion reading size */
-  --font-size-small: 0.875rem;    /* 14px — labels, metadata */
-  --font-size-xsmall: 0.75rem;    /* 12px — timestamps, fine print */
+  --font-size-display: 3.5rem;
+  /* 56px — hero headlines */
+  --font-size-h1: 2.25rem;
+  /* 36px — page titles */
+  --font-size-h2: 1.75rem;
+  /* 28px — section titles */
+  --font-size-h3: 1.375rem;
+  /* 22px — card titles */
+  --font-size-h4: 1.125rem;
+  /* 18px — subsection titles */
+  --font-size-body: clamp(0.9375rem, 1vw + 0.5rem, 1rem);
+  /* 15px to 16px — default reading size */
+  --font-size-body-large: 1.0625rem;
+  /* 17px — long-form discussion reading size */
+  --font-size-small: 0.875rem;
+  /* 14px — labels, metadata */
+  --font-size-xsmall: 0.75rem;
+  /* 12px — timestamps, fine print */
 
   --font-weight-light: 300;
   --font-weight-regular: 400;
@@ -129,27 +138,46 @@
   --line-height-relaxed: 1.75;
 
   /* --- Spacing Scale (8-point grid) --- */
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px — tiny spacing */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px — standard spacing */
-  --space-5: 1.25rem;   /* 20px */
-  --space-6: 1.5rem;    /* 24px — medium spacing */
-  --space-7: 1.75rem;   /* 28px — medium-large spacing */
-  --space-8: 2rem;      /* 32px — large spacing */
-  --space-10: 2.5rem;   /* 40px */
-  --space-12: 3rem;     /* 48px — extra large */
-  --space-16: 4rem;     /* 64px — section margins */
-  --space-20: 5rem;     /* 80px */
-  --space-24: 6rem;     /* 96px */
+  --space-1: 0.25rem;
+  /* 4px */
+  --space-2: 0.5rem;
+  /* 8px — tiny spacing */
+  --space-3: 0.75rem;
+  /* 12px */
+  --space-4: 1rem;
+  /* 16px — standard spacing */
+  --space-5: 1.25rem;
+  /* 20px */
+  --space-6: 1.5rem;
+  /* 24px — medium spacing */
+  --space-7: 1.75rem;
+  /* 28px — medium-large spacing */
+  --space-8: 2rem;
+  /* 32px — large spacing */
+  --space-10: 2.5rem;
+  /* 40px */
+  --space-12: 3rem;
+  /* 48px — extra large */
+  --space-16: 4rem;
+  /* 64px — section margins */
+  --space-20: 5rem;
+  /* 80px */
+  --space-24: 6rem;
+  /* 96px */
 
   /* --- Border Radius --- */
-  --radius-sm: 0.375rem;    /* 6px — subtle rounding */
-  --radius-md: 0.5rem;      /* 8px — standard cards */
-  --radius-lg: 0.75rem;     /* 12px — buttons, inputs */
-  --radius-xl: 1rem;        /* 16px — large cards */
-  --radius-2xl: 1.5rem;     /* 24px — hero sections */
-  --radius-full: 9999px;    /* Pill shape — badges, avatars */
+  --radius-sm: 0.375rem;
+  /* 6px — subtle rounding */
+  --radius-md: 0.5rem;
+  /* 8px — standard cards */
+  --radius-lg: 0.75rem;
+  /* 12px — buttons, inputs */
+  --radius-xl: 1rem;
+  /* 16px — large cards */
+  --radius-2xl: 1.5rem;
+  /* 24px — hero sections */
+  --radius-full: 9999px;
+  /* Pill shape — badges, avatars */
 
   /* --- Shadows (Elevation System) --- */
   /* Low elevation keeps the SaaS interface professional and fast-feeling. */
@@ -178,10 +206,14 @@
   --z-toast: 1080;
 
   /* --- Layout --- */
-  --navbar-height: 4rem;         /* 64px */
-  --sidebar-width: 16rem;        /* 256px */
-  --max-content-width: 80rem;    /* 1280px */
-  --max-reading-width: 48rem;    /* 768px */
+  --navbar-height: 4rem;
+  /* 64px */
+  --sidebar-width: 16rem;
+  /* 256px */
+  --max-content-width: 80rem;
+  /* 1280px */
+  --max-reading-width: 48rem;
+  /* 768px */
 }
 
 /* ============================================================
@@ -344,20 +376,39 @@ body {
 }
 
 /* Headings use the heading font family */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-family-heading);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   color: var(--color-text-primary);
 }
 
-h1 { font-size: var(--font-size-h1); }
-h2 { font-size: var(--font-size-h2); }
-h3 { font-size: var(--font-size-h3); }
-h4 { font-size: var(--font-size-h4); }
+h1 {
+  font-size: var(--font-size-h1);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+}
 
 /* Code elements use the code font */
-code, pre, kbd, samp {
+code,
+pre,
+kbd,
+samp {
   font-family: var(--font-family-code);
 }
 
@@ -390,7 +441,9 @@ button {
 }
 
 /* Input/textarea — consistent styling */
-input, textarea, select {
+input,
+textarea,
+select {
   font-family: var(--font-family-body);
   font-size: var(--font-size-body);
 }
@@ -457,6 +510,7 @@ input, textarea, select {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -465,15 +519,23 @@ input, textarea, select {
 
 /* Fade in — simple opacity transition */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Pulse glow — used for active streak indicators */
 @keyframes pulseGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 5px rgba(79, 70, 229, 0.2);
   }
+
   50% {
     box-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
   }
@@ -481,14 +543,26 @@ input, textarea, select {
 
 /* Float animation — used for hero illustrations */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* Shimmer — used for skeleton loading placeholders */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 /* ============================================================
@@ -496,12 +570,10 @@ input, textarea, select {
  * Applied via .skeleton class for pulsing placeholder elements.
  * ============================================================ */
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    var(--color-bg-tertiary) 25%,
-    var(--color-bg-secondary) 50%,
-    var(--color-bg-tertiary) 75%
-  );
+  background: linear-gradient(90deg,
+      var(--color-bg-tertiary) 25%,
+      var(--color-bg-secondary) 50%,
+      var(--color-bg-tertiary) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: var(--radius-md);
@@ -509,15 +581,28 @@ input, textarea, select {
 
 /* Spin — used for loading spinners */
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Scale bounce — used for correct answer celebrations */
 @keyframes scaleBounce {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Slide in from right — used for toast notifications */
@@ -526,6 +611,7 @@ input, textarea, select {
     opacity: 0;
     transform: translateX(100%);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -626,17 +712,17 @@ input, textarea, select {
 
   /* Fluid typography — scales smoothly between mobile and desktop */
   --font-size-display-2xl: clamp(2.25rem, 4vw + 1.25rem, 4.5rem);
-  --font-size-display-xl:  clamp(1.875rem, 3vw + 1rem, 3.5rem);
-  --font-size-display-lg:  clamp(1.5rem, 2.5vw + 0.75rem, 2.5rem);
-  --font-size-display-md:  clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem);
+  --font-size-display-xl: clamp(1.875rem, 3vw + 1rem, 3.5rem);
+  --font-size-display-lg: clamp(1.5rem, 2.5vw + 0.75rem, 2.5rem);
+  --font-size-display-md: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem);
 
   /* Letter spacing scale */
   --tracking-tighter: 0em;
-  --tracking-tight:   0em;
-  --tracking-normal:   0em;
-  --tracking-wide:     0.025em;
-  --tracking-wider:    0.05em;
-  --tracking-widest:   0.1em;
+  --tracking-tight: 0em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
 
   /* Extra spacing */
   --space-28: 7rem;
@@ -679,8 +765,13 @@ input, textarea, select {
     transform var(--transition-fast);
 }
 
-.btn:hover  { transform: translateY(-1px); }
-.btn:active { transform: translateY(0px);  }
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0px);
+}
 
 /* Primary — filled blue */
 .btn-primary {
@@ -688,6 +779,7 @@ input, textarea, select {
   color: #FFFFFF;
   border-color: var(--color-primary);
 }
+
 .btn-primary:hover {
   background-color: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
@@ -701,6 +793,7 @@ input, textarea, select {
   color: var(--color-primary);
   border-color: var(--color-primary);
 }
+
 .btn-secondary:hover {
   background-color: var(--color-primary-lightest);
   color: var(--color-primary-hover);
@@ -712,6 +805,7 @@ input, textarea, select {
   color: var(--color-text-secondary);
   border-color: var(--color-border);
 }
+
 .btn-ghost:hover {
   background-color: var(--color-bg-tertiary);
   color: var(--color-text-primary);
@@ -725,6 +819,7 @@ input, textarea, select {
   border-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
 }
+
 .btn-hero-ghost:hover {
   background-color: rgba(255, 255, 255, 0.14);
   border-color: rgba(255, 255, 255, 0.3);
@@ -737,6 +832,7 @@ input, textarea, select {
   color: #FFFFFF;
   border-color: var(--color-accent);
 }
+
 .btn-accent:hover {
   background-color: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
@@ -745,9 +841,20 @@ input, textarea, select {
 }
 
 /* Size variants */
-.btn-sm  { padding: var(--space-2) var(--space-4); font-size: 0.8125rem; }
-.btn-lg  { padding: var(--space-4) var(--space-8); font-size: 1rem;      }
-.btn-xl  { padding: var(--space-5) var(--space-10); font-size: 1.0625rem; }
+.btn-sm {
+  padding: var(--space-2) var(--space-4);
+  font-size: 0.8125rem;
+}
+
+.btn-lg {
+  padding: var(--space-4) var(--space-8);
+  font-size: 1rem;
+}
+
+.btn-xl {
+  padding: var(--space-5) var(--space-10);
+  font-size: 1.0625rem;
+}
 
 /* ============================================================
  * SECTION 12: Badge & Chip Utility Classes
@@ -768,11 +875,30 @@ input, textarea, select {
   text-transform: uppercase;
 }
 
-.badge-primary  { background: var(--color-primary-lightest);  color: var(--color-primary);      }
-.badge-success  { background: var(--color-success-lightest);  color: var(--color-success-hover); }
-.badge-warning  { background: var(--color-warning-lightest);  color: var(--color-accent-hover);  }
-.badge-danger   { background: var(--color-danger-lightest);   color: var(--color-danger-hover);  }
-.badge-neutral  { background: var(--color-bg-tertiary);       color: var(--color-text-secondary);}
+.badge-primary {
+  background: var(--color-primary-lightest);
+  color: var(--color-primary);
+}
+
+.badge-success {
+  background: var(--color-success-lightest);
+  color: var(--color-success-hover);
+}
+
+.badge-warning {
+  background: var(--color-warning-lightest);
+  color: var(--color-accent-hover);
+}
+
+.badge-danger {
+  background: var(--color-danger-lightest);
+  color: var(--color-danger-hover);
+}
+
+.badge-neutral {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+}
 
 /* For use on dark/hero sections */
 .badge-dark {
@@ -782,9 +908,20 @@ input, textarea, select {
 }
 
 /* Difficulty badges — used on chapter/question cards */
-.badge-easy   { background: #ECFDF5; color: #059669; }
-.badge-medium { background: #EFF6FF; color: #2563EB; }
-.badge-hard   { background: #FEF2F2; color: #DC2626; }
+.badge-easy {
+  background: #ECFDF5;
+  color: #059669;
+}
+
+.badge-medium {
+  background: #EFF6FF;
+  color: #2563EB;
+}
+
+.badge-hard {
+  background: #FEF2F2;
+  color: #DC2626;
+}
 
 /* ============================================================
  * SECTION 13: Layout Section Utilities
@@ -792,9 +929,17 @@ input, textarea, select {
  * ============================================================ */
 
 /* Standard section wrapper — use for all full-width sections */
-.section     { padding: var(--space-16) 0; }
-.section-sm  { padding: var(--space-10) 0; }
-.section-lg  { padding: var(--space-24) 0; }
+.section {
+  padding: var(--space-16) 0;
+}
+
+.section-sm {
+  padding: var(--space-10) 0;
+}
+
+.section-lg {
+  padding: var(--space-24) 0;
+}
 
 /* Dark hero section — for homepage hero, page banners */
 .hero-dark {
@@ -819,6 +964,7 @@ input, textarea, select {
   position: relative;
   border-radius: var(--radius-xl);
 }
+
 .gradient-border::before {
   content: "";
   position: absolute;
@@ -838,40 +984,91 @@ input, textarea, select {
 
 /* Slide in from below — for scroll-triggered section reveals */
 @keyframes slideInUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0);    }
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Scale in — for modal and card pop-ins */
 @keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.94); }
-  to   { opacity: 1; transform: scale(1);    }
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Blue glow pulse — for primary action buttons and active elements */
 @keyframes glowPrimary {
-  0%, 100% { box-shadow: 0 0 8px rgba(37, 99, 235, 0.25); }
-  50%       { box-shadow: 0 0 24px rgba(37, 99, 235, 0.55), 0 0 48px rgba(37, 99, 235, 0.2); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(37, 99, 235, 0.25);
+  }
+
+  50% {
+    box-shadow: 0 0 24px rgba(37, 99, 235, 0.55), 0 0 48px rgba(37, 99, 235, 0.2);
+  }
 }
 
 /* Grow from zero width — for progress bars */
 @keyframes growWidth {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
 }
 
 /* Stagger helper utility classes — apply to list items for cascade effect */
-.stagger-1 { animation-delay:   0ms; }
-.stagger-2 { animation-delay:  80ms; }
-.stagger-3 { animation-delay: 160ms; }
-.stagger-4 { animation-delay: 240ms; }
-.stagger-5 { animation-delay: 320ms; }
-.stagger-6 { animation-delay: 400ms; }
+.stagger-1 {
+  animation-delay: 0ms;
+}
+
+.stagger-2 {
+  animation-delay: 80ms;
+}
+
+.stagger-3 {
+  animation-delay: 160ms;
+}
+
+.stagger-4 {
+  animation-delay: 240ms;
+}
+
+.stagger-5 {
+  animation-delay: 320ms;
+}
+
+.stagger-6 {
+  animation-delay: 400ms;
+}
 
 /* Animation utility classes */
-.animate-slide-in-up { animation: slideInUp 0.5s ease-out forwards; }
-.animate-scale-in    { animation: scaleIn   0.3s ease-out forwards; }
-.animate-glow        { animation: glowPrimary 2.5s ease-in-out infinite; }
+.animate-slide-in-up {
+  animation: slideInUp 0.5s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+.animate-glow {
+  animation: glowPrimary 2.5s ease-in-out infinite;
+}
 
 /* ============================================================
  * SECTION 15: Dark Section Text Utilities
@@ -929,12 +1126,20 @@ input, textarea, select {
   outline: none;
   appearance: none;
 }
+
 .input-base:focus {
   border-color: var(--color-border-focus);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
-.input-base::placeholder { color: var(--color-text-tertiary); }
-.input-base:disabled     { opacity: 0.5; cursor: not-allowed; }
+
+.input-base::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.input-base:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 /* ============================================================
  * SECTION 17: Typography Scale Utilities
@@ -1002,41 +1207,89 @@ input, textarea, select {
 
 /* Slide in from the top — used for dropdown menus */
 @keyframes slideInDown {
-  from { opacity: 0; transform: translateY(-12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Bounce in — used for achievement/XP pop-up celebrations */
 @keyframes bounceIn {
-  0%   { opacity: 0; transform: scale(0.6); }
-  60%  { opacity: 1; transform: scale(1.08); }
-  80%  { transform: scale(0.97); }
-  100% { transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  80% {
+    transform: scale(0.97);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Horizontal sweep — used for progress bar fills */
 @keyframes sweepRight {
-  from { width: 0%; }
-  to   { width: var(--progress-width, 100%); }
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: var(--progress-width, 100%);
+  }
 }
 
 /* Typewriter cursor blink */
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Number count-up pulse — subtle scale on stat numbers */
 @keyframes countPulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.04); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Animation utility extensions */
-.animate-slide-in-down { animation: slideInDown 0.25s ease-out forwards; }
-.animate-bounce-in     { animation: bounceIn   0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-.animate-count-pulse   { animation: countPulse 0.3s ease-out; }
+.animate-slide-in-down {
+  animation: slideInDown 0.25s ease-out forwards;
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-count-pulse {
+  animation: countPulse 0.3s ease-out;
+}
 
 /* Glass morphism shorthand — matches .glass-card but simpler name */
 .glass {
@@ -1056,6 +1309,7 @@ input, textarea, select {
 .card-lift {
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
+
 .card-lift:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
@@ -1116,6 +1370,14 @@ input, textarea, select {
   transform: translateY(0);
 }
 
-.delay-1 { transition-delay: 0.1s; }
-.delay-2 { transition-delay: 0.2s; }
-.delay-3 { transition-delay: 0.3s; }
+.delay-1 {
+  transition-delay: 0.1s;
+}
+
+.delay-2 {
+  transition-delay: 0.2s;
+}
+
+.delay-3 {
+  transition-delay: 0.3s;
+}
