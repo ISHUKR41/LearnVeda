@@ -145,6 +145,53 @@ async function getLeaderboardPreview(): Promise<LeaderboardUser[]> {
 }
 
 /* ─────────────────────────────────────────────
+ * getCommunityHighlights
+ * Fetches the top 3 community posts sorted by likes + views.
+ * Used for the homepage community highlights section.
+ * ───────────────────────────────────────────── */
+interface CommunityHighlight {
+  id:         string;
+  title:      string;
+  body:       string;
+  authorName: string;
+  tags:       string[];
+  likes:      number;
+  comments:   number;
+  views:      number;
+  createdAt:  string;
+}
+
+async function getCommunityHighlights(): Promise<CommunityHighlight[]> {
+  try {
+    const pool = getPostgresPool();
+    const result = await pool.query<{
+      id: string; title: string; body: string;
+      author_name: string; tags: string[];
+      likes: number; comments: number; views: number;
+      created_at: string;
+    }>(`
+      SELECT id, title, body, author_name, tags, likes, comments, views, created_at
+      FROM eduquest_community_posts
+      ORDER BY (likes + views / 10) DESC
+      LIMIT 3
+    `);
+    return result.rows.map(r => ({
+      id:         r.id,
+      title:      r.title,
+      body:       r.body,
+      authorName: r.author_name,
+      tags:       Array.isArray(r.tags) ? r.tags : [],
+      likes:      r.likes,
+      comments:   r.comments,
+      views:      r.views,
+      createdAt:  r.created_at,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+/* ─────────────────────────────────────────────
  * HOW_IT_WORKS Array
  * ───────────────────────────────────────────── */
 const HOW_IT_WORKS = [
@@ -319,12 +366,13 @@ function getRankDisplay(idx: number): string {
  * ───────────────────────────────────────────── */
 export default async function HomePage() {
   /*
-   * Fetch stats and top leaderboard users in parallel for minimal latency.
-   * Both functions handle errors gracefully with safe fallbacks.
+   * Fetch stats, leaderboard users, and community highlights in parallel.
+   * All three functions handle errors gracefully with safe fallbacks.
    */
-  const [stats, topUsers] = await Promise.all([
+  const [stats, topUsers, communityHighlights] = await Promise.all([
     getPlatformStats(),
     getLeaderboardPreview(),
+    getCommunityHighlights(),
   ]);
 
   const PLATFORM_STATS = [
@@ -753,6 +801,80 @@ export default async function HomePage() {
                   View Full Leaderboard <ChevronRight size={16} aria-hidden="true" />
                 </Link>
               </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* =================================================================
+       * SECTION 8.5: COMMUNITY HIGHLIGHTS
+       * Top 3 most-liked community posts from the PostgreSQL database.
+       * Only rendered when real posts exist.
+       * ================================================================= */}
+      {communityHighlights.length > 0 && (
+        <section className={styles.communitySection}>
+          <div className={styles.sectionInner}>
+            <div className={`${styles.sectionHeader} animate-on-scroll`}>
+              <span className={styles.sectionEyebrow}>Student Community</span>
+              <h2 className={styles.sectionTitle}>Live Community Highlights</h2>
+              <p className={styles.sectionSubtitle}>
+                Real discussions from students across India — from CBSE board prep to engineering placements.
+              </p>
+            </div>
+
+            <div className={styles.communityGrid}>
+              {communityHighlights.map((post, idx) => (
+                <article
+                  key={post.id}
+                  className={`${styles.communityCard} animate-on-scroll`}
+                  style={{ animationDelay: `${idx * 80}ms` }}
+                >
+                  {/* Author row */}
+                  <div className={styles.communityAuthorRow}>
+                    <div
+                      className={styles.communityAvatar}
+                      aria-hidden="true"
+                      style={{ background: ["#2563EB","#10B981","#8B5CF6"][idx % 3] }}
+                    >
+                      {post.authorName.split(" ").map(n => n[0]).join("").slice(0,2).toUpperCase()}
+                    </div>
+                    <span className={styles.communityAuthorName}>{post.authorName}</span>
+                  </div>
+
+                  {/* Post title */}
+                  <h3 className={styles.communityPostTitle}>{post.title}</h3>
+
+                  {/* Post excerpt */}
+                  <p className={styles.communityPostExcerpt}>
+                    {post.body.slice(0, 140)}{post.body.length > 140 ? "…" : ""}
+                  </p>
+
+                  {/* Tags */}
+                  {post.tags.length > 0 && (
+                    <div className={styles.communityTags}>
+                      {post.tags.slice(0, 3).map(tag => (
+                        <span key={tag} className={styles.communityTag}>{tag}</span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Stats row */}
+                  <div className={styles.communityStats}>
+                    <span className={styles.communityStat}>
+                      <Trophy size={12} aria-hidden="true" /> {post.likes} likes
+                    </span>
+                    <span className={styles.communityStat}>
+                      <Users size={12} aria-hidden="true" /> {post.views} views
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className={styles.communityViewAll}>
+              <Link href="/community" className={styles.viewAllLink}>
+                Join the Community <ChevronRight size={16} aria-hidden="true" />
+              </Link>
             </div>
           </div>
         </section>

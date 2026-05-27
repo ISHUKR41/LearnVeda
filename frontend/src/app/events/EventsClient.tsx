@@ -58,14 +58,56 @@ interface RegistrationApiResponse {
   error?: { message: string };
 }
 
-const EVENT_ICONS = {
-  "science-olympiad-2026": BookOpen,
-  "code-sprint-dsa": Code2,
-  "math-battle-royale": Swords,
-  "inter-college-hackathon": Code2,
-  "class-10-board-mock": BookOpen,
-  "python-championship": Trophy,
-} as const;
+/*
+ * Resolves a Lucide icon for each event based on its ID.
+ * New events added via migration 019 are included here.
+ */
+const EVENT_ICONS: Record<string, typeof BookOpen> = {
+  "science-olympiad-2026":    BookOpen,
+  "code-sprint-dsa":          Code2,
+  "math-battle-royale":       Swords,
+  "inter-college-hackathon":  Code2,
+  "class-10-board-mock":      BookOpen,
+  "python-championship":      Trophy,
+  /* migration 019 events */
+  "jee-advanced-mock-marathon":  BookOpen,
+  "neet-biology-olympiad":       BookOpen,
+  "class-12-board-grand-mock":   BookOpen,
+  "python-coding-championship":  Code2,
+  "class-10-science-battle":     Swords,
+  "dsa-weekly-challenge-may":    Code2,
+  "cbse-class-9-math-quiz":      BookOpen,
+  "chemistry-jee-sprint":        BookOpen,
+  "inter-school-debate-tech":    Trophy,
+  "open-source-hackathon-2026":  Code2,
+};
+
+/*
+ * Maps event ID keyword patterns to a human-readable event type label.
+ * Displayed as a chip on each event card so students know what to expect.
+ */
+function inferEventType(eventId: string): string {
+  if (eventId.includes("mock") || eventId.includes("sprint")) return "Mock Exam";
+  if (eventId.includes("olympiad") || eventId.includes("debate")) return "Olympiad";
+  if (eventId.includes("hackathon")) return "Hackathon";
+  if (eventId.includes("battle") || eventId.includes("royale")) return "Battle";
+  if (eventId.includes("championship") || eventId.includes("challenge") || eventId.includes("coding")) return "Coding Test";
+  if (eventId.includes("quiz")) return "Quiz";
+  return "Competition";
+}
+
+/*
+ * Returns a CSS module class name for the event type chip background.
+ * Keeps colours consistent without a map for every possible string.
+ */
+function eventTypeClass(type: string): string {
+  if (type === "Mock Exam")   return "typeExam";
+  if (type === "Olympiad")    return "typeOlympiad";
+  if (type === "Hackathon")   return "typeHackathon";
+  if (type === "Battle")      return "typeBattle";
+  if (type === "Coding Test") return "typeCoding";
+  return "typeDefault";
+}
 
 type NoticeTone = "success" | "error" | "info";
 
@@ -235,14 +277,27 @@ export default function EventsClient() {
               const isLive = event.status === "live";
               const isBusy = busyEventId === event.id;
 
+              /* Infer human-readable event type from the event ID */
+              const eventType = inferEventType(event.id);
+              const typeClass = eventTypeClass(eventType);
+
               return (
                 <article key={event.id} className={styles.eventCard}>
                   <div className={styles.eventBanner} style={{ "--event-gradient": event.gradient } as React.CSSProperties}>
                     <div className={styles.eventIcon}><Icon size={48} /></div>
+
+                    {/* Status badge — top right corner */}
                     <div className={styles.statusBadgeWrapper}>
                       <span className={`${styles.statusBadge} ${styles[`status${event.status}`]}`}>
                         {isLive && <span className={styles.pulseDot} />}
                         {getStatusText(event.status)}
+                      </span>
+                    </div>
+
+                    {/* Event type chip — top left corner */}
+                    <div className={styles.eventTypeBadgeWrapper}>
+                      <span className={`${styles.eventTypeBadge} ${styles[typeClass]}`}>
+                        {eventType}
                       </span>
                     </div>
                   </div>

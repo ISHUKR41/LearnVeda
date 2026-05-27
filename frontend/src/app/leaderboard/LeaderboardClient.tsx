@@ -190,7 +190,8 @@ export default function LeaderboardClient() {
             <div className={styles.table}>
               <div className={styles.tableHeader}>
                 <span className={styles.colRank}>Rank</span>
-                <span className={styles.colUser}>User</span>
+                <span className={styles.colUser}>Student</span>
+                <span className={styles.colTrack}>Track</span>
                 <span className={styles.colLevel}>Level</span>
                 <span className={styles.colXP}>Total XP</span>
                 <span className={styles.colStreak}>Streak</span>
@@ -214,18 +215,26 @@ export default function LeaderboardClient() {
                       {user.isSelf && <span className={styles.selfLabel}>YOU</span>}
                     </span>
                   </div>
+                  <span className={styles.colTrack}>
+                    <span className={styles.trackChip}>
+                      {user.track.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase())}
+                    </span>
+                  </span>
                   <span className={styles.colLevel}>
                     <div className={styles.levelProgressCell}>
                       <span className={styles.levelText}>Lv.{user.level}</span>
                       <div className={styles.miniXPBar}>
-                        <div className={styles.miniXPFill} />
+                        <div
+                          className={styles.miniXPFill}
+                          style={{ width: `${Math.min(100, (user.xp % 1000) / 10)}%` }}
+                        />
                       </div>
                     </div>
                   </span>
                   <span className={styles.colXP}>
                     <div className={styles.xpValue}>
                       <Zap size={14} className={styles.xpIcon} />
-                      {user.xp.toLocaleString()}
+                      {user.xp.toLocaleString("en-IN")}
                     </div>
                   </span>
                   <span className={styles.colStreak}>

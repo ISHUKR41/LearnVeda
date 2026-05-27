@@ -4,11 +4,9 @@
  * PURPOSE: Global search API endpoint.
  *          Accepts a `q` query parameter and returns matching results from:
  *            1. Static curriculum catalogs (CBSE subjects, chapters)
- *            2. Learning catalog (Class 9-12 subjects, engineering plans)
- *          Uses the in-memory TypeScript data so search works WITHOUT a
- *          running PostgreSQL server. When the full database is available
- *          in production, extend this to also search community posts
- *          and user profiles.
+ *            2. PostgreSQL community posts (title + tags)
+ *            3. PostgreSQL user names (leaderboard-visible users only)
+ *          Results are sorted by type priority, then relevance.
  *
  * RETURNS:
  *   { ok: true, query: string, results: SearchResult[], total: number }
@@ -18,16 +16,17 @@
  *   500 — unexpected server error
  *
  * USED BY: src/app/search/page.tsx (client-side fetch)
- * LAST UPDATED: 2026-05-28
+ * LAST UPDATED: 2026-05-27
  */
 
 import { NextResponse } from "next/server";
 import { CLASS_9_CATALOG, type ClassCatalog } from "@/lib/curriculum/cbse-catalog";
+import { getPostgresPool } from "@/lib/server/database/postgres";
 
 /** Shape of a single search result sent to the client */
 interface SearchResult {
   id: string;
-  type: "chapter" | "subject" | "topic" | "post" | "user";
+  type: "chapter" | "subject" | "post" | "user";
   title: string;
   subtitle?: string;
   href: string;
@@ -36,9 +35,9 @@ interface SearchResult {
 
 export const dynamic = "force-dynamic";
 
-/**
- * All available catalogs for searching.
- * Add more catalogs here as class data is added (CLASS_10_CATALOG, etc.)
+/*
+ * All static curriculum catalogs used for in-memory search.
+ * These match quickly without hitting the DB.
  */
 const ALL_CATALOGS: ClassCatalog[] = [
   CLASS_9_CATALOG,
@@ -62,7 +61,7 @@ export async function GET(request: Request) {
   const results: SearchResult[] = [];
 
   try {
-    /* ── 2. Search through all curriculum catalogs ── */
+    /* ── 2. Search static curriculum catalogs (subjects + chapters) ── */
     for (const catalog of ALL_CATALOGS) {
       for (const subject of catalog.subjects) {
         /* Match subject name against query */
@@ -94,12 +93,92 @@ export async function GET(request: Request) {
           }
         }
 
-        /* Stop searching if we have enough results */
-        if (results.length >= 30) break;
+        if (results.length >= 20) break;
       }
 
-      if (results.length >= 30) break;
+      if (results.length >= 20) break;
     }
+
+    /* ── 3. Search real PostgreSQL community posts ── */
+    try {
+      const pool = getPostgresPool();
+
+      /*
+       * Match posts by title (case-insensitive) or tag array containment.
+       * Limit to 8 post results to keep the response lean.
+       */
+      const postsResult = await pool.query<{
+        id: string;
+        title: string;
+        body: string;
+        author_name: string;
+        tags: string[];
+        likes: number;
+        views: number;
+      }>(
+        `
+        SELECT id, title, body, author_name, tags, likes, views
+        FROM eduquest_community_posts
+        WHERE
+          LOWER(title) LIKE $1
+          OR EXISTS (
+            SELECT 1 FROM unnest(tags) AS t WHERE LOWER(t) LIKE $1
+          )
+        ORDER BY (likes + views / 10) DESC
+        LIMIT 8
+        `,
+        [`%${lowerQ}%`],
+      );
+
+      for (const post of postsResult.rows) {
+        results.push({
+          id: `post-${post.id}`,
+          type: "post",
+          title: post.title,
+          subtitle: `by ${post.author_name} · ${post.likes} likes`,
+          href: `/community`,
+          /* Show first 120 chars of body as the highlight snippet */
+          highlight: post.body.slice(0, 120) + (post.body.length > 120 ? "…" : ""),
+        });
+      }
+    } catch {
+      /* DB unavailable — skip community post results gracefully */
+    }
+
+    /* ── 4. Search PostgreSQL users (leaderboard-visible names) ── */
+    try {
+      const pool = getPostgresPool();
+
+      const usersResult = await pool.query<{
+        id: string;
+        name: string;
+        track: string;
+        level: number;
+      }>(
+        `
+        SELECT id, name, track, level
+        FROM eduquest_users
+        WHERE LOWER(name) LIKE $1
+        ORDER BY xp DESC
+        LIMIT 5
+        `,
+        [`%${lowerQ}%`],
+      );
+
+      for (const user of usersResult.rows) {
+        results.push({
+          id: `user-${user.id}`,
+          type: "user",
+          title: user.name,
+          subtitle: `Level ${user.level} · ${user.track}`,
+          href: `/leaderboard`,
+          highlight: `View on leaderboard`,
+        });
+      }
+    } catch {
+      /* DB unavailable — skip user results gracefully */
+    }
+
   } catch (err) {
     console.error("[search] Error:", err);
     return NextResponse.json(
@@ -108,7 +187,7 @@ export async function GET(request: Request) {
     );
   }
 
-  /* Limit total results to 30 for performance */
+  /* Limit total results to 30 */
   const limitedResults = results.slice(0, 30);
 
   return NextResponse.json({

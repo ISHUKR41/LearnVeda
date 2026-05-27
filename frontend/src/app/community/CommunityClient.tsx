@@ -36,12 +36,14 @@ interface PostsApiResponse {
 }
 
 const CATEGORIES = [
-  { name: "All Posts", tag: "all", icon: Users, color: "var(--color-primary)" },
-  { name: "General", tag: "general", icon: MessageSquare, color: "var(--color-text-secondary)" },
-  { name: "Class 9", tag: "class-9", icon: BookOpen, color: "var(--color-success)" },
-  { name: "Class 10", tag: "class-10", icon: BookOpen, color: "var(--color-primary-light)" },
-  { name: "Engineering", tag: "engineering", icon: Code2, color: "var(--color-secondary)" },
-  { name: "Battles", tag: "battle", icon: Trophy, color: "var(--color-accent)" },
+  { name: "All Posts",   tag: "all",         icon: Users,       color: "var(--color-primary)" },
+  { name: "General",     tag: "general",      icon: MessageSquare, color: "var(--color-text-secondary)" },
+  { name: "Class 9",     tag: "class-9",      icon: BookOpen,    color: "var(--color-success)" },
+  { name: "Class 10",    tag: "class-10",     icon: BookOpen,    color: "var(--color-primary-light)" },
+  { name: "Class 11",    tag: "class-11",     icon: BookOpen,    color: "#A78BFA" },
+  { name: "Class 12",    tag: "class-12",     icon: BookOpen,    color: "#FB923C" },
+  { name: "Engineering", tag: "engineering",  icon: Code2,       color: "var(--color-secondary)" },
+  { name: "Battles",     tag: "battle",       icon: Trophy,      color: "var(--color-accent)" },
 ];
 
 /** 
@@ -64,6 +66,7 @@ function formatPostTime(isoDate: string): string {
 export default function CommunityClient() {
   const [posts, setPosts] = useState<CommunityPost[]>([]);
   const [activeCategory, setActiveCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -107,13 +110,28 @@ export default function CommunityClient() {
     };
   }, []);
 
+  /* Filter posts by both category and search query */
   const visiblePosts = useMemo(() => {
-    if (activeCategory === "all") return posts;
-    return posts.filter((post) =>
-      post.tags.some((tag) => tag.toLowerCase().includes(activeCategory.toLowerCase())) ||
-      (activeCategory === "general" && post.tags.length === 0)
-    );
-  }, [activeCategory, posts]);
+    let filtered = posts;
+    /* Apply category filter */
+    if (activeCategory !== "all") {
+      filtered = filtered.filter((post) =>
+        post.tags.some((tag) => tag.toLowerCase().includes(activeCategory.toLowerCase())) ||
+        (activeCategory === "general" && post.tags.length === 0)
+      );
+    }
+    /* Apply search filter (title + body) */
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (post) =>
+          post.title.toLowerCase().includes(q) ||
+          post.body.toLowerCase().includes(q) ||
+          post.authorName.toLowerCase().includes(q)
+      );
+    }
+    return filtered;
+  }, [activeCategory, searchQuery, posts]);
 
   /** 
    * Creates a new post through the protected community API route. 
@@ -183,7 +201,13 @@ export default function CommunityClient() {
           <aside className={styles.sidebar}>
             <div className={styles.searchBar}>
               <Search size={18} />
-              <input type="text" placeholder="Search discussions..." className={styles.searchInput} />
+              <input
+                type="text"
+                placeholder="Search discussions..."
+                className={styles.searchInput}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
             </div>
 
             <div className={styles.sidebarSection}>
