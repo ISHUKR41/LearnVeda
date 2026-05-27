@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS analytics_events (
   event_type      VARCHAR(50)     NOT NULL,
 
   /* Who triggered it — NULL for anonymous events (page views before login) */
-  user_id         UUID            REFERENCES users(id) ON DELETE SET NULL,
+  user_id         UUID            REFERENCES eduquest_users(id) ON DELETE SET NULL,
 
   /* Flexible payload — different event types have different metadata shapes */
   metadata        JSONB           NOT NULL DEFAULT '{}',
@@ -75,7 +75,7 @@ CREATE INDEX IF NOT EXISTS idx_analytics_events_event_type
 
 /* Composite index for daily aggregation queries (used by getDailyStats) */
 CREATE INDEX IF NOT EXISTS idx_analytics_events_daily_agg
-  ON analytics_events (DATE(created_at), event_type);
+  ON analytics_events (((created_at AT TIME ZONE 'UTC')::date), event_type);
 
 /* Session-level grouping index */
 CREATE INDEX IF NOT EXISTS idx_analytics_events_session
@@ -86,64 +86,7 @@ COMMENT ON TABLE analytics_events IS
   'High-volume event tracking for user behavior analytics and admin dashboard metrics.';
 
 
-/* ─────────────────────────────────────────────
- * TABLE: audit_logs
- * Immutable audit trail for all sensitive operations.
- * Used for security compliance (SOC2, GDPR Article 30),
- * incident investigation, and admin accountability.
- *
- * Design decisions:
- *  - No UPDATE or DELETE allowed (append-only via application logic)
- *  - old_value and new_value stored as JSONB for schema flexibility
- *  - ip_address stored for accountability (not hashed — admin operations)
- *  - Separate from analytics_events for different retention policies
- * ───────────────────────────────────────────── */
-
-CREATE TABLE IF NOT EXISTS audit_logs (
-  /* Unique identifier */
-  id              BIGSERIAL       PRIMARY KEY,
-
-  /* Who performed the action */
-  actor_id        UUID            REFERENCES users(id) ON DELETE SET NULL,
-  actor_email     VARCHAR(255),                    -- Denormalized for quick lookups
-  actor_role      VARCHAR(50),                     -- 'admin', 'moderator', 'system'
-
-  /* What was done */
-  action          VARCHAR(100)    NOT NULL,         -- 'user.ban', 'content.delete', etc.
-  resource_type   VARCHAR(50)     NOT NULL,         -- 'user', 'chapter', 'question', etc.
-  resource_id     VARCHAR(100),                     -- ID of the affected resource
-
-  /* Before and after state for diff tracking */
-  old_value       JSONB,                           -- State before the change
-  new_value       JSONB,                           -- State after the change
-
-  /* Context */
-  ip_address      INET,                            -- Admin's IP address
-  user_agent      VARCHAR(500),                    -- Admin's browser info
-  request_id      VARCHAR(100),                    -- X-Request-ID for cross-referencing logs
-
-  /* Timestamp */
-  created_at      TIMESTAMPTZ     NOT NULL DEFAULT NOW()
-);
-
-/* Index for actor-based queries (who did what) */
-CREATE INDEX IF NOT EXISTS idx_audit_logs_actor
-  ON audit_logs (actor_id, created_at DESC);
-
-/* Index for resource-based queries (what happened to X) */
-CREATE INDEX IF NOT EXISTS idx_audit_logs_resource
-  ON audit_logs (resource_type, resource_id, created_at DESC);
-
-/* Index for action-based queries (all bans, all deletes, etc.) */
-CREATE INDEX IF NOT EXISTS idx_audit_logs_action
-  ON audit_logs (action, created_at DESC);
-
-/* Time-range index for compliance reports */
-CREATE INDEX IF NOT EXISTS idx_audit_logs_time
-  ON audit_logs (created_at DESC);
-
-COMMENT ON TABLE audit_logs IS
-  'Immutable audit trail for security-sensitive operations. Supports SOC2 and GDPR compliance.';
+/* Redundant audit_logs table and indexes removed to prevent conflict with 016_audit_logs_seo_cache.sql */
 
 
 /* ─────────────────────────────────────────────
@@ -154,7 +97,7 @@ COMMENT ON TABLE audit_logs IS
 
 CREATE TABLE IF NOT EXISTS user_preferences (
   /* Links to users table */
-  user_id                 UUID          PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+  user_id                 UUID          PRIMARY KEY REFERENCES eduquest_users(id) ON DELETE CASCADE,
 
   /* Notification channel preferences */
   email_notifications     BOOLEAN       NOT NULL DEFAULT true,
@@ -200,7 +143,7 @@ COMMENT ON TABLE user_preferences IS
 CREATE TABLE IF NOT EXISTS rate_limit_violations (
   id              BIGSERIAL       PRIMARY KEY,
   ip_address      INET            NOT NULL,
-  user_id         UUID            REFERENCES users(id) ON DELETE SET NULL,
+  user_id         UUID            REFERENCES eduquest_users(id) ON DELETE SET NULL,
   endpoint        VARCHAR(200)    NOT NULL,
   violation_count INTEGER         NOT NULL DEFAULT 1,
   first_violation TIMESTAMPTZ     NOT NULL DEFAULT NOW(),
@@ -234,7 +177,7 @@ CREATE TABLE IF NOT EXISTS api_request_logs (
   path            VARCHAR(500)    NOT NULL,           -- Request path
   status_code     SMALLINT        NOT NULL,           -- HTTP response status
   response_time_ms INTEGER        NOT NULL,           -- How long the request took
-  user_id         UUID            REFERENCES users(id) ON DELETE SET NULL,
+  user_id         UUID            REFERENCES eduquest_users(id) ON DELETE SET NULL,
   ip_address      INET,
   user_agent      VARCHAR(500),
   error_message   TEXT,                               -- Only populated for error responses
@@ -263,7 +206,7 @@ COMMENT ON TABLE api_request_logs IS
 
 
 /* ─────────────────────────────────────────────
- * Enhance existing notifications table (add missing columns if not present)
+ * Enhance existing eduquest_notifications table (add missing columns if not present)
  * ───────────────────────────────────────────── */
 
 DO $$
@@ -271,37 +214,37 @@ BEGIN
   /* Add priority column if it doesn't exist */
   IF NOT EXISTS (
     SELECT 1 FROM information_schema.columns
-    WHERE table_name = 'notifications' AND column_name = 'priority'
+    WHERE table_name = 'eduquest_notifications' AND column_name = 'priority'
   ) THEN
-    ALTER TABLE notifications ADD COLUMN priority VARCHAR(20) NOT NULL DEFAULT 'normal';
+    ALTER TABLE eduquest_notifications ADD COLUMN priority VARCHAR(20) NOT NULL DEFAULT 'normal';
   END IF;
 
   /* Add read_at timestamp column if it doesn't exist */
   IF NOT EXISTS (
     SELECT 1 FROM information_schema.columns
-    WHERE table_name = 'notifications' AND column_name = 'read_at'
+    WHERE table_name = 'eduquest_notifications' AND column_name = 'read_at'
   ) THEN
-    ALTER TABLE notifications ADD COLUMN read_at TIMESTAMPTZ;
+    ALTER TABLE eduquest_notifications ADD COLUMN read_at TIMESTAMPTZ;
   END IF;
 
   /* Add action_label column if it doesn't exist */
   IF NOT EXISTS (
     SELECT 1 FROM information_schema.columns
-    WHERE table_name = 'notifications' AND column_name = 'action_label'
+    WHERE table_name = 'eduquest_notifications' AND column_name = 'action_label'
   ) THEN
-    ALTER TABLE notifications ADD COLUMN action_label VARCHAR(100);
+    ALTER TABLE eduquest_notifications ADD COLUMN action_label VARCHAR(100);
   END IF;
 
   /* Add metadata JSONB column if it doesn't exist */
   IF NOT EXISTS (
     SELECT 1 FROM information_schema.columns
-    WHERE table_name = 'notifications' AND column_name = 'metadata'
+    WHERE table_name = 'eduquest_notifications' AND column_name = 'metadata'
   ) THEN
-    ALTER TABLE notifications ADD COLUMN metadata JSONB NOT NULL DEFAULT '{}';
+    ALTER TABLE eduquest_notifications ADD COLUMN metadata JSONB NOT NULL DEFAULT '{}';
   END IF;
 END $$;
 
 /* Priority-aware ordering index for notification queries */
-CREATE INDEX IF NOT EXISTS idx_notifications_priority_order
-  ON notifications (user_id, priority, created_at DESC)
+CREATE INDEX IF NOT EXISTS idx_eduquest_notifications_priority_order
+  ON eduquest_notifications (user_id, priority, created_at DESC)
   WHERE is_read = false;

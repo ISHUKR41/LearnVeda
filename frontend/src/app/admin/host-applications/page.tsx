@@ -9,10 +9,8 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getAuthenticatedUserFromToken } from "@/lib/server/auth/current-user";
-import { SESSION_COOKIE_NAME } from "@/lib/server/auth/session";
 import styles from "./AdminHostApplications.module.css";
 
 export const metadata = {
@@ -25,12 +23,13 @@ const AdminHostApplicationsClient = dynamic(() => import("./AdminHostApplication
 });
 
 export default async function AdminHostApplicationsPage() {
-  const cookieStore = await cookies();
-  const user = await getAuthenticatedUserFromToken(cookieStore.get(SESSION_COOKIE_NAME)?.value);
+  // Uses Clerk auth (primary) with legacy cookie fallback
+  const user = await getAuthenticatedUserFromToken(undefined);
 
   if (!user) {
-    redirect("/sign-in?next=/admin/host-applications");
+    redirect("/sign-in?redirect_url=/admin/host-applications");
   }
+
 
   if (user.role !== "admin") {
     return (

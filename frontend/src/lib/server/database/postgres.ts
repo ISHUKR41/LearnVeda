@@ -43,6 +43,13 @@ export function getPostgresPool(): Pool {
         : undefined,
   });
 
+  // Ensure all queries run against the 'public' schema
+  globalForDatabase.__eduquestPostgresPool.on('connect', (client) => {
+    client.query('SET search_path TO backend, public').catch((err) => {
+      console.error('Failed to set search_path on new client connection', err);
+    });
+  });
+
   return globalForDatabase.__eduquestPostgresPool;
 }
 

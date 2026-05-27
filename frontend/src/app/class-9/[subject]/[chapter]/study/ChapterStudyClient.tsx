@@ -37,6 +37,55 @@ interface ChapterStudyClientProps {
   backUrl: string;
 }
 
+/**
+ * Synthesizes standard success/failure chime sound effects using Web Audio API.
+ * This guarantees audio works instantly without needing static audio asset files.
+ */
+function playSound(type: "correct" | "wrong") {
+  if (typeof window === "undefined") return;
+  try {
+    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContextClass) return;
+    const ctx = new AudioContextClass();
+    
+    if (type === "correct") {
+      // Correct ding: C5 (523Hz) then E5 (659Hz)
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      
+      osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+      osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.08);
+      
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.35);
+    } else {
+      // Wrong buzz: Sawtooth wave sliding down from 160Hz to 90Hz
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sawtooth";
+      
+      osc.frequency.setValueAtTime(160, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(90, ctx.currentTime + 0.25);
+      
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+      
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.25);
+    }
+  } catch (err) {
+    console.warn("Could not play synthesized sound effect:", err);
+  }
+}
+
 /* ═══════════════════════════════════════════════
  * MCQInteractive — Interactive MCQ card with selection,
  * submission, answer reveal, and explanation display.
@@ -58,6 +107,10 @@ function MCQInteractive({ mcq, index }: { mcq: MCQ; index: number }) {
     if (!selected) return;
     setSubmitted(true);
     setShowAnswer(true);
+    
+    // Play sound effect based on correctness
+    const isCorrect = selected === mcq.correctAnswer;
+    playSound(isCorrect ? "correct" : "wrong");
   };
 
   /** Toggle answer visibility without submission */

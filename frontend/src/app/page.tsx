@@ -87,20 +87,28 @@ interface PlatformStats {
 async function getPlatformStats(): Promise<PlatformStats> {
   try {
     const pool = getPostgresPool();
-    const [students, chapters, questions, events, subjects] = await Promise.all([
-      pool.query("SELECT COUNT(*)::INTEGER AS n FROM eduquest_users"),
-      pool.query("SELECT COUNT(*)::INTEGER AS n FROM eduquest_chapters"),
-      pool.query("SELECT COUNT(*)::INTEGER AS n FROM eduquest_questions WHERE is_active = TRUE"),
-      pool.query("SELECT COUNT(*)::INTEGER AS n FROM eduquest_events"),
-      pool.query("SELECT COUNT(*)::INTEGER AS n FROM eduquest_subjects"),
-    ]);
+    const result = await pool.query<{
+      students: number;
+      chapters: number;
+      questions: number;
+      events: number;
+      subjects: number;
+    }>(`
+      SELECT 
+        (SELECT COUNT(*)::INTEGER FROM backend."User") AS students,
+        (SELECT COUNT(*)::INTEGER FROM backend."Chapter") AS chapters,
+        (SELECT COUNT(*)::INTEGER FROM backend."Question") AS questions,
+        (SELECT COUNT(*)::INTEGER FROM backend."Event") AS events,
+        (SELECT COUNT(*)::INTEGER FROM backend."Subject") AS subjects
+    `);
 
+    const row = result.rows[0];
     return {
-      totalStudents:  students.rows[0]?.n  ?? 0,
-      totalChapters:  chapters.rows[0]?.n  ?? 0,
-      totalQuestions: questions.rows[0]?.n ?? 0,
-      totalEvents:    events.rows[0]?.n    ?? 0,
-      totalSubjects:  subjects.rows[0]?.n  ?? 0,
+      totalStudents:  row?.students  ?? 0,
+      totalChapters:  row?.chapters  ?? 0,
+      totalQuestions: row?.questions ?? 0,
+      totalEvents:    row?.events    ?? 0,
+      totalSubjects:  row?.subjects  ?? 0,
     };
   } catch (err) {
     console.error("[HomePage] getPlatformStats error:", err);

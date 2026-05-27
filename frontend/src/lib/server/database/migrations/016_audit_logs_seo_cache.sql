@@ -117,32 +117,32 @@ CREATE INDEX IF NOT EXISTS idx_seo_cache_expires
 
 
 /* ─────────────────────────────────────────────
- * Add engineering-specific columns to subjects table
+ * Add engineering-specific columns to eduquest_subjects table
  * if they don't already exist.
  * ───────────────────────────────────────────── */
 DO $$ BEGIN
   /* Add semester column for engineering subjects */
   IF NOT EXISTS (
     SELECT 1 FROM information_schema.columns
-    WHERE table_name = 'subjects' AND column_name = 'semester'
+    WHERE table_name = 'eduquest_subjects' AND column_name = 'semester'
   ) THEN
-    ALTER TABLE subjects ADD COLUMN semester INTEGER;
+    ALTER TABLE eduquest_subjects ADD COLUMN semester INTEGER;
   END IF;
 
   /* Add stream column for engineering branch */
   IF NOT EXISTS (
     SELECT 1 FROM information_schema.columns
-    WHERE table_name = 'subjects' AND column_name = 'stream'
+    WHERE table_name = 'eduquest_subjects' AND column_name = 'stream'
   ) THEN
-    ALTER TABLE subjects ADD COLUMN stream VARCHAR(20);
+    ALTER TABLE eduquest_subjects ADD COLUMN stream VARCHAR(20);
   END IF;
 
-  /* Add total_topics to chapters */
+  /* Add total_topics to eduquest_chapters */
   IF NOT EXISTS (
     SELECT 1 FROM information_schema.columns
-    WHERE table_name = 'chapters' AND column_name = 'total_topics'
+    WHERE table_name = 'eduquest_chapters' AND column_name = 'total_topics'
   ) THEN
-    ALTER TABLE chapters ADD COLUMN total_topics INTEGER DEFAULT 0;
+    ALTER TABLE eduquest_chapters ADD COLUMN total_topics INTEGER DEFAULT 0;
   END IF;
 END $$;
 

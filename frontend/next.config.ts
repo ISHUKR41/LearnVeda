@@ -15,7 +15,9 @@ import type { NextConfig } from "next";
 const replitDevDomain = process.env.REPLIT_DEV_DOMAIN;
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["lucide-react"],
+  experimental: {
+    optimizePackageImports: ["lucide-react"],
+  },
   /* ── Security ───────────────────────────────────────────── */
   poweredByHeader: false,   // Don't advertise Next.js version in HTTP headers
   compress: true,            // Enable Brotli/Gzip on all responses

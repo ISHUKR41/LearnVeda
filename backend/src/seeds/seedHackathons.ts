@@ -12,20 +12,21 @@
  *  3. Restart the db-server
  */
 
-import { PGlite } from "@electric-sql/pglite";
+import { Pool } from "pg";
 import * as dotenv from "dotenv";
 
 dotenv.config();
 
 async function main() {
-  console.log("🚀 Starting predefined Hackathons seeding directly via PGlite disk...");
+  console.log("🚀 Starting predefined Hackathons seeding via pg Pool...");
   
-  // Create connection to the local database file path directly on disk
-  const pg = await PGlite.create("./.data/pglite-db");
+  const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+  });
 
   try {
     // Get an organizer/admin user
-    const adminRes = await pg.query(
+    const adminRes = await pool.query(
       `SELECT id FROM "backend"."User" WHERE email = 'admin@eduquest.com' LIMIT 1`
     );
 
@@ -92,10 +93,10 @@ async function main() {
       }
     ];
 
-    await pg.query("BEGIN");
+    await pool.query("BEGIN");
 
     for (const h of hackathons) {
-      await pg.query(
+      await pool.query(
         `INSERT INTO "backend"."Event" (
           id, title, description, "organizerId", "eventType", venue,
           "maxParticipants", "startTime", "endTime", "registrationDeadline",
@@ -129,14 +130,14 @@ async function main() {
       console.log(`   ✅ Seeded/Upserted event: ${h.title} (ID: ${h.id})`);
     }
 
-    await pg.query("COMMIT");
-    console.log("🎉 Predefined Hackathons seeded successfully directly to disk!");
+    await pool.query("COMMIT");
+    console.log("🎉 Predefined Hackathons seeded successfully!");
   } catch (err) {
-    await pg.query("ROLLBACK");
-    console.error("❌ Failed to seed predefined Hackathons directly to disk:", err);
+    await pool.query("ROLLBACK");
+    console.error("❌ Failed to seed predefined Hackathons:", err);
     throw err;
   } finally {
-    await pg.close();
+    await pool.end();
   }
 }
 

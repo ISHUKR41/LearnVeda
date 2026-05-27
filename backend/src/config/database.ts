@@ -72,7 +72,7 @@ const poolConfig: PoolConfig = {
   connectionString: process.env.DATABASE_URL,
 
   /* Connection pool sizing — scales based on environment */
-  max: IS_PRODUCTION ? 100 : 10,
+  max: IS_PRODUCTION ? 100 : 2,
   min: IS_PRODUCTION ? 5 : 1,
 
   /* Timeout configuration — prevents resource starvation */
@@ -106,21 +106,17 @@ export const pool = new Pool(poolConfig);
  * - application_name: Tag in pg_stat_activity
  */
 pool.on("connect", (client: PoolClient) => {
-  /* Set schema search path to support Prisma's backend schema and public schema cohabitation */
-  client.query("SET search_path TO backend, public");
-
-  /* Set statement timeout to prevent runaway queries from consuming connections */
   const statementTimeout = IS_PRODUCTION ? "30s" : "60s";
-  client.query(`SET statement_timeout = '${statementTimeout}'`);
-
-  /* Kill idle-in-transaction connections after 30 seconds in production.
-   * This prevents a forgotten BEGIN without COMMIT from holding a connection forever. */
-  if (IS_PRODUCTION) {
-    client.query("SET idle_in_transaction_session_timeout = '30s'");
-  }
-
-  /* Set application name for monitoring in pg_stat_activity */
-  client.query("SET application_name = 'eduquest-backend'");
+  const idleTimeout = IS_PRODUCTION ? "SET idle_in_transaction_session_timeout = '30s';" : "";
+  
+  client.query(`
+    SET search_path TO backend, public;
+    SET statement_timeout = '${statementTimeout}';
+    ${idleTimeout}
+    SET application_name = 'eduquest-backend';
+  `).catch(err => {
+    logger.error("[DB Pool] Failed to set session parameters", { error: err.message });
+  });
 
   logger.debug("[DB Pool] New client connected", {
     totalConnections: pool.totalCount,

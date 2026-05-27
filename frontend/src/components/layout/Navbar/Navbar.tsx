@@ -15,7 +15,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Menu, X, Sun, Moon, BookOpen, ChevronDown, Zap,
-  Search, Bell, Flame, Swords, User, Wallet, Settings, ShieldCheck
+  Search, Bell, Flame, Swords, User, Wallet, Settings, ShieldCheck, LogOut
 } from "lucide-react";
 import { useAuth, UserButton } from "@clerk/nextjs";
 import styles from "./Navbar.module.css";
@@ -23,6 +23,7 @@ import type { PublicUser } from "@/types/auth";
 
 /**
  * Navbar Component
+ * @cache-buster - Added to invalidate stale Turbopack browser cache
  */
 export default function Navbar() {
   const pathname = usePathname();

@@ -27,6 +27,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@clerk/express": "^2.1.21",
     "@electric-sql/pglite": "^0.4.6",
     "@electric-sql/pglite-socket": "^0.1.6",
     "@prisma/adapter-pg": "^7.8.0",
@@ -43,6 +44,7 @@
     "morgan": "^1.10.1",
     "multer": "^2.1.1",
     "pg": "^8.20.0",
+    "pglite-prisma-adapter": "^0.7.2",
     "socket.io": "^4.8.3"
   },
   "devDependencies": {

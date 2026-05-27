@@ -38,6 +38,7 @@ import hpp from "hpp";
 import { rateLimiter } from "./middlewares/rateLimiter";
 import { closeRedisClient, probeRedis } from "./config/redis";
 import logger from "./utils/logger";
+import { clerkMiddleware } from "@clerk/express";
 
 /* ─────────────────────────────────────────────
  * Route imports — each module handles a distinct feature domain.
@@ -141,6 +142,9 @@ app.use(responseTimeMiddleware);
 /* 6. Body parsing — JSON and URL-encoded form data */
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true, limit: "2mb" }));
+
+/* 7. Clerk Authentication Middleware */
+app.use(clerkMiddleware());
 
 /* 4. HTTP request logging */
 if (IS_DEV) {

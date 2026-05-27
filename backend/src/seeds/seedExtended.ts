@@ -28,6 +28,7 @@ const pool = new Pool({
   max: 5,
 });
 
+
 /* ─────────────────────────────────────────────
  * TOPIC THEORY CONTENT
  * Real NCERT-based educational content in markdown format.
@@ -500,6 +501,7 @@ async function seedExtended() {
   const client = await pool.connect();
 
   try {
+    await client.query("SET search_path TO backend, public");
     await client.query("BEGIN");
 
     // ── 1. Seed Sample Users ──
