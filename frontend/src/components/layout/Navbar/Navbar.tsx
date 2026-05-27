@@ -40,11 +40,13 @@ function NavbarShell({ pathname }: NavbarShellProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDesktopGroup, setActiveDesktopGroup] = useState<string | null>(null);
   /**
-   * Theme state — always initializes to false (light) on BOTH server and client.
-   * The actual localStorage value is read in useEffect below to prevent
-   * hydration mismatches (server doesn't have localStorage).
+   * Theme state — initializes to TRUE (dark) on both server and client.
+   * EduQuest defaults to dark mode. The server renders data-theme="dark" and
+   * this initial value matches it, preventing hydration mismatches.
+   * The actual localStorage value is then read in useEffect to honour
+   * any explicit user preference (only switching to light if they saved "light").
    */
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   /** Tracks whether the component has mounted on the client. Used to prevent
    *  theme icon hydration mismatch — we render a neutral icon until mounted. */
   const [mounted, setMounted] = useState(false);
@@ -54,12 +56,18 @@ function NavbarShell({ pathname }: NavbarShellProps) {
   const [currentUser, setCurrentUser] = useState<PublicUser | null>(null);
 
   /* Read saved theme from localStorage ONLY on the client after mount.
+   * Default is dark — only switch to light if the user explicitly saved "light".
    * This prevents the server from rendering a different icon than the client. */
   useEffect(() => {
     setMounted(true);
     const stored = localStorage.getItem("eduquest-theme");
-    if (stored === "dark") {
-      setIsDark(true);
+    // If no stored preference, keep dark (matches server default).
+    // Only honour an explicit "light" choice.
+    const prefersDark = stored ? stored === "dark" : true;
+    setIsDark(prefersDark);
+    // Persist the default so future page loads are also consistent.
+    if (!stored) {
+      localStorage.setItem("eduquest-theme", "dark");
     }
   }, []);
 

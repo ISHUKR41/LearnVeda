@@ -32,7 +32,7 @@ export function getPostgresPool(): Pool {
 
   const globalForDatabase = globalThis as DatabaseGlobal;
 
-  globalForDatabase.__eduquestPostgresPool ??= new Pool({
+  const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     max: Number(process.env.POSTGRES_POOL_MAX ?? 10),
     idleTimeoutMillis: Number(process.env.POSTGRES_IDLE_TIMEOUT_MS ?? 30_000),
@@ -42,11 +42,17 @@ export function getPostgresPool(): Pool {
         ? { rejectUnauthorized: process.env.POSTGRES_SSL_REJECT_UNAUTHORIZED !== "false" }
         : undefined,
   });
+  // Raise the listener cap so we don't trigger the MaxListenersExceededWarning
+  // when multiple repository files each add a 'connect' listener.
+  pool.setMaxListeners(25);
+  globalForDatabase.__eduquestPostgresPool = pool;
 
-  // Ensure all queries run against the 'public' schema
+  // All EduQuest tables live in the public schema (eduquest_* prefix).
+  // Setting search_path to 'public' ensures every query resolves correctly
+  // without needing explicit schema qualifiers.
   globalForDatabase.__eduquestPostgresPool.on('connect', (client) => {
-    client.query('SET search_path TO backend, public').catch((err) => {
-      console.error('Failed to set search_path on new client connection', err);
+    client.query("SET search_path TO public").catch((err) => {
+      console.error('[postgres] Failed to set search_path:', err);
     });
   });
 

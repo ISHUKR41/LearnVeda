@@ -95,11 +95,11 @@ async function getPlatformStats(): Promise<PlatformStats> {
       subjects: number;
     }>(`
       SELECT 
-        (SELECT COUNT(*)::INTEGER FROM backend."User") AS students,
-        (SELECT COUNT(*)::INTEGER FROM backend."Chapter") AS chapters,
-        (SELECT COUNT(*)::INTEGER FROM backend."Question") AS questions,
-        (SELECT COUNT(*)::INTEGER FROM backend."Event") AS events,
-        (SELECT COUNT(*)::INTEGER FROM backend."Subject") AS subjects
+        (SELECT COUNT(*)::INTEGER FROM eduquest_users) AS students,
+        (SELECT COUNT(*)::INTEGER FROM eduquest_chapters) AS chapters,
+        (SELECT COUNT(*)::INTEGER FROM eduquest_questions) AS questions,
+        (SELECT COUNT(*)::INTEGER FROM eduquest_events) AS events,
+        (SELECT COUNT(*)::INTEGER FROM eduquest_subjects) AS subjects
     `);
 
     const row = result.rows[0];
