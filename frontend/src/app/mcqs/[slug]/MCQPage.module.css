@@ -193,6 +193,105 @@
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
 }
 
+/* Selected but not yet checked — active highlight */
+.selectedOption {
+  background: rgba(59, 130, 246, 0.06) !important;
+  border-color: #3b82f6 !important;
+  color: #1e40af !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+/* Inline feedback labels for correct / incorrect answers */
+.correctLabel {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #059669;
+  font-family: var(--font-sans-next), system-ui, sans-serif;
+}
+
+.incorrectLabel {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #dc2626;
+  font-family: var(--font-sans-next), system-ui, sans-serif;
+}
+
+/* ─── Dark Mode Overrides ───────────────────── */
+:global([data-theme="dark"]) .container { color: #e2e8f0; }
+:global([data-theme="dark"]) .breadcrumbLink { color: #94a3b8; }
+:global([data-theme="dark"]) .breadcrumbLink:hover { color: #60a5fa; }
+:global([data-theme="dark"]) .breadcrumbCurrent { color: #f1f5f9; }
+:global([data-theme="dark"]) .headerBlock {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(51, 65, 85, 0.6);
+}
+:global([data-theme="dark"]) .title { color: #f1f5f9; }
+:global([data-theme="dark"]) .description { color: #94a3b8; }
+:global([data-theme="dark"]) .mcqCard {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+:global([data-theme="dark"]) .statusBar { border-bottom-color: #1e293b; }
+:global([data-theme="dark"]) .questionText { color: #f1f5f9; }
+:global([data-theme="dark"]) .optionButton {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+:global([data-theme="dark"]) .optionButton:hover:not(:disabled) {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: #60a5fa;
+}
+:global([data-theme="dark"]) .selectedOption {
+  background: rgba(59, 130, 246, 0.15) !important;
+  border-color: #60a5fa !important;
+  color: #93c5fd !important;
+}
+:global([data-theme="dark"]) .correctOption {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: #34d399 !important;
+  color: #6ee7b7 !important;
+}
+:global([data-theme="dark"]) .wrongOption {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: #f87171 !important;
+  color: #fca5a5 !important;
+}
+:global([data-theme="dark"]) .explanationBox {
+  background: rgba(5, 150, 105, 0.1);
+  border-color: rgba(52, 211, 153, 0.3);
+}
+:global([data-theme="dark"]) .explanationTitle { color: #6ee7b7; }
+:global([data-theme="dark"]) .explanationText { color: #a7f3d0; }
+:global([data-theme="dark"]) .completionCard {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+:global([data-theme="dark"]) .completionTitle { color: #f1f5f9; }
+:global([data-theme="dark"]) .completionText { color: #94a3b8; }
+:global([data-theme="dark"]) .scoreBanner {
+  background: #1e293b;
+  border-color: #334155;
+}
+:global([data-theme="dark"]) .sidebarCard {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+:global([data-theme="dark"]) .sidebarTitle {
+  color: #f1f5f9;
+  border-bottom-color: #1e293b;
+}
+:global([data-theme="dark"]) .sidebarLink {
+  color: #94a3b8;
+  background: #1e293b;
+  border-color: #334155;
+}
+:global([data-theme="dark"]) .sidebarLink:hover {
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
 .explanationBox {
   background: #f0fdf4;
   border: 1px solid #bbf7d0;

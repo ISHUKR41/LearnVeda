@@ -125,8 +125,8 @@ export default function MCQClient({ questions }: MCQClientProps) {
               optionClass = `${styles.optionButton} ${styles.wrongOption}`;
             }
           } else if (selectedOption === option) {
-            // Selected but unchecked state
-            optionClass = `${styles.optionButton} border-blue-500 bg-blue-50/50 text-blue-700`;
+            /* Selected but not yet checked — show active highlight */
+            optionClass = `${styles.optionButton} ${styles.selectedOption}`;
           }
 
           return (
@@ -138,10 +138,10 @@ export default function MCQClient({ questions }: MCQClientProps) {
             >
               <span>{option}</span>
               {isChecked && option === currentQuestion.correctAnswer && (
-                <span className="text-emerald-600 font-bold text-sm font-sans">✓ Correct</span>
+                <span className={styles.correctLabel}>✓ Correct</span>
               )}
               {isChecked && selectedOption === option && option !== currentQuestion.correctAnswer && (
-                <span className="text-rose-600 font-bold text-sm font-sans">✗ Incorrect</span>
+                <span className={styles.incorrectLabel}>✗ Incorrect</span>
               )}
             </button>
           );
