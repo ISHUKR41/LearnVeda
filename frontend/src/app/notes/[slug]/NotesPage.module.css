@@ -1,0 +1,344 @@
+/**
+ * FILE: NotesPage.module.css
+ * LOCATION: src/app/notes/[slug]/NotesPage.module.css
+ * PURPOSE: Custom scoped styles for programmatic educational study notes.
+ *          Implements a premium modern minimalist aesthetic, soft HSL gradients,
+ *          glassmorphism borders, card hover transitions, and clean typography.
+ *
+ * STYLING SYSTEM:
+ *  - Inter & Plus Jakarta Sans typography.
+ *  - Soft shadows and glowing borders on active author profiles.
+ *  - Clean layout spacing for sidebar related clusters.
+ *
+ * LAST UPDATED: 2026-05-26
+ */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  font-family: var(--font-sans-next), system-ui, sans-serif;
+  color: #1e293b;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: 8fr 4fr;
+  }
+}
+
+/* --- Note Main Card --- */
+.mainCard {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mainCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 1.25rem;
+}
+
+.title {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+.introduction {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 1.5rem;
+}
+
+.contentBody {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #334155;
+}
+
+.contentBody h2 {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contentBody p {
+  margin-bottom: 1.25rem;
+}
+
+.contentBody ul, .contentBody ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.contentBody li {
+  margin-bottom: 0.5rem;
+}
+
+/* --- E-E-A-T Section --- */
+.eeatSection {
+  margin-top: 3.5rem;
+  border-top: 2px dashed #e2e8f0;
+  padding-top: 2.5rem;
+}
+
+.authorCard {
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 1rem;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+  .authorCard {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.avatarContainer {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  font-size: 1.75rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  flex-shrink: 0;
+}
+
+.authorDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.authorName {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.authorTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.authorAffiliation {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.authorBio {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #475569;
+  margin-top: 0.5rem;
+}
+
+/* --- Citation List --- */
+.citationsCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.citationsTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.citationItem {
+  font-size: 0.9rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+  padding-left: 1rem;
+  border-left: 2px solid #cbd5e1;
+}
+
+.citationItem:last-child {
+  margin-bottom: 0;
+}
+
+/* --- PDF Download Trigger --- */
+.pdfCard {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #ffffff;
+  border-radius: 1rem;
+  padding: 1.75rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.15);
+}
+
+@media (min-width: 640px) {
+  .pdfCard {
+    flex-direction: row;
+  }
+}
+
+.pdfInfo {
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .pdfInfo {
+    text-align: left;
+  }
+}
+
+.pdfTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.pdfSubtitle {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.pdfButton {
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.pdfButton:hover {
+  background: #3b82f6;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
+/* --- Sidebar Sidebar Related Lists --- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sidebarCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+}
+
+.sidebarTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.linksList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.sidebarLink {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+}
+
+.sidebarLink:hover {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.05);
+  border-color: rgba(37, 99, 235, 0.15);
+  transform: translateX(3px);
+}
+
+.sidebarLink::before {
+  content: "→";
+  margin-right: 0.5rem;
+  color: #3b82f6;
+  font-weight: bold;
+}

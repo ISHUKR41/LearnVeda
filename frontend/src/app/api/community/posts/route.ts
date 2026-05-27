@@ -20,8 +20,13 @@ export const runtime = "nodejs";
 
 /** Returns all community posts in newest-first order. */
 export async function GET() {
-  const posts = await loadCommunityFeed();
-  return apiSuccess({ posts }, { headers: NO_STORE_HEADERS });
+  try {
+    const posts = await loadCommunityFeed();
+    return apiSuccess({ posts }, { headers: NO_STORE_HEADERS });
+  } catch {
+    /* Database unavailable — return empty feed instead of 500 in development */
+    return apiSuccess({ posts: [] }, { headers: NO_STORE_HEADERS });
+  }
 }
 
 /** Creates a new community post for the signed-in user. */

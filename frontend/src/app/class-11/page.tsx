@@ -22,6 +22,9 @@ export const metadata = {
   title: "Class 11 — Choose Your Stream | EduQuest",
   description:
     "Class 11 learning tracks for Science, Commerce, and Arts streams. Deep subject coverage with structured day-wise plans for every subject.",
+  icons: {
+    icon: "/favicons/school.svg",
+  },
 };
 
 /*

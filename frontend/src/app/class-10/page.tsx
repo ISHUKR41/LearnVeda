@@ -31,6 +31,9 @@ export const metadata = {
   title: "Class 10 — CBSE Board Exam Preparation | EduQuest",
   description:
     "Structured CBSE Class 10 board exam preparation — Maths, Science, Social Science, English, Hindi. Chapter-wise day plans, practice questions, and mock tests.",
+  icons: {
+    icon: "/favicons/school.svg",
+  },
 };
 
 /* ─────────────────────────────────────────────

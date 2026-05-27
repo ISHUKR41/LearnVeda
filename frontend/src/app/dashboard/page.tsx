@@ -21,6 +21,9 @@ import DashboardLoadingSkeleton from "./DashboardLoadingSkeleton";
 export const metadata = {
   title: "Dashboard",
   description: "Your EduQuest learning progress, streaks, XP, battles, and quick actions.",
+  icons: {
+    icon: "/favicons/dashboard.svg",
+  },
 };
 
 /** Lazy client boundary keeps the dashboard route lightweight before hydration. */

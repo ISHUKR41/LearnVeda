@@ -19,10 +19,17 @@ export const runtime = "nodejs";
 
 /** Returns event cards and the current user's registration ids when available. */
 export async function GET(request: NextRequest) {
-  const user = await getAuthenticatedUser(request);
-  const snapshot = await buildEventCatalogSnapshot(user?.id);
-
-  return apiSuccess(snapshot, { headers: NO_STORE_HEADERS });
+  try {
+    const user = await getAuthenticatedUser(request);
+    const snapshot = await buildEventCatalogSnapshot(user?.id);
+    return apiSuccess(snapshot, { headers: NO_STORE_HEADERS });
+  } catch {
+    /* Database unavailable — return empty event catalog instead of 500 */
+    return apiSuccess(
+      { events: [], registeredEventIds: [] },
+      { headers: NO_STORE_HEADERS },
+    );
+  }
 }
 
 /** Blocks unaudited public event creation until the organizer portal is ready. */

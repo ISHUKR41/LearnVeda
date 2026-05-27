@@ -15,7 +15,7 @@
  */
 
 import type { Metadata, Viewport } from "next";
-import { Inter, Sora, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import { SITE_CONFIG } from "@/lib/constants";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import Footer from "@/components/layout/Footer/Footer";
@@ -28,10 +28,11 @@ const inter = Inter({
   display: "swap",
 });
 
-const sora = Sora({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-heading-next",
   display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -40,11 +41,6 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-stats-next",
-  display: "swap",
-});
 
 /* ─────────────────────────────────────────────
  * Viewport Configuration
@@ -115,8 +111,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
+    icon: "/favicons/home.svg",
+    shortcut: "/favicons/home.svg",
   },
 };
 
@@ -150,7 +146,7 @@ interface RootLayoutProps {
  */
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
         {/*
          * Providers wraps everything that needs client-side context.

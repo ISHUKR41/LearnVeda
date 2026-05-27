@@ -1,0 +1,530 @@
+/**
+ * FILE: FAQ.module.css
+ * LOCATION: src/app/faq/FAQ.module.css
+ * PURPOSE: Styling for the FAQ page — dark, premium aesthetic with smooth
+ *          accordion animations, category tab navigation, and professional
+ *          search bar. Fully responsive across all device sizes.
+ *
+ * DESIGN SYSTEM:
+ *  - Dark background with subtle gradients
+ *  - Glassmorphism cards with blur effects
+ *  - Smooth CSS transitions for accordion open/close
+ *  - Professional typography using the global font stack
+ *  - Consistent spacing scale (8px base)
+ *
+ * USED BY: FAQ/page.tsx
+ * LAST UPDATED: 2026-05-27
+ */
+
+/* ─────────────────────────────────────────────
+ * Page Container
+ * ───────────────────────────────────────────── */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0a0a14 0%, #0d0d1a 50%, #0a0a14 100%);
+  color: #e4e4e7;
+  padding-bottom: 4rem;
+}
+
+/* ─────────────────────────────────────────────
+ * Hero Section
+ * ───────────────────────────────────────────── */
+.hero {
+  position: relative;
+  padding: 5rem 1.5rem 3rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Subtle radial glow behind the hero */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.heroInner {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #818cf8;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 1.5rem;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #fafafa;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.heroHighlight {
+  background: linear-gradient(135deg, #818cf8, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #a1a1aa;
+  max-width: 540px;
+  margin: 0 auto 2rem;
+}
+
+/* ─────────────────────────────────────────────
+ * Search Bar
+ * ───────────────────────────────────────────── */
+.searchContainer {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #71717a;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 14px 42px 14px 46px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #e4e4e7;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.searchInput::placeholder {
+  color: #52525b;
+}
+
+.searchInput:focus {
+  border-color: rgba(99, 102, 241, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.searchClear {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #71717a;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.searchClear:hover {
+  color: #e4e4e7;
+}
+
+/* ─────────────────────────────────────────────
+ * Category Tab Navigation
+ * ───────────────────────────────────────────── */
+.categoriesSection {
+  padding: 0 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.categoriesInner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.categoryTab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: #a1a1aa;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.categoryTab:hover {
+  color: #e4e4e7;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.categoryTabActive {
+  color: #fff;
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.categoryCount {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #71717a;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.categoryTabActive .categoryCount {
+  color: #c7d2fe;
+  background: rgba(99, 102, 241, 0.2);
+}
+
+/* ─────────────────────────────────────────────
+ * FAQ Accordion Section
+ * ───────────────────────────────────────────── */
+.faqSection {
+  padding: 0 1.5rem;
+}
+
+.faqInner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.resultsCount {
+  font-size: 0.82rem;
+  color: #71717a;
+  margin-bottom: 1rem;
+  padding-left: 4px;
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ─────────────────────────────────────────────
+ * Accordion Item
+ * ───────────────────────────────────────────── */
+.accordionItem {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.accordionItem:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.accordionItemOpen {
+  border-color: rgba(99, 102, 241, 0.2);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+/* ── Question Header (clickable) ── */
+.accordionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.accordionHeader:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.accordionLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.accordionIcon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 8px;
+  color: #818cf8;
+}
+
+.accordionQuestion {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fafafa;
+  line-height: 1.4;
+}
+
+.accordionChevron {
+  flex-shrink: 0;
+  color: #71717a;
+  transition: transform 0.25s ease, color 0.2s;
+}
+
+.accordionChevronOpen {
+  transform: rotate(180deg);
+  color: #818cf8;
+}
+
+/* ── Answer Body (collapsible) ── */
+.accordionBody {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.3s ease;
+  padding: 0 20px 0 64px;
+}
+
+.accordionBodyOpen {
+  max-height: 500px;
+  opacity: 1;
+  padding: 0 20px 18px 64px;
+}
+
+.accordionAnswer {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #a1a1aa;
+}
+
+.accordionMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.accordionCategory {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #71717a;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+/* ─────────────────────────────────────────────
+ * CTA Section
+ * ───────────────────────────────────────────── */
+.ctaSection {
+  padding: 4rem 1.5rem 2rem;
+}
+
+.ctaCard {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+}
+
+.ctaIcon {
+  color: #818cf8;
+  margin-bottom: 1rem;
+}
+
+.ctaTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fafafa;
+  margin-bottom: 0.75rem;
+}
+
+.ctaSubtitle {
+  font-size: 0.95rem;
+  color: #a1a1aa;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.ctaButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  padding: 12px 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.ctaPrimary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #a1a1aa;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.ctaSecondary:hover {
+  color: #e4e4e7;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ─────────────────────────────────────────────
+ * Responsive Design
+ * ───────────────────────────────────────────── */
+
+/* Tablet (≤768px) */
+@media (max-width: 768px) {
+  .hero {
+    padding: 3.5rem 1rem 2.5rem;
+  }
+
+  .heroTitle {
+    font-size: 1.7rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.92rem;
+  }
+
+  .categoriesInner {
+    gap: 6px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+
+  /* Hide scrollbar for cleaner mobile look */
+  .categoriesInner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .categoryTab {
+    font-size: 0.78rem;
+    padding: 7px 12px;
+  }
+
+  .accordionBody,
+  .accordionBodyOpen {
+    padding-left: 20px;
+  }
+
+  .accordionHeader {
+    padding: 14px 16px;
+  }
+
+  .ctaCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .ctaTitle {
+    font-size: 1.3rem;
+  }
+}
+
+/* Mobile (≤480px) */
+@media (max-width: 480px) {
+  .hero {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .heroTitle {
+    font-size: 1.4rem;
+  }
+
+  .accordionQuestion {
+    font-size: 0.88rem;
+  }
+
+  .accordionIcon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

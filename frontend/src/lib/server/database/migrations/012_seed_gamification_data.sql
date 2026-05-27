@@ -37,11 +37,11 @@ INSERT INTO eduquest_achievements (
   (gen_random_uuid(), 'streak-30',      'Monthly Master',      'Maintain a 30-day study streak',        'streak',    '#DC2626', 'flame',      750, 'streak_days',      30,  TRUE, 40, NOW()),
   (gen_random_uuid(), 'streak-60',      'Unstoppable',         'Maintain a 60-day study streak',        'streak',    '#991B1B', 'flame',      2000,'streak_days',      60,  TRUE, 50, NOW()),
   -- XP achievements
-  (gen_random_uuid(), 'xp-100',         'First Steps',         'Earn your first 100 XP',                'xp',        '#3B82F6', 'zap',        25,  'total_xp',         100, TRUE, 60, NOW()),
-  (gen_random_uuid(), 'xp-500',         'On the Board',        'Earn 500 total XP',                     'xp',        '#3B82F6', 'zap',        50,  'total_xp',         500, TRUE, 70, NOW()),
-  (gen_random_uuid(), 'xp-1000',        'Level Chaser',        'Earn 1,000 total XP',                   'xp',        '#2563EB', 'zap',        100, 'total_xp',         1000,TRUE, 80, NOW()),
-  (gen_random_uuid(), 'xp-5000',        'XP Hunter',           'Earn 5,000 total XP',                   'xp',        '#1D4ED8', 'zap',        500, 'total_xp',         5000,TRUE, 90, NOW()),
-  (gen_random_uuid(), 'xp-10000',       'XP Legend',           'Earn 10,000 total XP',                  'xp',        '#1E3A8A', 'star',       1500,'total_xp',         10000,TRUE,100, NOW()),
+  (gen_random_uuid(), 'xp-100',         'First Steps',         'Earn your first 100 XP',                'milestone', '#3B82F6', 'zap',        25,  'total_xp',         100, TRUE, 60, NOW()),
+  (gen_random_uuid(), 'xp-500',         'On the Board',        'Earn 500 total XP',                     'milestone', '#3B82F6', 'zap',        50,  'total_xp',         500, TRUE, 70, NOW()),
+  (gen_random_uuid(), 'xp-1000',        'Level Chaser',        'Earn 1,000 total XP',                   'milestone', '#2563EB', 'zap',        100, 'total_xp',         1000,TRUE, 80, NOW()),
+  (gen_random_uuid(), 'xp-5000',        'XP Hunter',           'Earn 5,000 total XP',                   'milestone', '#1D4ED8', 'zap',        500, 'total_xp',         5000,TRUE, 90, NOW()),
+  (gen_random_uuid(), 'xp-10000',       'XP Legend',           'Earn 10,000 total XP',                  'milestone', '#1E3A8A', 'star',       1500,'total_xp',         10000,TRUE,100, NOW()),
   -- Battle achievements
   (gen_random_uuid(), 'first-battle',   'Battle Ready',        'Complete your first live battle',       'battle',    '#8B5CF6', 'swords',     100, 'battles_played',   1,   TRUE, 110, NOW()),
   (gen_random_uuid(), 'battle-10',      'Ring Fighter',        'Complete 10 live battles',              'battle',    '#7C3AED', 'swords',     200, 'battles_played',   10,  TRUE, 120, NOW()),
@@ -52,9 +52,9 @@ INSERT INTO eduquest_achievements (
   (gen_random_uuid(), 'first-post',     'Voice of the Hall',   'Post your first community question',    'community', '#EC4899', 'users',      75,  'posts_created',    1,   TRUE, 160, NOW()),
   (gen_random_uuid(), 'helpful-10',     'Top Contributor',     'Receive 10 total likes on your posts',  'community', '#DB2777', 'heart',      200, 'post_likes',       10,  TRUE, 170, NOW()),
   -- Level achievements  
-  (gen_random_uuid(), 'level-5',        'Novice',              'Reach Level 5',                         'level',     '#6B7280', 'award',      100, 'level_reached',    5,   TRUE, 180, NOW()),
-  (gen_random_uuid(), 'level-10',       'Apprentice',          'Reach Level 10',                        'level',     '#D97706', 'award',      250, 'level_reached',    10,  TRUE, 190, NOW()),
-  (gen_random_uuid(), 'level-20',       'Expert',              'Reach Level 20',                        'level',     '#F59E0B', 'crown',      1000,'level_reached',    20,  TRUE, 200, NOW())
+  (gen_random_uuid(), 'level-5',        'Novice',              'Reach Level 5',                         'milestone', '#6B7280', 'award',      100, 'level_reached',    5,   TRUE, 180, NOW()),
+  (gen_random_uuid(), 'level-10',       'Apprentice',          'Reach Level 10',                        'milestone', '#D97706', 'award',      250, 'level_reached',    10,  TRUE, 190, NOW()),
+  (gen_random_uuid(), 'level-20',       'Expert',              'Reach Level 20',                        'milestone', '#F59E0B', 'crown',      1000,'level_reached',    20,  TRUE, 200, NOW())
 ON CONFLICT (slug) DO NOTHING;
 
 -- ─── Section 2: Award achievements to demo users ──────────────────────────────
@@ -175,7 +175,7 @@ INSERT INTO eduquest_notifications (
 SELECT
   gen_random_uuid(),
   u.id,
-  'welcome',
+  'system',
   'Welcome to EduQuest! 🎉',
   'Your account is all set. Start with Class ' ||
     CASE u.track
@@ -192,7 +192,7 @@ FROM eduquest_users u
 WHERE u.email LIKE '%@demo.eduquest.in'
   AND NOT EXISTS (
     SELECT 1 FROM eduquest_notifications n
-    WHERE n.user_id = u.id AND n.type = 'welcome'
+    WHERE n.user_id = u.id AND n.type = 'system' AND n.title LIKE 'Welcome%'
   );
 
 -- XP milestone notification for high-XP users
@@ -230,7 +230,7 @@ INSERT INTO eduquest_notifications (id, user_id, type, title, message, action_ur
 SELECT
   gen_random_uuid(),
   u.id,
-  'battle_result',
+  'battle',
   'Battle Won! +50 XP 🗡️',
   'You defeated an opponent in a live battle. Your win rate improved!',
   '/battle',
@@ -238,7 +238,7 @@ SELECT
   u.last_active_at - INTERVAL '6 hours'
 FROM eduquest_users u
 WHERE u.total_battles_won >= 1 AND u.email LIKE '%@demo.eduquest.in'
-  AND NOT EXISTS (SELECT 1 FROM eduquest_notifications n WHERE n.user_id = u.id AND n.type = 'battle_result');
+  AND NOT EXISTS (SELECT 1 FROM eduquest_notifications n WHERE n.user_id = u.id AND n.type = 'battle' AND n.title LIKE 'Battle Won%');
 
 -- ─── Section 4: Daily streak rows ────────────────────────────────────────────
 -- One row per user in eduquest_daily_streaks (if the table is active).
@@ -253,7 +253,7 @@ BEGIN
   WHERE table_name = 'eduquest_daily_streaks';
 
   IF ds_cols IS NOT NULL THEN
-    INSERT INTO eduquest_daily_streaks (user_id, streak_date, questions_solved)
+    INSERT INTO eduquest_daily_streaks (user_id, active_date, questions_answered)
     SELECT
       u.id,
       CURRENT_DATE,
@@ -267,37 +267,37 @@ END $$;
 -- ─── Section 5: Wallet transaction history ───────────────────────────────────
 -- Add a few credit + debit entries so the wallet page shows real history.
 
-INSERT INTO eduquest_wallet_transactions (id, user_id, amount, type, description, created_at)
+INSERT INTO eduquest_wallet_transactions (id, wallet_id, amount, tx_type, description, balance_after, created_at)
 SELECT
   gen_random_uuid(),
-  u.id,
+  w.id,
   CASE WHEN u.xp >= 5000 THEN 500 WHEN u.xp >= 2000 THEN 200 ELSE 50 END,
-  'credit',
+  'achievement',
   'XP milestone bonus — stars deposited',
+  w.balance,
   u.created_at + INTERVAL '30 days'
 FROM eduquest_users u
+JOIN eduquest_wallet w ON w.user_id = u.id
 WHERE u.email LIKE '%@demo.eduquest.in'
   AND NOT EXISTS (
     SELECT 1 FROM eduquest_wallet_transactions t
-    WHERE t.user_id = u.id AND t.description LIKE '%milestone%'
+    WHERE t.wallet_id = w.id AND t.description LIKE '%milestone%'
   );
 
-INSERT INTO eduquest_wallet_transactions (id, user_id, amount, type, description, created_at)
+INSERT INTO eduquest_wallet_transactions (id, wallet_id, amount, tx_type, description, balance_after, created_at)
 SELECT
   gen_random_uuid(),
-  u.id,
+  w.id,
   50,
-  'credit',
+  'battle_win',
   'Battle win bonus',
+  w.balance,
   u.last_active_at - INTERVAL '1 day'
 FROM eduquest_users u
+JOIN eduquest_wallet w ON w.user_id = u.id
 WHERE u.total_battles_won >= 5 AND u.email LIKE '%@demo.eduquest.in'
   AND NOT EXISTS (
     SELECT 1 FROM eduquest_wallet_transactions t
-    WHERE t.user_id = u.id AND t.description LIKE '%Battle win%'
+    WHERE t.wallet_id = w.id AND t.description LIKE '%Battle win%'
   );
 
--- ─── Section 6: Record this migration ─────────────────────────────────────────
-INSERT INTO eduquest_schema_migrations (name, checksum, applied_at)
-VALUES ('012_seed_gamification_data.sql', 'manual-seed-2026-05-25', NOW())
-ON CONFLICT (name) DO NOTHING;

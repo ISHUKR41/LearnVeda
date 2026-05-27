@@ -1,0 +1,258 @@
+/**
+ * FILE: SemesterPage.module.css
+ * LOCATION: src/app/semester/[slug]/SemesterPage.module.css
+ * PURPOSE: Custom scoped stylesheet for dynamic semester survival guides.
+ *          Applies modern minimalist checklists, important numerical question grids,
+ *          and glowing notification cards for high-priority exam topics.
+ *
+ * LAYOUT RULES:
+ *  - Custom colored tags indicating high (red) or medium (yellow) exam priority.
+ *  - Modern cross-off visual transitions for completed checklist nodes.
+ *  - Premium glassmorphic boards to captivate student revision flow.
+ *
+ * LAST UPDATED: 2026-05-26
+ */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  font-family: var(--font-sans-next), system-ui, sans-serif;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: 8fr 4fr;
+  }
+}
+
+/* --- Header Section --- */
+.headerBlock {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.title {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* --- Interactive Checklist Board --- */
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 0.75rem;
+}
+
+.checklistsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checklistItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #f1f5f9;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checklistItem:hover {
+  background: #ffffff;
+  border-color: #3b82f6;
+  transform: translateY(-1px);
+}
+
+.checkboxInput {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.25rem;
+  cursor: pointer;
+}
+
+.itemDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex-grow: 1;
+}
+
+.itemLabel {
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1e293b;
+  transition: all 0.2s ease;
+}
+
+.itemDesc {
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* Completed Strike State */
+.completedText {
+  text-decoration: line-through;
+  color: #94a3b8 !important;
+}
+
+/* Priority tags */
+.priorityTag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  align-self: flex-start;
+  margin-top: 0.25rem;
+}
+
+.highPriority {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.medPriority {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+.lowPriority {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+/* --- Important Solved Questions --- */
+.questionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.solvedQCard {
+  background: #fdfdfd;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #ef4444;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.005);
+}
+
+.solvedQText {
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.5;
+}
+
+/* --- Sidebar Links --- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sidebarCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+}
+
+.sidebarTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.linksList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.sidebarLink {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+}
+
+.sidebarLink:hover {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.05);
+  border-color: rgba(37, 99, 235, 0.15);
+  transform: translateX(3px);
+}
+
+.sidebarLink::before {
+  content: "→";
+  margin-right: 0.5rem;
+  color: #3b82f6;
+  font-weight: bold;
+}

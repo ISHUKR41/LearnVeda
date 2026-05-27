@@ -1,0 +1,342 @@
+/**
+ * FILE: MCQPage.module.css
+ * LOCATION: src/app/mcqs/[slug]/MCQPage.module.css
+ * PURPOSE: Scoped stylesheet for dynamic, interactive multiple-choice questions.
+ *          Applies vibrant colors, clear layout structures, responsive grids,
+ *          and dynamic hover transitions for exam option selects.
+ *
+ * DESIGN DETAILS:
+ *  - Sleek modern rounded margins.
+ *  - Animated XP point badges and live scoreboard panels.
+ *  - Active checked classes showing green (correct) or red (incorrect) visual feedback.
+ *
+ * LAST UPDATED: 2026-05-26
+ */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  font-family: var(--font-sans-next), system-ui, sans-serif;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: 8fr 4fr;
+  }
+}
+
+/* --- Heading Block --- */
+.headerBlock {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.title {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* --- Assessment Interactive Board --- */
+.mcqCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 1rem;
+}
+
+.progressText {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.scoreBadge {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
+}
+
+.questionText {
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.5;
+}
+
+.optionsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.optionButton {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1.15rem 1.5rem;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.optionButton:hover:not(:disabled) {
+  background: rgba(3b, 130, 246, 0.05);
+  border-color: #3b82f6;
+  transform: translateX(3px);
+}
+
+/* Correct selection state */
+.correctOption {
+  background: rgba(16, 185, 129, 0.08) !important;
+  border-color: #10b981 !important;
+  color: #065f46 !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+}
+
+/* Incorrect selection state */
+.wrongOption {
+  background: rgba(239, 68, 68, 0.08) !important;
+  border-color: #ef4444 !important;
+  color: #991b1b !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+}
+
+.explanationBox {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.explanationTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #166534;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.explanationText {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #1e3a1e;
+}
+
+.nextButton {
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+}
+
+.nextButton:hover {
+  background: #1d4ed8;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+/* --- Completed State Board --- */
+.completionCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.trophyIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: bounce 2s infinite;
+}
+
+.completionTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.completionText {
+  font-size: 1.05rem;
+  color: #475569;
+  margin-bottom: 1.5rem;
+}
+
+.scoreBanner {
+  display: inline-flex;
+  gap: 2rem;
+  background: #f8fafc;
+  padding: 1rem 2.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #f1f5f9;
+  margin-bottom: 2rem;
+}
+
+.scoreStat {
+  display: flex;
+  flex-direction: column;
+}
+
+.statVal {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #2563eb;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.resetButton {
+  background: #1e293b;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetButton:hover {
+  background: #0f172a;
+}
+
+/* --- Sidebar navigation --- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sidebarCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+}
+
+.sidebarTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.linksList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.sidebarLink {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+}
+
+.sidebarLink:hover {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.05);
+  border-color: rgba(37, 99, 235, 0.15);
+  transform: translateX(3px);
+}
+
+.sidebarLink::before {
+  content: "→";
+  margin-right: 0.5rem;
+  color: #3b82f6;
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}

@@ -1,0 +1,604 @@
+/*
+ * FILE: Hackathon.module.css
+ * LOCATION: src/app/hackathon/Hackathon.module.css
+ * PURPOSE: Custom scoped styles for the Hackathon portal. Implements premium
+ *          visual design rules including glassmorphism, responsive grids, and
+ *          harmonized CSS variables matching dark/light themes.
+ * USED BY: src/app/hackathon/HackathonClient.tsx
+ * LAST UPDATED: 2026-05-27
+ */
+
+/* ─────────────────────────────────────────────
+ * Theme Variables (Sora and Inter typography are inherited from layout)
+ * ───────────────────────────────────────────── */
+.page {
+  --primary-accent: #0088ff;
+  --secondary-accent: #00d2ff;
+  --glow-accent: rgba(0, 136, 255, 0.25);
+  
+  --bg-main: #050d1a;
+  --bg-card: rgba(13, 27, 48, 0.6);
+  --bg-input: rgba(5, 13, 26, 0.8);
+  --border-card: rgba(0, 136, 255, 0.15);
+  
+  --text-main: #e6edf3;
+  --text-muted: #8b949e;
+  
+  --gradient-neon: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  --gradient-gold: linear-gradient(135deg, #ffe259 0%, #ffa751 100%);
+  --gradient-card-hero: radial-gradient(circle at top right, rgba(0, 210, 255, 0.1), transparent 70%);
+
+  background: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  padding: 4rem 1rem 6rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Light Theme Variables Injection via CSS Selectors */
+:global([data-theme="light"]) .page {
+  --primary-accent: #0066cc;
+  --secondary-accent: #00a3cc;
+  --glow-accent: rgba(0, 102, 204, 0.15);
+  
+  --bg-main: #f4f7f6;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-input: #ffffff;
+  --border-card: rgba(0, 102, 204, 0.1);
+  
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  
+  --gradient-neon: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+  --gradient-card-hero: radial-gradient(circle at top right, rgba(0, 102, 204, 0.05), transparent 70%);
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ─────────────────────────────────────────────
+ * Hero Presentation Component
+ * ───────────────────────────────────────────── */
+.hero {
+  position: relative;
+  background: var(--bg-card);
+  background-image: var(--gradient-card-hero);
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  margin-bottom: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  animation: slideDownFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gradient-neon);
+}
+
+.heroContent {
+  flex: 1;
+}
+
+.title {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  max-width: 650px;
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────
+ * Filtering Tabs Component
+ * ───────────────────────────────────────────── */
+.filters {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-card);
+  padding-bottom: 0.75rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filters::-webkit-scrollbar {
+  display: none;
+}
+
+.filterBtn {
+  font-family: var(--font-sans-next), sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterBtn:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.filterBtnActive {
+  color: var(--primary-accent);
+  border-color: var(--border-card);
+  background: rgba(0, 136, 255, 0.08);
+}
+
+/* ─────────────────────────────────────────────
+ * Main Interactive Content Grid
+ * ───────────────────────────────────────────── */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: 2.2fr 1fr;
+  }
+}
+
+.mainPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sidePanel {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* ─────────────────────────────────────────────
+ * Hackathon List Cards
+ * ───────────────────────────────────────────── */
+.hackathonCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.hackathonCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px 0 var(--glow-accent);
+}
+
+.cardHeader {
+  height: 120px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+}
+
+.cardIcon {
+  position: absolute;
+  bottom: -24px;
+  left: 1.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-accent);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.statusWrapper {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+}
+
+.badge {
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.statuslive {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.pulseDot {
+  width: 6px;
+  height: 6px;
+  background-color: #10b981;
+  border-radius: 50%;
+  animation: blinkPulse 1.2s infinite;
+}
+
+.statusupcoming {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.statuscompleted {
+  background: rgba(107, 114, 128, 0.15);
+  color: #6b7280;
+}
+
+.cardBody {
+  padding: 2.5rem 1.5rem 1.5rem;
+}
+
+.cardTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.cardSub {
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.cardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.metaItem svg {
+  color: var(--primary-accent);
+}
+
+.cardDesc {
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ─────────────────────────────────────────────
+ * Project Submission Form
+ * ───────────────────────────────────────────── */
+.submissionSection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionTitle svg {
+  color: var(--primary-accent);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.formLabel {
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.input, .textarea, .select {
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-card);
+  color: var(--text-main);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.input:focus, .textarea:focus, .select:focus {
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 3px var(--glow-accent);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ─────────────────────────────────────────────
+ * Interactive Accordion & Side Panels
+ * ───────────────────────────────────────────── */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.accordionItem {
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.accordionHeader {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  color: var(--text-main);
+  font-family: var(--font-sans-next), sans-serif;
+  font-weight: 500;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+}
+
+.accordionHeader:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.accordionHeader svg {
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+
+.accordionOpen svg {
+  transform: rotate(180deg);
+}
+
+.accordionContent {
+  padding: 0 1.25rem 1.25rem;
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────
+ * Standings Leaderboard Component
+ * ───────────────────────────────────────────── */
+.leaderboardList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.leaderboardRow {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  gap: 0.75rem;
+  transition: background 0.2s ease;
+}
+
+.leaderboardRow:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.rankBadge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg-input);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.rank1 {
+  background: var(--gradient-gold);
+  color: #0d1117;
+}
+
+.teamName {
+  flex: 1;
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.scoreBadge {
+  font-family: var(--font-mono-next), monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-accent);
+}
+
+/* ─────────────────────────────────────────────
+ * Button Presentation Variants
+ * ───────────────────────────────────────────── */
+.btn {
+  font-family: var(--font-sans-next), sans-serif;
+  font-weight: 600;
+  font-size: 0.925rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  justify-content: center;
+}
+
+.btnPrimary {
+  background: var(--gradient-neon);
+  color: #0d1117;
+}
+
+.btnPrimary:hover {
+  box-shadow: 0 4px 20px 0 var(--glow-accent);
+  opacity: 0.95;
+}
+
+.btnSuccess {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.btnSuccess:hover {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+.btnDisabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+/* Toast/Alert Notices */
+.notice {
+  font-family: var(--font-sans-next), sans-serif;
+  font-size: 0.9rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.noticeInfo {
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.noticeSuccess {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.noticeError {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.noticeLink {
+  text-decoration: underline;
+  font-weight: 500;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+/* ─────────────────────────────────────────────
+ * Animation Keyframes & Animations
+ * ───────────────────────────────────────────── */
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blinkPulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}

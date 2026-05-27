@@ -20,6 +20,8 @@ import {
   distributeWagerPayout,
   completeMatch
 } from "./battle.service";
+import { createAdapter } from "@socket.io/redis-adapter";
+import { getRedisClient, isRedisConfigured } from "../config/redis";
 
 /* ─────────────────────────────────────────────
  * Types & Interfaces
@@ -106,6 +108,26 @@ export function initSocket(server: HttpServer): Server {
     pingInterval: 10000,
     pingTimeout: 5000
   });
+
+  // Configure Redis Pub/Sub adapter for horizontal scalability under 10k concurrent users
+  if (isRedisConfigured()) {
+    try {
+      const pubClient = getRedisClient();
+      const subClient = pubClient.duplicate();
+      
+      Promise.all([
+        pubClient.status === "wait" ? pubClient.connect() : Promise.resolve(),
+        subClient.status === "wait" ? subClient.connect() : Promise.resolve()
+      ]).then(() => {
+        io?.adapter(createAdapter(pubClient, subClient));
+        console.log("[Socket.IO] Redis Pub/Sub adapter successfully configured for horizontal scaling.");
+      }).catch(err => {
+        console.error("[Socket.IO] Failed to connect Redis Pub/Sub adapter clients:", err);
+      });
+    } catch (err) {
+      console.error("[Socket.IO] Redis adapter configuration error:", err);
+    }
+  }
 
   // Authentication Middleware
   io.use(async (socket, next) => {

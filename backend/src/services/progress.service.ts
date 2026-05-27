@@ -209,24 +209,36 @@ export async function updateChapterProgress(
  * Called internally after progress updates.
  */
 async function updateStreakCounter(client: PoolClient, userId: string) {
-  // Count consecutive days with activity
+  // Count consecutive days with activity, with automatic expiration logic if the last active date is older than 24 hours.
   const result = await client.query(
-    `WITH streak_days AS (
+    `WITH last_streak AS (
+       SELECT MAX(date) AS last_active_date
+       FROM "StreakRecord"
+       WHERE "userId" = $1
+     ),
+     streak_days AS (
        SELECT date,
               date - INTERVAL '1 day' * ROW_NUMBER() OVER (ORDER BY date DESC) AS streak_group
        FROM "StreakRecord"
        WHERE "userId" = $1
        ORDER BY date DESC
+     ),
+     consecutive AS (
+       SELECT COUNT(*)::int AS streak_length
+       FROM streak_days
+       WHERE streak_group = (
+         SELECT streak_group FROM streak_days LIMIT 1
+       )
      )
-     SELECT COUNT(*) AS streak_length
-     FROM streak_days
-     WHERE streak_group = (
-       SELECT streak_group FROM streak_days LIMIT 1
-     )`,
+     SELECT 
+       CASE 
+         WHEN (SELECT last_active_date FROM last_streak) >= CURRENT_DATE - INTERVAL '1 day' THEN (SELECT streak_length FROM consecutive)
+         ELSE 0
+       END AS streak_length`,
     [userId]
   );
 
-  const currentStreak = parseInt(result.rows[0]?.streak_length ?? "0");
+  const currentStreak = parseInt(result.rows[0]?.streak_length ?? "0", 10);
 
   await client.query(
     `UPDATE "User"

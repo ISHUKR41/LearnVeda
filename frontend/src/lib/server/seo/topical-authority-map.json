@@ -1,0 +1,109 @@
+{
+  "niche": "Indian Gamified Educational Platform",
+  "domain": "https://github.com/ISHUKR41/eduquest.git",
+  "target_audiences": [
+    "Class 9 CBSE Students",
+    "Class 10 Board Prep Students",
+    "Class 11 Science/Commerce/Arts Students",
+    "Class 12 Board & Entrance Prep Students",
+    "BTech CSE/ECE/IT Engineering Students",
+    "Placement & Coding Job Seekers"
+  ],
+  "primary_hubs": {
+    "class-9": {
+      "path": "/class-9",
+      "keywords": ["cbse class 9 notes", "class 9 syllabus", "class 9 mcqs", "class 9 ncert solutions"],
+      "subjects": ["mathematics", "science", "social-science", "english", "hindi"]
+    },
+    "class-10": {
+      "path": "/class-10",
+      "keywords": ["cbse class 10 boards", "class 10 previous year questions", "class 10 science notes", "class 10 maths solutions"],
+      "subjects": ["mathematics-standard", "mathematics-basic", "science", "social-science", "english", "hindi"]
+    },
+    "engineering": {
+      "path": "/engineering",
+      "keywords": ["btech cse notes", "programming tutorials", "dsa sheet", "coding interview questions"],
+      "languages": ["python", "java", "cpp", "javascript", "typescript", "rust", "kotlin", "swift", "dart", "ruby", "php"]
+    }
+  },
+  "semantic_entities": [
+    {
+      "name": "C++",
+      "synonyms": ["cpp", "c plus plus", "c++ language"],
+      "type": "Programming Language",
+      "description": "A high-performance object-oriented programming language designed for systems and applications.",
+      "related_topics": ["oop", "stl", "pointers", "arrays", "functions"],
+      "anchor_texts": ["C++ Programming Tutorial", "Complete C++ Guide", "Learn C++ OOP"]
+    },
+    {
+      "name": "OOP",
+      "synonyms": ["object oriented programming", "oop concepts"],
+      "type": "CS Core Paradigm",
+      "description": "Programming paradigm based on the concept of 'objects', containing data and code.",
+      "related_topics": ["cpp", "java", "classes", "inheritance", "polymorphism", "encapsulation", "abstraction"],
+      "anchor_texts": ["OOP Concepts Explained", "Object-Oriented Programming Guide", "Core OOP Questions"]
+    },
+    {
+      "name": "DBMS",
+      "synonyms": ["database management system", "sql database"],
+      "type": "CS Core Subject",
+      "description": "System software for creating, managing, and retrieving database records.",
+      "related_topics": ["sql", "normalization", "indexing", "transactions", "acid-properties"],
+      "anchor_texts": ["DBMS Lecture Notes", "Database Management Systems Guide", "DBMS SQL MCQs"]
+    },
+    {
+      "name": "OS",
+      "synonyms": ["operating system", "operating systems"],
+      "type": "CS Core Subject",
+      "description": "System software that manages computer hardware and software resources.",
+      "related_topics": ["processes", "threads", "deadlock", "scheduling-algorithms", "virtual-memory"],
+      "anchor_texts": ["Operating System Notes", "Core OS Concepts", "OS Process Scheduling"]
+    },
+    {
+      "name": "DSA",
+      "synonyms": ["data structures and algorithms", "data structures", "algorithms"],
+      "type": "Placement Core",
+      "description": "Methods of organizing data and solving programmatic problems efficiently.",
+      "related_topics": ["arrays", "linked-lists", "stacks", "queues", "sorting-algorithms", "binary-trees", "graphs"],
+      "anchor_texts": ["DSA Cheat Sheet", "Algorithms and Data Structures", "BTech DSA Notes"]
+    },
+    {
+      "name": "Polynomials",
+      "synonyms": ["algebraic expressions", "polynomial equations"],
+      "type": "Class 9 Maths",
+      "description": "Mathematical expression consisting of variables, coefficients, and exponents.",
+      "related_topics": ["algebra", "quadratic-equations", "factorization", "remainder-theorem"],
+      "anchor_texts": ["Class 9 Polynomials Notes", "Polynomial Factorization solved", "Polynomials MCQs"]
+    },
+    {
+      "name": "Number Systems",
+      "synonyms": ["rational numbers", "irrational numbers", "real numbers"],
+      "type": "Class 9 Maths",
+      "description": "System of representing numbers of different categories.",
+      "related_topics": ["number-line", "surds", "decimal-expansion", "rationalization"],
+      "anchor_texts": ["Number Systems Revision", "Class 9 Real Numbers Notes", "Number Systems Practice"]
+    }
+  ],
+  "linking_clusters": [
+    {
+      "hub": "cpp",
+      "nodes": ["/notes/cpp-notes-for-beginners", "/mcqs/cpp-mcq-for-semester-1", "/interviews/cpp-oop-concepts", "/engineering/cpp"]
+    },
+    {
+      "hub": "dbms",
+      "nodes": ["/notes/dbms-notes-pdf", "/mcqs/dbms-mcq-for-semester-3", "/interviews/dbms-interview-questions"]
+    },
+    {
+      "hub": "os",
+      "nodes": ["/notes/os-notes-pdf", "/mcqs/os-mcq-for-semester-3", "/interviews/os-interview-questions"]
+    },
+    {
+      "hub": "polynomials",
+      "nodes": ["/notes/class-9-polynomials-notes", "/mcqs/class-9-polynomials-mcqs", "/class-9/mathematics"]
+    },
+    {
+      "hub": "number-systems",
+      "nodes": ["/notes/class-9-number-systems-notes", "/mcqs/class-9-number-systems-mcqs", "/class-9/mathematics"]
+    }
+  ]
+}

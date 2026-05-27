@@ -176,6 +176,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
               <div className={styles.dropdown}>
                 <Link href="/community" className={styles.dropdownLink}>Community</Link>
                 <Link href="/events" className={styles.dropdownLink}>Events</Link>
+                <Link href="/hackathon" className={styles.dropdownLink}>Hackathons</Link>
                 <Link href="/leaderboard" className={styles.dropdownLink}>Leaderboard</Link>
                 <Link href="/features" className={styles.dropdownLink}>Features</Link>
                 <Link href="/pricing" className={styles.dropdownLink}>Pricing</Link>
@@ -295,6 +296,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
               <Link href="/battle" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Live Battles</Link>
               <Link href="/community" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Community</Link>
               <Link href="/events" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Events</Link>
+              <Link href="/hackathon" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Hackathons</Link>
               <Link href="/leaderboard" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Leaderboard</Link>
               <Link href="/features" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Features</Link>
               <Link href="/pricing" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Pricing</Link>

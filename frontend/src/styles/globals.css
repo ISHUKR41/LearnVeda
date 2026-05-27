@@ -97,15 +97,15 @@
   --color-overlay: rgba(0, 0, 0, 0.75);
 
   /* --- Typography Scale (8-point grid system) --- */
-  --font-family-heading: var(--font-heading-next);
-  --font-family-body: var(--font-sans-next);
-  --font-family-code: var(--font-mono-next);
-  --font-family-stats: var(--font-stats-next);
+  --font-family-heading: var(--font-heading-next), "Plus Jakarta Sans", "Space Grotesk", "Sora", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-family-body: var(--font-sans-next), "Inter", "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-family-code: var(--font-mono-next), "JetBrains Mono", "Courier New", Courier, monospace;
+  --font-family-stats: var(--font-stats), "Plus Jakarta Sans", "JetBrains Mono", "Segoe UI", system-ui, sans-serif;
 
   /* Short-form aliases for convenience in CSS modules */
-  --font-heading: var(--font-heading-next);
-  --font-body: var(--font-sans-next);
-  --font-mono: var(--font-mono-next);
+  --font-heading: var(--font-heading-next), "Plus Jakarta Sans", "Space Grotesk", "Sora", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-sans-next), "Inter", "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-mono-next), "JetBrains Mono", "Courier New", Courier, monospace;
 
   --font-size-display: 3.5rem;      /* 56px — hero headlines */
   --font-size-h1: 2.25rem;     /* 36px — page titles */
@@ -644,8 +644,8 @@ input, textarea, select {
   --space-40: 10rem;
   --space-48: 12rem;
 
-  /* Stats/metric font — Space Grotesk for numbers */
-  --font-stats: "Space Grotesk", "JetBrains Mono", ui-monospace, monospace;
+  /* Stats/metric font — Plus Jakarta Sans for numbers */
+  --font-stats: var(--font-heading-next), "JetBrains Mono", ui-monospace, monospace;
 }
 
 /* ============================================================

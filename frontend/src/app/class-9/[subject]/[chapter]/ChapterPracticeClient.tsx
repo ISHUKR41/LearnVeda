@@ -15,6 +15,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "./ChapterPractice.module.css";
+import { progressApi } from "@/lib/api/api";
 
 interface Question {
   id: string;
@@ -28,6 +29,7 @@ interface Question {
 }
 
 interface ChapterPracticeSnapshot {
+  chapterId: string;
   subjectName: string;
   chapterName: string;
   chapterDescription: string;
@@ -118,6 +120,16 @@ export default function ChapterPracticeClient({ snapshot, backUrl }: ChapterPrac
       setCurrentIdx((prev) => prev + 1);
     } else {
       setShowSummary(true);
+      // Save progress to database in real-time
+      const finalScore = Math.round((score / questions.length) * 100);
+      progressApi.updateChapterProgress(snapshot.chapterId, {
+        completed: true,
+        score: finalScore,
+      }).then(() => {
+        console.log("Progress saved successfully to database!");
+      }).catch((err) => {
+        console.error("Failed to save progress:", err);
+      });
     }
   };
 

@@ -22,6 +22,9 @@ export const metadata = {
   title: "Class 12 — Board & Entrance Exam Prep | EduQuest",
   description:
     "Complete Class 12 preparation: CBSE board exams + JEE/NEET/CUET entrance. Structured plans for all streams — Science, Commerce, and Arts.",
+  icons: {
+    icon: "/favicons/school.svg",
+  },
 };
 
 /*

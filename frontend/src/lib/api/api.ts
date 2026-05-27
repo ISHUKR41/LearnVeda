@@ -332,4 +332,72 @@ export const searchApi = {
     api.get("/search", { params: { q: query, ...params } }),
 };
 
+/**
+ * Coding API — Engineering section learning plans, lessons, and submissions.
+ * Used by: Engineering pages, code editor, submission history
+ */
+export const codingApi = {
+  /** Get all learning plans for a programming language */
+  getLanguagePlans: (slug: string) =>
+    api.get(`/coding/languages/${slug}/plans`),
+
+  /** Get all daily lessons for a specific learning plan */
+  getPlanLessons: (planId: string) =>
+    api.get(`/coding/plans/${planId}/lessons`),
+
+  /** Get a single lesson with theory content and problems */
+  getLesson: (lessonId: string) =>
+    api.get(`/coding/lessons/${lessonId}`),
+
+  /** Get a coding problem with starter code and sample test cases */
+  getProblem: (problemId: string) =>
+    api.get(`/coding/problems/${problemId}`),
+
+  /** Submit a code solution for grading */
+  submitSolution: (problemId: string, data: { code: string; language: string }) =>
+    api.post(`/coding/problems/${problemId}/submit`, data),
+
+  /** Get the current user's submission history */
+  getSubmissions: (params?: { limit?: number; offset?: number }) =>
+    api.get("/coding/submissions", { params }),
+
+  /** Get the user's best submission for a specific problem */
+  getBestSubmission: (problemId: string) =>
+    api.get(`/coding/submissions/${problemId}/best`),
+};
+
+/**
+ * Tests API — Mock test execution, scoring, and results.
+ * Used by: Class pages (take test), test history page
+ */
+export const testsApi = {
+  /** Get available tests for a specific chapter */
+  getChapterTests: (chapterId: string) =>
+    api.get(`/tests/chapter/${chapterId}`),
+
+  /** Get test details with questions (answers hidden) */
+  getTest: (testId: string) =>
+    api.get(`/tests/${testId}`),
+
+  /** Start a new test session */
+  startTest: (testId: string) =>
+    api.post(`/tests/${testId}/start`),
+
+  /** Submit answers and get graded results */
+  submitTest: (testId: string, data: {
+    scoreId: string;
+    answers: Array<{ questionId: string; userAnswer: string }>;
+    timeTaken?: number;
+  }) =>
+    api.post(`/tests/${testId}/submit`, data),
+
+  /** Get detailed results for a completed test attempt */
+  getResults: (testId: string, scoreId: string) =>
+    api.get(`/tests/${testId}/results/${scoreId}`),
+
+  /** Get the current user's test history */
+  getHistory: (params?: { limit?: number; offset?: number }) =>
+    api.get("/tests/history", { params }),
+};
+
 export default api;

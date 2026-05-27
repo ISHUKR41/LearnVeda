@@ -35,6 +35,9 @@ export const metadata = {
   title: "Class 9 — All CBSE Subjects | EduQuest",
   description:
     "CBSE Class 9 complete learning path — Mathematics, Science, Social Science, English, Hindi, Computer Applications and more. Study chapter-wise, earn XP, and build daily streaks.",
+  icons: {
+    icon: "/favicons/school.svg",
+  },
 };
 
 /* ─────────────────────────────────────────────

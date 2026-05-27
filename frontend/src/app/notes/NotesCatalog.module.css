@@ -1,0 +1,382 @@
+/**
+ * FILE: NotesCatalog.module.css
+ * LOCATION: src/app/notes/NotesCatalog.module.css
+ * PURPOSE: Custom scoped styles for the master Notes Catalog landing page.
+ *          Implements fluid responsive grids, smooth micro-interactions,
+ *          glassmorphic containers, and soft radial background lights.
+ *
+ * THEME SPECIFICATIONS:
+ *  - Colors: Sleek ocean HSL slate palette with blue and indigo accents.
+ *  - Typography: Clean headings with letter-spacing improvements.
+ *  - Shadows: Highly polished organic box-shadow scales.
+ *
+ * LAST UPDATED: 2026-05-27
+ */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  font-family: var(--font-sans-next), system-ui, -apple-system, sans-serif;
+  color: #1e293b;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- Hero Banner Section --- */
+.heroSection {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+  color: #ffffff;
+  border-radius: 1.5rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.heroOrb {
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, rgba(99, 102, 241, 0) 70%);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 1.5rem;
+}
+
+.mainTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 2.25rem;
+  font-weight: 850;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .mainTitle {
+    font-size: 3.25rem;
+  }
+}
+
+.accentText {
+  background: linear-gradient(120deg, #3b82f6, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #94a3b8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- Filter & Niche Selector Bar --- */
+.filterBar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 1rem;
+}
+
+@media (min-width: 640px) {
+  .filterBar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.filterTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.filterChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  padding: 0.45rem 1rem;
+  border-radius: 0.5rem;
+  background: #f1f5f9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.chip:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.activeChip {
+  background: rgba(37, 99, 235, 0.08);
+  color: #2563eb;
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+/* --- Dynamic Bento Cards Grid --- */
+.gridSection {
+  margin-bottom: 4rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px rgba(37, 99, 235, 0.06);
+  border-color: rgba(37, 99, 235, 0.15);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iconWrapper {
+  width: 44px;
+  height: 44px;
+  background: rgba(37, 99, 235, 0.08);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardCategory {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #475569;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-grow: 1;
+}
+
+.cardTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 750;
+  color: #0f172a;
+  line-height: 1.35;
+}
+
+.cardIntro {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #475569;
+}
+
+/* --- E-E-A-T Author Badge --- */
+.authorBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1.25rem;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.authorMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.authorName {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.authorAffiliation {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* --- Card Footer Link styling --- */
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1.25rem;
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #2563eb;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.cardLink:hover {
+  color: #1d4ed8;
+}
+
+.arrow {
+  transition: transform 0.2s ease;
+}
+
+.cardLink:hover .arrow {
+  transform: translateX(3px);
+}
+
+.pdfBadge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(239, 68, 68, 0.12);
+}
+
+/* --- Study Features Block --- */
+.studyFeatures {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.5rem;
+  padding: 3rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.01);
+}
+
+.featuresTitle {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  text-align: center;
+  color: #0f172a;
+  margin-bottom: 2.5rem;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .featuresGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.featureItem {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.featureItem h4 {
+  font-family: var(--font-heading-next), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 750;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.featureItem p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #475569;
+  max-width: 280px;
+}

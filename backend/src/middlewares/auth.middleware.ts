@@ -184,4 +184,16 @@ export function roleMiddleware(allowedRoles: string[]) {
   };
 }
 
+/**
+ * Convenience wrapper for roleMiddleware that accepts variadic role arguments.
+ * Cleaner syntax for route registration:
+ *   router.use(requireRole("ADMIN", "TEACHER"));
+ *
+ * @param roles - One or more role strings that can access the route
+ * @returns Express middleware function that checks user role
+ */
+export function requireRole(...roles: string[]) {
+  return roleMiddleware(roles);
+}
+
 export default authMiddleware;

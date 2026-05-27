@@ -1,0 +1,156 @@
+# ─── Docker Compose — EduQuest Full Stack ───────────────────
+# FILE: docker-compose.yml
+# PURPOSE: One-command deployment of the complete EduQuest platform.
+#          Starts backend, frontend, PostgreSQL, and Redis together.
+#
+# USAGE:
+#   Development:  docker-compose up -d
+#   Production:   docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#   Shutdown:     docker-compose down
+#   With data:    docker-compose down -v  (WARNING: deletes database volumes!)
+#
+# SERVICES:
+#   1. postgres  — PostgreSQL 16 database (port 5432)
+#   2. redis     — Redis 7 cache/sessions (port 6379)
+#   3. backend   — Express API server (port 4000)
+#   4. frontend  — Next.js SSR server (port 3000)
+#
+# VOLUMES:
+#   - postgres_data: Persistent database storage
+#   - redis_data: Persistent cache data
+#   - upload_data: Uploaded file storage
+#
+# LAST UPDATED: 2026-05-26
+
+version: "3.9"
+
+services:
+  # ─── PostgreSQL Database ────────────────────────────────────
+  # Production-grade PostgreSQL 16 with performance tuning.
+  # Data persists across container restarts via named volume.
+  postgres:
+    image: postgres:16-alpine
+    container_name: eduquest-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: eduquest
+      POSTGRES_USER: eduquest_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-eduquest_secure_2026}
+      # Performance tuning for 10k+ users
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=en_US.utf8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eduquest_admin -d eduquest"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # PostgreSQL performance configuration
+    command: >
+      postgres
+        -c max_connections=200
+        -c shared_buffers=256MB
+        -c work_mem=4MB
+        -c maintenance_work_mem=64MB
+        -c effective_cache_size=768MB
+        -c wal_buffers=16MB
+        -c checkpoint_completion_target=0.9
+        -c max_wal_size=1GB
+        -c random_page_cost=1.1
+        -c effective_io_concurrency=200
+        -c log_min_duration_statement=1000
+        -c log_checkpoints=on
+
+  # ─── Redis Cache ────────────────────────────────────────────
+  # Redis 7 for session storage, rate limiting, and response caching.
+  redis:
+    image: redis:7-alpine
+    container_name: eduquest-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Redis memory and persistence configuration
+    command: >
+      redis-server
+        --maxmemory 256mb
+        --maxmemory-policy allkeys-lru
+        --appendonly yes
+        --appendfsync everysec
+        --save 300 10
+        --save 60 1000
+
+  # ─── Backend API Server ─────────────────────────────────────
+  # Express.js + TypeScript backend with all production services.
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: eduquest-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgres://eduquest_admin:${POSTGRES_PASSWORD:-eduquest_secure_2026}@postgres:5432/eduquest
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:-change-this-in-production-eduquest-2026}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-change-this-refresh-secret-2026}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      CORS_ORIGINS: http://localhost:3000,${FRONTEND_URL:-http://localhost:3000}
+    ports:
+      - "4000:4000"
+    volumes:
+      - upload_data:/app/uploads
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+
+  # ─── Frontend Next.js Server ────────────────────────────────
+  # Next.js App Router with SSR and static page generation.
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: eduquest-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://backend:4000
+      DATABASE_URL: postgres://eduquest_admin:${POSTGRES_PASSWORD:-eduquest_secure_2026}@postgres:5432/eduquest
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+# ─── Named Volumes ──────────────────────────────────────────
+# Persistent data storage that survives container restarts.
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  upload_data:
+    driver: local

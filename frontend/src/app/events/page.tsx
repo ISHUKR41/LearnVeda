@@ -19,6 +19,9 @@ export const revalidate = 300;
 export const metadata = {
   title: "Events",
   description: "Participate in academic competitions, coding hackathons, and knowledge tournaments.",
+  icons: {
+    icon: "/favicons/events.svg",
+  },
 };
 
 /** Lazy client boundary keeps the event catalog fast on first paint. */

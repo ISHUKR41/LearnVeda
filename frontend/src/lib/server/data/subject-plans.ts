@@ -71,6 +71,7 @@ export interface ChapterPracticeQuestion {
 }
 
 export interface ChapterPracticeSnapshot {
+  chapterId: string;
   subjectName: string;
   chapterName: string;
   chapterDescription: string;
@@ -544,6 +545,7 @@ export async function getChapterPracticeSnapshot(input: {
         questions = generateFallbackQuestionsForChapter(subject.name, chapter.name);
       }
       return {
+        chapterId: chapter.id,
         subjectName: subject.name,
         chapterName: chapter.name,
         chapterDescription: chapter.description ?? "Practice this chapter with curated concept-based questions.",
@@ -573,6 +575,7 @@ export async function getChapterPracticeSnapshot(input: {
   }
 
   return {
+    chapterId: fallbackChapter.slug,
     subjectName: fallbackPlan.title,
     chapterName: fallbackChapter.name,
     chapterDescription: fallbackChapter.description,

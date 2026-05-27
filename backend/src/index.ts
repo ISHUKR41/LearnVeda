@@ -55,12 +55,28 @@ import notificationRoutes from "./routes/notifications";
 import searchRoutes       from "./routes/search";
 import eventRoutes        from "./routes/events";
 import walletRoutes       from "./routes/wallet";
+import adminRoutes        from "./routes/admin";
+import codingRoutes       from "./routes/coding";
+import testRoutes         from "./routes/tests";
+import metricsRoutes      from "./routes/metrics";
+import uploadRoutes       from "./routes/uploads";
+import seoRoutes          from "./routes/seo";
+import auditRoutes        from "./routes/audit";
+import healthcheckRoutes  from "./routes/healthcheck";
 
 import { createServer } from "http";
 import { initSocket } from "./services/socket.service";
 
 /* Database management */
-import { checkDatabaseHealth, closeDatabasePool } from "./config/database";
+import { checkDatabaseHealth, closeDatabasePool, getPoolMetrics } from "./config/database";
+
+/* Production services */
+import { startScheduler, stopScheduler } from "./services/scheduler.service";
+import { startAnalyticsFlushTimer, stopAnalyticsFlushTimer } from "./services/analytics.service";
+import { startAuditFlushTimer, stopAuditFlushTimer } from "./services/audit.service";
+import { createRequestLogger, analyticsTracker } from "./middlewares/request-logger.middleware";
+import { globalErrorHandler, notFoundHandler } from "./middlewares/error-handler.middleware";
+import { responseTimeMiddleware } from "./middlewares/response-time";
 
 /* ─────────────────────────────────────────────
  * App & Configuration
@@ -118,7 +134,10 @@ app.use(compression({
 /* 4. HTTP Parameter Pollution protection */
 app.use(hpp());
 
-/* 5. Body parsing — JSON and URL-encoded form data */
+/* 5. Response time tracking — measures full request lifecycle */
+app.use(responseTimeMiddleware);
+
+/* 6. Body parsing — JSON and URL-encoded form data */
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true, limit: "2mb" }));
 
@@ -211,6 +230,13 @@ app.get("/api", (_req: Request, res: Response) => {
       search: "/api/search — Cross-entity search",
       events: "/api/events — Events and competitions",
       wallet: "/api/wallet — Stars wallet and transactions",
+      admin: "/api/admin — Content management CRUD",
+      coding: "/api/coding — Engineering coding problems",
+      tests: "/api/tests — Mock test system",
+      metrics: "/api/metrics — System monitoring & Prometheus",
+      uploads: "/api/uploads — File upload management",
+      seo: "/api/seo — SEO sitemap, schemas, breadcrumbs",
+      audit: "/api/audit — Security audit trail",
     },
     health: "/health — Server liveness check",
     ready: "/ready — Database readiness check",
@@ -271,6 +297,30 @@ app.use("/api/events", eventRoutes);
 /* Wallet — Stars balance, transactions, earning/spending */
 app.use("/api/wallet", walletRoutes);
 
+/* Admin — Content management CRUD (subjects, chapters, topics, questions) */
+app.use("/api/admin", adminRoutes);
+
+/* Coding — Engineering learning plans, lessons, problems, submissions */
+app.use("/api/coding", codingRoutes);
+
+/* Tests — Mock test execution, scoring, and results */
+app.use("/api/tests", testRoutes);
+
+/* Metrics — System health, pool stats, scheduler, Prometheus export */
+app.use("/api/metrics", metricsRoutes);
+
+/* Uploads — File upload for avatars, documents, attachments */
+app.use("/api/uploads", uploadRoutes);
+
+/* SEO — Dynamic sitemap, robots.txt, JSON-LD schemas, breadcrumbs */
+app.use("/api/seo", seoRoutes);
+
+/* Audit — Admin audit log viewer, statistics, export */
+app.use("/api/audit", auditRoutes);
+
+/* Health Checks — Kubernetes probes, detailed system health */
+app.use("/health", healthcheckRoutes);
+
 /* ─────────────────────────────────────────────
  * SECTION 5: Health & Readiness Endpoints
  * Used by load balancers, Kubernetes probes, and monitoring.
@@ -278,71 +328,97 @@ app.use("/api/wallet", walletRoutes);
 
 /* Health and readiness endpoints are registered in Section 2.5 above */
 
-/* ─────────────────────────────────────────────
- * SECTION 6: 404 Catch-All
- * Handles any request that didn't match a defined route.
- * Returns consistent JSON error instead of HTML default.
- * ───────────────────────────────────────────── */
-app.use((req: Request, res: Response) => {
-  res.status(404).json({
-    ok: false,
-    error: {
-      code: "NOT_FOUND",
-      message: `No route found for ${req.method} ${req.originalUrl}`,
-      hint: "Visit GET /api for a list of available endpoints.",
+/**
+ * GET /metrics
+ * Returns detailed server metrics for monitoring tools (Prometheus, Grafana, Datadog).
+ * Includes database pool stats, cache hit rates, and uptime information.
+ */
+app.get("/metrics", (_req: Request, res: Response) => {
+  const poolMetrics = getPoolMetrics();
+  const cacheStats = require("./config/cache").cache.getStats();
+
+  res.json({
+    ok: true,
+    data: {
+      server: {
+        uptime: Math.floor(process.uptime()),
+        environment: process.env.NODE_ENV ?? "development",
+        memoryUsage: process.memoryUsage(),
+        nodeVersion: process.version,
+      },
+      database: poolMetrics,
+      cache: cacheStats,
     },
   });
 });
 
 /* ─────────────────────────────────────────────
- * SECTION 7: Global Error Handler
+ * SECTION 6: 404 Catch-All (Production Error Handler)
+ * Uses the centralized error handling middleware.
+ * ───────────────────────────────────────────── */
+app.use(notFoundHandler);
+
+/* ─────────────────────────────────────────────
+ * SECTION 7: Global Error Handler (Production Error Handler)
  * Catches all unhandled errors thrown in route handlers.
- * Always returns JSON — never HTML.
+ * Returns consistent JSON with typed error codes.
  * ───────────────────────────────────────────── */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-  console.error("[EduQuest Error]", err.message, IS_DEV ? err.stack : "");
-
-  const statusCode = (err as Error & { statusCode?: number }).statusCode ?? 500;
-
-  res.status(statusCode).json({
-    ok: false,
-    error: {
-      code: "INTERNAL_ERROR",
-      message: IS_DEV ? err.message : "An unexpected error occurred. Please try again.",
-    },
-  });
-});
+app.use(globalErrorHandler);
 
 /* ─────────────────────────────────────────────
  * SECTION 8: Start Server with Graceful Shutdown
  * ───────────────────────────────────────────── */
 server.listen(PORT, "0.0.0.0", () => {
   logger.info(`EduQuest backend started on port ${PORT}`, { environment: IS_DEV ? "development" : "production" });
+
+  /* Start production services */
+  startScheduler();
+  startAnalyticsFlushTimer();
+
   console.log("");
-  console.log("╔══════════════════════════════════════════════════════════╗");
-  console.log("║                  EduQuest Backend                       ║");
-  console.log("╠══════════════════════════════════════════════════════════╣");
-  console.log(`║  Status:      RUNNING                                   ║`);
-  console.log(`║  Port:        ${String(PORT).padEnd(42)}║`);
-  console.log(`║  Environment: ${(IS_DEV ? "development" : "production").padEnd(42)}║`);
-  console.log("╠══════════════════════════════════════════════════════════╣");
-  console.log("║  Routes:                                                ║");
-  console.log("║    /api/auth       — Authentication                     ║");
-  console.log("║    /api/content    — Academic Content                    ║");
-  console.log("║    /api/progress   — User Progress                      ║");
-  console.log("║    /api/battle     — Battle System                      ║");
-  console.log("║    /api/leaderboard — Rankings                          ║");
-  console.log("║    /api/community  — Discussion Forums                  ║");
-  console.log("║    /api/users      — User Profiles                      ║");
-  console.log("║    /api/notifications — Notifications                   ║");
-  console.log("║    /api/search     — Search                             ║");
-  console.log("║    /api/events     — Events & Competitions              ║");
-  console.log("║    /api/wallet     — Stars Wallet                       ║");
-  console.log("╠══════════════════════════════════════════════════════════╣");
-  console.log(`║  Health:  http://localhost:${PORT}/health${" ".repeat(24)}║`);
-  console.log(`║  API Docs: http://localhost:${PORT}/api${" ".repeat(24)}║`);
-  console.log("╚══════════════════════════════════════════════════════════╝");
+  console.log("╔══════════════════════════════════════════════════════════════╗");
+  console.log("║                    EduQuest Backend v2.0                    ║");
+  console.log("╠══════════════════════════════════════════════════════════════╣");
+  console.log(`║  Status:      RUNNING                                      ║`);
+  console.log(`║  Port:        ${String(PORT).padEnd(46)}║`);
+  console.log(`║  Environment: ${(IS_DEV ? "development" : "production").padEnd(46)}║`);
+  console.log(`║  Node.js:     ${process.version.padEnd(46)}║`);
+  console.log("╠══════════════════════════════════════════════════════════════╣");
+  console.log("║  API Routes:                                               ║");
+  console.log("║    /api/auth          — Authentication & JWT                ║");
+  console.log("║    /api/content       — Academic Content CRUD               ║");
+  console.log("║    /api/progress      — User Progress Tracking              ║");
+  console.log("║    /api/battle        — Real-time Battle System             ║");
+  console.log("║    /api/leaderboard   — Global & Weekly Rankings            ║");
+  console.log("║    /api/community     — Discussion Forums                   ║");
+  console.log("║    /api/users         — User Profiles & Settings            ║");
+  console.log("║    /api/notifications — Multi-channel Notifications         ║");
+  console.log("║    /api/search        — Cross-entity Search                 ║");
+  console.log("║    /api/events        — Events & Competitions               ║");
+  console.log("║    /api/wallet        — Stars Wallet & Transactions         ║");
+  console.log("║    /api/admin         — Admin Panel CRUD                    ║");
+  console.log("║    /api/coding        — Engineering Learning                ║");
+  console.log("║    /api/tests         — Mock Test Execution                 ║");
+  console.log("║    /api/metrics       — Monitoring & Prometheus             ║");
+  console.log("║    /api/uploads       — File Upload Service                 ║");
+  console.log("║    /api/seo           — SEO Sitemap & Schemas               ║");
+  console.log("║    /api/audit         — Security Audit Trail                ║");
+  console.log("╠══════════════════════════════════════════════════════════════╣");
+  console.log("║  Production Services:                                      ║");
+  console.log("║    ✅ Job Scheduler (7 recurring jobs)                      ║");
+  console.log("║    ✅ Analytics Engine (buffered event tracking)            ║");
+  console.log("║    ✅ Email Service (12 HTML templates)                     ║");
+  console.log("║    ✅ Health Monitor (DB, Redis, memory, event loop)        ║");
+  console.log("║    ✅ Request Logger (structured JSON logs)                 ║");
+  console.log("║    ✅ Error Handler (typed errors + PG error mapping)       ║");
+  console.log("║    ✅ SEO Engine (sitemap, schema, breadcrumbs)             ║");
+  console.log("║    ✅ Audit Service (tamper-proof trail + batch writes)      ║");
+  console.log("╠══════════════════════════════════════════════════════════════╣");
+  console.log(`║  Health:     http://localhost:${PORT}/health${" ".repeat(28)}║`);
+  console.log(`║  API Docs:   http://localhost:${PORT}/api${" ".repeat(28)}║`);
+  console.log(`║  Metrics:    http://localhost:${PORT}/api/metrics/health${" ".repeat(14)}║`);
+  console.log(`║  Prometheus: http://localhost:${PORT}/api/metrics/prometheus${" ".repeat(9)}║`);
+  console.log("╚══════════════════════════════════════════════════════════════╝");
   console.log("");
 });
 
@@ -358,11 +434,23 @@ async function gracefulShutdown(signal: string) {
   server.close(async () => {
     console.log("[EduQuest] HTTP server closed.");
 
+    /* Stop production services in order */
+    stopScheduler();
+    console.log("[EduQuest] Job scheduler stopped.");
+
+    await stopAnalyticsFlushTimer();
+    console.log("[EduQuest] Analytics buffer flushed.");
+
+    await stopAuditFlushTimer();
+    console.log("[EduQuest] Audit buffer flushed.");
+
     /* Close database pool */
     await closeDatabasePool();
+    console.log("[EduQuest] Database pool closed.");
 
     /* Close Redis client pool */
     await closeRedisClient();
+    console.log("[EduQuest] Redis connection closed.");
 
     console.log("[EduQuest] All resources released. Goodbye!");
     process.exit(0);

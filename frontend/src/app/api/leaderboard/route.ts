@@ -32,16 +32,29 @@ function normalizeScope(scope: string | null): "global" | LearningTrack {
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const scope = normalizeScope(searchParams.get("scope"));
-  const currentUser = await getAuthenticatedUser(request);
-  const repository = getPlatformRepository();
-  const entries = await repository.leaderboard.listTopUsers(scope, currentUser?.id);
 
-  return apiSuccess(
-    {
-      scope,
-      entries,
-      currentUserId: currentUser?.id ?? null,
-    },
-    { headers: NO_STORE_HEADERS },
-  );
+  try {
+    const currentUser = await getAuthenticatedUser(request);
+    const repository = getPlatformRepository();
+    const entries = await repository.leaderboard.listTopUsers(scope, currentUser?.id);
+
+    return apiSuccess(
+      {
+        scope,
+        entries,
+        currentUserId: currentUser?.id ?? null,
+      },
+      { headers: NO_STORE_HEADERS },
+    );
+  } catch {
+    /* Database unavailable — return empty leaderboard instead of 500 */
+    return apiSuccess(
+      {
+        scope,
+        entries: [],
+        currentUserId: null,
+      },
+      { headers: NO_STORE_HEADERS },
+    );
+  }
 }

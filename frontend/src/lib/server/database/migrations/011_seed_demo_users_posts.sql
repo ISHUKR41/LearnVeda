@@ -184,8 +184,3 @@ WHERE u.email LIKE '%@demo.eduquest.in'
   AND NOT EXISTS (
     SELECT 1 FROM eduquest_wallet w WHERE w.user_id = u.id
   );
-
--- ─── Section 4: Track this migration ─────────────────────────────────────────
-INSERT INTO eduquest_schema_migrations (version, applied_at)
-VALUES ('011', NOW())
-ON CONFLICT (version) DO NOTHING;

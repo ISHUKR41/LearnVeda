@@ -17,17 +17,18 @@ import { getChapterPracticeSnapshot } from "@/lib/server/data/subject-plans";
 import ChapterPracticeClient from "./ChapterPracticeClient";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     subject: string;
     chapter: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params;
   const data = await getChapterPracticeSnapshot({
     track: "class-9",
-    subject: params.subject,
-    chapter: params.chapter,
+    subject: resolvedParams.subject,
+    chapter: resolvedParams.chapter,
   });
 
   if (!data) {
@@ -44,17 +45,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function Class9ChapterPracticePage({ params }: PageProps) {
+  const resolvedParams = await params;
   const snapshot = await getChapterPracticeSnapshot({
     track: "class-9",
-    subject: params.subject,
-    chapter: params.chapter,
+    subject: resolvedParams.subject,
+    chapter: resolvedParams.chapter,
   });
 
   if (!snapshot) {
     notFound();
   }
 
-  const backUrl = `/class-9/${params.subject}`;
+  const backUrl = `/class-9/${resolvedParams.subject}`;
 
   return (
     <main style={{ minHeight: "80vh", background: "var(--color-bg-secondary)" }}>

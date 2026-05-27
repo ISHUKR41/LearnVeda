@@ -86,7 +86,7 @@ interface LogMeta {
   path?: string;         // Request URL path
   statusCode?: number;   // HTTP response status code
   duration?: number;     // Request duration in milliseconds
-  error?: Error;         // Error object (stack trace will be extracted)
+  error?: Error | string; // Error object or message string (stack trace extracted if Error)
   [key: string]: unknown; // Extensible — any additional key-value pairs
 }
 
@@ -129,8 +129,12 @@ function log(level: LogLevel, message: string, meta?: LogMeta): void {
       if (meta.statusCode) entry.statusCode = meta.statusCode;
       if (meta.duration) entry.durationMs = meta.duration;
       if (meta.error) {
-        entry.errorMessage = meta.error.message;
-        entry.errorStack = meta.error.stack;
+        if (meta.error instanceof Error) {
+          entry.errorMessage = meta.error.message;
+          entry.errorStack = meta.error.stack;
+        } else {
+          entry.errorMessage = meta.error;
+        }
       }
       /* Include any extra key-value pairs */
       for (const key of Object.keys(meta)) {
@@ -171,7 +175,7 @@ function log(level: LogLevel, message: string, meta?: LogMeta): void {
     /* Write to stdout/stderr based on severity */
     if (level >= LogLevel.ERROR) {
       console.error(logLine);
-      if (meta?.error?.stack) {
+      if (meta?.error && meta.error instanceof Error && meta.error.stack) {
         console.error(`\x1b[90m${meta.error.stack}${RESET}`);
       }
     } else {

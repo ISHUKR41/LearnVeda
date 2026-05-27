@@ -257,10 +257,15 @@ model CodingLanguage {
   icon        String?   // Language icon URL
   color       String?   // Brand color
   difficulty  String    @default("BEGINNER") // BEGINNER, INTERMEDIATE, ADVANCED
+  isActive    Boolean   @default(true)
+  orderIndex  Int       @default(0)
   
   problems    CodingProblem[]
   plans       LearningPlan[]
   dailyLessons DailyLesson[]
+
+  @@index([slug])
+  @@index([isActive])
 }
 
 // Day-by-day learning plan for each language (e.g., "30-Day Python Plan")
@@ -275,6 +280,9 @@ model LearningPlan {
 
   language      CodingLanguage @relation(fields: [languageId], references: [id], onDelete: Cascade)
   dailyLessons  DailyLesson[]
+
+  @@index([languageId])
+  @@index([slug])
 }
 
 // Individual daily lesson within a plan
@@ -289,11 +297,12 @@ model DailyLesson {
   languageId    String
   
   plan          LearningPlan   @relation(fields: [planId], references: [id], onDelete: Cascade)
-  language      CodingLanguage @relation(fields: [languageId], references: [id])
+  language      CodingLanguage @relation(fields: [languageId], references: [id], onDelete: Cascade)
   problems      CodingProblem[]
 
   @@unique([dayNumber, planId])
   @@index([planId])
+  @@index([languageId])
 }
 
 model CodingProblem {
@@ -310,10 +319,11 @@ model CodingProblem {
   points        Int       @default(10)
   
   language      CodingLanguage @relation(fields: [languageId], references: [id], onDelete: Cascade)
-  dailyLesson   DailyLesson?   @relation(fields: [dailyLessonId], references: [id])
+  dailyLesson   DailyLesson?   @relation(fields: [dailyLessonId], references: [id], onDelete: Cascade)
   submissions   CodingSubmission[]
 
   @@index([languageId])
+  @@index([dailyLessonId])
   @@index([difficulty])
 }
 
@@ -336,6 +346,7 @@ model CodingSubmission {
 
   @@index([userId])
   @@index([problemId])
+  @@index([userId, submittedAt])
 }
 
 // ==============================================================================
@@ -486,6 +497,8 @@ model Match {
 
   @@index([status])
   @@index([subjectId])
+  // Composite index — optimized for matchmaking: "Find waiting matches in subject X"
+  @@index([status, subjectId])
 }
 
 model MatchParticipant {
@@ -558,6 +571,9 @@ model CommunityPost {
   @@index([authorId])
   @@index([categoryId])
   @@index([createdAt])
+  // Composite index — optimized for sorted feeds: "Get latest posts in category X"
+  // This is the primary query pattern for community page pagination
+  @@index([categoryId, createdAt])
 }
 
 model CommunityComment {
@@ -702,6 +718,8 @@ model WalletTransaction {
   @@index([userId])
   @@index([type])
   @@index([createdAt])
+  // Composite index — optimized for paginated wallet history: "Get user X's recent transactions"
+  @@index([userId, createdAt])
 }
 
 // ==============================================================================
@@ -756,6 +774,8 @@ model Notification {
 
   @@index([userId, isRead])
   @@index([createdAt])
+  // Composite index — optimized for notification inbox: "Get user X's latest notifications"
+  @@index([userId, createdAt])
 }
 
 // ==============================================================================
@@ -772,3 +792,5 @@ model LevelDefinition {
   title       String    // Level title: "Newcomer", "Scholar", "Master"
   badgeColor  String?   // Badge color for this level tier
 }
+
+

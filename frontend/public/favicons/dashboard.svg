@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="dashGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="#0D1117" />
+  <rect x="7" y="15" width="4" height="10" rx="1" fill="url(#dashGrad)" />
+  <rect x="14" y="9" width="4" height="16" rx="1" fill="#60A5FA" />
+  <rect x="21" y="18" width="4" height="7" rx="1" fill="url(#dashGrad)" />
+  <path d="M6 25h20" stroke="#30363D" stroke-width="2" stroke-linecap="round" />
+</svg>
