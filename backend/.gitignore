@@ -4,3 +4,6 @@ node_modules
 
 /generated/prisma
 .data/
+pglite-db/
+pglite-db-test/
+pglite-db-socket-test/
