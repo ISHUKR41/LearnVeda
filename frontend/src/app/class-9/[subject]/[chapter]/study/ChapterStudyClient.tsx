@@ -47,19 +47,19 @@ function playSound(type: "correct" | "wrong") {
     const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContextClass) return;
     const ctx = new AudioContextClass();
-    
+
     if (type === "correct") {
       // Correct ding: C5 (523Hz) then E5 (659Hz)
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = "sine";
-      
+
       osc.frequency.setValueAtTime(523.25, ctx.currentTime);
       osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.08);
-      
+
       gain.gain.setValueAtTime(0.08, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
-      
+
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
@@ -69,13 +69,13 @@ function playSound(type: "correct" | "wrong") {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = "sawtooth";
-      
+
       osc.frequency.setValueAtTime(160, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(90, ctx.currentTime + 0.25);
-      
+
       gain.gain.setValueAtTime(0.08, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
-      
+
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
@@ -107,7 +107,7 @@ function MCQInteractive({ mcq, index }: { mcq: MCQ; index: number }) {
     if (!selected) return;
     setSubmitted(true);
     setShowAnswer(true);
-    
+
     // Play sound effect based on correctness
     const isCorrect = selected === mcq.correctAnswer;
     playSound(isCorrect ? "correct" : "wrong");
@@ -203,8 +203,8 @@ function WrittenQuestionCard({
     q.difficulty === "easy"
       ? styles.wqDifficultyEasy
       : q.difficulty === "medium"
-      ? styles.wqDifficultyMedium
-      : styles.wqDifficultyHard;
+        ? styles.wqDifficultyMedium
+        : styles.wqDifficultyHard;
 
   return (
     <div className={styles.writtenQuestionCard}>
@@ -580,9 +580,8 @@ export default function ChapterStudyClient({
               <li key={topic.id} className={styles.topicNavItem}>
                 {/* Topic button */}
                 <button
-                  className={`${styles.topicNavButton} ${
-                    idx === activeTopicIdx ? styles.topicNavButtonActive : ""
-                  }`}
+                  className={`${styles.topicNavButton} ${idx === activeTopicIdx ? styles.topicNavButtonActive : ""
+                    }`}
                   onClick={() => handleTopicChange(idx)}
                 >
                   <span className={styles.topicNavNumber}>{topic.id}</span>
@@ -595,11 +594,10 @@ export default function ChapterStudyClient({
                     {topic.subtopics.map((sub: Subtopic) => (
                       <li key={sub.id}>
                         <button
-                          className={`${styles.subtopicNavButton} ${
-                            activeSubtopicId === sub.id
-                              ? styles.subtopicNavButtonActive
-                              : ""
-                          }`}
+                          className={`${styles.subtopicNavButton} ${activeSubtopicId === sub.id
+                            ? styles.subtopicNavButtonActive
+                            : ""
+                            }`}
                           onClick={() => handleSubtopicClick(sub.id)}
                         >
                           {sub.id} {sub.title}
