@@ -15,6 +15,7 @@ import type { NextConfig } from "next";
 const replitDevDomain = process.env.REPLIT_DEV_DOMAIN;
 
 const nextConfig: NextConfig = {
+  transpilePackages: ["lucide-react"],
   /* ── Security ───────────────────────────────────────────── */
   poweredByHeader: false,   // Don't advertise Next.js version in HTTP headers
   compress: true,            // Enable Brotli/Gzip on all responses
@@ -69,7 +70,7 @@ const nextConfig: NextConfig = {
 
   /* ── HTTP security headers applied to every route ─────────── */
   async headers() {
-    return [
+    const rules = [
       {
         source: "/(.*)",
         headers: [
@@ -85,21 +86,27 @@ const nextConfig: NextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
+    ];
+
+    if (process.env.NODE_ENV === "production") {
       /* Cache aggressively for all Next.js static assets (JS, CSS chunks, fonts) */
-      {
+      rules.push({
         source: "/_next/static/(.*)",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
-      },
+      });
+
       /* Cache public folder assets (SVGs, PNGs, favicons) for 1 week */
-      {
+      rules.push({
         source: "/images/(.*)",
         headers: [
           { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" },
         ],
-      },
-    ];
+      });
+    }
+
+    return rules;
   },
 };
 

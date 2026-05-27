@@ -54,6 +54,7 @@ import userRoutes         from "./routes/users";
 import notificationRoutes from "./routes/notifications";
 import searchRoutes       from "./routes/search";
 import eventRoutes        from "./routes/events";
+import hackathonRoutes    from "./routes/hackathons";
 import walletRoutes       from "./routes/wallet";
 import adminRoutes        from "./routes/admin";
 import codingRoutes       from "./routes/coding";
@@ -293,6 +294,9 @@ app.use("/api/search", searchRoutes);
 
 /* Events — competitions, hackathons, event registration */
 app.use("/api/events", eventRoutes);
+
+/* Hackathons — decoupled tournament portal routes */
+app.use("/api/hackathons", hackathonRoutes);
 
 /* Wallet — Stars balance, transactions, earning/spending */
 app.use("/api/wallet", walletRoutes);

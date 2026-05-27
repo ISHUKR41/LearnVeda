@@ -13,6 +13,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import Link from "next/link";
 import {
   Trophy,
   Calendar,
@@ -352,7 +353,11 @@ export default function HackathonClient() {
                     </div>
 
                     <div className={styles.cardBody}>
-                      <h2 className={styles.cardTitle}>{event.title}</h2>
+                      <h2 className={styles.cardTitle}>
+                        <Link href={`/hackathon/${event.id}`} style={{ color: "inherit", textDecoration: "none" }}>
+                          {event.title}
+                        </Link>
+                      </h2>
                       <p className={styles.cardSub}>{event.location}</p>
 
                       <div className={styles.cardMeta}>
