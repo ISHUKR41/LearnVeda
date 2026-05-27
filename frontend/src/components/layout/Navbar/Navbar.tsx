@@ -39,17 +39,29 @@ function NavbarShell({ pathname }: NavbarShellProps) {
   const { isLoaded, isSignedIn } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDesktopGroup, setActiveDesktopGroup] = useState<string | null>(null);
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window === "undefined") return false;
-    const stored = localStorage.getItem("eduquest-theme");
-    // Default new sessions to the polished light theme, while preserving the
-    // user's saved choice so the theme toggle remains stable across visits.
-    return stored ? stored === "dark" : false;
-  });
+  /**
+   * Theme state — always initializes to false (light) on BOTH server and client.
+   * The actual localStorage value is read in useEffect below to prevent
+   * hydration mismatches (server doesn't have localStorage).
+   */
+  const [isDark, setIsDark] = useState(false);
+  /** Tracks whether the component has mounted on the client. Used to prevent
+   *  theme icon hydration mismatch — we render a neutral icon until mounted. */
+  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
   const [sessionState, setSessionState] = useState<"checking" | "guest" | "authenticated">("checking");
   const [currentUser, setCurrentUser] = useState<PublicUser | null>(null);
+
+  /* Read saved theme from localStorage ONLY on the client after mount.
+   * This prevents the server from rendering a different icon than the client. */
+  useEffect(() => {
+    setMounted(true);
+    const stored = localStorage.getItem("eduquest-theme");
+    if (stored === "dark") {
+      setIsDark(true);
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -209,9 +221,9 @@ function NavbarShell({ pathname }: NavbarShellProps) {
             </>
           )}
 
-          {/* Theme toggle */}
+          {/* Theme toggle — shows neutral Sun until client-side mount to avoid hydration mismatch */}
           <button className={styles.themeToggle} onClick={toggleTheme} aria-label="Toggle theme">
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            {mounted ? (isDark ? <Sun size={18} /> : <Moon size={18} />) : <Sun size={18} />}
           </button>
 
           {/* Auth buttons (desktop) */}

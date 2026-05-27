@@ -38,17 +38,16 @@ const isProtectedRoute = createRouteMatcher([
  */
 export default clerkMiddleware(async (auth, req) => {
   if (isProtectedRoute(req)) {
-    // Check if user is signed in via Clerk
-    const { userId } = await auth();
-
-    if (!userId) {
-      // Redirect unauthenticated users to sign-in with return URL
-      const signInUrl = new URL("/sign-in", req.url);
-      signInUrl.searchParams.set("redirect_url", req.nextUrl.pathname);
-      const { redirectToSignIn } = await auth();
-      // Use Clerk's built-in redirect for proper session handling
-      return redirectToSignIn({ returnBackUrl: req.url });
-    }
+    /**
+     * auth.protect() does two things in one call:
+     *   1. Checks if the user has a valid Clerk session
+     *   2. If not, automatically redirects to the Clerk sign-in page
+     *      with a returnBackUrl so the user comes back after signing in
+     *
+     * This replaces the previous double-auth() pattern which was unreliable
+     * and could cause silent redirect failures.
+     */
+    await auth.protect();
   }
 });
 

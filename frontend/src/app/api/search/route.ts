@@ -3,32 +3,31 @@
  * LOCATION: src/app/api/search/route.ts
  * PURPOSE: Global search API endpoint.
  *          Accepts a `q` query parameter and returns matching results from:
- *            1. eduquest_subjects   — by subject name
- *            2. eduquest_chapters   — by chapter name (includes subject context)
- *            3. eduquest_community_posts — by post title / first 200 chars of content
- *            4. eduquest_users      — by display name or email
- *
- *          All queries are ILIKE-based (case-insensitive partial match) with a
- *          combined LIMIT of 30 results across all categories.
+ *            1. Static curriculum catalogs (CBSE subjects, chapters)
+ *            2. Learning catalog (Class 9-12 subjects, engineering plans)
+ *          Uses the in-memory TypeScript data so search works WITHOUT a
+ *          running PostgreSQL server. When the full database is available
+ *          in production, extend this to also search community posts
+ *          and user profiles.
  *
  * RETURNS:
  *   { ok: true, query: string, results: SearchResult[], total: number }
  *
  * ERRORS:
  *   400 — missing or too-short query
- *   500 — database error
+ *   500 — unexpected server error
  *
  * USED BY: src/app/search/page.tsx (client-side fetch)
- * LAST UPDATED: 2026-05-17
+ * LAST UPDATED: 2026-05-28
  */
 
 import { NextResponse } from "next/server";
-import { getPool } from "@/lib/server/database/pool";
+import { CLASS_9_CATALOG, type ClassCatalog } from "@/lib/curriculum/cbse-catalog";
 
 /** Shape of a single search result sent to the client */
 interface SearchResult {
   id: string;
-  type: "chapter" | "subject" | "post" | "user";
+  type: "chapter" | "subject" | "topic" | "post" | "user";
   title: string;
   subtitle?: string;
   href: string;
@@ -36,6 +35,14 @@ interface SearchResult {
 }
 
 export const dynamic = "force-dynamic";
+
+/**
+ * All available catalogs for searching.
+ * Add more catalogs here as class data is added (CLASS_10_CATALOG, etc.)
+ */
+const ALL_CATALOGS: ClassCatalog[] = [
+  CLASS_9_CATALOG,
+];
 
 export async function GET(request: Request) {
   /* ── 1. Parse and validate the query parameter ── */
@@ -51,127 +58,63 @@ export async function GET(request: Request) {
 
   /* Safety: limit query length to prevent abuse */
   const safeQ = q.slice(0, 100);
-  const pattern = `%${safeQ}%`; /* ILIKE pattern */
-
-  const pool = getPool();
+  const lowerQ = safeQ.toLowerCase();
   const results: SearchResult[] = [];
 
   try {
-    /* ── 2. Search subjects ── */
-    const subjectsRes = await pool.query<{
-      id: string;
-      name: string;
-      track: string;
-      slug: string;
-    }>(
-      `SELECT id::text, name, track, slug
-       FROM eduquest_subjects
-       WHERE name ILIKE $1
-       LIMIT 5`,
-      [pattern],
-    );
+    /* ── 2. Search through all curriculum catalogs ── */
+    for (const catalog of ALL_CATALOGS) {
+      for (const subject of catalog.subjects) {
+        /* Match subject name against query */
+        if (subject.name.toLowerCase().includes(lowerQ)) {
+          results.push({
+            id: `${catalog.id}-${subject.slug}`,
+            type: "subject",
+            title: subject.name,
+            subtitle: `${catalog.name} subject`,
+            href: `/${catalog.id}/${subject.slug}`,
+            highlight: subject.description,
+          });
+        }
 
-    for (const row of subjectsRes.rows) {
-      results.push({
-        id: row.id,
-        type: "subject",
-        title: row.name,
-        subtitle: `${row.track.replace(/-/g, " ")} subject`,
-        href: `/${row.track}/${row.slug.replace(`${row.track}-`, "")}`,
-      });
+        /* Match chapter names within each subject */
+        for (const chapter of subject.chapters) {
+          const matchesName = chapter.name.toLowerCase().includes(lowerQ);
+          const matchesDesc = chapter.description.toLowerCase().includes(lowerQ);
+
+          if (matchesName || matchesDesc) {
+            results.push({
+              id: `${catalog.id}-${subject.slug}-${chapter.slug}`,
+              type: "chapter",
+              title: chapter.name,
+              subtitle: `${subject.name} · ${catalog.name}`,
+              href: `/${catalog.id}/${subject.slug}`,
+              highlight: chapter.description,
+            });
+          }
+        }
+
+        /* Stop searching if we have enough results */
+        if (results.length >= 30) break;
+      }
+
+      if (results.length >= 30) break;
     }
-
-    /* ── 3. Search chapters ── */
-    const chaptersRes = await pool.query<{
-      id: string;
-      name: string;
-      subject_name: string;
-      track: string;
-      subject_slug: string;
-    }>(
-      `SELECT ch.id::text, ch.name, s.name AS subject_name,
-              s.track, s.slug AS subject_slug
-       FROM eduquest_chapters ch
-       JOIN eduquest_subjects s ON ch.subject_id = s.id
-       WHERE ch.name ILIKE $1
-       LIMIT 8`,
-      [pattern],
-    );
-
-    for (const row of chaptersRes.rows) {
-      results.push({
-        id: row.id,
-        type: "chapter",
-        title: row.name,
-        subtitle: `${row.subject_name} · ${row.track.replace(/-/g, " ")}`,
-        href: `/${row.track}/${row.subject_slug.replace(`${row.track}-`, "")}`,
-      });
-    }
-
-    /* ── 4. Search community posts ── */
-    const postsRes = await pool.query<{
-      id: string;
-      title: string;
-      body: string;
-      author_name: string;
-    }>(
-      `SELECT p.id::text, p.title,
-              LEFT(p.body, 200) AS body,
-              p.author_name
-       FROM eduquest_community_posts p
-       WHERE p.title ILIKE $1 OR p.body ILIKE $1
-       ORDER BY p.likes DESC, p.created_at DESC
-       LIMIT 8`,
-      [pattern],
-    );
-
-    for (const row of postsRes.rows) {
-      results.push({
-        id: row.id,
-        type: "post",
-        title: row.title,
-        subtitle: `by ${row.author_name}`,
-        href: `/community`,
-        highlight: row.body.length > 120 ? row.body.slice(0, 120) + "..." : row.body,
-      });
-    }
-
-    /* ── 5. Search users ── */
-    const usersRes = await pool.query<{
-      id: string;
-      name: string;
-      level: number;
-      track: string;
-    }>(
-      `SELECT id::text, name, level, track
-       FROM eduquest_users
-       WHERE name ILIKE $1 OR email ILIKE $1
-       LIMIT 5`,
-      [pattern],
-    );
-
-    for (const row of usersRes.rows) {
-      results.push({
-        id: row.id,
-        type: "user",
-        title: row.name,
-        subtitle: `Level ${row.level} · ${row.track.replace(/-/g, " ")}`,
-        href: `/leaderboard`,
-      });
-    }
-
   } catch (err) {
-    console.error("[search] Database error:", err);
+    console.error("[search] Error:", err);
     return NextResponse.json(
       { ok: false, error: "Search is temporarily unavailable." },
       { status: 500 },
     );
   }
 
+  /* Limit total results to 30 for performance */
+  const limitedResults = results.slice(0, 30);
+
   return NextResponse.json({
     ok: true,
     query: safeQ,
-    results,
-    total: results.length,
+    results: limitedResults,
+    total: limitedResults.length,
   });
 }
