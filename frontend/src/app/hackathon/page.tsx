@@ -49,7 +49,6 @@ function HackathonLoadingSkeleton() {
 // Dynamically import the client shell with our custom loading state (code splitting)
 const HackathonClient = dynamic(() => import("./HackathonClient"), {
   loading: () => <HackathonLoadingSkeleton />,
-  ssr: false // Client state depends on window/localStorage, disable server-side render for safety
 });
 
 export default function HackathonPage() {

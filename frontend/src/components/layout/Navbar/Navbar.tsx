@@ -14,9 +14,10 @@ import { useState, useEffect, type FocusEvent } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  Menu, X, Sun, Moon, BookOpen, ChevronDown, LogOut, Zap,
+  Menu, X, Sun, Moon, BookOpen, ChevronDown, Zap,
   Search, Bell, Flame, Swords, User, Wallet, Settings, ShieldCheck
 } from "lucide-react";
+import { useAuth, UserButton } from "@clerk/nextjs";
 import styles from "./Navbar.module.css";
 import type { PublicUser } from "@/types/auth";
 
@@ -34,6 +35,7 @@ interface NavbarShellProps {
 
 /** Stateful navbar implementation */
 function NavbarShell({ pathname }: NavbarShellProps) {
+  const { isLoaded, isSignedIn } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDesktopGroup, setActiveDesktopGroup] = useState<string | null>(null);
   const [isDark, setIsDark] = useState(() => {
@@ -195,7 +197,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
           </Link>
 
           {/* Authenticated-only icons: notifications bell + streak flame */}
-          {sessionState === "authenticated" && (
+          {isLoaded && isSignedIn && (
             <>
               <Link href="/notifications" className={styles.iconBtn} aria-label="Notifications">
                 <Bell size={17} />
@@ -213,49 +215,26 @@ function NavbarShell({ pathname }: NavbarShellProps) {
 
           {/* Auth buttons (desktop) */}
           <div className={styles.authButtons}>
-            {sessionState === "checking" ? (
-              <div className={styles.skeleton} />
-            ) : sessionState === "authenticated" ? (
-              <>
-                <Link href="/dashboard" className={styles.btnGhost}>
-                  <Zap size={14} /> Dashboard
-                </Link>
-                <div className={styles.accountMenu}>
-                  <button
-                    className={styles.accountButton}
-                    type="button"
-                    onClick={() => toggleDesktopGroup("account")}
-                    aria-expanded={activeDesktopGroup === "account"}
-                    aria-haspopup="menu"
-                  >
-                    <User size={15} />
-                    Account
-                    <ChevronDown size={13} className={activeDesktopGroup === "account" ? styles.rotate : ""} />
-                  </button>
-                  {activeDesktopGroup === "account" && (
-                    <div className={`${styles.dropdown} ${styles.accountDropdown}`} role="menu">
-                      <Link href="/profile" className={styles.dropdownLink} role="menuitem"><User size={14} /> Profile</Link>
-                      <Link href="/wallet" className={styles.dropdownLink} role="menuitem"><Wallet size={14} /> Wallet</Link>
-                      <Link href="/settings" className={styles.dropdownLink} role="menuitem"><Settings size={14} /> Settings</Link>
-                      <Link href="/notifications" className={styles.dropdownLink} role="menuitem"><Bell size={14} /> Notifications</Link>
-                      {isAdmin && (
-                        <Link href="/admin/host-applications" className={styles.dropdownLink} role="menuitem">
-                          <ShieldCheck size={14} /> Admin Review
-                        </Link>
-                      )}
-                      <button onClick={handleSignOut} className={styles.dropdownButton} role="menuitem">
-                        <LogOut size={14} /> Sign Out
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </>
-            ) : (
+            {isLoaded && !isSignedIn && (
               <>
                 <Link href="/sign-in" className={styles.btnGhost}>Sign In</Link>
                 <Link href="/sign-up" className={styles.btnPrimary}>
                   Start Free <Flame size={14} />
                 </Link>
+              </>
+            )}
+            {isLoaded && isSignedIn && (
+              <>
+                <Link href="/dashboard" className={styles.btnGhost}>
+                  <Zap size={14} /> Dashboard
+                </Link>
+                <UserButton 
+                  appearance={{
+                    elements: {
+                      userButtonAvatarBox: `${styles.accountAvatarBox} w-8 h-8 rounded-full border border-[rgba(255,255,255,0.06)]`
+                    }
+                  }}
+                />
               </>
             )}
           </div>
@@ -303,25 +282,23 @@ function NavbarShell({ pathname }: NavbarShellProps) {
             </div>
 
             <div className={styles.drawerAuth}>
-               {sessionState === "authenticated" ? (
-                 <>
-                   <Link href="/dashboard" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
-                   <Link href="/profile" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><User size={16} /> Profile</Link>
-                   <Link href="/wallet" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><Wallet size={16} /> Wallet</Link>
-                    <Link href="/settings" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><Settings size={16} /> Settings</Link>
-                    {isAdmin && (
-                      <Link href="/admin/host-applications" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>
-                        <ShieldCheck size={16} /> Admin Review
-                      </Link>
-                    )}
-                    <button onClick={handleSignOut} className={styles.drawerBtnSecondary}>Sign Out</button>
-                 </>
-               ) : (
-                 <>
-                   <Link href="/sign-in" className={styles.drawerBtnSecondary} onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
-                   <Link href="/sign-up" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Start Free</Link>
-                 </>
-               )}
+              {isLoaded && isSignedIn && (
+                <>
+                  <Link href="/dashboard" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
+                  <Link href="/profile" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><User size={16} /> Profile</Link>
+                  <Link href="/wallet" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><Wallet size={16} /> Wallet</Link>
+                  <Link href="/settings" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><Settings size={16} /> Settings</Link>
+                  <div style={{ padding: "8px 16px" }}>
+                    <UserButton />
+                  </div>
+                </>
+              )}
+              {isLoaded && !isSignedIn && (
+                <>
+                  <Link href="/sign-in" className={styles.drawerBtnSecondary} onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
+                  <Link href="/sign-up" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Start Free</Link>
+                </>
+              )}
             </div>
           </div>
         </>

@@ -1,342 +1,62 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/sign-up/page.tsx
- * PURPOSE: Sign Up page — production-shaped registration flow with its own
- *          page-specific CSS module, client validation, backend API submission,
- *          class/track selection, and consent capture.
+ * PURPOSE: Sign Up page using Clerk components. Renders the secure sign-up card.
  * USED BY: Next.js App Router — renders at "/sign-up"
- * DEPENDENCIES: next/navigation, lucide-react, SignUp.module.css, auth validation
- * LAST UPDATED: 2026-05-11
+ * DEPENDENCIES: @clerk/nextjs, SignUp.module.css
+ * LAST UPDATED: 2026-05-27
  */
 
-"use client";
-
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import {
-  AlertCircle,
-  ArrowRight,
-  BookOpen,
-  CheckCircle2,
-  Flame,
-  Globe,
-  GraduationCap,
-  Loader2,
-  Lock,
-  Mail,
-  ShieldCheck,
-  Swords,
-  Target,
-  Trophy,
-  User,
-  Zap,
-} from "lucide-react";
-import { signUpSchema } from "@/lib/validation/auth";
-import type { LearningTrack } from "@/types/auth";
+import { SignUp } from "@clerk/nextjs";
+import { GraduationCap, CheckCircle2, ShieldCheck } from "lucide-react";
 import styles from "./SignUp.module.css";
 
-interface AuthApiResponse {
-  ok: boolean;
-  error?: {
-    message: string;
-    details?: {
-      fieldErrors?: Record<string, string[]>;
-    };
-  };
-}
-
-const TRACK_OPTIONS: Array<{
-  value: LearningTrack;
-  label: string;
-  description: string;
-}> = [
-  { value: "class-9", label: "Class 9", description: "Foundation subjects" },
-  { value: "class-10", label: "Class 10", description: "Board preparation" },
-  { value: "class-11", label: "Class 11", description: "Stream learning" },
-  { value: "class-12", label: "Class 12", description: "Boards + entrance" },
-  { value: "engineering", label: "Engineering", description: "Coding + CS skills" },
-];
-
-/**
- * SignUpPage Component
- *
- * Creates a new account through POST /api/auth/sign-up.
- * The API hashes the password, creates the user, and sets the session cookie.
- */
 export default function SignUpPage() {
-  const router = useRouter();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [selectedClass, setSelectedClass] = useState<LearningTrack | "">("");
-  const [acceptTerms, setAcceptTerms] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [formError, setFormError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  /** Validates form values locally before sending them to the backend API. */
-  const validateForm = () => {
-    const parsed = signUpSchema.safeParse({
-      name,
-      email,
-      password,
-      selectedClass,
-      acceptTerms,
-    });
-
-    if (parsed.success) {
-      setFieldErrors({});
-      return parsed.data;
-    }
-
-    const errors = parsed.error.flatten().fieldErrors;
-    setFieldErrors({
-      name: errors.name?.[0] ?? "",
-      email: errors.email?.[0] ?? "",
-      password: errors.password?.[0] ?? "",
-      selectedClass: errors.selectedClass?.[0] ?? "",
-      acceptTerms: errors.acceptTerms?.[0] ?? "",
-    });
-    return null;
-  };
-
-  /**
-   * API call: POST /api/auth/sign-up
-   * Why: account creation must happen on the server so password hashing and
-   * session cookie creation never run inside browser JavaScript.
-   */
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormError("");
-
-    const validData = validateForm();
-    if (!validData) {
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("/api/auth/sign-up", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(validData),
-      });
-      const payload = (await response.json()) as AuthApiResponse;
-
-      if (!response.ok || !payload.ok) {
-        setFormError(payload.error?.message ?? "Unable to create account right now.");
-        return;
-      }
-
-      router.push("/dashboard");
-      router.refresh();
-    } catch {
-      setFormError("Network error. Please check your connection and try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
-        {/*
-         * Left benefits panel — only rendered on wide screens (≥980px).
-         * Three sections: badge at top, feature mini-cards in middle, tagline at bottom.
-         */}
+        {/* Left benefits panel — preloaded brand features */}
         <section className={styles.promisePanel} aria-label="EduQuest account benefits">
-
-          {/* Top badge */}
           <div className={styles.promiseBadge}>
             <GraduationCap size={16} />
             Student-first onboarding
           </div>
 
-          {/* Middle — four feature highlight cards */}
-          <div className={styles.promiseMid}>
-            <div className={styles.promiseCard}>
-              <div className={`${styles.promiseIcon} ${styles.blue}`} aria-hidden="true">
-                <Target size={18} />
-              </div>
-              <div>
-                <p className={styles.promiseCardTitle}>Structured Day-Wise Plans</p>
-                <p className={styles.promiseCardDesc}>15-60 day plans for every class and coding track. No guesswork.</p>
-              </div>
-            </div>
-
-            <div className={styles.promiseCard}>
-              <div className={`${styles.promiseIcon} ${styles.amber}`} aria-hidden="true">
-                <Flame size={18} />
-              </div>
-              <div>
-                <p className={styles.promiseCardTitle}>Daily Streak + XP</p>
-                <p className={styles.promiseCardDesc}>Earn XP every session, maintain your streak, climb the leaderboard.</p>
-              </div>
-            </div>
-
-            <div className={styles.promiseCard}>
-              <div className={`${styles.promiseIcon} ${styles.green}`} aria-hidden="true">
-                <Swords size={18} />
-              </div>
-              <div>
-                <p className={styles.promiseCardTitle}>Real-Time Battle Arena</p>
-                <p className={styles.promiseCardDesc}>Challenge peers in timed quiz duels with anti-cheat protection.</p>
-              </div>
-            </div>
-
-            <div className={styles.promiseCard}>
-              <div className={`${styles.promiseIcon} ${styles.purple}`} aria-hidden="true">
-                <Trophy size={18} />
-              </div>
-              <div>
-                <p className={styles.promiseCardTitle}>Global Leaderboard</p>
-                <p className={styles.promiseCardDesc}>Rank against students across India — filter by class or subject.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom tagline and checklist */}
-          <div className={styles.promiseBottom}>
+          <div className={styles.promiseBottom} style={{ marginTop: "2rem" }}>
             <h2 className={styles.promiseTitle}>One account for classes, coding, battles, and progress.</h2>
-            <div className={styles.promiseList}>
+            <div className={styles.promiseList} style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "1rem" }}>
               <span><CheckCircle2 size={15} /> Track chapter progress across all subjects</span>
               <span><CheckCircle2 size={15} /> Unlock battle readiness and matchmaking</span>
               <span><CheckCircle2 size={15} /> Streaks, XP, and rank always saved securely</span>
+              <span><CheckCircle2 size={15} /> Compete in BTech and CBSE events</span>
             </div>
           </div>
 
+          <div className={styles.securityNote} style={{ marginTop: "auto", display: "flex", gap: "8px", alignItems: "center", color: "#a0a0b8", fontSize: "0.8rem" }}>
+            <ShieldCheck size={15} />
+            Secure multi-tenant Clerk encryption.
+          </div>
         </section>
 
-        <div className={styles.card}>
-          <div className={styles.header}>
-            <div className={styles.logo}><Zap size={24} /></div>
-            <h1 className={styles.title}>Create Account</h1>
-            <p className={styles.subtitle}>Start your gamified learning journey today</p>
-          </div>
-
-          <form className={styles.form} onSubmit={handleSubmit}>
-            <div className={styles.field}>
-              <label htmlFor="signup-name" className={styles.label}>Full Name</label>
-              <div className={styles.inputWrap}>
-                <User size={18} className={styles.inputIcon} aria-hidden="true" />
-                <input
-                  id="signup-name"
-                  type="text"
-                  className={`${styles.input} ${styles.inputWithIcon}`}
-                  placeholder="Your full name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  autoComplete="name"
-                  aria-invalid={Boolean(fieldErrors.name)}
-                />
-              </div>
-              {fieldErrors.name && <p className={styles.fieldError}>{fieldErrors.name}</p>}
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor="signup-email" className={styles.label}>Email</label>
-              <div className={styles.inputWrap}>
-                <Mail size={18} className={styles.inputIcon} aria-hidden="true" />
-                <input
-                  id="signup-email"
-                  type="email"
-                  className={`${styles.input} ${styles.inputWithIcon}`}
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  autoComplete="email"
-                  aria-invalid={Boolean(fieldErrors.email)}
-                />
-              </div>
-              {fieldErrors.email && <p className={styles.fieldError}>{fieldErrors.email}</p>}
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor="signup-password" className={styles.label}>Password</label>
-              <div className={styles.inputWrap}>
-                <Lock size={18} className={styles.inputIcon} aria-hidden="true" />
-                <input
-                  id="signup-password"
-                  type="password"
-                  className={`${styles.input} ${styles.inputWithIcon}`}
-                  placeholder="Create a strong password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength={8}
-                  autoComplete="new-password"
-                  aria-invalid={Boolean(fieldErrors.password)}
-                />
-              </div>
-              {fieldErrors.password && <p className={styles.fieldError}>{fieldErrors.password}</p>}
-            </div>
-
-            <div className={styles.field}>
-              <span className={styles.label}>Your Learning Track</span>
-              <div className={styles.trackGrid}>
-                {TRACK_OPTIONS.map((track) => (
-                  <button
-                    key={track.value}
-                    type="button"
-                    className={`${styles.trackOption} ${selectedClass === track.value ? styles.trackOptionActive : ""}`}
-                    onClick={() => setSelectedClass(track.value)}
-                    aria-pressed={selectedClass === track.value}
-                  >
-                    <BookOpen size={16} />
-                    <span>
-                      <strong>{track.label}</strong>
-                      <small>{track.description}</small>
-                    </span>
-                  </button>
-                ))}
-              </div>
-              {fieldErrors.selectedClass && <p className={styles.fieldError}>{fieldErrors.selectedClass}</p>}
-            </div>
-
-            <label className={styles.consentRow}>
-              <input
-                type="checkbox"
-                checked={acceptTerms}
-                onChange={(e) => setAcceptTerms(e.target.checked)}
-              />
-              <span>
-                I agree to safe learning battles, respectful community rules, and EduQuest account terms.
-              </span>
-            </label>
-            {fieldErrors.acceptTerms && <p className={styles.fieldError}>{fieldErrors.acceptTerms}</p>}
-
-            {formError && (
-              <div className={styles.formError} role="alert">
-                <AlertCircle size={16} />
-                {formError}
-              </div>
-            )}
-
-            <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
-              {isSubmitting ? <Loader2 size={16} className={styles.spinner} /> : <ArrowRight size={16} />}
-              {isSubmitting ? "Creating Account..." : "Create Account"}
-            </button>
-          </form>
-
-          <div className={styles.divider}>or continue with</div>
-
-          <button className={styles.socialBtn} type="button" disabled title="Google OAuth will connect in the next backend phase">
-            <Globe size={18} /> Google OAuth Coming Soon
-          </button>
-
-          <p className={styles.footerText}>
-            Already have an account?{" "}
-            <Link href="/sign-in" className={styles.footerLink}>Sign in</Link>
-          </p>
-
-          <div className={styles.securityNote}>
-            <ShieldCheck size={15} />
-            Passwords are hashed on the server before storage.
-          </div>
+        {/* Clerk Sign-Up Component Container */}
+        <div className={styles.card} style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "500px", padding: 0 }}>
+          <SignUp 
+            routing="hash"
+            appearance={{
+              elements: {
+                rootBox: "w-full flex justify-center",
+                card: "bg-transparent shadow-none border-0 text-white w-full",
+                headerTitle: "text-[#e8e8f0]",
+                headerSubtitle: "text-[#a0a0b8]",
+                socialButtonsBlockButton: "bg-[#141423] hover:bg-[#1e1e32] border border-[rgba(255,255,255,0.06)] text-[#e8e8f0]",
+                formButtonPrimary: "bg-[#7c6aff] hover:opacity-90 text-white",
+                footerActionLink: "text-[#7c6aff] hover:underline",
+                identityPreviewText: "text-[#e8e8f0]",
+                formFieldLabel: "text-[#a0a0b8]",
+                formFieldInput: "bg-[#141423] text-white border border-[rgba(255,255,255,0.06)] focus:border-[#7c6aff]",
+              }
+            }}
+          />
         </div>
       </div>
     </div>

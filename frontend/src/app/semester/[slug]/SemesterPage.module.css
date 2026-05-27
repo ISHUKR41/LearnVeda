@@ -20,6 +20,41 @@
   font-family: var(--font-sans-next), system-ui, sans-serif;
 }
 
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 1.5rem;
+}
+
+.breadcrumbItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.breadcrumbLink {
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumbLink:hover {
+  color: #2563eb;
+}
+
+.breadcrumbCurrent {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.breadcrumbSeparator {
+  color: #cbd5f5;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 1fr;

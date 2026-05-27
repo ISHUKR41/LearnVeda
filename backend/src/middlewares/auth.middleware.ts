@@ -1,26 +1,20 @@
 /**
  * FILE: auth.middleware.ts
  * LOCATION: backend/src/middlewares/auth.middleware.ts
- * PURPOSE: Express middleware for authenticating API requests using JWT tokens.
- *          Validates the Bearer token from the Authorization header, extracts
- *          the user identity, and attaches it to the request object.
+ * PURPOSE: Express middleware for authenticating API requests. Supports both
+ *          legacy local HS256 tokens and Clerk RS256 multi-tenant JWTs.
+ *          Decodes tokens, verifies signature/expiry, and attaches user info to req.user.
  *
  * USAGE: Apply to any route that requires authentication:
  *        router.get("/protected", authMiddleware, handler);
  *
- * FLOW:
- *  1. Extract Bearer token from Authorization header
- *  2. Verify token signature and expiry using JWT utils
- *  3. Attach user payload to req.user
- *  4. Call next() to proceed to the route handler
- *  5. If invalid: return 401 Unauthorized JSON response
- *
- * DEPENDENCIES: ../utils/jwt
- * USED BY: Protected API routes (progress, battle, community write ops, settings)
- * LAST UPDATED: 2026-05-19
+ * DEPENDENCIES: crypto, https, ../utils/jwt
+ * LAST UPDATED: 2026-05-27
  */
 
 import { Request, Response, NextFunction } from "express";
+import crypto from "crypto";
+import https from "https";
 import { verifyAccessToken, AccessTokenPayload } from "../utils/jwt";
 
 /* ─────────────────────────────────────────────
@@ -36,22 +30,108 @@ declare global {
   }
 }
 
+// In-memory cache for Clerk JWKS keys to achieve sub-millisecond response times
+let jwksCache: Record<string, string> = {};
+let lastFetchedJwks = 0;
+const JWKS_CACHE_TTL = 10 * 60 * 1000; // 10 minutes cache TTL
+
+/**
+ * Dynamically fetches and parses Clerk public JWKS keys.
+ * Caches keys locally to prevent excessive round-trips.
+ */
+async function fetchClerkKeys(): Promise<Record<string, string>> {
+  const now = Date.now();
+  if (Object.keys(jwksCache).length > 0 && now - lastFetchedJwks < JWKS_CACHE_TTL) {
+    return jwksCache;
+  }
+
+  const jwksUrl = process.env.CLERK_JWKS_URL || "https://accurate-serval-62.clerk.accounts.dev/.well-known/jwks.json";
+
+  return new Promise((resolve, reject) => {
+    https.get(jwksUrl, (res) => {
+      let data = "";
+      res.on("data", (chunk) => { data += chunk; });
+      res.on("end", () => {
+        try {
+          const { keys } = JSON.parse(data) as { keys: Array<{ kid: string; x5c: string[] }> };
+          const newCache: Record<string, string> = {};
+          
+          for (const key of keys) {
+            if (key.kid && key.x5c?.[0]) {
+              // Convert cert chain to PEM format
+              const pem = `-----BEGIN CERTIFICATE-----\n${key.x5c[0].match(/.{1,64}/g)?.join("\n")}\n-----END CERTIFICATE-----`;
+              newCache[key.kid] = pem;
+            }
+          }
+
+          jwksCache = newCache;
+          lastFetchedJwks = now;
+          resolve(jwksCache);
+        } catch (err) {
+          reject(err);
+        }
+      });
+    }).on("error", (err) => reject(err));
+  });
+}
+
+/**
+ * Cryptographically verifies a Clerk RS256 JWT using public certificates from JWKS.
+ */
+async function verifyClerkToken(token: string): Promise<AccessTokenPayload | null> {
+  try {
+    const parts = token.split(".");
+    if (parts.length !== 3) return null;
+
+    const [headerB64, payloadB64, signatureB64] = parts;
+    
+    // Decode header to find 'kid' (Key ID)
+    const header = JSON.parse(Buffer.from(headerB64, "base64url").toString("utf8"));
+    if (header.alg !== "RS256" || !header.kid) return null;
+
+    // Fetch latest keys from Clerk JWKS
+    const keys = await fetchClerkKeys();
+    const publicKey = keys[header.kid];
+    if (!publicKey) return null;
+
+    // Cryptographically verify signature using Node's native crypto module
+    const verifier = crypto.createVerify("SHA256");
+    verifier.update(`${headerB64}.${payloadB64}`);
+    
+    const signature = Buffer.from(signatureB64, "base64url");
+    const isValid = verifier.verify(publicKey, signature);
+    if (!isValid) return null;
+
+    // Decode and parse payload claims
+    const payload = JSON.parse(Buffer.from(payloadB64, "base64url").toString("utf8"));
+
+    // Verify expiration claim
+    const now = Math.floor(Date.now() / 1000);
+    if (payload.exp && payload.exp < now) return null;
+
+    // Map Clerk payload claims to EduQuest standard AccessTokenPayload
+    return {
+      userId: payload.sub,
+      email: payload.email || "",
+      role: payload.role || "STUDENT",
+      iat: payload.iat || now,
+      exp: payload.exp || (now + 900),
+    };
+  } catch (err) {
+    console.error("[verifyClerkToken] Verification failed:", err);
+    return null;
+  }
+}
+
 /* ─────────────────────────────────────────────
  * Authentication Middleware
  * ───────────────────────────────────────────── */
 
 /**
  * Middleware that verifies JWT access tokens on protected routes.
- *
- * Expected header format: Authorization: Bearer <token>
- *
- * On success: Attaches decoded user payload to req.user and calls next()
- * On failure: Returns 401 with a descriptive error message
- *
- * This middleware does NOT check roles — use roleMiddleware for that.
+ * Handles both local HS256 tokens and Clerk RS256 tokens.
  */
-export function authMiddleware(req: Request, res: Response, next: NextFunction): void {
-  /* Step 1: Extract the Authorization header */
+export async function authMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -65,7 +145,6 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction):
     return;
   }
 
-  /* Step 2: Validate the Bearer prefix */
   if (!authHeader.startsWith("Bearer ")) {
     res.status(401).json({
       ok: false,
@@ -77,7 +156,6 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction):
     return;
   }
 
-  /* Step 3: Extract the token string */
   const token = authHeader.slice(7);
 
   if (!token || token.length < 10) {
@@ -91,8 +169,13 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction):
     return;
   }
 
-  /* Step 4: Verify the token (checks signature + expiry) */
-  const payload = verifyAccessToken(token);
+  // 1. Try local legacy token verification first (HS256)
+  let payload = verifyAccessToken(token);
+
+  if (!payload) {
+    // 2. Fallback: Try Clerk JWT verification (RS256)
+    payload = await verifyClerkToken(token);
+  }
 
   if (!payload) {
     res.status(401).json({
@@ -105,56 +188,46 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction):
     return;
   }
 
-  /* Step 5: Attach the verified user payload to the request */
   req.user = payload;
-
-  /* Step 6: Continue to the next middleware or route handler */
   next();
 }
 
 /* ─────────────────────────────────────────────
  * Optional Auth Middleware
- * Same as authMiddleware but does NOT reject unauthenticated requests.
- * Useful for routes that have different behavior for logged-in vs anonymous users.
  * ───────────────────────────────────────────── */
 
 /**
  * Optional authentication — extracts user info if a token is present,
  * but allows the request to proceed even without authentication.
- *
- * Use case: Community post listing shows "your post" badges for logged-in users
- *           but still works for anonymous browsing.
  */
-export function optionalAuthMiddleware(req: Request, _res: Response, next: NextFunction): void {
+export async function optionalAuthMiddleware(req: Request, _res: Response, next: NextFunction): Promise<void> {
   const authHeader = req.headers.authorization;
 
   if (authHeader?.startsWith("Bearer ")) {
     const token = authHeader.slice(7);
-    const payload = verifyAccessToken(token);
+    
+    // 1. Try HS256
+    let payload = verifyAccessToken(token);
+    if (!payload) {
+      // 2. Try RS256
+      payload = await verifyClerkToken(token);
+    }
+
     if (payload) {
       req.user = payload;
     }
   }
 
-  // Always proceed — no 401 errors from optional auth
   next();
 }
 
 /* ─────────────────────────────────────────────
  * Role-Based Access Control Middleware
- * Checks if the authenticated user has one of the required roles.
- * Must be used AFTER authMiddleware.
  * ───────────────────────────────────────────── */
 
 /**
  * Creates a middleware that checks if the user's role matches one of the allowed roles.
- *
- * @param allowedRoles - Array of role strings that can access the route
- * @returns Express middleware function
- *
- * Usage:
- *   router.post("/admin/users", authMiddleware, roleMiddleware(["ADMIN"]), handler);
- *   router.put("/content", authMiddleware, roleMiddleware(["ADMIN", "TEACHER"]), handler);
+ * Must be used AFTER authMiddleware.
  */
 export function roleMiddleware(allowedRoles: string[]) {
   return (req: Request, res: Response, next: NextFunction): void => {
@@ -186,11 +259,6 @@ export function roleMiddleware(allowedRoles: string[]) {
 
 /**
  * Convenience wrapper for roleMiddleware that accepts variadic role arguments.
- * Cleaner syntax for route registration:
- *   router.use(requireRole("ADMIN", "TEACHER"));
- *
- * @param roles - One or more role strings that can access the route
- * @returns Express middleware function that checks user role
  */
 export function requireRole(...roles: string[]) {
   return roleMiddleware(roles);

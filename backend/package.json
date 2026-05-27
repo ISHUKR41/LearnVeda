@@ -27,6 +27,8 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@electric-sql/pglite": "^0.4.6",
+    "@electric-sql/pglite-socket": "^0.1.6",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "@socket.io/redis-adapter": "^8.3.0",

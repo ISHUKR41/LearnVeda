@@ -104,6 +104,22 @@ export default async function NotesSlugPage({ params }: PageProps) {
       />
 
       <main className={styles.container}>
+        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
+          {breadcrumbList.map((crumb, index) => (
+            <span key={crumb.url} className={styles.breadcrumbItem}>
+              {index < breadcrumbList.length - 1 ? (
+                <Link href={crumb.url} className={styles.breadcrumbLink}>
+                  {crumb.name}
+                </Link>
+              ) : (
+                <span className={styles.breadcrumbCurrent}>{crumb.name}</span>
+              )}
+              {index < breadcrumbList.length - 1 && (
+                <span className={styles.breadcrumbSeparator}>/</span>
+              )}
+            </span>
+          ))}
+        </nav>
         <div className={styles.layout}>
           {/* Left Column: Comprehensive Study notes */}
           <article className={styles.mainCard}>

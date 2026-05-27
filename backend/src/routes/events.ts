@@ -29,6 +29,32 @@ import { authMiddleware, optionalAuthMiddleware, roleMiddleware } from "../middl
 
 const router = Router();
 
+// Auto-initialize HackathonSubmission table on module import
+async function initSubmissionsTable() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS "HackathonSubmission" (
+        id TEXT PRIMARY KEY,
+        "eventId" TEXT NOT NULL,
+        "userId" TEXT NOT NULL,
+        "teamName" TEXT NOT NULL,
+        "projectDesc" TEXT NOT NULL,
+        "githubUrl" TEXT NOT NULL,
+        "demoUrl" TEXT,
+        "submittedAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+        "score" INTEGER,
+        "feedback" TEXT,
+        CONSTRAINT fk_submission_event FOREIGN KEY ("eventId") REFERENCES "Event"(id) ON DELETE CASCADE,
+        CONSTRAINT fk_submission_user FOREIGN KEY ("userId") REFERENCES "User"(id) ON DELETE CASCADE,
+        CONSTRAINT uq_submission_event_user UNIQUE ("eventId", "userId")
+      );
+    `);
+  } catch (err) {
+    console.error("[events] Failed to initialize HackathonSubmission table:", err);
+  }
+}
+initSubmissionsTable();
+
 /* ─────────────────────────────────────────────
  * Valid event types and statuses for validation
  * ───────────────────────────────────────────── */
@@ -339,6 +365,121 @@ router.delete("/:id/register", authMiddleware, async (req: Request, res: Respons
   } catch (err) {
     console.error("[events/:id/register DELETE] Error:", err);
     res.status(500).json({ ok: false, error: { message: "Failed to cancel registration." } });
+  }
+});
+
+/* ─────────────────────────────────────────────
+ * POST /api/events/:id/submit
+ * Handles project submissions for Hackathon events.
+ * Performs deep regex validation on GitHub URLs and team names.
+ * Supports updating project code (ON CONFLICT DO UPDATE).
+ * ───────────────────────────────────────────── */
+router.post("/:id/submit", authMiddleware, async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const userId = req.user!.userId;
+  const { teamName, projectDesc, githubUrl, demoUrl } = req.body;
+
+  // Basic validation checks
+  if (!teamName || teamName.trim().length < 2) {
+    res.status(400).json({ ok: false, error: { message: "Team Name must be at least 2 characters." } });
+    return;
+  }
+
+  if (!projectDesc || projectDesc.trim().length < 10) {
+    res.status(400).json({ ok: false, error: { message: "Project Description must be at least 10 characters." } });
+    return;
+  }
+
+  // Strict regex check for GitHub Repo URLs (no malicious injection)
+  const githubRegex = /^https?:\/\/(www\.)?github\.com\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_.-]+$/;
+  if (!githubUrl || !githubRegex.test(githubUrl.trim())) {
+    res.status(400).json({ ok: false, error: { message: "Please submit a valid GitHub Repository URL (e.g. https://github.com/user/repo)." } });
+    return;
+  }
+
+  try {
+    // 1. Confirm event exists and is a HACKATHON
+    const eventResult = await pool.query(
+      `SELECT id, "eventType", status FROM "Event" WHERE id = $1`,
+      [id]
+    );
+
+    if (eventResult.rows.length === 0) {
+      res.status(404).json({ ok: false, error: { message: "Hackathon not found." } });
+      return;
+    }
+
+    const event = eventResult.rows[0];
+    if (event.eventType !== "HACKATHON") {
+      res.status(400).json({ ok: false, error: { message: "Submissions are only allowed for Hackathon events." } });
+      return;
+    }
+
+    // 2. Verify that the user is actually registered for this event
+    const regResult = await pool.query(
+      `SELECT id FROM "EventRegistration" WHERE "eventId" = $1 AND "userId" = $2 AND status = 'REGISTERED'`,
+      [id, userId]
+    );
+
+    if (regResult.rows.length === 0) {
+      res.status(403).json({ ok: false, error: { message: "You must register for this hackathon before submitting a project." } });
+      return;
+    }
+
+    // 3. Insert or update the submission securely (ON CONFLICT DO UPDATE)
+    const submissionResult = await pool.query(
+      `INSERT INTO "HackathonSubmission" (
+        id, "eventId", "userId", "teamName", "projectDesc", "githubUrl", "demoUrl", "submittedAt"
+      ) VALUES (
+        gen_random_uuid()::text, $1, $2, $3, $4, $5, $6, NOW()
+      )
+      ON CONFLICT ("eventId", "userId") DO UPDATE SET
+        "teamName" = EXCLUDED."teamName",
+        "projectDesc" = EXCLUDED."projectDesc",
+        "githubUrl" = EXCLUDED."githubUrl",
+        "demoUrl" = EXCLUDED."demoUrl",
+        "submittedAt" = NOW()
+      RETURNING *`,
+      [id, userId, teamName.trim(), projectDesc.trim(), githubUrl.trim(), demoUrl ? demoUrl.trim() : null]
+    );
+
+    res.status(200).json({
+      ok: true,
+      message: "Project submitted successfully!",
+      data: { submission: submissionResult.rows[0] }
+    });
+  } catch (err) {
+    console.error("[events/:id/submit POST] Error:", err);
+    res.status(500).json({ ok: false, error: { message: "Failed to submit project. Please try again." } });
+  }
+});
+
+/* ─────────────────────────────────────────────
+ * GET /api/events/:id/submissions
+ * Retrieves all approved project submissions for the standings leaderboard.
+ * Public route to allow all students to see competition results.
+ * ───────────────────────────────────────────── */
+router.get("/:id/submissions", async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(
+      `SELECT s.id, s."teamName", s."projectDesc", s."githubUrl", s."demoUrl", s."score", s."submittedAt", u.name AS "authorName"
+       FROM "HackathonSubmission" s
+       JOIN "User" u ON u.id = s."userId"
+       WHERE s."eventId" = $1
+       ORDER BY COALESCE(s."score", 0) DESC, s."submittedAt" ASC
+       LIMIT 50`,
+      [id]
+    );
+
+    res.json({
+      ok: true,
+      data: { submissions: result.rows }
+    });
+  } catch (err) {
+    console.error("[events/:id/submissions GET] Error:", err);
+    res.status(500).json({ ok: false, error: { message: "Failed to fetch project submissions." } });
   }
 });
 

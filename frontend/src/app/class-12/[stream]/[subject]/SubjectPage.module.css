@@ -1,0 +1,50 @@
+/*
+ * FILE: SubjectPage.module.css
+ * LOCATION: src/app/class-12/[stream]/[subject]/SubjectPage.module.css
+ * PURPOSE: Route-local styles for the Class 12 subject detail page breadcrumbs and shell.
+ * USED BY: src/app/class-12/[stream]/[subject]/page.tsx
+ * LAST UPDATED: 2026-05-27
+ */
+
+.pageShell {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5) 0;
+}
+
+@media (min-width: 768px) {
+  .pageShell {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+}
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.breadcrumbLink {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-primary);
+}
+
+.breadcrumbCurrent {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.breadcrumbSeparator {
+  color: var(--color-text-tertiary);
+}

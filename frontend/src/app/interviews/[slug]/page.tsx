@@ -103,6 +103,22 @@ export default async function InterviewSlugPage({ params }: PageProps) {
       />
 
       <main className={styles.container}>
+        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
+          {breadcrumbList.map((crumb, index) => (
+            <span key={crumb.url} className={styles.breadcrumbItem}>
+              {index < breadcrumbList.length - 1 ? (
+                <Link href={crumb.url} className={styles.breadcrumbLink}>
+                  {crumb.name}
+                </Link>
+              ) : (
+                <span className={styles.breadcrumbCurrent}>{crumb.name}</span>
+              )}
+              {index < breadcrumbList.length - 1 && (
+                <span className={styles.breadcrumbSeparator}>/</span>
+              )}
+            </span>
+          ))}
+        </nav>
         {/* Top heading summary */}
         <header className={styles.headerBlock}>
           <span className={styles.eyebrow}>{interview.eyebrow}</span>

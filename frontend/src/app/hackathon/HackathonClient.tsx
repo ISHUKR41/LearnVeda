@@ -28,6 +28,7 @@ import {
   Award,
   BookOpen
 } from "lucide-react";
+import { useAuth } from "@clerk/nextjs";
 import styles from "./Hackathon.module.css";
 
 // Dynamic confetti import to ensure fast page load
@@ -126,10 +127,14 @@ const LIVE_STANDINGS = [
 ];
 
 export default function HackathonClient() {
+  const { getToken, userId } = useAuth();
   const [events, setEvents] = useState<HackathonEvent[]>(HACKATHON_CATALOG);
   const [registeredIds, setRegisteredIds] = useState<string[]>([]);
   const [activeFilter, setActiveFilter] = useState<"all" | "live" | "upcoming" | "completed">("all");
   
+  // Standings state pulling real database registrations & scores
+  const [standings, setStandings] = useState<any[]>([]);
+
   // Accordion state
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
@@ -145,7 +150,20 @@ export default function HackathonClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
-  // Load registration state from localStorage for state persistence
+  // Fetch real submissions for leaderboard standings from backend
+  const loadStandings = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/api/events/inter-college-hackathon/submissions");
+      if (res.ok) {
+        const payload = await res.json();
+        setStandings(payload.data?.submissions || []);
+      }
+    } catch (err) {
+      console.error("[loadStandings] Error loading live leaderboard:", err);
+    }
+  };
+
+  // Load registration state from localStorage for state persistence and fetch leaderboard
   useEffect(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("eduquest-registered-hackathons");
@@ -153,6 +171,7 @@ export default function HackathonClient() {
         setRegisteredIds(JSON.parse(stored));
       }
     }
+    loadStandings();
   }, []);
 
   const filteredEvents = useMemo(() => {
@@ -186,10 +205,7 @@ export default function HackathonClient() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  /** 
-   * Form validation and project submission trigger 
-   */
-  const handleSubmitProject = (e: React.FormEvent) => {
+  const handleSubmitProject = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormNotice("");
 
@@ -209,9 +225,32 @@ export default function HackathonClient() {
 
     setIsSubmitting(true);
 
-    // Simulate database submission latency
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Get secure authorization token from Clerk session
+      const token = await getToken();
+      
+      const response = await fetch(`http://localhost:4000/api/events/${hackathonId}/submit`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token || ""}`,
+        },
+        body: JSON.stringify({
+          teamName: teamName.trim(),
+          projectDesc: projectDesc.trim(),
+          githubUrl: githubUrl.trim(),
+          demoUrl: demoUrl ? demoUrl.trim() : null,
+        }),
+      });
+
+      const payload = await response.json();
+
+      if (!response.ok || !payload.ok) {
+        setFormNotice(payload.error?.message || "Failed to submit project. Please verify you are registered first.");
+        setFormNoticeTone("error");
+        return;
+      }
+
       setFormNotice(`Congratulations! Team "${teamName}"'s project submission has been saved. Our mentors will evaluate your codebase soon!`);
       setFormNoticeTone("success");
       setShowConfetti(true);
@@ -223,9 +262,18 @@ export default function HackathonClient() {
       setGithubUrl("");
       setDemoUrl("");
 
+      // Reload live leaderboard standings automatically
+      loadStandings();
+
       // Confetti lifetime
       setTimeout(() => setShowConfetti(false), 5000);
-    }, 1200);
+    } catch (err) {
+      console.error("[handleSubmitProject] Submission error:", err);
+      setFormNotice("Network error. Please make sure the server is running and try again.");
+      setFormNoticeTone("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const toggleAccordion = (index: number) => {
@@ -451,22 +499,41 @@ export default function HackathonClient() {
                 Live Standings
               </h2>
               <div className={styles.leaderboardList}>
-                {LIVE_STANDINGS.map(row => (
-                  <div key={row.rank} className={styles.leaderboardRow}>
-                    <div className={`${styles.rankBadge} ${row.isGold ? styles.rank1 : ""}`}>
-                      {row.rank}
-                    </div>
-                    <div className={styles.teamName}>
-                      <div>{row.team}</div>
-                      <div className={styles.cardSub} style={{ margin: 0, fontSize: "0.75rem" }}>
-                        {row.project}
+                {standings.length > 0 ? (
+                  standings.map((row, index) => (
+                    <div key={row.id} className={styles.leaderboardRow}>
+                      <div className={`${styles.rankBadge} ${index === 0 ? styles.rank1 : ""}`}>
+                        {index + 1}
+                      </div>
+                      <div className={styles.teamName}>
+                        <div>{row.teamName}</div>
+                        <div className={styles.cardSub} style={{ margin: 0, fontSize: "0.75rem" }}>
+                          by {row.authorName}
+                        </div>
+                      </div>
+                      <div className={styles.scoreBadge}>
+                        {row.score !== null && row.score !== undefined ? `${row.score} pts` : "Pending"}
                       </div>
                     </div>
-                    <div className={styles.scoreBadge}>
-                      {row.score} pts
+                  ))
+                ) : (
+                  LIVE_STANDINGS.map(row => (
+                    <div key={row.rank} className={styles.leaderboardRow}>
+                      <div className={`${styles.rankBadge} ${row.isGold ? styles.rank1 : ""}`}>
+                        {row.rank}
+                      </div>
+                      <div className={styles.teamName}>
+                        <div>{row.team}</div>
+                        <div className={styles.cardSub} style={{ margin: 0, fontSize: "0.75rem" }}>
+                          {row.project}
+                        </div>
+                      </div>
+                      <div className={styles.scoreBadge}>
+                        {row.score} pts
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </section>
 

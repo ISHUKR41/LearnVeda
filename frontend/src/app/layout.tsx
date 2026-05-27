@@ -20,6 +20,7 @@ import { SITE_CONFIG } from "@/lib/constants";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import Footer from "@/components/layout/Footer/Footer";
 import Providers from "@/components/providers/Providers";
+import { ClerkProvider } from "@clerk/nextjs";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -153,22 +154,24 @@ export default function RootLayout({ children }: RootLayoutProps) {
          * It is a "use client" component but keeps the layout itself as a server component.
          * Inside: QueryClientProvider, Toaster, ThemeInitializer
          */}
-        <Providers>
-          {/* Global sticky navigation bar — appears on every page */}
-          <Navbar />
+        <ClerkProvider>
+          <Providers>
+            {/* Global sticky navigation bar — appears on every page */}
+            <Navbar />
 
-          {/*
-           * Main content area — each page component renders here.
-           * flex: 1 ensures this area expands to fill available height
-           * so the footer always stays at the bottom even on short pages.
-           */}
-          <main className="app-main">
-            {children}
-          </main>
+            {/*
+             * Main content area — each page component renders here.
+             * flex: 1 ensures this area expands to fill available height
+             * so the footer always stays at the bottom even on short pages.
+             */}
+            <main className="app-main">
+              {children}
+            </main>
 
-          {/* Global footer — appears on every page */}
-          <Footer />
-        </Providers>
+            {/* Global footer — appears on every page */}
+            <Footer />
+          </Providers>
+        </ClerkProvider>
       </body>
     </html>
   );

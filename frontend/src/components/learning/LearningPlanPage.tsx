@@ -104,6 +104,24 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
   const estimatedQuestions = normalizedChapters.reduce((total, chapter) => total + chapter.questionCount, 0);
   const studyTips = getStudyTips(plan);
   const estimatedXp = normalizedChapters.length * 100 + totalDays * 50;
+  const isEngineeringPlan = plan.backHref === "/engineering" || plan.eyebrow.toLowerCase().includes("engineering");
+  const resourceLinks = isEngineeringPlan
+    ? [
+        { title: "Interview Prep", description: "Placement-focused Q&A packs with model answers.", href: "/interviews" },
+        { title: "MCQ Practice", description: "Interactive quizzes for quick concept checks.", href: "/mcqs" },
+        { title: "Semester Guides", description: "Step-by-step exam survival plans.", href: "/semester" },
+        { title: "Study Notes", description: "Downloadable revision sheets and PDFs.", href: "/notes" },
+        { title: "Community Help", description: "Ask doubts and track peer solutions.", href: "/community" },
+        { title: "Events & Hackathons", description: "Join verified coding contests and events.", href: "/events" },
+      ]
+    : [
+        { title: "Study Notes", description: "Chapter summaries and quick revision sheets.", href: "/notes" },
+        { title: "MCQ Practice", description: "Topic-wise practice tests with explanations.", href: "/mcqs" },
+        { title: "Study Community", description: "Share doubts and learn with peers.", href: "/community" },
+        { title: "Events & Quizzes", description: "Join safe school-level competitions.", href: "/events" },
+        { title: "Engineering Track", description: "Explore coding and tech skills paths.", href: "/engineering" },
+        { title: "Interview Prep", description: "Preview higher-grade placement prep.", href: "/interviews" },
+      ];
 
   return (
     <div className={styles.page}>
@@ -160,6 +178,7 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
               const chapterHref = plan.chapterHrefBase
                 ? `${plan.chapterHrefBase}/${chapter.slug}`
                 : undefined;
+              const studyHref = chapterHref ? `${chapterHref}/study` : undefined;
 
               return (
                 <li key={chapter.slug} className={styles.moduleItem}>
@@ -185,9 +204,16 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
                       </span>
                     </div>
                     {chapterHref ? (
-                      <Link href={chapterHref} className={styles.moduleHintLink}>
-                        Open chapter practice
-                      </Link>
+                      <div className={styles.moduleActions}>
+                        <Link href={chapterHref} className={styles.moduleHintLink}>
+                          Open chapter practice
+                        </Link>
+                        {studyHref && (
+                          <Link href={studyHref} className={styles.moduleSecondaryLink}>
+                            Study material
+                          </Link>
+                        )}
+                      </div>
                     ) : (
                       <small className={styles.moduleHint}>
                         Study the theory, complete the interactive questions, and pass the chapter quiz to unlock the next module.
@@ -251,6 +277,23 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
                 <li key={text} className={styles.featureItem}>
                   <Icon size={16} color="var(--color-success)" style={{ marginTop: 2 }} />
                   <span>{text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.sideCard}>
+            <h3 className={styles.sideCardTitle}>
+              <BookOpen size={20} style={{ marginRight: 8, color: plan.accent }} />
+              Related Resources
+            </h3>
+            <ul className={styles.resourceList}>
+              {resourceLinks.map((resource) => (
+                <li key={resource.title} className={styles.resourceItem}>
+                  <Link href={resource.href} className={styles.resourceLink}>
+                    <span className={styles.resourceTitle}>{resource.title}</span>
+                    <span className={styles.resourceDesc}>{resource.description}</span>
+                  </Link>
                 </li>
               ))}
             </ul>
