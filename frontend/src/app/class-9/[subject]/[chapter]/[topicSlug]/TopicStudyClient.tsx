@@ -1,10 +1,9 @@
 /**
  * FILE: TopicStudyClient.tsx
  * LOCATION: src/app/class-9/[subject]/[chapter]/[topicSlug]/TopicStudyClient.tsx
- * PURPOSE: Interactive study and practice client interface for a single subtopic.
- *          Renders topic content, manages interactive quizzes, and tracks progress
- *          connected directly to the PostgreSQL database in real-time.
- * USED BY: page.tsx (SubtopicStudyPage)
+ * PURPOSE: Interactive study and practice client for a single subtopic.
+ *          Uses real KaTeX math rendering, physics simulations, and saves
+ *          all answered questions to PostgreSQL via progressApi.
  * LAST UPDATED: 2026-05-28
  */
 
@@ -14,103 +13,86 @@ import React, { useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 import styles from "./TopicStudy.module.css";
 import type { Chapter, Topic, Question } from "@/lib/content/class9/science/force-and-laws-of-motion";
+import { parseMarkdown } from "@/lib/utils/parseMarkdown";
 import { progressApi } from "@/lib/api/api";
 import { toast } from "react-hot-toast";
+import TopicSimulation from "@/components/physics/PhysicsSimulation";
 
 interface TopicStudyClientProps {
-  /** The full chapter data object */
   chapterData: Chapter;
-  /** The active subtopic object to study */
   activeTopic: Topic;
-  /** URL to navigate back to the chapter overview */
   backUrl: string;
 }
 
 const QUESTION_CONFIG = {
-  mcq: { label: "MCQ", color: "#6366f1", points: 10, icon: "◉" },
-  short: { label: "SHORT", color: "#10b981", points: 15, icon: "✎" },
-  long: { label: "LONG", color: "#f59e0b", points: 20, icon: "✍" },
-  thinking: { label: "HOTS", color: "#ef4444", points: 25, icon: "🧠" },
+  mcq:      { label: "MCQ",   color: "#6366f1", points: 10, icon: "◉" },
+  short:    { label: "SHORT", color: "#10b981", points: 15, icon: "✎" },
+  long:     { label: "LONG",  color: "#f59e0b", points: 20, icon: "✍" },
+  thinking: { label: "HOTS",  color: "#ef4444", points: 25, icon: "🧠" },
 } as const;
 
 export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: TopicStudyClientProps) {
-  /** Tracks which questions have been answered */
   const [answeredQuestions, setAnsweredQuestions] = useState<Set<string>>(new Set());
-
-  /** Tracks correct answers for score calculation */
   const [correctAnswers, setCorrectAnswers] = useState<Set<string>>(new Set());
-
-  /** Active question filter tab (all, mcq, short, long, thinking) */
   const [activeTab, setActiveTab] = useState<"all" | "mcq" | "short" | "long" | "thinking">("all");
 
-  /** Filter questions based on active tab */
   const filteredQuestions = useMemo(() => {
     if (activeTab === "all") return activeTopic.questions;
     return activeTopic.questions.filter((q) => q.type === activeTab);
   }, [activeTopic.questions, activeTab]);
 
-  /** Find indices of current topic in chapter list for navigation */
-  const currentIdx = useMemo(() => chapterData.topics.findIndex((t) => t.id === activeTopic.id), [chapterData.topics, activeTopic.id]);
+  const currentIdx = useMemo(
+    () => chapterData.topics.findIndex((t) => t.id === activeTopic.id),
+    [chapterData.topics, activeTopic.id]
+  );
   const prevTopic = chapterData.topics[currentIdx - 1] || null;
   const nextTopic = chapterData.topics[currentIdx + 1] || null;
 
-  /** Handle marking a question as answered and pushing progress to database */
-  const handleQuestionAnswered = useCallback((questionId: string, isCorrect: boolean) => {
-    setAnsweredQuestions((prev) => {
-      const nextAnswered = new Set(prev).add(questionId);
-      return nextAnswered;
-    });
+  const handleQuestionAnswered = useCallback(
+    (questionId: string, isCorrect: boolean) => {
+      setAnsweredQuestions((prev) => new Set(prev).add(questionId));
 
-    let newCorrectAnswersCount = correctAnswers.size;
-    if (isCorrect) {
-      setCorrectAnswers((prev) => {
-        const nextCorrect = new Set(prev).add(questionId);
-        newCorrectAnswersCount = nextCorrect.size;
+      if (isCorrect) {
+        setCorrectAnswers((prev) => {
+          const next = new Set(prev).add(questionId);
+          const totalQuestions = chapterData.topics.reduce((acc, t) => acc + t.questions.length, 0);
+          const newScore = Math.round((next.size / totalQuestions) * 100);
+          const isCompleted = next.size === totalQuestions;
 
-        // Trigger DB progress update
-        const totalQuestions = chapterData.topics.reduce((acc, t) => acc + t.questions.length, 0);
-        // Since we are studying one topic, let's update progress on the whole chapter!
-        const newScore = Math.round((newCorrectAnswersCount / totalQuestions) * 100);
-        const isCompleted = nextCorrect.size === totalQuestions;
+          progressApi
+            .updateChapterProgress(chapterData.id, { completed: isCompleted, score: newScore })
+            .then((res) => {
+              if (res.data?.ok) {
+                const d = res.data.data;
+                if (d.leveledUp) toast.success(`🎉 Level Up! You are now Level ${d.newLevel}!`);
+                else toast.success(`+${d.xpEarned} XP earned!`);
+              }
+            })
+            .catch(console.error);
 
-        progressApi.updateChapterProgress(chapterData.id, {
-          completed: isCompleted,
-          score: newScore,
-        }).then((res) => {
-          if (res.data?.ok) {
-            const resData = res.data.data;
-            if (resData.leveledUp) {
-              toast.success(`🎉 Level Up! You reached Level ${resData.newLevel}!`);
-            } else {
-              toast.success(`+${resData.xpEarned} XP earned!`);
-            }
-          }
-        }).catch((err) => {
-          console.error("Failed to update progress in DB:", err);
+          return next;
         });
+      } else {
+        const totalQuestions = chapterData.topics.reduce((acc, t) => acc + t.questions.length, 0);
+        const newScore = Math.round((correctAnswers.size / totalQuestions) * 100);
+        progressApi
+          .updateChapterProgress(chapterData.id, { completed: false, score: newScore })
+          .catch(console.error);
+      }
+    },
+    [correctAnswers, chapterData, answeredQuestions]
+  );
 
-        return nextCorrect;
-      });
-    } else {
-      // Still trigger progress update for attempts, so time spent is saved
-      const totalQuestions = chapterData.topics.reduce((acc, t) => acc + t.questions.length, 0);
-      const newScore = Math.round((newCorrectAnswersCount / totalQuestions) * 100);
-      const isCompleted = answeredQuestions.size + 1 === totalQuestions;
-
-      progressApi.updateChapterProgress(chapterData.id, {
-        completed: isCompleted,
-        score: newScore,
-      }).catch((err) => {
-        console.error("Failed to update progress in DB:", err);
-      });
-    }
-  }, [correctAnswers, chapterData, answeredQuestions]);
-
-  /** Calculate progress percentages */
   const answeredCount = activeTopic.questions.filter((q) => answeredQuestions.has(q.id)).length;
-  const correctCount = activeTopic.questions.filter((q) => correctAnswers.has(q.id)).length;
+  const correctCount  = activeTopic.questions.filter((q) => correctAnswers.has(q.id)).length;
   const totalQuestions = activeTopic.questions.length;
   const progressPercent = Math.round((answeredCount / totalQuestions) * 100);
+
+  /* Rendered content */
+  const renderedContent = useMemo(
+    () => parseMarkdown(activeTopic.content),
+    [activeTopic.content]
+  );
 
   return (
     <div className={styles.container}>
@@ -134,36 +116,57 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
 
       {/* ── Main Layout ── */}
       <div className={styles.mainLayout}>
-        {/* Left Side: Study Content */}
+        {/* Left: Study Content */}
         <section className={styles.studySection}>
           <div className={styles.card}>
+            {/* Hero image */}
             {activeTopic.imageUrl && (
               <div className={styles.heroImageWrapper}>
                 <img
                   src={activeTopic.imageUrl}
                   alt={activeTopic.title}
                   className={styles.heroImage}
+                  loading="lazy"
                 />
                 <div className={styles.heroOverlay} />
+                <div className={styles.heroTextOverlay}>
+                  <h2 className={styles.heroTopicTitle}>{activeTopic.title.replace(/^\d+\.\s*/, "")}</h2>
+                  <div className={styles.heroMeta}>
+                    <span>{totalQuestions} Questions</span>
+                    {activeTopic.estimatedMinutes && <span>{activeTopic.estimatedMinutes} min read</span>}
+                  </div>
+                </div>
               </div>
             )}
+
+            {/* Physics Simulation */}
             <div className={styles.cardContent}>
-              <div className={styles.markdownBody} dangerouslySetInnerHTML={{ __html: parseMarkdown(activeTopic.content) }} />
+              <TopicSimulation topicId={activeTopic.id} />
+
+              {/* KaTeX-rendered markdown content */}
+              <div
+                className={styles.markdownBody}
+                dangerouslySetInnerHTML={{ __html: renderedContent }}
+              />
             </div>
           </div>
 
-          {/* Quick Nav Links */}
+          {/* Topic navigation */}
           <div className={styles.pageNavigation}>
             {prevTopic ? (
-              <Link href={`/class-9/science/force-and-laws-of-motion/${prevTopic.id}`} className={styles.navButton}>
-                ← Previous: {prevTopic.title.replace(/^\d+\.\s*/, "")}
+              <Link
+                href={`/class-9/science/force-and-laws-of-motion/${prevTopic.id}`}
+                className={styles.navButton}
+              >
+                ← {prevTopic.title.replace(/^\d+\.\s*/, "")}
               </Link>
-            ) : (
-              <div />
-            )}
+            ) : <div />}
             {nextTopic ? (
-              <Link href={`/class-9/science/force-and-laws-of-motion/${nextTopic.id}`} className={`${styles.navButton} ${styles.navButtonPrimary}`}>
-                Next: {nextTopic.title.replace(/^\d+\.\s*/, "")} →
+              <Link
+                href={`/class-9/science/force-and-laws-of-motion/${nextTopic.id}`}
+                className={`${styles.navButton} ${styles.navButtonPrimary}`}
+              >
+                {nextTopic.title.replace(/^\d+\.\s*/, "")} →
               </Link>
             ) : (
               <Link href={backUrl} className={`${styles.navButton} ${styles.navButtonPrimary}`}>
@@ -173,7 +176,7 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
           </div>
         </section>
 
-        {/* Right Side: Interactive Practice Panel */}
+        {/* Right: Quiz Panel */}
         <aside className={styles.quizSection}>
           <div className={styles.stickyPanel}>
             <div className={styles.panelHeader}>
@@ -181,28 +184,45 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
                 <h3 className={styles.panelTitle}>Topic Practice</h3>
                 <span className={styles.panelSubtitle}>Test your concepts in real-time</span>
               </div>
+              {/* Circular progress */}
               <div className={styles.progressCircleContainer}>
+                <svg width="52" height="52" viewBox="0 0 52 52" className={styles.progressCircle}>
+                  <circle cx="26" cy="26" r="22" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="4" />
+                  <circle
+                    cx="26" cy="26" r="22" fill="none"
+                    stroke="#6366f1" strokeWidth="4"
+                    strokeDasharray={`${(progressPercent / 100) * 138} 138`}
+                    strokeLinecap="round"
+                    transform="rotate(-90 26 26)"
+                    style={{ transition: "stroke-dasharray 0.4s ease" }}
+                  />
+                </svg>
                 <div className={styles.progressTextGroup}>
                   <span className={styles.progressVal}>{progressPercent}%</span>
-                  <span className={styles.progressLbl}>Done</span>
                 </div>
               </div>
             </div>
 
-            {/* Interactive Filters */}
+            {/* Filter tabs */}
             <div className={styles.tabsContainer}>
-              {(["all", "mcq", "short", "long", "thinking"] as const).map((tab) => (
-                <button
-                  key={tab}
-                  className={`${styles.tabButton} ${activeTab === tab ? styles.activeTab : ""}`}
-                  onClick={() => setActiveTab(tab)}
-                >
-                  {tab.toUpperCase()}
-                </button>
-              ))}
+              {(["all", "mcq", "short", "long", "thinking"] as const).map((tab) => {
+                const count = tab === "all"
+                  ? activeTopic.questions.length
+                  : activeTopic.questions.filter((q) => q.type === tab).length;
+                return (
+                  <button
+                    key={tab}
+                    className={`${styles.tabButton} ${activeTab === tab ? styles.activeTab : ""}`}
+                    onClick={() => setActiveTab(tab)}
+                  >
+                    {tab === "all" ? "ALL" : QUESTION_CONFIG[tab].label}
+                    <span className={styles.tabCount}>{count}</span>
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Questions List */}
+            {/* Questions */}
             <div className={styles.questionsList}>
               {filteredQuestions.map((q, idx) => (
                 <QuestionItem
@@ -216,7 +236,7 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
               ))}
               {filteredQuestions.length === 0 && (
                 <div className={styles.emptyQuestions}>
-                  <p>No questions of this type for this topic.</p>
+                  <p>No questions of this type.</p>
                 </div>
               )}
             </div>
@@ -228,75 +248,7 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
 }
 
 /* ─────────────────────────────────────────────
- * parseMarkdown — Converts markdown content to HTML
- * ───────────────────────────────────────────── */
-function parseMarkdown(text: string): string {
-  const cleanMath = (math: string) => {
-    let m = math
-      .replace(/\x0Crac/g, "\\frac")
-      .replace(/\x09imes/g, "\\times")
-      .replace(/\x09ext/g, "\\text")
-      .replace(/\x0Bec/g, "\\vec")
-      .replace(/\x08oxed/g, "\\boxed")
-      .replace(/\x0Dightarrow/g, "\\rightarrow")
-      .replace(/\bDelta\b/g, "\\Delta")
-      .replace(/\bpropto\b/g, "\\propto")
-      .replace(/\bRightarrow\b/g, "\\Rightarrow")
-      .replace(/\bcdot\b/g, "\\cdot");
-
-    return m
-      .replace(/\\boxed{(.*?)}/g, '<span class="md-math-boxed">$1</span>')
-      .replace(/\\vec{(.*?)}/g, "$1")
-      .replace(/\\dot{(.*?)}/g, "$1̇")
-      .replace(/\\frac{(.*?)}{(.*?)}/g, "($1) / ($2)")
-      .replace(/\\text{(.*?)}/g, "$1")
-      .replace(/\\times/g, " × ")
-      .replace(/\\propto/g, " ∝ ")
-      .replace(/\\Rightarrow/g, " ⇒ ")
-      .replace(/\\cdot/g, " · ")
-      .replace(/\\Delta/g, "Δ")
-      .replace(/\\\\/g, "\\")
-      .replace(/_([a-zA-Z0-9{}]+)/g, (match, p1) => {
-        const clean = p1.replace(/[{}]/g, "");
-        if (clean === "1") return "₁";
-        if (clean === "2") return "₂";
-        if (clean === "net") return "<sub>net</sub>";
-        if (clean === "exhaust") return "<sub>exhaust</sub>";
-        if (clean === "AB") return "<sub>AB</sub>";
-        if (clean === "BA") return "<sub>BA</sub>";
-        if (clean === "total") return "<sub>total</sub>";
-        if (clean === "before") return "<sub>before</sub>";
-        if (clean === "after") return "<sub>after</sub>";
-        return `<sub>${clean}</sub>`;
-      })
-      .replace(/\^([a-zA-Z0-9{}]+)/g, (match, p1) => {
-        const clean = p1.replace(/[{}]/g, "");
-        if (clean === "2") return "²";
-        return `<sup>${clean}</sup>`;
-      })
-      .replace(/\(([^()]+)\) \/ \(([^()]+)\)/g, "$1 / $2")
-      .trim();
-  };
-
-  let html = text
-    .replace(/!\[(.*?)\]\((.*?)\)/gim, '<div class="md-img-container"><img src="$2" alt="$1" class="md-img" /><span class="md-img-caption">$1</span></div>')
-    .replace(/^#### (.*$)/gim, '<h4 class="md-h4">$1</h4>')
-    .replace(/^### (.*$)/gim, '<h3 class="md-h3">$1</h3>')
-    .replace(/\*\*(.*?)\*\*/gim, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/gim, "<em>$1</em>")
-    .replace(/^> (.*$)/gim, '<blockquote class="md-quote">$1</blockquote>')
-    .replace(/\$\$(.*?)\$\$/gim, (match, math) => `<code class="md-math-block">${cleanMath(math)}</code>`)
-    .replace(/\$(.*?)\$/gim, (match, math) => `<code class="md-math">${cleanMath(math)}</code>`)
-    .replace(/^\d+\. (.*$)/gim, '<li class="md-li-ordered">$1</li>')
-    .replace(/^\* (.*$)/gim, '<li class="md-li">$1</li>')
-    .replace(/\n\n/gim, "</p><p>")
-    .replace(/\n/gim, "<br/>");
-
-  return `<p>${html}</p>`;
-}
-
-/* ─────────────────────────────────────────────
- * QuestionItem Component
+ * QuestionItem
  * ───────────────────────────────────────────── */
 interface QuestionItemProps {
   question: Question;
@@ -309,7 +261,6 @@ interface QuestionItemProps {
 function QuestionItem({ question, index, isAnswered, isCorrect, onAnswer }: QuestionItemProps) {
   const [showAnswer, setShowAnswer] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-
   const config = QUESTION_CONFIG[question.type];
 
   const handleOptionSelect = (option: string) => {
@@ -321,8 +272,7 @@ function QuestionItem({ question, index, isAnswered, isCorrect, onAnswer }: Ques
     if (!showAnswer) {
       setShowAnswer(true);
       if (question.type === "mcq") {
-        const correct = selectedOption === question.correctAnswer;
-        onAnswer(question.id, correct);
+        onAnswer(question.id, selectedOption === question.correctAnswer);
       } else {
         onAnswer(question.id, true);
       }
@@ -332,31 +282,44 @@ function QuestionItem({ question, index, isAnswered, isCorrect, onAnswer }: Ques
   };
 
   return (
-    <div className={`${styles.questionCard} ${isAnswered ? (isCorrect ? styles.questionCorrect : styles.questionIncorrect) : ""}`}>
+    <div
+      className={`${styles.questionCard} ${
+        isAnswered ? (isCorrect ? styles.questionCorrect : styles.questionIncorrect) : ""
+      }`}
+    >
       <div className={styles.questionCardHeader}>
-        <span className={styles.badge} style={{ background: `${config.color}15`, color: config.color }}>
+        <span
+          className={styles.badge}
+          style={{ background: `${config.color}18`, color: config.color, border: `1px solid ${config.color}30` }}
+        >
           {config.icon} {config.label}
         </span>
-        <span className={styles.points}>+{question.points || config.points} pts</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <span className={styles.questionNum}>Q{index}</span>
+          <span className={styles.points}>+{question.points || config.points} pts</span>
+        </div>
       </div>
+
       <p className={styles.questionText}>{question.question}</p>
 
       {question.type === "mcq" && question.options && (
         <ul className={styles.optionsList}>
           {question.options.map((opt, i) => {
             const isSelected = selectedOption === opt;
-            const isCorrectOption = showAnswer && opt === question.correctAnswer;
-            const isWrongSelection = showAnswer && isSelected && opt !== question.correctAnswer;
+            const isCorrectOpt = showAnswer && opt === question.correctAnswer;
+            const isWrong = showAnswer && isSelected && opt !== question.correctAnswer;
 
             return (
               <li key={i}>
                 <button
-                  className={`${styles.optionButton} ${isSelected ? styles.optionSelected : ""} ${isCorrectOption ? styles.optionCorrect : ""} ${isWrongSelection ? styles.optionWrong : ""}`}
+                  className={`${styles.optionButton} ${isSelected ? styles.optionSelected : ""} ${isCorrectOpt ? styles.optionCorrect : ""} ${isWrong ? styles.optionWrong : ""}`}
                   onClick={() => handleOptionSelect(opt)}
                   disabled={isAnswered}
                 >
                   <span className={styles.optionLetter}>{String.fromCharCode(65 + i)}</span>
                   <span className={styles.optionText}>{opt}</span>
+                  {isCorrectOpt && <span>✓</span>}
+                  {isWrong && <span>✗</span>}
                 </button>
               </li>
             );
@@ -367,18 +330,23 @@ function QuestionItem({ question, index, isAnswered, isCorrect, onAnswer }: Ques
       <button
         onClick={handleRevealAnswer}
         className={styles.revealBtn}
+        style={{ borderColor: `${config.color}50`, color: config.color }}
         disabled={question.type === "mcq" && !selectedOption && !showAnswer}
       >
-        {showAnswer ? "Hide Explanation" : (question.type === "mcq" ? "Check Answer" : "Reveal Answer & Explanation")}
+        {showAnswer
+          ? "Hide Explanation"
+          : question.type === "mcq"
+          ? "Check Answer"
+          : "Reveal Answer & Explanation"}
       </button>
 
       {showAnswer && (
         <div className={styles.answerBox}>
           <div className={styles.correctAnswer}>
-            <strong>Correct Answer:</strong> {question.correctAnswer}
+            <strong style={{ color: "#10b981" }}>✓ Correct Answer:</strong> {question.correctAnswer}
           </div>
           <div className={styles.explanation}>
-            <strong>Explanation:</strong> {question.explanation}
+            <strong>📖 Explanation:</strong> {question.explanation}
           </div>
         </div>
       )}

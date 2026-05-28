@@ -22,6 +22,7 @@ import Footer from "@/components/layout/Footer/Footer";
 import Providers from "@/components/providers/Providers";
 import { ClerkProvider } from "@clerk/nextjs";
 import "@/styles/globals.css";
+import "katex/dist/katex.min.css";
 
 const inter = Inter({
   subsets: ["latin"],

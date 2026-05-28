@@ -24,6 +24,12 @@ const isProtectedRoute = createRouteMatcher([
   "/profile(.*)",
   "/wallet(.*)",
   "/settings(.*)",
+  /* All chapter content requires sign-in */
+  "/class-9/:subject/:chapter(.*)",
+  "/class-10/:subject/:chapter(.*)",
+  "/class-11/:subject/:chapter(.*)",
+  "/class-12/:subject/:chapter(.*)",
+  "/engineering/:track/:chapter(.*)",
 ]);
 
 /**

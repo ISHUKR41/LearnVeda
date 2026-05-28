@@ -1,0 +1,452 @@
+/**
+ * FILE: PhysicsSimulation.module.css
+ * LOCATION: src/components/physics/PhysicsSimulation.module.css
+ * PURPOSE: Styles for all interactive physics simulation cards.
+ * LAST UPDATED: 2026-05-28
+ */
+
+/* ── Simulation Card Shell ── */
+.simCard {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.04));
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 28px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.simCard::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #a855f7, #06b6d4);
+}
+
+.simTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #c7d2fe;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.simIcon {
+  font-size: 1.2em;
+}
+
+.simDesc {
+  font-size: 0.875rem;
+  color: rgba(203, 213, 225, 0.7);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+/* ── Slider Controls ── */
+.sliderGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.sliderLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: rgba(226, 232, 240, 0.8);
+  font-weight: 500;
+}
+
+.slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Simulation Buttons ── */
+.simControls {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.simBtn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.simBtn:hover:not(:disabled) {
+  background: rgba(99, 102, 241, 0.3);
+  transform: translateY(-1px);
+}
+
+.simBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.simBtnDanger {
+  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+}
+
+.simBtnDanger:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+.simBtnSuccess {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.1);
+  color: #6ee7b7;
+}
+
+.simBtnSuccess:hover:not(:disabled) {
+  background: rgba(16, 185, 129, 0.25);
+}
+
+/* ═══════════════════════════════════
+ * TUG OF WAR SIMULATION
+ * ═══════════════════════════════════ */
+
+.tugWarArena {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 80px;
+}
+
+.teamLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.teamForce {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.figures {
+  font-size: 1.5rem;
+}
+
+.ropeContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.rope {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(90deg, rgba(200, 161, 100, 0.8), rgba(160, 120, 60, 0.8));
+  border-radius: 4px;
+}
+
+.ropeFlag {
+  position: absolute;
+  top: -10px;
+  width: 12px;
+  height: 28px;
+  border-radius: 2px;
+  transition: left 0.15s ease, background 0.3s ease;
+}
+
+.netForceLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+/* ═══════════════════════════════════
+ * INERTIA SIMULATION
+ * ═══════════════════════════════════ */
+
+.inertiaTrack {
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.trackSurface {
+  position: relative;
+  height: 70px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+.ball {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.8rem;
+  transition: none;
+  line-height: 1;
+}
+
+.trackLabel {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+}
+
+.speedometer {
+  text-align: center;
+  font-size: 0.875rem;
+  color: rgba(226, 232, 240, 0.7);
+}
+
+/* ═══════════════════════════════════
+ * F=ma SIMULATION
+ * ═══════════════════════════════════ */
+
+.fmaArena {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.forceArrow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  min-width: 40px;
+  transition: width 0.2s ease;
+  flex-shrink: 0;
+}
+
+.arrowShaft {
+  flex: 1;
+  height: 6px;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  border-radius: 3px 0 0 3px;
+}
+
+.arrowHead {
+  color: #a855f7;
+  font-size: 1.2rem;
+  line-height: 1;
+  margin-left: -4px;
+}
+
+.arrowLabel {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #a5b4fc;
+  white-space: nowrap;
+}
+
+.massBox {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1));
+  border: 2px solid rgba(245, 158, 11, 0.4);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.massLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fcd34d;
+}
+
+.resultPanel {
+  flex: 1;
+  min-width: 120px;
+}
+
+.resultFormula {
+  font-size: 0.875rem;
+  color: rgba(226, 232, 240, 0.9);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════
+ * ROCKET SIMULATION
+ * ═══════════════════════════════════ */
+
+.rocketArena {
+  height: 200px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(15, 23, 42, 0.3) 100%);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  margin: 16px 0;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.rocketContainer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: bottom 0.05s linear;
+}
+
+.rocket {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.exhaustFlame {
+  line-height: 1;
+  transition: opacity 0.3s, font-size 0.3s;
+}
+
+.reactionLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #6ee7b7;
+  text-align: center;
+}
+
+.actionLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fca5a5;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════
+ * MOMENTUM / COLLISION SIMULATION
+ * ═══════════════════════════════════ */
+
+.collisionArena {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.collisionState {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.stateLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(148, 163, 184, 0.8);
+  margin-bottom: 12px;
+}
+
+.ballRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.collBall {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  position: relative;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.velLabel {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: rgba(226, 232, 240, 0.7);
+}
+
+.momentumTag {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #a5b4fc;
+  margin-top: 20px;
+}
+
+.collideBtn {
+  align-self: center;
+  padding: 10px 28px;
+  border-radius: 10px;
+  border: 2px solid rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.collideBtn:hover {
+  background: rgba(239, 68, 68, 0.3);
+  transform: scale(1.03);
+}
