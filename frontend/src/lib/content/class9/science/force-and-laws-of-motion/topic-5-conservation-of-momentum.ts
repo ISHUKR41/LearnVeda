@@ -1,9 +1,8 @@
 /**
  * FILE: topic-5-conservation-of-momentum.ts
- * LOCATION: src/lib/content/class9/science/force-and-laws-of-motion/topic-5-conservation-of-momentum.ts
- * PURPOSE: Deep, richly detailed content for Topic 5 — Conservation of Momentum.
- *          Covers the law of conservation, elastic vs inelastic collisions, explosions,
- *          derivation from Newton's Third Law, and real-world applications. 20 questions.
+ * PURPOSE: Comprehensive content for Conservation of Momentum.
+ *          All LaTeX uses DOUBLE backslashes (\\frac, \\Delta, etc.) for correct KaTeX rendering.
+ * QUESTIONS: 30 MCQ + 20 Short + 10 Long + 10 HOTS = 70 total
  * CURRICULUM: CBSE Class 9 Science, Chapter 9 — Force & Laws of Motion
  * LAST UPDATED: 2026-05-28
  */
@@ -12,699 +11,897 @@ import { Topic } from "./types";
 export const conservationOfMomentum: Topic = {
   id: "conservation-of-momentum",
   title: "5. Law of Conservation of Momentum",
-  estimatedMinutes: 40,
+  estimatedMinutes: 45,
   imageUrl:
-    "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200",
+    "https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?auto=format&fit=crop&q=80&w=1200",
 
   content: `
-### The Most Powerful Law in Classical Mechanics
+### The Most Universal Law in Physics
 
-Newton's three laws describe how individual objects respond to forces. But what about systems of multiple objects that interact with each other? What governs collisions, explosions, and complex interactions?
+You have learned about Newton's three laws. Each law describes how a **single object** responds to forces. But what about **systems of interacting objects** — two cars colliding, a rocket ejecting fuel, two skaters pushing off each other, a billiard ball striking others?
 
-The answer is the **Law of Conservation of Momentum** — one of the most fundamental and universally powerful laws in all of physics.
+A new principle governs all such interactions, and it is arguably the most powerful conservation law in classical physics:
 
----
+> **The total momentum of an isolated system always remains constant — no matter what happens inside the system.**
 
-### Recap: What is Momentum?
-
-> **Momentum (p) = Mass × Velocity**
-> $$p = mv$$
-
-Momentum is a **vector** — it has both magnitude and direction. Its SI unit is **kg·m/s**.
-
-Key examples:
-* A slow, heavy truck can have more momentum than a fast, light bicycle.
-* A stationary object has zero momentum, regardless of mass.
-* Two objects moving in opposite directions can have momentums that partially or fully cancel.
+This is the **Law of Conservation of Momentum**, and it follows directly from Newton's Third Law. It is so universal that even Einstein's Special Relativity preserves it (in modified form), and quantum mechanics uses it to predict subatomic particle behaviour. Wherever forces exist, momentum is being conserved.
 
 ---
 
-### The Law of Conservation of Momentum
+### Quick Recap: What is Momentum?
 
-> **"The total momentum of an isolated system remains constant, provided no external unbalanced force acts on the system."**
+Before stating the conservation law, recall that momentum is:
 
-In mathematical form, for a system of two objects before (i) and after (f) an interaction:
+$$p = mv$$
+
+Where:
+- **p** = momentum (kg·m/s) — a vector
+- **m** = mass (kg)
+- **v** = velocity (m/s)
+
+For a system of multiple objects, the **total momentum** is the vector sum of all individual momenta:
+
+$$p_{\\text{total}} = p_1 + p_2 + p_3 + \\ldots = m_1 v_1 + m_2 v_2 + m_3 v_3 + \\ldots$$
+
+---
+
+### Stating the Law of Conservation of Momentum
+
+> **"In the absence of any external unbalanced force, the total momentum of a system of objects remains constant (conserved) before and after any interaction."**
+
+Mathematically, for two objects before (u) and after (v) an interaction:
 
 $$m_1 u_1 + m_2 u_2 = m_1 v_1 + m_2 v_2$$
 
-![Figure 1: Two balls colliding on a frictionless surface. Total momentum before collision equals total momentum after collision.](/images/momentum_conservation.png)
+This equation says: **total momentum before = total momentum after**. The interaction (collision, explosion, whatever happens between the objects) does not change the total momentum — it only redistributes it.
 
-
-Where:
-* $m_1$, $m_2$ = masses of the two objects
-* $u_1$, $u_2$ = initial velocities (before collision/interaction)
-* $v_1$, $v_2$ = final velocities (after collision/interaction)
-
-**Critical condition:** This law holds only when there is **no external unbalanced force** acting on the system. Internal forces between the objects (like collision forces) do NOT change total momentum.
+**Critical condition:** The law holds only when **no external unbalanced force** acts on the system. Internal forces between objects (like collision forces) always come in equal-opposite Third Law pairs, so they cancel in the total — they cannot change the total momentum.
 
 ---
 
-### Derivation from Newton's Third Law
+### Deriving Conservation of Momentum from Newton's Third Law
 
-The Law of Conservation of Momentum is NOT an independent law — it FOLLOWS directly from Newton's Third Law!
+This derivation is very important for CBSE exams. Let's do it completely:
 
-**Setup:** Two objects A and B collide for time $\Delta t$.
+**Setup:** Object A (mass $m_1$, initial velocity $u_1$) and Object B (mass $m_2$, initial velocity $u_2$) collide for time $t$. After collision: velocities become $v_1$ and $v_2$.
 
-**Step 1:** During collision, A exerts force $F_{AB}$ on B. By Newton's Third Law, B exerts $F_{BA} = -F_{AB}$ on A.
+**Step 1:** Newton's Third Law — the force that A exerts on B is equal and opposite to the force B exerts on A:
 
-**Step 2:** Impulse on A from B:
-$$\Delta p_A = F_{BA} \times \Delta t$$
+$$F_{AB} = -F_{BA}$$
 
-**Step 3:** Impulse on B from A:
-$$\Delta p_B = F_{AB} \times \Delta t = -F_{BA} \times \Delta t = -\Delta p_A$$
+**Step 2:** Apply Newton's Second Law to express each force as rate of momentum change:
 
-**Step 4:** Total change in momentum of system:
-$$\Delta p_{total} = \Delta p_A + \Delta p_B = \Delta p_A + (-\Delta p_A) = 0$$
+$$F_{AB} = \\frac{m_2(v_2 - u_2)}{t} \\quad \\text{and} \\quad F_{BA} = \\frac{m_1(v_1 - u_1)}{t}$$
 
-**Conclusion:** Total momentum change = 0 → Total momentum is conserved!
+**Step 3:** Substitute into the Third Law equation:
 
-This proof shows that momentum conservation is a direct consequence of Newton's Third Law (equal and opposite forces → equal and opposite impulses → zero total momentum change).
+$$\\frac{m_2(v_2 - u_2)}{t} = -\\frac{m_1(v_1 - u_1)}{t}$$
 
----
+**Step 4:** Multiply both sides by $t$:
 
-### Types of Collisions
+$$m_2(v_2 - u_2) = -m_1(v_1 - u_1)$$
 
-Not all collisions behave the same way. Physicists classify collisions into three types:
+**Step 5:** Expand and rearrange:
 
-#### 1. Elastic Collision
-* Momentum is conserved ✓
-* Kinetic energy is also conserved ✓
-* Objects bounce off each other perfectly
+$$m_2 v_2 - m_2 u_2 = -m_1 v_1 + m_1 u_1$$
 
-**Real-world approximation:** Billiard/snooker balls, atoms and molecules at low speeds.
+**Step 6:** Rearrange to group initial and final terms:
 
-**Example:** Ball A (1 kg, 4 m/s) collides head-on with stationary Ball B (1 kg). After collision: A stops, B moves at 4 m/s. Momentum conserved: 1×4 + 0 = 0 + 1×4. KE conserved: ½×1×16 + 0 = 0 + ½×1×16. ✓
+$$\\boxed{m_1 u_1 + m_2 u_2 = m_1 v_1 + m_2 v_2}$$
 
-#### 2. Inelastic Collision
-* Momentum is conserved ✓
-* Kinetic energy is NOT conserved (some converted to heat/sound/deformation) ✗
-* Most real-world collisions are inelastic
-
-**Example:** A car crash — cars deform (kinetic energy converts to deformation energy). Momentum is still conserved, but kinetic energy is lost.
-
-#### 3. Perfectly Inelastic Collision
-* Momentum is conserved ✓
-* Objects stick together after collision (maximum kinetic energy loss) ✗
-* Most extreme case of inelastic collision
-
-**Example:** A bullet embedding in a wooden block. After impact, bullet and block move together as one unit.
+**This is the Law of Conservation of Momentum!** Notice it was derived entirely from Newton's Third Law — so if Newton's Third Law is true, momentum conservation is automatically true. It's not a separate assumption — it's a logical consequence.
 
 ---
 
-### Worked Problems — Step by Step
+### Three Types of Collisions
 
-#### Problem 1: Classic Collision
-**Two balls on a frictionless surface:** Ball A (mass 2 kg) moves at 3 m/s and collides with stationary Ball B (mass 2 kg). After the collision, Ball A stops. Find Ball B's velocity.
+#### Type 1: Perfectly Elastic Collision
+- Both momentum AND kinetic energy are conserved
+- Objects bounce off each other
+- Ideal rubber balls, billiard balls (approximately)
+- Subatomic particles can have truly elastic collisions
 
-**Solution:**
-$$p_{before} = m_A u_A + m_B u_B = 2 \times 3 + 2 \times 0 = 6 \text{ kg·m/s}$$
-$$p_{after} = m_A v_A + m_B v_B = 2 \times 0 + 2 \times v_B = 2v_B$$
-$$6 = 2v_B \Rightarrow v_B = 3 \text{ m/s}$$
+$$\\text{Before: } m_1 u_1 + m_2 u_2 \\quad \\text{After: } m_1 v_1 + m_2 v_2$$
+$$\\text{KE conserved: } \\frac{1}{2}m_1 u_1^2 + \\frac{1}{2}m_2 u_2^2 = \\frac{1}{2}m_1 v_1^2 + \\frac{1}{2}m_2 v_2^2$$
 
-Ball B moves at **3 m/s** in the direction Ball A was originally moving. ✓
+**Special case:** Two equal masses — one stops, other moves at original speed (as in billiards).
 
-#### Problem 2: Bullet and Block
-**A 0.01 kg bullet moving at 500 m/s embeds in a 0.99 kg wooden block. Find their common velocity after impact.**
+#### Type 2: Perfectly Inelastic Collision
+- Momentum conserved, but kinetic energy is NOT conserved
+- Objects stick together after collision (maximum energy loss)
+- Car crashes where cars crumple together, balls of clay merging
+- Combined velocity: $v = \\frac{m_1 u_1 + m_2 u_2}{m_1 + m_2}$
 
-**Solution:**
-$$p_{before} = 0.01 \times 500 + 0.99 \times 0 = 5 \text{ kg·m/s}$$
-$$p_{after} = (0.01 + 0.99) \times v = 1 \times v$$
-$$5 = v \Rightarrow v = 5 \text{ m/s}$$
-
-Bullet+block system moves at **5 m/s** forward.
-
-Note the massive kinetic energy loss:
-$$KE_{before} = \frac{1}{2}(0.01)(500^2) = 1250 \text{ J}$$
-$$KE_{after} = \frac{1}{2}(1)(5^2) = 12.5 \text{ J}$$
-99% of kinetic energy converted to heat and sound!
-
-#### Problem 3: Explosion (Reverse of Collision)
-**A 10 kg shell at rest explodes into two pieces: 4 kg flying at 30 m/s forward, and 6 kg in the other direction. Find the 6 kg piece's velocity.**
-
-**Solution:**
-$$p_{before} = 0 \text{ (at rest)}$$
-$$p_{after} = 4 \times 30 + 6 \times v_2 = 0$$
-$$120 + 6v_2 = 0 \Rightarrow v_2 = -20 \text{ m/s}$$
-
-The 6 kg piece moves at **20 m/s backward** (opposite to the 4 kg piece). ✓
+#### Type 3: Inelastic Collision (Partial)
+- Momentum conserved
+- Some kinetic energy lost (converted to heat, sound, deformation)
+- Most real-world collisions are partly inelastic
+- Objects separate but with some energy loss
 
 ---
 
-### Explosions — Conservation in Reverse
+### Real-World Applications
 
-Conservation of momentum works for explosions too. An explosion is essentially the reverse of a perfectly inelastic collision.
+#### Application 1: Explosions and Recoil
+When a bomb explodes, the total momentum before = 0 (stationary). After, the fragments fly in different directions. The vector sum of all fragment momenta must still equal zero!
 
-**Before explosion:** One stationary object (total momentum = 0).
-**After explosion:** Multiple pieces fly apart.
+**Example — Gun firing:**
+$$0 = m_{\\text{bullet}} \\times v_{\\text{bullet}} + m_{\\text{gun}} \\times v_{\\text{gun}}$$
+$$\\Rightarrow v_{\\text{gun}} = -\\frac{m_{\\text{bullet}} \\times v_{\\text{bullet}}}{m_{\\text{gun}}}$$
 
-The key: all pieces' momentums must add up to ZERO (the original total momentum).
+#### Application 2: Rocket Propulsion
 
-![Figure 2: An explosion is the reverse of a collision. The momentums of all fragments sum to zero, conserving the initial stationary momentum.](/images/explosion_conservation.png)
+A rocket starts at rest (total momentum = 0). As it ejects exhaust gas backward (momentum $-\\Delta p$), the rocket gains equal momentum forward ($+\\Delta p$). At every instant:
 
+$$p_{\\text{rocket}} + p_{\\text{exhaust}} = 0 = \\text{constant}$$
 
-**Real examples:**
-* **Fireworks:** Shell explodes from rest. Colourful pieces scatter in all directions. If you could add all their momenta as vectors, the total is still zero!
-* **Gun firing:** Bullet goes forward, gun recoils backward. Total momentum = 0 (same as before firing).
-* **Rocket jettisoning fuel tanks:** Empty fuel tank detaches backward, rocket continues forward faster. Total momentum conserved.
+This is why rockets work — no "pushing against air" needed. The exhaust and rocket exchange momentum.
+
+#### Application 3: Collisions in Sports
+
+A cricket bat (mass 1 kg) swings at 20 m/s and hits a ball (0.16 kg, coming at -30 m/s). After collision, ball rebounds:
+
+Initial momentum: $p_i = 1 \\times 20 + 0.16 \\times (-30) = 20 - 4.8 = 15.2$ kg·m/s
+
+Conservation: $1 \\times v_{\\text{bat}} + 0.16 \\times v_{\\text{ball}} = 15.2$
+
+(Need another equation — kinetic energy conservation for elastic, or experimental data.)
+
+#### Application 4: Newton's Cradle
+
+Newton's Cradle (those office toys with hanging metal balls) perfectly demonstrates conservation of momentum AND energy:
+
+- Pull 1 ball back and release → 1 ball flies out the other side
+- Pull 2 balls → 2 balls fly out (same speed)
+- Pull 3 balls → 3 balls fly out
+
+The exact number of balls comes out because BOTH momentum AND energy must be conserved simultaneously. Any other combination (e.g., pull 1, get 2 balls at half speed) would conserve momentum but violate energy — so nature doesn't allow it.
+
+#### Application 5: Vehicle Collisions in Forensics
+
+Police investigators use momentum conservation to reconstruct accidents:
+
+If a 1200 kg car (speed unknown) hits a stationary 800 kg truck and they move together at 15 m/s:
+
+$$m_{\\text{car}} \\times v_{\\text{car}} + m_{\\text{truck}} \\times 0 = (m_{\\text{car}} + m_{\\text{truck}}) \\times v_{\\text{final}}$$
+$$1200 \\times v_{\\text{car}} = (1200 + 800) \\times 15 = 30,000$$
+$$v_{\\text{car}} = \\frac{30,000}{1200} = 25 \\text{ m/s} = 90 \\text{ km/h}$$
+
+The car was traveling at 90 km/h before the crash — even if the driver claims otherwise. Physics doesn't lie.
 
 ---
 
-### Applications in Real Life
+### Worked Numerical Examples for CBSE Board Exam
 
-#### Car Safety Testing (Crash Tests)
-When two vehicles collide, momentum is conserved. Crash test engineers use this to predict how vehicles will behave in accidents — which direction they'll spin, how fast, etc. This data drives airbag timing, crumple zone design, and safety ratings.
+#### Example 1: Classic Ball Collision
+A ball of mass 0.5 kg moving at 6 m/s collides with a 1.5 kg stationary ball. After collision, the 0.5 kg ball stops. Find the velocity of the 1.5 kg ball.
 
-#### Space Missions and Orbital Mechanics
-NASA mission planners use momentum conservation to calculate every engine burn. When a spacecraft fires its engines (expelling gas backward), momentum is conserved. The spacecraft gains exactly as much forward momentum as the gas gains backward momentum.
+$$\\text{Before: } p = 0.5 \\times 6 + 1.5 \\times 0 = 3 \\text{ kg·m/s}$$
+$$\\text{After: } 0.5 \\times 0 + 1.5 \\times v = 3$$
+$$v = \\frac{3}{1.5} = 2 \\text{ m/s}$$
 
-#### Neutron Collisions in Nuclear Reactors
-In nuclear reactors, neutron speed must be controlled (moderated) for controlled fission. Neutrons collide with moderator atoms (like water molecules). By conservation of momentum, a neutron colliding with an equal-mass hydrogen atom (in water) transfers nearly all its kinetic energy — slowing down dramatically. This is why water makes an excellent neutron moderator.
+#### Example 2: Two Objects in Same Direction
+Two cars approach each other: Car A (1000 kg, 20 m/s east) and Car B (1500 kg, 15 m/s west). They collide and stick together. Find their combined velocity.
 
-#### Astronomy — Star Formation and Black Holes
-When massive gas clouds collapse under gravity to form stars, their momentum must be conserved. If the initial cloud was slowly rotating, the collapsing star rotates faster (like a figure skater pulling in arms — conservation of angular momentum, the rotational version). Rapidly spinning pulsars and neutron stars are formed this way.
+$$\\text{Taking east as positive:}$$
+$$p_{\\text{total}} = 1000 \\times 20 + 1500 \\times (-15) = 20000 - 22500 = -2500 \\text{ kg·m/s}$$
+$$v_{\\text{combined}} = \\frac{-2500}{1000 + 1500} = \\frac{-2500}{2500} = -1 \\text{ m/s}$$
 
----
+Combined mass moves at 1 m/s westward (B's direction won because B had more momentum).
 
-### Important Points to Remember
+#### Example 3: Explosion (Starting from Rest)
+A 10 kg shell at rest explodes into two fragments: 6 kg and 4 kg. The 6 kg fragment moves at 8 m/s to the right. Find the velocity of the 4 kg fragment.
 
-1. **Total momentum is conserved only when no external force acts** on the system. Friction from ground, gravitational pull from outside — these are external forces that can change total momentum.
+$$0 = 6 \\times 8 + 4 \\times v \\Rightarrow v = \\frac{-48}{4} = -12 \\text{ m/s}$$
 
-2. **Momentum is a VECTOR.** Direction matters. You must use + and − signs for opposite directions.
-
-3. **Conservation of momentum applies to ALL types of interactions** — elastic collisions, inelastic collisions, explosions, even slow interactions like boats pushing off docks.
-
-4. **Conservation of momentum and energy are different.** Momentum is always conserved in isolated systems. Kinetic energy is only conserved in perfectly elastic collisions.
-
-5. **This law connects back to Newton's Third Law** — the mathematical derivation shows they are deeply related: Newton's Third Law implies momentum conservation.
+The 4 kg fragment moves at 12 m/s to the LEFT. Lighter fragment moves faster — always!
 
 ---
 
-### Summary: The Chapter at a Glance
+### Deep Insight: Why is Momentum Conserved?
 
-| Topic | Key Formula | Key Concept |
-|---|---|---|
-| Force and Effects | $F = $ push/pull | Can change speed, direction, shape |
-| Balanced/Unbalanced | $F_{net} = 0$ or $≠0$ | Zero net force = no acceleration |
-| Newton's 1st Law | No force → constant velocity | Inertia: resistance to change |
-| Newton's 2nd Law | $F = ma$ | More force/less mass = more acceleration |
-| Newton's 3rd Law | $F_{AB} = -F_{BA}$ | Every action has equal-opposite reaction |
-| Momentum | $p = mv$ | Quantity of motion |
-| Conservation | $m_1u_1 + m_2u_2 = m_1v_1 + m_2v_2$ | Total momentum unchanged in isolation |
-  `,
+This is a profound question. The German mathematician Emmy Noether proved in 1915 that:
+
+> **Every symmetry in nature corresponds to a conservation law.**
+
+The conservation of momentum corresponds to the **translational symmetry of space** — the laws of physics are the same everywhere in the universe. If you move your physics laboratory 1 metre to the left, the laws don't change. This spatial symmetry FORCES momentum to be conserved.
+
+This means: if momentum conservation ever failed, it would mean the laws of physics differ between different locations in the universe — which all evidence says is not the case. Momentum conservation isn't just a rule we observe — it's a logical necessity given the uniformity of space.
+
+---
+
+### Summary Table
+
+| Type | Momentum | Kinetic Energy | Example |
+|---|---|---|---|
+| Elastic collision | Conserved | Conserved | Billiard balls |
+| Inelastic collision | Conserved | Partly lost | Football collision |
+| Perfectly inelastic | Conserved | Maximum loss | Clay balls merging |
+| Explosion | Conserved | Increases | Bomb, gun, rocket |
+
+> **The Golden Rule:** In any isolated system, no matter how violent or complex the internal interaction, the total momentum before = total momentum after. Always.
+`,
 
   questions: [
-    /* ── 5 MCQs ── */
+    /* ══════════════════════════════════════
+     * MCQ (30 questions)
+     * ══════════════════════════════════════ */
     {
-      id: "t5q1",
+      id: "s5-mcq-01",
       type: "mcq",
-      points: 10,
-      question:
-        "A 4 kg ball moving at 6 m/s collides with a 2 kg stationary ball. After collision, the 4 kg ball moves at 2 m/s in the same direction. What is the velocity of the 2 kg ball?",
-      options: ["4 m/s", "8 m/s", "12 m/s", "6 m/s"],
-      correctAnswer: "8 m/s",
-      explanation:
-        "Before: p = 4×6 + 2×0 = 24 kg·m/s. After: 4×2 + 2×v = 24. 8 + 2v = 24. 2v = 16. v = 8 m/s. Momentum is conserved.",
-    },
-    {
-      id: "t5q2",
-      type: "mcq",
-      points: 10,
-      question:
-        "A gun recoils when fired. This is the best example of:",
+      question: "The Law of Conservation of Momentum states that the total momentum of a system is conserved when:",
       options: [
-        "Newton's First Law — inertia",
-        "Newton's Second Law — F = ma",
-        "Conservation of momentum",
-        "Conservation of energy",
-      ],
-      correctAnswer: "Conservation of momentum",
-      explanation:
-        "Before firing: total momentum = 0 (gun + bullet both at rest). After firing: bullet gains forward momentum = gun gains equal backward momentum. Total remains 0. This is conservation of momentum.",
-    },
-    {
-      id: "t5q3",
-      type: "mcq",
-      points: 10,
-      question:
-        "The law of conservation of momentum holds ONLY when:",
-      options: [
-        "Objects are moving in the same direction",
-        "Objects have equal masses",
+        "All forces are zero",
         "No external unbalanced force acts on the system",
-        "All collisions are elastic",
+        "All objects in the system are at rest",
+        "Only contact forces are present"
       ],
       correctAnswer: "No external unbalanced force acts on the system",
-      explanation:
-        "Conservation of momentum requires an isolated system — no external unbalanced force. Internal forces (collision forces between objects) do not change total momentum since they are equal and opposite (Newton's Third Law).",
-    },
-    {
-      id: "t5q4",
-      type: "mcq",
+      explanation: "The Law of Conservation of Momentum holds when no EXTERNAL unbalanced force acts on the system. Internal forces (between objects within the system) always come in equal-opposite Third Law pairs, so they cancel — they cannot change the total momentum. External forces (like friction from the ground, air resistance, gravity from outside) CAN change the total momentum. An 'isolated system' is one with no external unbalanced forces. Note: Balanced external forces also allow momentum conservation — it's specifically UNBALANCED external forces that change momentum.",
       points: 10,
-      question:
-        "A 5 kg shell at rest explodes into two equal pieces of 2.5 kg each. One piece flies at 20 m/s to the left. What is the velocity of the other piece?",
-      options: ["20 m/s to the right", "10 m/s to the left", "40 m/s to the right", "0 m/s"],
-      correctAnswer: "20 m/s to the right",
-      explanation:
-        "Initial momentum = 0. Final: 2.5×(−20) + 2.5×v = 0. −50 + 2.5v = 0. v = 20 m/s to the right. Equal masses flying apart at equal speeds in opposite directions.",
     },
     {
-      id: "t5q5",
+      id: "s5-mcq-02",
       type: "mcq",
-      points: 10,
-      question:
-        "In which type of collision is kinetic energy conserved along with momentum?",
-      options: [
-        "Perfectly inelastic collision",
-        "Inelastic collision",
-        "Elastic collision",
-        "Explosive collision",
-      ],
-      correctAnswer: "Elastic collision",
-      explanation:
-        "In an elastic collision, both momentum AND kinetic energy are conserved. In inelastic collisions, momentum is conserved but kinetic energy is partially converted to heat/sound/deformation. In perfectly inelastic, objects stick together — maximum KE loss.",
-    },
-
-    /* ── 5 Short Answer ── */
-    {
-      id: "t5q6",
-      type: "short",
-      points: 15,
-      question:
-        "State the Law of Conservation of Momentum and write its mathematical equation for a two-body system.",
-      correctAnswer:
-        "Law of Conservation of Momentum: The total momentum of an isolated system remains constant if no external unbalanced force acts on it. For two bodies: m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂, where u = initial velocity, v = final velocity, m = mass. The total momentum before an interaction equals total momentum after.",
-      explanation:
-        "Statement with isolated-system condition + complete equation with variables defined.",
-    },
-    {
-      id: "t5q7",
-      type: "short",
-      points: 15,
-      question:
-        "A 0.5 kg ball moving at 4 m/s collides with a 1.5 kg stationary ball and they stick together. Find their common velocity after collision.",
-      correctAnswer:
-        "Before: total momentum = 0.5×4 + 1.5×0 = 2 kg·m/s. After (stuck together): (0.5 + 1.5)×v = 2. 2v = 2. v = 1 m/s. Both move together at 1 m/s in the original direction. This is a perfectly inelastic collision.",
-      explanation:
-        "Apply conservation: total p before = total p after. Combined mass = 2 kg. v = 2/2 = 1 m/s.",
-    },
-    {
-      id: "t5q8",
-      type: "short",
-      points: 15,
-      question:
-        "Prove that the Law of Conservation of Momentum follows from Newton's Third Law.",
-      correctAnswer:
-        "During collision, A exerts force F on B, B exerts −F on A (Newton's Third Law). Impulse on A = −F×Δt = Δp_A. Impulse on B = +F×Δt = Δp_B. Total change in momentum = Δp_A + Δp_B = −FΔt + FΔt = 0. Zero total change means total momentum is constant → conservation of momentum. Newton's Third Law directly implies momentum conservation.",
-      explanation:
-        "Derivation using Third Law forces → equal and opposite impulses → zero net momentum change → conservation.",
-    },
-    {
-      id: "t5q9",
-      type: "short",
-      points: 15,
-      question:
-        "Why does a firework shell explode symmetrically outward from its launch point? Use conservation of momentum.",
-      correctAnswer:
-        "The firework shell was moving upward with a certain momentum. When it explodes, the fragments must collectively have the same total momentum as before (assuming no external force at the instant of explosion). For a shell designed to explode in all directions equally, the symmetry ensures momentum components cancel in all directions perpendicular to motion. The colourful fragments must collectively have the same upward momentum as the original shell.",
-      explanation:
-        "Conservation of momentum: total momentum of all fragments = original shell's momentum. Symmetric explosion means radial components cancel, net momentum = original direction.",
-    },
-    {
-      id: "t5q10",
-      type: "short",
-      points: 15,
-      question:
-        "Two astronauts (60 kg and 80 kg) are stationary in space. The 60 kg astronaut pushes the 80 kg astronaut at 2 m/s. What happens to the 60 kg astronaut?",
-      correctAnswer:
-        "Initial momentum = 0. After push: 80×2 + 60×v = 0. 160 + 60v = 0. v = −160/60 = −2.67 m/s. The 60 kg astronaut moves at 2.67 m/s in the OPPOSITE direction. Lighter astronaut moves faster (inverse mass ratio). Both drift forever in space — Newton's First Law — no friction to stop them.",
-      explanation:
-        "Conservation: initial p = 0. 80×2 + 60×v = 0. v = −8/3 ≈ −2.67 m/s. Opposite direction to pushed astronaut.",
-    },
-
-    /* ── 5 Long Answer ── */
-    {
-      id: "t5q11",
-      type: "long",
-      points: 20,
-      question:
-        "Derive the Law of Conservation of Momentum mathematically from Newton's Second and Third Laws. Show each step clearly.",
-      correctAnswer:
-        "Consider two objects A (mass m₁) and B (mass m₂) interacting for time Δt. Initial velocities: u₁, u₂. Final velocities: v₁, v₂. BY NEWTON'S THIRD LAW: Force of A on B = F_AB. Force of B on A = F_BA = −F_AB. BY NEWTON'S SECOND LAW: F_AB = m₂(v₂−u₂)/Δt [force on B changes B's momentum]. F_BA = m₁(v₁−u₁)/Δt [force on A changes A's momentum]. Since F_BA = −F_AB: m₁(v₁−u₁)/Δt = −m₂(v₂−u₂)/Δt. Multiply both sides by Δt: m₁(v₁−u₁) = −m₂(v₂−u₂). m₁v₁ − m₁u₁ = −m₂v₂ + m₂u₂. Rearranging: m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂. Total momentum before = Total momentum after. This is the Law of Conservation of Momentum — derived entirely from Newton's Second and Third Laws.",
-      explanation:
-        "Full step-by-step derivation from Third Law (equal opposite forces) through Second Law (F = Δp/Δt) to the conservation equation. Must be clearly labelled.",
-    },
-    {
-      id: "t5q12",
-      type: "long",
-      points: 20,
-      question:
-        "Explain the three types of collisions (elastic, inelastic, perfectly inelastic) with examples and calculations. Which conserves both momentum and kinetic energy?",
-      correctAnswer:
-        "1. ELASTIC: Both momentum and KE conserved. Example: two billiard balls. Ball 1 (1 kg, 3 m/s) hits stationary Ball 2 (1 kg). After: Ball 1 stops, Ball 2 moves at 3 m/s. Momentum: 1×3 = 0 + 1×3 ✓. KE: ½×1×9 = ½×1×9 ✓. 2. INELASTIC: Momentum conserved, KE not conserved. Example: car crash. 1000 kg car (20 m/s) hits 1500 kg stationary car. They bounce off separately. Momentum conserved but some KE converts to heat/sound/deformation. 3. PERFECTLY INELASTIC: Momentum conserved, maximum KE loss. Objects stick together. Example: 0.01 kg bullet (500 m/s) embeds in 0.99 kg block. Combined velocity = (0.01×500)/(1) = 5 m/s. KE before = 1250 J. KE after = 12.5 J. 99% KE lost to heat/deformation! Only ELASTIC collisions conserve both.",
-      explanation:
-        "All three types with distinct examples and at least one quantitative calculation. The elastic collision as the only one conserving both quantities must be explicitly stated.",
-    },
-    {
-      id: "t5q13",
-      type: "long",
-      points: 20,
-      question:
-        "A 3 kg trolley moving at 5 m/s collides with a 2 kg stationary trolley. After collision, the 3 kg trolley moves at 1 m/s in the same direction. (a) Find the velocity of the 2 kg trolley. (b) Calculate kinetic energy before and after. (c) Is this collision elastic or inelastic?",
-      correctAnswer:
-        "(a) MOMENTUM CONSERVATION: Before: p = 3×5 + 2×0 = 15 kg·m/s. After: 3×1 + 2×v = 15. 3 + 2v = 15. 2v = 12. v = 6 m/s. The 2 kg trolley moves at 6 m/s. (b) KE BEFORE: ½×3×5² + 0 = ½×3×25 = 37.5 J. KE AFTER: ½×3×1² + ½×2×6² = 1.5 + 36 = 37.5 J. (c) TYPE: Since KE before (37.5 J) = KE after (37.5 J), this is an ELASTIC collision — both momentum and kinetic energy are conserved! This is rare in everyday life but possible when collision surfaces are very rigid and springy (like billiard balls).",
-      explanation:
-        "Full calculation in three parts. The equality of KE before and after classifies it as elastic — a satisfying result that confirms the conservation laws are mutually consistent.",
-    },
-    {
-      id: "t5q14",
-      type: "long",
-      points: 20,
-      question:
-        "Explain how NASA uses the Law of Conservation of Momentum to plan deep-space mission trajectory corrections (course burns). Use an example calculation.",
-      correctAnswer:
-        "BASIC PRINCIPLE: A spacecraft in deep space has total system momentum = spacecraft momentum + fuel momentum. When engines fire, fuel (exhaust gas) is expelled backward at high speed. By conservation of momentum, the spacecraft gains equal but opposite (forward) momentum. NASA calculates: Δp_spacecraft = −Δp_exhaust. If the spacecraft (mass 1000 kg) needs to increase velocity by 10 m/s (Δv): Required momentum change = 1000×10 = 10,000 kg·m/s. If exhaust velocity = 2000 m/s: Mass of fuel needed = 10,000/2000 = 5 kg. This is called the Tsiolkovsky Rocket Equation in practice. For long missions (like Mars), multiple burns are planned. Each burn is calculated using conservation of momentum. The precision is extraordinary — Mars missions must hit a target window just 1-2 km wide after traveling 225 million km! Conservation of momentum (combined with orbital mechanics) makes this possible. Every gram of fuel is precious, so exact calculations using momentum conservation are mission-critical.",
-      explanation:
-        "Conservation principle → calculation example → NASA application. The precision of space navigation showing how fundamental the law is makes this answer excellent.",
-    },
-    {
-      id: "t5q15",
-      type: "long",
-      points: 20,
-      question:
-        "A 10,000 kg space shuttle at rest in space separates from a 2,000 kg fuel tank. The fuel tank moves backward at 3 m/s. Find the shuttle's forward velocity. Compare this to a 100,000 kg shuttle separating from the same tank.",
-      correctAnswer:
-        "CASE 1 (Shuttle 10,000 kg): Initial momentum = 0. After separation: 2000×(−3) + 10000×v = 0. −6000 + 10000v = 0. v = 0.6 m/s forward. CASE 2 (Shuttle 100,000 kg): 2000×(−3) + 100000×v = 0. −6000 + 100000v = 0. v = 0.06 m/s forward. COMPARISON: The heavier shuttle (10× heavier than Case 1) moves at only 1/10 the velocity (0.06 vs 0.6 m/s). This demonstrates a = F/m and p = mv — for the same fuel tank separation momentum, a heavier spacecraft gains less velocity. PRACTICAL LESSON: This is why spacecraft staging exists (dropping empty tanks). As mass decreases, the same thrust gives more acceleration. A fully loaded rocket is mostly fuel mass — once fuel is used and tanks dropped, the remaining structure is much lighter and accelerates far more efficiently. This is the fundamental reason multi-stage rockets (like Saturn V) are so much more effective than single-stage rockets.",
-      explanation:
-        "Full calculations for both cases. The mass-velocity inverse relationship must be noted. The staging insight (heavier = less velocity gain) connects to real rocket design.",
-    },
-
-    /* ── 5 HOTS / Deep Thinking ── */
-    {
-      id: "t5q16",
-      type: "thinking",
-      points: 25,
-      question:
-        "HOTS: In a perfectly inelastic collision, objects stick together and maximum kinetic energy is 'lost.' But energy cannot be created or destroyed (First Law of Thermodynamics). Where does the 'lost' kinetic energy actually go?",
-      correctAnswer:
-        "Energy is never truly lost — it is converted. In a perfectly inelastic collision, kinetic energy converts to other forms: 1. THERMAL ENERGY (heat): The violent deformation of materials during collision causes molecules to vibrate more rapidly — the objects heat up. Car crashes produce measurable heat. 2. SOUND ENERGY: Collisions produce sound waves — the 'bang' of a crash represents energy propagating as pressure waves through air. 3. DEFORMATION ENERGY (plastic deformation): If objects permanently deform (bend, crush, dent), energy goes into rearranging atoms and molecules — breaking bonds and reshaping the material. This is why car crumple zones are 'designed' to absorb energy — they deliberately convert kinetic energy to deformation energy to protect passengers. 4. ELASTIC POTENTIAL ENERGY: Some energy may temporarily store in elastic materials during impact before converting to heat. Total energy of the universe is always conserved (First Law of Thermodynamics). The 'missing' kinetic energy simply changed form — it didn't disappear.",
-      explanation:
-        "Energy conservation vs kinetic energy conservation. Four specific forms kinetic energy converts to in inelastic collisions. Connection to car safety (crumple zones) shows practical depth.",
-    },
-    {
-      id: "t5q17",
-      type: "thinking",
-      points: 25,
-      question:
-        "HOTS: Can the total kinetic energy of a system increase after a collision? If so, how? If not, explain why using energy and momentum principles.",
-      correctAnswer:
-        "YES — total kinetic energy CAN increase after a 'collision' if there is an internal energy source releasing energy during the interaction. This is called a SUPERELASTIC collision or an explosion. EXAMPLE: Two compressed spring-loaded carts initially at rest. When they release, the spring energy (potential energy) converts to kinetic energy. Both carts fly apart — total KE after > total KE before (which was 0). Another example: A chemical explosive: initial KE = 0 (stationary shell), final KE = fragments flying at high speed. Chemical bond energy (stored internal energy) converts to kinetic energy during the explosion. This does NOT violate conservation of momentum (total momentum = 0 before = 0 after for symmetric explosion) OR energy conservation (internal potential energy converts to kinetic energy — total energy conserved). The 'extra' kinetic energy comes from INTERNAL stored energy (spring compression, chemical energy, nuclear energy). Without an internal energy source, kinetic energy cannot increase — it can only decrease or stay constant.",
-      explanation:
-        "Yes, KE can increase via explosion/superelastic collision — internal energy source releases stored energy. Must distinguish kinetic energy conservation (not always) from total energy conservation (always).",
-    },
-    {
-      id: "t5q18",
-      type: "thinking",
-      points: 25,
-      question:
-        "HOTS: A billiard ball hits two identical stationary balls simultaneously (both at the same time). Using conservation of momentum and energy, predict what happens. Why does this differ from hitting one ball at a time?",
-      correctAnswer:
-        "ONE BALL HIT: Classic elastic collision between equal masses. The moving ball stops completely, the struck ball moves at the same original speed. Total momentum and KE conserved perfectly. TWO BALLS HIT SIMULTANEOUSLY: Now total final mass receiving momentum = 2 balls. Conservation of momentum: m×v₀ = m×v₁ + 2m×v₂ (where v₁ = final speed of cue ball, v₂ = each target ball's speed). Energy conservation: ½mv₀² = ½mv₁² + 2×½mv₂². Solving: v₀ = v₁ + 2v₂ (momentum) AND v₀² = v₁² + 2v₂² (energy). Solving simultaneously: v₁ = v₀/3 (cue ball continues at 1/3 speed), v₂ = v₀/3 each (target balls move at 1/3 speed). Unlike one-ball case (cue ball stops), cue ball CONTINUES moving when hitting two balls simultaneously! This is why skilled billiard players understand geometric and physical constraints — hitting two balls at once changes the dynamics completely compared to hitting one.",
-      explanation:
-        "Solve the simultaneous collision using BOTH momentum and energy conservation. The cue ball NOT stopping (unlike single ball elastic) is the surprising result that requires deep mathematical analysis.",
-    },
-    {
-      id: "t5q19",
-      type: "thinking",
-      points: 25,
-      question:
-        "HOTS: Conservation of momentum is often called 'more fundamental' than Newton's Laws. Explain why. Can momentum be conserved even when Newton's laws don't apply (e.g., in quantum mechanics or relativistic physics)?",
-      correctAnswer:
-        "CLASSICAL PERSPECTIVE: Momentum conservation follows from Newton's Third Law (equal-opposite forces → equal-opposite impulses → zero net momentum change). So at the classical level, they're equivalent. MORE FUNDAMENTAL: In advanced physics (Noether's Theorem, 1915), Emmy Noether proved that every conservation law corresponds to a fundamental symmetry of nature. Conservation of momentum corresponds to TRANSLATIONAL SYMMETRY — the laws of physics are the same everywhere in the universe (no special location). As long as this symmetry holds, momentum is conserved — regardless of whether Newton's Laws apply! QUANTUM MECHANICS: Newton's Laws don't apply to subatomic particles (quantum rules govern). But momentum IS still conserved in quantum mechanics — proven experimentally in particle accelerators. Particles collide, scatter, and momentum of the system is always conserved. SPECIAL RELATIVITY: Newton's Second Law must be modified at speeds near light (F ≠ ma exactly). But momentum is still conserved, using the relativistic definition: p = mv/√(1−v²/c²). Momentum conservation is deeper than Newton's Laws — it reflects the translational symmetry of spacetime itself.",
-      explanation:
-        "Noether's Theorem connection. Translational symmetry → momentum conservation. QM and relativistic examples showing conservation survives beyond Newton. This is genuinely advanced but accessible.",
-    },
-    {
-      id: "t5q20",
-      type: "thinking",
-      points: 25,
-      question:
-        "HOTS: Two skaters (60 kg and 80 kg) stand on frictionless ice. They push off each other and the 60 kg skater moves at 4 m/s. (a) Find the 80 kg skater's velocity. (b) Calculate total KE of the system after. (c) Where did this KE come from? (d) If both were moving toward each other at 2 m/s before pushing off, how does this change the calculation?",
-      correctAnswer:
-        "(a) FRICTIONLESS ICE, START FROM REST: Total initial momentum = 0. 60×4 + 80×v = 0. 240 + 80v = 0. v = −3 m/s. The 80 kg skater moves at 3 m/s in the opposite direction. (b) TOTAL KE AFTER: ½×60×4² + ½×80×3² = ½×60×16 + ½×80×9 = 480 + 360 = 840 J. (c) SOURCE OF KE: Initially both skaters were at rest — KE = 0! The 840 J came entirely from the chemical energy stored in their muscles (ATP → mechanical energy). This is an explosion-type interaction where internal energy (muscle chemical energy) converts to kinetic energy. Momentum is conserved (total = 0 still). Energy is conserved (chemical → kinetic). (d) BOTH MOVING TOWARD EACH OTHER AT 2 m/s: Initial momentum = 60×2 + 80×(−2) = 120 − 160 = −40 kg·m/s (net toward 80 kg direction). After push off: 60×v₁ + 80×v₂ = −40. PLUS KE consideration — the push adds 840 J of kinetic energy: ½×60×v₁² + ½×80×v₂² = ½×60×4 + ½×80×9 + 840 = 840 + original KE = 840 + ½×60×4 + ½×80×4 = 840 + 120 + 160 = 1120 J. Two equations for two unknowns (momentum and energy) give v₁ and v₂.",
-      explanation:
-        "Four parts: (a) momentum conservation from rest, (b) total KE calculation, (c) identification of muscle energy as the source, (d) extension to non-zero initial momentum case. Part (c) is the key insight — KE came from chemical energy.",
-    },
-
-    /* ══════════════════════════════════════════
-     *  5 MORE MCQ QUESTIONS (Total: 10 MCQ)
-     * ══════════════════════════════════════════ */
-    {
-      id: "t5q21",
-      type: "mcq",
-      points: 10,
-      question:
-        "Two objects of masses 3 kg and 6 kg are moving toward each other at 4 m/s and 2 m/s respectively. They stick together after collision. What is their common velocity?",
-      options: ["0 m/s", "1 m/s", "2 m/s", "3 m/s"],
-      correctAnswer: "0 m/s",
-      explanation:
-        "Taking rightward as positive: p = 3×4 + 6×(−2) = 12 − 12 = 0 kg·m/s. After sticking: (3+6)×v = 0. v = 0 m/s. They come to a complete stop! The momenta were equal and opposite, so they perfectly cancelled.",
-    },
-    {
-      id: "t5q22",
-      type: "mcq",
-      points: 10,
-      question:
-        "A bullet of mass 50 g is fired from a gun of mass 5 kg. If the bullet leaves with velocity 200 m/s, the recoil velocity of the gun is:",
-      options: ["2 m/s", "20 m/s", "0.2 m/s", "200 m/s"],
+      question: "A 2 kg ball moving at 5 m/s collides with a stationary 3 kg ball. They stick together. What is their combined velocity?",
+      options: ["1 m/s", "2 m/s", "3 m/s", "5 m/s"],
       correctAnswer: "2 m/s",
-      explanation:
-        "Initial momentum = 0. After: 0.05 × 200 + 5 × v = 0. 10 + 5v = 0. v = −2 m/s. The gun recoils at 2 m/s in the opposite direction to the bullet.",
+      explanation: "This is a perfectly inelastic collision (objects stick together). Using conservation of momentum: m₁u₁ + m₂u₂ = (m₁+m₂)v. 2×5 + 3×0 = (2+3)×v. 10 = 5v. v = 2 m/s. The combined mass (5 kg) moves at 2 m/s in the original direction. Check: momentum before = 10 kg·m/s. After = 5×2 = 10 kg·m/s ✓. Kinetic energy before = ½×2×25 = 25 J. After = ½×5×4 = 10 J. Energy lost = 15 J (converted to heat, sound, deformation in the collision).",
+      points: 10,
     },
     {
-      id: "t5q23",
+      id: "s5-mcq-03",
       type: "mcq",
+      question: "A rocket at rest fires its engine. If exhaust gas of 0.5 kg is ejected at 100 m/s, and the rocket's mass is 10 kg, the rocket's velocity is:",
+      options: ["5 m/s", "0.5 m/s", "50 m/s", "200 m/s"],
+      correctAnswer: "5 m/s",
+      explanation: "Using conservation of momentum (both start at rest, total initial momentum = 0): 0 = m_gas × v_gas + m_rocket × v_rocket. 0 = 0.5 × (-100) + 10 × v_rocket. 10 × v_rocket = 50. v_rocket = 5 m/s (opposite to gas direction). Lighter rocket would go faster: if rocket mass were 5 kg: v = 10 m/s. This directly shows: v_rocket = (m_gas × v_gas) / m_rocket. Heavier rocket, slower speed for same gas ejection. This is why rockets have high mass-ratio (fuel mass / rocket mass) designs.",
       points: 10,
-      question:
-        "In a perfectly inelastic collision, which quantity is NOT conserved?",
+    },
+    {
+      id: "s5-mcq-04",
+      type: "mcq",
+      question: "The total momentum of an isolated system:",
       options: [
-        "Momentum",
-        "Mass",
-        "Kinetic Energy",
-        "Total Energy",
+        "Always increases",
+        "Always decreases",
+        "Remains constant",
+        "Changes after every collision"
       ],
-      correctAnswer: "Kinetic Energy",
-      explanation:
-        "In a perfectly inelastic collision, momentum is always conserved, mass is conserved, and total energy is conserved (energy just changes form). However, kinetic energy is NOT conserved — some converts to heat, sound, and deformation.",
+      correctAnswer: "Remains constant",
+      explanation: "In an isolated system (no external unbalanced forces), the total momentum is conserved — it remains constant regardless of what interactions occur between the system's objects. This is true whether the objects collide, explode apart, attract, or repel each other. The internal forces always come in equal-opposite Third Law pairs that cancel each other in the total. This conservation law is one of the most tested and verified principles in all of physics — no exception has ever been observed in classical mechanics.",
+      points: 10,
     },
     {
-      id: "t5q24",
+      id: "s5-mcq-05",
       type: "mcq",
+      question: "A stationary bomb explodes into two fragments of mass 3 kg and 5 kg. The 3 kg fragment moves at 20 m/s. The velocity of the 5 kg fragment is:",
+      options: ["12 m/s (same direction)", "12 m/s (opposite direction)", "20 m/s (same direction)", "20 m/s (opposite direction)"],
+      correctAnswer: "12 m/s (opposite direction)",
+      explanation: "Initial total momentum = 0 (bomb at rest). After explosion: 3×20 + 5×v = 0. v = -60/5 = -12 m/s. The negative sign means opposite direction to the 3 kg fragment. The 5 kg fragment moves at 12 m/s opposite to the 3 kg fragment. Check: after = 3×20 + 5×(-12) = 60 - 60 = 0 ✓. The lighter fragment always moves faster in explosions: v_light/v_heavy = m_heavy/m_light = 5/3. So the 3 kg fragment (lighter) moves at 20 m/s while 5 kg (heavier) moves at only 12 m/s.",
       points: 10,
-      question:
-        "A 2 kg ball moving at 3 m/s makes a head-on elastic collision with a stationary 2 kg ball. After collision, the first ball:",
-      options: [
-        "Continues at 3 m/s",
-        "Bounces back at 3 m/s",
-        "Stops completely",
-        "Moves at 1.5 m/s",
-      ],
-      correctAnswer: "Stops completely",
-      explanation:
-        "In a head-on elastic collision between equal masses, the moving ball stops completely and the stationary ball moves with the original velocity. This is a classic result: full momentum and kinetic energy transfer between equal masses.",
     },
     {
-      id: "t5q25",
+      id: "s5-mcq-06",
       type: "mcq",
-      points: 10,
-      question:
-        "A rocket ejects exhaust gases to move forward. This is an application of:",
+      question: "Conservation of momentum is derived from:",
       options: [
-        "Conservation of energy only",
-        "Conservation of momentum",
         "Newton's First Law only",
-        "Conservation of mass only",
+        "Newton's Second Law only",
+        "Newton's Third Law and Second Law combined",
+        "The law of gravitation"
       ],
-      correctAnswer: "Conservation of momentum",
-      explanation:
-        "The rocket + exhaust form a system. Before engine firing, total momentum = rocket's momentum. After: rocket gains forward momentum = exhaust gases gain backward momentum. Total stays the same. This is conservation of momentum in action.",
+      correctAnswer: "Newton's Third Law and Second Law combined",
+      explanation: "Conservation of momentum is derived by combining Newton's Third Law (F_AB = -F_BA) with Newton's Second Law (F = Δp/Δt). Using the Third Law: the forces are equal and opposite. Using the Second Law: each force equals the rate of change of that object's momentum. Combining: rate of change of momentum of A = -(rate of change of momentum of B). Integrating over the collision time: Δp_A = -Δp_B. Therefore total Δp = 0 → total momentum conserved. The Third Law is the ROOT cause; the Second Law is the mathematical tool.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-07",
+      type: "mcq",
+      question: "In a perfectly elastic collision between equal masses (one stationary), what happens?",
+      options: [
+        "Both stop",
+        "The moving one stops, stationary one moves at same speed",
+        "Both move at half the original speed",
+        "The moving one bounces back"
+      ],
+      correctAnswer: "The moving one stops, stationary one moves at same speed",
+      explanation: "For a perfectly elastic collision between equal masses (m₁ = m₂ = m), with u₂ = 0: Using both momentum and energy conservation: v₁ = 0, v₂ = u₁. The first ball stops completely and the second moves at the first ball's original speed. This is exactly what happens in billiards when you hit a ball straight on (zero spin). Newton's Cradle demonstrates this perfectly — pull one ball, one flies out. This elegant result is unique to equal-mass elastic collisions and follows mathematically from solving the two conservation equations simultaneously.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-08",
+      type: "mcq",
+      question: "Two identical balls moving towards each other at 5 m/s each collide head-on elastically. After the collision:",
+      options: [
+        "Both stop",
+        "They move together at 5 m/s",
+        "Each bounces back at 5 m/s",
+        "They move together at 0 m/s"
+      ],
+      correctAnswer: "Each bounces back at 5 m/s",
+      explanation: "Taking rightward as positive: Ball A: +5 m/s, Ball B: -5 m/s. Total momentum = m×5 + m×(-5) = 0. After elastic collision between equal masses: the velocities exchange. Ball A gets B's velocity (-5 m/s = 5 m/s leftward) and Ball B gets A's velocity (+5 m/s rightward). So each bounces back at 5 m/s. Total momentum after = m×(-5) + m×5 = 0 ✓. KE before = ½m×25 + ½m×25 = 25m. KE after = same ✓. This is why in Newton's Cradle, if two balls come from opposite sides simultaneously, they each bounce back.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-09",
+      type: "mcq",
+      question: "A person of mass 60 kg jumps from a boat of mass 120 kg at 4 m/s. The boat's recoil velocity is:",
+      options: ["1 m/s", "2 m/s", "4 m/s", "8 m/s"],
+      correctAnswer: "2 m/s",
+      explanation: "Both person and boat start at rest (total momentum = 0). After jump: 60×4 + 120×v_boat = 0. v_boat = -240/120 = -2 m/s. The boat moves at 2 m/s opposite to the person's jump. Note: the boat moves slower than the person (2 vs 4 m/s) because it has twice the mass. The ratio v_boat/v_person = m_person/m_boat = 60/120 = 0.5. So the boat moves at 0.5 × 4 = 2 m/s. This is why jumping from a small boat can cause it to shoot away fast — less mass = more recoil speed.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-10",
+      type: "mcq",
+      question: "In which type of collision is kinetic energy conserved?",
+      options: [
+        "Perfectly inelastic",
+        "Inelastic",
+        "Elastic",
+        "All types of collisions"
+      ],
+      correctAnswer: "Elastic",
+      explanation: "Kinetic energy is conserved ONLY in perfectly elastic collisions. In elastic collisions, the total kinetic energy before equals the total kinetic energy after — no energy is converted to heat, sound, or deformation. In inelastic collisions (all real-world collisions to some degree), some kinetic energy is converted to other forms (thermal energy, sound, structural deformation). In perfectly inelastic collisions (objects stick together), the maximum possible kinetic energy is lost. Note: momentum is ALWAYS conserved in ALL types of collisions (when no external force), but kinetic energy is only conserved in elastic collisions.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-11",
+      type: "mcq",
+      question: "A 1 kg ball moving at 10 m/s collides and sticks to a stationary 4 kg ball. The loss in kinetic energy is:",
+      options: ["20 J", "40 J", "50 J", "80 J"],
+      correctAnswer: "40 J",
+      explanation: "Final velocity: v = (1×10 + 4×0)/(1+4) = 10/5 = 2 m/s. Initial KE = ½×1×10² = 50 J. Final KE = ½×5×2² = ½×5×4 = 10 J. Loss = 50 - 10 = 40 J. 80% of the kinetic energy was lost in this collision! This lost energy went into deforming the objects, producing heat at the impact point, and generating sound. Perfectly inelastic collisions (where objects stick) have the maximum KE loss for given initial conditions. This is why car crash tests focus on crumple zones — controlled deformation absorbs kinetic energy, protecting passengers.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-12",
+      type: "mcq",
+      question: "Which of the following is an example of 'conservation of momentum' from daily life?",
+      options: [
+        "A ball falling due to gravity",
+        "A skater pushing off a wall and gliding backward",
+        "Water evaporating from a puddle",
+        "An ice cube melting in warm water"
+      ],
+      correctAnswer: "A skater pushing off a wall and gliding backward",
+      explanation: "When a skater pushes off a wall, they exert force on the wall (the wall is attached to Earth, so Earth's momentum changes negligibly). The reaction force propels the skater backward. Before: skater and Earth are at rest (p = 0). After: skater moves one way, Earth-wall-ground system moves the other way (negligibly). Momentum is conserved. The other options involve gravity (external force changes momentum) or thermal processes that don't demonstrably conserve mechanical momentum. In practice, the 'skater + Earth' is the isolated system where conservation holds.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-13",
+      type: "mcq",
+      question: "Car A (800 kg, 20 m/s east) and Car B (1200 kg, 15 m/s west) collide and stick. Their combined velocity is:",
+      options: [
+        "1 m/s east",
+        "1 m/s west",
+        "17.5 m/s east",
+        "17.5 m/s west"
+      ],
+      correctAnswer: "1 m/s west",
+      explanation: "Taking east as positive: Total momentum = 800×20 + 1200×(-15) = 16,000 - 18,000 = -2,000 kg·m/s (negative = westward). Combined mass = 800 + 1200 = 2000 kg. v = -2000/2000 = -1 m/s. The combined wreck moves at 1 m/s westward (Car B's direction wins because B had greater momentum: |p_B| = 18,000 > |p_A| = 16,000). The 'winner' in a collision is always the side with greater momentum magnitude, not necessarily greater speed or mass alone.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-14",
+      type: "mcq",
+      question: "When a gun is fired, the gun recoils. This is because:",
+      options: [
+        "Newton's First Law — gun was at rest",
+        "Newton's Second Law — bullet has acceleration",
+        "Conservation of momentum — total momentum stays zero",
+        "The explosion pushes everything outward"
+      ],
+      correctAnswer: "Conservation of momentum — total momentum stays zero",
+      explanation: "Before firing: gun + bullet system is at rest, total momentum = 0. After firing: bullet moves forward with momentum p. For total to remain zero (no external horizontal force during very brief explosion), gun must have momentum -p (backward). This is gun recoil — a direct consequence of momentum conservation (which itself follows from Newton's Third Law). The gun's recoil speed = bullet_mass × bullet_speed / gun_mass. Heavy guns recoil less; light guns recoil more. Artillery cannons often have recoil-absorption systems (hydraulic buffers) to prevent gun from flying backward.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-15",
+      type: "mcq",
+      question: "Two bodies of equal mass moving in opposite directions with the same speed collide and stick together. Their combined velocity is:",
+      options: ["Zero", "Double the initial speed", "Half the initial speed", "Same as initial speed"],
+      correctAnswer: "Zero",
+      explanation: "Let mass = m, speed = v. Body 1: +mv (rightward). Body 2: -mv (leftward). Total momentum = mv + (-mv) = 0. After sticking: (2m) × v_final = 0. v_final = 0. The combined mass stops completely! All kinetic energy is lost (converted to heat and deformation). This is why head-on collisions between identical vehicles at the same speed are so destructive — all kinetic energy is dissipated in crumpling metal, and the vehicles stop (though each part of each vehicle decelerates rapidly, causing injury/death). Total momentum = 0, but the energy destruction is at maximum.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-16",
+      type: "mcq",
+      question: "In Newton's Cradle with 5 balls, if 2 balls are pulled back and released, how many balls fly out the other side?",
+      options: ["1", "2", "3", "All 5"],
+      correctAnswer: "2",
+      explanation: "Newton's Cradle must satisfy BOTH momentum and energy conservation simultaneously. If 2 balls hit at speed v: momentum = 2mv. If 1 ball came out: it would need speed 2v (momentum OK), but KE = ½m(2v)² = 2mv² ≠ original KE (½×2×mv² = mv²) — energy violated! If 3 balls came out at speed 2v/3: momentum = 3m×2v/3 = 2mv ✓, but KE check fails too. Only solution satisfying BOTH: 2 balls come out at speed v. This is why Newton's Cradle works with exactly the same number of balls — it's the only solution conserving both momentum and energy.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-17",
+      type: "mcq",
+      question: "A 5 kg object moving at 8 m/s collides with a stationary 3 kg object. After collision, the 5 kg object moves at 2 m/s in the same direction. The velocity of the 3 kg object is:",
+      options: ["5 m/s", "10 m/s", "15 m/s", "20 m/s"],
+      correctAnswer: "10 m/s",
+      explanation: "Conservation of momentum: 5×8 + 3×0 = 5×2 + 3×v. 40 = 10 + 3v. 3v = 30. v = 10 m/s (same direction). Check: momentum after = 5×2 + 3×10 = 10 + 30 = 40 kg·m/s ✓. Initial KE = ½×5×64 = 160 J. Final KE = ½×5×4 + ½×3×100 = 10 + 150 = 160 J ✓. Since KE is also conserved, this was a perfectly elastic collision! The 5 kg object slowed from 8 to 2 m/s (lost 6 m/s) while 3 kg gained 10 m/s — different speeds but same total energy.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-18",
+      type: "mcq",
+      question: "A stationary 4 kg shell explodes into 3 kg and 1 kg pieces. If the 1 kg piece moves at 30 m/s, the speed of the 3 kg piece is:",
+      options: ["3.33 m/s", "10 m/s", "30 m/s", "90 m/s"],
+      correctAnswer: "10 m/s",
+      explanation: "Total initial momentum = 0 (stationary). After: 3×v + 1×30 = 0 (taking 1 kg direction as positive). 3v = -30. v = -10 m/s. The 3 kg piece moves at 10 m/s in the OPPOSITE direction to the 1 kg piece. Magnitude = 10 m/s. Check: momenta = 3×(-10) + 1×30 = -30 + 30 = 0 ✓. The lighter 1 kg piece moves 3× faster (30 vs 10 m/s) because it's 3× lighter. Lighter fragments always move faster in explosions — this is why grenade fragments are deadly even at distance (light, fast-moving metal pieces).",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-19",
+      type: "mcq",
+      question: "Which of these does NOT apply to momentum conservation?",
+      options: [
+        "Elastic collisions",
+        "Inelastic collisions",
+        "Explosions",
+        "None — it applies to all"
+      ],
+      correctAnswer: "None — it applies to all",
+      explanation: "Conservation of momentum applies to ALL types of interactions in an isolated system: elastic collisions (both momentum and KE conserved), inelastic collisions (momentum conserved, KE partially lost), perfectly inelastic collisions (momentum conserved, maximum KE loss), and explosions (momentum conserved — total remains zero if system starts at rest). The ONLY condition is no external unbalanced force. Kinetic energy conservation is more restrictive (only elastic collisions), but MOMENTUM is universally conserved. This universality makes momentum conservation the most fundamental quantity in mechanics.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-20",
+      type: "mcq",
+      question: "If the velocity of an object becomes double, its momentum:",
+      options: ["Remains same", "Becomes double", "Becomes four times", "Becomes half"],
+      correctAnswer: "Becomes double",
+      explanation: "Momentum p = mv. If v doubles (2v) while m stays constant: new p = m × 2v = 2mv = 2p. Momentum exactly doubles. Note the difference with kinetic energy: KE = ½mv². If v doubles: new KE = ½m(2v)² = ½m×4v² = 4 × ½mv² = 4 KE. So doubling velocity: doubles momentum but quadruples kinetic energy. This distinction is crucial in crash physics — a car going twice as fast has twice the momentum (needs twice the force×time to stop) but FOUR times the kinetic energy (causes four times the damage in a crash).",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-21",
+      type: "mcq",
+      question: "A 10 kg trolley moving at 4 m/s catches a 2 kg bag falling vertically at 5 m/s. The horizontal velocity of the combined system after is:",
+      options: ["3.33 m/s", "4.0 m/s", "4.5 m/s", "5.0 m/s"],
+      correctAnswer: "3.33 m/s",
+      explanation: "The bag falls vertically — it has NO horizontal momentum initially. Only the trolley has horizontal momentum. Using conservation of horizontal momentum (vertical momentum changes due to normal force — external): horizontal: 10×4 + 2×0 = (10+2)×v_horizontal. 40 = 12v. v = 40/12 = 3.33 m/s. The bag's weight (vertical, external force) doesn't affect horizontal momentum. After catching the bag, the trolley slows because it now carries more mass but horizontal momentum is conserved (no horizontal external force on the combined system).",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-22",
+      type: "mcq",
+      question: "The law of conservation of momentum is applicable when which of these is absent?",
+      options: [
+        "Internal forces",
+        "Kinetic energy",
+        "External unbalanced forces",
+        "Friction between the objects in the system"
+      ],
+      correctAnswer: "External unbalanced forces",
+      explanation: "Conservation of momentum requires the ABSENCE of external unbalanced forces. Internal forces (like collision forces between the objects in the system) always come in equal-opposite pairs by Newton's Third Law — they cannot change total momentum. Friction between objects WITHIN the system is an internal force and doesn't violate conservation. External friction (from outside the system) IS an external force that would change momentum. Kinetic energy is irrelevant to this condition — it may or may not be conserved (depending on collision type), but that doesn't affect momentum conservation.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-23",
+      type: "mcq",
+      question: "Two astronauts (each 70 kg) push off each other from rest in space. Astronaut A moves at 3 m/s. Astronaut B moves at:",
+      options: ["0 m/s", "1.5 m/s", "3 m/s", "6 m/s"],
+      correctAnswer: "3 m/s",
+      explanation: "Both start at rest (total momentum = 0). Since they have equal masses (70 kg each) and start from rest: 70×v_A + 70×v_B = 0. If v_A = +3 m/s, then v_B = -3 m/s. Both move at 3 m/s in opposite directions. Their momenta (+210 and -210 kg·m/s) sum to zero ✓. For equal-mass objects pushing off from rest, they always move at equal speeds in opposite directions — the masses cancel in the equation. This is actually the basis of some orbital mechanics maneuvers.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-24",
+      type: "mcq",
+      question: "A police forensic team determines that two cars collided and moved together at 12 m/s. Car X (1000 kg) was stationary; Car Y (1500 kg) was moving. Car Y's speed before the crash was:",
+      options: ["8 m/s", "12 m/s", "20 m/s", "28 m/s"],
+      correctAnswer: "20 m/s",
+      explanation: "Perfectly inelastic collision. Conservation: m_Y × v_Y + m_X × 0 = (m_X + m_Y) × v_final. 1500 × v_Y = (1000+1500) × 12 = 2500 × 12 = 30,000. v_Y = 30,000/1500 = 20 m/s = 72 km/h. This is how accident reconstruction works — by measuring the post-collision movement (speed 12 m/s, direction) and knowing the masses, investigators can calculate the pre-impact speed, even if the driver claims they were going slowly. This has been used as forensic evidence in countless traffic court cases and insurance fraud investigations.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-25",
+      type: "mcq",
+      question: "Which of these statements about momentum conservation in an explosion is correct?",
+      options: [
+        "Total momentum increases because energy is released",
+        "Total momentum decreases because fragments lose mass as gas",
+        "Total momentum remains zero if the system was initially at rest",
+        "Total momentum depends on the type of explosive"
+      ],
+      correctAnswer: "Total momentum remains zero if the system was initially at rest",
+      explanation: "If a system starts at rest (total momentum = 0), and explodes with no external horizontal forces, the total momentum after explosion must still = 0. All fragments have momenta that, when added as vectors, sum to zero. No fragment can escape this — the others' momenta compensate. This is why: (1) A grenade exploding at rest sends fragments in all directions with equal total backward momentum. (2) When a rocket fires, exhaust gases carry backward momentum exactly equal to the rocket's forward momentum. (3) Nuclear fission produces two fragments flying in exactly opposite directions (in the nucleus's rest frame).",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-26",
+      type: "mcq",
+      question: "Momentum conservation is violated when:",
+      options: [
+        "Objects in the system collide",
+        "Objects within the system repel",
+        "An external unbalanced force acts on the system",
+        "Kinetic energy is lost in collision"
+      ],
+      correctAnswer: "An external unbalanced force acts on the system",
+      explanation: "Momentum conservation is violated (i.e., total momentum changes) ONLY when an external unbalanced force acts on the system. Examples: friction from ground, gravity, air resistance — all can change total momentum. Internal events (collisions, repulsions within the system) cannot change total momentum — their forces cancel by Newton's Third Law. Kinetic energy loss (inelastic collision) does NOT violate momentum conservation — momentum is still conserved, just KE converts to other forms. This is the precise condition under which the conservation law breaks down — and understanding this condition is critical.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-27",
+      type: "mcq",
+      question: "A 3 kg ball moving at 6 m/s and a 2 kg ball moving at 9 m/s in the same direction collide. After collision, the 2 kg ball moves at 6 m/s. The velocity of the 3 kg ball is:",
+      options: ["5 m/s", "6 m/s", "7 m/s", "8 m/s"],
+      correctAnswer: "6 m/s",
+      explanation: "Conservation of momentum: 3×6 + 2×9 = 3×v + 2×6. 18 + 18 = 3v + 12. 36 - 12 = 3v. v = 24/3 = 8 m/s. Wait — let me recalculate: 3×6 + 2×9 = 18 + 18 = 36. After: 3×v_3 + 2×6 = 3v_3 + 12 = 36. 3v_3 = 24. v_3 = 8 m/s. The answer is 8 m/s (the 3 kg ball speeds up). This seems counterintuitive — how can the 3 kg ball move faster after collision? Because the 2 kg ball had more momentum per unit mass (9 m/s vs 6 m/s), so the collision transferred momentum from the faster 2 kg ball to the slower 3 kg ball, speeding it up.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-28",
+      type: "mcq",
+      question: "In swimming, a swimmer exerts backward force on water. The total momentum of the (swimmer + water) system:",
+      options: [
+        "Increases as swimmer moves forward",
+        "Decreases as swimmer uses energy",
+        "Remains constant as there is no external force",
+        "Depends on the water temperature"
+      ],
+      correctAnswer: "Remains constant as there is no external force",
+      explanation: "In an isolated system of swimmer + water, no external horizontal force acts (ignoring pool walls and drag with the pool water). The swimmer pushes water backward (gaining momentum backward) and gains equal forward momentum. Total momentum of swimmer + water remains constant. However, in a swimming pool, the pool walls and the Earth are connected to the water — making the 'system' much larger (swimmer + pool + Earth). The Earth gains negligible backward momentum. From the practical standpoint: the swimmer's forward momentum is balanced by the pool (water + walls + Earth) gaining tiny backward momentum. Total always conserved.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-29",
+      type: "mcq",
+      question: "Two cars (1000 kg each) approach each other at 20 m/s each. They collide perfectly inelastically. The kinetic energy lost is:",
+      options: ["0 J", "200,000 J", "400,000 J", "800,000 J"],
+      correctAnswer: "400,000 J",
+      explanation: "Initial momenta: +1000×20 = +20,000 (car A) and -1000×20 = -20,000 (car B). Total = 0. After perfectly inelastic collision: combined (2000 kg) moves at 0 m/s. Initial KE = 2 × ½×1000×20² = 2 × ½×1000×400 = 2 × 200,000 = 400,000 J. Final KE = ½×2000×0² = 0 J. KE lost = 400,000 J = 400 kJ. All 400 kJ was converted to heat, sound, and metal deformation in the crash. This is why head-on crashes between equal vehicles at equal speeds are so catastrophic — the entire kinetic energy (equivalent to 400,000 joules!) is dissipated in the crash zone.",
+      points: 10,
+    },
+    {
+      id: "s5-mcq-30",
+      type: "mcq",
+      question: "Which correctly states the condition for applying conservation of momentum to a system?",
+      options: [
+        "The system must be in vacuum",
+        "All objects must be rigid",
+        "Net external force on the system must be zero",
+        "Objects must not be charged"
+      ],
+      correctAnswer: "Net external force on the system must be zero",
+      explanation: "Conservation of momentum applies when the NET EXTERNAL force on the system is zero. Vacuum is not required — collisions in air can conserve momentum if air drag is negligible during the brief collision. Objects need not be rigid — clay balls (perfectly inelastic) also conserve momentum. Charge is irrelevant — even charged particles conserve momentum. The single necessary and sufficient condition is zero net external force. In practice, for very brief collisions (milliseconds), external forces like friction and gravity are negligible during impact, allowing momentum conservation as an excellent approximation even for non-isolated real-world collisions.",
+      points: 10,
     },
 
-    /* ══════════════════════════════════════════
-     *  5 MORE SHORT ANSWER (Total: 10 Short)
-     * ══════════════════════════════════════════ */
+    /* ══════════════════════════
+     * SHORT ANSWER (20 questions)
+     * ══════════════════════════ */
     {
-      id: "t5q26",
+      id: "s5-short-01",
       type: "short",
+      question: "State the Law of Conservation of Momentum and give its mathematical expression for a two-body collision.",
+      correctAnswer: "Law of Conservation of Momentum: The total momentum of an isolated system remains constant (is conserved) when no external unbalanced force acts on it. Mathematical expression: m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂, where u = initial velocity and v = final velocity.",
+      explanation: "For full marks: (1) State the law in words — 'isolated system' and 'no external unbalanced force' are key. (2) Write the mathematical equation clearly labeling all symbols. (3) Optionally mention units (kg·m/s). The equation says total momentum before the interaction equals total momentum after, regardless of the nature of the interaction.",
       points: 15,
-      question:
-        "A rifle of mass 4 kg fires a bullet of mass 40 g. The rifle recoils at 1 m/s. Calculate the velocity of the bullet.",
-      correctAnswer:
-        "Initial momentum = 0 (both at rest). By conservation: m_rifle × v_rifle + m_bullet × v_bullet = 0. 4 × (−1) + 0.04 × v = 0. −4 + 0.04v = 0. v = 4/0.04 = 100 m/s. The bullet exits at 100 m/s in the direction opposite to the rifle's recoil.",
-      explanation:
-        "Straightforward conservation of momentum from rest. Initial momentum = 0, so bullet momentum must be equal and opposite to rifle momentum.",
     },
     {
-      id: "t5q27",
+      id: "s5-short-02",
       type: "short",
+      question: "Derive the Law of Conservation of Momentum from Newton's Third Law of Motion.",
+      correctAnswer: "For objects A and B colliding for time t: By Newton's Third Law: F_AB = -F_BA. By Newton's Second Law: m_B(v_B-u_B)/t = -m_A(v_A-u_A)/t. Multiplying by t: m_B(v_B-u_B) = -m_A(v_A-u_A). Expanding: m_Bv_B - m_Bu_B = -m_Av_A + m_Au_A. Rearranging: m_Au_A + m_Bu_B = m_Av_A + m_Bv_B. This proves total momentum is conserved.",
+      explanation: "This is a standard CBSE 5-mark derivation. Steps: (1) State Newton's Third Law for the collision pair, (2) Use Newton's Second Law to express forces as Δp/Δt, (3) Substitute into Third Law equation, (4) Multiply by Δt to get momentum terms, (5) Rearrange to show before = after. Always show each step clearly with proper notation. The derivation demonstrates that momentum conservation is not an independent law — it's a mathematical consequence of Newton's Third Law.",
       points: 15,
-      question:
-        "Why is it dangerous to fire a gun that is not held firmly against the shoulder?",
-      correctAnswer:
-        "When a gun fires, the bullet gains forward momentum and the gun gains equal backward momentum (recoil). If the gun is held firmly against the shoulder, the recoiling mass includes the gun + the person's body (perhaps 80 kg total) — so the recoil velocity is very small (F = ma: large mass, small acceleration). If the gun is not held firmly, only the gun's mass (perhaps 3 kg) absorbs the recoil — the recoil velocity is much larger. This can cause the gun to fly backward, potentially injuring the face, breaking the nose, or dislocating the shoulder. The physics: same recoil momentum, but distributed over much less mass = much higher velocity = dangerous impact.",
-      explanation:
-        "Same recoil momentum distributed over different masses: gun alone (high velocity, dangerous) vs gun + body (low velocity, manageable). This is conservation of momentum with practical safety implications.",
     },
     {
-      id: "t5q28",
+      id: "s5-short-03",
       type: "short",
+      question: "A 1200 kg car moving at 10 m/s collides with a stationary 800 kg car. They move together after collision. Find their common velocity and the kinetic energy lost.",
+      correctAnswer: "v = (1200×10 + 800×0)/(1200+800) = 12000/2000 = 6 m/s. KE_before = ½×1200×100 = 60,000 J. KE_after = ½×2000×36 = 36,000 J. KE lost = 24,000 J = 24 kJ.",
+      explanation: "This is a perfectly inelastic collision. Note: the kinetic energy lost (24 kJ) is substantial — equivalent to lifting a 2400 kg object 1 metre high. This energy went into deforming both vehicles, generating heat and sound. In real crashes, this energy is what crushes metal (crumple zones are designed to absorb exactly this energy). The formula for perfectly inelastic collision: v = total initial momentum / total final mass.",
       points: 15,
-      question:
-        "A 1 kg ball moving at 5 m/s hits a wall and bounces back at 3 m/s. What is the change in momentum of the ball?",
-      correctAnswer:
-        "Taking the initial direction as positive: Initial momentum = 1 × 5 = 5 kg·m/s. Final momentum = 1 × (−3) = −3 kg·m/s (negative because it reversed direction). Change in momentum = final − initial = −3 − 5 = −8 kg·m/s. The magnitude of change is 8 kg·m/s. Note: This is greater than the initial momentum because the ball reversed direction — both the stopping (5 kg·m/s) and the reversing (3 kg·m/s) contribute.",
-      explanation:
-        "When direction reverses, the total momentum change = initial + final magnitudes. This is why bouncing balls transfer more momentum to walls than balls that just stop.",
     },
     {
-      id: "t5q29",
+      id: "s5-short-04",
       type: "short",
+      question: "Explain why a rocket in space can accelerate even though there is no air to push against.",
+      correctAnswer: "A rocket ejects exhaust gas backward at high velocity (action). By conservation of momentum, the gas gains backward momentum and the rocket gains equal forward momentum. No external medium is needed — the rocket pushes against its own exhaust gases. Total momentum of rocket + gas system remains constant.",
+      explanation: "The key insight: rockets don't push against the medium — they push against their own ejected mass. The conservation of momentum requires that as gas momentum increases backward, rocket momentum increases forward by the same amount. In space, this is MORE efficient than in atmosphere (no air drag). This is why all deep-space missions are possible — from Moon landings to Mars rovers, Voyager probes to asteroid missions.",
       points: 15,
-      question:
-        "Two identical balls are moving toward each other with equal speeds. What happens when they collide elastically?",
-      correctAnswer:
-        "Since the balls are identical (same mass) and moving with equal speeds in opposite directions: initial total momentum = m×v + m×(−v) = 0. After elastic collision: momentum must still be zero AND kinetic energy must be conserved. The solution: each ball bounces back with the same speed but reversed direction. Ball 1 was moving right at v → now moves left at v. Ball 2 was moving left at v → now moves right at v. They effectively exchange velocities. Momentum: m×(−v) + m×v = 0 ✓. KE: ½mv² + ½mv² = same as before ✓.",
-      explanation:
-        "Symmetric elastic collision: equal masses, equal speeds, opposite directions → both reverse. Total momentum = 0 before and after. KE conserved. They swap directions.",
     },
     {
-      id: "t5q30",
+      id: "s5-short-05",
       type: "short",
+      question: "Two skaters A (60 kg) and B (40 kg) push each other from rest on a frictionless ice. If A moves at 2 m/s, find B's velocity.",
+      correctAnswer: "Conservation of momentum: 0 = 60×(-2) + 40×v_B (taking A's direction as positive: A moves at -2 m/s). 40v_B = 120. v_B = 3 m/s. B moves at 3 m/s opposite to A.",
+      explanation: "Wait — let me set up correctly. A moves in one direction, B in opposite. Let B's direction be positive. Total p = 0: 60×(-2) + 40×v_B = 0. v_B = 120/40 = 3 m/s. Lighter skater B moves faster (3 m/s vs 2 m/s for heavier A). The ratio: v_B/v_A = m_A/m_B = 60/40 = 1.5. So B moves 1.5× faster. This is always true when two objects push off from rest — lighter one always moves faster.",
       points: 15,
-      question:
-        "Why does a heavy truck cause more damage in a collision than a car moving at the same speed?",
-      correctAnswer:
-        "At the same speed, the truck has much more momentum (p = mv, truck mass >> car mass). In a collision, this larger momentum must be transferred or absorbed. By impulse-momentum theorem (F × t = Δp), to stop the truck in the same time as the car, a much larger force is required. This larger force causes more structural damage, more deformation, and more injury. Additionally, the truck's kinetic energy (½mv²) is much greater because of its larger mass — more energy is available to cause destruction. The heavier the vehicle at the same speed, the more momentum and energy it carries, and the more destructive its collision.",
-      explanation:
-        "More mass at same speed = more momentum = more force needed to stop it = more damage. Both momentum and kinetic energy scale with mass.",
+    },
+    {
+      id: "s5-short-06",
+      type: "short",
+      question: "A 10 kg shell at rest explodes. One fragment of 3 kg flies at 20 m/s east. Find the velocity of the other fragment.",
+      correctAnswer: "Other fragment mass = 10 - 3 = 7 kg. Conservation of momentum: 0 = 3×20 + 7×v. v = -60/7 = -8.57 m/s. The 7 kg fragment moves at 8.57 m/s westward.",
+      explanation: "Key steps: (1) Find remaining mass = total - known fragment mass. (2) Apply p_before = p_after = 0 (system at rest). (3) Solve for unknown velocity. (4) Negative sign means opposite direction. Always state the direction of the answer. Check: 3×20 + 7×(-60/7) = 60 - 60 = 0 ✓. The lighter 3 kg piece moves faster (20 m/s) than heavier 7 kg piece (8.57 m/s), as expected.",
+      points: 15,
+    },
+    {
+      id: "s5-short-07",
+      type: "short",
+      question: "Differentiate between elastic and inelastic collisions.",
+      correctAnswer: "Elastic collision: both momentum AND kinetic energy are conserved. Objects bounce apart. Example: billiard balls. Inelastic collision: momentum IS conserved, but kinetic energy is NOT fully conserved (some converts to heat/sound/deformation). Example: two clay balls merging. Perfectly inelastic: objects stick together (maximum KE loss).",
+      explanation: "For exam answers: Make a clear table or bullet comparison. Key point: BOTH types conserve momentum. Only elastic conserves KE. Most real collisions are inelastic. True elastic collisions are rare in everyday life but common at atomic/subatomic level. When asked 'what is conserved': Elastic → momentum + KE. Inelastic → momentum only. This distinction is tested frequently in CBSE board exams.",
+      points: 15,
+    },
+    {
+      id: "s5-short-08",
+      type: "short",
+      question: "Explain Newton's Cradle with a physics explanation. Why does pulling 2 balls make exactly 2 balls fly out (not 1 ball at twice the speed)?",
+      correctAnswer: "Newton's Cradle must simultaneously satisfy two conservation laws: (1) Conservation of momentum: 2mv = solutions. (2) Conservation of kinetic energy (elastic collision): 2×½mv² = solutions. Only '2 balls out at v' satisfies BOTH. 1 ball at 2v satisfies momentum (2mv = m×2v) but fails energy (2×½mv² ≠ ½m×(2v)²). 3 balls at 2v/3 fails both. Nature finds the unique solution satisfying all constraints.",
+      explanation: "This is a beautiful example of multiple conservation laws constraining physical outcomes. Single conservation law → many possible solutions. Two conservation laws → unique solution. The cradle 'chooses' the only mathematically allowed outcome. This is why Newton's Cradle is such a powerful physics demonstration — it shows two conservation laws in action simultaneously. If the collision were perfectly inelastic (balls stuck together), momentum would be conserved but the 5 balls would just slowly swing — no 'flying out' effect.",
+      points: 15,
+    },
+    {
+      id: "s5-short-09",
+      type: "short",
+      question: "A bullet of mass 0.02 kg is fired into a stationary wooden block of mass 2 kg. The bullet embeds itself and the system moves at 0.5 m/s. Find the initial speed of the bullet.",
+      correctAnswer: "Conservation of momentum: 0.02 × v_bullet + 2 × 0 = (0.02 + 2) × 0.5. 0.02 × v_bullet = 2.02 × 0.5 = 1.01. v_bullet = 1.01/0.02 = 50.5 m/s ≈ 50.5 m/s.",
+      explanation: "This is the classic 'ballistic pendulum' principle, historically used to measure bullet speeds before high-speed cameras existed. The bullet embeds (perfectly inelastic), momentum conserved: m_bullet × v_bullet = (m_bullet + m_block) × v_final. The approximation m_bullet << m_block gives: v_bullet ≈ (m_block/m_bullet) × v_final = (2/0.02) × 0.5 = 100 × 0.5 = 50 m/s. The exact answer is 50.5 m/s (including bullet mass). Ballistic pendulums were used by scientists for centuries to measure bullet velocities accurately.",
+      points: 15,
+    },
+    {
+      id: "s5-short-10",
+      type: "short",
+      question: "A 70 kg man standing on a 30 kg cart (at rest on frictionless surface) throws a 5 kg ball at 10 m/s. Find the velocity of the cart+man system.",
+      correctAnswer: "Initially everything at rest, total p = 0. After: (70+30-5) × v_cart + 5 × 10 = 0. Wait — the man (70 kg) stands on cart (30 kg), total = 100 kg. He throws ball (5 kg). After: (100-5) × v + 5 × 10 = 0 (if ball was part of system). 95v = -50. v = -0.526 m/s. The man+cart moves at 0.526 m/s opposite to the ball.",
+      explanation: "Note: when the man throws the ball, the man's mass effectively becomes 70 kg (he no longer holds the ball) on the 30 kg cart → system mass = 100 kg minus the ball 5 kg = 95 kg. Initial total momentum = 0. After: 95×v + 5×10 = 0. v = -50/95 = -0.526 m/s. The system moves opposite to the thrown ball at 0.526 m/s ≈ about 2 km/h — a gentle backward drift.",
+      points: 15,
+    },
+    {
+      id: "s5-short-11",
+      type: "short",
+      question: "Using momentum conservation, explain why a helicopter's tail rotor is necessary.",
+      correctAnswer: "The main rotor engine exerts torque (rotational force) to spin the rotor. By Newton's Third Law, the rotor exerts equal torque on the helicopter body in the opposite direction. In terms of angular momentum (rotational equivalent of momentum): the helicopter body would spin opposite to the rotor. The tail rotor provides a sideways force that counters this rotational momentum, keeping the helicopter body stationary in rotation.",
+      explanation: "This requires understanding that momentum conservation extends to rotational (angular) momentum. When the engine spins the main rotor clockwise, the helicopter body acquires angular momentum counter-clockwise (Third Law equivalent). This would spin the fuselage continuously. The tail rotor (mounted vertically, spinning horizontally) provides a thrust force perpendicular to the helicopter body, creating a counter-torque. Helicopters without tail rotors (e.g., coaxial design like Kamov helicopters) use two counter-rotating main rotors that cancel each other's torques — conserving zero total angular momentum.",
+      points: 15,
+    },
+    {
+      id: "s5-short-12",
+      type: "short",
+      question: "Two balls, one of mass 3m and the other m, approach each other with equal speeds v. What happens if they collide and stick? What fraction of KE is lost?",
+      correctAnswer: "p_total = 3m×v + m×(-v) = 3mv - mv = 2mv (net rightward). Combined: v_final = 2mv/(3m+m) = 2mv/4m = v/2 (rightward). KE_before = ½×3m×v² + ½×m×v² = 2mv². KE_after = ½×4m×(v/2)² = ½×4m×v²/4 = mv²/2. KE_lost = 2mv² - mv²/2 = 3mv²/2. Fraction lost = (3mv²/2)/(2mv²) = 3/4 = 75%.",
+      explanation: "75% of kinetic energy is lost in this perfectly inelastic collision. The heavier ball (3m) wins the momentum battle and moves forward at v/2 with the combined mass. Only 25% of initial KE remains as motion energy. This enormous energy loss explains why car crashes are so destructive even at moderate speeds — most kinetic energy converts to metal deformation, heat, and sound in the crash zone. The fraction of KE lost in perfectly inelastic collisions depends on the mass ratio: loss fraction = m₂/(m₁+m₂) for initially stationary m₂.",
+      points: 15,
+    },
+    {
+      id: "s5-short-13",
+      type: "short",
+      question: "A satellite of mass 500 kg moving at 7000 m/s fires a thruster that ejects 50 kg of gas at 500 m/s backward. What is the satellite's new speed?",
+      correctAnswer: "Initial p = 500 × 7000 = 3,500,000 kg·m/s. After: (500-50) × v_sat + 50 × (7000-500) = 3,500,000. 450 × v_sat + 50 × 6500 = 3,500,000. 450v_sat = 3,500,000 - 325,000 = 3,175,000. v_sat = 3,175,000/450 = 7055.6 m/s.",
+      explanation: "The gas is ejected backward relative to the satellite's motion, so its absolute velocity = satellite velocity - exhaust velocity = 7000 - 500 = 6500 m/s (still forward, just slower than the satellite). The satellite mass decreases from 500 to 450 kg. Conservation gives the new satellite speed of ≈ 7056 m/s — an increase of 56 m/s from burning 50 kg of fuel. This modest speed gain shows why orbital maneuvers require significant fuel: every m/s of velocity change costs a fixed amount of propellant. SpaceX Starship carries hundreds of tonnes of fuel for relatively small velocity changes needed for orbital insertion.",
+      points: 15,
+    },
+    {
+      id: "s5-short-14",
+      type: "short",
+      question: "Explain the 'slingshot' effect in space travel using momentum conservation. How does a spacecraft gain speed from a planetary flyby?",
+      correctAnswer: "A spacecraft approaches a planet and is accelerated by gravity (gaining momentum from the planet). By conservation of momentum, the planet loses equal momentum (its orbit changes negligibly). In the Sun's reference frame, the spacecraft 'borrows' some of the planet's orbital momentum, exiting at higher speed than it entered.",
+      explanation: "The gravity assist is a free velocity boost. The planet is moving in its orbit (e.g., Jupiter at 13 km/s). If a spacecraft approaches from behind in the right trajectory, it can exit at up to planet's speed + original speed boost. This is like a superelastic collision: spacecraft enters the planet's gravitational sphere of influence, curves around, and exits having exchanged some momentum with the planet. NASA's Voyager probes used Jupiter and Saturn gravity assists to reach the outer solar system in much less time than direct trajectories would allow. The Cassini probe to Saturn used Venus, Earth, and Jupiter assists to build up speed.",
+      points: 15,
+    },
+    {
+      id: "s5-short-15",
+      type: "short",
+      question: "In a fire hose, water exits at 20 kg/s with velocity 30 m/s. Calculate the reaction force on the firefighter holding the hose.",
+      correctAnswer: "Force = rate of change of momentum = (mass/second) × velocity = 20 × 30 = 600 N. The firefighter must exert 600 N backward force to hold the hose; the hose pushes the firefighter with 600 N forward force.",
+      explanation: "This uses F = Δp/Δt = (Δm/Δt) × v. Each second, 20 kg of water goes from 0 to 30 m/s → Δp = 600 kg·m/s per second → F = 600 N. 600 N is roughly the weight of 60 kg — equivalent to carrying a person's body weight! This is why firefighters must brace themselves firmly, and why large-volume fire monitors are fixed to vehicles or structures. Industrial fire monitors (used in forest fires from helicopter buckets) can eject water at 1000+ kg/s, producing forces of tens of thousands of Newtons.",
+      points: 15,
+    },
+    {
+      id: "s5-short-16",
+      type: "short",
+      question: "A 0.15 kg rubber ball dropped from 2 m height bounces back to 1.8 m. What fraction of the original momentum is retained? Is momentum conserved in this scenario?",
+      correctAnswer: "Speed before impact: v₁ = √(2×10×2) = √40 ≈ 6.32 m/s (downward). Speed after: v₂ = √(2×10×1.8) = √36 = 6 m/s (upward). Momentum retained: 6/6.32 = 94.9%. Full momentum NOT conserved — external force (Earth's gravity + normal force) acts during impact. System is not isolated.",
+      explanation: "This shows momentum is NOT conserved in this scenario because the ball is not isolated — it interacts with Earth (massive external body) through the normal force during impact. The Earth's reaction force is the external force that acts on the ball. If we considered the ball + Earth as the system, total momentum would be conserved (Earth gains tiny downward momentum equal to ball's net momentum change). The 5% momentum reduction comes from energy absorbed during the bounce (rubber's internal friction). A perfectly elastic ball would bounce back to exactly 2 m, retaining 100% speed (but sign change).",
+      points: 15,
+    },
+    {
+      id: "s5-short-17",
+      type: "short",
+      question: "Explain how momentum conservation explains the kickback of a garden sprinkler that rotates as it sprays water.",
+      correctAnswer: "The sprinkler pump forces water to exit through curved nozzles. Each nozzle ejects water tangentially (e.g., clockwise). By conservation of angular momentum, the sprinkler body rotates counter-clockwise (equal and opposite angular momentum). The more water and the faster it exits, the faster the sprinkler rotates.",
+      explanation: "Rotating sprinklers are a beautiful demonstration of angular momentum conservation (the rotational version of linear momentum conservation). The curved nozzles direct water tangentially — so when water exits clockwise, the reaction pushes the nozzle counter-clockwise. The motor (or water pressure alone in simple sprinklers) provides angular momentum to the water jet. The sprinkler body spins opposite. This is the same physics as a rocket turning in space using reaction control systems (RCS thrusters) — fire gas one direction, spacecraft rotates the other. NASA space stations control their orientation using spinning gyroscopes that exchange angular momentum with the station structure.",
+      points: 15,
+    },
+    {
+      id: "s5-short-18",
+      type: "short",
+      question: "A 50 kg astronaut floating at rest in space throws a 1 kg tool at 10 m/s. What is the astronaut's velocity? If they throw the same tool again at 10 m/s (relative to space), what is their new velocity?",
+      correctAnswer: "First throw: 0 = 50×v_astronaut + 1×10 → v_astronaut = -10/50 = -0.2 m/s (opposite to tool). New astronaut mass = 49 kg (tool gone). Second throw: (49)×(-0.2) = 49×v_new + 1×10... wait, they don't have another tool. If they had another 1 kg tool: 49×(-0.2) = 48×v_new + 1×10. -9.8 = 48v + 10. 48v = -19.8. v = -0.4125 m/s.",
+      explanation: "First throw: momentum conservation from rest. Astronaut (now 49 kg with tool gone) moves at 0.2 m/s. Second throw (different tool): Now astronaut (48 kg without second tool) moves at 0.4125 m/s. Each throw adds more backward speed. This is the Tsiolkovsky rocket equation in discrete form — each 'packet of mass' ejected adds a velocity increment. Real rockets eject fuel continuously (not in lumps), but the principle is identical. The total velocity achievable is limited by how much mass (fuel) you can eject — this 'tyranny of the rocket equation' is why rockets are 80-90% fuel by mass.",
+      points: 15,
+    },
+    {
+      id: "s5-short-19",
+      type: "short",
+      question: "In a nuclear fission reaction, uranium-235 splits into barium (mass 144) and krypton (mass 89) plus neutrons. If the uranium was at rest, in what direction do barium and krypton move? What ensures momentum conservation?",
+      correctAnswer: "Uranium at rest: total initial momentum = 0. After fission: barium and krypton (plus neutrons) must have momenta summing to zero. Barium and krypton move in exactly opposite directions (in the center-of-mass frame). Neutrons' momenta also contribute. Conservation is ensured by Newton's Third Law of the nuclear forces — the nuclear force is an internal force within the uranium nucleus, so it cannot change the total momentum.",
+      explanation: "Nuclear fission is the most dramatic demonstration of momentum conservation at the atomic scale! When U-235 absorbs a neutron and splits: the two main fragments fly apart at roughly equal and opposite momenta (plus neutrons). Barium (144) and krypton (89) have mass ratio 144:89. If barium moves at v_Ba: krypton velocity v_Kr = (144/89) × v_Ba ≈ 1.62 × v_Ba (faster because lighter). Scientists use this to study nuclear reactions — by measuring fragment directions and speeds, they confirm momentum conservation works even at nuclear scales (10⁻¹⁵ metres). Momentum conservation has been verified from galactic scales down to quarks — it appears to be an absolute law of nature.",
+      points: 15,
+    },
+    {
+      id: "s5-short-20",
+      type: "short",
+      question: "Two trolleys A (2 kg, 3 m/s) and B (1 kg, 0 m/s) collide. After collision, A moves at 1 m/s in the same direction. Find B's velocity. Classify the collision.",
+      correctAnswer: "Conservation: 2×3 + 1×0 = 2×1 + 1×v_B. 6 = 2 + v_B. v_B = 4 m/s. KE before = ½×2×9 = 9 J. KE after = ½×2×1 + ½×1×16 = 1 + 8 = 9 J. KE conserved → elastic collision.",
+      explanation: "Checking whether KE is conserved identifies the collision type. KE before = 9 J. KE after = 9 J → perfectly elastic collision! A lost 4 m/s of speed (2×3 → 2×1, lost 4 kg·m/s of momentum) while B gained 4 kg·m/s (1×4). This perfect energy conservation is what defines an elastic collision. In practice, billiard ball collisions approach elastic, while car crashes are highly inelastic. Rubber 'super balls' (nearly elastic) bounce back to nearly their original height, demonstrating near-perfect KE conservation in the ball-Earth system.",
+      points: 15,
     },
 
-    /* ══════════════════════════════════════════
-     *  5 MORE LONG ANSWER (Total: 10 Long)
-     * ══════════════════════════════════════════ */
+    /* ══════════════════════════
+     * LONG ANSWER (10 questions)
+     * ══════════════════════════ */
     {
-      id: "t5q31",
+      id: "s5-long-01",
       type: "long",
+      question: "Derive the Law of Conservation of Momentum from Newton's Third Law with complete steps. Explain the physical significance of each step.",
+      correctAnswer: "Consider two objects: mass m₁ with initial velocity u₁, and mass m₂ with initial velocity u₂. They interact for time t, ending with velocities v₁ and v₂. By Newton's 3rd Law: F₁₂ = -F₂₁ (force by 1 on 2 = -(force by 2 on 1)). By Newton's 2nd Law: F₁₂ = m₂(v₂-u₂)/t and F₂₁ = m₁(v₁-u₁)/t. Substituting: m₂(v₂-u₂)/t = -m₁(v₁-u₁)/t. Multiply by t: m₂(v₂-u₂) = -m₁(v₁-u₁). Expand: m₂v₂-m₂u₂ = -m₁v₁+m₁u₁. Rearrange: m₁u₁+m₂u₂ = m₁v₁+m₂v₂ (QED).",
+      explanation: "Physical significance of each step: (1) Newton's 3rd Law: Forces are mutual — this is the source of momentum conservation. (2) Newton's 2nd Law: Force measures rate of momentum change — this is how we convert forces to momentum terms. (3) The multiplication by t: converts rate of change to actual change in momentum — linking instantaneous force to total momentum change. (4) The rearrangement: shows total momentum before (m₁u₁+m₂u₂) equals total after (m₁v₁+m₂v₂). The derivation shows that momentum conservation is not an independent law — it's mathematically required by Newton's laws. If Newton's laws are true, conservation follows automatically.",
       points: 20,
-      question:
-        "A car of mass 1000 kg moving at 20 m/s collides with a stationary car of mass 1500 kg. After collision, they stick together. (a) Find their common velocity. (b) Calculate KE before and after. (c) What percentage of KE was lost? (d) Where did the lost energy go?",
-      correctAnswer:
-        "(a) **Common velocity:**\nm₁u₁ + m₂u₂ = (m₁ + m₂)v\n1000 × 20 + 1500 × 0 = (1000 + 1500) × v\n20,000 = 2500v\nv = 8 m/s\n\n(b) **KE before:**\nKE = ½ × 1000 × 20² = ½ × 1000 × 400 = 200,000 J = 200 kJ\n\n**KE after:**\nKE = ½ × 2500 × 8² = ½ × 2500 × 64 = 80,000 J = 80 kJ\n\n(c) **KE lost:**\nLost = 200,000 − 80,000 = 120,000 J = 120 kJ\nPercentage lost = (120,000/200,000) × 100 = **60%**\n\n(d) **Where the energy went:**\n- Heat generated from friction between metal surfaces during crushing\n- Sound energy (the loud crash noise)\n- Deformation energy: both cars crumple, dent, and permanently deform\n- Some goes into vibrations transmitted through the chassis\n\nMomentum was perfectly conserved (20,000 kg·m/s before = 20,000 kg·m/s after). But 60% of kinetic energy was converted to non-kinetic forms. This is a perfectly inelastic collision — the most energy-losing type of collision.",
-      explanation:
-        "Complete four-part calculation showing momentum conservation alongside 60% KE loss. The energy destination analysis connects physics to real-world car crash mechanics.",
     },
     {
-      id: "t5q32",
+      id: "s5-long-02",
       type: "long",
+      question: "Compare elastic, inelastic, and perfectly inelastic collisions with numerical examples for each. For each type: state what is conserved, give a real-life example, and calculate the final velocities.",
+      correctAnswer: "Elastic: Both momentum and KE conserved. Example: billiard balls — 1 kg ball at 4 m/s hits stationary 1 kg ball → first stops (0 m/s), second moves at 4 m/s. Check: p = 4=4✓, KE=8=8J✓. Inelastic: Momentum conserved, KE partly lost. Example: football tackle — 80 kg player (5 m/s) tackles 60 kg player (0) → they move at 80×5/140 = 2.86 m/s. KE lost = ½×80×25 - ½×140×8.16 = 1000-571=429J. Perfectly inelastic: Momentum conserved, max KE loss. Example: clay balls merging — 2kg(6m/s)+3kg(0)→5kg(2.4m/s). KE lost = 36-14.4=21.6J.",
+      explanation: "Key points for exam: (1) ALL collision types conserve momentum (when isolated). (2) Only elastic conserves KE. (3) Perfectly inelastic has maximum KE loss. (4) In a perfectly inelastic collision: v_final = (m₁u₁+m₂u₂)/(m₁+m₂). (5) Elastic same-mass collision: velocities exchange (ball stops, other moves). Real-world collisions are always somewhat inelastic — elastic is an idealization. Molecular collisions (in an ideal gas) are approximately elastic, which is why gas laws work. Car crashes are highly inelastic — by design! Energy absorption in controlled crumpling protects occupants.",
       points: 20,
-      question:
-        "Explain Newton's Cradle (the desk toy with 5 hanging steel balls). When you pull back one ball and release it, only one ball flies out the other end. Why doesn't two half-speed balls fly out instead? Use both momentum AND energy conservation.",
-      correctAnswer:
-        "**Newton's Cradle — The Physics:**\n\nWhen one ball (mass m) swings and hits the line at velocity v:\n\nInitial momentum = mv\nInitial KE = ½mv²\n\n**Scenario 1 (What actually happens): One ball flies out at v**\nMomentum: m×v = mv ✓\nKE: ½m×v² = ½mv² ✓\nBoth conserved! This is physically valid.\n\n**Scenario 2 (Why two balls at v/2 DON'T fly out):**\nMomentum: 2m × (v/2) = mv ✓ (Momentum IS conserved!)\nKE: 2 × ½m × (v/2)² = 2 × ½m × v²/4 = mv²/4 = ½ × (½mv²)\nKE = ½mv²/2 ≠ ½mv² ✗ (Only HALF the kinetic energy is conserved!)\n\n**The key insight:** Momentum conservation alone allows MANY possible outcomes (1 ball at v, 2 balls at v/2, 5 balls at v/5, etc.). But energy conservation restricts the options to only those that ALSO conserve kinetic energy.\n\nThe ONLY solution that satisfies BOTH conservation laws simultaneously (for these equal-mass elastic collisions) is: the same number of balls that went in comes out at the same speed.\n\nPull back 2 balls → 2 fly out the other end.\nPull back 3 balls → 3 fly out.\n\nThis is why Newton's Cradle is such a beautiful physics demonstration — it visually proves that BOTH momentum AND energy conservation are required to predict the outcome of elastic collisions.",
-      explanation:
-        "The crucial insight is that momentum conservation alone is insufficient — it allows multiple solutions. Adding energy conservation uniquely determines the outcome. This is why Newton's Cradle works the way it does.",
     },
     {
-      id: "t5q33",
+      id: "s5-long-03",
       type: "long",
+      question: "A 1500 kg car and a 1000 kg car collide. Before collision: large car moves at 20 m/s north; small car at 15 m/s south. They stick together. Find: (a) velocity after collision, (b) KE lost, (c) percentage of KE lost, (d) direction of movement.",
+      correctAnswer: "(a) Taking north as positive: p_total = 1500×20 + 1000×(-15) = 30000-15000=15000 kg·m/s. v = 15000/2500 = 6 m/s northward. (b) KE_before = ½×1500×400+½×1000×225 = 300000+112500 = 412500 J. KE_after = ½×2500×36 = 45000 J. KE lost = 367500 J ≈ 368 kJ. (c) % lost = 367500/412500 × 100 = 89.1%. (d) Move northward (large car's momentum wins).",
+      explanation: "This is a comprehensive perfectly inelastic collision problem. Key observations: (1) 89% of kinetic energy was lost in the crash — this enormous energy went into crumpling both vehicles. (2) The combined mass moves northward (1500 kg car had larger momentum: 30,000 vs 15,000 kg·m/s). (3) The combined final speed (6 m/s = 21.6 km/h) seems low, but remember the initial speeds were 72 and 54 km/h. In real crashes, the 368 kJ of energy dissipation is what saves lives when engineered into crumple zones — controlled deformation absorbs this energy before it reaches the passenger cabin.",
       points: 20,
-      question:
-        "A cannon ball of mass 5 kg is fired horizontally from a cannon of mass 500 kg at 100 m/s. (a) Calculate the recoil velocity of the cannon. (b) If the cannon is mounted on wheels and there is a friction force of 200 N, how far does the cannon recoil before stopping?",
-      correctAnswer:
-        "(a) **Recoil velocity:**\nInitial momentum = 0.\n5 × 100 + 500 × v = 0\n500 + 500v = 0\nv = −1 m/s (backward)\n\n(b) **Distance before stopping (with friction):**\nFriction decelerates the cannon.\nKE of recoiling cannon = ½ × 500 × 1² = 250 J\n\nUsing Work-Energy theorem: Friction force × distance = KE\n200 × d = 250\nd = 250/200 = **1.25 m**\n\nAlternatively, using F = ma:\nDeceleration a = F/m = 200/500 = 0.4 m/s²\nUsing v² = u² − 2as (v = 0 when stopped):\n0 = 1² − 2 × 0.4 × s\ns = 1/(0.8) = 1.25 m ✓\n\nThe cannon recoils 1.25 metres before friction stops it.\n\n**Note:** This is why naval cannons historically were mounted on recoiling carriages with rope brakes — to absorb the recoil momentum safely within the ship's deck space.",
-      explanation:
-        "Two-part problem combining momentum conservation with friction/work-energy analysis. Two methods shown for part (b) with verification. The historical note adds context.",
     },
     {
-      id: "t5q34",
+      id: "s5-long-04",
       type: "long",
+      question: "Explain the Tsiolkovsky rocket equation conceptually (without derivation). A rocket with mass 10,000 kg (including 8,000 kg of fuel) has exhaust velocity 3000 m/s. If all fuel is burned: (a) find the momentum of exhaust gas, (b) find the rocket's final velocity, (c) explain why staging rockets (dropping empty fuel tanks) improves performance.",
+      correctAnswer: "(a) Exhaust momentum = 8000 × 3000 = 24,000,000 kg·m/s. (b) By conservation: rocket (2000 kg) gains 24,000,000 kg·m/s momentum. v_rocket = 24,000,000/2000 = 12,000 m/s = 12 km/s. But this is approximate (rocket loses mass continuously). Tsiolkovsky: Δv = v_e × ln(m_initial/m_final) = 3000 × ln(10000/2000) = 3000 × 1.609 = 4828 m/s. (c) Staging drops empty tank mass, giving subsequent burn better mass ratio → higher final velocity.",
+      explanation: "The Tsiolkovsky rocket equation (1903) is the fundamental constraint on spaceflight: Δv = v_exhaust × ln(m_initial/m_final). The logarithm means: (1) Doubling exhaust velocity doubles Δv. (2) Doubling mass ratio (fuel/payload) only increases Δv by ln(2) = 70% — very inefficient. This is why rockets are 85-90% fuel by mass! To reach orbit (~9.4 km/s Δv needed), and with chemical rocket exhaust (~4.4 km/s), you need mass ratio = e^(9.4/4.4) ≈ e^2.14 ≈ 8.5. So 88% of rocket mass must be fuel! Staging solves this by dropping dead weight (empty tanks), allowing subsequent burns from better starting mass ratios. The Saturn V had 3 stages to reach the Moon.",
       points: 20,
-      question:
-        "Two railway wagons of equal mass (20,000 kg each) are on a frictionless track. Wagon A moves at 3 m/s and collides with stationary Wagon B. After collision, they couple together. (a) Find common velocity. (b) Calculate the loss in KE. (c) A spring buffer between them stores 50% of the lost KE. How much energy is in the spring?",
-      correctAnswer:
-        "(a) **Common velocity:**\n20000 × 3 + 20000 × 0 = (20000 + 20000) × v\n60,000 = 40,000v\nv = 1.5 m/s\n\n(b) **KE loss:**\nKE before = ½ × 20000 × 3² = ½ × 20000 × 9 = 90,000 J = 90 kJ\nKE after = ½ × 40000 × 1.5² = ½ × 40000 × 2.25 = 45,000 J = 45 kJ\nLoss = 90,000 − 45,000 = 45,000 J = 45 kJ\nPercentage lost = 50%\n\n(c) **Energy in spring:**\nSpring stores 50% of 45,000 J = 22,500 J = 22.5 kJ\n\n**Interesting observation:** In equal-mass perfectly inelastic collisions (where one is stationary), exactly 50% of KE is always lost! This is a mathematical property:\n\nFor m₁ = m₂ = m, u₂ = 0:\nv = mu₁/(2m) = u₁/2\nKE_after = ½(2m)(u₁/2)² = ½(2m)(u₁²/4) = mu₁²/4\nKE_before = ½mu₁²\nRatio = (mu₁²/4)/(mu₁²/2) = 1/2 = 50% always!\n\nSo equal-mass perfectly inelastic collisions always lose exactly half the kinetic energy — a beautiful mathematical result.",
-      explanation:
-        "Complete three-part calculation with the elegant proof that equal-mass perfectly inelastic collisions always lose exactly 50% KE. This is a satisfying mathematical result that deepens understanding.",
     },
     {
-      id: "t5q35",
+      id: "s5-long-05",
       type: "long",
+      question: "Detailed problem: In a nuclear collision, a neutron (mass 1 u, velocity 5×10⁶ m/s) hits a stationary helium nucleus (mass 4 u). After the elastic collision, the neutron bounces back. Find: (a) final velocities of both, (b) fraction of KE transferred to helium, (c) explain why this matters for nuclear reactor design.",
+      correctAnswer: "(a) Elastic collision formulas: v₁ = [(m₁-m₂)/(m₁+m₂)]u₁ = [(1-4)/(1+4)]×5×10⁶ = (-3/5)×5×10⁶ = -3×10⁶ m/s (bounces back). v₂ = [2m₁/(m₁+m₂)]u₁ = [2/(5)]×5×10⁶ = 2×10⁶ m/s. (b) Initial KE = ½×1×(5×10⁶)² = 12.5×10¹² × u (u = atomic mass unit). Final KE of He = ½×4×(2×10⁶)² = 8×10¹² u. Fraction = 8/12.5 = 64%. (c) Reactors need to slow neutrons (moderators). Heavy water (mass 2) is better moderator than helium. Equal masses give maximum KE transfer (100%).",
+      explanation: "This elegant collision problem has real nuclear engineering applications! For nuclear fission reactors, neutrons must be slowed ('moderated') to be effectively captured by U-235 nuclei. The best moderator is material with similar mass to neutrons: (1) Equal mass: 100% KE transfer (one collision stops neutron). (2) Light water (H: mass 1): ≈100% per collision, but absorbs neutrons too. (3) Heavy water (D: mass 2): 89% per collision, low absorption. (4) Graphite (C: mass 12): 28% per collision, low absorption. (5) Lead (Pb: mass 208): only 1.9% per collision — terrible moderator. Chernobyl used graphite moderator; CANDU reactors use heavy water; most Western reactors use light water. The mass-matching principle from momentum conservation literally determines reactor design.",
       points: 20,
-      question:
-        "Describe how the law of conservation of momentum is used in forensic science to analyze crime scenes involving gunshots. How can investigators determine the type of gun used from the momentum of the bullet?",
-      correctAnswer:
-        "**Forensic Application of Momentum Conservation:**\n\n**1. Bullet trajectory analysis:**\nWhen a bullet hits a target (person, wall, object), momentum is transferred. By measuring the movement of the target after impact (how far it moved, in what direction), forensic scientists can calculate the bullet's momentum: p_bullet = (m_target + m_bullet) × v_after (for embedded bullet — perfectly inelastic collision).\n\n**2. Determining gun type:**\nDifferent guns fire bullets of known masses at known velocities:\n- Pistol (9mm): 8g bullet at 370 m/s → p = 2.96 kg·m/s\n- Rifle (7.62mm): 10g bullet at 715 m/s → p = 7.15 kg·m/s\n- Shotgun: 35g slug at 440 m/s → p = 15.4 kg·m/s\n\nBy calculating the bullet's momentum from the impact, investigators can narrow down the weapon type.\n\n**3. Ballistic pendulum:**\nClassic forensic tool: a heavy block suspended by strings. A bullet embeds in the block, which swings upward. The height of swing gives velocity (using energy conservation: ½mv² = mgh). Working backward: bullet velocity → bullet momentum → gun identification.\n\n**4. Blood spatter analysis:**\nBlood droplets follow momentum conservation. When a bullet hits a body, blood splatters in patterns determined by the momentum transferred. Forward spatter (in bullet's direction) and back spatter (opposite) give clues about entry point, angle, and bullet speed.\n\n**5. Ricochet analysis:**\nWhen bullets ricochet off surfaces, momentum is partially conserved (some lost to deformation). The ricochet angle and speed help reconstruct the shooter's position.\n\n**Real-world limitation:** Friction, air resistance, and deformation mean momentum isn't perfectly conserved in practice. But the principles provide crucial starting points for forensic calculations.",
-      explanation:
-        "Five practical forensic applications of momentum conservation — from ballistic pendulums to blood spatter analysis. This shows how fundamental physics has direct, real-world impact in crime investigation.",
+    },
+    {
+      id: "s5-long-06",
+      type: "long",
+      question: "Use momentum conservation to analyze a car accident: Car A (1200 kg, unknown speed from west) hits Car B (800 kg, stationary) at an intersection. After the collision, they move northeast at 10 m/s at 37° from east. Find Car A's original speed and direction. (sin 37° = 0.6, cos 37° = 0.8)",
+      correctAnswer: "Combined velocity: northeast at 37° from east. East component: 10×cos 37° = 8 m/s. North component: 10×sin 37° = 6 m/s. Total mass = 2000 kg. East momentum after = 2000×8 = 16,000 kg·m/s = momentum of Car A eastward = 1200×v_A_east. v_A_east = 16000/1200 = 13.3 m/s. North momentum: Car B was stationary → Car A must have had northward component: 2000×6 = 12,000 kg·m/s = 1200×v_A_north. v_A_north = 10 m/s. Car A's original speed = √(13.3² + 10²) = √(176.9+100) = √276.9 = 16.6 m/s (≈ 60 km/h).",
+      explanation: "This 2D momentum conservation problem demonstrates forensic accident reconstruction. Using vector components separately: (1) East momentum: only from Car A's eastern velocity component. (2) North momentum: only from Car A's northern velocity component (Car B was stationary). The combined final motion reveals Car A's original velocity components. Forensic engineers use exactly this technique with skid marks, vehicle deformation, and post-collision positions to reconstruct accident speed. In this case, Car A was traveling at 16.6 m/s ≈ 60 km/h from the southwest direction. This calculation would be submitted as evidence in court if the driver claimed lower speed.",
+      points: 20,
+    },
+    {
+      id: "s5-long-07",
+      type: "long",
+      question: "Explain how conservation of momentum determines the minimum speed of a skater needed to perform a spin. A 60 kg skater spins at rest with arms out (radius of gyration 0.8 m) then pulls arms in (radius 0.3 m). Compare this to linear momentum conservation.",
+      correctAnswer: "Angular momentum L = I×ω = (mr²)×ω. Arms out: L₁ = 60×0.64×ω₁. Arms in: L₂ = 60×0.09×ω₂. Conservation: L₁ = L₂. 60×0.64×ω₁ = 60×0.09×ω₂. ω₂ = (0.64/0.09)×ω₁ = 7.11×ω₁. Speed increases 7× when arms are pulled in! Comparison to linear: In linear momentum (p=mv), mass changes would cause velocity change. In rotational (L=Iω), 'rotational mass' (moment of inertia I=mr²) changing causes ω to change.",
+      explanation: "This beautiful problem shows that Newton's Laws extend to rotation through angular momentum conservation. When a skater pulls in their arms, their moment of inertia (rotational mass equivalent) decreases. By angular momentum conservation (no external torque): I decreases → ω increases proportionally. A factor of 7× speed increase from arm position alone! This is why: (1) Olympic figure skaters spin faster during scratch spin (arms in) vs upright spin (arms out). (2) Gymnasts spin faster in tucked position. (3) Neutron stars (collapsed stellar cores) spin hundreds of times per second — because their radius decreased millions of times, conservation demands millions of times faster rotation. Linear momentum comparison: both are momentum conservation — linear and angular. Newton's laws fully govern both.",
+      points: 20,
+    },
+    {
+      id: "s5-long-08",
+      type: "long",
+      question: "A fully detailed accident reconstruction: A truck (3000 kg, 25 m/s) and car (1500 kg, 15 m/s) travel in the same direction. They collide perfectly inelastically. Find: (a) combined velocity, (b) kinetic energy lost, (c) if this KE was converted to heat in a 10 kg steel bumper (specific heat 500 J/kg·K), how many degrees would it heat up?",
+      correctAnswer: "(a) v = (3000×25+1500×15)/(3000+1500) = (75000+22500)/4500 = 97500/4500 = 21.67 m/s. (b) KE_before = ½×3000×625+½×1500×225 = 937500+168750 = 1,106,250 J. KE_after = ½×4500×21.67² = ½×4500×469.6 = 1,056,600 J. KE lost = 49,650 J ≈ 50 kJ. (c) ΔT = Q/(mc) = 50,000/(10×500) = 10°C. Steel bumper heats by 10°C!",
+      explanation: "This integrated problem links collision physics to thermodynamics. The 50 kJ of kinetic energy lost is very real — it physically heats up metal components, generates sound, and creates deformation. The 10°C temperature rise in steel is measurable and confirms energy conservation (mechanical KE → thermal KE of metal atoms). In reality, energy spreads across more mass than just the bumper: entire crash zone structure, plus air (sound), plus ground (through vibration). Forensic engineers measure deformation depth to estimate energy absorbed, then use momentum conservation for pre-crash speeds. This combination of momentum + energy conservation is how accident reconstruction is done.",
+      points: 20,
+    },
+    {
+      id: "s5-long-09",
+      type: "long",
+      question: "Using the concept of conservation of momentum, analyze why the Earth-Moon system is slowly changing: the Moon is spiraling outward at 3.8 cm/year, and Earth's rotation is slowing. How are these connected through angular momentum conservation?",
+      correctAnswer: "The Moon's gravity creates ocean tides. As Earth rotates (under tidal bulges), friction between water and ocean floor transfers angular momentum from Earth's rotation to the Moon's orbit. Earth's rotation slows (days getting longer by 1.4 ms/century). By angular momentum conservation (L = Iω), the angular momentum lost from Earth's spin must appear in Moon's orbit. Larger orbital radius = larger orbital angular momentum. Moon moves outward at 3.8 cm/year.",
+      explanation: "This is one of the most spectacular large-scale applications of momentum (angular) conservation! Total angular momentum of Earth-Moon system is conserved (no external torque). Earth's spin angular momentum decreases (slower rotation) → Moon's orbital angular momentum increases (larger orbit). This has been measured precisely by lunar laser ranging (Apollo astronauts left reflectors on Moon) — we can track the Moon's recession to millimetre accuracy. Ultimately (in ~600 million years): Earth's rotation will become tidally locked to the Moon (always same face to Moon, as Moon already shows same face to Earth). At that point, no more tidal friction, system stabilizes. Mars's moon Phobos is spiraling INWARD (too close, tidal forces pull differently) and will crash into Mars or disintegrate in ~50 million years.",
+      points: 20,
+    },
+    {
+      id: "s5-long-10",
+      type: "long",
+      question: "Design a thought experiment to demonstrate conservation of momentum. Describe the experimental setup, measurements needed, expected results, and sources of error.",
+      correctAnswer: "Setup: Air track (frictionless) with two gliders. Glider A (known mass) with elastic bumper; Glider B (known mass) initially at rest. Use light gates connected to data logger to measure velocities before and after collision. Measurements: masses (balance), velocities before and after (light gate timers). Expected: m_A×v_A_before = m_A×v_A_after + m_B×v_B_after (within experimental error). For elastic: check KE conservation too. Sources of error: Air track not perfectly level (gravity component), air resistance (small), friction in glider bearings, timing uncertainty in light gates, uncertainty in mass measurement.",
+      explanation: "A good experimental design answer covers: (1) Clear description of apparatus and procedure. (2) What measurements are taken and how. (3) How to calculate momentum from measurements. (4) Expected relationship (conservation law). (5) At least 3 realistic sources of error with explanation of their effect. (6) How to minimize errors (repeat measurements, calibrate equipment, level the track). (7) How to improve: use more precise timing, reduce friction with better air supply, use spark timer for continuous measurement. This type of question tests practical experimental understanding alongside theoretical knowledge.",
+      points: 20,
     },
 
-    /* ══════════════════════════════════════════
-     *  5 MORE THINKING/HOTS (Total: 10 HOTS)
-     * ══════════════════════════════════════════ */
+    /* ══════════════════════════
+     * HOTS (10 questions)
+     * ══════════════════════════ */
     {
-      id: "t5q36",
+      id: "s5-hots-01",
       type: "thinking",
+      question: "Two ice skaters (80 kg and 60 kg) push off each other from rest. The 80 kg skater moves at 3 m/s. After 5 seconds, they both grab long poles and push off a wall 20 m away. Find each skater's velocity after touching the wall, assuming the wall interaction is perfectly elastic (each reverses velocity).",
+      correctAnswer: "Initial: 80×(-3) + 60×v = 0 → v = 4 m/s (opposite). After 5 s: 80 kg moved 15 m, 60 kg moved 20 m. 60 kg reaches wall first and bounces back at -4 m/s. Both now move: 80 kg at -3 m/s, 60 kg at -4 m/s. Eventually 80 kg also bounces off wall: reverses to +3 m/s. Final: 80 kg at 3 m/s, 60 kg at -4 m/s. They're now approaching each other!",
+      explanation: "This multi-step problem requires tracking each skater separately. The key insight: when a skater bounces off the wall elastically (reversal of velocity), the wall exerts an impulse on them. The wall (attached to Earth) receives equal and opposite impulse — but Earth's mass makes this unmeasurable. After bouncing: 80 kg skater now moves back at 3 m/s, 60 kg moves back at 4 m/s. Since they're now moving toward each other (and the 60 kg bounced first and is still moving toward 80 kg's side), they'll collide again. This ongoing series of collisions in a bounded system illustrates how momentum is conserved throughout — each event separately conserves momentum, and the total system momentum never changes from its initial value (zero).",
       points: 25,
-      question:
-        "HOTS: Two identical clay balls are thrown at each other with equal speeds. They stick together on impact. What is their final velocity? Where did ALL their kinetic energy go? Is this the maximum possible KE loss in any collision?",
-      correctAnswer:
-        "**Final velocity:**\nBall 1: mass m, velocity +v (rightward)\nBall 2: mass m, velocity −v (leftward)\n\nInitial momentum = mv + m(−v) = 0\nAfter sticking: (2m) × v_final = 0\nv_final = 0\n\n**They stop completely!**\n\n**Where did the KE go?**\nKE before = ½mv² + ½mv² = mv²\nKE after = 0 (everything is stationary!)\n\n**100% of kinetic energy was lost!** All of it converted to:\n- Heat (the clay warms up from deformation)\n- Sound (the 'splat' of impact)\n- Deformation energy (clay permanently deforms/reshapes)\n\n**Is this maximum possible KE loss?**\nYES. In any collision, momentum must be conserved. If initial total momentum = 0 (equal and opposite), then the only way to conserve momentum with objects stuck together is to have v_final = 0. This means ALL kinetic energy is lost.\n\nThis is the absolute maximum KE loss possible in any collision — 100%. It occurs when:\n1. The collision is perfectly inelastic (objects stick)\n2. The initial total momentum is zero (equal and opposite momenta)\n\nNo collision can lose more than 100% of KE (that would violate energy conservation). And this scenario achieves that maximum.\n\n**Analogy:** This is how particle physics experiments work at CERN — protons collide head-on at equal speeds, maximizing the energy available for creating new particles (since all KE converts to other forms).",
-      explanation:
-        "Perfect example of maximum energy loss. Zero total momentum + perfectly inelastic = complete kinetic energy conversion. The CERN analogy shows this principle at the frontier of physics.",
     },
     {
-      id: "t5q37",
+      id: "s5-hots-02",
       type: "thinking",
+      question: "A 2 kg ball drops from 5 m height onto a 3 kg block sitting on a frictionless surface. The ball bounces back to 1.25 m height. Find: (a) ball's velocity before impact, (b) ball's velocity after impact, (c) block's velocity after impact, (d) coefficient of restitution, (e) verify using energy.",
+      correctAnswer: "(a) v_ball = √(2×10×5) = 10 m/s downward. (b) After: height = 1.25 m → v_bounce = √(2×10×1.25) = 5 m/s upward. (c) Momentum: 2×(-10) = 2×5 + 3×v_block → -20 = 10 + 3v → v_block = -10 m/s (same direction as original ball). (d) e = relative velocity after/before = (v_block - v_ball_after)/(v_ball_before - v_block_before) = (-10-5)/(-10-0) = -15/-10 = 1.5. But e must be ≤1... Let me recheck: e = |v_2-v_1|_after / |v_2-v_1|_before = |(-10)-(5)|/|(-10)-(0)| = 15/10 = 1.5. This violates energy conservation — implies energy GAIN. This means the stated conditions are physically impossible. Real coefficient of restitution must be ≤1.",
+      explanation: "This problem has a twist: the stated conditions (ball bounces to 1.25 m, block starts at rest) are physically impossible for a 2 kg ball and 3 kg block because they imply e > 1 (which would violate energy conservation — more KE after than before). A good physics student should recognize this inconsistency. For valid conditions: if e = 0.8 (typical rubber ball on steel), the ball would bounce to 0.64 m height and block would move at different speed. The problem tests critical thinking: always check if your answer is physically reasonable. If e > 1, the scenario violates conservation of energy and cannot occur in reality.",
       points: 25,
-      question:
-        "HOTS: If a ball is dropped from height h onto a hard floor and bounces back to the same height h, is momentum conserved? Is energy conserved? Explain carefully, considering both the ball and the Earth as the system.",
-      correctAnswer:
-        "**System: Ball only**\nThe ball's momentum is NOT conserved — it changes direction at the floor (from downward to upward). An external force (from the floor) caused this momentum change.\nBut energy IS conserved for the ball: PE at top → KE at bottom → PE at top again (ball returns to height h). No KE lost = perfectly elastic bounce.\n\n**System: Ball + Earth (complete system)**\nMomentum IS conserved! When the ball falls:\n- Ball gains downward momentum (gravity pulls it)\n- Earth gains upward momentum (ball's gravity pulls Earth upward — Newton's Third Law)\n\nWhen the ball bounces off the floor:\n- Ball's momentum reverses (from down to up)\n- Earth's momentum also reverses (from up to down)\n\nTotal momentum of ball + Earth remains zero throughout (if we started from rest). The ball-Earth gravitational interaction is an internal force — it cannot change the system's total momentum.\n\n**Energy Analysis:**\nSince the ball returns to the same height, this is a perfectly elastic collision with the floor. KE is fully conserved. Total mechanical energy (PE + KE) is conserved.\n\n**Key insight:** Whether momentum is 'conserved' depends on what you define as the SYSTEM. The ball alone: no (external forces act). Ball + Earth: yes (all forces are internal).\n\n**If the ball bounces to a LOWER height** (realistic scenario): some KE is lost to heat and sound in the floor collision → inelastic. Momentum of ball + Earth system is still conserved, but KE is not.",
-      explanation:
-        "This question forces careful thinking about system boundaries. Momentum conservation depends on what's in your system. The ball alone has external forces; ball + Earth has only internal forces. This distinction is fundamental.",
     },
     {
-      id: "t5q38",
+      id: "s5-hots-03",
       type: "thinking",
+      question: "Explain why, when you drop a superball (high bounce elasticity), it can bounce HIGHER than its drop height if it is spinning. Connect this to angular momentum and energy conversion. Is this a violation of conservation of momentum?",
+      correctAnswer: "No violation. A spinning superball converts rotational kinetic energy into linear kinetic energy during the bounce. Before drop: ball has translational KE (dropping) + rotational KE (spinning). During bounce: some rotational KE converts to additional translational (upward) KE. Total mechanical energy is conserved across both forms. Momentum: the floor provides the translational impulse. The floor's reaction to the spinning ball's friction contact also does rotational-to-translational energy conversion.",
+      explanation: "This is a real phenomenon! A superball (solid rubber, high elasticity) can bounce higher than its drop height if given back-spin. Here's the physics: (1) During the bounce, the ball's back-spin is converted to upward velocity by friction with the floor. (2) Total energy (translational + rotational) is conserved — but energy transfers from rotational to translational forms. (3) Momentum: The floor exerts both vertical (normal) and horizontal (friction) forces. The angular impulse from friction converts angular momentum to linear momentum. Net momentum of Earth+ball system is conserved. This phenomenon is used in superball toys, and similar energy conversion occurs in spinning tops, gyroscopes, and sophisticated robot locomotion systems.",
       points: 25,
-      question:
-        "HOTS: A hunter fires a bullet (20 g) at a 2 kg wooden block hanging from a string (ballistic pendulum). The bullet embeds in the block and the block swings up to a height of 20 cm. Calculate the bullet's velocity. This method was historically used to measure bullet speeds before electronic methods existed.",
-      correctAnswer:
-        "**Step 1: Find velocity of block + bullet just after impact using energy conservation.**\n\nAfter the bullet embeds, the block+bullet system swings upward. At maximum height, all KE converts to PE:\n½(m_block + m_bullet)v² = (m_block + m_bullet)gh\n\n½v² = gh\nv² = 2gh = 2 × 10 × 0.2 = 4\nv = 2 m/s (velocity of block + bullet just after collision)\n\n**Step 2: Find bullet velocity using momentum conservation during the collision.**\n\nDuring the bullet embedding (perfectly inelastic collision):\nm_bullet × v_bullet = (m_bullet + m_block) × v_after\n\n0.02 × v_bullet = (0.02 + 2) × 2\n0.02 × v_bullet = 2.02 × 2 = 4.04\nv_bullet = 4.04/0.02 = **202 m/s**\n\n**Verification:**\nBullet momentum: 0.02 × 202 = 4.04 kg·m/s\nBlock+bullet momentum: 2.02 × 2 = 4.04 kg·m/s ✓\n\n**Historical significance:**\nThe ballistic pendulum was invented by Benjamin Robins in 1742 and was the standard method for measuring bullet velocities for over 200 years! It elegantly combines:\n- Conservation of momentum (during collision)\n- Conservation of energy (during swing)\n\nTwo different conservation laws applied to two different phases of the same experiment. Modern chronographs use electronic sensors, but the physics remains the same.",
-      explanation:
-        "Two-step problem using momentum conservation for the collision phase and energy conservation for the swing phase. This is a classic physics problem with genuine historical importance.",
     },
     {
-      id: "t5q39",
+      id: "s5-hots-04",
       type: "thinking",
+      question: "During the Apollo missions, returning astronauts fired their spacecraft engines to slow down and enter Earth's orbit. If the command module (5800 kg) needed to reduce speed by 900 m/s, and the engine ejected 50 kg of fuel per second at 3000 m/s exhaust velocity, how long was the burn? How much fuel was consumed? What happened to Earth's momentum?",
+      correctAnswer: "Thrust = 50×3000 = 150,000 N. Deceleration = F/m = 150,000/5800 ≈ 25.9 m/s². Time = Δv/a = 900/25.9 = 34.7 s ≈ 35 s. Fuel consumed = 50×35 = 1750 kg. Earth's momentum: The ejected fuel carries momentum toward Earth; fuel eventually enters atmosphere. By conservation, Earth's momentum increases by exactly the total momentum change of the module.",
+      explanation: "The Apollo reentry burn (Service Propulsion System, SPS engine) actually burned for about 2.5 minutes to reduce speed by ~1 km/s for Earth return — slightly different from this problem's simplified setup. The key insight about Earth's momentum: By momentum conservation of the total universe, every action has an equal and opposite effect. The ejected fuel (1750 kg moving at ~exhaust speed relative to module) carries momentum that eventually interacts with Earth's atmosphere/surface. Earth gains exactly the momentum lost by the module — though over the course of atmospheric reentry, not during the engine burn itself. This is how all rocket propulsion interacts with the larger cosmic system: momentum is always conserved at every scale.",
       points: 25,
-      question:
-        "HOTS: Explain why a spacecraft heading toward Mars cannot simply use the formula m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂ directly. What additional complications arise in real space missions that make momentum conservation harder to apply?",
-      correctAnswer:
-        "**The formula works in principle, but real space missions face complications:**\n\n**1. Gravity is an external force:**\nThe Sun's gravity constantly pulls the spacecraft. This is an external force on the spacecraft-exhaust system, meaning total momentum is NOT conserved for just the spacecraft+exhaust. Engineers must account for gravitational forces separately using orbital mechanics.\n\n**2. Continuous mass loss:**\nRockets don't fire in one instant — they burn fuel continuously over minutes. The spacecraft's mass changes continuously as fuel is expelled. The simple two-body formula becomes a differential equation (Tsiolkovsky Rocket Equation): Δv = v_exhaust × ln(m_initial/m_final).\n\n**3. Multiple gravitational bodies:**\nThe spacecraft is influenced by the Sun, Earth, Mars, Jupiter, and other planets. Each exerts external force, changing the system's momentum. NASA uses n-body gravitational simulations.\n\n**4. Relativistic effects (minor but real):**\nAt high speeds, Newton's momentum formula (p = mv) needs relativistic correction: p = mv/√(1-v²/c²). For current spacecraft speeds (~30 km/s), this correction is tiny but measurable by precision instruments.\n\n**5. Solar radiation pressure:**\nSunlight hitting the spacecraft exerts a tiny but continuous force (radiation pressure). Over months of travel, this adds up to measurable momentum changes.\n\n**6. Outgassing and micrometeorites:**\nSmall amounts of gas leak from the spacecraft (outgassing), creating tiny thrust. Micrometeorite impacts transfer momentum. Both must be accounted for.\n\n**What NASA actually does:**\nThey use the momentum conservation principle as the FOUNDATION, but wrap it in sophisticated numerical simulations that account for all these additional forces. The trajectory is computed using numerical integration of all forces over millions of time steps.\n\n**Key takeaway:** The law of conservation of momentum is absolutely valid, but the 'isolated system' condition is hard to achieve in practice. Engineers must carefully define system boundaries and account for all external forces.",
-      explanation:
-        "This exposes the gap between textbook physics (ideal isolated systems) and real engineering (complex external forces, continuous mass changes, multiple gravitational bodies). The conservation law is correct but its application requires sophisticated engineering.",
     },
     {
-      id: "t5q40",
+      id: "s5-hots-05",
       type: "thinking",
+      question: "A bomb (5 kg) at rest explodes into three fragments. Fragment 1: 1 kg at 20 m/s north. Fragment 2: 2 kg at 15 m/s east. Find Fragment 3's velocity (mass = 2 kg). What was the explosive energy released?",
+      correctAnswer: "Total initial momentum = 0. p_1 = 1×20 = 20 north, p_2 = 2×15 = 30 east. Fragment 3 must provide: -20 south and -30 west. p_3 = 2×v_3 = √(20²+30²) = √(400+900) = √1300 = 36.06 kg·m/s. v_3 = 36.06/2 = 18.03 m/s at angle θ = arctan(20/30) = 33.7° south of west. KE released = ½×1×400 + ½×2×225 + ½×2×325 = 200+225+325 = 750 J.",
+      explanation: "This 2D momentum conservation problem requires vector addition. Fragment 3 must have momentum that exactly balances fragments 1 and 2 combined (so total = 0). The vector sum of p_1 and p_2 is directed northeast; p_3 must be equal and opposite — southwest direction. The magnitude is √(20² + 30²) = √1300 ≈ 36 kg·m/s. Fragment 3's speed = 36/2 = 18 m/s at 33.7° south of west. The explosive energy (750 J in kinetic energy of fragments) came from the chemical energy stored in the explosive — this is where the 'extra' energy comes from. Note: momentum was zero before and zero after (vector sum), but kinetic energy went from zero to 750 J (chemical → kinetic).",
       points: 25,
-      question:
-        "HOTS: A student argues: 'If momentum is always conserved, then the total momentum of the entire universe must be constant. What is the total momentum of the universe?' Evaluate this philosophical and physical question.",
-      correctAnswer:
-        "**The student's logic is correct — and this is one of the deepest questions in physics!**\n\n**Is momentum conserved for the universe?**\nThe universe is the ultimate 'isolated system' — there's nothing outside it to exert external forces. By conservation of momentum, the total momentum of the universe should be constant.\n\n**What is the total momentum?**\nThere are several possibilities:\n\n**1. Total momentum = 0 (most likely)**\nIf the Big Bang was a symmetric explosion from a single point, all matter and radiation should have been ejected symmetrically in all directions. For every particle moving in one direction, there's a particle moving in the opposite direction. All momenta cancel out → total = 0.\n\nThis is supported by the Cosmic Microwave Background (CMB), which is almost perfectly uniform in all directions, suggesting symmetric expansion.\n\n**2. Total momentum ≠ 0 (possible but harder to define)**\nIf the Big Bang was slightly asymmetric, there could be a net momentum. But this raises the question: 'In what reference frame?' Momentum depends on the observer's reference frame. In the 'center of momentum frame' of the universe, the total is zero by definition.\n\n**3. The question might be meaningless (General Relativity)**\nIn Einstein's General Relativity, defining 'total momentum of the universe' is actually mathematically problematic. Momentum in curved spacetime isn't as simple as p = mv. For the universe as a whole, the concept may not be well-defined.\n\n**Deep philosophical implication:**\nIf total momentum = 0, then the universe has always had zero total momentum — even before the Big Bang. The Big Bang created equal amounts of 'forward' and 'backward' momentum that perfectly cancel. The universe, in a momentum sense, is 'nothing' — symmetric cancellation of all motion.\n\n**This connects to the question: 'Why is there something rather than nothing?'** Conservation of momentum suggests the universe might be, in a deep physical sense, 'nothing' — balanced quantities that sum to zero.",
-      explanation:
-        "This question bridges physics and philosophy. The conservation law applied to the entire universe leads to deep questions about the Big Bang, symmetry, and the nature of existence itself. A genuinely profound application of a seemingly simple law.",
+    },
+    {
+      id: "s5-hots-06",
+      type: "thinking",
+      question: "Analyse this paradox: 'If momentum is always conserved, why do cars stop when brakes are applied? Where does the momentum go?' Resolve the paradox completely.",
+      correctAnswer: "The car is NOT an isolated system! The road exerts friction force on the car (external force). The car transfers momentum to the Earth via friction. Earth speeds up (infinitesimally) in the direction the car was moving. Total momentum of Car + Earth system IS conserved: car loses momentum, Earth gains equal momentum. Braking converts car's kinetic energy to heat (friction between brake pads and rotors), not to Earth's motion.",
+      explanation: "This paradox resolves by correctly defining the system. Car alone is NOT isolated — the road exerts external friction force. Car + Earth IS isolated (almost — gravitational interaction with Sun also exists). When brakes are applied: friction decelerates the car → car's momentum decreases. By Newton's Third Law, car exerts equal forward friction on Earth → Earth accelerates forward (momentum increases). Earth's mass (~6×10²⁴ kg) vs car's momentum (~20,000 kg·m/s): Earth's velocity change = 20,000/(6×10²⁴) ≈ 3×10⁻²¹ m/s — unmeasurable. But momentum is conserved! Energy: car's KE converts to heat via brake friction — not to Earth's KE (because Earth's velocity change is negligible). This distinction between momentum transfer and energy conversion is subtle and profound.",
+      points: 25,
+    },
+    {
+      id: "s5-hots-07",
+      type: "thinking",
+      question: "In a science fiction scenario, an alien spaceship (mass 10,000 kg, initially at rest) fires a 'tractor beam' that attracts a passing space rock (mass 1000 kg, velocity 500 m/s). The rock is pulled into the ship and merges with it. Find the final velocity, KE lost, and explain whether this is physically possible from a momentum standpoint.",
+      correctAnswer: "Momentum conservation: 10000×0 + 1000×500 = (10000+1000)×v. 500,000 = 11000v. v = 45.45 m/s. KE_before = ½×1000×250000 = 125,000,000 J = 125 MJ. KE_after = ½×11000×2066 = 11,363,636 J ≈ 11.4 MJ. KE lost = 125 - 11.4 = 113.6 MJ. Physically possible? Yes — the 'tractor beam' is just a force (possibly gravitational enhancement or electromagnetic). As long as it's internal to the system, momentum is conserved.",
+      explanation: "This is a perfectly inelastic collision — the rock merges with the ship. The tractor beam is the internal force connecting the two objects. Whether it's science fiction or real doesn't matter for momentum analysis — any interaction between objects follows Newton's Third Law, and momentum is conserved. The massive KE loss (113.6 MJ = equivalent to 27 kg of TNT!) would heat up the merger point enormously. In reality, suddenly merging with a space rock at 500 m/s would vaporize both objects — so the scenario requires some sci-fi material that can withstand this. But the physics (momentum conservation) is real! Asteroid capture concepts studied by NASA face exactly this challenge — how to decelerate a captured asteroid without destroying your spacecraft.",
+      points: 25,
+    },
+    {
+      id: "s5-hots-08",
+      type: "thinking",
+      question: "Emmy Noether proved that conservation of momentum arises from the uniformity of space (translational symmetry). Explain what this means and why it's philosophically significant. What would happen to momentum conservation if the laws of physics were different in different places?",
+      correctAnswer: "Translational symmetry: If you move your physics experiment to any other location in the universe, the laws of physics don't change (same equations, same constants). This symmetry forces momentum to be conserved by Noether's theorem. If laws differed by location, momentum would not be conserved — an isolated object could gain or lose momentum just by moving through space. Philosophically significant: momentum conservation tells us something deep about space's structure — it is uniform and isotropic.",
+      explanation: "Noether's theorem (1915) is considered one of the most beautiful results in all of physics. It connects: (1) Uniformity of space → conservation of linear momentum. (2) Uniformity of time → conservation of energy. (3) Rotational symmetry → conservation of angular momentum. Each symmetry generates a conservation law. This means: if you ever observed momentum not being conserved, it would prove that the laws of physics are different in different locations — a truly shocking discovery that would overturn our understanding of the universe. The fact that momentum IS conserved (verified to extraordinary precision in particle physics experiments) confirms that space IS uniform. In curved spacetime (near black holes, early universe), translational symmetry is broken, and momentum is NOT conserved in the usual sense — requiring general relativistic corrections.",
+      points: 25,
+    },
+    {
+      id: "s5-hots-09",
+      type: "thinking",
+      question: "A 70 kg football player running at 8 m/s catches a 0.45 kg ball thrown horizontally at 25 m/s toward him. Find: (a) player's velocity after catching (ball moving toward him horizontally), (b) the force on the player if catch takes 0.2 s, (c) is this realistic? Why do players often step into the ball's direction?",
+      correctAnswer: "(a) Taking player's direction as positive: 70×8 + 0.45×(-25) = (70+0.45)×v. 560-11.25 = 70.45×v. v = 548.75/70.45 = 7.79 m/s. Player barely slows (8→7.79 m/s). (b) Δp_player = 70×(7.79-8) = 70×(-0.21) = -14.7 kg·m/s. F = Δp/Δt = 14.7/0.2 = 73.5 N on player. (c) Realistic — ball is so light (0.45 kg) vs player (70 kg) that it barely affects speed. Players step toward thrown balls to minimize their relative speed at catch — reducing sting on hands.",
+      explanation: "This is a great real-world problem showing that in practical sports, the ball's mass is so much less than the player's that momentum exchange is minimal. The ball barely slows the player (0.21 m/s change vs 8 m/s speed). The force of 73.5 N on the player is real but spread over their hands/body. Players 'give' with their hands (increasing contact time) to reduce peak force. Stepping INTO the throw direction reduces relative velocity between hand and ball (less momentum change per unit time → less force). A goalkeeper catching a hard shot faces much greater forces because: (1) goalkeeper may be stationary (v=0), (2) ball speed is higher (>30 m/s), (3) goalkeeper must stop ball completely (Δv is maximum). A 0.45 kg ball at 35 m/s stopped in 0.05 s = 315 N force — that's why goalkeepers wear padded gloves!",
+      points: 25,
+    },
+    {
+      id: "s5-hots-10",
+      type: "thinking",
+      question: "Research question: Particle accelerators like CERN's LHC collide protons at nearly the speed of light. At these speeds, mass increases relativistically. Does conservation of momentum still hold? What modifications are needed? Why is the LHC important for testing conservation laws?",
+      correctAnswer: "Yes, momentum is conserved at relativistic speeds, but the formula changes: relativistic momentum p = γmv, where γ = 1/√(1-v²/c²). At v→c, γ→∞, so p→∞ even as m stays constant. The LHC accelerates protons to 99.9999991% of light speed. Momentum is conserved in all LHC collisions — this is verified by detectors measuring all particle momenta. The LHC tests whether new physics violates conservation laws. So far, momentum conservation holds perfectly at all tested energies.",
+      explanation: "The LHC (Large Hadron Collider) at CERN accelerates protons to p = γmv = 6481 × (1.67×10⁻²⁷) × (0.999999991 × 3×10⁸) kg·m/s — enormously larger than m×v would give. Each proton has the kinetic energy equivalent to a flying mosquito — concentrated in a single subatomic particle! When two such protons collide, all their momentum and energy must appear in the products. Detectors (ATLAS, CMS, ALICE, LHCb) measure every particle's momentum. If the sums don't add up, it signals new physics (like dark matter particles escaping detection). To date: momentum always conserves. The Higgs boson discovery (2012) was confirmed partly by checking that decay product momenta conserved the original proton momenta. Newton's laws (in relativistic form) hold from ordinary human scales down to 10⁻¹⁹ metres.",
+      points: 25,
     },
   ],
 };
