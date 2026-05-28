@@ -15,6 +15,9 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getChapterPracticeSnapshot } from "@/lib/server/data/subject-plans";
 import ChapterPracticeClient from "./ChapterPracticeClient";
+import DeepResearchChapterClient from "./DeepResearchChapterClient";
+import { forceAndLawsOfMotion } from "@/lib/content/class9/science/force-and-laws-of-motion";
+import SchemaMarkup from "@/components/seo/SchemaMarkup";
 
 interface PageProps {
   params: Promise<{
@@ -25,6 +28,19 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
+  
+  const isForceChapter = 
+    resolvedParams.chapter === "force-and-laws-of-motion" || 
+    resolvedParams.chapter === "force-laws-of-motion" || 
+    resolvedParams.chapter === "force-and-laws";
+
+  if (isForceChapter) {
+    return {
+      title: "Force & Laws of Motion Class 9 Notes + MCQs + PYQs (2026)",
+      description: "Deep research on Force & Laws of Motion. Learn concepts from basic to advanced with real-world examples. Practice MCQs, short, and long questions.",
+    };
+  }
+  
   const data = await getChapterPracticeSnapshot({
     track: "class-9",
     subject: resolvedParams.subject,
@@ -46,6 +62,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Class9ChapterPracticePage({ params }: PageProps) {
   const resolvedParams = await params;
+  const backUrl = `/class-9/${resolvedParams.subject}`;
+
+  const isForceChapter = 
+    resolvedParams.chapter === "force-and-laws-of-motion" || 
+    resolvedParams.chapter === "force-laws-of-motion" || 
+    resolvedParams.chapter === "force-and-laws";
+
+  // Serve deep research content for this specific chapter
+  if (isForceChapter) {
+    return (
+      <main style={{ minHeight: "100vh", background: "var(--color-bg-primary)" }}>
+        <SchemaMarkup 
+          type="Article" 
+          data={{ 
+            title: "Force & Laws of Motion", 
+            description: "Deep research on Force & Laws of Motion. Learn concepts from basic to advanced with real-world examples." 
+          }} 
+        />
+        <DeepResearchChapterClient chapterData={forceAndLawsOfMotion} backUrl={backUrl} />
+      </main>
+    );
+  }
+
   const snapshot = await getChapterPracticeSnapshot({
     track: "class-9",
     subject: resolvedParams.subject,
@@ -55,8 +94,6 @@ export default async function Class9ChapterPracticePage({ params }: PageProps) {
   if (!snapshot) {
     notFound();
   }
-
-  const backUrl = `/class-9/${resolvedParams.subject}`;
 
   return (
     <main style={{ minHeight: "80vh", background: "var(--color-bg-secondary)" }}>

@@ -1,0 +1,241 @@
+.main {
+  min-height: 100vh;
+  background-color: var(--color-bg-primary, #09090b);
+  color: var(--color-text-primary, #f8fafc);
+  font-family: var(--font-sans), sans-serif;
+}
+
+/* Hero Banner */
+.heroBanner {
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: flex-end;
+  padding: 3rem 2rem;
+  overflow: hidden;
+}
+
+.heroGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #09090b 0%, rgba(9, 9, 11, 0.4) 50%, transparent 100%);
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.backLink {
+  display: inline-block;
+  color: #94a3b8;
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: #fff;
+}
+
+.themeTag {
+  background: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.metaRow {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #cbd5e1;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Content Layout */
+.contentLayout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+}
+
+@media (max-width: 900px) {
+  .contentLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #94a3b8;
+}
+
+.rulesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rulesList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.checkIcon {
+  color: #4ade80;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+/* Side Column */
+.sideColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.actionCard, .timelineCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.actionCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.actionCard h3, .timelineCard h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.statusBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.statusBadge.upcoming {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+}
+
+.registerButton {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  border: none;
+  background: #6366f1;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 1rem;
+}
+
+.registerButton:hover {
+  background: #4f46e5;
+}
+
+.registerButton.registered {
+  background: #4ade80;
+  color: #064e3b;
+  cursor: default;
+}
+
+.actionNote {
+  font-size: 0.875rem;
+  color: #64748b;
+  text-align: center;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  padding-left: 1.25rem;
+  margin-left: 0.5rem;
+}
+
+.timelineItem {
+  position: relative;
+}
+
+.timelineDot {
+  position: absolute;
+  left: -1.65rem;
+  top: 0.25rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #818cf8;
+  border: 2px solid #09090b;
+}
+
+.timelineEvent {
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 0.25rem;
+}
+
+.timelineTime {
+  font-size: 0.875rem;
+  color: #94a3b8;
+}

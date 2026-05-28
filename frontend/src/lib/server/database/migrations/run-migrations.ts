@@ -9,7 +9,15 @@
  * LAST UPDATED: 2026-05-19
  */
 
-import "dotenv/config";
+import dotenv from "dotenv";
+import fs from "node:fs";
+import path from "node:path";
+
+const envLocalPath = path.join(process.cwd(), ".env.local");
+if (fs.existsSync(envLocalPath)) {
+  dotenv.config({ path: envLocalPath });
+}
+dotenv.config();
 import { listMigrationDefinitions, type MigrationFileDefinition } from "../migration-status";
 import { closePostgresPool, getPostgresPool, withPostgresTransaction } from "../postgres";
 

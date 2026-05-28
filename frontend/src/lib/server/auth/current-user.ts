@@ -20,7 +20,7 @@
 import type { NextRequest } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { getSessionFromRequest, verifySessionToken } from "@/lib/server/auth/session";
-import { getPlatformRepository } from "@/lib/server/repositories/get-platform-repository";
+import { getPlatformRepository, getPersistenceAdapterName } from "@/lib/server/repositories/get-platform-repository";
 import type { PublicUser, LearningTrack } from "@/types/auth";
 
 /**
@@ -100,6 +100,43 @@ async function getClerkAuthenticatedUser(): Promise<PublicUser | null> {
       return cachedUser;
     }
 
+    const repository = getPlatformRepository();
+    const adapter = getPersistenceAdapterName();
+
+    // Strategy A: Try searching by Clerk ID first (stored in password_hash as 'clerk:user_...')
+    let existingUser: PublicUser | null = null;
+
+    if (adapter === "postgresql") {
+      const { queryPostgres } = await import("@/lib/server/database/postgres");
+      const result = await queryPostgres<any>(
+        `SELECT id, name, email, password_hash, track, role, level, xp, streak, created_at
+         FROM eduquest_users
+         WHERE password_hash = $1
+         LIMIT 1`,
+        [`clerk:${clerkUserId}`]
+      );
+      if (result.rows[0]) {
+        const row = result.rows[0];
+        existingUser = {
+          id: row.id,
+          name: row.name,
+          email: row.email,
+          track: row.track,
+          role: row.role,
+          level: row.level,
+          xp: row.xp,
+          streak: row.streak,
+          createdAt: row.created_at instanceof Date ? row.created_at.toISOString() : new Date(row.created_at).toISOString(),
+        };
+      }
+    }
+
+    if (existingUser) {
+      clerkToLocalUserCache.set(clerkUserId, existingUser);
+      return existingUser;
+    }
+
+    // Strategy B: Fallback to Clerk profile fetch (only if Clerk ID is not mapped to any DB row yet)
     // Fetch the full Clerk user profile to get their name and email
     const clerkProfile = await currentUser();
 
@@ -116,13 +153,21 @@ async function getClerkAuthenticatedUser(): Promise<PublicUser | null> {
     // Get the primary email from Clerk
     const primaryEmail = clerkProfile.emailAddresses?.[0]?.emailAddress || `${clerkUserId}@clerk.user`;
 
-    const repository = getPlatformRepository();
-
     // Check if a user with this email already exists in our database
-    const existingUser = await repository.users.findByEmail(primaryEmail);
-    if (existingUser) {
-      // Cache the mapping so future requests are fast
-      const publicUser = repository.users.toPublic(existingUser);
+    const userByEmail = await repository.users.findByEmail(primaryEmail);
+    if (userByEmail) {
+      // Self-healing mapping: update this user's password_hash to map to this Clerk ID
+      if (adapter === "postgresql") {
+        const { queryPostgres } = await import("@/lib/server/database/postgres");
+        await queryPostgres(
+          `UPDATE eduquest_users 
+           SET password_hash = $1 
+           WHERE id = $2`,
+          [`clerk:${clerkUserId}`, userByEmail.id]
+        );
+      }
+      
+      const publicUser = repository.users.toPublic(userByEmail);
       clerkToLocalUserCache.set(clerkUserId, publicUser);
       return publicUser;
     }

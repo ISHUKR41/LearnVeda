@@ -25,7 +25,15 @@
  *   eduquest_notifications: user_id, type, title, message, action_url, created_at
  */
 
-import "dotenv/config";
+import dotenv from "dotenv";
+import fs from "node:fs";
+import path from "node:path";
+
+const envLocalPath = path.join(process.cwd(), ".env.local");
+if (fs.existsSync(envLocalPath)) {
+  dotenv.config({ path: envLocalPath });
+}
+dotenv.config();
 import { assertDemoSeedIsAllowed } from "../env";
 import { closePostgresPool, getPostgresPool } from "./postgres";
 

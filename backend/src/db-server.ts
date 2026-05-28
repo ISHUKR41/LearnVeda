@@ -71,12 +71,13 @@ async function main() {
 
       // Register client data handler synchronously so we never miss any data!
       clientSocket.on('data', (data) => {
-        if (!sslNegotiated && data.length >= 8 && data.readInt32BE(0) === 8 && data.readInt32BE(4) === 80877103) {
+        const chunk = Buffer.isBuffer(data) ? data : Buffer.from(data);
+        if (!sslNegotiated && chunk.length >= 8 && chunk.readInt32BE(0) === 8 && chunk.readInt32BE(4) === 80877103) {
           // Send 'N' to decline SSL
           clientSocket.write(Buffer.from('N'));
           sslNegotiated = true;
-          if (data.length > 8) {
-            const extra = data.subarray(8);
+          if (chunk.length > 8) {
+            const extra = chunk.subarray(8);
             if (isConnected && internalSocket) {
               internalSocket.write(extra);
             } else {
@@ -85,9 +86,9 @@ async function main() {
           }
         } else {
           if (isConnected && internalSocket) {
-            internalSocket.write(data);
+            internalSocket.write(chunk);
           } else {
-            buffer.push(data);
+            buffer.push(chunk);
           }
         }
       });

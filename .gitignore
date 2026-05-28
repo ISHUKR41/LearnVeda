@@ -35,6 +35,10 @@ devserver.stderr.log
 # local MVP data store
 /.data/
 
+# local pglite data (root-level scratch)
+/pglite-db/
+/pglite-db-*/
+
 # env files (can opt-in for committing if needed)
 .env*
 

@@ -544,11 +544,10 @@ export default function DashboardClient() {
   const [isLoading,    setIsLoading]    = useState(true);
 
   /*
-   * userId is extracted from the dashboard snapshot once it loads.
-   * It is passed to the ActivityGraph and AchievementsCard sub-components
-   * so they can fetch their own personalised data.
+   * userId is derived directly from snapshot in the render path (below).
+   * No separate useState is needed — avoids the race condition where
+   * ActivityGraph and AchievementsCard received empty string on first render.
    */
-  const [userId, setUserId] = useState<string>("");
 
   useEffect(() => {
     let isMounted = true;
@@ -583,11 +582,9 @@ export default function DashboardClient() {
         setSnapshot(snap);
 
         /*
-         * Extract the user ID from the snapshot for the activity graph and achievements.
-         * Cast to generic record so we can read optional id without TS error.
+         * userId is now derived in the render path from snap.user.id.
+         * No need to set it here — removing this eliminates the race condition.
          */
-        const uid = ((snap.user as unknown) as Record<string, string>).id ?? "";
-        if (uid) setUserId(uid);
 
         /*
          * Step 2: Fetch wallet and level data in parallel for speed.
@@ -653,6 +650,14 @@ export default function DashboardClient() {
   const firstName = snapshot.user.name.split(" ")[0];
   const hours     = new Date().getHours();
   const greeting  = hours < 12 ? "Good morning" : hours < 18 ? "Good afternoon" : "Good evening";
+
+  /*
+   * Derive userId directly from snapshot — no separate useState or useEffect.
+   * PublicUser.id is always present (see src/types/auth.ts).
+   * This guarantees ActivityGraph and AchievementsCard always receive a
+   * valid userId from the very first render after snapshot loads.
+   */
+  const userId = snapshot.user.id;
 
   return (
     <div className={styles.page}>

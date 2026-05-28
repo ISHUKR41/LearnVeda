@@ -223,10 +223,4 @@ SET
   last_active_at = NOW() - (RANDOM() * INTERVAL '6 hours')
 WHERE name IN ('Admin Tester', 'Kiran Patel', 'Priya Sharma', 'Kartik Anand', 'Rahul Mehta');
 
--- ─────────────────────────────────────────────────────────────
--- SECTION 8: Track the migration
--- ─────────────────────────────────────────────────────────────
-
-INSERT INTO eduquest_schema_migrations (version, description)
-VALUES ('020', 'Seed realistic notifications + 6 new community posts + streak updates')
-ON CONFLICT (version) DO NOTHING;
+-- SECTION 8: Runner automatically tracks migration in eduquest_schema_migrations

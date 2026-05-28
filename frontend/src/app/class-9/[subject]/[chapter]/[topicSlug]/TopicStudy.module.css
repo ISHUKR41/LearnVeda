@@ -1,0 +1,611 @@
+/**
+ * FILE: TopicStudy.module.css
+ * LOCATION: src/app/class-9/[subject]/[chapter]/[topicSlug]/TopicStudy.module.css
+ * PURPOSE: Custom premium, minimalist, and fully responsive CSS styles
+ *          specifically for the individual subtopic study view.
+ * USED BY: TopicStudyClient.tsx
+ * LAST UPDATED: 2026-05-28
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-bg-primary, #090d16);
+  color: var(--color-text-primary, #f3f4f6);
+  font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(13, 20, 35, 0.7);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary, #9ca3af);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.backButton:hover {
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.2);
+  transform: translateX(-2px);
+}
+
+.headerTitleContainer {
+  text-align: center;
+}
+
+.subjectTag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #6366f1;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.headerTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.scoreBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  padding: 0.5rem 1.25rem;
+  border-radius: 12px;
+}
+
+.scoreLabel {
+  font-size: 0.675rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.05em;
+}
+
+.scoreValue {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* ── Layout ── */
+.mainLayout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 1;
+}
+
+@media (max-width: 1024px) {
+  .mainLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Left Section: Study Notes ── */
+.studySection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.heroImageWrapper {
+  position: relative;
+  height: 320px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.card:hover .heroImage {
+  transform: scale(1.03);
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(9, 13, 22, 0.95));
+}
+
+.cardContent {
+  padding: 2.5rem;
+}
+
+/* Markdown Rendering */
+.markdownBody {
+  line-height: 1.8;
+  font-size: 1.125rem;
+  color: #d1d5db;
+}
+
+.markdownBody h3.md-h3 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.markdownBody h4.md-h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #e5e7eb;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdownBody p {
+  margin-bottom: 1.5rem;
+}
+
+.markdownBody strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.markdownBody .md-quote {
+  border-left: 4px solid #6366f1;
+  background: rgba(99, 102, 241, 0.05);
+  padding: 1.25rem 1.75rem;
+  margin: 2rem 0;
+  border-radius: 0 16px 16px 0;
+  font-style: italic;
+  font-size: 1.125rem;
+  color: #e5e7eb;
+}
+
+.markdownBody .md-math-block {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.25rem;
+  color: #a78bfa;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.markdownBody .md-math {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  color: #f472b6;
+  font-size: 0.95em;
+}
+
+.markdownBody .md-li {
+  list-style-type: square;
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdownBody .md-li-ordered {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Page Navigation buttons */
+.pageNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  gap: 1rem;
+}
+
+.navButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 1.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.navButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.navButtonPrimary {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  border: none;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.navButtonPrimary:hover {
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px);
+}
+
+/* ── Right Section: Sticky Practice ── */
+.quizSection {
+  position: relative;
+}
+
+.stickyPanel {
+  position: sticky;
+  top: 96px;
+  max-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(13, 20, 35, 0.4);
+}
+
+.panelTitleGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.panelTitle {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.panelSubtitle {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary, #9ca3af);
+  margin-top: 0.125rem;
+}
+
+.progressCircleContainer {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+}
+
+.progressTextGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progressVal {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #10b981;
+}
+
+.progressLbl {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgba(16, 185, 129, 0.7);
+}
+
+/* Tabs */
+.tabsContainer {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.tabButton {
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #9ca3af;
+  font-size: 0.675rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tabButton:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.activeTab {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Questions list scrollbar container */
+.questionsList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.questionsList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.questionsList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.questionsList::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+}
+
+.emptyQuestions {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+/* Question card styling */
+.questionCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.questionCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+}
+
+.points {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #a78bfa;
+}
+
+.questionText {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* Options */
+.optionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.optionButton {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  color: #d1d5db;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  gap: 0.75rem;
+}
+
+.optionButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.optionLetter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #9ca3af;
+}
+
+.optionSelected {
+  background: rgba(99, 102, 241, 0.1) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.optionSelected .optionLetter {
+  background: #6366f1;
+  color: #ffffff;
+}
+
+.optionCorrect {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  color: #ffffff !important;
+}
+
+.optionCorrect .optionLetter {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.optionWrong {
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+  color: #ffffff !important;
+}
+
+.optionWrong .optionLetter {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+/* Action button */
+.revealBtn {
+  width: 100%;
+  padding: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffffff;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.revealBtn:hover:not(:disabled) {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+  color: #a78bfa;
+}
+
+.revealBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Answer reveals */
+.answerBox {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 0.25rem;
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.correctAnswer {
+  font-size: 0.875rem;
+  color: #10b981;
+  margin-bottom: 0.75rem;
+}
+
+.explanation {
+  font-size: 0.825rem;
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+/* Correct / Incorrect Card overrides */
+.questionCorrect {
+  border-color: rgba(16, 185, 129, 0.2) !important;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.05);
+}
+
+.questionIncorrect {
+  border-color: rgba(239, 68, 68, 0.2) !important;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.05);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,4 +1,12 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+import fs from "node:fs";
+import path from "node:path";
+
+const envLocalPath = path.join(process.cwd(), ".env.local");
+if (fs.existsSync(envLocalPath)) {
+  dotenv.config({ path: envLocalPath });
+}
+dotenv.config();
 import { getPostgresPool, closePostgresPool } from "../postgres";
 
 async function run() {

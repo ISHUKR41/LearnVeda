@@ -154,7 +154,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
          * It is a "use client" component but keeps the layout itself as a server component.
          * Inside: QueryClientProvider, Toaster, ThemeInitializer
          */}
-        <ClerkProvider>
+        <ClerkProvider
+          afterSignInUrl="/dashboard"
+          afterSignUpUrl="/dashboard"
+          signInUrl="/sign-in"
+          signUpUrl="/sign-up"
+        >
           <Providers>
             {/* Global sticky navigation bar — appears on every page */}
             <Navbar />

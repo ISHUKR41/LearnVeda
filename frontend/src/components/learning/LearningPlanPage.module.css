@@ -150,7 +150,19 @@
   list-style: none;
 }
 
+/*
+ * MODULE ITEM — uses the CSS stretched-link pattern.
+ *
+ * position:relative here is REQUIRED for the stretched-link trick:
+ * The primary chapter link gets an ::after pseudo-element with
+ * position:absolute; inset:0 which covers the entire card.
+ * This makes the whole row clickable without nesting <a> inside <a>.
+ *
+ * Secondary links (Study material) use position:relative z-index:2
+ * to sit above the stretched overlay and handle their own clicks.
+ */
 .moduleItem {
+  position: relative;          /* anchor for stretched-link ::after */
   display: flex;
   align-items: flex-start;
   gap: var(--space-4);
@@ -158,13 +170,53 @@
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  transition: all 0.15s;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+              transform 0.2s ease, background 0.2s ease;
 }
 
 .moduleItem:hover {
-  border-color: var(--color-primary-lighter);
-  box-shadow: var(--shadow-sm);
-  transform: translateX(4px);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 24px rgba(99, 102, 241, 0.14);
+  transform: translateX(6px);
+  background: var(--color-bg-card);
+}
+
+/*
+ * Locked module rows — chapters without a URL (coming soon etc.).
+ * Still shows the row but subdued and non-interactive.
+ */
+.moduleItemLocked {
+  opacity: 0.65;
+}
+
+.moduleItemLocked:hover {
+  transform: none;
+  border-color: var(--color-border);
+  box-shadow: none;
+  background: var(--color-bg-secondary);
+}
+
+/*
+ * STRETCHED LINK — the primary chapter link.
+ *
+ * The ::after pseudo-element is invisible (no background/border) but covers
+ * the entire .moduleItem card (position:absolute; inset:0). Any click anywhere
+ * on the card triggers this link's navigation — no onClick required.
+ *
+ * The chapter name text itself is visible; ::after just extends the click area.
+ */
+.moduleStretchLink {
+  color: inherit;
+  text-decoration: none;
+  font-weight: inherit;
+}
+
+.moduleStretchLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;                  /* sits above card content but below secondary links */
+  border-radius: var(--radius-xl);
 }
 
 .moduleNumber {
@@ -244,6 +296,11 @@
   line-height: 1.5;
 }
 
+/*
+ * "Open chapter practice" label — displayed as a span (not an anchor).
+ * The stretched link on the entire card already handles the click.
+ * This is purely a visual indicator for the user.
+ */
 .moduleHintLink {
   display: inline-flex;
   align-items: center;
@@ -251,11 +308,9 @@
   font-size: var(--font-size-small);
   color: var(--color-primary);
   font-weight: 600;
-  text-decoration: none;
-}
-
-.moduleHintLink:hover {
-  color: var(--color-primary-hover);
+  /* Not a link — parent stretched link handles navigation */
+  position: relative;
+  z-index: 0;                 /* below the stretched link ::after */
 }
 
 .moduleActions {
@@ -265,7 +320,17 @@
   flex-wrap: wrap;
 }
 
+/*
+ * "Study material" secondary link.
+ *
+ * position:relative and z-index:2 are CRITICAL:
+ * They lift this element ABOVE the stretched-link ::after overlay (z-index:1)
+ * so clicks on this button navigate to the study page, not the chapter page.
+ * This is how the stretched-link pattern handles multiple clickable areas.
+ */
 .moduleSecondaryLink {
+  position: relative;          /* must be set to activate z-index */
+  z-index: 2;                  /* sits above the stretched-link ::after */
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
@@ -282,6 +347,7 @@
 .moduleSecondaryLink:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+  background: rgba(99, 102, 241, 0.06);
 }
 
 .moduleArrow {

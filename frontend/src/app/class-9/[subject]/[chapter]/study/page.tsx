@@ -48,6 +48,14 @@ const CHAPTER_REGISTRY: Record<
     content: FORCE_AND_LAWS_CONTENT,
     questions: FORCE_AND_LAWS_QUESTIONS,
   },
+  "force-and-laws-of-motion": {
+    content: FORCE_AND_LAWS_CONTENT,
+    questions: FORCE_AND_LAWS_QUESTIONS,
+  },
+  "force-and-laws": {
+    content: FORCE_AND_LAWS_CONTENT,
+    questions: FORCE_AND_LAWS_QUESTIONS,
+  },
   /* ─── ADD MORE CHAPTERS HERE ─── */
   /* Example:
    * "motion": {

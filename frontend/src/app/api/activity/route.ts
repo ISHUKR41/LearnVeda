@@ -89,10 +89,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       )
       SELECT
         TO_CHAR(dr.day, 'YYYY-MM-DD') AS date,
-        COALESCE(ds.questions_solved, 0)  AS count
+        COALESCE(ds.questions_answered, 0)  AS count
       FROM date_range dr
       LEFT JOIN eduquest_daily_streaks ds
-             ON ds.streak_date = dr.day
+             ON ds.active_date = dr.day
             AND ds.user_id     = $1
       ORDER BY dr.day ASC
     `, [userId, days]);

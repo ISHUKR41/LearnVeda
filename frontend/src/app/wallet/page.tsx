@@ -12,18 +12,19 @@
  *
  *          Data flow:
  *            GET /api/auth/me → user.stars, user.level, user.name
+ *            Response shape: { ok: true, data: { user: PublicUser } }
  *            If 401 → redirect to /sign-in
  *
  *          Sections:
  *            1. Hero balance card with decorative glow
- *            2. Three stat pills (level, wager status, daily limit)
+ *            2. Four stat chips (level, wager status, streak, daily limit)
  *            3. How to earn Stars — four earn methods
  *            4. Level milestone rewards table
  *            5. Important rules notice
  *
  * USED BY: Navbar profile menu → /wallet, Dashboard quick actions
  * DEPENDENCIES: lucide-react, Wallet.module.css, /api/auth/me
- * LAST UPDATED: 2026-05-18
+ * LAST UPDATED: 2026-05-28
  */
 
 "use client";
@@ -34,8 +35,7 @@ import { useRouter } from "next/navigation";
 import {
   Star, TrendingUp, Lock, Zap, Swords, Users,
   CheckCircle, ArrowLeft, Loader2, BookOpen, Trophy,
-  AlertCircle, ChevronRight, Info,
-  Flame, BarChart3,
+  AlertCircle, ChevronRight, Info, Flame, BarChart3,
 } from "lucide-react";
 import styles from "./Wallet.module.css";
 
@@ -118,12 +118,16 @@ interface UserWallet {
 export default function WalletPage() {
   const router = useRouter();
 
-  /* Wallet data fetched from the backend */
+  /** Wallet data fetched from the backend */
   const [wallet, setWallet]     = useState<UserWallet | null>(null);
   const [isLoading, setLoading] = useState(true);
   const [error, setError]       = useState("");
 
-  /* Fetch the user's wallet data from /api/auth/me on mount */
+  /**
+   * Fetch the user's wallet data from /api/auth/me on mount.
+   * The API uses apiSuccess() which returns: { ok: true, data: { user: PublicUser } }
+   * Stars is not on PublicUser yet, so it defaults to 0 if missing.
+   */
   useEffect(() => {
     let mounted = true;
 
@@ -138,19 +142,27 @@ export default function WalletPage() {
         }
 
         if (!res.ok) {
-          setError("Could not load wallet data. Please try again.");
+          if (mounted) setError("Could not load wallet data. Please try again.");
           return;
         }
 
-        const data = (await res.json()) as { user?: UserWallet };
+        /*
+         * apiSuccess() shape: { ok: true, data: { user: PublicUser } }
+         * The user is nested under data — NOT at the top level.
+         */
+        const payload = await res.json() as {
+          ok?: boolean;
+          data?: { user?: Record<string, unknown> };
+        };
         if (!mounted) return;
 
+        const u = payload.data?.user;
         setWallet({
-          stars:  data.user?.stars   ?? 0,
-          level:  data.user?.level   ?? 1,
-          xp:     data.user?.xp      ?? 0,
-          streak: data.user?.streak  ?? 0,
-          name:   data.user?.name    ?? "Student",
+          stars:  Number(u?.stars)  || 0,
+          level:  Number(u?.level)  || 1,
+          xp:     Number(u?.xp)     || 0,
+          streak: Number(u?.streak) || 0,
+          name:   String(u?.name    ?? "Student"),
         });
       } catch {
         if (mounted) setError("Network error. Please check your connection.");
@@ -184,7 +196,7 @@ export default function WalletPage() {
     );
   }
 
-  /* Wager unlock is available from Level 10 onwards */
+  /** Wager unlock is available from Level 10 onwards */
   const canWager = wallet.level >= 10;
 
   /* ─────────────────────────────────────────────

@@ -1,0 +1,324 @@
+.main {
+  min-height: 100vh;
+  background-color: var(--color-bg-primary, #09090b);
+  color: var(--color-text-primary, #f8fafc);
+  font-family: var(--font-sans), sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  padding: 8rem 2rem 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge {
+  background: rgba(99, 102, 241, 0.1);
+  color: #818cf8;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.heroTitle {
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary, #94a3b8);
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+}
+
+.primaryButton, .secondaryButton {
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.primaryButton {
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+}
+
+.primaryButton:hover {
+  background: #4f46e5;
+  transform: translateY(-2px);
+}
+
+.secondaryButton {
+  background: transparent;
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.secondaryButton:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Background Glows */
+.glowOrb1, .glowOrb2 {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 1;
+  opacity: 0.15;
+}
+
+.glowOrb1 {
+  background: #6366f1;
+  top: -200px;
+  left: -200px;
+}
+
+.glowOrb2 {
+  background: #c084fc;
+  bottom: -200px;
+  right: -200px;
+}
+
+/* Grid Section */
+.gridSection {
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.filterTabs {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.25rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.filterTab {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: #94a3b8;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filterTab:hover {
+  color: #f8fafc;
+}
+
+.activeTab {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Grid & Cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+}
+
+.cardImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.statusBadgeWrapper {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+.statusBadge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(10px);
+}
+
+.statusBadge.active {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.statusBadge.upcoming {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.cardContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.themeTag {
+  color: #818cf8;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.cardMetaGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.cardFooter {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.prizeBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.prizeLabel {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.prizeAmount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.viewDetailsText {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #818cf8;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.card:hover .viewDetailsText {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 640px) {
+  .heroActions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .heroActions button {
+    width: 100%;
+  }
+}

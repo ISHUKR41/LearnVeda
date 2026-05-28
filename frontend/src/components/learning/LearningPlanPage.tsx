@@ -1,10 +1,20 @@
 /**
  * FILE: LearningPlanPage.tsx
  * LOCATION: src/components/learning/LearningPlanPage.tsx
- * PURPOSE: Reusable detail-page renderer for class subjects and engineering plans.
- * USED BY: src/app/class-9/[subject]/page.tsx, class-10, class-11, class-12, etc.
+ * PURPOSE: Reusable server-safe detail-page renderer for class subjects and engineering plans.
+ *
+ * ARCHITECTURE: Pure Server Component (no "use client").
+ *   — Chapter rows use the CSS "stretched-link" pattern so the entire row is clickable
+ *     without nesting <a> inside <a> (which is invalid HTML and causes Next.js errors).
+ *   — The primary chapter link is placed first in the DOM and stretched to cover the full
+ *     row via position:absolute + inset:0 in CSS (class: moduleStretchLink).
+ *   — Secondary action elements (study button) have position:relative z-index:1 so they
+ *     intercept their own clicks above the stretched primary link — zero JS needed.
+ *   — No onClick handlers anywhere = no server/client boundary violations.
+ *
+ * USED BY: src/app/class-9/[subject]/page.tsx, class-10, class-11, class-12, engineering
  * DEPENDENCIES: lucide-react, next/link, LearningPlanPage.module.css
- * LAST UPDATED: 2026-05-17
+ * LAST UPDATED: 2026-05-28
  */
 
 import Link from "next/link";
@@ -12,15 +22,20 @@ import {
   ArrowLeft, ArrowRight, BookOpen, CheckCircle2,
   Clock, Target, Flame, Trophy, Zap, Calendar,
   ChevronRight, Star, TrendingUp, Users, Brain,
-  Activity
+  Activity,
 } from "lucide-react";
 import type { LearningPlan } from "@/lib/curriculum/learning-catalog";
 import styles from "./LearningPlanPage.module.css";
+
+/* ─────────────────────────────────────────
+ * Types
+ * ───────────────────────────────────────── */
 
 interface LearningPlanPageProps {
   plan: LearningPlan;
 }
 
+/** A single chapter after all shape variations are normalised to one type. */
 interface NormalizedChapter {
   slug: string;
   name: string;
@@ -30,9 +45,22 @@ interface NormalizedChapter {
   difficulty: "easy" | "medium" | "hard";
 }
 
-/** Converts mixed chapter shapes into one render-safe structure. */
+/* ─────────────────────────────────────────
+ * Helpers
+ * ───────────────────────────────────────── */
+
+/**
+ * Converts the mixed chapter array (string | object) from LearningPlan into a
+ * uniform NormalizedChapter array so the render loop stays clean.
+ *
+ * String chapters (e.g. "Polynomials") are auto-slugified and get sensible defaults.
+ * Object chapters already carry explicit metadata.
+ */
 function normalizeChapters(plan: LearningPlan): NormalizedChapter[] {
-  const fallbackDays = Math.max(1, Math.round(plan.durationDays / Math.max(plan.chapters.length, 1)));
+  const fallbackDays = Math.max(
+    1,
+    Math.round(plan.durationDays / Math.max(plan.chapters.length, 1)),
+  );
 
   return plan.chapters.map((chapter, index) => {
     if (typeof chapter === "string") {
@@ -42,14 +70,21 @@ function normalizeChapters(plan: LearningPlan): NormalizedChapter[] {
         description: "Structured concepts, solved examples, and chapter practice.",
         dayCount: index === 0 ? fallbackDays + 1 : fallbackDays,
         questionCount: 15,
-        difficulty: index < 2 ? "easy" : index > plan.chapters.length - 3 ? "hard" : "medium",
+        difficulty:
+          index < 2
+            ? "easy"
+            : index > plan.chapters.length - 3
+              ? "hard"
+              : "medium",
       };
     }
 
     return {
       slug: chapter.slug,
       name: chapter.name,
-      description: chapter.description ?? "Structured concepts, solved examples, and chapter practice.",
+      description:
+        chapter.description ??
+        "Structured concepts, solved examples, and chapter practice.",
       dayCount: chapter.dayCount ?? fallbackDays,
       questionCount: chapter.questionCount ?? 15,
       difficulty: chapter.difficulty ?? "medium",
@@ -57,6 +92,10 @@ function normalizeChapters(plan: LearningPlan): NormalizedChapter[] {
   });
 }
 
+/**
+ * Returns subject-aware study tips shown in the sidebar.
+ * These are short and actionable — not generic padding text.
+ */
 function getStudyTips(plan: LearningPlan): string[] {
   const title = plan.title.toLowerCase();
 
@@ -67,7 +106,12 @@ function getStudyTips(plan: LearningPlan): string[] {
       "Attempt the hard questions without hints first — then check the explanation",
     ];
   }
-  if (title.includes("science") || title.includes("chemistry") || title.includes("physics") || title.includes("biology")) {
+  if (
+    title.includes("science") ||
+    title.includes("chemistry") ||
+    title.includes("physics") ||
+    title.includes("biology")
+  ) {
     return [
       "Draw diagrams from memory after reading each chapter — it forces recall",
       "Focus on understanding the 'why' behind each concept, not just the 'what'",
@@ -81,7 +125,13 @@ function getStudyTips(plan: LearningPlan): string[] {
       "Practice essay writing with a timer to build exam writing speed",
     ];
   }
-  if (title.includes("python") || title.includes("java") || title.includes("c++") || title.includes("code")) {
+  if (
+    title.includes("python") ||
+    title.includes("java") ||
+    title.includes("c++") ||
+    title.includes("code") ||
+    title.includes("computer")
+  ) {
     return [
       "Type every code example yourself — never copy-paste while learning",
       "After reading a concept, close the book and try to code it from scratch",
@@ -90,21 +140,35 @@ function getStudyTips(plan: LearningPlan): string[] {
   }
   return [
     "Create a one-page summary for each chapter after you finish studying it",
-    "Practice writing answers with a time limit",
-    "Use dates, names, and key terms as anchor points for memory",
+    "Practice writing answers with a time limit to simulate exam conditions",
+    "Use dates, names, and key terms as anchor points for memory recall",
   ];
 }
 
+/* ─────────────────────────────────────────
+ * Component
+ * ───────────────────────────────────────── */
+
 export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
+  /* ── Derived data ── */
   const normalizedChapters = normalizeChapters(plan);
+
   const totalDays = Math.max(
     plan.durationDays,
-    normalizedChapters.reduce((total, chapter) => total + chapter.dayCount, 0),
+    normalizedChapters.reduce((acc, ch) => acc + ch.dayCount, 0),
   );
-  const estimatedQuestions = normalizedChapters.reduce((total, chapter) => total + chapter.questionCount, 0);
-  const studyTips = getStudyTips(plan);
+  const estimatedQuestions = normalizedChapters.reduce(
+    (acc, ch) => acc + ch.questionCount,
+    0,
+  );
   const estimatedXp = normalizedChapters.length * 100 + totalDays * 50;
-  const isEngineeringPlan = plan.backHref === "/engineering" || plan.eyebrow.toLowerCase().includes("engineering");
+  const studyTips = getStudyTips(plan);
+
+  const isEngineeringPlan =
+    plan.backHref === "/engineering" ||
+    plan.eyebrow.toLowerCase().includes("engineering");
+
+  /* ── Sidebar resource links — context-aware ── */
   const resourceLinks = isEngineeringPlan
     ? [
         { title: "Interview Prep", description: "Placement-focused Q&A packs with model answers.", href: "/interviews" },
@@ -126,10 +190,12 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
   return (
     <div className={styles.page}>
 
+      {/* ── Back navigation ── */}
       <Link href={plan.backHref} className={styles.backLink}>
         <ArrowLeft size={16} /> Back to {plan.eyebrow}
       </Link>
 
+      {/* ── Hero section: title, description, key stats ── */}
       <section className={styles.hero} style={{ borderTop: `6px solid ${plan.accent}` }}>
         <div className={styles.heroInner}>
           <div>
@@ -139,6 +205,7 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
             <h1 className={styles.heroTitle}>{plan.title}</h1>
             <p className={styles.heroDesc}>{plan.description}</p>
 
+            {/* Key plan metrics displayed as pills */}
             <div className={styles.metrics}>
               <span className={styles.metricPill}>
                 <Calendar size={16} /> {totalDays} Day Plan
@@ -157,8 +224,10 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
         </div>
       </section>
 
+      {/* ── Main grid: chapter list + sidebar ── */}
       <div className={styles.grid}>
 
+        {/* ── Left: chapter module list ── */}
         <div className={styles.card}>
           <div className={styles.cardHeader}>
             <h2 className={styles.cardTitle}>
@@ -170,18 +239,59 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
 
           <ol className={styles.moduleList}>
             {normalizedChapters.map((chapter, index) => {
-              const difficultyClass = chapter.difficulty === "easy"
-                ? styles["badge-easy"]
-                : chapter.difficulty === "medium"
-                  ? styles["badge-medium"]
-                  : styles["badge-hard"];
+              /*
+               * Difficulty badge class — easy=green, medium=blue, hard=red.
+               * These map to CSS classes: .badge-easy, .badge-medium, .badge-hard
+               */
+              const difficultyClass =
+                chapter.difficulty === "easy"
+                  ? styles["badge-easy"]
+                  : chapter.difficulty === "medium"
+                    ? styles["badge-medium"]
+                    : styles["badge-hard"];
+
+              /*
+               * Build the chapter URL only if the plan provides a base path.
+               * Format: /class-9/science/force-and-laws-of-motion
+               */
               const chapterHref = plan.chapterHrefBase
                 ? `${plan.chapterHrefBase}/${chapter.slug}`
                 : undefined;
+
+              /*
+               * Study sub-page URL: /class-9/science/force-and-laws-of-motion/study
+               */
               const studyHref = chapterHref ? `${chapterHref}/study` : undefined;
 
+              /*
+               * ── STRETCHED LINK PATTERN ──
+               *
+               * Problem: We want the whole chapter row to be clickable, BUT we also
+               * want a secondary "Study material" button inside the row. Nesting <a>
+               * inside <a> is invalid HTML and crashes Next.js / Turbopack.
+               *
+               * Solution: CSS stretched-link technique (same as Bootstrap's .stretched-link):
+               *   1. The <li> gets position:relative (moduleItem class).
+               *   2. The primary chapter link gets ::after { position:absolute; inset:0 }
+               *      — this invisible overlay covers the entire row, making ANY click on
+               *      the card navigate to the chapter page.
+               *   3. The secondary "Study material" link gets position:relative z-index:1
+               *      — this raises it ABOVE the stretched overlay, so clicking it goes to
+               *      the study page instead of the chapter page.
+               *
+               * Result: Zero onClick, zero nested anchors, fully accessible, works with
+               * both Turbopack and webpack, pure Server Component.
+               */
               return (
-                <li key={chapter.slug} className={styles.moduleItem}>
+                <li
+                  key={chapter.slug}
+                  className={
+                    chapterHref
+                      ? styles.moduleItem          /* navigable row */
+                      : `${styles.moduleItem} ${styles.moduleItemLocked}` /* locked row */
+                  }
+                >
+                  {/* Chapter number badge — colored with subject accent */}
                   <span
                     className={styles.moduleNumber}
                     style={{ background: plan.accent }}
@@ -189,9 +299,30 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
+                  {/* Chapter content: title, description, meta tags, action links */}
                   <div className={styles.moduleContent}>
-                    <strong className={styles.moduleName}>{chapter.name}</strong>
+                    <strong className={styles.moduleName}>
+                      {/*
+                       * The chapter name doubles as the primary clickable text.
+                       * The moduleStretchLink class adds ::after {position:absolute;inset:0}
+                       * which stretches this link to cover the entire <li> card.
+                       */}
+                      {chapterHref ? (
+                        <Link
+                          href={chapterHref}
+                          className={styles.moduleStretchLink}
+                          aria-label={`Open ${chapter.name} chapter`}
+                        >
+                          {chapter.name}
+                        </Link>
+                      ) : (
+                        chapter.name
+                      )}
+                    </strong>
+
                     <p className={styles.moduleDescription}>{chapter.description}</p>
+
+                    {/* Metadata tags: days, questions, difficulty level */}
                     <div className={styles.moduleMeta}>
                       <span className={styles.moduleTag}>
                         <Clock size={12} /> {chapter.dayCount} days
@@ -200,16 +331,32 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
                         <Target size={12} /> {chapter.questionCount} practice questions
                       </span>
                       <span className={`${styles.moduleTag} ${difficultyClass}`}>
-                        <Activity size={12} /> {chapter.difficulty.charAt(0).toUpperCase() + chapter.difficulty.slice(1)}
+                        <Activity size={12} />{" "}
+                        {chapter.difficulty.charAt(0).toUpperCase() +
+                          chapter.difficulty.slice(1)}
                       </span>
                     </div>
+
+                    {/*
+                     * Action row — only shown when the chapter has a URL.
+                     * "Open chapter practice" is text-only (the stretched link already
+                     * handles the click for the whole row via ::after overlay).
+                     * "Study material" IS a real link with position:relative z-index:1
+                     * so it sits above the stretched overlay and intercepts its own click.
+                     */}
                     {chapterHref ? (
                       <div className={styles.moduleActions}>
-                        <Link href={chapterHref} className={styles.moduleHintLink}>
+                        {/* Visual label — not a link (the stretched link covers the row) */}
+                        <span className={styles.moduleHintLink}>
                           Open chapter practice
-                        </Link>
+                        </span>
+
+                        {/* Real secondary link — position:relative z-index:1 in CSS */}
                         {studyHref && (
-                          <Link href={studyHref} className={styles.moduleSecondaryLink}>
+                          <Link
+                            href={studyHref}
+                            className={styles.moduleSecondaryLink}
+                          >
                             Study material
                           </Link>
                         )}
@@ -221,6 +368,7 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
                     )}
                   </div>
 
+                  {/* Arrow icon — purely decorative, signals navigability */}
                   <ChevronRight size={20} className={styles.moduleArrow} />
                 </li>
               );
@@ -228,14 +376,21 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
           </ol>
         </div>
 
+        {/* ── Right: sidebar ── */}
         <aside className={styles.sidebar}>
+
+          {/* CTA card: prompt to start the plan */}
           <div className={styles.ctaCard} style={{ borderTopColor: plan.accent }}>
-            <div className={styles.ctaIcon} style={{ background: `${plan.accent}1A`, color: plan.accent }}>
+            <div
+              className={styles.ctaIcon}
+              style={{ background: `${plan.accent}1A`, color: plan.accent }}
+            >
               <TrendingUp size={28} />
             </div>
             <h3 className={styles.ctaTitle}>Ready to begin?</h3>
             <p className={styles.ctaText}>
-              Start this {totalDays}-day plan to master {plan.title} and earn up to {estimatedXp.toLocaleString()} XP.
+              Start this {totalDays}-day plan to master {plan.title} and earn up to{" "}
+              {estimatedXp.toLocaleString()} XP.
             </p>
 
             <div className={styles.ctaStats}>
@@ -250,16 +405,23 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
               </div>
             </div>
 
-            <Link href="/sign-up" className={styles.primaryAction} style={{ background: plan.accent }}>
-              Start Day 1
-              <ArrowRight size={18} />
+            <Link
+              href="/sign-up"
+              className={styles.primaryAction}
+              style={{ background: plan.accent }}
+            >
+              Start Day 1 <ArrowRight size={18} />
             </Link>
 
             <p className={styles.ctaAlready}>
-              Already a student? <Link href="/sign-in" style={{ color: plan.accent, fontWeight: 'bold' }}>Sign in</Link>
+              Already a student?{" "}
+              <Link href="/sign-in" style={{ color: plan.accent, fontWeight: "bold" }}>
+                Sign in
+              </Link>
             </p>
           </div>
 
+          {/* Plan features checklist */}
           <div className={styles.sideCard}>
             <h3 className={styles.sideCardTitle}>
               <Star size={20} style={{ marginRight: 8, color: plan.accent }} />
@@ -282,6 +444,7 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
             </ul>
           </div>
 
+          {/* Related resource links */}
           <div className={styles.sideCard}>
             <h3 className={styles.sideCardTitle}>
               <BookOpen size={20} style={{ marginRight: 8, color: plan.accent }} />
@@ -299,6 +462,7 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
             </ul>
           </div>
 
+          {/* Subject-specific study tips */}
           <div className={styles.sideCard}>
             <h3 className={styles.sideCardTitle}>
               <Brain size={20} style={{ marginRight: 8, color: plan.accent }} />
@@ -313,6 +477,7 @@ export default function LearningPlanPage({ plan }: LearningPlanPageProps) {
               ))}
             </ol>
           </div>
+
         </aside>
       </div>
     </div>

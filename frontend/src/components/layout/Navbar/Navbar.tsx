@@ -15,7 +15,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Menu, X, Sun, Moon, BookOpen, ChevronDown, Zap,
-  Search, Bell, Flame, Swords, User, Wallet, Settings, ShieldCheck, LogOut
+  Search, Bell, Flame, Swords, User, Wallet, Settings, ShieldCheck
 } from "lucide-react";
 import { useAuth, UserButton } from "@clerk/nextjs";
 import styles from "./Navbar.module.css";
