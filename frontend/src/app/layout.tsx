@@ -155,8 +155,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
          * Inside: QueryClientProvider, Toaster, ThemeInitializer
          */}
         <ClerkProvider
-          afterSignInUrl="/dashboard"
-          afterSignUpUrl="/dashboard"
+          signInForceRedirectUrl="/dashboard"
+          signUpForceRedirectUrl="/dashboard"
           signInUrl="/sign-in"
           signUpUrl="/sign-up"
         >

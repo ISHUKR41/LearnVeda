@@ -18,7 +18,7 @@ export interface Question {
   /** Detailed explanation of why this answer is correct */
   explanation: string;
   /** Points awarded for a correct answer */
-  points?: number;
+  points: number;
 }
 
 /** A single topic/subtopic within a chapter */

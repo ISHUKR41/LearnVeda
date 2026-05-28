@@ -105,6 +105,9 @@ $$a = \frac{F}{m}$$
 
 This is mathematically the definition of inertia: heavy objects resist acceleration.
 
+![Figure 1: Under the same force, a larger mass accelerates slower than a smaller mass (a = F/m).](/images/second_law_fma.png)
+
+
 #### Relationship 3: Force = Product of Both
 **Acceleration = Force ÷ Mass — both matter.**
 
@@ -144,6 +147,9 @@ If you keep your hands rigid (short $\Delta t$), you need a VERY LARGE force $F$
 If you pull your hands backward as the ball arrives (large $\Delta t$), you need only a SMALL force to produce the same impulse → **Comfortable and safe!**
 
 The ball still stops — the momentum change is the same. But the force is spread over more time.
+
+![Figure 2: Cricketer pulling hands back to increase impact time, reducing the stopping force and preventing injury.](/images/cricketer_catching.png)
+
 
 #### Why Airbags in Cars Save Lives
 
@@ -458,6 +464,252 @@ From the motion of electrons to the orbit of galaxies, $F = ma$ (in various form
         "ORIGINAL COLLISION: Δp = m(vf − vi) = 1000 × (0 − 20) = −20,000 kg·m/s (magnitude 20,000). F₁ = Δp/Δt = 20,000/0.05 = 400,000 N = 400 kN. WITH CRUMPLE ZONES (Δt = 0.2s): F₂ = 20,000/0.2 = 100,000 N = 100 kN. FORCE SAVED: 400,000 − 100,000 = 300,000 N (75% reduction!). CRUMPLE ZONE DESIGN: The front section of the car is intentionally designed with a 'crushable' structure — reinforced but meant to progressively buckle. This extends the crash duration from ~0.05s to ~0.2s (4× longer). Same momentum change. 4× longer time → 4× smaller peak force on passengers. A 400 kN force is virtually always fatal. A 100 kN force, with seatbelts and airbags distributing it, is often survivable. This is engineering using Newton's Second Law to save human lives.",
       explanation:
         "Full calculation for both time scenarios with clear comparison. The 75% force reduction with 4× longer time must be explicitly shown. Connection to human survivability makes the physics meaningful.",
+    },
+
+    /* ══════════════════════════════════════════
+     *  5 MORE MCQ QUESTIONS (Total: 10 MCQ)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t3q21",
+      type: "mcq",
+      points: 10,
+      question:
+        "A 5 kg object at rest is acted upon by a force of 25 N for 4 seconds. What is the final velocity of the object?",
+      options: ["5 m/s", "10 m/s", "20 m/s", "100 m/s"],
+      correctAnswer: "20 m/s",
+      explanation:
+        "a = F/m = 25/5 = 5 m/s². Using v = u + at = 0 + 5 × 4 = 20 m/s. The force accelerates the 5 kg object from rest to 20 m/s in 4 seconds.",
+    },
+    {
+      id: "t3q22",
+      type: "mcq",
+      points: 10,
+      question:
+        "The momentum of an object of mass 5 kg is 40 kg·m/s. What is its velocity?",
+      options: ["200 m/s", "8 m/s", "45 m/s", "0.125 m/s"],
+      correctAnswer: "8 m/s",
+      explanation:
+        "p = mv → v = p/m = 40/5 = 8 m/s. Velocity is calculated by dividing momentum by mass.",
+    },
+    {
+      id: "t3q23",
+      type: "mcq",
+      points: 10,
+      question:
+        "Which of the following produces the maximum impulse on a body?",
+      options: [
+        "100 N applied for 0.5 seconds",
+        "50 N applied for 2 seconds",
+        "200 N applied for 0.2 seconds",
+        "10 N applied for 8 seconds",
+      ],
+      correctAnswer: "50 N applied for 2 seconds",
+      explanation:
+        "Impulse J = F × t. (a) 100 × 0.5 = 50 N·s. (b) 50 × 2 = 100 N·s. (c) 200 × 0.2 = 40 N·s. (d) 10 × 8 = 80 N·s. 50 N for 2 seconds gives the largest impulse of 100 N·s.",
+    },
+    {
+      id: "t3q24",
+      type: "mcq",
+      points: 10,
+      question:
+        "Two objects have the same momentum. Object A has mass 2 kg and Object B has mass 10 kg. Which has greater velocity?",
+      options: [
+        "Object A (2 kg)",
+        "Object B (10 kg)",
+        "Both have equal velocity",
+        "Cannot be determined",
+      ],
+      correctAnswer: "Object A (2 kg)",
+      explanation:
+        "Since p = mv is the same for both, and mass of A < mass of B: v_A = p/2 and v_B = p/10. Since p/2 > p/10, Object A has the greater velocity. Lighter objects need higher velocity to carry the same momentum.",
+    },
+    {
+      id: "t3q25",
+      type: "mcq",
+      points: 10,
+      question:
+        "A force of 10 N acts on a body of mass 2 kg. The body moves from rest. What distance does it cover in 4 seconds?",
+      options: ["10 m", "20 m", "40 m", "80 m"],
+      correctAnswer: "40 m",
+      explanation:
+        "a = F/m = 10/2 = 5 m/s². Using s = ut + ½at² = 0 + ½ × 5 × 4² = ½ × 5 × 16 = 40 m. The body covers 40 metres in 4 seconds starting from rest.",
+    },
+
+    /* ══════════════════════════════════════════
+     *  5 MORE SHORT ANSWER (Total: 10 Short)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t3q26",
+      type: "short",
+      points: 15,
+      question:
+        "A body of mass 10 kg is moving with velocity 5 m/s. What force is required to stop it in 2 seconds?",
+      correctAnswer:
+        "Initial momentum = mv = 10 × 5 = 50 kg·m/s. Final momentum = 0 (stopped). Change in momentum Δp = 0 − 50 = −50 kg·m/s. Force = Δp/Δt = −50/2 = −25 N. The negative sign indicates the force acts opposite to the direction of motion. So a retarding force of 25 N is required.",
+      explanation:
+        "Apply F = Δp/Δt directly. The negative sign shows the force opposes motion (deceleration). Magnitude of force = 25 N.",
+    },
+    {
+      id: "t3q27",
+      type: "short",
+      points: 15,
+      question:
+        "Why is it difficult to catch a cricket ball moving at high speed compared to a tennis ball moving at the same speed?",
+      correctAnswer:
+        "The cricket ball has greater mass (about 160 g) compared to a tennis ball (about 60 g). At the same speed, the cricket ball has more momentum (p = mv). To stop the ball (bring momentum to zero), a greater change in momentum is needed for the cricket ball. From F = Δp/Δt, greater Δp in the same time means greater force on the hands — which is more painful and difficult to handle.",
+      explanation:
+        "Same speed but different masses → different momenta → different forces needed to stop them in the same time. More massive = more momentum = more force = harder to catch.",
+    },
+    {
+      id: "t3q28",
+      type: "short",
+      points: 15,
+      question:
+        "What happens to the acceleration of an object if the force on it is doubled while its mass remains constant?",
+      correctAnswer:
+        "From F = ma, if mass m is constant: a = F/m. When force is doubled (2F): new acceleration = 2F/m = 2(F/m) = 2a. The acceleration also doubles. This shows that acceleration is directly proportional to force when mass is constant (a ∝ F for fixed m).",
+      explanation:
+        "Direct proportionality: double the force → double the acceleration. This is one of the three key relationships in F = ma.",
+    },
+    {
+      id: "t3q29",
+      type: "short",
+      points: 15,
+      question:
+        "Why do boxers wear padded gloves instead of fighting with bare fists?",
+      correctAnswer:
+        "Padded gloves increase the time of impact (Δt) when a punch lands. From the impulse-momentum theorem: F = Δp/Δt. The change in momentum (Δp) of the punch is the same with or without gloves. But with padded gloves, the contact time Δt is longer → the average force F is smaller → less damage to both the puncher's hand and the opponent. Bare fists have very short contact time → extremely high peak force → more injuries like fractures.",
+      explanation:
+        "Classic impulse application. Same Δp, longer Δt from padding → smaller F. This protects both fighters from bone fractures and brain injuries.",
+    },
+    {
+      id: "t3q30",
+      type: "short",
+      points: 15,
+      question:
+        "A 0.2 kg ball is thrown with velocity 10 m/s and it bounces back with velocity 8 m/s. Calculate the change in momentum.",
+      correctAnswer:
+        "Taking the initial direction as positive: Initial momentum = m × v₁ = 0.2 × 10 = 2 kg·m/s. Final momentum = m × v₂ = 0.2 × (−8) = −1.6 kg·m/s (negative because it bounced back in the opposite direction). Change in momentum Δp = p_final − p_initial = −1.6 − 2 = −3.6 kg·m/s. The magnitude of change in momentum is 3.6 kg·m/s.",
+      explanation:
+        "When a ball bounces, the direction reverses, so the change in momentum is the sum of both momenta (initial forward + final backward). This is greater than if the ball simply stopped.",
+    },
+
+    /* ══════════════════════════════════════════
+     *  5 MORE LONG ANSWER (Total: 10 Long)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t3q31",
+      type: "long",
+      points: 20,
+      question:
+        "A truck of mass 5000 kg is moving at 20 m/s. It applies brakes and comes to rest in 10 seconds. Calculate: (a) the initial momentum, (b) the final momentum, (c) the change in momentum, (d) the braking force, and (e) the deceleration.",
+      correctAnswer:
+        "(a) Initial momentum: p₁ = mv₁ = 5000 × 20 = 100,000 kg·m/s\n\n(b) Final momentum: p₂ = mv₂ = 5000 × 0 = 0 kg·m/s\n\n(c) Change in momentum: Δp = p₂ − p₁ = 0 − 100,000 = −100,000 kg·m/s\n(The negative sign means momentum decreased in the original direction)\n\n(d) Braking force: F = Δp/Δt = −100,000/10 = −10,000 N\nThe braking force is 10,000 N (10 kN) acting opposite to motion.\n\n(e) Deceleration: a = F/m = −10,000/5000 = −2 m/s²\nOr: a = (v₂ − v₁)/t = (0 − 20)/10 = −2 m/s²\nThe truck decelerates at 2 m/s².\n\nVerification: v = u + at = 20 + (−2)(10) = 20 − 20 = 0 ✓",
+      explanation:
+        "Complete step-by-step numerical problem covering momentum, impulse, force, and deceleration. The verification step at the end confirms the answer is consistent.",
+    },
+    {
+      id: "t3q32",
+      type: "long",
+      points: 20,
+      question:
+        "Explain how Newton's Second Law helps us understand why the same engine can make different vehicles accelerate at different rates. Give numerical examples comparing a motorcycle and a truck.",
+      correctAnswer:
+        "Newton's Second Law: a = F/m. For the same engine force, acceleration depends inversely on mass.\n\n**Example:**\nSuppose an engine produces a net thrust of 5000 N.\n\n**Motorcycle (200 kg):**\na = F/m = 5000/200 = 25 m/s²\nThe motorcycle accelerates very rapidly — reaching 25 m/s (90 km/h) in just 1 second!\n\n**Car (1500 kg):**\na = F/m = 5000/1500 = 3.33 m/s²\nThe car accelerates much more slowly — taking about 7.5 seconds to reach 25 m/s.\n\n**Truck (10,000 kg):**\na = F/m = 5000/10000 = 0.5 m/s²\nThe truck barely accelerates — taking 50 seconds to reach the same speed!\n\n**Key Insight:** Acceleration is inversely proportional to mass for the same force (a ∝ 1/m). This is why:\n- Sports cars are designed to be lightweight (maximum acceleration)\n- Trucks need much more powerful engines (to get reasonable acceleration despite enormous mass)\n- Formula 1 cars use carbon fiber and exotic materials to minimize weight\n- Bicycles accelerate faster than buses even though your legs produce much less force than a bus engine — because the bicycle's mass is so much less\n\n**Quantitative relationship:** If mass doubles, acceleration halves for the same force. If mass triples, acceleration becomes one-third. This inverse relationship is one of the most practically important consequences of F = ma.",
+      explanation:
+        "The numerical comparison makes the abstract formula concrete. Students can directly see how mass determines acceleration for the same force, which is the core practical insight of Newton's Second Law.",
+    },
+    {
+      id: "t3q33",
+      type: "long",
+      points: 20,
+      question:
+        "A ball of mass 0.5 kg is thrown against a wall at 10 m/s and bounces back at 8 m/s. The contact time with the wall is 0.02 seconds. Calculate: (a) the change in momentum, (b) the average force exerted by the wall on the ball, (c) the average force exerted by the ball on the wall.",
+      correctAnswer:
+        "Taking the initial direction (toward wall) as positive:\n\n(a) **Change in momentum:**\nInitial momentum = 0.5 × 10 = 5 kg·m/s (toward wall)\nFinal momentum = 0.5 × (−8) = −4 kg·m/s (away from wall, hence negative)\nΔp = p_final − p_initial = −4 − 5 = −9 kg·m/s\nMagnitude of change in momentum = 9 kg·m/s\n\n(b) **Average force by wall on ball:**\nF = Δp/Δt = −9/0.02 = −450 N\nThe wall exerts 450 N on the ball (in the direction away from the wall — pushing it back).\n\n(c) **Average force by ball on wall:**\nBy Newton's Third Law, the ball exerts an equal and opposite force on the wall.\nForce = 450 N (toward the wall — pushing into it).\n\n**Important note:** The change in momentum is 9 kg·m/s, NOT just 5 kg·m/s. When a ball bounces, both the stopping AND the reversing contribute to the momentum change. This is why bouncing balls exert more force on surfaces than balls that simply stick!",
+      explanation:
+        "This problem involves a direction reversal (bouncing), which makes the momentum change larger than if the ball simply stopped. The Third Law connection in part (c) reinforces the force pairs concept.",
+    },
+    {
+      id: "t3q34",
+      type: "long",
+      points: 20,
+      question:
+        "Explain the relationship between force, mass, and acceleration using a real-life example of a bicycle rider. If the rider and bicycle together have a mass of 80 kg, and the rider pedals with a force of 160 N against a friction force of 40 N, calculate the acceleration and the speed after 10 seconds.",
+      correctAnswer:
+        "**Force Analysis:**\n- Applied force (pedaling): 160 N forward\n- Friction force: 40 N backward\n- Net force: F_net = 160 − 40 = 120 N forward\n\n**Acceleration:**\na = F_net/m = 120/80 = 1.5 m/s²\n\n**Speed after 10 seconds (starting from rest):**\nv = u + at = 0 + 1.5 × 10 = 15 m/s = 54 km/h\n\n**Relationship Explanation:**\n1. **Force → Acceleration:** The net force of 120 N causes acceleration. A larger net force (stronger pedaling or less friction) would cause greater acceleration.\n2. **Mass → Acceleration:** If the rider carried a heavy backpack (increasing mass to 100 kg), same net force of 120 N would give: a = 120/100 = 1.2 m/s² (less acceleration). Greater mass = less acceleration for the same force.\n3. **Combined:** Both force and mass determine acceleration through a = F/m. To go faster, either increase force (pedal harder) or decrease mass (lighter bicycle).\n\n**Additional calculation:** Distance covered in 10 seconds:\ns = ut + ½at² = 0 + ½ × 1.5 × 100 = 75 metres",
+      explanation:
+        "This problem integrates net force calculation, F = ma application, and kinematics equations. The additional mass comparison demonstrates the inverse relationship clearly.",
+    },
+    {
+      id: "t3q35",
+      type: "long",
+      points: 20,
+      question:
+        "Explain in detail why high jumpers, pole vaulters, and gymnasts prefer to land on soft foam mats rather than hard surfaces. Use Newton's Second Law and the concept of impulse to justify your answer with calculations.",
+      correctAnswer:
+        "**The Physics of Landing:**\n\nWhen an athlete lands from a height, they have downward momentum: p = mv (where v depends on the height of fall). This momentum must be reduced to zero (they stop). The impulse required is: J = Δp = mv (constant — determined by mass and fall speed).\n\n**From F = Δp/Δt: F = mv/Δt**\n\n**Hard surface landing:** Contact time Δt ≈ 0.01 s (the body stops almost instantly).\nFor a 60 kg athlete falling from 2 m: v ≈ √(2gh) = √(2 × 10 × 2) = 6.3 m/s\np = mv = 60 × 6.3 = 378 kg·m/s\nF = 378/0.01 = **37,800 N** (about 63 times body weight!)\nThis force would cause severe injuries — broken bones, spinal damage.\n\n**Foam mat landing:** Contact time Δt ≈ 0.5 s (foam compresses slowly, cushioning the impact).\nF = 378/0.5 = **756 N** (about 1.26 times body weight)\nThis force is easily manageable — no injury.\n\n**Force reduction:** 37,800 ÷ 756 = **50 times less force!**\n\nThe foam mat extends the stopping time by 50× (from 0.01s to 0.5s), reducing the peak force by 50×. Same momentum change, dramatically different outcome.\n\n**Design principle:** All sports landing areas (foam mats, sand pits, water in diving) are designed to maximize Δt, minimizing F. This is pure Newton's Second Law applied to human safety.",
+      explanation:
+        "The numerical calculation makes the abstract concept viscerally real — a 50× force reduction is dramatic and clearly shows why soft landing surfaces are essential for athlete safety.",
+    },
+
+    /* ══════════════════════════════════════════
+     *  5 MORE THINKING/HOTS (Total: 10 HOTS)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t3q36",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: If you are standing on a weighing machine in an elevator and the elevator cable breaks (free fall), what would the machine show? Use F = ma to explain why astronauts in the International Space Station appear weightless even though gravity acts on them.",
+      correctAnswer:
+        "**Elevator in free fall:**\nWhen the cable breaks, both you and the elevator fall together with acceleration g downward.\n\nApplying F = ma on you (taking downward as positive):\nmg − N = ma (where N = normal force = scale reading)\n\nIn free fall, a = g:\nmg − N = mg\nN = 0\n\nThe scale shows **ZERO!** You feel completely weightless even though gravity is pulling you at full strength. The scale reads zero because the floor is falling away at the same rate you are — it can't push up on you.\n\n**Astronauts in the ISS:**\nThe ISS orbits Earth at about 400 km altitude. At that height, gravity is about 90% of surface gravity — NOT zero! The astronauts ARE being pulled by gravity.\n\nBut the ISS and everything inside it are in continuous free fall around Earth (orbital motion = perpetual falling while moving sideways fast enough to miss the ground). Just like in the broken elevator, the astronauts and the ISS fall together → the floor can't push up on the astronauts → N = 0 → they feel weightless.\n\n**Key insight:** Weightlessness is NOT about absence of gravity. It's about the absence of Normal Force. You feel your weight through the floor pushing up. If the floor can't push (because it's falling too), you feel weightless. F = ma proves: when a = g, N must equal zero.\n\nAstronauts are in a state of continuous free fall — they just never hit the ground because their sideways velocity curves their fall into a circular orbit around Earth.",
+      explanation:
+        "This is one of the most profound applications of F = ma. Weightlessness in orbit is NOT due to lack of gravity — it's due to free fall. The mathematical proof (N = 0 when a = g) is elegant and surprising.",
+    },
+    {
+      id: "t3q37",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: A martial artist can break a concrete block with their hand. The hand's velocity just before impact is 10 m/s and it stops in 0.005 seconds. If the hand's mass is 0.7 kg, calculate the force. Why doesn't the hand break instead of the block?",
+      correctAnswer:
+        "**Force Calculation:**\nΔp = m(v_f − v_i) = 0.7 × (0 − 10) = −7 kg·m/s\nF = Δp/Δt = −7/0.005 = −1400 N\n\nThe hand exerts approximately **1400 N** (140 kg equivalent force) on the block.\n\n**Why the block breaks, not the hand:**\n\n1. **Material properties:** Human bone is surprisingly strong — it can withstand compressive forces of up to about 3400 N before fracturing. The 1400 N is within the hand's tolerance. Concrete blocks used in demonstrations are relatively thin and have lower flexural (bending) strength than compressive strength.\n\n2. **Force distribution:** The martial artist strikes with the heel of the palm or edge of the hand — a relatively large surface area. This distributes the force across the hand's strong bone structure. The block, supported at two ends and struck in the middle, experiences bending stress that concentrates at its weakest point.\n\n3. **Training:** Martial artists condition their bones through years of training, increasing bone density. Their striking technique minimizes contact time (maximizing force on the block) while aligning bones properly to handle the reaction force.\n\n4. **Follow-through:** The artist aims to strike THROUGH the block, not AT it. This means the hand's velocity is still high at the moment of contact, ensuring maximum momentum transfer.\n\n5. **Third Law:** By Newton's Third Law, the block exerts 1400 N back on the hand. The hand survives because this force is within its structural limits. If the block were too thick or strong, the reaction force could exceed the hand's breaking point — and the hand would break instead!",
+      explanation:
+        "This combines F = ma calculation with material science, anatomy, and Newton's Third Law. The numerical answer (1400 N) plus the structural analysis of why bone survives makes this a complete physics explanation.",
+    },
+    {
+      id: "t3q38",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: Why is it much more dangerous to be hit by a small bullet (10 g at 800 m/s) than by a heavy football (450 g at 20 m/s), even though the football has more momentum? Explain using force and pressure concepts.",
+      correctAnswer:
+        "**Momentum comparison:**\nBullet: p = 0.01 × 800 = 8 kg·m/s\nFootball: p = 0.45 × 20 = 9 kg·m/s\n\nThe football has slightly MORE momentum! Yet the bullet is far more dangerous. Why?\n\n**1. Contact time (Δt):**\nBullet: Stops in approximately 0.001 seconds (penetrates and stops quickly)\nFootball: Stops in approximately 0.1 seconds (deforms on impact, bounces)\n\nBullet force: F = 8/0.001 = 8,000 N\nFootball force: F = 9/0.1 = 90 N\n\nThe bullet exerts about **89 times more force** despite having less momentum!\n\n**2. Contact area (Pressure):**\nBullet tip area: approximately 0.00003 m² (3 mm²)\nFootball contact area: approximately 0.01 m² (100 cm²)\n\nBullet pressure: P = 8000/0.00003 = 267,000,000 Pa (267 MPa)\nFootball pressure: P = 90/0.01 = 9,000 Pa (9 kPa)\n\nThe bullet exerts approximately **30,000 times more pressure!**\n\n**3. The combination is lethal:**\nThe bullet combines extremely short contact time (huge force from F = Δp/Δt) with extremely small contact area (huge pressure from P = F/A). This concentrated force over a tiny area easily penetrates skin, muscle, and bone.\n\nThe football, despite more momentum, has longer contact time (lower force) and larger contact area (lower pressure). It causes bruising at most.\n\n**Key lesson:** Danger depends not just on momentum, but on HOW that momentum is delivered — short time + small area = devastating. This is why armor-piercing rounds are pointed and why safety equipment increases both contact time and contact area.",
+      explanation:
+        "This brilliantly demonstrates that momentum alone doesn't determine damage. The TIME over which force acts and the AREA over which it's distributed are equally critical. This connects F = Δp/Δt with pressure P = F/A.",
+    },
+    {
+      id: "t3q39",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: A 50 kg person jumps from a 1 metre height. Compare the force on their legs when they (a) land with stiff, locked legs and (b) land by bending their knees. Assume landing time is 0.02 s for stiff legs and 0.5 s for bent knees. Which technique is safer and why?",
+      correctAnswer:
+        "**Step 1: Calculate velocity at landing:**\nUsing v² = u² + 2gs (u = 0, s = 1 m, g = 10 m/s²):\nv² = 0 + 2 × 10 × 1 = 20\nv = √20 ≈ 4.47 m/s\n\n**Step 2: Calculate momentum at landing:**\np = mv = 50 × 4.47 = 223.5 kg·m/s\n\n**Step 3: Calculate force for each landing:**\n\n**(a) Stiff legs (Δt = 0.02 s):**\nF = Δp/Δt = 223.5/0.02 = **11,175 N ≈ 11.2 kN**\nThis is about 22.7 times the person's body weight (50 × 10 = 500 N).\nThis force can easily cause ankle fractures, knee injuries, and spinal compression!\n\n**(b) Bent knees (Δt = 0.5 s):**\nF = Δp/Δt = 223.5/0.5 = **447 N ≈ 0.45 kN**\nThis is less than the person's own body weight!\nThis force is completely safe and comfortable.\n\n**Force comparison:** 11,175 ÷ 447 = **25 times less force** with bent knees!\n\n**Why bending knees works:** When you bend your knees during landing, your muscles and joints act as shock absorbers, extending the deceleration time from 0.02s to 0.5s (25× longer). Same momentum to absorb, but spread over much more time → much less force per instant.\n\n**Safety conclusion:** Landing with bent knees is dramatically safer — reducing impact force by 96%! This is why:\n- Paratroopers roll when landing\n- Gymnasts bend their knees on dismounts\n- Parkour practitioners use rolling landings\n- Cats bend their legs when landing from heights\n\nAll of these techniques maximize Δt to minimize F. This is Newton's Second Law saving bones!",
+      explanation:
+        "Complete numerical analysis showing a 25× force reduction. The comparison between stiff and bent-knee landing is vivid and practically important. The biological examples (cats, paratroopers) reinforce the physics.",
+    },
+    {
+      id: "t3q40",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: A student claims: 'If F = ma, then a heavier person should fall faster than a lighter person because the gravitational force on them is greater.' Use Newton's Second Law to prove this student wrong.",
+      correctAnswer:
+        "The student's argument seems logical but has a fatal flaw. Let's analyze:\n\n**For a heavy person (mass M):**\nGravitational force: F₁ = Mg\nAcceleration: a₁ = F₁/M = Mg/M = g\n\n**For a light person (mass m):**\nGravitational force: F₂ = mg\nAcceleration: a₂ = F₂/m = mg/m = g\n\n**Both accelerate at exactly g ≈ 9.8 m/s²!**\n\n**The student's error:** Yes, the heavier person has MORE gravitational force. But they also have MORE mass (more inertia resisting that force). These two effects perfectly cancel out!\n\nThe heavy person: more force pulling → wants to go faster. But more mass resisting → wants to go slower. Net effect: exactly the same acceleration as the light person.\n\n**Mathematically:** The mass appears in BOTH the force (F = mg) and the resistance to acceleration (F = ma). When you divide force by mass to get acceleration: a = mg/m = g. The mass cancels out completely!\n\n**Experimental proof:** Galileo demonstrated this at the Leaning Tower of Pisa (possibly). On the Moon (no air), Apollo 15 astronaut David Scott dropped a hammer (1.32 kg) and a feather (0.03 kg) — they hit the ground at exactly the same time.\n\n**On Earth with air:** Air resistance IS different for different shapes/sizes, so a feather does fall slower than a hammer in air. But this is due to air resistance (an additional force), NOT due to gravity discriminating by mass. In vacuum, all objects fall identically.\n\n**This is one of the most profound results in physics:** Gravitational mass (how much gravity pulls) and inertial mass (how much matter resists acceleration) are exactly equal. Einstein later made this 'equivalence principle' the foundation of General Relativity!",
+      explanation:
+        "This beautifully demonstrates why mass cancels in free fall. The student's error is focusing on force alone without considering that the same mass that increases force also increases resistance to acceleration. The mass cancellation (a = mg/m = g) is one of the deepest results in physics.",
     },
   ],
 };

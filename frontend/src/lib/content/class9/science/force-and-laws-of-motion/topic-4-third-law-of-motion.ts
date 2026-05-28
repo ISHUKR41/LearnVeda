@@ -95,6 +95,9 @@ $$\text{Thrust} = \dot{m} \times v_{exhaust}$$
 
 where $\dot{m}$ is mass of gas ejected per second. Faster ejection or more gas per second = greater thrust.
 
+![Figure 1: The rocket pushes exhaust gases backward (Action), and the gases push the rocket forward with equal force (Reaction).](/images/third_law_rocket.png)
+
+
 ---
 
 ### Walking — Third Law in Every Step
@@ -122,6 +125,9 @@ Same force, but $a = F/m$:
 * Gun (1.5 kg) → small backward acceleration → gentle kick
 
 Equal forces, very different accelerations because of mass ratio.
+
+![Figure 2: Gun recoil is the equal and opposite reaction force acting on the heavier gun when a bullet is accelerated forward.](/images/gun_recoil.png)
+
 
 ---
 
@@ -422,6 +428,266 @@ The weight of a building presses down on the foundation (action). The ground pus
         "THIRD LAW SCENARIO: Astronaut pushes tool away (action). Tool pushes astronaut in the opposite direction (reaction). Equal forces, different masses → different accelerations (Second Law). Tool (small mass): large velocity in one direction. Astronaut (large mass, ~90 kg with suit): smaller but real velocity in opposite direction. FIRST LAW CONSEQUENCE: In the near-vacuum of space, essentially no friction exists. By Newton's First Law, once the astronaut starts drifting, they continue at constant velocity FOREVER with NOTHING to stop or redirect them. Even a tiny drift of 0.1 m/s means in 1 hour, the astronaut is 360 metres from the spacecraft — a fatal situation. TETHER SOLUTION: The tether acts as a physical link that can transmit a restoring force back to the spacecraft. If the astronaut drifts, the tether pulls taut and provides the reaction force to stop the drift and pull them back. It is literally a lifeline implementing Newton's Third Law as a safety mechanism. All spacewalks require tethers for exactly this reason.",
       explanation:
         "Third Law for force generation (push tool → react away), Second Law for mass-dependent velocities, First Law for why drifting never stops in space. The tether as a Third Law safety device is the key insight.",
+    },
+
+    /* ══════════════════════════════════════════
+     *  5 MORE MCQ QUESTIONS (Total: 10 MCQ)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t4q21",
+      type: "mcq",
+      points: 10,
+      question:
+        "When a boat is rowed, the oar pushes water backward. The boat moves forward because of:",
+      options: [
+        "The weight of the water displaced",
+        "Newton's Third Law — water pushes the oar (and boat) forward",
+        "The wind pushing the boat",
+        "Gravity pulling the boat downstream",
+      ],
+      correctAnswer:
+        "Newton's Third Law — water pushes the oar (and boat) forward",
+      explanation:
+        "Action: oar pushes water backward. Reaction: water pushes oar (and through it, the boat) forward. This is a classic Third Law application in marine propulsion.",
+    },
+    {
+      id: "t4q22",
+      type: "mcq",
+      points: 10,
+      question:
+        "A person leans against a wall. The wall does not fall because:",
+      options: [
+        "The wall has no inertia",
+        "The person's weight is transferred to the floor, not the wall",
+        "The wall exerts a reaction force equal and opposite to the person's push",
+        "The wall is fixed to the ground by gravity alone",
+      ],
+      correctAnswer:
+        "The wall exerts a reaction force equal and opposite to the person's push",
+      explanation:
+        "The person pushes the wall horizontally (action). The wall pushes back equally (reaction). These forces balance, so neither moves. The wall transmits the force through its structure to the foundation.",
+    },
+    {
+      id: "t4q23",
+      type: "mcq",
+      points: 10,
+      question:
+        "A gun of mass 3 kg fires a bullet of mass 30 g at 600 m/s. The recoil velocity of the gun is:",
+      options: ["6 m/s", "60 m/s", "0.6 m/s", "600 m/s"],
+      correctAnswer: "6 m/s",
+      explanation:
+        "By momentum conservation: m_gun × v_gun = m_bullet × v_bullet → 3 × v = 0.03 × 600 = 18 → v = 18/3 = 6 m/s backward. The gun recoils at 6 m/s in the opposite direction to the bullet.",
+    },
+    {
+      id: "t4q24",
+      type: "mcq",
+      points: 10,
+      question:
+        "Which of the following is NOT an action-reaction pair?",
+      options: [
+        "Earth pulling a ball down and ball pulling Earth up",
+        "A book on a table: gravity pulling book down and table pushing book up",
+        "Hammer hitting nail and nail pushing hammer back",
+        "Swimmer pushing water back and water pushing swimmer forward",
+      ],
+      correctAnswer:
+        "A book on a table: gravity pulling book down and table pushing book up",
+      explanation:
+        "Gravity (Earth pulls book) and normal force (table pushes book) act on the SAME object (the book) — they are balanced forces, not an action-reaction pair. The correct pairs are: Earth pulls book / book pulls Earth; and table pushes book / book pushes table.",
+    },
+    {
+      id: "t4q25",
+      type: "mcq",
+      points: 10,
+      question:
+        "An inflated balloon is released without tying its mouth. It flies around the room because:",
+      options: [
+        "Air outside pushes the balloon",
+        "The balloon pushes air out backward, and by Newton's Third Law, air pushes balloon forward",
+        "The rubber contracts and pushes the balloon",
+        "Gravity accelerates the balloon",
+      ],
+      correctAnswer:
+        "The balloon pushes air out backward, and by Newton's Third Law, air pushes balloon forward",
+      explanation:
+        "The compressed air inside escapes from the mouth (balloon pushes air backward — action). The escaping air pushes the balloon forward (reaction). This is the same principle as a rocket engine.",
+    },
+
+    /* ══════════════════════════════════════════
+     *  5 MORE SHORT ANSWER (Total: 10 Short)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t4q26",
+      type: "short",
+      points: 15,
+      question:
+        "When you hit a table with your hand, your hand also hurts. Explain this using Newton's Third Law.",
+      correctAnswer:
+        "When you hit the table, your hand exerts a force on the table (action). By Newton's Third Law, the table exerts an equal and opposite force on your hand (reaction). This reaction force is what causes pain in your hand. The harder you hit the table (greater action force), the greater the reaction force on your hand — and the more it hurts. Both forces are equal in magnitude, simultaneous, and opposite in direction.",
+      explanation:
+        "Classic Third Law example — the table 'hits back' with the same force you used. The pain is evidence of the reaction force.",
+    },
+    {
+      id: "t4q27",
+      type: "short",
+      points: 15,
+      question:
+        "Why does a person stepping out of a boat cause the boat to move backward? Explain with Newton's Third Law.",
+      correctAnswer:
+        "When a person steps forward from a boat onto the shore, their foot pushes the boat backward (action). By Newton's Third Law, the boat pushes the person forward (reaction), helping them reach the shore. The boat moves backward because the person's push applies a force on it. On water, there is very little friction, so even a small force makes the boat move noticeably. This is why boats drift away from the dock when passengers step off carelessly.",
+      explanation:
+        "The person pushes the boat backward (action) and the boat pushes the person forward (reaction). Low friction on water means the boat moves noticeably.",
+    },
+    {
+      id: "t4q28",
+      type: "short",
+      points: 15,
+      question:
+        "Explain how a squid or octopus uses Newton's Third Law to move through water.",
+      correctAnswer:
+        "A squid takes in water and then forcefully expels it backward through a siphon (jet of water — action). By Newton's Third Law, the water pushes the squid forward with an equal and opposite force (reaction). This is called jet propulsion — the same principle as a rocket engine but using water instead of exhaust gases. The squid can control the direction of its siphon to steer, and the force of expulsion to control speed. Some squids can reach speeds of 40 km/h using this method.",
+      explanation:
+        "Jet propulsion in marine animals — Third Law applied naturally. Water expelled backward = animal propelled forward. Same physics as rockets.",
+    },
+    {
+      id: "t4q29",
+      type: "short",
+      points: 15,
+      question:
+        "Two ice skaters standing face to face push each other. Skater A (40 kg) and Skater B (80 kg) push off. Who moves faster and why?",
+      correctAnswer:
+        "By Newton's Third Law, the push force on both skaters is equal and opposite. But by Newton's Second Law (a = F/m), the lighter skater accelerates more. Skater A (40 kg): a = F/40 → larger acceleration. Skater B (80 kg): a = F/80 → half the acceleration of A. Since force acts for the same time on both, by momentum conservation: 40 × v_A = 80 × v_B → v_A = 2 × v_B. Skater A moves at twice the speed of Skater B. The lighter skater always moves faster when equal forces act.",
+      explanation:
+        "Equal forces (Third Law), different masses → different accelerations (Second Law). Lighter skater moves faster. Momentum conservation confirms: lighter = faster.",
+    },
+    {
+      id: "t4q30",
+      type: "short",
+      points: 15,
+      question:
+        "Why does a garden sprinkler rotate? Explain using Newton's Third Law.",
+      correctAnswer:
+        "A garden sprinkler has angled nozzles that eject water in a specific direction (action — water pushed outward). By Newton's Third Law, the water exerts an equal and opposite reaction force on the nozzle, pushing it in the opposite direction. Since the nozzles are angled tangentially on a rotating base, these reaction forces create a torque (turning effect) that makes the sprinkler spin. The faster the water flow or more angled the nozzles, the faster the sprinkler rotates. This is the same principle used in reaction turbines and Hero's engine (aeolipile).",
+      explanation:
+        "Water exits tangentially (action), nozzle is pushed opposite (reaction). The angled nozzles convert this reaction into rotational motion — a practical Third Law device.",
+    },
+
+    /* ══════════════════════════════════════════
+     *  5 MORE LONG ANSWER (Total: 10 Long)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t4q31",
+      type: "long",
+      points: 20,
+      question:
+        "Explain in detail how ALL three of Newton's Laws work together during a car's normal operation — starting, cruising, and braking.",
+      correctAnswer:
+        "**STARTING (Accelerating from rest):**\n\n- Third Law: Engine spins the wheels. Tires push backward on the road (action). Road pushes tires forward (reaction) — this reaction is the driving force.\n- Second Law: The forward reaction force minus all resistive forces (air drag, rolling friction) = net force. a = F_net/m. The car accelerates proportionally to this net force.\n- First Law: Before the engine started, the car was at rest and remained so (no unbalanced force). Once the engine provides force, the state changes.\n\n**CRUISING (Constant velocity):**\n\n- Third Law: Tires still push road backward, road pushes forward. This driving force exactly equals air drag + friction.\n- First Law: Net force = 0 (driving force = resistive forces). By First Law, velocity stays constant. No acceleration.\n- Second Law: F = ma → F = 0 → a = 0. Confirms constant velocity.\n\n**BRAKING (Decelerating to rest):**\n\n- Third Law: Brake pads push against brake disc (action). Disc pushes back on pads (reaction). This creates friction that opposes wheel rotation.\n- The ground now pushes backward on the tires (friction from braking) — this is the external force decelerating the car.\n- Second Law: Net force is backward (braking force > driving force). a = F_brake/m → negative acceleration → car slows down.\n- First Law: When velocity reaches zero and brakes hold, net force = 0 again → car stays at rest.\n\nAll three laws operate simultaneously during every phase of a car's operation.",
+      explanation:
+        "Comprehensive analysis showing all three laws in three different driving phases. This demonstrates that Newton's laws are not separate — they work as an integrated system.",
+    },
+    {
+      id: "t4q32",
+      type: "long",
+      points: 20,
+      question:
+        "A rocket has a mass of 10,000 kg (including fuel). Its engines eject exhaust gases at 3000 m/s with a mass flow rate of 50 kg/s. Calculate: (a) the thrust, (b) the initial acceleration, (c) the acceleration after 100 seconds (when 5000 kg of fuel has been burnt).",
+      correctAnswer:
+        "(a) **Thrust:**\nThrust = mass flow rate × exhaust velocity = 50 × 3000 = 150,000 N = 150 kN\n\n(b) **Initial acceleration:**\nWeight = mg = 10,000 × 10 = 100,000 N downward\nNet upward force = Thrust − Weight = 150,000 − 100,000 = 50,000 N\nAcceleration = F/m = 50,000/10,000 = 5 m/s²\n\n(c) **After 100 seconds:**\nFuel burnt = 50 × 100 = 5000 kg\nRemaining mass = 10,000 − 5000 = 5000 kg\nWeight now = 5000 × 10 = 50,000 N\nThrust remains = 150,000 N (same engine, same fuel burn rate)\nNet force = 150,000 − 50,000 = 100,000 N\nAcceleration = 100,000/5000 = 20 m/s²\n\n**Key insight:** The acceleration QUADRUPLED (from 5 to 20 m/s²) as fuel was burnt! This is because:\n1. Mass decreased by half → acceleration doubles (from F/m)\n2. Net force also increased (weight decreased while thrust stayed constant)\n\nThis is why rockets accelerate faster as they burn fuel — Newton's Second Law with changing mass.",
+      explanation:
+        "Full numerical calculation showing the dramatic acceleration increase as fuel is consumed. This is a real rocket engineering principle — rockets accelerate fastest just before fuel exhaustion.",
+    },
+    {
+      id: "t4q33",
+      type: "long",
+      points: 20,
+      question:
+        "Describe in detail how Newton's Third Law is used in: (a) jet engines in airplanes, (b) helicopter rotors, and (c) submarines. For each, identify the action and reaction forces clearly.",
+      correctAnswer:
+        "**(a) Jet Engines:**\nAction: The engine compresses air, mixes it with fuel, ignites it, and expels hot exhaust gases backward at very high speed.\nReaction: The exhaust gases push the engine (and airplane) forward with equal force.\nThe airplane flies forward due to this continuous reaction force. More fuel burned per second or faster exhaust = more thrust = faster airplane.\n\n**(b) Helicopter Rotors:**\nAction: The spinning rotor blades push air DOWNWARD (downwash).\nReaction: The air pushes the rotor blades (and helicopter) UPWARD — this is lift.\nFor hovering: Lift (reaction) = Weight of helicopter (balanced).\nFor climbing: Rotor speed increases → more air pushed down → greater upward reaction → net upward force → helicopter rises.\nIMPORTANT: The rotor also creates a torque on the helicopter body. Without a tail rotor (which pushes air sideways), the helicopter body would spin opposite to the main rotor — also a Third Law effect!\n\n**(c) Submarines:**\nAction: The propeller pushes water backward.\nReaction: Water pushes propeller (and submarine) forward.\nFor depth control: Ballast tanks fill with water (increase weight → sink) or compressed air (decrease weight → rise). The buoyancy force is a reaction to displaced water pressure.\n\nAll three use the same fundamental principle: push a fluid backward, get pushed forward.",
+      explanation:
+        "Three different applications of the same Third Law principle with different fluids and contexts. The helicopter tail rotor detail shows an advanced understanding of rotational Third Law effects.",
+    },
+    {
+      id: "t4q34",
+      type: "long",
+      points: 20,
+      question:
+        "A girl (40 kg) and a boy (60 kg) are standing on two separate skateboards facing each other on a smooth floor. The girl pushes the boy. After the push, the boy moves backward at 2 m/s. Find the velocity of the girl. Also calculate the force if the push lasted 0.5 seconds.",
+      correctAnswer:
+        "**Using momentum conservation (from Third Law):**\nInitial total momentum = 0 (both at rest)\nFinal total momentum = 0 (momentum is conserved)\n\nBoy's momentum = 60 × 2 = 120 kg·m/s (backward)\nGirl's momentum must be 120 kg·m/s (forward) to make total zero.\n\nGirl's velocity = 120/40 = **3 m/s forward**\n\n**Force calculation:**\nImpulse on boy = change in momentum = 60 × 2 = 120 kg·m/s\nF × t = 120\nF = 120/0.5 = **240 N**\n\nBy Newton's Third Law, the girl also experiences 240 N (in opposite direction).\n\n**Verification:**\nImpulse on girl = F × t = 240 × 0.5 = 120 kg·m/s\nGirl's velocity = 120/40 = 3 m/s ✓\n\n**Key observations:**\n- Same force on both (Third Law: 240 N each)\n- Girl moves faster (3 m/s vs 2 m/s) because she's lighter (Second Law: a = F/m)\n- Total momentum remains zero — the system's center of mass stays in place",
+      explanation:
+        "Complete numerical problem using momentum conservation, impulse, and Newton's Third Law. The verification step confirms consistency. The observation about center of mass is a bonus insight.",
+    },
+    {
+      id: "t4q35",
+      type: "long",
+      points: 20,
+      question:
+        "Explain why it is impossible to pull yourself up by your own shoelaces or hair. Use Newton's Third Law to explain. Then explain how the Baron Munchausen story (pulling himself out of a swamp by his own hair) violates physics.",
+      correctAnswer:
+        "**Why you can't pull yourself up:**\n\nWhen you pull your shoelaces upward (action), the shoelaces pull your hand downward (reaction — Third Law). But BOTH forces act on the SAME system (your body). The upward pull on the shoelaces is transmitted through the shoelaces back to your feet, while the reaction pulls your hand down.\n\nNet force analysis:\n- Your hand pulls up with force F\n- Your feet (via shoelaces) are pulled up with force F\n- BUT the reaction: shoelaces pull your hand down with force F\n- Your body weight pulls you down with force mg\n\nThe internal forces (hand pulling laces up, laces pulling hand down) cancel because they are within the same system. The only external force is gravity (downward). You cannot generate an external upward force by pulling on yourself.\n\n**The Baron Munchausen Fallacy:**\nThe famous story says Baron Munchausen pulled himself (and his horse!) out of a swamp by his own hair. This violates Newton's Third Law because:\n\n1. His hand pulls hair upward (force on hair = part of his body)\n2. Hair pulls hand downward (reaction — force on hand = part of his body)\n3. These are internal forces within the same body — they cancel\n4. No external upward force is generated\n5. Only external forces (gravity down, swamp resistance) act on him\n6. Without an external upward force, he cannot rise\n\n**How you CAN get out:** You need something EXTERNAL to push against — a tree branch, solid ground, a rope tied to something outside you. The external object provides the reaction force that your own body cannot.",
+      explanation:
+        "This elegantly demonstrates the internal vs. external force distinction. Internal forces within a system always cancel — you need an external reaction to change your system's motion. The Baron Munchausen story is a famous physics-violating tale.",
+    },
+
+    /* ══════════════════════════════════════════
+     *  5 MORE THINKING/HOTS (Total: 10 HOTS)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t4q36",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: Earth pulls an apple with gravitational force. By Newton's Third Law, the apple also pulls Earth. If the forces are equal, why does the apple fall to Earth and not Earth rise to the apple?",
+      correctAnswer:
+        "The forces ARE equal — this is Newton's Third Law, no exceptions.\n\nApple pulls Earth upward: F = mg (same force)\nEarth pulls apple downward: F = mg\n\nBut by Newton's Second Law (a = F/m):\n\nApple (mass ≈ 0.1 kg): a_apple = F/0.1 = mg/0.1 = g ≈ 10 m/s² (large acceleration downward)\n\nEarth (mass ≈ 6 × 10²⁴ kg): a_Earth = F/(6×10²⁴) = (0.1 × 10)/(6×10²⁴) = 1.67 × 10⁻²⁵ m/s² (impossibly tiny acceleration upward)\n\nThe apple accelerates at 10 m/s² downward. Earth accelerates at 0.000000000000000000000000167 m/s² upward.\n\nIn the time the apple falls 1 metre, Earth moves approximately 10⁻²⁵ metres — less than the diameter of a single proton!\n\nBoth bodies DO accelerate toward each other. But the mass ratio is about 6 × 10²⁵:1. So while the apple moves noticeably, Earth's motion is completely immeasurable.\n\n**Technically:** Every time you drop anything, Earth rises an immeasurably tiny amount to meet it. Newton's Third Law is satisfied perfectly — but the mass asymmetry makes only the apple's motion visible.",
+      explanation:
+        "Equal forces but vastly different masses → vastly different accelerations. The Earth DOES move toward the apple — just by an amount smaller than atomic dimensions. This is Third Law + Second Law working together.",
+    },
+    {
+      id: "t4q37",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: A student says: 'Newton's Third Law means nothing can ever accelerate, because for every forward force there's an equal backward force.' Explain why this student is wrong.",
+      correctAnswer:
+        "The student makes the classic mistake of thinking action and reaction act on the SAME object. They don't!\n\n**Why the student is wrong:**\n\nAction and reaction forces act on DIFFERENT objects. They cannot cancel each other because cancellation requires forces on the SAME body.\n\n**Example — Person walking:**\n- Person pushes ground backward (action on ground)\n- Ground pushes person forward (reaction on person)\n\nThe forward force on the PERSON is the only horizontal force on the person → person accelerates forward. The backward force on the GROUND is absorbed by Earth's enormous mass → negligible effect.\n\nEach object has its own net force analysis:\n- Person: forward force from ground − friction/air = net forward → accelerates\n- Ground: backward force from person + all other forces → negligible effect due to huge mass\n\n**If the student were right:** Nothing in the universe could move. No cars, no rockets, no people, no planets. Everything would be frozen. Since things clearly DO move, the student's interpretation must be wrong.\n\n**The correct understanding:** Forces in an action-reaction pair act on different objects. For any SINGLE object, you only count forces acting ON that object. If those forces are unbalanced, the object accelerates.",
+      explanation:
+        "The fundamental error: thinking action-reaction forces act on the same body. They act on different bodies and cannot cancel for either one individually.",
+    },
+    {
+      id: "t4q38",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: In a collision between a heavy truck and a light car, the car gets badly damaged while the truck barely shows a dent. But Newton's Third Law says the forces are equal! How can the damage be so different if the forces are equal?",
+      correctAnswer:
+        "**The forces ARE equal** — Newton's Third Law has no exceptions.\n\nTruck pushes car backward with force F.\nCar pushes truck backward with exactly the same force F.\n\n**Why damage is different:**\n\n**1. Different accelerations (F = ma):**\nCar (1000 kg): a = F/1000 → large deceleration → large velocity change\nTruck (10,000 kg): a = F/10,000 → small deceleration → small velocity change\n\nThe car experiences 10× more deceleration. The passengers and structure undergo much more violent changes in motion.\n\n**2. Different structural capacity:**\nThe same force F distributed over the truck's massive, heavy frame → relatively low stress per unit area. The truck's heavier structure can absorb this force.\nThe same force F applied to the car's lighter, smaller frame → much higher stress per unit area → exceeds material strength → crumpling and damage.\n\n**3. Different kinetic energy changes:**\nThe car loses much more kinetic energy in the collision (larger velocity change). This energy goes into deforming the car's structure — hence more visible damage.\n\n**Analogy:** Step on a concrete block with 500 N → no damage. Step on a cardboard box with 500 N → box crumples. Same force, different structural strength.\n\n**Key lesson:** Equal forces do NOT mean equal effects. The EFFECT depends on the mass, structure, and material properties of each object.",
+      explanation:
+        "Equal forces, unequal effects. Mass difference → different accelerations. Structural capacity difference → different damage levels. Force equality is about magnitude, not consequences.",
+    },
+    {
+      id: "t4q39",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: Design a thought experiment to prove that Newton's Third Law is always true — even when one object is moving and another is stationary, or when objects have very different masses.",
+      correctAnswer:
+        "**Thought Experiment: The Space Scale**\n\nImagine two astronauts (A: 50 kg, B: 100 kg) floating motionless in space, connected by a spring scale (force meter) between them.\n\n**Test 1 — A pushes B:**\nA pushes B through the scale. The scale shows 200 N.\nQuestion: What force does B exert on A?\n\nThe scale reads 200 N on BOTH sides because the scale measures the tension in it — which is the same at both ends (Newton's Third Law). A pushes with 200 N on B; B pushes with 200 N on A.\n\nResult: A (lighter) accelerates away at a_A = 200/50 = 4 m/s²\nB (heavier) accelerates away at a_B = 200/100 = 2 m/s²\nA moves faster (Third Law: equal forces, Second Law: different masses).\n\n**Test 2 — Both push simultaneously:**\nBoth push each other with maximum effort. The scale still reads the same on both sides — always equal, always opposite.\n\n**Test 3 — Moving bodies:**\nA is moving at 5 m/s toward stationary B. They collide through the spring scale. During collision, the scale reads the same on both sides at every instant.\n\n**Why this proves Third Law universally:**\nThe spring scale is a physical measurement device between the two bodies. It cannot show different forces on its two ends (that would violate its own structural physics). In every test — different masses, moving or stationary, pushing or pulling — the scale confirms equal and opposite forces.\n\n**Real-world equivalent:** This is actually how force plates in physics labs work. Two surfaces connected by sensors always measure equal forces on both sides.",
+      explanation:
+        "The spring scale thought experiment provides direct physical evidence of force equality regardless of mass difference or motion state. It cannot show different readings on two ends — confirming the Third Law universally.",
+    },
+    {
+      id: "t4q40",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: A magician claims he can stand on a platform and levitate by pushing down on the platform with his hands while pulling up with his feet (since his feet are attached to the platform with straps). Can he fly? Analyze using Newton's Third Law and the concept of internal vs. external forces.",
+      correctAnswer:
+        "**The magician CANNOT fly.** Here's why:\n\n**System analysis:**\nThe magician + platform form a single system. All forces between the magician and platform are INTERNAL forces.\n\n**What happens when he pushes down with hands:**\n- Hands push platform down (action on platform)\n- Platform pushes hands up (reaction on hands)\n- These are internal forces — they cancel within the system\n\n**What happens when he pulls up with feet:**\n- Feet pull platform up (via straps — action on platform)\n- Platform pulls feet down (reaction on feet)\n- These are also internal forces — they cancel within the system\n\n**Net internal force on the system = 0**\n(Every push/pull within the system has an equal-opposite counterpart)\n\n**The only external force = Gravity (downward)**\n\nSince gravity is the only unbalanced external force, the system (magician + platform) will accelerate downward — it will fall, not levitate!\n\n**This is the 'Bootstrap Paradox':**\nYou cannot lift yourself by your own bootstraps (or any part of yourself). Internal forces always cancel. You need an EXTERNAL force to change your system's motion.\n\n**How real levitation tricks work:** Hidden wires (external upward force), electromagnetic platforms (external magnetic force), or compressed air jets (Third Law reaction from ejected air — an external interaction).\n\n**Key principle:** No system can accelerate without an external force. Internal forces, no matter how clever, always cancel within the system. This is a direct consequence of Newton's Third Law applied to systems.",
+      explanation:
+        "This is the definitive internal-vs-external force problem. The magician-platform system has only internal forces between its parts — these cancel. Only external forces (gravity, or a hidden wire) can change the system's motion. No internal trick can generate flight.",
     },
   ],
 };

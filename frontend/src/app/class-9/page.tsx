@@ -50,7 +50,14 @@ const ICON_STYLE_BY_SUBJECT: Record<string, string> = {
   "social-science":         "iconViolet",
   english:                  "iconAmber",
   hindi:                    "iconRed",
+  sanskrit:                 "iconAmber",
+  "information-technology":  "iconCyan",
+  "artificial-intelligence": "iconViolet",
   "computer-applications":  "iconCyan",
+  "physical-education":     "iconGreen",
+  "art-education":          "iconRed",
+  "work-education":         "iconAmber",
+  "health-physical-activity": "iconGreen",
 };
 
 /* ─────────────────────────────────────────────

@@ -32,11 +32,40 @@ export interface LearningPlan {
 
 const CLASS_9_SUBJECTS: Record<string, Omit<LearningPlan, "slug" | "backHref">> = {
   "mathematics": { title: "Mathematics", eyebrow: "Class 9", description: "Number systems, algebra, geometry, mensuration, and statistics foundations.", durationDays: 45, accent: "#2563EB", chapters: ["Number Systems", "Polynomials", "Coordinate Geometry", "Linear Equations", "Triangles", "Statistics"] },
-  "science": { title: "Science", eyebrow: "Class 9", description: "Physics, chemistry, and biology basics with practice checkpoints.", durationDays: 45, accent: "#059669", chapters: ["Matter in Our Surroundings", "Atoms and Molecules", "Motion", { slug: "force-and-laws-of-motion", name: "Force and Laws of Motion", description: "Newton's laws, inertia, momentum, conservation.", dayCount: 6, difficulty: "hard", questionCount: 25 }, "Cell Structure", "Natural Resources"] },
+  "science": {
+    title: "Science",
+    eyebrow: "Class 9",
+    description: "Complete NCERT Science — Physics, Chemistry, and Biology with deep explanations, real-life examples, and 20 questions per topic.",
+    durationDays: 90,
+    accent: "#059669",
+    chapters: [
+      { slug: "matter-in-our-surroundings", name: "Matter in Our Surroundings", description: "States of matter, particle nature, evaporation, and phase changes.", dayCount: 6, difficulty: "easy", questionCount: 20 },
+      { slug: "is-matter-around-us-pure", name: "Is Matter Around Us Pure?", description: "Mixtures, solutions, suspensions, colloids, and separation techniques.", dayCount: 6, difficulty: "easy", questionCount: 20 },
+      { slug: "atoms-and-molecules", name: "Atoms and Molecules", description: "Dalton's theory, atomic mass, molecular mass, mole concept.", dayCount: 7, difficulty: "medium", questionCount: 20 },
+      { slug: "structure-of-the-atom", name: "Structure of the Atom", description: "Thomson, Rutherford, Bohr models, electrons, protons, neutrons.", dayCount: 7, difficulty: "medium", questionCount: 20 },
+      { slug: "the-fundamental-unit-of-life", name: "The Fundamental Unit of Life", description: "Cell structure, organelles, plant vs animal cells.", dayCount: 6, difficulty: "easy", questionCount: 20 },
+      { slug: "tissues", name: "Tissues", description: "Plant and animal tissues, meristematic, permanent, epithelial, connective.", dayCount: 6, difficulty: "medium", questionCount: 20 },
+      { slug: "motion", name: "Motion", description: "Distance, displacement, speed, velocity, acceleration, graphs, equations.", dayCount: 7, difficulty: "medium", questionCount: 20 },
+      { slug: "force-and-laws-of-motion", name: "Force and Laws of Motion", description: "Newton's three laws, inertia, momentum, conservation of momentum.", dayCount: 8, difficulty: "hard", questionCount: 100 },
+      { slug: "gravitation", name: "Gravitation", description: "Universal law of gravitation, free fall, weight, mass, thrust, pressure.", dayCount: 7, difficulty: "hard", questionCount: 20 },
+      { slug: "work-and-energy", name: "Work and Energy", description: "Work, kinetic energy, potential energy, power, conservation of energy.", dayCount: 7, difficulty: "hard", questionCount: 20 },
+      { slug: "sound", name: "Sound", description: "Production, propagation, reflection, echo, ultrasound, human ear.", dayCount: 6, difficulty: "medium", questionCount: 20 },
+      { slug: "why-do-we-fall-ill", name: "Why Do We Fall Ill?", description: "Health, disease, infectious and non-infectious diseases, prevention.", dayCount: 5, difficulty: "easy", questionCount: 20 },
+      { slug: "natural-resources", name: "Natural Resources", description: "Air, water, soil pollution, biogeochemical cycles, ozone layer.", dayCount: 5, difficulty: "easy", questionCount: 20 },
+      { slug: "improvement-in-food-resources", name: "Improvement in Food Resources", description: "Crop improvement, animal husbandry, bee-keeping, fishery.", dayCount: 5, difficulty: "easy", questionCount: 20 },
+    ],
+  },
   "social-science": { title: "Social Science", eyebrow: "Class 9", description: "History, geography, civics, and economics in one organized revision path.", durationDays: 40, accent: "#7C3AED", chapters: ["French Revolution", "India Size and Location", "Democracy", "Poverty", "Drainage", "Climate"] },
   "english": { title: "English", eyebrow: "Class 9", description: "Reading, grammar, writing, and literature practice for stronger expression.", durationDays: 30, accent: "#D97706", chapters: ["Reading Skills", "Grammar Basics", "Writing Practice", "Beehive Prose", "Poetry", "Moments"] },
   "hindi": { title: "Hindi", eyebrow: "Class 9", description: "Literature, grammar, and writing practice with chapter-wise checkpoints.", durationDays: 30, accent: "#DC2626", chapters: ["Gadya", "Padya", "Vyakaran", "Lekhan", "Path Abhyas", "Revision"] },
+  "sanskrit": { title: "Sanskrit", eyebrow: "Class 9", description: "Shemushi textbook, grammar, shloka, and translation practice.", durationDays: 25, accent: "#B45309", chapters: ["Bharateevasantgeetih", "Svaranjanee", "Godohnam", "Kalpataruh", "Suktimouktikam", "Bhratrusnehe", "Prativatsyam", "Louhatulakooh", "Siktakakelikoushlam", "Jatayoh Shauryam"] },
+  "information-technology": { title: "Information Technology (IT)", eyebrow: "Class 9", description: "Computer systems, digital documentation, spreadsheets, presentations, and web apps.", durationDays: 25, accent: "#0EA5E9", chapters: ["Communication Skills", "Self-Management", "IT Tools", "Entrepreneurial Skills", "Green Skills", "Electronic Spreadsheet", "Digital Documentation", "Web Applications"] },
+  "artificial-intelligence": { title: "Artificial Intelligence (AI)", eyebrow: "Class 9", description: "Introduction to AI, machine learning, natural language processing, and ethics.", durationDays: 25, accent: "#8B5CF6", chapters: ["Introduction to AI", "AI Project Cycle", "Neural Networks", "AI Ethics", "Computer Vision", "Natural Language Processing", "AI Applications", "AI and Society"] },
   "computer-applications": { title: "Computer Applications", eyebrow: "Class 9", description: "Digital literacy, office tools, internet basics, and programming foundations.", durationDays: 25, accent: "#0891B2", chapters: ["Computer Basics", "Internet", "HTML", "Cyber Safety", "Spreadsheets", "Project"] },
+  "physical-education": { title: "Physical Education", eyebrow: "Class 9", description: "Health, fitness, yoga, sports rules, and physical wellness.", durationDays: 20, accent: "#16A34A", chapters: ["Physical Fitness", "Athletics", "Yoga", "Traditional Games", "Health Education", "First Aid"] },
+  "art-education": { title: "Art Education", eyebrow: "Class 9", description: "Visual arts, drawing, painting, and creative expression.", durationDays: 15, accent: "#EC4899", chapters: ["Elements of Art", "Drawing Techniques", "Painting", "Sculpture", "Indian Art Heritage"] },
+  "work-education": { title: "Work Education", eyebrow: "Class 9", description: "Practical skills, community service, and vocational awareness.", durationDays: 15, accent: "#F97316", chapters: ["Self-Help Skills", "Community Living", "Vocational Skills", "Productive Work", "Health and Hygiene"] },
+  "health-physical-activity": { title: "Health & Physical Activity", eyebrow: "Class 9", description: "Nutrition, mental health, hygiene, and active lifestyle.", durationDays: 15, accent: "#14B8A6", chapters: ["Nutrition Basics", "Mental Health Awareness", "Personal Hygiene", "Active Lifestyle", "Safety and First Aid"] },
 };
 
 const CLASS_10_SUBJECTS: Record<string, Omit<LearningPlan, "slug" | "backHref">> = {

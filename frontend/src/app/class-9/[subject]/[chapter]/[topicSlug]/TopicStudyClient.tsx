@@ -231,14 +231,62 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
  * parseMarkdown — Converts markdown content to HTML
  * ───────────────────────────────────────────── */
 function parseMarkdown(text: string): string {
+  const cleanMath = (math: string) => {
+    let m = math
+      .replace(/\x0Crac/g, "\\frac")
+      .replace(/\x09imes/g, "\\times")
+      .replace(/\x09ext/g, "\\text")
+      .replace(/\x0Bec/g, "\\vec")
+      .replace(/\x08oxed/g, "\\boxed")
+      .replace(/\x0Dightarrow/g, "\\rightarrow")
+      .replace(/\bDelta\b/g, "\\Delta")
+      .replace(/\bpropto\b/g, "\\propto")
+      .replace(/\bRightarrow\b/g, "\\Rightarrow")
+      .replace(/\bcdot\b/g, "\\cdot");
+
+    return m
+      .replace(/\\boxed{(.*?)}/g, '<span class="md-math-boxed">$1</span>')
+      .replace(/\\vec{(.*?)}/g, "$1")
+      .replace(/\\dot{(.*?)}/g, "$1̇")
+      .replace(/\\frac{(.*?)}{(.*?)}/g, "($1) / ($2)")
+      .replace(/\\text{(.*?)}/g, "$1")
+      .replace(/\\times/g, " × ")
+      .replace(/\\propto/g, " ∝ ")
+      .replace(/\\Rightarrow/g, " ⇒ ")
+      .replace(/\\cdot/g, " · ")
+      .replace(/\\Delta/g, "Δ")
+      .replace(/\\\\/g, "\\")
+      .replace(/_([a-zA-Z0-9{}]+)/g, (match, p1) => {
+        const clean = p1.replace(/[{}]/g, "");
+        if (clean === "1") return "₁";
+        if (clean === "2") return "₂";
+        if (clean === "net") return "<sub>net</sub>";
+        if (clean === "exhaust") return "<sub>exhaust</sub>";
+        if (clean === "AB") return "<sub>AB</sub>";
+        if (clean === "BA") return "<sub>BA</sub>";
+        if (clean === "total") return "<sub>total</sub>";
+        if (clean === "before") return "<sub>before</sub>";
+        if (clean === "after") return "<sub>after</sub>";
+        return `<sub>${clean}</sub>`;
+      })
+      .replace(/\^([a-zA-Z0-9{}]+)/g, (match, p1) => {
+        const clean = p1.replace(/[{}]/g, "");
+        if (clean === "2") return "²";
+        return `<sup>${clean}</sup>`;
+      })
+      .replace(/\(([^()]+)\) \/ \(([^()]+)\)/g, "$1 / $2")
+      .trim();
+  };
+
   let html = text
+    .replace(/!\[(.*?)\]\((.*?)\)/gim, '<div class="md-img-container"><img src="$2" alt="$1" class="md-img" /><span class="md-img-caption">$1</span></div>')
     .replace(/^#### (.*$)/gim, '<h4 class="md-h4">$1</h4>')
     .replace(/^### (.*$)/gim, '<h3 class="md-h3">$1</h3>')
     .replace(/\*\*(.*?)\*\*/gim, "<strong>$1</strong>")
     .replace(/\*(.*?)\*/gim, "<em>$1</em>")
     .replace(/^> (.*$)/gim, '<blockquote class="md-quote">$1</blockquote>')
-    .replace(/\$\$(.*?)\$\$/gim, '<code class="md-math-block">$1</code>')
-    .replace(/\$(.*?)\$/gim, '<code class="md-math">$1</code>')
+    .replace(/\$\$(.*?)\$\$/gim, (match, math) => `<code class="md-math-block">${cleanMath(math)}</code>`)
+    .replace(/\$(.*?)\$/gim, (match, math) => `<code class="md-math">${cleanMath(math)}</code>`)
     .replace(/^\d+\. (.*$)/gim, '<li class="md-li-ordered">$1</li>')
     .replace(/^\* (.*$)/gim, '<li class="md-li">$1</li>')
     .replace(/\n\n/gim, "</p><p>")

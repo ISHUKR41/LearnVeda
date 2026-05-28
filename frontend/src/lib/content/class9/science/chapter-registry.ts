@@ -40,6 +40,7 @@ export const SCIENCE_CHAPTERS: Record<string, Chapter> = {
   /* Chapter 9 — Force and Laws of Motion */
   "force-and-laws-of-motion": forceAndLawsOfMotion,
   "force-laws-of-motion": forceAndLawsOfMotion,
+  "force-laws-motion": forceAndLawsOfMotion,
   "force-and-laws": forceAndLawsOfMotion,
 };
 
