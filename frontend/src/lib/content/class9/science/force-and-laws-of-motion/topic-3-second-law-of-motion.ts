@@ -1,207 +1,463 @@
 /**
  * FILE: topic-3-second-law-of-motion.ts
- * PURPOSE: Deep research content for Topic 3 of Force & Laws of Motion.
- *          Contains highly detailed explanations and 20 categorized questions.
- *          Modularized to ensure production-level scalability and readability.
+ * LOCATION: src/lib/content/class9/science/force-and-laws-of-motion/topic-3-second-law-of-motion.ts
+ * PURPOSE: Deep, richly detailed content for Topic 3 — Newton's Second Law of Motion
+ *          (F = ma). Covers momentum, impulse, and the mathematical relationship
+ *          between force, mass, and acceleration with full derivation and applications.
+ * CURRICULUM: CBSE Class 9 Science, Chapter 9 — Force & Laws of Motion
+ * LAST UPDATED: 2026-05-28
  */
 import { Topic } from "./types";
 
 export const secondLawOfMotion: Topic = {
-  /* ═══════════════════════════════════════════
-   * TOPIC 3: Newton's Second Law of Motion (F = ma)
-     * ═══════════════════════════════════════════ */
-      id: 'second-law-of-motion',
-      title: "3. Newton's Second Law of Motion (F = ma)",
-      estimatedMinutes: 35,
-      imageUrl: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=800',
-      content: `
-### The Big Question the First Law Didn't Answer
-Newton's First Law told us that unbalanced forces cause acceleration. But it didn't tell us **how much** acceleration! If you push a cart gently, it moves slowly. If you push it hard, it flies forward. The Second Law gives us the precise mathematical relationship.
+  id: "second-law-of-motion",
+  title: "3. Newton's Second Law of Motion (F = ma)",
+  estimatedMinutes: 40,
+  imageUrl:
+    "https://images.unsplash.com/photo-1581093196277-9f608bb3b511?auto=format&fit=crop&q=80&w=1200",
 
-### What is Momentum?
-Before understanding the Second Law, we need to understand **Momentum**. 
-> **Momentum (p)** = Mass × Velocity = **m × v**
+  content: `
+### The Question Newton's First Law Left Unanswered
 
-Think of it this way: What is more dangerous — being hit by a bicycle going at 20 km/h or a truck going at 20 km/h? Obviously the truck! Even though both have the same speed, the truck has far more mass, and therefore far more momentum. Momentum is the "quantity of motion" an object has.
+Newton's First Law told us something critical: **an unbalanced force changes an object's motion**. But it left the most important question unanswered:
 
-* **Units:** kg·m/s (kilogram meter per second)
-* **Key Insight:** Momentum is a **vector** — it has both magnitude and direction.
+*"How much change? How exactly does force relate to the resulting acceleration?"*
 
-#### Real-World Examples of Momentum
-* A bullet has high momentum despite its small mass because its velocity is enormous (~900 m/s).
-* A slow-moving loaded truck has high momentum because of its massive weight.
-* A stationary object has zero momentum (v = 0, so p = m × 0 = 0).
+If you push a shopping cart gently, it rolls slowly. If you push it hard, it shoots forward. Clearly the amount of force matters. Newton's Second Law gives us the precise, mathematical answer.
 
-### Newton's Second Law — The Equation
-> **"The rate of change of momentum of an object is directly proportional to the unbalanced force applied and takes place in the direction of the force."**
+---
+
+### First: What is Momentum?
+
+Before we state the Second Law, we need to understand **Momentum** — one of the most fundamental concepts in all of physics.
+
+> **Momentum (p)** = Mass × Velocity
+> $$p = m \times v$$
+
+Momentum represents the **"quantity of motion"** an object possesses. It captures both how heavy something is and how fast it's going.
+
+**Real-life intuition:**
+* A slow-moving truck vs. a fast-moving ping pong ball — which is harder to stop? The truck! It has far more momentum because of its enormous mass, even at low speed.
+* At equal speeds, a 10-tonne truck has 10,000 times more momentum than a 1 kg object.
+
+**Properties of Momentum:**
+* **Vector quantity** — has both magnitude and direction (same direction as velocity)
+* **SI Unit:** kg·m/s (kilograms × metres per second)
+* **Can be zero** — a stationary object (v = 0) has zero momentum regardless of mass
+
+#### Momentum Examples:
+| Object | Mass | Velocity | Momentum |
+|---|---|---|---|
+| Cricket ball bowled fast | 0.16 kg | 40 m/s | 6.4 kg·m/s |
+| Loaded truck | 5000 kg | 20 m/s | 100,000 kg·m/s |
+| Bullet from gun | 0.01 kg | 800 m/s | 8 kg·m/s |
+| Person walking | 60 kg | 1.5 m/s | 90 kg·m/s |
+
+---
+
+### Newton's Second Law — The Derivation
+
+Newton's original statement was in terms of momentum:
+
+> **"The rate of change of momentum of an object is directly proportional to the applied unbalanced force, and takes place in the direction of the force."**
 
 Mathematically:
-$$F = \\frac{\\Delta p}{\\Delta t} = \\frac{m(v - u)}{t} = m \\times a$$
 
-Where:
-* **F** = Force applied (in Newtons, N)
-* **m** = Mass of the object (in kg)
-* **a** = Acceleration produced (in m/s²)
-* **u** = Initial velocity
-* **v** = Final velocity
-* **t** = Time taken
+$$F \propto \frac{\Delta p}{\Delta t}$$
 
-### What Does F = ma Actually Mean?
-This is the most important equation in all of mechanics. It tells us three things:
+Now let's derive **F = ma** from this:
 
-1. **More force → More acceleration**: If you push harder, the object speeds up faster.
-2. **More mass → Less acceleration**: A heavier object is harder to accelerate (it has more inertia!).
-3. **Force and acceleration are in the same direction**: Push right, it accelerates right.
+**Step 1:** Change in momentum:
+$$\Delta p = p_f - p_i = mv_f - mv_i = m(v_f - v_i)$$
 
-### Why Does a Cricket Player Move Their Hands Backwards While Catching?
-When a fast cricket ball hits your hands, it has a lot of momentum. To stop the ball, you need to reduce its momentum to zero. By pulling your hands backward, you **increase the time** over which the ball's momentum changes. Since F = Δp/Δt, increasing time *decreases* the force on your hands, preventing injury.
+where $v_i$ = initial velocity, $v_f$ = final velocity
 
-### 1 Newton Defined
-From F = ma, we can define: **1 Newton is the force required to give a mass of 1 kg an acceleration of 1 m/s².**
+**Step 2:** Rate of change of momentum:
+$$\frac{\Delta p}{\Delta t} = \frac{m(v_f - v_i)}{\Delta t} = m \times \frac{(v_f - v_i)}{\Delta t}$$
 
-$$1 \\ N = 1 \\ kg \\times 1 \\ m/s^2$$
+**Step 3:** Recall that acceleration $a = \frac{v_f - v_i}{\Delta t}$, so:
+$$\frac{\Delta p}{\Delta t} = m \times a$$
 
-### Numerical Problem Example
-**Problem:** A car of mass 1000 kg is moving at 20 m/s. The driver applies brakes and the car stops in 5 seconds. Calculate the braking force.
+**Step 4:** Force is proportional to this rate of change:
+$$F \propto ma$$
+
+Using the SI unit definition of Newton (choosing the proportionality constant = 1):
+
+$$\boxed{F = ma}$$
+
+---
+
+### Understanding F = ma — Three Key Relationships
+
+This single equation tells us three profound things:
+
+#### Relationship 1: Force ∝ Acceleration (if mass is constant)
+**For the same mass, more force = more acceleration.**
+
+$$a = \frac{F}{m}$$
+
+**Example:** Push a bicycle with 50 N → modest acceleration. Push the same bicycle with 200 N → 4× the acceleration (quadruple!). The bicycle's mass hasn't changed.
+
+#### Relationship 2: Acceleration ∝ 1/Mass (if force is constant)
+**For the same force, more mass = less acceleration.**
+
+**Example:** Push a bicycle and a truck with the same 200 N force. The bicycle (20 kg) accelerates at 10 m/s². The truck (5000 kg) accelerates at only 0.04 m/s². Same force, wildly different acceleration because of different masses.
+
+This is mathematically the definition of inertia: heavy objects resist acceleration.
+
+#### Relationship 3: Force = Product of Both
+**Acceleration = Force ÷ Mass — both matter.**
+
+**Example calculation:**
+A 500 kg car has a net force of 2000 N applied to it. What is the acceleration?
+$$a = \frac{F}{m} = \frac{2000 \text{ N}}{500 \text{ kg}} = 4 \text{ m/s}^2$$
+
+---
+
+### What is Impulse?
+
+Newton's Second Law in terms of momentum leads directly to the concept of **Impulse**:
+
+$$F = \frac{\Delta p}{\Delta t}$$
+$$F \times \Delta t = \Delta p$$
+
+**Impulse (J)** = Force × Time = Change in momentum
+
+$$\boxed{J = F \cdot \Delta t = \Delta p = m(v_f - v_i)}$$
+
+**Key insight:** You can achieve the SAME change in momentum (same impulse) by either:
+* Applying a **large force for a short time**, OR
+* Applying a **small force for a long time**
+
+This is the most practically important aspect of the Second Law!
+
+---
+
+### Impulse in Real Life — This Saves and Destroys!
+
+#### Why Cricketers Pull Their Hands Back When Catching a Fast Ball
+
+A cricket ball hits your hands with a certain momentum. To stop the ball, you must apply an impulse equal to that momentum (in the opposite direction). $J = F \times t = \Delta p$ (constant).
+
+If you keep your hands rigid (short $\Delta t$), you need a VERY LARGE force $F$ to produce that impulse in a short time → **Painful!** Could injure your hand.
+
+If you pull your hands backward as the ball arrives (large $\Delta t$), you need only a SMALL force to produce the same impulse → **Comfortable and safe!**
+
+The ball still stops — the momentum change is the same. But the force is spread over more time.
+
+#### Why Airbags in Cars Save Lives
+
+In a crash, a passenger's momentum must be reduced to zero. A bare steering wheel stops the person in perhaps 0.01 seconds (very short $\Delta t$) → enormous force → severe injury or death.
+
+An airbag extends the stopping time to perhaps 0.1 seconds (10× longer) → force reduced by 10× → far less injury.
+
+Same impulse required (same momentum to eliminate), but the airbag extends the time to make the force survivable.
+
+#### Why Karate Experts Break Bricks with Short Impact Time
+
+Counterintuitively, karate experts do the OPPOSITE. They want maximum force. By striking in a very short time ($\Delta t$ very small), for a given momentum ($\Delta p$ = striking force × time), they maximize force:
+
+$$F = \frac{\Delta p}{\Delta t}$$
+
+Short $\Delta t$ → enormous $F$ → enough to break the brick!
+
+#### Why High Jumpers Land on Foam Mats, Not Concrete
+
+Same principle as cricket catching. The foam mat deforms, extending the time of impact, reducing the peak force on the athlete's body.
+
+---
+
+### Worked Problems — Step by Step
+
+#### Problem 1: Basic F = ma
+**Question:** What force is needed to give a 2 kg ball an acceleration of 5 m/s²?
 
 **Solution:**
-- m = 1000 kg, u = 20 m/s, v = 0 m/s, t = 5 s
-- a = (v - u) / t = (0 - 20) / 5 = -4 m/s²
-- F = m × a = 1000 × (-4) = **-4000 N**
-- The negative sign means the force acts in the opposite direction of motion (braking force).
-      `,
-      questions: [
-        /* ── MCQs (5) ── */
-        {
-          id: 'q41', type: 'mcq', points: 10,
-          question: "Newton's Second Law of Motion gives us the relationship between:",
-          options: ['Speed and distance', 'Force, mass, and acceleration', 'Action and reaction forces', 'Inertia and friction'],
-          correctAnswer: 'Force, mass, and acceleration',
-          explanation: "The Second Law states F = ma, connecting force, mass, and acceleration."
-        },
-        {
-          id: 'q42', type: 'mcq', points: 10,
-          question: 'A force of 10 N acts on a body of mass 2 kg. The acceleration produced is:',
-          options: ['5 m/s²', '20 m/s²', '0.2 m/s²', '12 m/s²'],
-          correctAnswer: '5 m/s²',
-          explanation: 'Using F = ma → a = F/m = 10/2 = 5 m/s².'
-        },
-        {
-          id: 'q43', type: 'mcq', points: 10,
-          question: 'The SI unit of momentum is:',
-          options: ['N·s', 'kg·m/s', 'kg·m/s²', 'Both A and B'],
-          correctAnswer: 'Both A and B',
-          explanation: 'Momentum = mass × velocity = kg·m/s. Also, since F = Δp/Δt, N·s = kg·m/s. Both are equivalent.'
-        },
-        {
-          id: 'q44', type: 'mcq', points: 10,
-          question: 'If the same force is applied to two objects of masses 5 kg and 10 kg, which will accelerate more?',
-          options: ['The 10 kg object', 'The 5 kg object', 'Both accelerate equally', 'Neither will accelerate'],
-          correctAnswer: 'The 5 kg object',
-          explanation: 'a = F/m. With the same force, the lighter object has greater acceleration.'
-        },
-        {
-          id: 'q45', type: 'mcq', points: 10,
-          question: 'A cricket player moves his hands backward while catching a ball. This is to:',
-          options: ['Increase the force on the ball', 'Decrease the time of impact', 'Increase the time of impact, reducing force', 'Change the direction of the ball'],
-          correctAnswer: 'Increase the time of impact, reducing force',
-          explanation: "F = Δp/Δt. By increasing Δt, the force F decreases, protecting the player's hands."
-        },
+$$F = ma = 2 \text{ kg} \times 5 \text{ m/s}^2 = 10 \text{ N}$$
 
-        /* ── Short Answer (5) ── */
-        {
-          id: 'q46', type: 'short', points: 15,
-          question: 'Define momentum. Write its formula and SI unit.',
-          correctAnswer: 'Momentum is the product of mass and velocity of a moving body. Formula: p = m × v. SI unit: kg·m/s.',
-          explanation: 'Momentum measures the "quantity of motion" an object possesses.'
-        },
-        {
-          id: 'q47', type: 'short', points: 15,
-          question: "State Newton's Second Law of Motion.",
-          correctAnswer: 'The rate of change of momentum of an object is directly proportional to the applied unbalanced force, and takes place in the direction of the force. Mathematically, F = ma.',
-          explanation: 'The law connects force to the rate of change of momentum.'
-        },
-        {
-          id: 'q48', type: 'short', points: 15,
-          question: 'Define one Newton of force.',
-          correctAnswer: 'One Newton is the force required to give a mass of 1 kilogram an acceleration of 1 metre per second squared. 1 N = 1 kg × 1 m/s².',
-          explanation: 'Derived directly from F = ma.'
-        },
-        {
-          id: 'q49', type: 'short', points: 15,
-          question: 'Why is it easier to stop a tennis ball than a cricket ball moving at the same speed?',
-          correctAnswer: 'A tennis ball has less mass than a cricket ball. Since momentum = mass × velocity, the tennis ball has less momentum. Less momentum means less force is needed to stop it (F = Δp/Δt).',
-          explanation: 'Relates mass to momentum and the force required to change it.'
-        },
-        {
-          id: 'q50', type: 'short', points: 15,
-          question: "How does Newton's Second Law include the First Law as a special case?",
-          correctAnswer: 'When F = 0 (no unbalanced force), then ma = 0, which means a = 0 (no acceleration). An object with zero acceleration maintains its state of rest or uniform motion — which is exactly the First Law!',
-          explanation: 'Shows mathematical relationship between the two laws.'
-        },
+#### Problem 2: Finding Acceleration
+**Question:** A net force of 300 N acts on a 60 kg person. What is their acceleration?
 
-        /* ── Long Answer (5) ── */
-        {
-          id: 'q51', type: 'long', points: 20,
-          question: "Derive the mathematical expression for Newton's Second Law of Motion: F = ma.",
-          correctAnswer: "Consider an object of mass m. Let its initial velocity be u and final velocity be v after time t. Initial momentum = mu. Final momentum = mv. Change in momentum = mv - mu = m(v - u). Rate of change of momentum = m(v-u)/t. But (v-u)/t = acceleration (a). So rate of change of momentum = ma. According to Newton's Second Law, Force is proportional to rate of change of momentum: F ∝ ma. In SI units, the constant of proportionality is 1, so F = ma.",
-          explanation: 'Step-by-step derivation from the definition of momentum.'
-        },
-        {
-          id: 'q52', type: 'long', points: 20,
-          question: 'A truck of mass 5000 kg is moving at 36 km/h. Calculate: (a) the momentum of the truck, (b) the force required to stop it in 10 seconds.',
-          correctAnswer: "(a) First, convert 36 km/h to m/s: 36 × (5/18) = 10 m/s. Momentum p = mv = 5000 × 10 = 50,000 kg·m/s. (b) u = 10 m/s, v = 0, t = 10 s. a = (v-u)/t = (0-10)/10 = -1 m/s². F = ma = 5000 × (-1) = -5000 N. The braking force required is 5000 N acting opposite to the direction of motion.",
-          explanation: 'Numerical problem combining momentum and force calculations.'
-        },
-        {
-          id: 'q53', type: 'long', points: 20,
-          question: "Explain why karate experts break bricks with their bare hands without injury, using Newton's Second Law.",
-          correctAnswer: "Karate experts strike the bricks with extremely high velocity, delivering maximum momentum in an extremely short time interval. Since F = Δp/Δt, a very small Δt creates a very large force that breaks the bricks. For the expert's hand, the bricks break before the hand decelerates significantly, meaning the reaction time on the hand is also very short but the momentum change of the hand is distributed. Additionally, the hand is conditioned and the strike is concentrated on a small area, maximizing pressure.",
-          explanation: 'Connects force, momentum, and time in a dramatic real-world example.'
-        },
-        {
-          id: 'q54', type: 'long', points: 20,
-          question: 'Two objects have the same momentum. Object A has a mass of 2 kg and Object B has a mass of 10 kg. Compare their velocities and accelerations if the same force is applied.',
-          correctAnswer: "Since p = mv and both have the same momentum: 2 × vA = 10 × vB, so vA = 5 × vB. Object A must be moving 5 times faster than Object B. If the same force F is applied to both: aA = F/2, aB = F/10. So aA = 5 × aB. Object A will accelerate 5 times more than Object B because it has less mass (less inertia).",
-          explanation: 'Compares momentum and acceleration for objects of different masses.'
-        },
-        {
-          id: 'q55', type: 'long', points: 20,
-          question: 'Explain why a fielder gradually pulls back his hands while catching a fast-moving ball.',
-          correctAnswer: "A fast-moving cricket ball has significant momentum (p = mv). To catch it, the fielder must bring the ball's velocity to zero, i.e., change its momentum completely. The required change in momentum (Δp) is fixed. From F = Δp/Δt, if the fielder keeps his hands rigid (very small Δt), the force on his hands will be extremely large, potentially causing injury. By pulling the hands backward, the fielder increases the time interval (Δt) over which the ball's momentum changes to zero. This significantly reduces the impact force, making the catch safe and painless.",
-          explanation: "Classic NCERT application of Newton's Second Law."
-        },
+**Solution:**
+$$a = \frac{F}{m} = \frac{300 \text{ N}}{60 \text{ kg}} = 5 \text{ m/s}^2$$
 
-        /* ── Thinking / HOTS (5) ── */
-        {
-          id: 'q56', type: 'thinking', points: 25,
-          question: 'If the mass of an object is doubled and the force applied remains the same, what happens to the acceleration? What happens if the force is also doubled?',
-          correctAnswer: "From F = ma: If mass doubles and force stays the same, a = F/(2m), so acceleration becomes half. If force is also doubled, a = 2F/(2m) = F/m, so acceleration remains the same as the original. This shows that acceleration depends on the RATIO of force to mass.",
-          explanation: 'Tests proportional reasoning with the Second Law equation.'
-        },
-        {
-          id: 'q57', type: 'thinking', points: 25,
-          question: 'A bullet of mass 20g is fired from a gun at 500 m/s. The gun has a mass of 4 kg. Why does the gun recoil much slower than the bullet?',
-          correctAnswer: "When the bullet is fired, the force on the bullet (forward) equals the force on the gun (backward) by Newton's Third Law. But F = ma: For the bullet, 500 = F/(0.02) → F = 10 N. For the gun, a = F/m = 10/4 = 2.5 m/s². So the gun's acceleration is 2.5 m/s² compared to the bullet's acceleration of 500 m/s². The gun recoils much slower because it has 200 times more mass, giving it 200 times less acceleration for the same force.",
-          explanation: "Combines Second and Third Laws in a single problem."
-        },
-        {
-          id: 'q58', type: 'thinking', points: 25,
-          question: "An astronaut in outer space pushes a 100 kg satellite with a force of 50 N. The astronaut's mass is 80 kg. What happens to both the astronaut and the satellite?",
-          correctAnswer: "The satellite accelerates: a = F/m = 50/100 = 0.5 m/s² (away from the astronaut). By Newton's Third Law, the satellite pushes back on the astronaut with 50 N. The astronaut accelerates: a = 50/80 = 0.625 m/s² (away from the satellite). Both drift apart! The lighter astronaut actually accelerates faster than the heavier satellite, which is a counterintuitive but important result of F = ma.",
-          explanation: "Tests application of Newton's laws in zero-gravity conditions."
-        },
-        {
-          id: 'q59', type: 'thinking', points: 25,
-          question: 'Why are cars designed with "crumple zones" in the front and back? Explain using the concept of force and time.',
-          correctAnswer: "In a collision, the car must stop (momentum must change to zero). Crumple zones are designed to crush slowly and gradually during impact, increasing the time over which the collision occurs. From F = Δp/Δt, increasing the collision time Δt dramatically reduces the peak force F on the passengers. A rigid car would stop almost instantly (tiny Δt), creating enormous force. The crumple zone trades structural damage for passenger safety by spreading the deceleration over a longer period.",
-          explanation: 'Engineering application of impulse-momentum theorem.'
-        },
-        {
-          id: 'q60', type: 'thinking', points: 25,
-          question: 'Two identical balls, A and B, are dropped from the same height. Ball A lands on concrete and bounces back. Ball B lands on soft sand and stops. Which ball experiences a greater change in momentum? Which ball experiences a greater force?',
-          correctAnswer: "Ball A experiences GREATER change in momentum because it bounces back (its velocity reverses direction), so Δp = m(v) - m(-v) = 2mv. Ball B simply stops, so Δp = mv. However, Ball A also experiences a GREATER force during the bounce because the time of contact with concrete is very short, and the momentum change is larger. Ball B experiences less force because sand increases the contact time AND the momentum change is smaller.",
-          explanation: 'Distinguishes between momentum change and force — a common HOTS question.'
-        }
-      ]
-    };
+#### Problem 3: Impulse and Momentum
+**Question:** A 0.5 kg ball is moving at 20 m/s. It is stopped in 0.1 seconds. What average force was applied?
+
+**Solution:**
+$$\Delta p = m(v_f - v_i) = 0.5 \times (0 - 20) = -10 \text{ kg·m/s}$$
+$$F = \frac{\Delta p}{\Delta t} = \frac{-10}{0.1} = -100 \text{ N}$$
+
+The negative sign means the force was opposite to the ball's direction (deceleration). Magnitude: **100 N**.
+
+#### Problem 4: The Definition of 1 Newton
+**Question:** Confirm: why is 1 N defined as the force to accelerate 1 kg at 1 m/s²?
+
+**Solution:**
+$$F = ma = 1 \text{ kg} \times 1 \text{ m/s}^2 = 1 \text{ N}$$
+
+This is the definition — Newton's Second Law itself defines the unit!
+
+---
+
+### The Second Law vs. The First Law — How They Connect
+
+Newton's First Law is actually a **special case** of the Second Law:
+
+If $F_{net} = 0$:
+$$F = ma \Rightarrow 0 = ma \Rightarrow a = 0$$
+
+Zero acceleration means constant velocity (or rest). That IS Newton's First Law!
+
+The First Law is just the Second Law applied when $F = 0$.
+
+---
+
+### Why This Law is So Powerful
+
+**F = ma** is arguably the most important equation in classical mechanics. With it, you can:
+* Calculate exactly how fast a rocket accelerates given its thrust
+* Predict stopping distances of vehicles
+* Design safer cars with airbags and crumple zones
+* Understand why planets orbit the Sun
+* Calculate the trajectory of a cannonball
+
+From the motion of electrons to the orbit of galaxies, $F = ma$ (in various forms) applies everywhere in classical physics.
+  `,
+
+  questions: [
+    /* ── 5 MCQs ── */
+    {
+      id: "t3q1",
+      type: "mcq",
+      points: 10,
+      question:
+        "A net force of 15 N acts on a 3 kg object. What is its acceleration?",
+      options: ["5 m/s²", "45 m/s²", "0.2 m/s²", "18 m/s²"],
+      correctAnswer: "5 m/s²",
+      explanation:
+        "Using F = ma: a = F/m = 15 N ÷ 3 kg = 5 m/s². Always divide force by mass to get acceleration.",
+    },
+    {
+      id: "t3q2",
+      type: "mcq",
+      points: 10,
+      question:
+        "A cricket player pulls their hands backward while catching a fast ball. This technique is based on:",
+      options: [
+        "Increasing the momentum of the ball",
+        "Increasing the time of impact to reduce the force on hands",
+        "Decreasing the speed of the ball before it arrives",
+        "Reducing the mass of the ball",
+      ],
+      correctAnswer:
+        "Increasing the time of impact to reduce the force on hands",
+      explanation:
+        "From F = Δp/Δt: if Δp (change in momentum to stop the ball) is constant, increasing Δt (time of impact) decreases F (force on hands). Pulling back increases impact time, reducing the painful stopping force.",
+    },
+    {
+      id: "t3q3",
+      type: "mcq",
+      points: 10,
+      question:
+        "The SI unit of momentum is:",
+      options: ["Newton (N)", "kg·m/s²", "kg·m/s", "Joule (J)"],
+      correctAnswer: "kg·m/s",
+      explanation:
+        "Momentum = mass × velocity = kg × m/s = kg·m/s. It is not Newtons (which is kg·m/s², the unit of force).",
+    },
+    {
+      id: "t3q4",
+      type: "mcq",
+      points: 10,
+      question:
+        "A 1000 kg car accelerates at 2 m/s². What net force acts on the car?",
+      options: ["500 N", "1998 N", "2000 N", "0.002 N"],
+      correctAnswer: "2000 N",
+      explanation:
+        "F = ma = 1000 kg × 2 m/s² = 2000 N. This is the net (resultant) forward force after accounting for all resistive forces.",
+    },
+    {
+      id: "t3q5",
+      type: "mcq",
+      points: 10,
+      question:
+        "If the same force is applied to objects of masses 2 kg, 5 kg, and 10 kg, which one gets the greatest acceleration?",
+      options: ["10 kg", "5 kg", "2 kg", "All get equal acceleration"],
+      correctAnswer: "2 kg",
+      explanation:
+        "a = F/m. For the same force, the object with the SMALLEST mass gets the greatest acceleration (a ∝ 1/m). The 2 kg object has the least mass → greatest acceleration.",
+    },
+
+    /* ── 5 Short Answer ── */
+    {
+      id: "t3q6",
+      type: "short",
+      points: 15,
+      question:
+        "State Newton's Second Law of Motion and write the mathematical formula that is derived from it.",
+      correctAnswer:
+        "Newton's Second Law states: The rate of change of momentum of an object is directly proportional to the net applied unbalanced force and occurs in the direction of the force. Mathematically: F = ma (Force = mass × acceleration), derived from F ∝ Δp/Δt = m(v-u)/t = ma.",
+      explanation:
+        "The verbal statement + the mathematical expression F = ma + ideally showing the derivation steps linking momentum to F = ma.",
+    },
+    {
+      id: "t3q7",
+      type: "short",
+      points: 15,
+      question:
+        "Define momentum. A motorcycle (mass 200 kg) moves at 15 m/s. Calculate its momentum.",
+      correctAnswer:
+        "Momentum (p) = mass × velocity. It is the quantity of motion of an object and is a vector. p = mv = 200 kg × 15 m/s = 3000 kg·m/s in the direction of motion.",
+      explanation:
+        "Definition + formula + correct calculation with units. The direction component (vector) is worth mentioning.",
+    },
+    {
+      id: "t3q8",
+      type: "short",
+      points: 15,
+      question:
+        "What is impulse? How is it related to force and time? Give a real-life example.",
+      correctAnswer:
+        "Impulse = Force × Time = Change in Momentum (J = FΔt = Δp). Impulse is the total effect of a force acting over a period of time. Example: Airbags in cars — they extend the time of impact during a crash, reducing the force on passengers for the same change in momentum, preventing injury.",
+      explanation:
+        "Definition + formula (J = FΔt = Δp) + valid real-life example showing the force-time trade-off.",
+    },
+    {
+      id: "t3q9",
+      type: "short",
+      points: 15,
+      question:
+        "How does Newton's Second Law explain why a gun recoils when fired?",
+      correctAnswer:
+        "When a gun fires, it exerts a large force on the bullet. By Newton's Third Law, the bullet exerts an equal and opposite force on the gun. From F = ma: the gun (much larger mass than bullet) experiences a much smaller acceleration (recoil) backward. The bullet (small mass) experiences a large forward acceleration. The gun recoils because the backward force from the explosion acts on the gun's mass, giving it backward momentum.",
+      explanation:
+        "Connects Second Law (F = ma with different masses) and Third Law (action-reaction). The mass difference explains why the gun recoils slowly while the bullet accelerates rapidly.",
+    },
+    {
+      id: "t3q10",
+      type: "short",
+      points: 15,
+      question:
+        "Show that Newton's First Law is a special case of Newton's Second Law.",
+      correctAnswer:
+        "Newton's Second Law: F = ma. If the net force F = 0, then: 0 = ma → a = 0 (since mass m ≠ 0). Zero acceleration means the velocity does not change — the object remains at rest (if v=0) or continues at constant velocity (if v≠0). This is exactly Newton's First Law! The First Law is simply the Second Law applied in the case of zero net force.",
+      explanation:
+        "Mathematical derivation showing F = 0 → a = 0 → constant velocity (or rest) = First Law. This elegant proof earns full marks.",
+    },
+
+    /* ── 5 Long Answer ── */
+    {
+      id: "t3q11",
+      type: "long",
+      points: 20,
+      question:
+        "Derive Newton's Second Law (F = ma) mathematically starting from the definition of momentum. Clearly show each step.",
+      correctAnswer:
+        "Step 1: Define momentum. Momentum p = mv (mass × velocity). Step 2: Newton's original statement — force is proportional to the RATE OF CHANGE of momentum: F ∝ Δp/Δt. Step 3: Calculate change in momentum: Δp = mv₂ − mv₁ = m(v₂ − v₁). [Assuming constant mass] Step 4: Substitute: F ∝ m(v₂ − v₁)/Δt. Step 5: Recognize (v₂ − v₁)/Δt = a (acceleration by definition). Step 6: Therefore F ∝ ma. Step 7: Choosing the SI proportionality constant = 1 (which defines the Newton unit): F = ma. VERIFICATION: 1 N = 1 kg × 1 m/s² — the unit of Newton is defined to make this constant exactly 1.",
+      explanation:
+        "All derivation steps must be clearly shown. Starting from p = mv, through rate of change, through identifying acceleration, to F = ma.",
+    },
+    {
+      id: "t3q12",
+      type: "long",
+      points: 20,
+      question:
+        "Explain the concept of impulse (J = FΔt) with detailed examples showing why extending the time of impact reduces injury in sports and car safety design.",
+      correctAnswer:
+        "Impulse = F × Δt = Δp (change in momentum). The key insight: to achieve a given change in momentum (Δp, which is FIXED by the physical situation), if you increase Δt, you decrease F, and vice versa. SPORTS: (1) Cricket fielder catching: must reduce ball's momentum to zero. By pulling hands back, Δt increases → F decreases → less pain. (2) Long jump landing: foam pit instead of hard ground increases Δt of deceleration → reduces peak force on joints. CAR SAFETY: (1) Airbags: inflate to slow passengers over 0.1s instead of 0.01s → force reduced ~10× for same Δp. (2) Crumple zones: front of car designed to crumple (deform) on impact → crash duration increases from 0.05s to 0.1s → force on passengers halved. (3) Seatbelts: stretch slightly to extend stopping time of body. All these designs share the same physics: same impulse (momentum change), longer time, smaller force.",
+      explanation:
+        "The formula J = FΔt = Δp must be central. Multiple examples from sports and vehicle safety. The physics must be explicitly linked: same Δp, longer Δt, smaller F.",
+    },
+    {
+      id: "t3q13",
+      type: "long",
+      points: 20,
+      question:
+        "A 5 kg ball is moving at 10 m/s. A force brings it to rest in (a) 0.1 seconds and (b) 2 seconds. Calculate the average force needed in each case. What does the comparison reveal?",
+      correctAnswer:
+        "Initial momentum: p = mv = 5 kg × 10 m/s = 50 kg·m/s. Final momentum = 0 (at rest). Change in momentum: Δp = 50 − 0 = 50 kg·m/s (magnitude). CASE (a): Δt = 0.1 s. F = Δp/Δt = 50/0.1 = 500 N. CASE (b): Δt = 2 s. F = Δp/Δt = 50/2 = 25 N. COMPARISON: The same momentum change requires 500 N if done in 0.1s, but only 25 N if done in 2s — a 20× difference! This demonstrates the inverse relationship between force and time (impulse constant). This is why catching a ball slowly hurts less, why airbags are life-saving, and why crumple zones are built into cars — extending impact time dramatically reduces peak force.",
+      explanation:
+        "Complete calculation for both cases with correct units. Comparison and physics explanation required for full marks.",
+    },
+    {
+      id: "t3q14",
+      type: "long",
+      points: 20,
+      question:
+        "Explain how F = ma applies to the launch of a rocket. Why must rockets burn fuel continuously to maintain acceleration in space? How does mass change during the journey affect the rocket's acceleration?",
+      correctAnswer:
+        "ROCKET LAUNCH: From F = ma, the rocket's acceleration = Thrust/Mass. The engine burns fuel, creating hot gases ejected backward (reaction force = thrust forward). At launch, thrust must exceed the rocket's weight (gravity force) to create upward unbalanced net force. In space, even a small thrust creates acceleration because there's no gravity to overcome (approximately). MASS CHANGE: As the rocket burns fuel, its mass DECREASES. From a = F/m — if thrust F is constant, and mass m decreases, then acceleration a = F/m INCREASES as the journey continues! This is why rockets often accelerate faster as they get lighter. This principle is captured in the Tsiolkovsky Rocket Equation (advanced concept). FUEL REQUIREMENT: In deep space, no force is technically needed to maintain constant velocity (First Law). But to CHANGE velocity (speed up, slow down, change direction), thrust must be applied. All direction changes and speed changes require fuel expenditure because F = ma tells us acceleration (change in velocity) requires force.",
+      explanation:
+        "Three components: F=ma at launch (thrust vs. weight), mass reduction increasing acceleration, and why fuel is needed only for velocity changes (not for maintaining constant velocity in space).",
+    },
+    {
+      id: "t3q15",
+      type: "long",
+      points: 20,
+      question:
+        "Two balls, one of mass 1 kg and one of mass 4 kg, start from rest and the same force of 20 N is applied to each for 3 seconds. Compare their final velocities and momentums. What does this tell us about Newton's Second Law?",
+      correctAnswer:
+        "BALL 1 (1 kg): Acceleration a₁ = F/m = 20/1 = 20 m/s². Final velocity v₁ = u + at = 0 + 20×3 = 60 m/s. Momentum p₁ = mv = 1×60 = 60 kg·m/s. BALL 2 (4 kg): Acceleration a₂ = F/m = 20/4 = 5 m/s². Final velocity v₂ = 0 + 5×3 = 15 m/s. Momentum p₂ = mv = 4×15 = 60 kg·m/s. COMPARISON: Both balls gain the SAME momentum (60 kg·m/s)! But Ball 1 moves 4× faster. INSIGHT: Same force applied for the same time = same impulse = same change in momentum (regardless of mass). This is fundamental: F×t = Δp. Both balls received the same impulse (20 N × 3 s = 60 N·s = 60 kg·m/s). However, the lighter ball converted this into higher speed (a = F/m is higher), while the heavier ball moved slower but used its large mass to carry the same momentum.",
+      explanation:
+        "Full calculations for both balls. The KEY insight that same impulse = same momentum change (regardless of mass) must be stated and connected to F×t = Δp.",
+    },
+
+    /* ── 5 HOTS/Deep Thinking ── */
+    {
+      id: "t3q16",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: A glass falling on a hard floor breaks. The same glass falling on a soft carpet usually doesn't break. Both come to rest (v = 0). The change in momentum is the SAME. How can the carpet prevent breaking if the impulse is equal? Explain using Newton's Second Law.",
+      correctAnswer:
+        "The glass must lose the same momentum (Δp = mv − 0 = mv) in both cases. The impulse J = Δp is identical. From J = F × Δt: on HARD FLOOR: the hard surface stops the glass almost instantly (very small Δt ≈ 0.001s). F = Δp/Δt = mv/0.001 → enormous force → exceeds glass's structural strength → breaks. On CARPET: the soft fibers compress slowly, extending the impact time (Δt ≈ 0.01s, 10× longer). F = Δp/Δt = mv/0.01 → force is 10× smaller → may be within the glass's structural tolerance → doesn't break. The physical structure of glass has a BREAKING STRENGTH — a maximum force it can withstand. The carpet reduces peak force below that threshold by extending impact time. This is also why egg cartons have individual soft cups — same principle!",
+      explanation:
+        "The critical insight is that impulse is constant, but breaking depends on PEAK FORCE, not total impulse. Extending time lowers peak force below the material's breaking strength.",
+    },
+    {
+      id: "t3q17",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: Can a very small force produce a very large momentum? Can a very large force produce zero momentum change? Explain with examples and the formula F = Δp/Δt.",
+      correctAnswer:
+        "SMALL FORCE → LARGE MOMENTUM: YES. From J = F × Δt = Δp, if a small force acts for a VERY LONG time, the impulse (and hence momentum change) can be enormous. Example: The solar wind exerts a tiny force (perhaps 0.0000001 N) on a spacecraft. But acting for years (hundreds of millions of seconds), it can produce measurable changes in momentum and trajectory. Solar sails are designed to exploit exactly this! LARGE FORCE → ZERO MOMENTUM CHANGE: YES. If a large force acts for ZERO time (Δt = 0), then J = F × 0 = 0 = Δp. Also: if equal and opposite large forces act simultaneously, net force = 0 → a = 0 → no momentum change. Example: Two people pushing a car from opposite sides with equal force — each applies a large force, but the car doesn't move (and doesn't gain momentum in any direction). These examples reveal that it is the PRODUCT of force and time (impulse) that determines momentum change, not force alone.",
+      explanation:
+        "Both cases must be logically argued using J = F×Δt = Δp. The solar sail example is a beautiful real-world application. The zero-momentum case for balanced forces is the Second Law connecting back to the First Law.",
+    },
+    {
+      id: "t3q18",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: A 60 kg person stands in an elevator. When the elevator accelerates upward at 2 m/s², what force does the floor exert on them? When it decelerates (accelerates downward) at 2 m/s², what force does the floor exert? What does this reveal about apparent weight?",
+      correctAnswer:
+        "Weight of person: W = mg = 60 × 10 = 600 N (using g ≈ 10 m/s²). ACCELERATING UPWARD (a = 2 m/s² upward): Using Newton's Second Law (taking upward as positive): N − W = ma. N − 600 = 60 × 2 = 120. N = 720 N. The person feels HEAVIER (720 N > 600 N). DECELERATING (accelerating downward at 2 m/s²): N − W = m(−a) = −ma. N − 600 = 60 × (−2) = −120. N = 480 N. The person feels LIGHTER (480 N < 600 N). INSIGHT: 'Apparent weight' (N, the normal force floor exerts) is NOT equal to actual weight (W = mg) when the elevator accelerates. Upward acceleration → N > W → feel heavier. Downward acceleration → N < W → feel lighter. In free fall (a = g downward) → N = 0 → feel weightless! This is exactly how astronauts in orbit 'feel' weightless — they are in continuous free fall around Earth.",
+      explanation:
+        "Full calculation for both cases using F = ma. The connection between apparent weight, normal force, and acceleration — culminating in the weightlessness insight for orbiting astronauts.",
+    },
+    {
+      id: "t3q19",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: Formula One racing cars are designed to be as light as possible even though they have enormously powerful engines. Why? Wouldn't it be better to just add more engine power instead of saving weight? Analyze using F = ma.",
+      correctAnswer:
+        "From a = F/m, acceleration is determined by the RATIO of force to mass, not just force alone. SAVING WEIGHT ARGUMENT: If you halve the mass while keeping the same engine force, acceleration DOUBLES. This is often more effective (and safer) than doubling engine power (which increases force). In practice, engines face diminishing returns — doubling power doesn't double usable thrust due to mechanical limitations. WEIGHT SAVING EXAMPLE: If a car has 600 kg mass and 6000 N force, a = 10 m/s². Reduce mass to 500 kg (same engine): a = 12 m/s² (20% faster!). Add 500 N more force instead (601 kg): a = 10.016 m/s² (barely 0.1% faster!). SAFETY REASON: Lighter cars also brake faster (same braking force, less mass), handle corners better (less centrifugal tendency), and consume less fuel. F1 regulations even set a MINIMUM weight to prevent dangerously light cars. This is why carbon fiber, titanium, and exotic alloys — all lighter than steel — are used in racing.",
+      explanation:
+        "The key insight is a = F/m is about the RATIO. Weight reduction is multiplicative (halving mass doubles acceleration) versus adding force which is additive. Numerical comparison clinches the argument.",
+    },
+    {
+      id: "t3q20",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: During a collision between a car (1000 kg, 20 m/s) and a wall, the car comes to rest in 0.05 seconds. Calculate the average force. Then explain why modern cars are designed with 'crumple zones' that make the crash take 0.2 seconds instead. How much force is saved?",
+      correctAnswer:
+        "ORIGINAL COLLISION: Δp = m(vf − vi) = 1000 × (0 − 20) = −20,000 kg·m/s (magnitude 20,000). F₁ = Δp/Δt = 20,000/0.05 = 400,000 N = 400 kN. WITH CRUMPLE ZONES (Δt = 0.2s): F₂ = 20,000/0.2 = 100,000 N = 100 kN. FORCE SAVED: 400,000 − 100,000 = 300,000 N (75% reduction!). CRUMPLE ZONE DESIGN: The front section of the car is intentionally designed with a 'crushable' structure — reinforced but meant to progressively buckle. This extends the crash duration from ~0.05s to ~0.2s (4× longer). Same momentum change. 4× longer time → 4× smaller peak force on passengers. A 400 kN force is virtually always fatal. A 100 kN force, with seatbelts and airbags distributing it, is often survivable. This is engineering using Newton's Second Law to save human lives.",
+      explanation:
+        "Full calculation for both time scenarios with clear comparison. The 75% force reduction with 4× longer time must be explicitly shown. Connection to human survivability makes the physics meaningful.",
+    },
+  ],
+};

@@ -1,197 +1,427 @@
 /**
  * FILE: topic-4-third-law-of-motion.ts
- * PURPOSE: Deep research content for Topic 4 of Force & Laws of Motion.
- *          Contains highly detailed explanations and 20 categorized questions.
- *          Modularized to ensure production-level scalability and readability.
+ * LOCATION: src/lib/content/class9/science/force-and-laws-of-motion/topic-4-third-law-of-motion.ts
+ * PURPOSE: Deep, richly detailed content for Topic 4 — Newton's Third Law of Motion.
+ *          Covers action-reaction pairs, mutual forces, and applications in walking,
+ *          swimming, rockets, guns, and everyday life. 20 categorized questions.
+ * CURRICULUM: CBSE Class 9 Science, Chapter 9 — Force & Laws of Motion
+ * LAST UPDATED: 2026-05-28
  */
 import { Topic } from "./types";
 
 export const thirdLawOfMotion: Topic = {
-  /* ═══════════════════════════════════════════
-   * TOPIC 4: Newton's Third Law of Motion (Action-Reaction)
-     * ═══════════════════════════════════════════ */
-      id: 'third-law-of-motion',
-      title: "4. Newton's Third Law of Motion: Action & Reaction",
-      estimatedMinutes: 30,
-      imageUrl: 'https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&q=80&w=800',
-      content: `
-### The Law of Interaction
-Newton's Third Law is the most intuitive of all three laws. It describes how forces always come in **pairs**:
+  id: "third-law-of-motion",
+  title: "4. Newton's Third Law of Motion: Action and Reaction",
+  estimatedMinutes: 35,
+  imageUrl:
+    "https://images.unsplash.com/photo-1446776858070-70c3d5ed6758?auto=format&fit=crop&q=80&w=1200",
+
+  content: `
+### The Most Surprising Law in Physics
+
+If you think about Newton's First and Second Laws, they seem straightforward — force causes motion changes. But the Third Law is genuinely mind-bending when you first encounter it.
+
+Sit quietly and think: **You are sitting on a chair right now. You are pushing down on the chair. Is the chair pushing back up on you?**
+
+The answer is YES — with exactly the same force you push down with. This chair-vs-you interaction is the Third Law in action, happening everywhere, every second.
+
+---
+
+### Newton's Third Law — The Official Statement
 
 > **"For every action, there is an equal and opposite reaction."**
 
-This means: whenever Object A pushes on Object B, Object B pushes back on Object A with the **same magnitude** of force but in the **opposite direction**.
+Or more precisely:
 
-### Key Points About the Third Law
+> **"Whenever object A exerts a force on object B, object B simultaneously exerts an equal and opposite force on object A."**
 
-#### 1. Action and Reaction Act on DIFFERENT Bodies
-This is the most important point students miss! The action force acts on one object, and the reaction force acts on a different object. They NEVER cancel each other out because they act on different bodies.
+Mathematically:
+$$\vec{F}_{AB} = -\vec{F}_{BA}$$
 
-* **Example (Walking):** When you walk, your foot pushes the ground backward (action). The ground pushes your foot forward (reaction). The action is on the ground; the reaction is on you. That's what makes you move forward!
+Where:
+* $\vec{F}_{AB}$ = force exerted BY A ON B (the action)
+* $\vec{F}_{BA}$ = force exerted BY B ON A (the reaction)
 
-#### 2. Both Forces Act Simultaneously
-There is no delay between action and reaction. They exist at exactly the same instant. You cannot have one without the other.
+The negative sign means the reaction force is exactly **opposite in direction** but equal in **magnitude**.
 
-#### 3. They Are Always Equal in Magnitude
-No matter what, the forces are exactly equal. A small ant pushing against a wall exerts a force on the wall, and the wall exerts the exact same force back on the ant.
+---
 
-### Real-World Examples
+### Three Critical Points You MUST Understand
 
-#### Walking
-Your foot pushes backward on the ground (action). The ground pushes forward on your foot (reaction). You move forward because the reaction force of the ground acts on your body.
+#### Point 1: Action and Reaction ALWAYS Occur Simultaneously
 
-#### Swimming
-A swimmer pushes water backward with their hands and feet (action). The water pushes the swimmer forward (reaction). This is why you can swim — by pushing water one way, you go the other way!
+There is no time delay. The moment A pushes B, B pushes back on A at the EXACT same instant.
 
-#### Rocket Propulsion
-A rocket engine burns fuel and pushes hot exhaust gases downward at extremely high speed (action). The exhaust gases push the rocket upward with an equal and opposite force (reaction). **This is why rockets work in space even though there is no air to push against!** The rocket pushes against its own exhaust, not against air.
+#### Point 2: Action and Reaction Forces Act on DIFFERENT Objects
 
-#### Gun Recoil
-When a gun fires a bullet forward (action), the bullet pushes the gun backward (reaction). This backward push is called **recoil**. The gun jumps backward in your hand. Since the gun is much heavier than the bullet, it moves backward much slower (F = ma: same force, bigger mass, smaller acceleration).
+This is the most commonly misunderstood point!
+* Force A on B acts on **B**
+* Force B on A acts on **A**
 
-#### Why Don't Action-Reaction Forces Cancel?
-Students often ask: "If every force has an equal and opposite reaction, why doesn't everything just stay still?" The answer is that action and reaction act on **different objects**. 
+They NEVER cancel each other out because they act on different bodies.
 
-When you push a wall:
-- Your force on the wall (action) → acts on the wall
-- Wall's force on you (reaction) → acts on you
-These are on different bodies, so they don't cancel. The wall doesn't move because it's fixed to the ground. You don't fall backward because friction holds your feet.
+#### Point 3: The Forces Are Equal in Magnitude, Opposite in Direction
 
-### Jet Engines and Propulsion
-Jet engines work on the same principle as rockets. They suck in air from the front, mix it with fuel, burn it, and blast the hot gases out the back at tremendous speed (action). The hot gases push the airplane forward (reaction). This is called **thrust**.
-      `,
-      questions: [
-        /* ── MCQs (5) ── */
-        {
-          id: 'q61', type: 'mcq', points: 10,
-          question: "Newton's Third Law states that action and reaction forces:",
-          options: ['Act on the same body', 'Act on different bodies', 'Cancel each other out', 'Are unequal in magnitude'],
-          correctAnswer: 'Act on different bodies',
-          explanation: "The action force is on one object, the reaction force is on the other. They never cancel because they're on different bodies."
-        },
-        {
-          id: 'q62', type: 'mcq', points: 10,
-          question: 'When you walk, what provides the forward force?',
-          options: ['Your leg muscles directly', 'Air resistance', "The ground's reaction force", 'Gravity'],
-          correctAnswer: "The ground's reaction force",
-          explanation: "Your foot pushes the ground backward (action). The ground pushes your foot forward (reaction). The ground's reaction is what moves you forward."
-        },
-        {
-          id: 'q63', type: 'mcq', points: 10,
-          question: 'A rocket works in space because:',
-          options: ['It pushes against air', 'Exhaust gases push the rocket forward', 'Gravity pulls it forward', 'Magnetic fields in space'],
-          correctAnswer: 'Exhaust gases push the rocket forward',
-          explanation: "The rocket pushes exhaust gases backward (action), and the gases push the rocket forward (reaction). No air is needed."
-        },
-        {
-          id: 'q64', type: 'mcq', points: 10,
-          question: 'When a bullet is fired from a gun, the gun recoils because of:',
-          options: ["Newton's First Law", "Newton's Second Law", "Newton's Third Law", "Law of Conservation of Energy"],
-          correctAnswer: "Newton's Third Law",
-          explanation: "The gun pushes the bullet forward (action). The bullet pushes the gun backward (reaction). This backward push is recoil."
-        },
-        {
-          id: 'q65', type: 'mcq', points: 10,
-          question: 'A man is standing on a weighing scale in an elevator. If the elevator accelerates upward, the scale reading will:',
-          options: ['Decrease', 'Remain the same', 'Increase', 'Become zero'],
-          correctAnswer: 'Increase',
-          explanation: "When the elevator accelerates upward, the floor pushes up harder on the man (to accelerate him), so the scale reads more than his actual weight."
-        },
+If you push a wall with 50 N, the wall pushes you back with exactly 50 N. No exceptions.
 
-        /* ── Short Answer (5) ── */
-        {
-          id: 'q66', type: 'short', points: 15,
-          question: "State Newton's Third Law of Motion.",
-          correctAnswer: "For every action, there is an equal and opposite reaction. When one body exerts a force on a second body, the second body exerts an equal force in the opposite direction on the first body.",
-          explanation: "The formal statement of the Third Law."
-        },
-        {
-          id: 'q67', type: 'short', points: 15,
-          question: "Why can't a person swim in the air?",
-          correctAnswer: "Swimming works because water is dense enough to push back. When you push water backward with your hands, the water exerts a forward reaction force. Air is too thin (low density) to provide a significant reaction force. The reaction force from pushing air is negligible, so you cannot propel yourself forward.",
-          explanation: "Compares reaction forces in different mediums."
-        },
-        {
-          id: 'q68', type: 'short', points: 15,
-          question: 'If action and reaction are equal and opposite, why do objects still move?',
-          correctAnswer: "Because action and reaction act on DIFFERENT objects, not on the same object. They don't cancel each other out. The net force on each individual object determines its motion independently.",
-          explanation: "Addresses the most common misconception about the Third Law."
-        },
-        {
-          id: 'q69', type: 'short', points: 15,
-          question: 'What provides the reaction force when a swimmer pushes water backward?',
-          correctAnswer: "The water provides the reaction force. When the swimmer's hands push water backward (action), the water pushes the swimmer forward (reaction), propelling the swimmer ahead.",
-          explanation: "Action-reaction pair in swimming."
-        },
-        {
-          id: 'q70', type: 'short', points: 15,
-          question: 'Why does a gun recoil when a bullet is fired?',
-          correctAnswer: "When the gun fires the bullet forward (action force on bullet), the bullet exerts an equal and opposite force on the gun (reaction force on gun). This reaction force pushes the gun backward, causing recoil.",
-          explanation: "Classic Third Law application."
-        },
+---
 
-        /* ── Long Answer (5) ── */
-        {
-          id: 'q71', type: 'long', points: 20,
-          question: "Explain how a rocket works in the vacuum of space using Newton's Third Law. Why doesn't it need air to push against?",
-          correctAnswer: "A rocket carries its own fuel and oxidizer. When the fuel burns inside the combustion chamber, it produces hot exhaust gases at very high pressure. These gases are forced out of the rocket nozzle at tremendous speed — this is the ACTION force (rocket pushing gases downward). By Newton's Third Law, the gases push the rocket upward with an equal REACTION force — this is the thrust. The rocket pushes against its own exhaust gases, NOT against air. This is why rockets work perfectly in the vacuum of space where there is no air at all. In fact, rockets are slightly MORE efficient in space because there is no air resistance to fight against.",
-          explanation: "Detailed explanation of rocket propulsion."
-        },
-        {
-          id: 'q72', type: 'long', points: 20,
-          question: "A person is standing in a boat near the shore. Explain what happens when they try to step onto the shore, and why. Use Newton's Third Law.",
-          correctAnswer: "When the person pushes the shore/dock with their front foot to step off (or pushes the boat with their back foot), their foot exerts a backward force on the boat (action). By Newton's Third Law, the boat exerts a forward force on the person (reaction). However, the boat is free to move on the water (no friction). So the boat moves BACKWARD while the person moves forward. If the person pushes too hard, the boat slides back quickly, and the person may fall into the water because their back foot loses support. The same principle explains why you should step gently off a small boat.",
-          explanation: "Real-world Third Law scenario with consequences."
-        },
-        {
-          id: 'q73', type: 'long', points: 20,
-          question: 'Identify the action-reaction pairs in the following situation: A ball is falling towards the ground due to gravity.',
-          correctAnswer: "There are two action-reaction pairs: Pair 1: The Earth pulls the ball downward with gravitational force (action). The ball pulls the Earth upward with an equal gravitational force (reaction). The ball accelerates noticeably because it has small mass, but the Earth accelerates imperceptibly because it has enormous mass. Pair 2: When the ball hits the ground — the ball pushes the ground with a contact force (action), and the ground pushes the ball back upward (reaction), causing it to bounce.",
-          explanation: "Identifies multiple action-reaction pairs in a single scenario."
-        },
-        {
-          id: 'q74', type: 'long', points: 20,
-          question: "Explain with examples how jet engines, propeller boats, and fire hoses all work on the principle of Newton's Third Law.",
-          correctAnswer: "Jet Engines: Hot gases are expelled backward at high speed (action). The plane is pushed forward (reaction). Propeller Boats: The propeller pushes water backward (action). The water pushes the boat forward (reaction). Fire Hoses: Water rushes out of the hose at high speed forward (action). The hose pushes backward on the firefighter (reaction), which is why firefighters must brace themselves. In all three cases, the device pushes a fluid (gas or liquid) in one direction and moves in the opposite direction due to the reaction force.",
-          explanation: "Connects the Third Law to multiple engineering applications."
-        },
-        {
-          id: 'q75', type: 'long', points: 20,
-          question: 'A horse is pulling a cart. According to the Third Law, the cart pulls the horse back with an equal force. Then how does the horse-cart system move forward?',
-          correctAnswer: "This is a classic puzzle. The key is to look at the external forces on the SYSTEM (horse + cart together). The horse pushes the ground backward with its hooves (action). The ground pushes the horse forward with friction (reaction). This forward friction force is an EXTERNAL force on the horse-cart system. The horse pulling the cart and the cart pulling the horse back are INTERNAL forces that cancel within the system. As long as the forward friction from the ground exceeds the backward friction on the cart's wheels, there is a net external forward force, and the entire system accelerates forward.",
-          explanation: "Resolves the classic horse-cart paradox by analyzing internal vs. external forces."
-        },
+### Why Action-Reaction Forces Do NOT Cancel Out
 
-        /* ── Thinking / HOTS (5) ── */
-        {
-          id: 'q76', type: 'thinking', points: 25,
-          question: "If you are standing on a perfectly frictionless frozen lake and you throw your backpack in one direction, what happens to you? Calculate the direction and estimate why.",
-          correctAnswer: "You will move in the OPPOSITE direction to the backpack. When you throw the backpack forward (action), the backpack pushes you backward (reaction). On a frictionless surface, there is nothing to stop this backward motion, so you will slide backward indefinitely. If you throw the backpack at 5 m/s and it weighs 5 kg, and you weigh 50 kg, by conservation of momentum: 5 × 5 = 50 × v, so v = 0.5 m/s backward. This is actually how astronauts would propel themselves in space!",
-          explanation: "Combines the Third Law with conservation of momentum on a frictionless surface."
-        },
-        {
-          id: 'q77', type: 'thinking', points: 25,
-          question: "When the Earth attracts an apple downward with gravity, the apple also attracts the Earth upward with the same force. Why don't we see the Earth move?",
-          correctAnswer: "The force IS equal on both. But acceleration = Force/Mass. The Earth's mass is approximately 6 × 10²⁴ kg, while the apple is about 0.1 kg. The apple's acceleration due to Earth's gravity = 9.8 m/s² (very noticeable). The Earth's acceleration due to the apple = F/(6 × 10²⁴), which is an incredibly tiny number (approximately 10⁻²⁵ m/s²). This acceleration is so unimaginably small that it is completely undetectable. The Earth DOES move, just by an amount far too small to ever measure.",
-          explanation: "Resolves a deep conceptual puzzle about the Third Law and gravity."
-        },
-        {
-          id: 'q78', type: 'thinking', points: 25,
-          question: 'An astronaut is floating in space, completely untethered, with no tools. How can they get back to the spacecraft using only physics?',
-          correctAnswer: "They can use Newton's Third Law by throwing something in the direction OPPOSITE to the spacecraft. If they take off a glove and throw it away from the spacecraft, the reaction force will push them toward the spacecraft. They could also blow air in one direction, though this would produce very little force. Alternatively, they could use the propulsion system in their spacesuit (if available) which works on the same principle — expelling gas in one direction to move in the other.",
-          explanation: "Creative survival application of the Third Law in space."
-        },
-        {
-          id: 'q79', type: 'thinking', points: 25,
-          question: 'During a head-on collision between a truck and a small car, both experience the same force (Third Law). But the small car suffers more damage. Why?',
-          correctAnswer: "By Newton's Third Law, the forces are indeed equal and opposite. However, by Newton's Second Law (F = ma), the smaller car experiences much greater ACCELERATION (deceleration, in this case) because it has much less mass. Greater deceleration means the passengers and structure of the car undergo a more violent change in velocity. The truck, being much heavier, decelerates much less. Additionally, the crumple zones of the smaller car absorb less energy, leading to more structural damage and higher risk of injury to passengers.",
-          explanation: "Combines the Third Law with the Second Law to explain a real-world observation."
-        },
-        {
-          id: 'q80', type: 'thinking', points: 25,
-          question: "Birds fly by flapping their wings. Explain the action-reaction pairs involved in bird flight and how birds generate both lift and forward thrust.",
-          correctAnswer: "When a bird flaps its wings downward, the wings push air downward (action). By Newton's Third Law, the air pushes the wings (and hence the bird) upward (reaction) — this provides LIFT. On the forward stroke, the wings are angled so they push air backward and downward. The reaction force has both an upward component (lift) and a forward component (thrust). The wing shape (airfoil) also creates a pressure difference: lower pressure above the wing and higher pressure below, adding to the lift. This combination of Third Law forces allows birds to fly.",
-          explanation: "Advanced application of the Third Law to aerodynamics."
-        }
-      ]
-    };
+Balanced forces cancel because they act on the **SAME** object. Action-reaction pairs act on **DIFFERENT** objects — so they cannot cancel for any single object.
+
+**Example:** A horse pulls a cart.
+* Horse pulls cart forward → acts **on the cart**
+* Cart pulls horse backward → acts **on the horse**
+
+Each body has its own net force analysis. The cart accelerates forward if horse-pull exceeds wheel friction. The horse moves forward if its leg-push against the ground exceeds the cart's backward pull.
+
+---
+
+### How a Rocket Works in Space (No Air Needed!)
+
+> "How can a rocket move in space? There is nothing to push against!"
+
+The rocket does NOT push against space. Here is what actually happens:
+
+1. Burning fuel creates hot, high-pressure gases.
+2. The rocket **pushes gases backward** out of its nozzle — this is the ACTION.
+3. The gases **push the rocket forward** with equal force — this is the REACTION.
+4. The rocket accelerates forward via $F = ma$.
+
+The rocket pushes its own exhaust gases. No external surface is needed. This is pure Newton's Third Law.
+
+$$\text{Thrust} = \dot{m} \times v_{exhaust}$$
+
+where $\dot{m}$ is mass of gas ejected per second. Faster ejection or more gas per second = greater thrust.
+
+---
+
+### Walking — Third Law in Every Step
+
+How do you walk forward? Not by pushing your foot forward — that's the wrong mental picture.
+
+1. Your foot pushes **backward** on the ground — ACTION.
+2. Ground pushes your foot (and you) **forward** — REACTION.
+3. This forward reaction force propels you!
+
+**Why you can't walk on ice:** On a frictionless surface your foot slides backward — there's no traction for the ground to push you forward. Same physics as rocket in space but in reverse: no grip = no reaction.
+
+**Same principle:** Swimming (hands push water back, water pushes swimmer forward), rowing (oar pushes water backward, water pushes boat forward), bird flight (wings push air down, air pushes bird up).
+
+---
+
+### Gun Recoil — Third Law with Mass Difference
+
+When a gun fires:
+* Gun pushes bullet **forward** (action) → bullet travels far at high speed
+* Bullet pushes gun **backward** (reaction) → gun recoils slowly
+
+Same force, but $a = F/m$:
+* Bullet (0.01 kg) → huge forward acceleration → very fast
+* Gun (1.5 kg) → small backward acceleration → gentle kick
+
+Equal forces, very different accelerations because of mass ratio.
+
+---
+
+### Action-Reaction in Everyday Life
+
+| Situation | Action | Reaction |
+|---|---|---|
+| Swimming | Hands push water backward | Water pushes swimmer forward |
+| Rocket launch | Rocket pushes gas backward | Gas pushes rocket forward |
+| Walking | Foot pushes ground backward | Ground pushes foot forward |
+| Jumping | Legs push ground down | Ground pushes body up |
+| Gun firing | Gun pushes bullet forward | Bullet pushes gun backward |
+| Balloon released | Balloon pushes air out | Air pushes balloon forward |
+| Rowing | Oar pushes water back | Water pushes boat forward |
+
+---
+
+### The Horse and Cart Paradox — Fully Solved
+
+A horse pulls a cart. The cart pulls the horse backward equally. So how does the system move?
+
+**Forces on the HORSE:**
+1. Cart pulls horse backward (Third Law reaction)
+2. Ground pushes horse **forward** (reaction to horse's hooves pushing backward)
+
+If ground reaction > cart pull → net force on horse is FORWARD.
+
+**Forces on the CART:**
+1. Horse pulls cart forward
+2. Wheel friction acts backward
+
+If horse pull > friction → net force on cart is FORWARD.
+
+The system moves because **external forces** (ground pushing horse, friction on wheels) determine motion — not the internal horse-cart pair. The internal pair is equal-and-opposite, but external forces create the net result.
+
+---
+
+### Balloon Rocket — The Simplest Demonstration
+
+Blow up a balloon, hold it closed, then release. It flies wildly!
+* Balloon pushes air out backward (action)
+* Air pushes balloon forward (reaction)
+
+Same physics as a rocket engine! The balloon's erratic path shows why rocket nozzles are precision-engineered — to direct thrust in one straight line.
+
+---
+
+### Newton's Third Law in Architecture
+
+The weight of a building presses down on the foundation (action). The ground pushes the foundation upward with equal force (reaction). Net force = 0 → building stands still. If the ground's reaction force is insufficient (earthquakes, soft soil), the building sinks or collapses.
+  `,
+
+  questions: [
+    /* ── 5 MCQs ── */
+    {
+      id: "t4q1",
+      type: "mcq",
+      points: 10,
+      question: "You push a wall with 80 N. The wall pushes back on you with:",
+      options: ["40 N", "0 N (walls cannot push)", "80 N", "160 N"],
+      correctAnswer: "80 N",
+      explanation:
+        "Newton's Third Law: for every action there is an equal and opposite reaction. The wall exerts exactly 80 N back on you — that's why you feel resistance when you push.",
+    },
+    {
+      id: "t4q2",
+      type: "mcq",
+      points: 10,
+      question:
+        "A rocket works in space even with no air to push against. This is best explained by:",
+      options: [
+        "Newton's First Law — objects in motion stay in motion",
+        "Newton's Third Law — the rocket pushes exhaust gases backward, gases push rocket forward",
+        "Gravity pulling the rocket forward",
+        "Magnetic forces between rocket and stars",
+      ],
+      correctAnswer:
+        "Newton's Third Law — the rocket pushes exhaust gases backward, gases push rocket forward",
+      explanation:
+        "The rocket pushes its own exhaust gases backward (action). By Newton's Third Law, the gases push the rocket forward with equal force (reaction). No external medium needed.",
+    },
+    {
+      id: "t4q3",
+      type: "mcq",
+      points: 10,
+      question:
+        "Action and reaction forces in Newton's Third Law always act on:",
+      options: [
+        "The same object in opposite directions",
+        "Different objects",
+        "The same object in the same direction",
+        "Stationary objects only",
+      ],
+      correctAnswer: "Different objects",
+      explanation:
+        "Action force acts ON B (from A). Reaction force acts ON A (from B). Since they act on different bodies, they cannot cancel each other — that's why systems can still accelerate.",
+    },
+    {
+      id: "t4q4",
+      type: "mcq",
+      points: 10,
+      question:
+        "A swimmer pushes water backward with their arms. The swimmer moves forward because:",
+      options: [
+        "Water has no friction",
+        "Water pushes the swimmer forward with an equal and opposite force",
+        "The swimmer's weight decreases in water",
+        "Buoyancy provides the forward force",
+      ],
+      correctAnswer:
+        "Water pushes the swimmer forward with an equal and opposite force",
+      explanation:
+        "Action: swimmer's arms push water backward. Reaction: water pushes swimmer forward with equal force. This reaction force propels the swimmer.",
+    },
+    {
+      id: "t4q5",
+      type: "mcq",
+      points: 10,
+      question:
+        "When you jump, you push Earth downward. Why does Earth not visibly move?",
+      options: [
+        "Earth is too far away to be affected",
+        "Newton's Third Law doesn't apply to Earth",
+        "Same force, Earth's huge mass gives it negligibly tiny acceleration",
+        "The ground absorbs the force completely",
+      ],
+      correctAnswer:
+        "Same force, Earth's huge mass gives it negligibly tiny acceleration",
+      explanation:
+        "Forces are equal but F = ma. Earth (6×10²⁴ kg) gets acceleration ≈ 10⁻²³ m/s² — completely undetectable. You (60 kg) get a large upward acceleration. Same force, incomparably different masses.",
+    },
+
+    /* ── 5 Short Answer ── */
+    {
+      id: "t4q6",
+      type: "short",
+      points: 15,
+      question:
+        "State Newton's Third Law of Motion. Identify the action and reaction pair when a person pushes off a wall.",
+      correctAnswer:
+        "Newton's Third Law: For every action force, there is an equal and opposite reaction force acting on a different body. Person-Wall: ACTION — person pushes the wall forward (with hands). REACTION — wall pushes the person backward with equal force. The person moves backward; the wall stays fixed.",
+      explanation:
+        "Statement + both forces identified with directions + which body each acts on.",
+    },
+    {
+      id: "t4q7",
+      type: "short",
+      points: 15,
+      question:
+        "Why can't you walk on a perfectly frictionless surface? Use Newton's Third Law.",
+      correctAnswer:
+        "To walk, your foot pushes backward on the ground (action). The ground's reaction pushes you forward. On a frictionless surface, your foot cannot grip — it slides backward without transmitting force, so the ground provides no useful forward reaction. You cannot generate forward motion.",
+      explanation:
+        "Friction is needed to make the backward push work and generate the forward reaction. Without it, no reaction = no forward motion.",
+    },
+    {
+      id: "t4q8",
+      type: "short",
+      points: 15,
+      question:
+        "Explain why action and reaction forces do NOT cancel each other out, even though they are equal and opposite.",
+      correctAnswer:
+        "Balanced forces cancel because they act on the SAME object. Action and reaction forces act on DIFFERENT objects — action on B, reaction on A. Since they act on different bodies, they cannot cancel for any single object. Each body has its own separate net force analysis.",
+      explanation:
+        "The key distinction: balanced forces (same object) vs action-reaction (different objects).",
+    },
+    {
+      id: "t4q9",
+      type: "short",
+      points: 15,
+      question: "Explain how a fish swims using Newton's Third Law.",
+      correctAnswer:
+        "A fish moves its tail/fins to push water backward (action). By Newton's Third Law, the water pushes the fish forward with equal and opposite force (reaction). The fish uses this forward reaction to propel itself through the water.",
+      explanation:
+        "Action-reaction pair clearly identified: fish pushes water back, water pushes fish forward.",
+    },
+    {
+      id: "t4q10",
+      type: "short",
+      points: 15,
+      question:
+        "A gun (mass 2 kg) fires a bullet (mass 0.02 kg) at 400 m/s forward. What is the recoil velocity of the gun?",
+      correctAnswer:
+        "Using momentum conservation (consistent with Newton's Third Law): Initial total momentum = 0. Bullet momentum = 0.02 × 400 = 8 kg·m/s forward. Gun momentum = −8 kg·m/s. Recoil velocity = 8/2 = 4 m/s backward. The gun's much larger mass (100× bullet) means 100× less recoil speed.",
+      explanation:
+        "Momentum conservation: initial p = 0 → bullet momentum + gun momentum = 0. Gun recoils at 4 m/s backward.",
+    },
+
+    /* ── 5 Long Answer ── */
+    {
+      id: "t4q11",
+      type: "long",
+      points: 20,
+      question:
+        "Identify all Newton's Third Law action-reaction pairs in: (a) walking, (b) swimming, and (c) a rocket launch. For each, specify which body exerts the force and which receives it.",
+      correctAnswer:
+        "(a) WALKING: Action — foot pushes ground backward-downward. Reaction — ground pushes foot (person) forward-upward. Without friction (slippery floor), the ground cannot provide this horizontal reaction, so walking fails. (b) SWIMMING: Action — hands push water backward. Reaction — water pushes hands/body forward. More forceful push = stronger reaction = faster swimming. (c) ROCKET: Action — burning fuel in chamber pushes exhaust gases backward through nozzle at high speed. Reaction — exhaust gases push rocket forward. No external surface needed. More gas ejected per second (or faster ejection speed) = greater thrust = greater acceleration.",
+      explanation:
+        "All three must have clearly identified action and reaction with bodies specified. For rockets, the self-contained nature (no external surface needed) must be mentioned.",
+    },
+    {
+      id: "t4q12",
+      type: "long",
+      points: 20,
+      question:
+        "Explain the Horse and Cart Paradox: if the cart pulls the horse backward with the same force the horse pulls the cart forward, how does the system ever move?",
+      correctAnswer:
+        "The horse-cart pull is an internal force pair — equal and opposite within the system. The system moves because of EXTERNAL forces. FORCES ON HORSE: (1) Cart pulls horse backward. (2) Ground pushes horse forward (reaction to horse's hooves pushing backward on ground). If ground reaction > cart pull → net force on horse is FORWARD. FORCES ON CART: (1) Horse pulls cart forward. (2) Wheel friction backward. If horse pull > friction → net force on cart is FORWARD. The horse-cart internal pair cannot determine system motion — only external forces do. On ice (no traction), the horse cannot generate ground reaction → system cannot move, confirming that external forces are decisive.",
+      explanation:
+        "Internal vs external forces analysis. Forces on EACH body separately. Ground reaction on horse is the key external force. Ice example confirms the analysis.",
+    },
+    {
+      id: "t4q13",
+      type: "long",
+      points: 20,
+      question:
+        "Explain how birds fly using Newton's Third Law. Identify all action-reaction pairs for a bird in steady horizontal flight.",
+      correctAnswer:
+        "VERTICAL: Wings flap downward, pushing air downward (action). Air pushes wings upward — LIFT (reaction). For steady altitude: Lift = Weight (balanced vertical forces). HORIZONTAL: Muscular wing movement generates thrust forward. Air resistance (drag) acts backward. For constant speed: Thrust = Drag (balanced horizontal forces). ADDITIONAL: The aerofoil shape of wings creates faster airflow above and slower below → pressure difference adds to lift (Bernoulli effect combined with Third Law reaction). Four forces in steady flight: Lift upward = Weight downward; Thrust forward = Drag backward. All balanced → constant velocity.",
+      explanation:
+        "All four forces: Lift, Weight, Thrust, Drag. Each Third Law pair must be identified. Balanced condition for steady level flight must be stated.",
+    },
+    {
+      id: "t4q14",
+      type: "long",
+      points: 20,
+      question:
+        "A person (60 kg) standing in a boat (120 kg) on still water jumps to the shore at 2 m/s. Use Newton's Third Law and momentum conservation to find the boat's recoil velocity.",
+      correctAnswer:
+        "THIRD LAW: Person pushes backward on boat (action). Boat pushes person forward (reaction). Equal and opposite forces → equal and opposite impulses → equal and opposite momentum changes. MOMENTUM CONSERVATION: Initial momentum = 0 (both at rest). Person's final momentum = 60 × 2 = 120 kg·m/s forward. Boat's momentum must be −120 kg·m/s. Boat's recoil velocity = 120/120 = 1 m/s backward. The boat (2× the person's mass) moves at half the speed of the person. This inverse mass-velocity relationship is a direct consequence of Newton's Third Law and momentum conservation.",
+      explanation:
+        "Third Law qualitative + momentum conservation quantitative. The inverse mass-speed relationship should be noted.",
+    },
+    {
+      id: "t4q15",
+      type: "long",
+      points: 20,
+      question:
+        "A fire hose ejects water at 50 m/s with a mass flow rate of 20 kg/s. Calculate the recoil force on the hose. Why do fire services use two firefighters to hold the hose?",
+      correctAnswer:
+        "THIRD LAW: Hose pushes water forward (action). Water pushes hose backward with equal force (reaction) — this is recoil. CALCULATION: Recoil force = rate of change of momentum = mass flow rate × ejection velocity = 20 kg/s × 50 m/s = 1000 N. PRACTICAL: 1000 N ≈ weight of a 100 kg person — a very large continuous backward push. A single firefighter (typically 70-80 kg) cannot safely resist this without being pushed backward or losing control. Two firefighters together provide combined body weight and friction force to resist and aim the hose. Additionally, the hose must be aimed precisely at the fire — holding it steady under 1000 N requires teamwork.",
+      explanation:
+        "Third Law identification + calculation using F = mass flow rate × velocity. Connection of calculated 1000 N to the practical requirement for two firefighters.",
+    },
+
+    /* ── 5 HOTS / Deep Thinking ── */
+    {
+      id: "t4q16",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: In a tug-of-war, Team A and Team B pull the rope with equal force (Newton's Third Law). Shouldn't it always be a draw? Explain why one team wins.",
+      correctAnswer:
+        "The rope tension is indeed equal on both sides (Newton's Third Law). But winning depends on EXTERNAL ground friction, not the internal rope tension. For Team A: Net force = Friction_A (forward from ground) − Rope tension T. For Team B: Net force = Friction_B (forward from ground) − Rope tension T. The rope tension T is equal for both. But the ground friction each team generates depends on mass, foot grip, shoe type, body angle, and ground texture. The team with greater ground friction wins because their net forward force is higher. This is why tug-of-war teams: wear specialized grip shoes, dig heels into soft ground, lean backward at low angles (to increase normal force → maximize friction). Newton's Third Law (rope tension equality) is not what decides the winner — external friction with the ground is.",
+      explanation:
+        "Rope tension equal (Third Law). External ground friction is decisive. Low body angle and grip shoes maximize friction. Force analysis for each team separately.",
+    },
+    {
+      id: "t4q17",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: If you punch a wall with full force, your hand hurts but the wall seems unaffected. The wall pushed your hand with the SAME force. So why doesn't the wall 'hurt'?",
+      correctAnswer:
+        "The forces ARE equal — wall pushes your hand exactly as hard as your hand pushes the wall. The wall's material DOES experience stress and micro-deformation at the contact point. But 'pain' requires a biological nervous system — walls have none. Additionally: your hand is soft tissue with pain receptors. The same 100 N force on a small, nerve-rich hand area → significant pain sensation. On the massive, rigid wall, the force spreads through enormous mass and dense material → no visible damage (usually). PROOF that force exists on the wall: punch a thin drywall or brittle surface — it breaks! The force was always there; it just exceeded the material's structural strength. The wall's apparent indifference is about material properties and pain biology, not force magnitude.",
+      explanation:
+        "Forces ARE equal. Pain is biological (wall has no nerves). Stress distribution in large rigid body vs. soft tissue. Drywall example proves force exists on wall side.",
+    },
+    {
+      id: "t4q18",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: In deep space (no gravity, no friction), an astronaut pushes a spacecraft wall. Analyze using all three Newton's Laws. What happens to each body?",
+      correctAnswer:
+        "FIRST LAW: Initially both astronaut and spacecraft are at rest — they stay at rest without force. THIRD LAW: Astronaut pushes wall with force F (action). Wall pushes astronaut backward with force F (reaction). Forces are simultaneous, equal, opposite, on different bodies. SECOND LAW for each body: Astronaut (mass m_a): Force = F backward → acceleration = F/m_a backward. After push, astronaut drifts backward at constant velocity forever (no friction to stop them — First Law!). Spacecraft (mass m_s >> m_a): Force = F forward → acceleration = F/m_s forward. Much smaller acceleration than astronaut (larger mass). After push, spacecraft drifts forward at constant velocity forever. Total momentum remains zero (as it was initially) — equal and opposite momenta. CRITICAL: The astronaut cannot return to the spacecraft without another push — there is no air, no friction, nothing to slow them or turn them around.",
+      explanation:
+        "All three laws explicitly applied in sequence. Third Law for force identification, Second Law for each body's acceleration, First Law for what happens after the push ends (constant velocity forever).",
+    },
+    {
+      id: "t4q19",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: Design a 'reaction-powered backpack' using Newton's Third Law. What fluid should you use, at what ejection rate, to lift a 70 kg person? What engineering challenges must be overcome?",
+      correctAnswer:
+        "PHYSICS REQUIREMENT: To lift 70 kg person, upward thrust must exceed weight. Weight = 70 × 10 = 700 N. Need thrust ≥ 700 N upward. THIRD LAW: Backpack ejects fluid downward (action). Fluid pushes backpack (and person) upward (reaction). Thrust = mass flow rate × ejection speed. FLUID CHOICE: Water: dense, easily available, but heavy tank. Compressed gas (CO2, air): much lighter, higher ejection speeds. For 700 N with CO2 at 500 m/s: mass flow rate = 700/500 = 1.4 kg/s. For a 5-minute flight: total gas = 1.4 × 300 = 420 kg of gas. Too heavy! Solution: liquid nitrogen (boils to gas rapidly) or hydrogen peroxide decomposition (used in real jetpacks). ENGINEERING CHALLENGES: (1) Tank weight vs. flight time trade-off — as fuel ejects, mass decreases, acceleration increases (F=ma). (2) Precision directional nozzles for stable hover and steering. (3) Safety systems for pressure relief. (4) Heat management — hot exhaust gases. This is why real jetpacks (e.g., Martin Jetpack) are engineering marvels using carefully optimized propulsion chemistry.",
+      explanation:
+        "Third Law principle → force requirement → mass flow calculation → real engineering constraints. Shows how simple Third Law physics encounters real-world challenges.",
+    },
+    {
+      id: "t4q20",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: Why do astronauts tether themselves during spacewalks? What happens if an untethered astronaut accidentally pushes a tool away from themselves?",
+      correctAnswer:
+        "THIRD LAW SCENARIO: Astronaut pushes tool away (action). Tool pushes astronaut in the opposite direction (reaction). Equal forces, different masses → different accelerations (Second Law). Tool (small mass): large velocity in one direction. Astronaut (large mass, ~90 kg with suit): smaller but real velocity in opposite direction. FIRST LAW CONSEQUENCE: In the near-vacuum of space, essentially no friction exists. By Newton's First Law, once the astronaut starts drifting, they continue at constant velocity FOREVER with NOTHING to stop or redirect them. Even a tiny drift of 0.1 m/s means in 1 hour, the astronaut is 360 metres from the spacecraft — a fatal situation. TETHER SOLUTION: The tether acts as a physical link that can transmit a restoring force back to the spacecraft. If the astronaut drifts, the tether pulls taut and provides the reaction force to stop the drift and pull them back. It is literally a lifeline implementing Newton's Third Law as a safety mechanism. All spacewalks require tethers for exactly this reason.",
+      explanation:
+        "Third Law for force generation (push tool → react away), Second Law for mass-dependent velocities, First Law for why drifting never stops in space. The tether as a Third Law safety device is the key insight.",
+    },
+  ],
+};
