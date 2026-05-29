@@ -47,6 +47,8 @@ $$p_{\\text{total}} = p_1 + p_2 + p_3 + \\ldots = m_1 v_1 + m_2 v_2 + m_3 v_3 + 
 
 ### Stating the Law of Conservation of Momentum
 
+![Billiard balls — a perfect demonstration of momentum conservation](https://images.unsplash.com/photo-1520095972714-909e91b038e5?auto=format&fit=crop&w=900&q=80)
+
 > **"In the absence of any external unbalanced force, the total momentum of a system of objects remains constant (conserved) before and after any interaction."**
 
 Mathematically, for two objects before (u) and after (v) an interaction:
@@ -1162,6 +1164,127 @@ This means: if momentum conservation ever failed, it would mean the laws of phys
         "**Why momentum conservation is 'fundamental':**\n\nConservation of momentum follows from a deep mathematical principle called **Noether's theorem** (Emmy Noether, 1915): every symmetry in physics corresponds to a conservation law.\n\nMomentum conservation corresponds to **translational symmetry** — the laws of physics are the same everywhere in space. If you moved your physics experiment from Delhi to Mumbai, the same forces, accelerations, and outcomes occur. This spatial uniformity GUARANTEES momentum conservation.\n\n**More fundamental than Newton's Laws?**\nNewton's Laws are actually derivable FROM conservation of momentum + Noether's theorem (in their classical limit). In quantum mechanics and relativistic physics, Newton's Laws don't hold, but momentum conservation STILL holds (with relativistic p = γmv). Conservation laws survive in extreme regimes where Newton's simple equations fail.\n\n**If momentum were NOT conserved — hypothetical consequences:**\n\nImagine a world where a ball rolling across a room spontaneously gained momentum with no force acting on it:\n1. Objects could randomly accelerate without any cause — unpredictable universe\n2. You could extract free energy from collisions (energy creation)\n3. Rockets couldn't be designed (thrust calculations would fail)\n4. Nuclear reactors couldn't be operated safely (particle collisions unpredictable)\n5. Chemistry would be impossible to understand (molecular reactions)\n\n**Specific example:**\nIn our hypothetical no-conservation world: a 1 kg ball hits a wall and rebounds faster (say 10 m/s → 15 m/s). The ball gained 5 × 10⁻² × 0.5 J... wait, it gained kinetic energy too. This would violate BOTH momentum AND energy conservation simultaneously.\n\nIn the real world, conservation laws are the bedrock upon which ALL of physics is built. They're verified to extraordinary precision — in every particle accelerator collision, every astronomical observation, every chemical reaction. So far: never violated.",
       explanation:
         "This HOTS question connects Newton's Laws to deep mathematical physics (Noether's theorem). The connection between symmetry and conservation laws is one of the most beautiful results in all of physics — and explains why conservation laws are more fundamental than Newton's equations.",
+    },
+
+    /* ══════════════════════════════════════════
+     * ADDITIONAL CBSE-PATTERN QUESTIONS (t5q61 – t5q70)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t5q61",
+      type: "mcq",
+      points: 4,
+      question:
+        "A 5 kg ball moving at 6 m/s collides with a 3 kg ball at rest. If they move together after collision, what is the common velocity?",
+      options: ["2.5 m/s", "3.75 m/s", "4.5 m/s", "5.0 m/s"],
+      correctAnswer: "3.75 m/s",
+      explanation:
+        "By conservation of momentum: 5×6 + 3×0 = (5+3)×v → 30 = 8v → v = 3.75 m/s.",
+    },
+    {
+      id: "t5q62",
+      type: "mcq",
+      points: 4,
+      question:
+        "A bomb at rest explodes into three equal fragments. Two fragments fly off at right angles to each other with speed 30 m/s. What is the speed of the third fragment?",
+      options: ["30 m/s", "30√2 m/s", "60 m/s", "45 m/s"],
+      correctAnswer: "30√2 m/s",
+      explanation:
+        "The two equal perpendicular momenta have a resultant of p√2 = 30m√2. The third fragment must carry equal and opposite momentum: v = 30√2 m/s ≈ 42.4 m/s.",
+    },
+    {
+      id: "t5q63",
+      type: "mcq",
+      points: 4,
+      question:
+        "Two objects of masses 2 kg and 4 kg are moving toward each other at 4 m/s and 2 m/s respectively. After a perfectly inelastic collision, the common velocity is:",
+      options: ["0 m/s", "0.67 m/s", "1.33 m/s", "2 m/s"],
+      correctAnswer: "0 m/s",
+      explanation:
+        "Taking left as positive: p₁ = 2×4 = +8 kg·m/s; p₂ = 4×(−2) = −8 kg·m/s. Total = 0. Combined velocity = 0/(2+4) = 0 m/s — they stop!",
+    },
+    {
+      id: "t5q64",
+      type: "mcq",
+      points: 4,
+      question:
+        "A 60 kg person standing on a 20 kg skateboard (both at rest) throws a 2 kg ball horizontally at 15 m/s. The speed of the person + skateboard after throwing is:",
+      options: ["0.375 m/s", "0.5 m/s", "0.75 m/s", "1.0 m/s"],
+      correctAnswer: "0.375 m/s",
+      explanation:
+        "Total initial momentum = 0. Ball momentum = 2×15 = 30 kg·m/s forward. Person+board momentum = −30 kg·m/s. v = 30/(60+20) = 0.375 m/s backward.",
+    },
+    {
+      id: "t5q65",
+      type: "mcq",
+      points: 4,
+      question:
+        "In an elastic collision between two objects of equal mass, one being at rest, after the collision:",
+      options: [
+        "Both objects move with half the initial velocity",
+        "The first object stops and the second moves with the initial velocity of the first",
+        "Both objects move with the same velocity",
+        "The first object rebounds with the same speed",
+      ],
+      correctAnswer:
+        "The first object stops and the second moves with the initial velocity of the first",
+      explanation:
+        "For equal-mass elastic collision: v₁_after = 0, v₂_after = u₁. This is exactly what happens when billiard balls collide — striking ball stops, target ball takes the velocity.",
+    },
+    {
+      id: "t5q66",
+      type: "short",
+      points: 10,
+      question:
+        "A cricket ball of mass 0.15 kg is moving at 40 m/s. A batsman hits it back along the same line at 60 m/s. (a) Find the change in momentum of the ball. (b) If the bat was in contact for 0.01 s, find the average force exerted by the bat on the ball.",
+      correctAnswer:
+        "**(a) Change in momentum:**\nTaking forward (original direction) as positive:\nInitial momentum = 0.15 × 40 = +6 kg·m/s\nFinal momentum = 0.15 × (−60) = −9 kg·m/s (reversed direction)\nΔp = −9 − (+6) = **−15 kg·m/s** (15 kg·m/s away from the batsman)\n|Δp| = **15 kg·m/s**\n\n**(b) Average force:**\nF = |Δp| / t = 15 / 0.01 = **1500 N**\n\nThe batsman must exert 1500 N — roughly 150 times the weight of the ball — in just 10 milliseconds!",
+      explanation:
+        "Cricket ball problems are classic CBSE impulse questions. Note: direction matters when computing Δp. The ball reverses direction, so its full momentum change is the sum of the two momenta magnitudes.",
+    },
+    {
+      id: "t5q67",
+      type: "short",
+      points: 10,
+      question:
+        "A rocket of mass 1000 kg is at rest in space. It ejects 2 kg of gas every second at 500 m/s (relative to the rocket). Find: (a) the thrust force, (b) the initial acceleration of the rocket, (c) the acceleration after 200 s of burning.",
+      correctAnswer:
+        "**(a) Thrust:**\nThrust = mass flow rate × exhaust speed = 2 × 500 = **1000 N**\n\n**(b) Initial acceleration:**\na = F/m = 1000/1000 = **1 m/s²**\n\n**(c) After 200 s:**\nMass ejected = 2 × 200 = 400 kg\nRemaining mass = 1000 − 400 = 600 kg\nAcceleration = 1000/600 = **1.67 m/s²**\n\nAs fuel is burned, mass decreases → same thrust → greater acceleration. This is why rockets accelerate faster as they burn fuel!",
+      explanation:
+        "Rocket thrust = exhaust speed × mass flow rate. As mass decreases with constant thrust, acceleration increases. This is why a rocket lifts off relatively slowly and gets faster rapidly.",
+    },
+    {
+      id: "t5q68",
+      type: "short",
+      points: 10,
+      question:
+        "Two ice skaters A (50 kg) and B (70 kg) stand facing each other. A pushes B and they move apart. B moves at 2 m/s. Find: (a) A's speed and direction, (b) the ratio of their kinetic energies, (c) why the lighter skater moves faster.",
+      correctAnswer:
+        "**(a) Speed of A:**\nInitial total momentum = 0 (both at rest on ice).\nBy conservation: m_A × v_A + m_B × v_B = 0\n50 × v_A + 70 × (−2) = 0  [taking B's direction as negative]\n50 v_A = 140\nv_A = **2.8 m/s** (opposite to B's direction)\n\n**(b) Kinetic energies:**\nKE_A = ½ × 50 × 2.8² = ½ × 50 × 7.84 = **196 J**\nKE_B = ½ × 70 × 2² = ½ × 70 × 4 = **140 J**\nRatio KE_A : KE_B = 196 : 140 = **1.4 : 1**\n\n**(c) Why lighter skater moves faster:**\nMomentum is equal and opposite: p_A = p_B = 140 kg·m/s\nKE = p²/(2m): same momentum, smaller mass → more KE → more speed.\nFor equal momenta: v = p/m, so lighter object (smaller m) has higher v.",
+      explanation:
+        "Skater problems beautifully show that equal momenta don't mean equal speeds or energies. The lighter skater gets more kinetic energy from the same momentum because KE = p²/(2m) — inverse relationship with mass.",
+    },
+    {
+      id: "t5q69",
+      type: "long",
+      points: 20,
+      question:
+        "Derive the Law of Conservation of Momentum from Newton's Third Law. Then prove that in a two-body isolated system, the total momentum before and after any collision is equal. Give a numerical example with a 3 kg ball at 5 m/s hitting a 2 kg ball at rest, resulting in the first ball moving at 1 m/s after collision.",
+      correctAnswer:
+        "**Derivation from Newton's Third Law:**\n\nConsider two objects A and B that interact (collide) with each other.\n\nBy Newton's Third Law:\nForce of A on B = −(Force of B on A)\n\nLet:\n- F_AB = force A exerts on B (during collision)\n- F_BA = force B exerts on A (during collision)\n- Collision lasts for time Δt\n\nBy Newton's Third Law: F_AB = −F_BA\n\nMultiplying both sides by Δt:\nF_AB × Δt = −F_BA × Δt\n\nBut Force × Time = Impulse = Change in Momentum:\nΔp_B = −Δp_A\n(m_B × v_B − m_B × u_B) = −(m_A × v_A − m_A × u_A)\n\nRearranging:\nm_A × u_A + m_B × u_B = m_A × v_A + m_B × v_B\n\n**Therefore: Total momentum before = Total momentum after** ✓\n\nThis derivation shows conservation of momentum is a CONSEQUENCE of Newton's Third Law.\n\n**Numerical verification:**\nBall A: m_A = 3 kg, u_A = 5 m/s, v_A = 1 m/s (given)\nBall B: m_B = 2 kg, u_B = 0 m/s, v_B = ? (find)\n\nConservation of momentum:\nm_A × u_A + m_B × u_B = m_A × v_A + m_B × v_B\n3 × 5 + 2 × 0 = 3 × 1 + 2 × v_B\n15 = 3 + 2 × v_B\n2 × v_B = 12\nv_B = **6 m/s** (Ball B moves in the original direction of Ball A)\n\nCheck: Total before = 15 + 0 = 15 kg·m/s. Total after = 3 + 12 = **15 kg·m/s** ✓\n\nKinetic energy check:\nKE before = ½×3×25 + 0 = 37.5 J\nKE after = ½×3×1 + ½×2×36 = 1.5 + 36 = 37.5 J\nKE is also conserved → this is an **elastic collision**!",
+      explanation:
+        "The derivation from Newton's Third Law is the standard CBSE derivation. Always verify by checking: (1) total momentum before = after, (2) whether kinetic energy is conserved (elastic) or lost (inelastic).",
+    },
+    {
+      id: "t5q70",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: A 5 kg block is sliding on a frictionless surface at 10 m/s. It collides with a stationary 3 kg block and they stick together. (a) Find the velocity after collision. (b) Find the percentage loss in kinetic energy. (c) Is this elastic or inelastic? (d) Where does the 'lost' energy go? (e) If both blocks compress a spring between them instead of sticking, is more or less energy stored in the spring compared to the energy lost in (b)? Explain.",
+      correctAnswer:
+        "**(a) Velocity after collision:**\nBy conservation of momentum:\n5 × 10 = (5 + 3) × v\n50 = 8v\nv = **6.25 m/s**\n\n**(b) Percentage KE loss:**\nKE_before = ½ × 5 × 100 = **250 J**\nKE_after = ½ × 8 × 39.0625 = **156.25 J**\nKE lost = 93.75 J\n% loss = (93.75/250) × 100 = **37.5%**\n\n**(c) Elastic or inelastic?**\nKinetic energy is NOT conserved (93.75 J lost). This is a **perfectly inelastic collision** (they stick together). All perfectly inelastic collisions lose the maximum possible kinetic energy.\n\n**(d) Where does the energy go?**\nThe 93.75 J is converted to:\n- **Heat** (deformation of materials at molecular level)\n- **Sound** (the thud/bang of impact)\n- **Deformation energy** (permanent bending, crushing of materials)\n- Sometimes **light** (tiny sparks in metal-metal collisions)\nThe energy is NOT destroyed — it merely changes form (First Law of Thermodynamics).\n\n**(e) Spring collision:**\nIf a spring is placed between them instead:\n- During maximum compression: both blocks move at the same velocity (same as perfectly inelastic: 6.25 m/s)\n- Energy stored in spring = KE_before − KE_at_max_compression = **93.75 J**\n- BUT: after maximum compression, the spring pushes them apart again!\n- At separation: KE is FULLY restored to 250 J (assuming ideal spring)\n- Spring collision → **elastic collision** (energy stored temporarily, then fully returned)\n\nKey insight: Spring collision = MORE efficient (all energy returned). Perfectly inelastic = least efficient (all convertible energy is permanently lost). Real collisions are in between.",
+      explanation:
+        "This comprehensive problem covers all collision types. The spring collision is a critical HOTS comparison — springs make collisions elastic by temporarily storing and returning all kinetic energy.",
+    },
     },
   ],
 };

@@ -47,6 +47,8 @@ Let us break this down into two separate but equally important statements:
 
 ### Understanding Inertia — The "Laziness" of Matter
 
+![Voyager spacecraft — Newton's First Law in deep space](https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=900&q=80)
+
 Newton's First Law is fundamentally about **Inertia**. The word comes from the Latin *iners*, meaning "idle" or "lazy."
 
 > **Inertia** is the natural tendency of matter to **resist any change** in its state of motion (whether at rest or moving).

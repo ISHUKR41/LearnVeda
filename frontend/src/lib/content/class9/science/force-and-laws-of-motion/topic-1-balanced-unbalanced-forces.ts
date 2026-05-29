@@ -63,6 +63,8 @@ To give you a feel:
 
 ### Five Major Effects of Force
 
+![Tug of War — balanced vs unbalanced forces in action](https://images.unsplash.com/photo-1555597673-b21d5c935865?auto=format&fit=crop&w=900&q=80)
+
 Force doesn't just move things — it can do five distinctly different things:
 
 #### 1. Move a Stationary Object (Start Motion)

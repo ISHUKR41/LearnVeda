@@ -3,7 +3,7 @@
  * LOCATION: src/components/physics/PhysicsSimulation.tsx
  * PURPOSE: Professional physics simulations for Class 9 Force & Laws of Motion.
  *          Each topic features 5 interactive simulations selectable via tabs,
- *          providing a rich, fully responsive, and premium visual sandbox.
+ *          PLUS a 6th real-world bonus simulation from BonusSimulations.tsx.
  *          Topics covered: Balanced/Unbalanced Forces, Newton's 1st/2nd/3rd Laws,
  *          and Conservation of Momentum.
  * LAST UPDATED: 2026-05-29
@@ -13,6 +13,13 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./PhysicsSimulation.module.css";
+import {
+  CarSafetySimulation,
+  SpacecraftSimulation,
+  RocketLaunchSimulation,
+  RecoilSimulation,
+  BallisticPendulumSimulation,
+} from "./BonusSimulations";
 
 /* ───────────────────────────────────────────────────────
  * Helper: custom tab button row used by every simulation
@@ -3799,26 +3806,98 @@ export function MomentumSimulation() {
 }
 
 /* ─────────────────────────────────────────────────────────
- * TopicSimulation — picks the correct simulation for the topic
+ * TopicSimulation — picks the correct simulation for the topic.
+ * Each topic shows 5 core simulations + 1 real-world bonus simulation.
  * ───────────────────────────────────────────────────────── */
 interface TopicSimulationProps {
   topicId: string;
 }
 
 export default function TopicSimulation({ topicId }: TopicSimulationProps) {
+  const [showBonus, setShowBonus] = useState(false);
+
+  let coreSim: React.ReactNode = null;
+  let bonusSim: React.ReactNode = null;
+  let bonusLabel = "";
+
   switch (topicId) {
     case "balanced-unbalanced-forces":
-      return <BalancedForcesSimulation />;
+      coreSim = <BalancedForcesSimulation />;
+      bonusSim = <CarSafetySimulation />;
+      bonusLabel = "🚗 Car Safety Physics";
+      break;
     case "first-law-of-motion-inertia":
     case "first-law-of-motion":
-      return <InertiaSimulation />;
+      coreSim = <InertiaSimulation />;
+      bonusSim = <SpacecraftSimulation />;
+      bonusLabel = "🛸 Spacecraft Free Motion";
+      break;
     case "second-law-of-motion":
-      return <FmaSimulation />;
+      coreSim = <FmaSimulation />;
+      bonusSim = <RocketLaunchSimulation />;
+      bonusLabel = "🚀 Rocket Launch";
+      break;
     case "third-law-of-motion":
-      return <ActionReactionSimulation />;
+      coreSim = <ActionReactionSimulation />;
+      bonusSim = <RecoilSimulation />;
+      bonusLabel = "🔫 Gun Recoil";
+      break;
     case "conservation-of-momentum":
-      return <MomentumSimulation />;
+      coreSim = <MomentumSimulation />;
+      bonusSim = <BallisticPendulumSimulation />;
+      bonusLabel = "🎯 Ballistic Pendulum";
+      break;
     default:
       return null;
   }
+
+  return (
+    <div>
+      {coreSim}
+
+      {/* Bonus simulation toggle */}
+      <div style={{ marginTop: 16 }}>
+        <button
+          onClick={() => setShowBonus((v) => !v)}
+          style={{
+            width: "100%",
+            padding: "10px 16px",
+            borderRadius: 10,
+            border: "1px dashed rgba(99,102,241,0.5)",
+            background: showBonus
+              ? "rgba(99,102,241,0.12)"
+              : "rgba(255,255,255,0.03)",
+            color: "#a5b4fc",
+            fontSize: "0.875rem",
+            fontWeight: 600,
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+            transition: "all 0.2s",
+          }}
+        >
+          <span style={{
+            padding: "2px 8px",
+            borderRadius: 6,
+            background: "rgba(99,102,241,0.25)",
+            fontSize: "0.7rem",
+            fontWeight: 700,
+            letterSpacing: "0.05em",
+            color: "#c7d2fe",
+          }}>
+            SIM 6
+          </span>
+          {showBonus ? "▲ Hide" : "▼ Show"} Bonus Real-World Simulation: {bonusLabel}
+        </button>
+
+        {showBonus && (
+          <div style={{ marginTop: 12 }}>
+            {bonusSim}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

@@ -85,6 +85,12 @@ export async function getAuthenticatedUserFromToken(token: string | undefined): 
  * @returns The authenticated user from Clerk session, or null
  */
 async function getClerkAuthenticatedUser(): Promise<PublicUser | null> {
+  // Skip Clerk auth entirely when the secret key is not configured.
+  // This prevents noisy errors during local dev / initial setup.
+  if (!process.env.CLERK_SECRET_KEY) {
+    return null;
+  }
+
   try {
     // Get Clerk auth state from the request headers (set by clerkMiddleware)
     const { userId: clerkUserId } = await auth();

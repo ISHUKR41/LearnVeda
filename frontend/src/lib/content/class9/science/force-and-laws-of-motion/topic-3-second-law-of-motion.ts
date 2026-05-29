@@ -153,6 +153,8 @@ $$m_1 : m_2 = a_2 : a_1 \\quad (\\text{when } F \\text{ is constant})$$
 
 #### The Three-Way Relationship
 
+![Rocket launch — F = ma in spectacular action](https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=900&q=80)
+
 $$a = \\frac{F}{m}$$
 
 Acceleration is directly proportional to force and inversely proportional to mass. This single equation tells you:
