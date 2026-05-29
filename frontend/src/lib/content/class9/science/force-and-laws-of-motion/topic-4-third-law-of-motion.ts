@@ -39,7 +39,7 @@ More precisely:
 
 > **"Whenever object A exerts a force on object B, object B simultaneously exerts an equal and opposite force on object A."**
 
-![Third Law Rocket Thrust](/images/third_law_rocket.png)
+![Rocket Launch — Newton Third Law Thrust](https://images.unsplash.com/photo-1517976547714-720226b864c1?w=800&q=80)
 
 In mathematics, using vector notation (double backslash for correct rendering):
 
@@ -111,7 +111,7 @@ No air needed! This is why rockets work in the vacuum of space where there's not
 
 Both bullet and gun experience equal and opposite forces. But since the gun is hundreds of times heavier than the bullet (F = ma → a = F/m), the gun's acceleration is much smaller. Still, without a firm grip or shoulder rest, the recoil can cause injury.
 
-![Gun Recoil Action-Reaction](/images/gun_recoil.png)
+![Action and Reaction — Equal and Opposite Forces](https://images.unsplash.com/photo-1563089145-599997674d42?w=800&q=80)
 
 #### Example 5: Rowing a Boat
 
@@ -975,6 +975,264 @@ The rifle recoils at 1 m/s — while the bullet zooms at 300 m/s, 300× faster, 
       correctAnswer: "As a spacecraft approaches a planet, the planet's gravity pulls it, accelerating it. By Newton's Third Law, spacecraft pulls planet too — but planet's mass is enormous so its velocity change is negligible. In the planet's reference frame, spacecraft enters and exits at same speed. But in the Sun's frame, if spacecraft 'steals' some of planet's orbital velocity during flyby, it exits faster. The planet slows very slightly (loses kinetic energy). No violation — equal forces, but planet's mass makes its change undetectable.",
       explanation: "The gravity assist is one of the most clever applications of Newton's Laws in space exploration. Voyager 1 used Jupiter and Saturn flybys to reach outer solar system. Cassini used Venus, Earth, and Jupiter flybys to reach Saturn. In each case: spacecraft gains momentum FROM the planet's orbital motion. Planet loses equal momentum but its enormous mass makes the velocity change negligible. Third Law is NOT violated: spacecraft pulls planet backward with the same force planet pulls spacecraft forward. Energy is conserved — it transfers from planet's orbital kinetic energy to spacecraft's kinetic energy. The Voyager probes achieved 17 km/s (faster than any rocket alone could achieve in 1977) through this technique. NASA estimates this 'free' velocity saving prevented the need for 30-year longer mission times or impossibly large rockets.",
       points: 25,
+    },
+
+    /* ══════════════════════════════════════════
+     * ADDITIONAL QUESTIONS (t4q41 – t4q65)
+     * Newton's Third Law Extended Practice
+     * ══════════════════════════════════════════ */
+    {
+      id: "t4q41",
+      type: "mcq",
+      points: 10,
+      question:
+        "A horse pulls a cart forward. By Newton's Third Law, the cart pulls the horse backward with an equal force. Why does the horse-cart system still move forward?",
+      options: [
+        "The horse is stronger so it overcomes the Third Law",
+        "The Third Law forces cancel only within the system; the ground pushes the horse forward more than friction resists the cart",
+        "Newton's Third Law doesn't apply to horse-cart systems",
+        "The cart doesn't actually pull the horse backward",
+      ],
+      correctAnswer:
+        "The Third Law forces cancel only within the system; the ground pushes the horse forward more than friction resists the cart",
+      explanation:
+        "Third Law pairs (horse pulls cart forward; cart pulls horse backward) act on different objects within the system. For the WHOLE system to accelerate, consider external forces: horse hooves push backward on ground → ground pushes horse forward (external force). This external push on the system exceeds the rolling friction on the cart. Net external force > 0 → system accelerates forward.",
+    },
+    {
+      id: "t4q42",
+      type: "mcq",
+      points: 10,
+      question:
+        "When you walk, which Third Law pair is most responsible for your forward motion?",
+      options: [
+        "Your foot pushes forward on the ground; ground pushes your foot forward",
+        "Your foot pushes backward on the ground; ground pushes your foot forward",
+        "Your muscles push you forward; gravity pulls you backward",
+        "Air resistance pushes you forward; your legs push backward",
+      ],
+      correctAnswer:
+        "Your foot pushes backward on the ground; ground pushes your foot forward",
+      explanation:
+        "When you walk: your foot exerts a backward force on the ground (action). By Third Law, the ground exerts an equal forward force on your foot (reaction). This reaction force propels you forward. Without friction (icy surface), the ground can't exert the reaction force and you slip.",
+    },
+    {
+      id: "t4q43",
+      type: "mcq",
+      points: 10,
+      question:
+        "A gun of mass 3 kg fires a bullet of mass 30 g at 300 m/s. What is the recoil speed of the gun?",
+      options: ["3 m/s", "0.3 m/s", "30 m/s", "300 m/s"],
+      correctAnswer: "3 m/s",
+      explanation:
+        "By Newton's Third Law (or momentum conservation): m_gun × v_gun = m_bullet × v_bullet. 3 × v = 0.030 × 300 = 9. v = **3 m/s** backward. The gun 'kicks back' because the bullet and gun experience equal and opposite forces during firing.",
+    },
+    {
+      id: "t4q44",
+      type: "mcq",
+      points: 10,
+      question:
+        "A 50 kg person jumps off a 200 kg boat (at rest). The person reaches the dock at 3 m/s. What is the boat's velocity after the jump?",
+      options: ["0.75 m/s away from dock", "3 m/s away from dock", "12 m/s away from dock", "0 m/s"],
+      correctAnswer: "0.75 m/s away from dock",
+      explanation:
+        "Momentum before = 0. Momentum after = 0. 50 × 3 + 200 × v_boat = 0. v_boat = −150/200 = **−0.75 m/s** (away from dock). The boat moves in the opposite direction to the jumper. This is a perfect demonstration of Newton's Third Law and momentum conservation.",
+    },
+    {
+      id: "t4q45",
+      type: "mcq",
+      points: 10,
+      question:
+        "Two identical skaters (70 kg each) face each other on ice. Skater A pushes Skater B with 140 N for 0.5 s. What is each skater's speed after the push?",
+      options: [
+        "A: 0 m/s, B: 1 m/s",
+        "A: 1 m/s, B: 1 m/s (same direction)",
+        "A: 1 m/s backward, B: 1 m/s forward",
+        "A: 2 m/s backward, B: 0.5 m/s forward",
+      ],
+      correctAnswer: "A: 1 m/s backward, B: 1 m/s forward",
+      explanation:
+        "Impulse on B = 140 × 0.5 = 70 N·s → v_B = 70/70 = 1 m/s (forward). By Third Law, A receives equal impulse backward: v_A = −70/70 = 1 m/s (backward). Both skaters have the same speed (because they have the same mass) but in opposite directions.",
+    },
+    {
+      id: "t4q46",
+      type: "mcq",
+      points: 10,
+      question:
+        "Earth exerts gravitational force on a 1 kg stone (10 N downward). By Newton's Third Law, the stone exerts 10 N on Earth. Why doesn't Earth accelerate upward at 10 m/s²?",
+      options: [
+        "Earth is too far away for the force to have effect",
+        "The Earth's mass (6×10²⁴ kg) makes the acceleration negligible: a = 10/(6×10²⁴) ≈ 10⁻²⁴ m/s²",
+        "Newton's Third Law doesn't apply to gravity",
+        "The 10 N force on Earth is canceled by atmospheric pressure",
+      ],
+      correctAnswer:
+        "The Earth's mass (6×10²⁴ kg) makes the acceleration negligible: a = 10/(6×10²⁴) ≈ 10⁻²⁴ m/s²",
+      explanation:
+        "Newton's Third Law DOES apply. The stone pulls Earth upward with exactly 10 N. But a = F/m = 10/(6×10²⁴) ≈ 1.7×10⁻²⁴ m/s² — immeasurably tiny! Equal forces, vastly different accelerations due to vastly different masses. This is why we say 'the stone falls' but 'the Earth doesn't move'.",
+    },
+    {
+      id: "t4q47",
+      type: "mcq",
+      points: 10,
+      question:
+        "A squid propels itself by ejecting water backward. If it ejects 0.5 kg of water at 8 m/s relative to itself, and the squid's mass (including remaining water) is 2 kg, what is the squid's change in velocity?",
+      options: ["4 m/s", "2 m/s", "1 m/s", "16 m/s"],
+      correctAnswer: "2 m/s",
+      explanation:
+        "Momentum conservation (or Newton's Third Law): m_squid × Δv = m_water × v_water. 2 × Δv = 0.5 × 8 = 4. Δv = **2 m/s** forward. The squid gains forward momentum equal to the backward momentum of the ejected water. This is jet propulsion — same principle as rockets.",
+    },
+    {
+      id: "t4q48",
+      type: "mcq",
+      points: 10,
+      question:
+        "A karate practitioner breaks a brick with their hand. The brick exerts 800 N on the hand for 2 ms. What force does the hand exert on the brick?",
+      options: [
+        "800 N (Newton's Third Law — equal forces)",
+        "More than 800 N (hand moves faster than brick)",
+        "Less than 800 N (hand stops first)",
+        "Depends on the practitioner's skill",
+      ],
+      correctAnswer: "800 N (Newton's Third Law — equal forces)",
+      explanation:
+        "Newton's Third Law is absolute: the hand exerts exactly 800 N on the brick, and the brick exerts exactly 800 N on the hand. Both forces exist simultaneously. The skill of the karate practitioner lies in delivering this force quickly (high acceleration) and following through (maintaining contact time). The hand hurts if the bones/muscles can't withstand 800 N.",
+    },
+    {
+      id: "t4q49",
+      type: "mcq",
+      points: 10,
+      question:
+        "Which of the following is NOT a correct action-reaction pair?",
+      options: [
+        "Book pushes table down; table pushes book up",
+        "Earth pulls Moon toward it; Moon pulls Earth toward it",
+        "You push wall; wall pushes floor",
+        "Magnet attracts iron nail; iron nail attracts magnet",
+      ],
+      correctAnswer: "You push wall; wall pushes floor",
+      explanation:
+        "Newton's Third Law pairs must: (1) act on different objects, (2) be the same type of force, (3) be equal and opposite. 'You push wall; wall pushes floor' is NOT a pair — these are sequential forces, not a single interaction. The CORRECT pair is: 'You push wall; wall pushes YOU backward.' The wall-floor interaction is a separate Third Law pair.",
+    },
+    {
+      id: "t4q50",
+      type: "mcq",
+      points: 10,
+      question:
+        "A helicopter stays aloft by pushing air downward. If the helicopter weighs 20,000 N, what must the downward force on air be?",
+      options: ["< 20,000 N", "= 20,000 N", "> 20,000 N", "Zero (propellers create lift differently)"],
+      correctAnswer: "= 20,000 N",
+      explanation:
+        "For a hovering helicopter: lift force (air on helicopter, upward) = weight (20,000 N). By Newton's Third Law: helicopter pushes air downward with exactly **20,000 N** (reaction to the lift). When a helicopter accelerates upward, it must push air down with MORE than 20,000 N to create a net upward force.",
+    },
+    {
+      id: "t4q51",
+      type: "mcq",
+      points: 10,
+      question:
+        "A 60 kg person stands on a 10 kg skateboard. They jump off with velocity 3 m/s to the right. What is the skateboard's velocity?",
+      options: ["18 m/s left", "0.5 m/s left", "3 m/s left", "18 m/s right"],
+      correctAnswer: "18 m/s left",
+      explanation:
+        "Initial momentum = 0. 60 × 3 + 10 × v = 0. v = −180/10 = **18 m/s left**. The skateboard (lighter) moves much faster than the person (heavier). Equal and opposite momenta, but vastly different speeds due to mass difference.",
+    },
+    {
+      id: "t4q52",
+      type: "mcq",
+      points: 10,
+      question:
+        "A fire hose discharges 50 kg of water per second at 40 m/s. What force must the firefighter exert to hold the hose steady?",
+      options: ["1250 N backward", "2000 N forward", "2000 N backward", "1250 N forward"],
+      correctAnswer: "2000 N backward",
+      explanation:
+        "Thrust (reaction force on hose) = mass flow rate × exhaust velocity = 50 × 40 = **2000 N** backward (opposing water flow direction). The firefighter must push the hose forward with 2000 N to balance this reaction force. This is why fire hoses require multiple people to control.",
+    },
+    {
+      id: "t4q53",
+      type: "short",
+      points: 15,
+      question:
+        "A rocket in space has mass 2000 kg (including 1500 kg fuel). It ejects gas at 1500 m/s. After burning 500 kg of fuel, what is the rocket's speed? (Use momentum conservation: p_initial = 0)",
+      correctAnswer:
+        "Initial system at rest: total momentum = 0.\n\nAfter burning 500 kg of fuel:\n- Remaining rocket mass = 2000 − 500 = 1500 kg\n- Ejected gas mass = 500 kg at 1500 m/s backward\n\nBy momentum conservation:\n0 = 1500 × v_rocket + 500 × (−1500)\n1500 × v_rocket = 750,000\nv_rocket = **500 m/s** forward\n\nThe rocket gains 500 m/s by ejecting 500 kg of gas at 1500 m/s.\n\nNote: The Tsiolkovsky equation gives a more accurate answer (accounting for continuously changing mass), but momentum conservation gives a good approximation for finite ejections.",
+      explanation:
+        "Rocket propulsion is Newton's Third Law in its purest form. The rocket pushes gas backward; gas pushes rocket forward. Conservation of momentum tells us the exact velocity gained.",
+    },
+    {
+      id: "t4q54",
+      type: "short",
+      points: 15,
+      question:
+        "A 5 kg block A and a 3 kg block B are connected by a compressed spring on a frictionless surface. When released, block B moves at 5 m/s to the right. (a) What is block A's velocity? (b) What force did the spring exert? (c) Is this Newton's Third Law?",
+      correctAnswer:
+        "**(a) Block A's velocity:**\nInitial momentum = 0 (both at rest)\nFinal: 5 × v_A + 3 × 5 = 0\n5v_A = −15\nv_A = **−3 m/s** (3 m/s to the left)\n\n**(b) Spring force:**\nThe spring acts for a very short time — we don't know the exact time, so we can't directly calculate force. However, by the impulse-momentum theorem, both blocks receive equal and opposite impulses from the spring:\nImpulse on B = 3 × 5 = 15 N·s (right)\nImpulse on A = 5 × 3 = 15 N·s (left) ✓ Equal!\n\nIf the spring acts for, say, 0.01 s: Average force = 15/0.01 = **1500 N** on each block\n\n**(c) Is this Third Law?**\nYes! The spring exerts equal and opposite forces on both blocks simultaneously. This is a mechanical action-reaction pair mediated by the spring.",
+      explanation:
+        "The spring-block system shows Third Law through an intermediate object (spring). The spring compresses, storing energy, then releases. Equal and opposite forces on A and B, but different accelerations (different masses), so different velocities.",
+    },
+    {
+      id: "t4q55",
+      type: "long",
+      points: 20,
+      question:
+        "Explain in detail the physics of a jet engine. How does it use Newton's Third Law? Why can a jet engine not work in space while a rocket can? What is the role of conservation of momentum?",
+      correctAnswer:
+        "**Jet Engine Physics:**\n\n**How it works:**\n1. Air is sucked in at the front (intake)\n2. Air is compressed by rotating compressor blades\n3. Fuel is injected and ignited — enormous heat increases gas pressure\n4. Hot, high-pressure gas expands and exits backward at high speed (~500 m/s)\n5. The engine is pushed forward by Newton's Third Law reaction\n\n**Newton's Third Law application:**\nAction: engine pushes gas backward at high speed\nReaction: gas pushes engine (and aircraft) forward\n\nThrust = rate of momentum increase of exhaust gas\n= (mass flow rate) × (exhaust speed - intake speed)\n= 100 kg/s × (500 - 100) = **40,000 N** (typical small jet)\n\n**Why jets don't work in space:**\nJet engines require oxygen from air to burn fuel (combustion needs O₂). In space, there's no air → no oxygen → no combustion → no thrust. Also, jets suck in air as the 'reaction mass' to push backward.\n\n**Why rockets work in space:**\nRockets carry BOTH fuel AND oxidiser. They need nothing from the surrounding environment. Rockets use Newton's Third Law purely: they eject reaction mass (exhaust) that they carry onboard.\n\n**Conservation of momentum:**\nFor both jets and rockets: total momentum of (vehicle + exhaust) is conserved. As exhaust gains backward momentum, vehicle gains equal forward momentum. In space (no external forces), this is exact. In atmosphere, thrust must also overcome air resistance and gravity.",
+      explanation:
+        "Jet vs rocket comparison is a beautiful application of Newton's Third Law. Both use momentum conservation, but jets require external air while rockets are self-contained. This distinction is crucial for space exploration.",
+    },
+    {
+      id: "t4q56",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: A student claims 'Since Newton's Third Law says action = reaction, no object can ever accelerate because every force is always opposed by an equal force.' Explain in detail why this reasoning is fundamentally wrong using at least three concrete examples.",
+      correctAnswer:
+        "The student has made a critical logical error: **conflating Third Law pairs (on different objects) with net force (on one object)**.\n\n**The fundamental error:**\nThird Law pairs ALWAYS act on DIFFERENT objects. The net force on any object is calculated from ALL forces acting ON THAT OBJECT ALONE — not including the forces it exerts on others.\n\n**Example 1 — Falling stone:**\nEarth pulls stone down (10 N). Stone pulls Earth up (10 N) — Third Law pair, on different objects.\nNet force ON STONE = 10 N down (only forces on stone counted) → stone accelerates at 10 m/s².\nNet force ON EARTH = 10 N up → Earth accelerates at 10/(6×10²⁴) ≈ 0 m/s² (negligible).\n\n**Example 2 — Rocket in space:**\nEngine pushes exhaust backward (F). Exhaust pushes rocket forward (F) — Third Law pair.\nNet force ON ROCKET = F forward → rocket accelerates forward.\nThe fact that exhaust experiences an equal backward force doesn't reduce the rocket's forward force at all!\n\n**Example 3 — You pushing a box:**\nYou push box with 50 N (right). Box pushes you with 50 N (left). Different objects!\nNet force on BOX = 50 N (right, assuming no friction) → box accelerates right.\nNet force on YOU = 50 N (left) + floor friction on you (right) → net might be zero, so you stay put.\n\n**The correct understanding:**\nThird Law never says a single object has zero net force. It says forces come in pairs on DIFFERENT objects. For any individual object, you must add up ALL forces ON THAT OBJECT to find net force and acceleration.",
+      explanation:
+        "This is the most important conceptual point in all of Newton's Laws: Third Law pairs act on different objects, never on the same object. Net force analysis always focuses on one object at a time.",
+    },
+    {
+      id: "t4q57",
+      type: "thinking",
+      points: 25,
+      question:
+        "Analyze the swimming stroke in detail. When a swimmer's arm pushes backward through water, identify every Third Law pair, every force on the swimmer, and explain why the swimmer moves forward. Also explain why swimming in a vacuum (no water) is impossible.",
+      correctAnswer:
+        "**Complete force analysis of a swimming stroke:**\n\n**Third Law pairs:**\n\nPair 1: Swimmer's arm pushes water backward → Water pushes swimmer's arm forward (thrust)\nPair 2: Water pressure acts forward on swimmer's body → Swimmer pushes water backward (minor)\nPair 3: Earth's gravity pulls swimmer down → Swimmer's weight pushes Earth up (negligible)\nPair 4: Water buoyancy pushes swimmer up → Swimmer pushes water down\n\n**Forces ON the swimmer:**\n1. Thrust (forward) — from water reaction to arm stroke — This drives swimming\n2. Drag (backward) — water resistance opposing forward motion\n3. Lift/Buoyancy (upward) — water displaced by body\n4. Weight (downward) — gravity\n\n**Why swimmer moves forward:**\nThe arm exerts force on water backward (action). Water reacts with equal force on arm/swimmer forward (reaction). If Thrust > Drag, net horizontal force > 0 → swimmer accelerates forward. At constant speed: Thrust = Drag.\n\n**Why vacuum is impossible:**\nIn vacuum, there's no water (or air) to push against. The Third Law pair requires a 'reaction mass' — water to push backward. Without water:\n- No reaction force forward\n- No resistance (drag)\n- No buoyancy\nThe swimmer would be weightless and unable to generate any thrust. This is exactly why humans cannot 'swim through air' in zero gravity without something to push against (like a wall or a fan).",
+      explanation:
+        "Swimming is Third Law applied to fluid mechanics. The water provides both the reaction mass (for thrust) and the resistance. Without a medium to push against, motion is impossible — which is why astronauts in the ISS need to push off walls to move.",
+    },
+    {
+      id: "t4q58",
+      type: "thinking",
+      points: 25,
+      question:
+        "A car weighing 15,000 N is driving along a road. List ALL Newton's Third Law pairs for the car-road-Earth system. Explain which pair is responsible for the car moving forward and which pairs involve the car's weight. Draw force diagrams in your answer.",
+      correctAnswer:
+        "**ALL Third Law pairs for a car-road-Earth system:**\n\n**Pair 1 — Gravity (car and Earth):**\nEarth pulls car downward with 15,000 N (gravity on car)\n↕\nCar pulls Earth upward with 15,000 N (gravity on Earth)\n\n**Pair 2 — Normal force (car and road):**\nRoad pushes car upward with 15,000 N (normal force on car)\n↕\nCar pushes road downward with 15,000 N (normal force on road)\n\n**Pair 3 — Friction for propulsion (driven wheels and road):**\nDriven wheels push road backward (action)\n↕\nRoad pushes car forward (friction — reaction) ← **THIS IS WHAT MOVES THE CAR!**\n\n**Pair 4 — Rolling friction / air drag:**\nAir/road exerts drag on car backward\n↕\nCar pushes air/road forward (reaction, minor effect)\n\n**Forces ON the CAR:**\nVertical: Normal (up, 15,000 N) = Weight (down, 15,000 N) → balanced, no vertical acceleration\nHorizontal: Friction from road forward − Drag backward = Net force → gives acceleration\n\n**Key insight:** The car 'drives itself' by using its engine to spin its wheels backward against the road. The road's reaction friction IS the propulsive force. Without friction (ice), no forward traction is possible — the wheels just spin uselessly.\n\n**Force on road:** The road receives 15,000 N downward + backward wheel friction. Roads are designed to withstand these forces through structural engineering.",
+      explanation:
+        "The car-road-Earth analysis reveals all the hidden Third Law pairs in everyday vehicle motion. The propulsive force on the car is actually the ROAD'S friction reaction — not the engine directly.",
+    },
+    {
+      id: "t4q59",
+      type: "long",
+      points: 20,
+      question:
+        "A ball is thrown at a wall and bounces back. If the ball's mass is 0.3 kg, it hits at 10 m/s and rebounds at 8 m/s, and contact time is 0.05 s, find: (a) change in momentum, (b) force on ball by wall, (c) force on wall by ball, (d) why the ball doesn't bounce back at 10 m/s.",
+      correctAnswer:
+        "**(a) Change in momentum (taking initial direction as positive):**\nΔp = m(v_f − v_i) = 0.3(−8 − 10) = 0.3 × (−18) = **−5.4 kg·m/s**\n(5.4 kg·m/s change, directed toward wall)\n\n**(b) Force on ball by wall:**\nF = Δp/Δt = 5.4/0.05 = **108 N** (toward original source — pushing ball back)\n\n**(c) Force on wall by ball (Newton's Third Law):**\nEqual and opposite: **108 N** directed into the wall (same direction as original ball motion)\n\n**(d) Why ball doesn't rebound at 10 m/s (non-elastic bounce):**\nIn a perfectly elastic collision, kinetic energy would be conserved and ball would rebound at 10 m/s. But real collisions always lose some energy to:\n1. Sound (you hear the 'thwack')\n2. Heat (wall and ball molecules vibrate more)\n3. Permanent deformation (tiny compression of ball/wall)\n4. Internal vibrations (ball wobbles slightly)\n\nThe ratio v_rebound/v_incident = 8/10 = 0.8 is called the **coefficient of restitution** (e). e=1 is perfectly elastic (theoretical); e=0 is perfectly inelastic (objects stick together). Real objects have 0 < e < 1.",
+      explanation:
+        "The ball-wall collision covers impulse, Third Law, and real-world energy dissipation. The coefficient of restitution quantifies how 'bouncy' a material is — tennis balls have e≈0.7, super balls e≈0.9, clay e≈0.",
+    },
+    {
+      id: "t4q60",
+      type: "long",
+      points: 20,
+      question:
+        "Explain the physics of a rocket in space with NO external forces. The rocket has mass M (including fuel), ejects gas at speed v_e relative to rocket at rate dm/dt. Derive qualitatively why the rocket accelerates as fuel is used, and explain how it can change direction in space.",
+      correctAnswer:
+        "**Rocket in space — pure Newton's Third Law:**\n\n**Thrust generation:**\nAt every moment, a tiny mass dm of gas is ejected backward at speed v_e.\nBy Newton's Third Law:\n- Rocket pushes gas backward with force F\n- Gas pushes rocket forward with same force F\n\nThrust F = v_e × (dm/dt) [rate of change of gas momentum]\n\n**Why acceleration increases as fuel burns:**\nF = ma → a = F/m = v_e × (dm/dt) / m\n\nAs fuel burns, m DECREASES while thrust F stays roughly constant (same v_e, same dm/dt). Therefore a = F/m INCREASES as m gets smaller.\n\nThe rocket accelerates faster and faster as it burns fuel — despite the thrust being constant!\n\n**How a rocket changes direction in space:**\n1. **Attitude thrusters:** Small rockets firing perpendicular to flight direction rotate the spacecraft\n2. **Main engine gimballing:** Main nozzle tilts, redirecting thrust vector\n3. **Reaction wheels:** Spinning gyroscopes inside the spacecraft rotate it without using fuel\n\nAll direction changes ultimately use Newton's Third Law: pushing something one way to go another way.\n\n**No medium needed:**\nUnlike planes or ships, rockets work in vacuum because they carry their own 'reaction mass' (fuel) and don't need external air or water to push against.",
+      explanation:
+        "Rocket science is Newton's Third Law applied continuously. The rocket equation Δv = v_e × ln(m_i/m_f) captures the full physics — why more fuel gives diminishing returns (diminishing mass ratio).",
     },
   ],
 };

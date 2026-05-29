@@ -133,7 +133,7 @@ This is one of the most famous equations in human history. In three symbols, it 
 
 ---
 
-![F=ma Formula Second Law](/images/second_law_fma.png)
+![Newton Second Law — Force equals Mass times Acceleration](https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80)
 
 ### Step 4: Understanding F = ma — Deep Intuition
 
@@ -185,7 +185,7 @@ From F = ma: if mass = 1 kg and acceleration = 1 m/s², then force = **1 Newton*
 
 ---
 
-![Impulse and Cricket Ball Catching](/images/cricketer_catching.png)
+![Cricket Ball — Impulse and Momentum](https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=80)
 
 ### Step 6: Impulse — Force × Time = Change in Momentum
 
@@ -942,6 +942,313 @@ The negative sign means force acts opposite to ball's motion.
       correctAnswer: "Experiment: Use a dynamics trolley on a friction-compensated track. Apply increasing forces (using hanging weights) while keeping trolley mass constant. Measure acceleration using a ticker-tape timer or motion sensor. Plot F (y-axis) vs a (x-axis). A straight line through the origin confirms F ∝ a. Sources of error: (1) Friction (compensate by elevating track slightly), (2) Mass of string/pulley ignored, (3) Air resistance, (4) Measurement errors in timing.",
       explanation: "This experimental design question tests practical physics understanding. Key elements of a good answer: (1) Controlled variable — mass (must be constant). (2) Independent variable — applied force F (varied using calibrated weights). (3) Dependent variable — acceleration a (measured from ticker tape: count dots, find speed at different times, calculate a). (4) Graph — F vs a should be a straight line through origin with gradient = mass m. (5) Error sources — always discuss at least 3. Friction compensation: tilt the track at angle θ where sin θ = μ_k (friction coefficient) so gravity component exactly balances friction. This is the standard A-level practical for verifying Newton's Second Law.",
       points: 25,
+    },
+
+    /* ══════════════════════════════════════════
+     * ADDITIONAL MCQ (t3q41 – t3q55) — Numerical + Conceptual
+     * ══════════════════════════════════════════ */
+    {
+      id: "t3q41",
+      type: "mcq",
+      points: 10,
+      question:
+        "A 5 kg box is pushed with 30 N on a surface where friction = 5 N. What is the acceleration?",
+      options: ["5 m/s²", "6 m/s²", "4 m/s²", "1 m/s²"],
+      correctAnswer: "5 m/s²",
+      explanation:
+        "Net force = 30 − 5 = 25 N. a = F/m = 25/5 = **5 m/s²**. Always subtract friction from applied force before dividing by mass.",
+    },
+    {
+      id: "t3q42",
+      type: "mcq",
+      points: 10,
+      question:
+        "A 1000 kg car accelerates from rest to 20 m/s in 10 s. What is the average net force?",
+      options: ["200 N", "2000 N", "20 N", "10,000 N"],
+      correctAnswer: "2000 N",
+      explanation:
+        "a = Δv/t = 20/10 = 2 m/s². F = ma = 1000 × 2 = **2000 N**. This is the net force — the engine force minus friction/drag.",
+    },
+    {
+      id: "t3q43",
+      type: "mcq",
+      points: 10,
+      question:
+        "Doubling the mass of an object while keeping force constant will:",
+      options: [
+        "Double the acceleration",
+        "Halve the acceleration",
+        "Keep acceleration the same",
+        "Quadruple the acceleration",
+      ],
+      correctAnswer: "Halve the acceleration",
+      explanation:
+        "From $a = F/m$: if m doubles and F stays the same, a = F/(2m) = half the original. Acceleration is inversely proportional to mass.",
+    },
+    {
+      id: "t3q44",
+      type: "mcq",
+      points: 10,
+      question:
+        "A 0.2 kg ball's velocity changes from 15 m/s to 5 m/s in 0.5 s. What is the net force?",
+      options: ["4 N", "2 N", "10 N", "−4 N"],
+      correctAnswer: "−4 N",
+      explanation:
+        "a = (5 − 15)/0.5 = −20 m/s². F = 0.2 × (−20) = **−4 N** (decelerating force, opposing motion). The negative sign indicates the force opposes the direction of motion.",
+    },
+    {
+      id: "t3q45",
+      type: "mcq",
+      points: 10,
+      question:
+        "Which of the following is the SI unit of impulse?",
+      options: ["kg·m/s²", "N·m", "kg·m/s", "N/s"],
+      correctAnswer: "kg·m/s",
+      explanation:
+        "Impulse = F × t = N × s. Since 1 N = 1 kg·m/s², impulse = kg·m/s² × s = **kg·m/s**. This is the same unit as momentum — because impulse equals change in momentum.",
+    },
+    {
+      id: "t3q46",
+      type: "mcq",
+      points: 10,
+      question:
+        "A force of 60 N acts on a 12 kg object for 5 seconds (starting from rest). What is the final velocity?",
+      options: ["5 m/s", "25 m/s", "60 m/s", "12 m/s"],
+      correctAnswer: "25 m/s",
+      explanation:
+        "a = F/m = 60/12 = 5 m/s². v = u + at = 0 + 5 × 5 = **25 m/s**. Both F = ma and kinematics combine naturally in Newton's Second Law problems.",
+    },
+    {
+      id: "t3q47",
+      type: "mcq",
+      points: 10,
+      question:
+        "Momentum has the same unit as:",
+      options: ["Impulse", "Force", "Energy", "Acceleration"],
+      correctAnswer: "Impulse",
+      explanation:
+        "Both momentum and impulse have units of **kg·m/s**. Impulse = Δp (change in momentum). This is why the impulse-momentum theorem works: a force applied over time changes the momentum by an equal amount.",
+    },
+    {
+      id: "t3q48",
+      type: "mcq",
+      points: 10,
+      question:
+        "A batsman deflects a cricket ball of mass 0.16 kg moving at 45 m/s by 90°. The ball now moves perpendicular to its original path at 45 m/s. What is the change in momentum?",
+      options: [
+        "0 kg·m/s (speed unchanged)",
+        "7.2 kg·m/s",
+        "14.4 kg·m/s",
+        "10.2 kg·m/s",
+      ],
+      correctAnswer: "10.2 kg·m/s",
+      explanation:
+        "Initial momentum = 0.16 × 45 = 7.2 kg·m/s (east). Final momentum = 7.2 kg·m/s (north). Change = √(7.2² + 7.2²) = 7.2√2 ≈ **10.2 kg·m/s** (northeast direction). Velocity magnitude is unchanged, but DIRECTION changed — so momentum changed!",
+    },
+    {
+      id: "t3q49",
+      type: "mcq",
+      points: 10,
+      question:
+        "A 3 kg object has momentum 12 kg·m/s. Its kinetic energy is:",
+      options: ["24 J", "72 J", "48 J", "6 J"],
+      correctAnswer: "24 J",
+      explanation:
+        "v = p/m = 12/3 = 4 m/s. KE = ½mv² = ½ × 3 × 16 = **24 J**. Note the useful formula: KE = p²/(2m) = 144/6 = 24 J. This shows KE and momentum are related but different quantities.",
+    },
+    {
+      id: "t3q50",
+      type: "mcq",
+      points: 10,
+      question:
+        "A rocket ejects gas backward at 500 m/s. If gas ejection rate is 10 kg/s, the thrust force on the rocket is:",
+      options: ["5000 N", "50 N", "500 N", "50,000 N"],
+      correctAnswer: "5000 N",
+      explanation:
+        "Thrust = rate of change of momentum = (mass per second) × (exhaust velocity) = 10 × 500 = **5000 N**. This is Newton's Second Law applied to continuous mass ejection — the same principle that drives all rockets.",
+    },
+    {
+      id: "t3q51",
+      type: "mcq",
+      points: 10,
+      question:
+        "Two objects A (2 kg, 6 m/s) and B (4 kg, 3 m/s) move in the same direction. Which has more momentum? Which has more kinetic energy?",
+      options: [
+        "A has more momentum; A has more KE",
+        "B has more momentum; B has more KE",
+        "Same momentum; A has more KE",
+        "Same momentum; B has more KE",
+      ],
+      correctAnswer: "Same momentum; A has more KE",
+      explanation:
+        "Momentum: A = 2×6 = 12 kg·m/s, B = 4×3 = 12 kg·m/s — **equal**. KE: A = ½×2×36 = 36 J, B = ½×4×9 = 18 J — **A has more KE**. Equal momentum ≠ equal kinetic energy. This is a very commonly misunderstood distinction.",
+    },
+    {
+      id: "t3q52",
+      type: "mcq",
+      points: 10,
+      question:
+        "Which statement BEST describes what Newton's Second Law says about force?",
+      options: [
+        "Force is needed to keep an object moving at constant speed",
+        "Force equals the rate of change of momentum",
+        "Force is the product of mass and velocity",
+        "Force is inversely proportional to distance",
+      ],
+      correctAnswer: "Force equals the rate of change of momentum",
+      explanation:
+        "Newton's original Second Law: $F = \\frac{\\Delta p}{\\Delta t}$ (force = rate of change of momentum). The familiar F = ma is a special case for constant mass. The momentum form is more general and applies even when mass changes (like a rocket burning fuel).",
+    },
+    {
+      id: "t3q53",
+      type: "mcq",
+      points: 10,
+      question:
+        "A 2 kg ball falls freely from rest for 3 seconds. What is its momentum just before hitting the ground? (g = 10 m/s²)",
+      options: ["6 kg·m/s", "60 kg·m/s", "20 kg·m/s", "30 kg·m/s"],
+      correctAnswer: "60 kg·m/s",
+      explanation:
+        "v = gt = 10 × 3 = 30 m/s. Momentum = mv = 2 × 30 = **60 kg·m/s** downward. Or: Impulse = Ft = mgt = 2 × 10 × 3 = 60 N·s = 60 kg·m/s. Both methods give the same answer.",
+    },
+    {
+      id: "t3q54",
+      type: "mcq",
+      points: 10,
+      question:
+        "A car of mass 1500 kg travelling at 20 m/s is brought to rest in 4 s by brakes. The average braking force is:",
+      options: ["7500 N", "300 N", "75,000 N", "375 N"],
+      correctAnswer: "7500 N",
+      explanation:
+        "Impulse = Δp = m(v−u) = 1500(0−20) = −30,000 N·s. F = Impulse/t = 30,000/4 = **7500 N** (opposing motion). This is the average force — the actual force varies during braking.",
+    },
+    {
+      id: "t3q55",
+      type: "mcq",
+      points: 10,
+      question:
+        "A force of F acts on mass m for time t₁, giving velocity v. The same force F acts on mass 2m for time t₂, also giving velocity v. The ratio t₂/t₁ is:",
+      options: ["½", "1", "2", "4"],
+      correctAnswer: "2",
+      explanation:
+        "For mass m: a₁ = F/m, t₁ = v/a₁ = mv/F. For mass 2m: a₂ = F/(2m), t₂ = v/a₂ = 2mv/F. Therefore t₂/t₁ = **2**. More massive object needs twice the time to reach the same velocity with the same force.",
+    },
+
+    /* ══════════════════════════════════════════
+     * ADDITIONAL SHORT ANSWERS (t3q56 – t3q60)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t3q56",
+      type: "short",
+      points: 15,
+      question:
+        "A 500 g stone is whirled in a horizontal circle of radius 1.5 m at 4 m/s. The string breaks when the tension exceeds 12 N. Does the string break? (Centripetal force = mv²/r)",
+      correctAnswer:
+        "Required centripetal force = mv²/r = 0.5 × 16 / 1.5 = **5.33 N**\n\nMaximum tension = 12 N\n\nSince 5.33 N < 12 N, the string does NOT break.\n\nThe string would break if v exceeded √(12 × 1.5 / 0.5) = √36 = **6 m/s**.\n\nConnecting to F = ma: centripetal force IS Newton's Second Law applied to circular motion. Force = mass × centripetal acceleration (v²/r).",
+      explanation:
+        "Centripetal force is not a new kind of force — it's just Newton's Second Law applied when direction changes. The tension in the string IS the centripetal force here.",
+    },
+    {
+      id: "t3q57",
+      type: "short",
+      points: 15,
+      question:
+        "A 3 kg toy car accelerates from 2 m/s to 8 m/s in 3 seconds. (a) Find the net force. (b) If friction is 2 N, find the engine force.",
+      correctAnswer:
+        "**(a) Net force:**\na = (8 − 2)/3 = 2 m/s²\nF_net = ma = 3 × 2 = **6 N**\n\n**(b) Engine force:**\nNet force = Engine − Friction\n6 = Engine − 2\nEngine = **8 N**\n\nThe net force IS what causes acceleration. The engine force must overcome both friction AND provide the net accelerating force.",
+      explanation:
+        "Always apply F_net = ma first to find the net force, then work backwards from the free body diagram to find individual forces like engine thrust.",
+    },
+    {
+      id: "t3q58",
+      type: "short",
+      points: 15,
+      question:
+        "A goalkeeper catches a ball of mass 0.5 kg moving at 25 m/s. The catch takes 0.1 seconds. Find: (a) the impulse, (b) the average force on the ball, (c) the force on the goalkeeper's hands.",
+      correctAnswer:
+        "**(a) Impulse = change in momentum:**\nΔp = m(v − u) = 0.5(0 − 25) = **−12.5 N·s** (negative = opposing motion)\n\n**(b) Average force on ball:**\nF = Δp/t = 12.5/0.1 = **125 N** (backward)\n\n**(c) Force on goalkeeper's hands:**\nBy Newton's Third Law: equal and opposite.\nHands feel **125 N** forward (in the direction the ball came from).\n\nIf the catch took only 0.01 s: force = 1250 N — much more painful! Time of contact directly affects force felt.",
+      explanation:
+        "The goalkeeper problem beautifully combines impulse-momentum (Second Law) with Newton's Third Law. Longer catching time → smaller force on hands. This is why goalkeepers 'give' with the ball.",
+    },
+    {
+      id: "t3q59",
+      type: "short",
+      points: 15,
+      question:
+        "A 0.1 kg bullet travelling at 300 m/s passes through a wooden block and exits at 100 m/s. The block is 10 cm thick. Find: (a) change in momentum, (b) average force on bullet by wood.",
+      correctAnswer:
+        "**(a) Change in momentum of bullet:**\nΔp = m(v − u) = 0.1 × (100 − 300) = 0.1 × (−200) = **−20 kg·m/s**\n(20 kg·m/s decrease in forward momentum)\n\n**(b) Time in wood:**\nAverage speed through block = (300 + 100)/2 = 200 m/s\nTime = d/v = 0.10 / 200 = 0.0005 s = 5×10⁻⁴ s\n\nAverage force = Δp/t = 20 / 0.0005 = **40,000 N**\n\nThe wood exerts an enormous retarding force of 40,000 N on the tiny 0.1 kg bullet!",
+      explanation:
+        "Bullet-wood problems combine momentum change with time estimation. The average speed approximation is valid for uniform deceleration. The huge force explains why bullets deform and wood splinters.",
+    },
+    {
+      id: "t3q60",
+      type: "short",
+      points: 15,
+      question:
+        "A 2000 kg truck and a 500 kg car have the same kinetic energy of 40,000 J. Which has more momentum? Calculate both momenta.",
+      correctAnswer:
+        "Using KE = p²/(2m) → p = √(2m × KE)\n\nTruck: p_T = √(2 × 2000 × 40000) = √(160,000,000) = **12,649 kg·m/s**\n\nCar: p_C = √(2 × 500 × 40000) = √(40,000,000) = **6,325 kg·m/s**\n\nThe truck has about **twice the momentum** of the car despite having the same kinetic energy.\n\nKey insight: for same KE, more massive objects have MORE momentum. Conversely, for same momentum, less massive objects have MORE kinetic energy.",
+      explanation:
+        "This problem illustrates the important relationship KE = p²/(2m). Objects with same KE but different masses have different momenta — and vice versa. This is crucial for understanding collisions.",
+    },
+
+    /* ══════════════════════════════════════════
+     * ADDITIONAL HOTS (t3q61 – t3q65)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t3q61",
+      type: "long",
+      points: 20,
+      question:
+        "Explain fully why airbags save lives in car crashes. Use Newton's Second Law, impulse-momentum theorem, and specific numbers in your answer.",
+      correctAnswer:
+        "**The Physics of Airbag Safety:**\n\n**Without airbag:** In a 60 km/h (16.7 m/s) crash, a 70 kg driver's head hits the steering wheel in about 3 milliseconds (0.003 s).\n\nForce = Δp/t = 70 × 16.7 / 0.003 = **389,000 N ≈ 55 × body weight!**\n\nThis is nearly always fatal — the brain suffers severe trauma from this deceleration.\n\n**With airbag:** The airbag inflates in ~10 ms and cushions the impact over ~60 ms (0.06 s total).\n\nForce = 70 × 16.7 / 0.06 = **19,500 N ≈ 2.8 × body weight**\n\nThis is survivable (though still painful and can cause injury).\n\n**Key Newton's Second Law analysis:**\nThe IMPULSE (change in momentum = 70 × 16.7 = 1,169 kg·m/s) is the same in both cases — the driver must decelerate from 16.7 m/s to 0 regardless.\n\nBut F = Δp/Δt: by increasing the stopping time (Δt) from 0.003 s to 0.06 s (a factor of 20), the force is reduced by the same factor of 20.\n\n**Additional mechanisms:** Airbags also distribute the force over a larger area of the face/chest (reducing pressure = force per area), and they cushion the head from hitting hard surfaces.\n\n**Real data:** Frontal airbags reduce driver fatalities by ~30%. Combined with seatbelts: ~61% fatality reduction.",
+      explanation:
+        "The airbag physics problem shows Newton's Second Law in a literally life-or-death context. The key equation is F = Δp/Δt — longer time always means smaller force for the same momentum change.",
+    },
+    {
+      id: "t3q62",
+      type: "long",
+      points: 20,
+      question:
+        "A 0.5 kg ball is thrown vertically upward with initial velocity 20 m/s. (a) Find momentum at launch. (b) Find momentum at maximum height. (c) Find momentum when it returns to the starting point. (d) What force acts throughout? (e) Explain why momentum is NOT conserved for the ball alone.",
+      correctAnswer:
+        "**(a) Momentum at launch:**\np = mv = 0.5 × 20 = **10 kg·m/s** upward\n\n**(b) Momentum at maximum height:**\nAt maximum height, velocity = 0.\np = m × 0 = **0 kg·m/s**\n\n**(c) Momentum when ball returns to start:**\nBy energy conservation (or kinematics): speed = 20 m/s downward.\np = 0.5 × 20 = **10 kg·m/s** downward\n\n(Note: magnitude same as at launch, but direction reversed!)\n\n**(d) Force throughout:**\nGravity = mg = 0.5 × 10 = **5 N** downward throughout (constant).\n\n**(e) Why momentum is NOT conserved:**\nNewton's First Law: momentum is conserved only when NET external force = 0.\nHere, gravity (5 N downward) is a constant external force acting the whole time.\nThis unbalanced force changes the ball's momentum continuously:\n- Going up: momentum decreases from 10 to 0 kg·m/s\n- Coming down: momentum increases from 0 to 10 kg·m/s (downward)\n\nMomentum IS conserved for the SYSTEM (ball + Earth): as ball loses upward momentum, Earth gains it (barely measurable, but real).",
+      explanation:
+        "The ball trajectory problem beautifully illustrates how gravity continuously changes momentum. Conservation of momentum applies to isolated systems — not to a single object with external forces acting on it.",
+    },
+    {
+      id: "t3q63",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS: A 70 kg astronaut in a space station pushes off a wall with force 80 N for 0.5 s. (a) Find velocity gained. (b) If the astronaut then pushes another astronaut (50 kg) who is stationary, and they push with the same force for 0.5 s while holding onto each other, what happens? (c) How does this connect to Newton's Laws and conservation of momentum?",
+      correctAnswer:
+        "**(a) Velocity gained by astronaut after wall push:**\nImpulse = F × t = 80 × 0.5 = 40 N·s\nChange in momentum = 40 kg·m/s\nv = 40/70 = **0.57 m/s** (away from wall)\n\nThe wall gains equal and opposite impulse (40 N·s), but since its mass is the space station (enormous), its velocity change is negligible.\n\n**(b) Astronaut A (70 kg at 0.57 m/s) collides with Astronaut B (50 kg, stationary):**\nIf they hold onto each other (perfectly inelastic collision):\nBy conservation of momentum:\np_before = 70 × 0.57 + 50 × 0 = 39.9 kg·m/s\np_after = (70 + 50) × v_final = 120 × v_final\nv_final = 39.9/120 = **0.33 m/s** together\n\n**(c) Connection to Newton's Laws:**\n- Newton's Second Law: F = dp/dt → the wall push gives impulse = 40 N·s\n- Newton's Third Law: wall pushes astronaut forward with 80 N; astronaut pushes wall backward with 80 N\n- Conservation of Momentum (isolated system): when A and B collide, no external horizontal forces → momentum conserved exactly\n- Energy: KE before = ½×70×0.57² = 11.4 J. KE after = ½×120×0.33² = 6.5 J. Energy lost = 4.9 J (converted to sound, deformation, heat in the collision)\n\nIn space (no gravity, no friction), Newton's Laws are seen in their purest form!",
+      explanation:
+        "This multi-part problem covers the entire Newton's Second Law section: impulse, momentum, collision, and energy. Space is the ideal physics lab because there's no friction to complicate things.",
+    },
+    {
+      id: "t3q64",
+      type: "thinking",
+      points: 25,
+      question:
+        "A rocket of initial mass 10,000 kg (including 8,000 kg of fuel) fires its engine. Exhaust speed is 2000 m/s and fuel burns at 200 kg/s. (a) What is the initial thrust? (b) What is the initial acceleration? (c) As fuel is consumed, how does acceleration change and why? (d) Why is the Tsiolkovsky rocket equation important?",
+      correctAnswer:
+        "**(a) Initial thrust:**\nThrust = exhaust speed × mass flow rate\n= 2000 × 200 = **400,000 N** (400 kN)\n\n**(b) Initial acceleration:**\nUsing F = ma:\nNet upward force = Thrust − Weight = 400,000 − (10,000 × 10) = 300,000 N\na = F/m = 300,000/10,000 = **30 m/s²** (upward)\n\nWow — 30 m/s² is 3g! The rocket accelerates upward at 3 times normal gravity.\n\n**(c) How acceleration changes:**\nAs fuel burns, the rocket gets lighter. With the same thrust but less mass, a = F/m increases.\nAfter 30 seconds: remaining mass = 10,000 − (200×30) = 4,000 kg\nWeight = 40,000 N. Thrust unchanged at 400,000 N.\nNet force = 360,000 N. a = 360,000/4,000 = **90 m/s²** — tripled!\n\nThis is why rockets accelerate increasingly fast: constant thrust + decreasing mass = ever-increasing acceleration.\n\n**(d) Tsiolkovsky Rocket Equation:**\nΔv = v_exhaust × ln(m_initial / m_final)\n\nFor our rocket: Δv = 2000 × ln(10,000/2,000) = 2000 × ln(5) = 2000 × 1.609 = **3,218 m/s**\n\nThis is the maximum velocity change achievable from burning all 8,000 kg of fuel. To reach orbital velocity (~7,800 m/s), rockets need multiple stages (staging discards empty tanks to reduce mass). This equation explains why space travel is so hard — fuel mass grows exponentially with required velocity change.",
+      explanation:
+        "The rocket problem is the ultimate application of Newton's Second Law with variable mass. The exponential relationship between fuel and velocity (Tsiolkovsky equation) explains why rockets are mostly fuel.",
+    },
+    {
+      id: "t3q65",
+      type: "thinking",
+      points: 25,
+      question:
+        "HOTS Conceptual: A student says 'If I push a wall with 100 N, the wall pushes back with 100 N (Third Law), so the net force is zero and nothing accelerates. This proves Newton's Second Law must be wrong sometimes.' Identify ALL the errors in this reasoning and correct each one.",
+      correctAnswer:
+        "The student has made **4 serious errors**. Let's correct each:\n\n**Error 1: Confusing Newton's Third Law pairs with net force.**\nThird Law action-reaction pairs ALWAYS act on DIFFERENT objects. The wall pushing back on your hands is a force on YOU, not on the wall. To find net force on the WALL, you only count forces ON the wall — not forces the wall exerts on something else.\n\n**Error 2: Applying net force to the wrong object.**\nForces on your body: you push with 100 N forward on the wall... but the floor pushes you backward. If you're stationary (leaning on wall), the floor friction equals your push. Net force on YOU = 0. Net force on WALL = 0 (wall doesn't move). Everything is consistent.\n\n**Error 3: Claiming the laws contradict each other.**\nNewton's Second and Third Laws are completely compatible:\n- 3rd Law: action-reaction forces are equal, opposite, on DIFFERENT objects\n- 2nd Law: net force on any SINGLE object determines ITS acceleration\nThe 100 N you feel pushing back is the wall's force on YOUR hands. If the floor friction wasn't there, YOU would accelerate backward. The wall doesn't accelerate because it's attached to Earth.\n\n**Error 4: Ignoring the Earth.**\nWhen you push the wall (attached to Earth), you're technically pushing the entire Earth. The force you exert on Earth = 100 N. Earth's acceleration = 100/(6×10²⁴ kg) ≈ 10⁻²³ m/s² — unmeasurably small, but technically exists!\n\n**Correct application:** If a wall is free to move (like on wheels), pushing it with 100 N would accelerate it: a = 100/m_wall. The net force on the free wall IS 100 N from you. Newton's Second Law works perfectly.",
+      explanation:
+        "This is the classic 'Third Law paradox' that trips up many students. The key insight: Third Law pairs act on DIFFERENT objects. Net force is calculated on ONE object at a time using ALL forces ON that object.",
     },
   ],
 };

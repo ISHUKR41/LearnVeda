@@ -101,7 +101,7 @@ Not all forces require physical touching! Scientists classify forces into two ma
 | **Contact Force** | Requires physical touch between objects | Push, Pull, Friction, Normal Force, Tension, Air Resistance, Spring Force |
 | **Non-Contact Force** | Acts over a distance without touching | Gravity, Magnetism, Electrostatic Force |
 
-![Contact vs Non-Contact Forces](/images/contact_noncontact_forces.png)
+![Contact vs Non-Contact Forces](https://images.unsplash.com/photo-1532094349884-543559371b1a?w=800&q=80)
 
 
 **Deep Example — Magnetism:** A magnet can pull iron filings toward itself without touching them — that is a non-contact force. But when you physically push the filings with your finger, that is a contact force. The magnet and the iron filings interact through an invisible **magnetic field**.
@@ -127,7 +127,7 @@ Imagine a perfectly matched Tug-of-War. Team A pulls the rope left with **100 N*
 
 This is a classic example of **Balanced Forces**. When two or more forces acting on an object result in a **net (total) force of zero**, those forces are balanced.
 
-![Balanced vs Unbalanced Forces](/images/balanced_unbalanced_forces.png)
+![Balanced vs Unbalanced Forces — Tug of War](https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80)
 
 
 $$\\vec{F}_{net} = \\vec{F}_1 + \\vec{F}_2 + ... = 0$$

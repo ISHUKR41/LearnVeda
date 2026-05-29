@@ -1,60 +1,74 @@
 /**
  * FILE: parseMarkdown.ts
  * LOCATION: src/lib/utils/parseMarkdown.ts
- * PURPOSE: Shared markdown-to-HTML parser with real KaTeX math rendering.
- *          Replaces the broken regex-based math converter used in chapter
- *          components. Supports headings, bold/italic, blockquotes, tables,
- *          ordered/unordered lists, inline code, images, and LaTeX math.
+ * PURPOSE: Robust markdown → HTML converter with real KaTeX math rendering.
  *
- * MATH: Uses the KaTeX library (already installed) to render $...$ and $$...$$
- *       blocks into proper mathematical notation — exactly like a textbook.
+ * PIPELINE (in order):
+ *   Phase A — preNormalize()          Fix control characters that result from
+ *                                     writing single-backslash LaTeX in JS template
+ *                                     literals (\frac → form-feed + "rac" etc.).
+ *   Phase B — wrapBareLatex()         Auto-detect LaTeX commands outside $ delimiters
+ *                                     and wrap them — safety net for missing delimiters.
+ *   Phase C — extractAndProtectMath() Replace $...$ / $$...$$ with placeholders,
+ *                                     rendering each block via KaTeX first.
+ *   Phase D — block markdown          Headings, lists, tables, blockquotes, hr.
+ *   Phase E — inline markdown         Bold, italic, inline code, images.
+ *   Phase F — restore placeholders    Substitute KaTeX HTML back in.
  *
- * CRITICAL FIX: Content files use DOUBLE backslashes (\\frac, \\text, etc.)
- *               inside JS template literals. At runtime these become literal
- *               double-backslash strings ("\\frac"). KaTeX expects single
- *               backslash ("\frac"). The normalizeMath() function strips
- *               the extra backslash before passing to KaTeX.
+ * USAGE IN CONTENT FILES:
+ *   - Wrap inline math in $ ... $   e.g. $F = ma$
+ *   - Wrap display math in $$ ... $$ e.g. $$\\frac{\\Delta p}{\\Delta t} = ma$$
+ *   - Use DOUBLE backslashes: \\frac, \\Delta, \\text, \\times, etc.
  *
- * USED BY: DeepResearchChapterClient.tsx, TopicStudyClient.tsx
- * DEPENDENCIES: katex (^0.16)
- * LAST UPDATED: 2026-05-29
+ * DEPENDENCIES: katex (^0.16) — CSS must be imported separately (layout.tsx)
+ * USED BY: DeepResearchChapterClient.tsx, TopicStudyClient.tsx, ChapterPracticeClient.tsx
  */
 
 import katex from "katex";
 
-/* ─────────────────────────────────────────────
- * normalizeMath — Converts double-escaped LaTeX commands to single.
- * In JS template literals, authors write \\frac to get a literal
- * backslash-frac in the string. But KaTeX needs \frac (single backslash).
- * This function normalizes \\command → \command for all common LaTeX commands.
- * ───────────────────────────────────────────── */
-function normalizeMath(raw: string): string {
-  let cleaned = raw;
-  
-  // Replace control characters back to LaTeX backslash sequences
-  cleaned = cleaned.replace(/\u000c/g, "\\f"); // Form Feed -> \f (for \frac, \flat, etc.)
-  cleaned = cleaned.replace(/\u0008/g, "\\b"); // Backspace -> \b (for \boxed, \beta, etc.)
-  cleaned = cleaned.replace(/\u000b/g, "\\v"); // Vertical Tab -> \v (for \vec, \var, etc.)
-  cleaned = cleaned.replace(/\t/g, "\\t");      // Horizontal Tab -> \t (for \text, \times, \theta, etc.)
-  cleaned = cleaned.replace(/\r/g, "\\r");      // Carriage Return -> \r (for \rho, etc.)
-  
-  // Replace double backslashes in the string with a single backslash
-  cleaned = cleaned.replace(/\\\\/g, "\\");
-  
-  return cleaned;
+/* ─────────────────────────────────────────────────────────────────────────
+ * Phase A — preNormalize
+ *
+ * JS template literals convert unrecognised escape sequences silently:
+ *   \f → U+000C (form feed)     affects: \frac \forall \flat
+ *   \t → U+0009 (tab)           affects: \text \times \theta \tau
+ *   \r → U+000D (carriage ret)  affects: \rho
+ *   \v → U+000B (vertical tab)  affects: \vec \varepsilon
+ *   \b → U+0008 (backspace)     affects: \boxed \beta
+ *
+ * We reverse these mappings so KaTeX receives proper LaTeX commands.
+ * ───────────────────────────────────────────────────────────────────────── */
+function preNormalize(text: string): string {
+  return text
+    .replace(/\u000c/g, "\\f")  /* form-feed       → \f */
+    .replace(/\u000b/g, "\\v")  /* vertical-tab    → \v */
+    .replace(/\u0008/g, "\\b")  /* backspace       → \b */
+    .replace(/\t/g,     "\\t")  /* horizontal-tab  → \t */
+    .replace(/\r/g,     "\\r"); /* carriage-return → \r */
 }
 
-/* ─────────────────────────────────────────────
- * renderMath — Calls KaTeX to render one math expression.
- * displayMode = true  → centered block formula ($$...$$)
- * displayMode = false → inline formula ($...$)
- * Falls back to showing the raw LaTeX if rendering fails.
- * ───────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────
+ * normalizeMath
+ *
+ * Called on captured math strings just before KaTeX rendering.
+ * Applies preNormalize and collapses any remaining double-backslashes.
+ * ───────────────────────────────────────────────────────────────────────── */
+function normalizeMath(raw: string): string {
+  return preNormalize(raw).replace(/\\\\/g, "\\");
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * renderMath
+ *
+ * Renders one math expression through KaTeX.
+ * displayMode=true  → centred block  ($$...$$)
+ * displayMode=false → inline         ($...$)
+ * Falls back to a styled code block on error instead of crashing.
+ * ───────────────────────────────────────────────────────────────────────── */
 function renderMath(math: string, displayMode: boolean): string {
   try {
-    /* Normalize double-escaped backslashes before KaTeX processes them */
-    const normalized = normalizeMath(math.trim());
-    return katex.renderToString(normalized, {
+    const clean = normalizeMath(math.trim());
+    return katex.renderToString(clean, {
       throwOnError: false,
       displayMode,
       output: "html",
@@ -62,184 +76,258 @@ function renderMath(math: string, displayMode: boolean): string {
       strict: false,
     });
   } catch {
-    /* Show the raw source rather than crashing the page */
     const escaped = math.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    return `<code class="math-fallback">${escaped}</code>`;
+    return displayMode
+      ? `<div class="math-error">$$${escaped}$$</div>`
+      : `<span class="math-error">$${escaped}$</span>`;
   }
 }
 
-/* ─────────────────────────────────────────────
- * extractAndProtectMath
- * Extracts all math blocks BEFORE any other processing so that LaTeX
- * commands like \frac are never touched by the markdown regexes.
- * Returns the text with placeholders, plus a map of placeholder → rendered HTML.
- * ───────────────────────────────────────────── */
-function extractAndProtectMath(text: string): { protected: string; map: Record<string, string> } {
+/* ─────────────────────────────────────────────────────────────────────────
+ * Phase B — wrapBareLatex
+ *
+ * Detects LaTeX commands that appear OUTSIDE any $ ... $ delimiters and
+ * wraps them so KaTeX can render them.  This is the fallback layer for
+ * content that has formulas but forgot (or couldn't use) $ delimiters.
+ *
+ * Strategy:
+ *  1. Split the text around existing delimited math blocks.
+ *  2. For each non-math segment, check for bare \command patterns.
+ *  3. If a line's content is mostly LaTeX, wrap the whole line in $$...$$
+ *  4. Otherwise, wrap individual \command{...} sequences in $...$
+ * ───────────────────────────────────────────────────────────────────────── */
+const LATEX_COMMANDS: string[] = [
+  "frac","text","sqrt","sum","int","prod","lim","Delta","delta",
+  "alpha","beta","gamma","theta","lambda","sigma","omega","pi","mu",
+  "nu","tau","phi","psi","chi","epsilon","varepsilon","times","cdot",
+  "pm","mp","div","leq","geq","neq","approx","infty","boxed","propto",
+  "vec","hat","bar","tilde","sin","cos","tan","log","ln","exp",
+  "quad","qquad","left","right","overline","underline","nabla","partial",
+  "equiv","sim","perp","angle","forall","exists","in","cup","cap",
+  "rightarrow","leftarrow","Rightarrow","Leftarrow","iff","implies",
+  "mathbb","mathbf","mathrm","mathit","mathcal","operatorname",
+  "hbar","ell","circ","star","ldots","cdots","vdots","ddots","oplus","otimes",
+];
+
+/* Regex to detect whether a text segment contains bare LaTeX commands */
+const BARE_LATEX_DETECT = new RegExp(
+  "\\\\(?:" + LATEX_COMMANDS.join("|") + ")\\b"
+);
+
+/**
+ * Split text into alternating non-math / math segments by $ delimiters.
+ */
+function splitByMathDelimiters(
+  text: string
+): Array<{ text: string; isMath: boolean }> {
+  const segs: Array<{ text: string; isMath: boolean }> = [];
+  const re = /\$\$[\s\S]*?\$\$|\$[^\n$]+?\$/g;
+  let last = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) segs.push({ text: text.slice(last, m.index), isMath: false });
+    segs.push({ text: m[0], isMath: true });
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) segs.push({ text: text.slice(last), isMath: false });
+  return segs;
+}
+
+/**
+ * Given a non-math segment, detect bare LaTeX and wrap it.
+ */
+function wrapBareLatexSegment(seg: string): string {
+  if (!BARE_LATEX_DETECT.test(seg)) return seg;
+
+  return seg.split("\n").map(line => {
+    const t = line.trim();
+    if (!BARE_LATEX_DETECT.test(t)) return line;
+
+    /* Skip headings, list items, blockquotes, images */
+    if (/^[#>!*\-\d]/.test(t)) return line;
+
+    /* Count how many known LaTeX commands appear in this line */
+    const cmdMatches = (t.match(/\\[a-zA-Z]+/g) ?? [])
+      .filter(c => LATEX_COMMANDS.includes(c.slice(1)));
+    const wordTokens = t.split(/\s+/).filter(Boolean).length;
+
+    if (cmdMatches.length > 0 && cmdMatches.length / Math.max(wordTokens, 1) >= 0.35) {
+      /* High LaTeX density → treat entire line as display math */
+      return `$$${t}$$`;
+    }
+
+    /* Low density → wrap individual \command{...}{...} groups as inline math */
+    return line.replace(
+      /(\\[a-zA-Z]+(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)?\})*(?:\s*[_^]\s*(?:\{[^{}]*\}|[a-zA-Z0-9]))*)/g,
+      (match) => {
+        const name = match.match(/^\\([a-zA-Z]+)/)?.[1] ?? "";
+        return LATEX_COMMANDS.includes(name) ? `$${match.trim()}$` : match;
+      }
+    );
+  }).join("\n");
+}
+
+function wrapBareLatex(text: string): string {
+  return splitByMathDelimiters(text)
+    .map(seg => seg.isMath ? seg.text : wrapBareLatexSegment(seg.text))
+    .join("");
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Phase C — extractAndProtectMath
+ *
+ * Replaces ALL $...$ and $$...$$ blocks with unique placeholders.
+ * Renders each via KaTeX and stores rendered HTML in a lookup map.
+ * The placeholders survive subsequent markdown processing untouched.
+ * ───────────────────────────────────────────────────────────────────────── */
+function extractAndProtectMath(
+  text: string
+): { protected: string; map: Record<string, string> } {
   const map: Record<string, string> = {};
-  let counter = 0;
+  let n = 0;
   let result = text;
 
-  /* Block math — $$...$$ (process first so $$ isn't mistaken for inline $) */
-  result = result.replace(/\$\$([\s\S]*?)\$\$/gm, (_match, math) => {
-    const key = `__MATHBLOCK_${counter++}__`;
-    map[key] = `<div class="katex-block">${renderMath(math, true)}</div>`;
-    return key;
+  /* Block display math: $$...$$ — handle BEFORE inline to avoid confusion */
+  result = result.replace(/\$\$([\s\S]*?)\$\$/gm, (_, math) => {
+    const k = `__MBLOCK_${n++}__`;
+    map[k] = `<div class="katex-block">${renderMath(math, true)}</div>`;
+    return k;
   });
 
-  /* Inline math — $...$ */
-  result = result.replace(/\$([^\n$]+?)\$/g, (_match, math) => {
-    const key = `__MATHINLINE_${counter++}__`;
-    map[key] = `<span class="katex-inline">${renderMath(math, false)}</span>`;
-    return key;
+  /* Inline math: $...$ */
+  result = result.replace(/\$([^\n$]+?)\$/g, (_, math) => {
+    const k = `__MINLINE_${n++}__`;
+    map[k] = `<span class="katex-inline">${renderMath(math, false)}</span>`;
+    return k;
   });
 
   return { protected: result, map };
 }
 
-/* ─────────────────────────────────────────────
- * renderTable — Converts simple markdown tables to HTML <table>.
- * ───────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────
+ * renderTable — markdown pipe-table → HTML <table>
+ * ───────────────────────────────────────────────────────────────────────── */
 function renderTable(tableText: string): string {
   const lines = tableText.trim().split("\n");
-  if (lines.length < 2) return tableText;
+  if (lines.length < 2) return `<p class="md-p">${tableText}</p>`;
 
   const parseRow = (line: string) =>
-    line
-      .split("|")
-      .map((cell) => cell.trim())
-      .filter((cell) => cell.length > 0);
+    line.split("|").map(c => c.trim()).filter(Boolean);
 
-  const headerCells = parseRow(lines[0]);
-  /* lines[1] is the separator row (---|---) — skip it */
-  const bodyLines = lines.slice(2);
+  const headers = parseRow(lines[0]);
+  const body    = lines.slice(2); /* skip separator row */
 
-  const thead = `<thead><tr>${headerCells
-    .map((c) => `<th>${c}</th>`)
-    .join("")}</tr></thead>`;
-
-  const tbody = `<tbody>${bodyLines
-    .map((line) => {
-      const cells = parseRow(line);
-      return `<tr>${cells.map((c) => `<td>${c}</td>`).join("")}</tr>`;
-    })
-    .join("")}</tbody>`;
+  const thead = `<thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead>`;
+  const tbody = `<tbody>${body.map(row => {
+    const cells = parseRow(row);
+    return `<tr>${cells.map(c => `<td>${c}</td>`).join("")}</tr>`;
+  }).join("")}</tbody>`;
 
   return `<div class="md-table-wrapper"><table class="md-table">${thead}${tbody}</table></div>`;
 }
 
-/* ─────────────────────────────────────────────
- * parseMarkdown — Main entry point.
- * Converts markdown-formatted content string to safe HTML.
- * ───────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────
+ * parseMarkdown — Main entry point
+ *
+ * Converts a markdown string (including KaTeX math) into safe HTML.
+ * The six-phase pipeline is described at the top of this file.
+ * ───────────────────────────────────────────────────────────────────────── */
 export function parseMarkdown(text: string): string {
-  /* Step 1: Extract math blocks so LaTeX is never touched by text regexes */
-  const { protected: safeText, map } = extractAndProtectMath(text);
+  if (!text || text.trim() === "") return "";
 
-  /* Step 2: Process lines individually for block-level elements */
-  const lines = safeText.split("\n");
-  const outputLines: string[] = [];
-  let inListOl = false;
-  let inListUl = false;
-  let tableBuffer: string[] = [];
+  /* Phase A: fix control chars from template-literal backslash issues */
+  const phA = preNormalize(text);
+
+  /* Phase B: wrap bare LaTeX commands that lack $ delimiters */
+  const phB = wrapBareLatex(phA);
+
+  /* Phase C: render + protect all $...$ and $$...$$ math */
+  const { protected: safe, map } = extractAndProtectMath(phB);
+
+  /* Phase D: line-by-line block elements */
+  const lines = safe.split("\n");
+  const out: string[] = [];
+  let inOl = false, inUl = false;
+  let tableBuf: string[] = [];
   let inTable = false;
 
   const flushTable = () => {
-    if (tableBuffer.length > 0) {
-      outputLines.push(renderTable(tableBuffer.join("\n")));
-      tableBuffer = [];
-      inTable = false;
-    }
+    if (tableBuf.length) { out.push(renderTable(tableBuf.join("\n"))); tableBuf = []; inTable = false; }
   };
-
   const flushLists = () => {
-    if (inListOl) { outputLines.push("</ol>"); inListOl = false; }
-    if (inListUl) { outputLines.push("</ul>"); inListUl = false; }
+    if (inOl) { out.push("</ol>"); inOl = false; }
+    if (inUl) { out.push("</ul>"); inUl = false; }
   };
 
   for (const line of lines) {
-    /* Detect table rows (contain | character) */
-    if (line.trim().startsWith("|") || (line.trim().match(/^[-|: ]+$/) && inTable)) {
+    /* Table */
+    const isTableRow = line.trim().startsWith("|") || (inTable && /^[-|:\s]+$/.test(line.trim()));
+    if (isTableRow) {
       if (!inTable) { inTable = true; flushLists(); }
-      tableBuffer.push(line);
+      tableBuf.push(line);
       continue;
-    } else if (inTable) {
-      flushTable();
-    }
+    } else if (inTable) { flushTable(); }
 
     /* Horizontal rule */
-    if (line.trim() === "---" || line.trim() === "***" || line.trim() === "___") {
-      flushLists();
-      outputLines.push('<hr class="md-hr" />');
-      continue;
+    if (/^[-*_]{3,}$/.test(line.trim())) {
+      flushLists(); out.push('<hr class="md-hr" />'); continue;
     }
 
-    /* Headings */
-    const h4 = line.match(/^#### (.+)$/);
-    if (h4) { flushLists(); outputLines.push(`<h4 class="md-h4">${h4[1]}</h4>`); continue; }
-
-    const h3 = line.match(/^### (.+)$/);
-    if (h3) { flushLists(); outputLines.push(`<h3 class="md-h3">${h3[1]}</h3>`); continue; }
-
-    const h2 = line.match(/^## (.+)$/);
-    if (h2) { flushLists(); outputLines.push(`<h2 class="md-h2">${h2[1]}</h2>`); continue; }
+    /* h4 / h3 / h2 */
+    let m: RegExpMatchArray | null;
+    if ((m = line.match(/^#### (.+)$/))) { flushLists(); out.push(`<h4 class="md-h4">${m[1]}</h4>`); continue; }
+    if ((m = line.match(/^### (.+)$/)))  { flushLists(); out.push(`<h3 class="md-h3">${m[1]}</h3>`); continue; }
+    if ((m = line.match(/^## (.+)$/)))   { flushLists(); out.push(`<h2 class="md-h2">${m[1]}</h2>`); continue; }
 
     /* Blockquote */
-    const bq = line.match(/^> (.+)$/);
-    if (bq) { flushLists(); outputLines.push(`<blockquote class="md-quote">${bq[1]}</blockquote>`); continue; }
+    if ((m = line.match(/^> (.+)$/))) {
+      flushLists(); out.push(`<blockquote class="md-quote">${m[1]}</blockquote>`); continue;
+    }
 
-    /* Ordered list item */
-    const ol = line.match(/^\d+\. (.+)$/);
-    if (ol) {
-      if (!inListOl) { if (inListUl) { outputLines.push("</ul>"); inListUl = false; } outputLines.push('<ol class="md-ol">'); inListOl = true; }
-      outputLines.push(`<li class="md-li">${ol[1]}</li>`);
-      continue;
-    } else if (inListOl) { outputLines.push("</ol>"); inListOl = false; }
+    /* Ordered list */
+    if ((m = line.match(/^\d+\.\s+(.+)$/))) {
+      if (!inOl) { if (inUl) { out.push("</ul>"); inUl = false; } out.push('<ol class="md-ol">'); inOl = true; }
+      out.push(`<li class="md-li">${m[1]}</li>`); continue;
+    } else if (inOl) { out.push("</ol>"); inOl = false; }
 
-    /* Unordered list item */
-    const ul = line.match(/^\* (.+)$/) || line.match(/^- (.+)$/);
-    if (ul) {
-      if (!inListUl) { if (inListOl) { outputLines.push("</ol>"); inListOl = false; } outputLines.push('<ul class="md-ul">'); inListUl = true; }
-      outputLines.push(`<li class="md-li">${ul[1]}</li>`);
-      continue;
-    } else if (inListUl) { outputLines.push("</ul>"); inListUl = false; }
+    /* Unordered list */
+    if ((m = line.match(/^[*\-]\s+(.+)$/))) {
+      if (!inUl) { if (inOl) { out.push("</ol>"); inOl = false; } out.push('<ul class="md-ul">'); inUl = true; }
+      out.push(`<li class="md-li">${m[1]}</li>`); continue;
+    } else if (inUl) { out.push("</ul>"); inUl = false; }
 
-    /* Image */
-    const img = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
-    if (img) {
-      outputLines.push(`<figure class="md-figure"><img src="${img[2]}" alt="${img[1]}" class="md-img" loading="lazy" />${img[1] ? `<figcaption class="md-caption">${img[1]}</figcaption>` : ""}</figure>`);
+    /* Standalone image */
+    if ((m = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/))) {
+      flushLists();
+      out.push(
+        `<figure class="md-figure">` +
+        `<img src="${m[2]}" alt="${m[1]}" class="md-img" loading="lazy" />` +
+        (m[1] ? `<figcaption class="md-caption">${m[1]}</figcaption>` : "") +
+        `</figure>`
+      );
       continue;
     }
 
-    /* Empty line → paragraph break */
-    if (line.trim() === "") {
-      outputLines.push('<div class="md-spacer"></div>');
-      continue;
-    }
+    /* Empty line */
+    if (line.trim() === "") { flushLists(); out.push('<div class="md-spacer"></div>'); continue; }
 
-    /* Regular paragraph line */
-    outputLines.push(`<p class="md-p">${line}</p>`);
+    /* Paragraph */
+    out.push(`<p class="md-p">${line}</p>`);
   }
 
-  /* Flush any open lists or table at end of text */
-  flushLists();
-  flushTable();
+  flushLists(); flushTable();
 
-  /* Step 3: Apply inline styles to combined output */
-  let html = outputLines.join("\n");
-
-  /* Inline markdown: **bold**, *italic*, `code`, [link](url), images inside paragraphs */
+  /* Phase E: inline styles */
+  let html = out.join("\n");
   html = html
-    /* Images inside text (not standalone lines) */
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/gim,
-      '<figure class="md-figure"><img src="$2" alt="$1" class="md-img" loading="lazy" /><figcaption class="md-caption">$1</figcaption></figure>')
-    /* Bold */
-    .replace(/\*\*([^*]+)\*\*/gim, "<strong>$1</strong>")
-    /* Italic */
-    .replace(/\*([^*]+)\*/gim, "<em>$1</em>")
-    /* Inline code */
-    .replace(/`([^`]+)`/gim, '<code class="md-code">$1</code>');
+      '<figure class="md-figure"><img src="$2" alt="$1" class="md-img" loading="lazy" />' +
+      '<figcaption class="md-caption">$1</figcaption></figure>')
+    .replace(/\*\*([^*\n]+)\*\*/gim, "<strong>$1</strong>")
+    .replace(/\*([^*\n]+)\*/gim, "<em>$1</em>")
+    .replace(/`([^`\n]+)`/gim, '<code class="md-code">$1</code>');
 
-  /* Step 4: Restore protected math blocks */
+  /* Phase F: restore KaTeX-rendered math */
   for (const [key, rendered] of Object.entries(map)) {
     html = html.replaceAll(key, rendered);
   }
