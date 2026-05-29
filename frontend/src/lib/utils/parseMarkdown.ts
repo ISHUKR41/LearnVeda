@@ -9,12 +9,40 @@
  * MATH: Uses the KaTeX library (already installed) to render $...$ and $$...$$
  *       blocks into proper mathematical notation — exactly like a textbook.
  *
+ * CRITICAL FIX: Content files use DOUBLE backslashes (\\frac, \\text, etc.)
+ *               inside JS template literals. At runtime these become literal
+ *               double-backslash strings ("\\frac"). KaTeX expects single
+ *               backslash ("\frac"). The normalizeMath() function strips
+ *               the extra backslash before passing to KaTeX.
+ *
  * USED BY: DeepResearchChapterClient.tsx, TopicStudyClient.tsx
  * DEPENDENCIES: katex (^0.16)
- * LAST UPDATED: 2026-05-28
+ * LAST UPDATED: 2026-05-29
  */
 
 import katex from "katex";
+
+/* ─────────────────────────────────────────────
+ * normalizeMath — Converts double-escaped LaTeX commands to single.
+ * In JS template literals, authors write \\frac to get a literal
+ * backslash-frac in the string. But KaTeX needs \frac (single backslash).
+ * This function normalizes \\command → \command for all common LaTeX commands.
+ * ───────────────────────────────────────────── */
+function normalizeMath(raw: string): string {
+  let cleaned = raw;
+  
+  // Replace control characters back to LaTeX backslash sequences
+  cleaned = cleaned.replace(/\u000c/g, "\\f"); // Form Feed -> \f (for \frac, \flat, etc.)
+  cleaned = cleaned.replace(/\u0008/g, "\\b"); // Backspace -> \b (for \boxed, \beta, etc.)
+  cleaned = cleaned.replace(/\u000b/g, "\\v"); // Vertical Tab -> \v (for \vec, \var, etc.)
+  cleaned = cleaned.replace(/\t/g, "\\t");      // Horizontal Tab -> \t (for \text, \times, \theta, etc.)
+  cleaned = cleaned.replace(/\r/g, "\\r");      // Carriage Return -> \r (for \rho, etc.)
+  
+  // Replace double backslashes in the string with a single backslash
+  cleaned = cleaned.replace(/\\\\/g, "\\");
+  
+  return cleaned;
+}
 
 /* ─────────────────────────────────────────────
  * renderMath — Calls KaTeX to render one math expression.
@@ -24,7 +52,9 @@ import katex from "katex";
  * ───────────────────────────────────────────── */
 function renderMath(math: string, displayMode: boolean): string {
   try {
-    return katex.renderToString(math.trim(), {
+    /* Normalize double-escaped backslashes before KaTeX processes them */
+    const normalized = normalizeMath(math.trim());
+    return katex.renderToString(normalized, {
       throwOnError: false,
       displayMode,
       output: "html",

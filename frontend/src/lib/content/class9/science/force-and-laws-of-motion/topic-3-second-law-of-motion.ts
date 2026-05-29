@@ -133,6 +133,8 @@ This is one of the most famous equations in human history. In three symbols, it 
 
 ---
 
+![F=ma Formula Second Law](/images/second_law_fma.png)
+
 ### Step 4: Understanding F = ma — Deep Intuition
 
 #### Relationship 1: Force and Acceleration (mass constant)
@@ -182,6 +184,8 @@ From F = ma: if mass = 1 kg and acceleration = 1 m/s², then force = **1 Newton*
 | Thrust of Saturn V rocket (Moon mission) | ≈ 33,000,000 N |
 
 ---
+
+![Impulse and Cricket Ball Catching](/images/cricketer_catching.png)
 
 ### Step 6: Impulse — Force × Time = Change in Momentum
 

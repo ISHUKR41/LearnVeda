@@ -57,6 +57,8 @@ This equation says: **total momentum before = total momentum after**. The intera
 
 **Critical condition:** The law holds only when **no external unbalanced force** acts on the system. Internal forces between objects (like collision forces) always come in equal-opposite Third Law pairs, so they cancel in the total — they cannot change the total momentum.
 
+![Momentum Conservation Collisions](/images/momentum_conservation.png)
+
 ---
 
 ### Deriving Conservation of Momentum from Newton's Third Law
@@ -128,6 +130,8 @@ When a bomb explodes, the total momentum before = 0 (stationary). After, the fra
 **Example — Gun firing:**
 $$0 = m_{\\text{bullet}} \\times v_{\\text{bullet}} + m_{\\text{gun}} \\times v_{\\text{gun}}$$
 $$\\Rightarrow v_{\\text{gun}} = -\\frac{m_{\\text{bullet}} \\times v_{\\text{bullet}}}{m_{\\text{gun}}}$$
+
+![Explosion Momentum Conservation](/images/explosion_conservation.png)
 
 #### Application 2: Rocket Propulsion
 

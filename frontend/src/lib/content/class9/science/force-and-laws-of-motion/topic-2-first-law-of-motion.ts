@@ -81,7 +81,7 @@ The tendency of a body to **remain at rest** and resist being set into motion.
 
 **Classic Demonstration:** Pull a tablecloth out from under plates and glasses with a very quick jerk. If done fast enough, the dishes barely move! Their inertia of rest keeps them in place while the tablecloth slides under them.
 
-![Figure 1: Pulling a card from a glass shows the coin falling straight in due to the coin's Inertia of Rest.](/images/inertia_rest.png)
+![Inertia of Rest Demonstration](/images/inertia_rest.png)
 
 
 **Another Example:** When a bus at a bus stop suddenly starts moving, passengers standing inside lurch backward. Their feet move with the bus (friction from the floor), but their upper bodies have inertia of rest — they resist the forward acceleration and appear to fall backward.
@@ -108,7 +108,7 @@ The tendency of a body to **continue moving in the same straight-line direction*
 
 When a car crashes into a wall, the car stops almost instantly (an enormous braking force). But your body — due to its inertia of motion — continues moving forward at the original car speed. If there's no seatbelt, your body slams into the steering wheel or windshield with tremendous force. The seatbelt provides the necessary backward force to decelerate your body along with the car.
 
-![Figure 2: Without seatbelts, the passenger continues forward due to Inertia of Motion during a crash. Seatbelts apply a restraining backward force.](/images/seatbelt_inertia.png)
+![Seatbelt Inertia of Motion](/images/seatbelt_inertia.png)
 
 
 #### Karate Board Breaking

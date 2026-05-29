@@ -9,7 +9,7 @@
 
 "use client";
 
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import Link from "next/link";
 import styles from "./TopicStudy.module.css";
 import type { Chapter, Topic, Question } from "@/lib/content/class9/science/force-and-laws-of-motion";
@@ -34,7 +34,36 @@ const QUESTION_CONFIG = {
 export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: TopicStudyClientProps) {
   const [answeredQuestions, setAnsweredQuestions] = useState<Set<string>>(new Set());
   const [correctAnswers, setCorrectAnswers] = useState<Set<string>>(new Set());
+  const [selectedOptionsMap, setSelectedOptionsMap] = useState<Record<string, string>>({});
   const [activeTab, setActiveTab] = useState<"all" | "mcq" | "short" | "long" | "thinking">("all");
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const cachedAnswered = localStorage.getItem(`answered_qs_${chapterData.id}`);
+    const cachedCorrect = localStorage.getItem(`correct_qs_${chapterData.id}`);
+    const cachedSelected = localStorage.getItem(`selected_opts_${chapterData.id}`);
+    if (cachedAnswered) {
+      try {
+        setAnsweredQuestions(new Set(JSON.parse(cachedAnswered)));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    if (cachedCorrect) {
+      try {
+        setCorrectAnswers(new Set(JSON.parse(cachedCorrect)));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    if (cachedSelected) {
+      try {
+        setSelectedOptionsMap(JSON.parse(cachedSelected));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, [chapterData.id]);
 
   const filteredQuestions = useMemo(() => {
     if (activeTab === "all") return activeTopic.questions;
@@ -49,12 +78,25 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
   const nextTopic = chapterData.topics[currentIdx + 1] || null;
 
   const handleQuestionAnswered = useCallback(
-    (questionId: string, isCorrect: boolean) => {
-      setAnsweredQuestions((prev) => new Set(prev).add(questionId));
+    (questionId: string, isCorrect: boolean, selectedOpt?: string) => {
+      setAnsweredQuestions((prev) => {
+        const next = new Set(prev).add(questionId);
+        localStorage.setItem(`answered_qs_${chapterData.id}`, JSON.stringify(Array.from(next)));
+        return next;
+      });
+
+      if (selectedOpt) {
+        setSelectedOptionsMap((prev) => {
+          const next = { ...prev, [questionId]: selectedOpt };
+          localStorage.setItem(`selected_opts_${chapterData.id}`, JSON.stringify(next));
+          return next;
+        });
+      }
 
       if (isCorrect) {
         setCorrectAnswers((prev) => {
           const next = new Set(prev).add(questionId);
+          localStorage.setItem(`correct_qs_${chapterData.id}`, JSON.stringify(Array.from(next)));
           const totalQuestions = chapterData.topics.reduce((acc, t) => acc + t.questions.length, 0);
           const newScore = Math.round((next.size / totalQuestions) * 100);
           const isCompleted = next.size === totalQuestions;
@@ -80,7 +122,7 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
           .catch(console.error);
       }
     },
-    [correctAnswers, chapterData, answeredQuestions]
+    [correctAnswers, chapterData]
   );
 
   const answeredCount = activeTopic.questions.filter((q) => answeredQuestions.has(q.id)).length;
@@ -231,6 +273,7 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
                   index={idx + 1}
                   isAnswered={answeredQuestions.has(q.id)}
                   isCorrect={correctAnswers.has(q.id)}
+                  selectedOption={selectedOptionsMap[q.id] || null}
                   onAnswer={handleQuestionAnswered}
                 />
               ))}
@@ -255,13 +298,23 @@ interface QuestionItemProps {
   index: number;
   isAnswered: boolean;
   isCorrect: boolean;
-  onAnswer: (questionId: string, isCorrect: boolean) => void;
+  selectedOption: string | null;
+  onAnswer: (questionId: string, isCorrect: boolean, selectedOpt?: string) => void;
 }
 
-function QuestionItem({ question, index, isAnswered, isCorrect, onAnswer }: QuestionItemProps) {
-  const [showAnswer, setShowAnswer] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: initialSelected, onAnswer }: QuestionItemProps) {
+  const [showAnswer, setShowAnswer] = useState(isAnswered);
+  const [selectedOption, setSelectedOption] = useState<string | null>(initialSelected || null);
   const config = QUESTION_CONFIG[question.type];
+
+  useEffect(() => {
+    if (isAnswered) {
+      setShowAnswer(true);
+    }
+    if (initialSelected) {
+      setSelectedOption(initialSelected);
+    }
+  }, [isAnswered, initialSelected]);
 
   const handleOptionSelect = (option: string) => {
     if (isAnswered) return;
@@ -272,7 +325,7 @@ function QuestionItem({ question, index, isAnswered, isCorrect, onAnswer }: Ques
     if (!showAnswer) {
       setShowAnswer(true);
       if (question.type === "mcq") {
-        onAnswer(question.id, selectedOption === question.correctAnswer);
+        onAnswer(question.id, selectedOption === question.correctAnswer, selectedOption || undefined);
       } else {
         onAnswer(question.id, true);
       }

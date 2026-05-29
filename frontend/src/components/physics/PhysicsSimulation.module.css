@@ -450,3 +450,433 @@
   background: rgba(239, 68, 68, 0.3);
   transform: scale(1.03);
 }
+
+/* ── Tabbed Simulation Selector ── */
+.simTabContainer {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+  overflow-x: auto;
+}
+
+.simTab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: rgba(203, 213, 225, 0.6);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.simTab:hover {
+  color: rgba(203, 213, 225, 0.9);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.simTabActive {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.3);
+  color: #a5b4fc;
+}
+
+/* ── Block on Table ── */
+.blockArena {
+  position: relative;
+  height: 120px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+.blockTable {
+  position: absolute;
+  bottom: 24px;
+  left: 0; right: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.slidingBlock {
+  position: absolute;
+  bottom: 28px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.2));
+  border: 2px solid rgba(99, 102, 241, 0.5);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #c7d2fe;
+  transition: left 0.1s linear;
+}
+
+.vectorArrow {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  height: 20px;
+  pointer-events: none;
+}
+
+.arrowShaftLine {
+  height: 4px;
+  background: #10b981;
+}
+
+.arrowHeadSymbol {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+/* ── Coin & Card ── */
+.coinCupArena {
+  position: relative;
+  height: 180px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 20px;
+}
+
+.cup {
+  width: 70px;
+  height: 80px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.card {
+  width: 120px;
+  height: 8px;
+  background: #f59e0b;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 100px;
+  transition: transform 0.5s ease-out;
+}
+
+.coin {
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle, #fcd34d, #d97706);
+  border: 1px solid #b45309;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 108px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #78350f;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), bottom 0.5s ease-in;
+}
+
+/* ── Braking Bus ── */
+.busArena {
+  position: relative;
+  height: 150px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+.busTable {
+  position: absolute;
+  bottom: 20px;
+  left: 0; right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.busBody {
+  position: absolute;
+  bottom: 22px;
+  width: 160px;
+  height: 70px;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.15));
+  border: 2px solid rgba(239, 68, 68, 0.4);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: left 0.1s linear;
+}
+
+.busWheels {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  position: absolute;
+  bottom: -10px;
+}
+
+.wheel {
+  width: 18px;
+  height: 18px;
+  background: #334155;
+  border-radius: 50%;
+  border: 2px solid #64748b;
+}
+
+.passenger {
+  font-size: 2.2rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+  transform-origin: bottom center;
+}
+
+/* ── Racetrack ── */
+.racetrackArena {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.raceLane {
+  position: relative;
+  height: 60px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.raceLane:last-child {
+  border-bottom: none;
+}
+
+.raceCar {
+  position: absolute;
+  font-size: 2rem;
+  line-height: 1;
+  transition: left 0.1s linear;
+}
+
+.laneIndicator {
+  position: absolute;
+  right: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Atwood Machine ── */
+.atwoodArena {
+  position: relative;
+  height: 180px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin: 16px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+}
+
+.pulleySupport {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 24px;
+  background: #64748b;
+}
+
+.pulleyWheel {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 4px solid #94a3b8;
+  background: #334155;
+  position: relative;
+  margin-top: 14px;
+  transition: transform 0.1s linear;
+}
+
+.atwoodString {
+  position: absolute;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  top: 34px;
+}
+
+.atwoodMass {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.15));
+  border: 2px solid rgba(245, 158, 11, 0.5);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fcd34d;
+  transition: top 0.1s linear;
+}
+
+/* ── Skateboard Push ── */
+.skaterArena {
+  position: relative;
+  height: 120px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+.skaterTrack {
+  position: absolute;
+  bottom: 16px;
+  left: 0; right: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.skateboarder {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: left 0.1s linear;
+}
+
+.skaterEmoji {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.skaterMassLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 4px;
+}
+
+/* ── Gun Recoil ── */
+.gunArena {
+  position: relative;
+  height: 120px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin: 16px 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.gunElement {
+  position: absolute;
+  left: 30%;
+  font-size: 2.8rem;
+  line-height: 1;
+  transition: transform 0.1s linear, left 0.1s linear;
+  transform-origin: center right;
+}
+
+.bulletElement {
+  position: absolute;
+  left: 30%;
+  font-size: 1rem;
+  line-height: 1;
+  transition: left 0.1s linear;
+}
+
+/* ── Newton's Cradle ── */
+.cradleArena {
+  position: relative;
+  height: 180px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin: 16px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+}
+
+.cradleFrame {
+  position: absolute;
+  top: 14px;
+  width: 160px;
+  height: 4px;
+  background: #64748b;
+  border-radius: 2px;
+}
+
+.cradlePendant {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 24px;
+  position: relative;
+  transform-origin: top center;
+  transition: transform 0.05s linear;
+}
+
+.cradleString {
+  width: 1px;
+  height: 90px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.cradleBallBody {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #94a3b8, #475569);
+  border: 1px solid #334155;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ── Space Docking ── */
+.spaceArena {
+  position: relative;
+  height: 130px;
+  background: radial-gradient(circle at center, #0f172a, #020617);
+  border-radius: 12px;
+  margin: 16px 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.astronautBody {
+  position: absolute;
+  left: 40%;
+  font-size: 2.2rem;
+  line-height: 1;
+  transition: left 0.1s linear;
+}
+
+.crateBody {
+  position: absolute;
+  left: 48%;
+  font-size: 1.8rem;
+  line-height: 1;
+  transition: left 0.1s linear;
+}
+

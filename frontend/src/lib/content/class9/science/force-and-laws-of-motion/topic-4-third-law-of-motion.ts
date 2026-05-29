@@ -39,6 +39,8 @@ More precisely:
 
 > **"Whenever object A exerts a force on object B, object B simultaneously exerts an equal and opposite force on object A."**
 
+![Third Law Rocket Thrust](/images/third_law_rocket.png)
+
 In mathematics, using vector notation (double backslash for correct rendering):
 
 $$\\vec{F}_{AB} = -\\vec{F}_{BA}$$
@@ -108,6 +110,8 @@ No air needed! This is why rockets work in the vacuum of space where there's not
 **Reaction:** The bullet pushes the gun **backward** (recoil/kick).
 
 Both bullet and gun experience equal and opposite forces. But since the gun is hundreds of times heavier than the bullet (F = ma → a = F/m), the gun's acceleration is much smaller. Still, without a firm grip or shoulder rest, the recoil can cause injury.
+
+![Gun Recoil Action-Reaction](/images/gun_recoil.png)
 
 #### Example 5: Rowing a Boat
 
