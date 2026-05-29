@@ -353,7 +353,11 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
         </div>
       </div>
 
-      <p className={styles.questionText}>{question.question}</p>
+      {/* Question text rendered through parseMarkdown to display any LaTeX/KaTeX formulas */}
+      <div
+        className={styles.questionText}
+        dangerouslySetInnerHTML={{ __html: parseMarkdown(question.question) }}
+      />
 
       {question.type === "mcq" && question.options && (
         <ul className={styles.optionsList}>
@@ -370,7 +374,11 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
                   disabled={isAnswered}
                 >
                   <span className={styles.optionLetter}>{String.fromCharCode(65 + i)}</span>
-                  <span className={styles.optionText}>{opt}</span>
+                  {/* Option text also goes through parseMarkdown for inline formula support */}
+                  <span
+                    className={styles.optionText}
+                    dangerouslySetInnerHTML={{ __html: parseMarkdown(opt) }}
+                  />
                   {isCorrectOpt && <span>✓</span>}
                   {isWrong && <span>✗</span>}
                 </button>
@@ -396,10 +404,14 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
       {showAnswer && (
         <div className={styles.answerBox}>
           <div className={styles.correctAnswer}>
-            <strong style={{ color: "#10b981" }}>✓ Correct Answer:</strong> {question.correctAnswer}
+            <strong style={{ color: "#10b981" }}>✓ Correct Answer:</strong>
+            {/* Correct answer rendered through markdown for LaTeX formula support */}
+            <span dangerouslySetInnerHTML={{ __html: parseMarkdown(question.correctAnswer) }} />
           </div>
           <div className={styles.explanation}>
-            <strong>📖 Explanation:</strong> {question.explanation}
+            <strong>📖 Explanation:</strong>
+            {/* Explanation rendered through markdown for full LaTeX and formatting support */}
+            <span dangerouslySetInnerHTML={{ __html: parseMarkdown(question.explanation) }} />
           </div>
         </div>
       )}

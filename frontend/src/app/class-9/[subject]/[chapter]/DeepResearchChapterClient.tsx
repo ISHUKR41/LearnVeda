@@ -469,7 +469,11 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
         <span className={styles.questionPoints}>+{question.points || config.points} pts</span>
       </div>
 
-      <p className={styles.questionText}>{question.question}</p>
+      {/* Question text: rendered through parseMarkdown so any inline KaTeX/LaTeX is displayed correctly */}
+      <div
+        className={styles.questionText}
+        dangerouslySetInnerHTML={{ __html: parseMarkdown(question.question) }}
+      />
 
       {/* MCQ Options */}
       {question.type === "mcq" && question.options && (
@@ -487,7 +491,11 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
                   disabled={isAnswered}
                 >
                   <span className={styles.optionLetter}>{String.fromCharCode(65 + i)}</span>
-                  <span className={styles.optionText}>{opt}</span>
+                  {/* Option text also rendered through markdown to handle any formula inside options */}
+                  <span
+                    className={styles.optionText}
+                    dangerouslySetInnerHTML={{ __html: parseMarkdown(opt) }}
+                  />
                   {isCorrectOpt && <span className={styles.optionCheck}>✓</span>}
                   {isWrong && <span className={styles.optionX}>✗</span>}
                 </button>
@@ -514,11 +522,19 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
         <div className={styles.answerReveal} style={{ borderColor: `${config.color}25` }}>
           <div className={styles.correctAnswerBox} style={{ background: `${config.color}12` }}>
             <span className={styles.answerLabel}>✓ Correct Answer</span>
-            <span className={styles.answerText}>{question.correctAnswer}</span>
+            {/* Correct answer rendered via markdown to show any LaTeX formulas */}
+            <div
+              className={styles.answerText}
+              dangerouslySetInnerHTML={{ __html: parseMarkdown(question.correctAnswer) }}
+            />
           </div>
           <div className={styles.explanationBox}>
             <span className={styles.explanationLabel}>📖 Explanation</span>
-            <p className={styles.explanationText}>{question.explanation}</p>
+            {/* Explanation also rendered via markdown for full LaTeX + bold/italic support */}
+            <div
+              className={styles.explanationText}
+              dangerouslySetInnerHTML={{ __html: parseMarkdown(question.explanation) }}
+            />
           </div>
         </div>
       )}

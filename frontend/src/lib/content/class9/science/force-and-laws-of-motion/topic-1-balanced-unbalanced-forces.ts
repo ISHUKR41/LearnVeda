@@ -764,5 +764,326 @@ That one question unlocks the answer to almost every motion problem in Class 9 P
       explanation:
         "This question tests the understanding of weight vs. mass, and how gravity varies across celestial bodies. Mass is constant everywhere. Weight changes because it depends on local gravitational acceleration. This distinction is fundamental and frequently tested in exams.",
     },
+
+    /* ══════════════════════════════════════════
+     *  10 MCQ — NUMERICAL & HARD CONCEPTUAL (t1q41–t1q50)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t1q41",
+      type: "mcq",
+      points: 10,
+      question:
+        "A box of mass 5 kg is on a horizontal floor. Two horizontal forces act on it: 30 N to the right and 12 N to the left. The coefficient of static friction is 0.4 (g = 10 m/s²). The box:",
+      options: [
+        "Remains stationary because friction balances the net applied force",
+        "Accelerates to the right because net applied force (18 N) exceeds maximum static friction (20 N)",
+        "Remains stationary because normal force balances gravity",
+        "Accelerates to the left because friction is larger than the applied force",
+      ],
+      correctAnswer:
+        "Remains stationary because friction balances the net applied force",
+      explanation:
+        "Maximum static friction = μN = 0.4 × (5 × 10) = 20 N. Net applied force = 30 − 12 = 18 N. Since 18 N < 20 N (maximum static friction), friction can fully balance the net applied force. The box stays still — all forces are balanced.",
+    },
+    {
+      id: "t1q42",
+      type: "mcq",
+      points: 10,
+      question:
+        "A book of weight 20 N rests on a table. The table pushes the book up with 20 N. Which Newton's Law does this illustrate?",
+      options: [
+        "Newton's First Law (balanced forces keep the book at rest)",
+        "Newton's Third Law (action-reaction between book and table)",
+        "Both First and Third Law simultaneously",
+        "Newton's Second Law (net force = 20 N upward)",
+      ],
+      correctAnswer:
+        "Both First and Third Law simultaneously",
+      explanation:
+        "Newton's Third Law: the book pushes the table down (action), and the table pushes the book up (reaction) — equal and opposite forces on different objects. Newton's First Law: the net force on the book (weight down + normal up = 0) keeps it in equilibrium at rest. Both laws apply simultaneously.",
+    },
+    {
+      id: "t1q43",
+      type: "mcq",
+      points: 10,
+      question:
+        "Three forces act on a particle: F₁ = 10 N (east), F₂ = 6 N (west), F₃ = 8 N (north). What is the magnitude of the resultant force?",
+      options: ["4 N", "8 N", "√(16 + 64) ≈ 8.9 N", "24 N"],
+      correctAnswer: "√(16 + 64) ≈ 8.9 N",
+      explanation:
+        "Resolve into components. East-West: 10 − 6 = 4 N (east). North-South: 8 N (north). Resultant = √(4² + 8²) = √(16 + 64) = √80 ≈ 8.94 N. Balanced only if resultant = 0; here the resultant is ~8.9 N, so forces are unbalanced.",
+    },
+    {
+      id: "t1q44",
+      type: "mcq",
+      points: 10,
+      question:
+        "A car of mass 1200 kg travels at constant velocity 20 m/s on a level road. Engine force is 3600 N. What is the total resistive force (friction + air drag)?",
+      options: ["0 N", "1800 N", "3600 N", "7200 N"],
+      correctAnswer: "3600 N",
+      explanation:
+        "Constant velocity → net force = 0 → balanced forces. Engine force forward = total resistive force backward. So total resistance = 3600 N. This is a direct application of the condition for balanced forces.",
+    },
+    {
+      id: "t1q45",
+      type: "mcq",
+      points: 10,
+      question:
+        "A 4 kg block is suspended by two ropes. Rope 1 exerts 25 N at 60° from vertical, and Rope 2 exerts T at 30° from vertical (g = 10 m/s²). For the block to be in equilibrium, the net vertical force must be zero. The weight of the block is:",
+      options: ["25 N", "32 N", "40 N", "50 N"],
+      correctAnswer: "40 N",
+      explanation:
+        "Weight = mg = 4 × 10 = 40 N. For equilibrium, the upward components of both ropes must sum to 40 N. This question tests the concept that balanced forces require zero net force — here, vertical components of rope tensions must equal weight.",
+    },
+    {
+      id: "t1q46",
+      type: "mcq",
+      points: 10,
+      question:
+        "An object in free fall is acted upon by gravity (500 N downward) and air resistance (150 N upward). The net force and direction are:",
+      options: [
+        "350 N downward — unbalanced, object accelerates downward",
+        "650 N downward — unbalanced, object decelerates",
+        "350 N upward — unbalanced, object slows down",
+        "0 N — balanced, terminal velocity",
+      ],
+      correctAnswer:
+        "350 N downward — unbalanced, object accelerates downward",
+      explanation:
+        "Net force = 500 − 150 = 350 N downward. Forces are unbalanced — object accelerates downward (but slower than free fall). When air resistance eventually equals gravity (500 N), forces balance and terminal velocity is reached.",
+    },
+    {
+      id: "t1q47",
+      type: "mcq",
+      points: 10,
+      question:
+        "The weight of a man on Earth is 784 N. What is his mass? (g = 9.8 m/s²)",
+      options: ["784 kg", "80 kg", "7686.7 kg", "7.68 kg"],
+      correctAnswer: "80 kg",
+      explanation:
+        "Weight = mg → m = W/g = 784 / 9.8 = 80 kg. Mass is always in kg; weight is a force in Newtons. This distinction is essential for all force calculations.",
+    },
+    {
+      id: "t1q48",
+      type: "mcq",
+      points: 10,
+      question:
+        "Two forces of 6 N and 8 N act on an object at right angles. What single force would balance these two forces completely?",
+      options: [
+        "14 N in the same direction",
+        "10 N in the opposite direction to the resultant",
+        "2 N in any direction",
+        "10 N in the same direction as the resultant",
+      ],
+      correctAnswer:
+        "10 N in the opposite direction to the resultant",
+      explanation:
+        "Resultant of 6 N and 8 N at right angles = √(6² + 8²) = √(36 + 64) = √100 = 10 N. To balance (net force = 0), apply an equal and opposite force of 10 N in the opposite direction to the resultant.",
+    },
+    {
+      id: "t1q49",
+      type: "mcq",
+      points: 10,
+      question:
+        "A 60 kg person stands in a lift. The lift accelerates upward at 3 m/s². What does a weighing scale inside the lift show? (g = 10 m/s²)",
+      options: ["60 kg", "42 kg", "78 kg", "600 N"],
+      correctAnswer: "78 kg",
+      explanation:
+        "Normal force N = m(g + a) = 60 × (10 + 3) = 60 × 13 = 780 N. The scale reads in kg-force: 780 / 10 = 78 kg. The person 'feels' heavier. Forces are unbalanced (net force = ma = 180 N upward), producing upward acceleration.",
+    },
+    {
+      id: "t1q50",
+      type: "mcq",
+      points: 10,
+      question:
+        "A kite is stationary in the sky. Which pair of forces must be balanced?",
+      options: [
+        "Weight and tension in string only",
+        "Weight and air lift force only",
+        "All forces (weight, air lift, string tension, wind drag) must balance in both vertical and horizontal directions",
+        "Only horizontal forces need to balance",
+      ],
+      correctAnswer:
+        "All forces (weight, air lift, string tension, wind drag) must balance in both vertical and horizontal directions",
+      explanation:
+        "For a stationary kite, net force = 0 in every direction. Vertically: lift force = weight + vertical component of string tension. Horizontally: horizontal component of string tension = wind drag. All force components must be balanced in all directions.",
+    },
+
+    /* ══════════════════════════════════════════
+     *  5 SHORT NUMERICAL ANSWERS (t1q51–t1q55)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t1q51",
+      type: "short",
+      points: 15,
+      question:
+        "A 15 kg traffic sign hangs from two wires, each making a 30° angle with the horizontal. Calculate the tension in each wire. (g = 10 m/s²)",
+      correctAnswer:
+        "Weight of sign = mg = 15 × 10 = 150 N.\n\nFor equilibrium, vertical components of both tensions must equal the weight:\n2 × T × sin 30° = 150 N\n2 × T × 0.5 = 150\nT = 150 N\n\nEach wire has a tension of **150 N**.\n\nNote: If the wires were more horizontal (smaller angle), each wire would need MORE tension to support the same weight — this is why low-angle suspensions require very strong cables.",
+      explanation:
+        "This is a classic equilibrium problem. The vertical components of both symmetric rope tensions must sum to equal the weight. Always resolve into components when forces are at angles.",
+    },
+    {
+      id: "t1q52",
+      type: "short",
+      points: 15,
+      question:
+        "An engine pushes a train with a force of 50,000 N. Wind resistance is 12,000 N and track friction is 8,000 N. Is the train accelerating, decelerating, or moving at constant speed? Calculate the net force.",
+      correctAnswer:
+        "Net force = Engine force − (Wind resistance + Track friction)\n= 50,000 − (12,000 + 8,000)\n= 50,000 − 20,000\n= **30,000 N** in the forward direction.\n\nSince net force ≠ 0, the train is **accelerating forward**. Forces are unbalanced. The train speeds up.",
+      explanation:
+        "Net force = sum of all forces with proper signs. Forward forces positive, backward forces negative. A positive net force means forward acceleration.",
+    },
+    {
+      id: "t1q53",
+      type: "short",
+      points: 15,
+      question:
+        "A skydiver of mass 75 kg reaches terminal velocity. What is the air resistance force at terminal velocity? (g = 9.8 m/s²)",
+      correctAnswer:
+        "At terminal velocity, the skydiver moves at constant speed → net force = 0 → forces are balanced.\n\nAir resistance = Weight = mg = 75 × 9.8 = **735 N** (upward).\n\nAt terminal velocity, gravity pulling down (735 N) exactly equals air resistance pushing up (735 N). Net force = 0. No acceleration. Constant velocity.\n\nThis is a beautiful real-world example of balanced forces.",
+      explanation:
+        "Terminal velocity is achieved when air resistance equals weight. Constant velocity always means balanced forces, not zero forces. The air resistance at terminal velocity equals the person's weight.",
+    },
+    {
+      id: "t1q54",
+      type: "short",
+      points: 15,
+      question:
+        "Forces of 12 N (north), 5 N (east), 12 N (south), and 5 N (west) act on a body. Find the resultant force and state whether forces are balanced.",
+      correctAnswer:
+        "North-South: 12 N (north) − 12 N (south) = 0 N\nEast-West: 5 N (east) − 5 N (west) = 0 N\n\nResultant force = √(0² + 0²) = **0 N**\n\nThe forces are perfectly **balanced**. Net force = 0. The object remains in its current state of motion (at rest if stationary, or at constant velocity if moving).",
+      explanation:
+        "When forces in each direction cancel exactly, the resultant is zero and forces are balanced. Always resolve forces into perpendicular components (usually N-S and E-W) and check each direction separately.",
+    },
+    {
+      id: "t1q55",
+      type: "short",
+      points: 15,
+      question:
+        "A 2000 kg car brakes from 25 m/s to rest in 5 seconds. Calculate the net braking force. Are the forces balanced or unbalanced during braking?",
+      correctAnswer:
+        "First find acceleration (deceleration):\na = Δv / t = (0 − 25) / 5 = −5 m/s²\n\nNet braking force = ma = 2000 × 5 = **10,000 N** backward.\n\nThe forces are clearly **unbalanced** during braking. The backward net force of 10,000 N causes the car to decelerate from 25 m/s to rest.\n\nIf forces were balanced (net force = 0), the car could never decelerate — it would continue at 25 m/s forever (Newton's First Law).",
+      explanation:
+        "Any change in velocity (including deceleration) requires an unbalanced net force. Use F = ma to find the magnitude. Direction of force = direction of acceleration (here, backward/opposing motion).",
+    },
+
+    /* ══════════════════════════════════════════
+     *  5 LONG NUMERICAL ANSWERS (t1q56–t1q60)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t1q56",
+      type: "long",
+      points: 20,
+      question:
+        "A 10 kg box is on a horizontal surface. A horizontal force of 80 N is applied. The coefficient of static friction is 0.6 and kinetic friction is 0.4. (g = 10 m/s²) (a) Find maximum static friction. (b) Does the box move? (c) If it moves, find kinetic friction and net force. (d) Find acceleration.",
+      correctAnswer:
+        "**(a) Maximum static friction:**\nNormal force N = mg = 10 × 10 = 100 N\nf_static_max = μ_s × N = 0.6 × 100 = **60 N**\n\n**(b) Does the box move?**\nApplied force (80 N) > Maximum static friction (60 N)\n→ **Yes, the box moves.**\n\n**(c) Kinetic friction and net force:**\nKinetic friction = μ_k × N = 0.4 × 100 = 40 N (backward)\nNet force = Applied force − Kinetic friction = 80 − 40 = **40 N** (forward)\n\n**(d) Acceleration:**\na = F_net / m = 40 / 10 = **4 m/s²**\n\nThe forces are unbalanced (net force = 40 N), so the box accelerates forward at 4 m/s².",
+      explanation:
+        "Friction has two phases: static (prevents motion, up to a maximum) and kinetic (opposes motion once sliding). Once the applied force exceeds maximum static friction, kinetic friction takes over — which is always less than maximum static friction.",
+    },
+    {
+      id: "t1q57",
+      type: "long",
+      points: 20,
+      question:
+        "A 50 kg block hangs from a rope attached to a ceiling. A second rope hangs from the block with a 30 kg object. (g = 10 m/s²) (a) Find the tension in the lower rope. (b) Find the tension in the upper rope. (c) Are all objects in equilibrium? (d) What if the lower rope suddenly breaks — what happens to the 50 kg block?",
+      correctAnswer:
+        "**(a) Tension in lower rope (T₂):**\nThe lower rope supports only the 30 kg object.\nFor the 30 kg object: T₂ − mg = 0 (equilibrium)\nT₂ = 30 × 10 = **300 N**\n\n**(b) Tension in upper rope (T₁):**\nThe upper rope supports both the 50 kg block AND the hanging 30 kg object.\nFor the 50 kg block: T₁ − (50 × 10) − T₂ = 0\nT₁ = 500 + 300 = **800 N**\n\n**(c) Are all objects in equilibrium?**\nYes. For each object separately:\n- 30 kg: T₂ (300 N up) = Weight (300 N down) ✓\n- 50 kg: T₁ (800 N up) = Weight (500 N) + T₂ (300 N) = 800 N down ✓\nAll forces are balanced. Both objects are stationary.\n\n**(d) If lower rope breaks:**\nThe 30 kg object falls freely (only gravity acts, unbalanced force).\nThe 50 kg block: Now only gravity (500 N down) and new tension T₁' act. T₁' − 500 = 0 → T₁' = 500 N. The ceiling rope still holds the 50 kg block stationary at a lower tension.",
+      explanation:
+        "Multi-body equilibrium: analyze each body separately. The upper rope must support the weight of both objects. Rope tensions are internal forces that transmit forces between objects.",
+    },
+    {
+      id: "t1q58",
+      type: "long",
+      points: 20,
+      question:
+        "A 70 kg person stands on a scale in a lift. The scale reads: (a) 770 N while accelerating upward, (b) 560 N while decelerating upward (braking to stop). Find the acceleration in each case and state whether forces are balanced or unbalanced. (g = 9.8 m/s²)",
+      correctAnswer:
+        "**Person's actual weight = mg = 70 × 9.8 = 686 N**\n\n**(a) Scale reads 770 N (accelerating upward):**\nNormal force N = 770 N (what scale reads)\nUsing Newton's Second Law:\nN − mg = ma\n770 − 686 = 70 × a\n84 = 70a\na = **1.2 m/s² upward**\n\nForces: Unbalanced. Net force = 770 − 686 = 84 N upward → upward acceleration.\nThe person feels heavier than actual weight.\n\n**(b) Scale reads 560 N (decelerating while moving upward):**\nN − mg = ma\n560 − 686 = 70 × a\n−126 = 70a\na = **−1.8 m/s²** (i.e., 1.8 m/s² downward deceleration)\n\nForces: Unbalanced. Net force = 560 − 686 = −126 N (downward) → deceleration.\nThe person feels lighter than actual weight. The lift is slowing down while moving upward.",
+      explanation:
+        "The scale reads Normal Force, not true weight. Normal Force > weight → accelerating upward. Normal Force < weight → accelerating downward or decelerating upward. Net force = N − mg = ma.",
+    },
+    {
+      id: "t1q59",
+      type: "long",
+      points: 20,
+      question:
+        "Two teams play tug of war. Team A (left) applies 850 N. Team B (right) applies 920 N. The rope has mass 2 kg. (g = 10 m/s²) (a) Find net force on the rope. (b) Find rope's acceleration. (c) In which direction does the rope move? (d) What minimum force must Team A apply to balance Team B completely?",
+      correctAnswer:
+        "**(a) Net force on rope:**\nTaking right as positive:\nNet force = 920 − 850 = **70 N** to the right\n\n**(b) Rope's acceleration:**\nF = ma\n70 = 2 × a\na = **35 m/s² to the right**\n\n**(c) Direction of movement:**\nThe rope accelerates to the **right** (toward Team B), so Team B is winning.\n\n**(d) Force for balance:**\nFor net force = 0, Team A must apply exactly 920 N.\nThey need to increase their force by 920 − 850 = **70 N** more.\n\n**Note on rope weight:** The rope also has weight = 2 × 10 = 20 N downward, but this is balanced by the normal force/tension from the pulling action in the vertical direction. The relevant net force is horizontal.",
+      explanation:
+        "Tug of war analysis: net force = difference in opposing forces. Even though both forces are large (850 N and 920 N), only the 70 N difference matters for acceleration. This demonstrates that 'balanced' means equal forces, not large forces.",
+    },
+    {
+      id: "t1q60",
+      type: "long",
+      points: 20,
+      question:
+        "A boat of mass 500 kg is pushed forward by its engine with 2000 N. Water resistance is 800 N and air drag is 200 N. (a) Find net force. (b) Find acceleration. (c) The boat reaches constant speed — what must the engine force become? (d) If the engine suddenly cuts off at constant speed, describe the subsequent motion.",
+      correctAnswer:
+        "**(a) Net force (engine on, not at terminal velocity):**\nNet force = Engine − (Water resistance + Air drag)\n= 2000 − (800 + 200) = 2000 − 1000 = **1000 N** forward\n\n**(b) Acceleration:**\na = F_net / m = 1000 / 500 = **2 m/s²** forward\nForces are unbalanced → boat accelerates.\n\n**(c) Engine force at constant speed:**\nFor constant speed, net force = 0 (balanced forces).\nAs speed increases, water resistance + air drag increase too.\nAt some speed, total drag increases to match engine force. At constant speed, engine force must exactly equal total drag.\nIf at constant speed drag is still 1000 N → Engine = **1000 N** (less than original 2000 N, as the boat has reached balance).\n\n**(d) After engine cuts off:**\nNet force = −1000 N (backward drag only)\nThe boat decelerates: a = −1000/500 = −2 m/s².\nAs the boat slows, drag decreases too, so deceleration gradually reduces.\nEventually the boat stops (unless in open water with no drag decrease, but realistically drag decreases with speed → boat slows to zero asymptotically).\nThis demonstrates Newton's First Law: without engine force, the unbalanced drag force changes the boat's state of motion.",
+      explanation:
+        "This question covers the full cycle of forces on a boat: unbalanced (acceleration phase), balanced (constant speed), and unbalanced again (deceleration after engine cuts off). Real-world machines always reach constant speed when driving force equals total resistance.",
+    },
+
+    /* ══════════════════════════════════════════
+     *  5 EXTRA HOTS / CONCEPTUAL (t1q61–t1q65)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t1q61",
+      type: "thinking",
+      points: 25,
+      question:
+        "A balloon filled with helium floats upward. A person holds it down with a string. Analyze ALL forces on the balloon, classify them as contact/non-contact, and determine whether forces are balanced. What would happen if the string breaks?",
+      correctAnswer:
+        "**Forces on the balloon:**\n\n1. **Weight (W = mg)** — downward. NON-CONTACT force (gravity acts over a distance). The mass of the balloon rubber + mass of helium gas × g.\n\n2. **Buoyancy / Upthrust** — upward. CONTACT force (air molecules push on the balloon surface from all sides; the upward push on the bottom surface exceeds the downward push on the top, because air pressure increases with depth). Buoyancy = weight of air displaced by the balloon.\n\n3. **String tension (T)** — downward. CONTACT force (string physically pulls the balloon down).\n\n**Force balance equation:**\nFor balloon to be stationary: Upthrust = Weight + Tension\nThis means: Upthrust > Weight (otherwise the balloon wouldn't need a string)\n\n**Are forces balanced?** Yes (balloon is stationary → net force = 0 → balanced).\n\n**If string breaks:**\nThe downward string tension disappears. Now: Upthrust > Weight → Net force is upward (unbalanced). The balloon accelerates upward. As it rises, air becomes less dense, so buoyancy decreases. Eventually buoyancy = weight → net force = 0 → constant velocity. Still higher up, buoyancy < weight → balloon descends to equilibrium altitude.\n\n**Real insight:** A helium balloon in a car actually moves FORWARD when you brake (opposite to everything else). This is because the air around it moves backward relative to the balloon (creating a pressure gradient), pushing the balloon forward. Fascinating consequence of buoyancy and inertia!",
+      explanation:
+        "Analyzing all forces on a balloon reveals the interplay of gravity, buoyancy, and contact forces. The balloon float concept beautifully illustrates force balance and what happens when equilibrium is disturbed.",
+    },
+    {
+      id: "t1q62",
+      type: "thinking",
+      points: 25,
+      question:
+        "Two scales are connected by a rope. Person A (80 kg) stands on Scale 1. Person B (60 kg) stands on Scale 2. They pull each other through the rope. What do the scales read? How does the reading change if Person A pulls harder? Explain using Newton's Third Law and force balance.",
+      correctAnswer:
+        "This is a classic Newton's Third and First Law problem!\n\n**When both people are stationary (pulling equally):**\n\nLet T = tension in rope.\n\nFor Person A (80 kg):\nScale 1 reads: N_A = mg_A = 80 × 10 = 800 N (gravity balanced by scale; rope is horizontal, doesn't affect vertical)\n\nFor Person B (60 kg):\nScale 2 reads: N_B = mg_B = 60 × 10 = 600 N\n\nThe SCALES read normal weights because the rope is horizontal — it doesn't affect vertical forces. The rope tension T doesn't change the scale readings.\n\n**What if Person A pulls harder?**\nIf Person A is more powerful and they START MOVING toward each other, then Person A is on a scale that measures the normal force. If A accelerates (say forward, away from the scale), the scale reads N_A = mg − ma_A. If A deceleration while being pulled, scale reads N_A = mg + ma_A.\n\n**The key Newton's Third Law point:** When A pulls the rope with 200 N toward herself, the rope pulls her back with 200 N. The rope tension is equal throughout (massless rope assumption). Person A and Person B both feel the SAME tension T, regardless of who is 'stronger.' The system accelerates in the direction of the greater net force (like tug of war). The scales don't register horizontal forces — only vertical (normal) forces.\n\n**If on an incline:** The scales WOULD change because rope tension would have a vertical component. But on level ground, scales always read true weight regardless of horizontal pulling.",
+      explanation:
+        "This deceptively tricky problem reveals that scales only measure the normal force (vertical component). Horizontal rope tension doesn't affect a level scale reading. Newton's Third Law ensures the rope tension is the same for both people.",
+    },
+    {
+      id: "t1q63",
+      type: "thinking",
+      points: 25,
+      question:
+        "A 1 kg book is pressed against a vertical wall with a horizontal force F. The book stays still. (a) List all forces on the book. (b) Write equilibrium equations for vertical and horizontal directions. (c) Find the minimum force F needed if μ_static = 0.5. (g = 10 m/s²) (d) What happens if F is reduced slightly below this minimum?",
+      correctAnswer:
+        "**(a) Forces on the book:**\n1. Weight W = mg = 1 × 10 = 10 N (downward)\n2. Applied force F (horizontal, into the wall)\n3. Normal force N from wall (horizontal, away from wall — reaction to F)\n4. Friction force f from wall (upward — prevents the book from sliding down)\n\n**(b) Equilibrium equations:**\nHorizontal: F = N (no horizontal acceleration → these balance)\nVertical: f = W = 10 N (no vertical acceleration → friction must equal weight)\n\n**(c) Minimum F:**\nMaximum static friction = μN = μF (since N = F)\nFor book to stay: friction required ≥ friction available\nf ≥ μF\n10 ≤ 0.5 × F\nF ≥ 10 / 0.5 = **20 N** minimum\n\n**(d) If F drops below 20 N:**\nAvailable friction = μF < 10 N = weight needed to support book.\nNet vertical force ≠ 0 → forces unbalanced → book accelerates downward → **book slides down the wall!**\n\n**Interesting insight:** Greater F → greater N → greater maximum friction → book held more firmly. The applied force and friction work together through the normal force.",
+      explanation:
+        "Book-against-wall is a classic two-direction equilibrium problem. The horizontal force creates the normal force, which enables friction to act vertically. This is why pressing harder keeps the book up more firmly.",
+    },
+    {
+      id: "t1q64",
+      type: "thinking",
+      points: 25,
+      question:
+        "Compare 'weight' and 'mass' comprehensively: their definitions, SI units, measurement instruments, what they depend on, and how each relates to the concept of force. Give an example calculation.",
+      correctAnswer:
+        "**MASS:**\n- **Definition:** Mass is the amount of matter in an object. It is a measure of the object's inertia.\n- **SI Unit:** Kilogram (kg)\n- **Scalar or Vector:** Scalar (no direction)\n- **Measurement:** Physical balance (compares masses; works anywhere in the universe)\n- **Depends on:** Nothing external. Mass is an intrinsic property — it doesn't change regardless of location (Earth, Moon, space, Mars).\n- **Relation to force:** Mass is the 'm' in F = ma. Greater mass → more force needed for the same acceleration.\n\n**WEIGHT:**\n- **Definition:** Weight is the gravitational force acting on an object. Weight = gravitational pull of the planet/body on the object.\n- **SI Unit:** Newton (N) — because it is a force\n- **Scalar or Vector:** Vector (direction: toward center of the planet)\n- **Measurement:** Spring balance / weighing scale (measures force; works differently at different locations)\n- **Depends on:** Both the object's mass AND the local gravitational field strength (g). Changes on Moon, Mars, etc.\n- **Formula:** W = mg\n- **Relation to force:** Weight IS a force. It's the gravitational force on the object.\n\n**Example Calculation:**\nAstronaut mass = 80 kg (constant everywhere)\nWeight on Earth: W = 80 × 9.8 = 784 N\nWeight on Moon (g = 1.62 m/s²): W = 80 × 1.62 = 129.6 N\nWeight in deep space (g ≈ 0): W ≈ 0 N (weightless!)\nMass stays 80 kg everywhere.\n\n**Key Summary:** Mass = how much stuff. Weight = how hard gravity pulls. Same object, different planets → same mass, different weight.",
+      explanation:
+        "The mass-weight distinction is one of the most frequently confused concepts in physics. Mass is substance; weight is a force. A spring balance measures weight (force); a beam balance compares masses.",
+    },
+    {
+      id: "t1q65",
+      type: "thinking",
+      points: 25,
+      question:
+        "An aircraft flies horizontally at constant altitude and speed. Draw a force diagram and write equilibrium equations for all four forces. Then: if the pilot increases engine thrust by 20% while keeping altitude constant, what must change and why? If the pilot reduces engine thrust to 80% without changing altitude, what happens to speed?",
+      correctAnswer:
+        "**Force Diagram for Aircraft:**\n- **Thrust (T):** horizontal, forward (engine)\n- **Drag (D):** horizontal, backward (air resistance)\n- **Lift (L):** vertical, upward (wings)\n- **Weight (W = mg):** vertical, downward (gravity)\n\n**Equilibrium Conditions (constant altitude + constant speed):**\nHorizontal: T = D (thrust = drag → no horizontal acceleration)\nVertical: L = W (lift = weight → no vertical acceleration)\n\n**If engine thrust increases by 20% (T becomes 1.2T):**\nNow T > D → net horizontal force forward → aircraft accelerates.\nAs speed increases, drag (D) also increases (drag ∝ speed²).\nThe aircraft accelerates until the higher speed causes drag to increase enough to match the new thrust: D_new = 1.2T. New constant speed is higher.\nMeanwhile, lift also increases with speed (lift ∝ speed²). To maintain constant altitude (L = W), the pilot must reduce angle of attack (reduce lift coefficient) to prevent climbing.\n\n**If engine thrust reduces to 80% (T becomes 0.8T):**\nNow T < D → net horizontal force backward → aircraft decelerates.\nAs speed decreases, drag decreases and lift also decreases.\nIf lift < weight, aircraft descends. To maintain altitude, pilot must increase angle of attack.\nNew equilibrium speed is lower (reduced drag matches reduced thrust).\n\n**Key insight:** Aircraft equilibrium requires BOTH pairs of forces to balance simultaneously. Changing one force affects others through the coupling of speed, drag, and lift.",
+      explanation:
+        "Aircraft equilibrium is a beautiful application of balanced forces in two directions simultaneously. Every force affects others — thrust changes speed, which changes drag and lift, requiring pilot adjustments. This is real-world force balance in action.",
+    },
   ],
 };

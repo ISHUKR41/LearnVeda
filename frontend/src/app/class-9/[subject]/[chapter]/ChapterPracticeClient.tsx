@@ -16,6 +16,9 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "./ChapterPractice.module.css";
 import { progressApi } from "@/lib/api/api";
+/* parseMarkdown renders KaTeX math blocks and inline markdown (bold, italic, etc.)
+   so any LaTeX in question text or explanation displays as formatted math */
+import { parseMarkdown } from "@/lib/utils/parseMarkdown";
 
 interface Question {
   id: string;
@@ -244,7 +247,11 @@ export default function ChapterPracticeClient({ snapshot, backUrl }: ChapterPrac
           <span className={styles.pointsBadge}>+{currentQuestion.points} XP</span>
         </div>
 
-        <h2 className={styles.questionText}>{currentQuestion.text}</h2>
+        {/* Question text rendered via parseMarkdown to display LaTeX formulas correctly */}
+        <div
+          className={styles.questionText}
+          dangerouslySetInnerHTML={{ __html: parseMarkdown(currentQuestion.text) }}
+        />
 
         {/* Options */}
         <div className={styles.optionsList}>
@@ -352,7 +359,11 @@ export default function ChapterPracticeClient({ snapshot, backUrl }: ChapterPrac
             <h3 className={styles.explanationTitle}>
               {isCorrect ? "Correct! Well done." : "Incorrect Answer"}
             </h3>
-            <p className={styles.explanationText}>{currentQuestion.explanation}</p>
+            {/* Explanation rendered via parseMarkdown for LaTeX and formatting support */}
+            <div
+              className={styles.explanationText}
+              dangerouslySetInnerHTML={{ __html: parseMarkdown(currentQuestion.explanation) }}
+            />
             {currentQuestion.youtubeHintUrl && (
               <a
                 href={currentQuestion.youtubeHintUrl}
