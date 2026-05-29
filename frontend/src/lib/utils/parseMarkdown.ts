@@ -4,16 +4,21 @@
  * PURPOSE: Robust markdown → HTML converter with real KaTeX math rendering.
  *
  * PIPELINE (in order):
- *   Phase A — preNormalize()          Fix control characters that result from
- *                                     writing single-backslash LaTeX in JS template
- *                                     literals (\frac → form-feed + "rac" etc.).
- *   Phase B — wrapBareLatex()         Auto-detect LaTeX commands outside $ delimiters
- *                                     and wrap them — safety net for missing delimiters.
- *   Phase C — extractAndProtectMath() Replace $...$ / $$...$$ with placeholders,
- *                                     rendering each block via KaTeX first.
- *   Phase D — block markdown          Headings, lists, tables, blockquotes, hr.
- *   Phase E — inline markdown         Bold, italic, inline code, images.
- *   Phase F — restore placeholders    Substitute KaTeX HTML back in.
+ *   Phase A  — preNormalize()          Fix control characters that result from
+ *                                      writing single-backslash LaTeX in JS template
+ *                                      literals (\frac → form-feed + "rac" etc.).
+ *   Phase A2 — restoreMathCommands()   Restore LaTeX command names whose backslash
+ *                                      was silently stripped for unknown escapes
+ *                                      (e.g. \Delta→Delta, \propto→propto) when
+ *                                      the content is already inside a math context
+ *                                      or when unambiguous patterns appear.
+ *   Phase B  — wrapBareLatex()         Auto-detect LaTeX commands outside $ delimiters
+ *                                      and wrap them — safety net for missing delimiters.
+ *   Phase C  — extractAndProtectMath() Replace $...$ / $$...$$ with placeholders,
+ *                                      rendering each block via KaTeX first.
+ *   Phase D  — block markdown          Headings, lists, tables, blockquotes, hr.
+ *   Phase E  — inline markdown         Bold, italic, inline code, images.
+ *   Phase F  — restore placeholders    Substitute KaTeX HTML back in.
  *
  * USAGE IN CONTENT FILES:
  *   - Wrap inline math in $ ... $   e.g. $F = ma$
@@ -40,21 +45,119 @@ import katex from "katex";
  * ───────────────────────────────────────────────────────────────────────── */
 function preNormalize(text: string): string {
   return text
-    .replace(/\u000c/g, "\\f")  /* form-feed       → \f */
-    .replace(/\u000b/g, "\\v")  /* vertical-tab    → \v */
-    .replace(/\u0008/g, "\\b")  /* backspace       → \b */
-    .replace(/\t/g,     "\\t")  /* horizontal-tab  → \t */
-    .replace(/\r/g,     "\\r"); /* carriage-return → \r */
+    .replace(/\u000c/g, "\\f")  /* form-feed       → \f  */
+    .replace(/\u000b/g, "\\v")  /* vertical-tab    → \v  */
+    .replace(/\u0008/g, "\\b")  /* backspace       → \b  */
+    .replace(/\t/g,     "\\t")  /* horizontal-tab  → \t  */
+    .replace(/\r/g,     "\\r"); /* carriage-return → \r  */
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Phase A2 — restoreMathCommands (INSIDE math blocks only)
+ *
+ * For content authored with regular JS string literals (not template
+ * literals), unrecognised escape sequences silently drop the backslash:
+ *   \Delta → "Delta"   (JS treats \D as unknown → drops \)
+ *   \alpha → "alpha"   etc.
+ *
+ * This function is ONLY called on the inner content of $...$ blocks, so
+ * it can safely restore ALL known LaTeX command names — they can only be
+ * LaTeX in a math context.
+ * ───────────────────────────────────────────────────────────────────────── */
+function restoreGreekInMath(math: string): string {
+  return math
+    /* Capital Greek */
+    .replace(/\bDelta\b/g,    "\\Delta")
+    .replace(/\bGamma\b/g,    "\\Gamma")
+    .replace(/\bLambda\b/g,   "\\Lambda")
+    .replace(/\bSigma\b/g,    "\\Sigma")
+    .replace(/\bOmega\b/g,    "\\Omega")
+    .replace(/\bTheta\b/g,    "\\Theta")
+    .replace(/\bPhi\b/g,      "\\Phi")
+    .replace(/\bPsi\b/g,      "\\Psi")
+    .replace(/\bXi\b/g,       "\\Xi")
+    .replace(/\bUpsilon\b/g,  "\\Upsilon")
+    /* Lowercase Greek */
+    .replace(/\balpha\b/g,    "\\alpha")
+    .replace(/\bbeta\b/g,     "\\beta")
+    .replace(/\bgamma\b/g,    "\\gamma")
+    .replace(/\bdelta\b/g,    "\\delta")
+    .replace(/\btheta\b/g,    "\\theta")
+    .replace(/\blambda\b/g,   "\\lambda")
+    .replace(/\bsigma\b/g,    "\\sigma")
+    .replace(/\bomega\b/g,    "\\omega")
+    .replace(/\bmu\b/g,       "\\mu")
+    .replace(/\bnu\b/g,       "\\nu")
+    .replace(/\bphi\b/g,      "\\phi")
+    .replace(/\bpsi\b/g,      "\\psi")
+    .replace(/\bchi\b/g,      "\\chi")
+    .replace(/\bepsilon\b/g,  "\\epsilon")
+    .replace(/\bvarepsilon\b/g, "\\varepsilon")
+    .replace(/\beta\b/g,      "\\eta")   /* \b already processed above, but safety */
+    .replace(/\bkappa\b/g,    "\\kappa")
+    .replace(/\brho\b/g,      "\\rho")
+    .replace(/\btau\b/g,      "\\tau")
+    .replace(/\bzeta\b/g,     "\\zeta")
+    /* Math operators & symbols */
+    .replace(/\bnabla\b/g,    "\\nabla")
+    .replace(/\bpartial\b/g,  "\\partial")
+    .replace(/\binfty\b/g,    "\\infty")
+    .replace(/\bpropto\b/g,   "\\propto")
+    .replace(/\btimes\b/g,    "\\times")
+    .replace(/\bcdot\b/g,     "\\cdot")
+    .replace(/\bldots\b/g,    "\\ldots")
+    .replace(/\bcdots\b/g,    "\\cdots")
+    .replace(/\bpm\b/g,       "\\pm")
+    .replace(/\bmp\b/g,       "\\mp")
+    .replace(/\bleq\b/g,      "\\leq")
+    .replace(/\bgeq\b/g,      "\\geq")
+    .replace(/\bneq\b/g,      "\\neq")
+    .replace(/\bapprox\b/g,   "\\approx")
+    .replace(/\bequiv\b/g,    "\\equiv")
+    .replace(/\bsim\b/g,      "\\sim")
+    .replace(/\bperp\b/g,     "\\perp")
+    .replace(/\bangle\b/g,    "\\angle")
+    .replace(/\bhbar\b/g,     "\\hbar")
+    /* Math functions (only restore if followed by { since sin/cos in English is common) */
+    .replace(/\bsqrt\{/g,     "\\sqrt{")
+    .replace(/\bfrac\{/g,     "\\frac{")
+    .replace(/\btext\{/g,     "\\text{")
+    .replace(/\bboxed\{/g,    "\\boxed{")
+    .replace(/\boverline\{/g, "\\overline{")
+    .replace(/\bunderline\{/g,"\\underline{")
+    .replace(/\bhat\{/g,      "\\hat{")
+    .replace(/\bvec\{/g,      "\\vec{")
+    .replace(/\bbar\{/g,      "\\bar{")
+    .replace(/\btilde\{/g,    "\\tilde{")
+    /* log/trig ONLY inside math context */
+    .replace(/\bsin\b/g,      "\\sin")
+    .replace(/\bcos\b/g,      "\\cos")
+    .replace(/\btan\b/g,      "\\tan")
+    .replace(/\bsin\^/g,      "\\sin^")
+    .replace(/\bcos\^/g,      "\\cos^")
+    .replace(/\btan\^/g,      "\\tan^")
+    .replace(/\bln\b/g,       "\\ln")
+    .replace(/\blog\b/g,      "\\log")
+    .replace(/\blim\b/g,      "\\lim")
+    .replace(/\bmax\b/g,      "\\max")
+    .replace(/\bmin\b/g,      "\\min")
+    .replace(/\bsum\b/g,      "\\sum")
+    .replace(/\bprod\b/g,     "\\prod")
+    .replace(/\bint\b/g,      "\\int");
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
  * normalizeMath
  *
  * Called on captured math strings just before KaTeX rendering.
- * Applies preNormalize and collapses any remaining double-backslashes.
+ * 1. Applies preNormalize (control character restoration).
+ * 2. Restores stripped Greek letter backslashes (Phase A2 inside math).
+ * 3. Collapses any remaining double-backslashes to single.
  * ───────────────────────────────────────────────────────────────────────── */
 function normalizeMath(raw: string): string {
-  return preNormalize(raw).replace(/\\\\/g, "\\");
+  const phase1 = preNormalize(raw);
+  const phase2 = restoreGreekInMath(phase1);
+  return phase2.replace(/\\\\/g, "\\");
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -63,7 +166,7 @@ function normalizeMath(raw: string): string {
  * Renders one math expression through KaTeX.
  * displayMode=true  → centred block  ($$...$$)
  * displayMode=false → inline         ($...$)
- * Falls back to a styled code block on error instead of crashing.
+ * Falls back to a styled <code> block on error instead of crashing.
  * ───────────────────────────────────────────────────────────────────────── */
 function renderMath(math: string, displayMode: boolean): string {
   try {
@@ -143,8 +246,18 @@ function wrapBareLatexSegment(seg: string): string {
     const t = line.trim();
     if (!BARE_LATEX_DETECT.test(t)) return line;
 
-    /* Skip headings, list items, blockquotes, images */
-    if (/^[#>!*\-\d]/.test(t)) return line;
+    /* Skip lines that are pure block elements:
+     * - Headings (#, ##, ###)
+     * - Blockquotes (>)
+     * - Standalone image (![ ... ])
+     * - Unordered list items (* item or - item — star/dash FOLLOWED by a space)
+     * - Ordered list items (1. item — digit+dot+space)
+     * NOTE: We do NOT skip lines starting with ** (bold text) because those
+     *       may contain LaTeX formulas inline, e.g. "**F = ma** is \\frac{...}"
+     */
+    if (/^[#>!]/.test(t))          return line; /* heading / blockquote / image */
+    if (/^[-*]\s/.test(t))         return line; /* unordered list item */
+    if (/^\d+\.\s/.test(t))        return line; /* ordered list item */
 
     /* Count how many known LaTeX commands appear in this line */
     const cmdMatches = (t.match(/\\[a-zA-Z]+/g) ?? [])

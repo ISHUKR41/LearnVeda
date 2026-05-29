@@ -880,3 +880,182 @@
   transition: left 0.1s linear;
 }
 
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * NEW SIMULATION SHELL — used by MatterSimulation.tsx and MotionSimulation.tsx
+ * Canvas-based simulations with collapsible toggle, tabs, and controls.
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+/* Outer wrapper — placed inline in the topic study content */
+.simulationContainer {
+  margin: 24px 0 32px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(99, 102, 241, 0.18);
+  background: linear-gradient(135deg, rgba(99,102,241,0.04), rgba(168,85,247,0.03));
+}
+
+/* Toggle button — click to show/hide the simulation panel */
+.simToggleBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.02);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s;
+}
+.simToggleBtn:hover { background: rgba(255,255,255,0.05); }
+
+.simToggleIcon {
+  font-size: 0.75rem;
+  color: #6366f1;
+  min-width: 14px;
+}
+.simToggleText {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #c7d2fe;
+}
+.simToggleBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #6366f1;
+  background: rgba(99,102,241,0.12);
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(99,102,241,0.25);
+}
+
+/* Body revealed when expanded */
+.simBody {
+  border-top: 1px solid rgba(99,102,241,0.15);
+  padding: 16px;
+  background: rgba(13,17,23,0.7);
+}
+
+/* Horizontal tab row */
+.simTabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+/* .simTab already defined above — keep that definition */
+
+.activeSimTab {
+  background: rgba(99,102,241,0.18) !important;
+  border-color: rgba(99,102,241,0.4) !important;
+  color: #a5b4fc !important;
+}
+
+/* Description bar */
+.simDescIcon {
+  margin-right: 6px;
+}
+
+/* Canvas wrapper — clips and constrains the canvas element */
+.simCanvasWrapper {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 10px 0;
+  background: #0d1117;
+}
+
+/* The <canvas> element itself */
+.simCanvas {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Controls row below the canvas */
+.simControlBar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.simControlBtn {
+  padding: 7px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(99,102,241,0.3);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.pauseBtn {
+  background: rgba(99,102,241,0.15);
+  color: #a5b4fc;
+}
+.pauseBtn:hover { background: rgba(99,102,241,0.28); }
+.playBtn {
+  background: rgba(16,185,129,0.15);
+  color: #6ee7b7;
+  border-color: rgba(16,185,129,0.3);
+}
+.playBtn:hover { background: rgba(16,185,129,0.28); }
+
+.speedGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.speedLabel {
+  font-size: 0.78rem;
+  color: rgba(203,213,225,0.6);
+  white-space: nowrap;
+}
+.speedSlider {
+  width: 90px;
+  height: 4px;
+  border-radius: 2px;
+  cursor: pointer;
+  appearance: none;
+  background: rgba(255,255,255,0.1);
+}
+
+.simHint {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: rgba(203,213,225,0.35);
+}
+
+/* Reset button inside canvas area */
+.resetBtn {
+  margin-top: 6px;
+  padding: 5px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(239,68,68,0.3);
+  background: rgba(239,68,68,0.08);
+  color: #fca5a5;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.resetBtn:hover { background: rgba(239,68,68,0.18); }
+
+/* Inline controls below canvas (e.g., temperature sliders) */
+.simControls {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.simLabel {
+  font-size: 0.8rem;
+  color: rgba(203,213,225,0.7);
+  font-weight: 500;
+}

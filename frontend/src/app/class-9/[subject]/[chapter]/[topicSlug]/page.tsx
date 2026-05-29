@@ -3,15 +3,19 @@
  * LOCATION: src/app/class-9/[subject]/[chapter]/[topicSlug]/page.tsx
  * PURPOSE: Server-side page handler for individual Class 9 subtopic pages.
  *          Resolves chapter data and individual subtopic slugs to present focused
- *          study interfaces.
- * USED BY: Next.js App Router
- * LAST UPDATED: 2026-05-28
+ *          study interfaces. Supports three chapters:
+ *          - force-and-laws-of-motion
+ *          - matter-in-our-surroundings
+ *          - motion
+ * LAST UPDATED: 2026-05-29
  */
 
 import React from "react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { forceAndLawsOfMotion } from "@/lib/content/class9/science/force-and-laws-of-motion";
+import { matterInOurSurroundings } from "@/lib/content/class9/science/matter-in-our-surroundings";
+import { motion as motionChapter } from "@/lib/content/class9/science/motion";
 import TopicStudyClient from "./TopicStudyClient";
 import SchemaMarkup from "@/components/seo/SchemaMarkup";
 
@@ -23,21 +27,28 @@ interface PageProps {
   }>;
 }
 
+/* Map chapter slugs to their chapter data objects */
+const CHAPTER_MAP: Record<string, typeof forceAndLawsOfMotion> = {
+  "force-and-laws-of-motion": forceAndLawsOfMotion,
+  "force-laws-of-motion":     forceAndLawsOfMotion, /* alias */
+  "force-and-laws":           forceAndLawsOfMotion, /* alias */
+  "matter-in-our-surroundings": matterInOurSurroundings as typeof forceAndLawsOfMotion,
+  "matter":                   matterInOurSurroundings as typeof forceAndLawsOfMotion,
+  "motion":                   motionChapter as typeof forceAndLawsOfMotion,
+};
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const { chapter: chapterSlug, topicSlug } = resolvedParams;
-  const isForceChapter = 
-    chapterSlug === "force-and-laws-of-motion" || 
-    chapterSlug === "force-laws-of-motion" || 
-    chapterSlug === "force-and-laws";
+  const chapterData = CHAPTER_MAP[chapterSlug];
 
-  if (isForceChapter) {
-    const topic = forceAndLawsOfMotion.topics.find((t) => t.id === topicSlug);
+  if (chapterData) {
+    const topic = chapterData.topics.find((t) => t.id === topicSlug);
     if (topic) {
       const displayTitle = topic.title.replace(/^\d+\.\s*/, "");
       return {
-        title: `${displayTitle} - Class 9 Science Study Notes | EduQuest`,
-        description: `Master ${displayTitle} with deep concept explanations, real-world examples, interactive MCQs, and deep-thinking HOTS questions.`,
+        title: `${displayTitle} — Class 9 Science Study Notes | EduQuest`,
+        description: `Master ${displayTitle} with deep concept explanations, real-world examples, interactive simulations, MCQs, and HOTS questions.`,
       };
     }
   }
@@ -51,20 +62,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function SubtopicStudyPage({ params }: PageProps) {
   const resolvedParams = await params;
   const { subject, chapter, topicSlug } = resolvedParams;
-  const isForceChapter = 
-    chapter === "force-and-laws-of-motion" || 
-    chapter === "force-laws-of-motion" || 
-    chapter === "force-and-laws";
 
-  // Currently we have deep content for Force & Laws of Motion
-  if (!isForceChapter) {
-    notFound();
-  }
+  const chapterData = CHAPTER_MAP[chapter];
+  if (!chapterData) notFound();
 
-  const topic = forceAndLawsOfMotion.topics.find((t) => t.id === topicSlug);
-  if (!topic) {
-    notFound();
-  }
+  const topic = chapterData.topics.find((t) => t.id === topicSlug);
+  if (!topic) notFound();
 
   const backUrl = `/class-9/${subject}/${chapter}`;
 
@@ -74,11 +77,11 @@ export default async function SubtopicStudyPage({ params }: PageProps) {
         type="Article"
         data={{
           title: topic.title,
-          description: `Deep study notes and interactive question pool for ${topic.title.replace(/^\d+\.\s*/, "")}.`
+          description: `Deep study notes and interactive simulations for ${topic.title.replace(/^\d+\.\s*/, "")}.`,
         }}
       />
       <TopicStudyClient
-        chapterData={forceAndLawsOfMotion}
+        chapterData={chapterData}
         activeTopic={topic}
         backUrl={backUrl}
       />

@@ -26,8 +26,19 @@ import styles from "./DeepResearchChapter.module.css";
 import type { Chapter, Topic, Question } from "@/lib/content/class9/science/force-and-laws-of-motion";
 import { parseMarkdown } from "@/lib/utils/parseMarkdown";
 import { progressApi } from "@/lib/api/api";
+import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
-import TopicSimulation from "@/components/physics/PhysicsSimulation";
+
+/* Chapter-aware simulation components — loaded lazily per chapter */
+const PhysicsSimulation = dynamic(() => import("@/components/physics/PhysicsSimulation"), { ssr: false, loading: () => <div style={{ height: 40 }} /> });
+const MatterSimulation  = dynamic(() => import("@/components/physics/MatterSimulation"),  { ssr: false, loading: () => <div style={{ height: 40 }} /> });
+const MotionSimulation  = dynamic(() => import("@/components/physics/MotionSimulation"),  { ssr: false, loading: () => <div style={{ height: 40 }} /> });
+
+function SimulationForChapter({ chapterId, topicId }: { chapterId: string; topicId: string }) {
+  if (chapterId === "matter-in-our-surroundings" || chapterId === "matter-in-surroundings") return <MatterSimulation topicId={topicId} />;
+  if (chapterId === "motion") return <MotionSimulation topicId={topicId} />;
+  return <PhysicsSimulation topicId={topicId} />;
+}
 
 /* ─────────────────────────────────────────────
  * Component Props
@@ -311,18 +322,18 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
                 </div>
               )}
 
-              {/* Focused Study Mode link */}
+              {/* Focused Study Mode link — uses the real chapter slug */}
               <div style={{ marginBottom: "24px", display: "flex", justifyContent: "flex-end" }}>
                 <Link
-                  href={`/class-9/science/force-and-laws-of-motion/${activeTopic.id}`}
+                  href={`/class-9/science/${chapterData.id}/${activeTopic.id}`}
                   className={styles.focusedStudyBtn}
                 >
                   ⚡ Focused Study Mode
                 </Link>
               </div>
 
-              {/* ── Interactive Physics Simulation ── */}
-              <TopicSimulation topicId={activeTopic.id} />
+              {/* ── Chapter-aware simulation component ── */}
+              <SimulationForChapter chapterId={chapterData.id} topicId={activeTopic.id} />
 
               {/* ── Rendered Markdown Content with KaTeX math ── */}
               <div

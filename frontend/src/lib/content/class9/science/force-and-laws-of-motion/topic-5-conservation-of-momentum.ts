@@ -1285,6 +1285,5 @@ This means: if momentum conservation ever failed, it would mean the laws of phys
       explanation:
         "This comprehensive problem covers all collision types. The spring collision is a critical HOTS comparison — springs make collisions elastic by temporarily storing and returning all kinetic energy.",
     },
-    },
   ],
 };

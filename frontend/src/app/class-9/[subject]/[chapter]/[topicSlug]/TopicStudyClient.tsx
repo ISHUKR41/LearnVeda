@@ -2,21 +2,61 @@
  * FILE: TopicStudyClient.tsx
  * LOCATION: src/app/class-9/[subject]/[chapter]/[topicSlug]/TopicStudyClient.tsx
  * PURPOSE: Interactive study and practice client for a single subtopic.
- *          Uses real KaTeX math rendering, physics simulations, and saves
- *          all answered questions to PostgreSQL via progressApi.
- * LAST UPDATED: 2026-05-28
+ *          Uses real KaTeX math rendering, chapter-aware physics simulations,
+ *          and saves all answered questions to PostgreSQL via progressApi.
+ * LAST UPDATED: 2026-05-29
  */
 
 "use client";
 
 import React, { useState, useCallback, useMemo, useEffect } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import styles from "./TopicStudy.module.css";
 import type { Chapter, Topic, Question } from "@/lib/content/class9/science/force-and-laws-of-motion";
 import { parseMarkdown } from "@/lib/utils/parseMarkdown";
 import { progressApi } from "@/lib/api/api";
 import { toast } from "react-hot-toast";
-import TopicSimulation from "@/components/physics/PhysicsSimulation";
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Dynamic imports for each chapter's simulation component.
+ * We load them lazily so heavy canvas code doesn't bloat the initial bundle.
+ * ───────────────────────────────────────────────────────────────────────── */
+const PhysicsSimulation = dynamic(
+  () => import("@/components/physics/PhysicsSimulation"),
+  { ssr: false, loading: () => <div style={{ height: 40 }} /> }
+);
+const MatterSimulation = dynamic(
+  () => import("@/components/physics/MatterSimulation"),
+  { ssr: false, loading: () => <div style={{ height: 40 }} /> }
+);
+const MotionSimulation = dynamic(
+  () => import("@/components/physics/MotionSimulation"),
+  { ssr: false, loading: () => <div style={{ height: 40 }} /> }
+);
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Chapter ID → Simulation component map
+ * ───────────────────────────────────────────────────────────────────────── */
+function SimulationForChapter({
+  chapterId,
+  topicId,
+}: {
+  chapterId: string;
+  topicId: string;
+}) {
+  if (chapterId === "force-and-laws-of-motion") {
+    return <PhysicsSimulation topicId={topicId} />;
+  }
+  if (chapterId === "matter-in-our-surroundings") {
+    return <MatterSimulation topicId={topicId} />;
+  }
+  if (chapterId === "motion") {
+    return <MotionSimulation topicId={topicId} />;
+  }
+  /* Fallback: try Physics simulation (covers most Class 9 science) */
+  return <PhysicsSimulation topicId={topicId} />;
+}
 
 interface TopicStudyClientProps {
   chapterData: Chapter;
@@ -25,43 +65,40 @@ interface TopicStudyClientProps {
 }
 
 const QUESTION_CONFIG = {
-  mcq:      { label: "MCQ",   color: "#6366f1", points: 10, icon: "◉" },
-  short:    { label: "SHORT", color: "#10b981", points: 15, icon: "✎" },
-  long:     { label: "LONG",  color: "#f59e0b", points: 20, icon: "✍" },
-  thinking: { label: "HOTS",  color: "#ef4444", points: 25, icon: "🧠" },
+  mcq:      { label: "MCQ",      color: "#6366f1", points: 10, icon: "◉" },
+  short:    { label: "SHORT",    color: "#10b981", points: 15, icon: "✎" },
+  long:     { label: "LONG",     color: "#f59e0b", points: 20, icon: "✍" },
+  thinking: { label: "THINKING", color: "#ef4444", points: 25, icon: "🧠" },
 } as const;
 
-export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: TopicStudyClientProps) {
+/* ─────────────────────────────────────────────────────────────────────────
+ * Main component
+ * ───────────────────────────────────────────────────────────────────────── */
+export default function TopicStudyClient({
+  chapterData,
+  activeTopic,
+  backUrl,
+}: TopicStudyClientProps) {
+  /* Persistent progress state — restored from localStorage on mount */
   const [answeredQuestions, setAnsweredQuestions] = useState<Set<string>>(new Set());
-  const [correctAnswers, setCorrectAnswers] = useState<Set<string>>(new Set());
-  const [selectedOptionsMap, setSelectedOptionsMap] = useState<Record<string, string>>({});
+  const [correctAnswers,    setCorrectAnswers]    = useState<Set<string>>(new Set());
+  const [selectedOptionsMap,setSelectedOptionsMap]= useState<Record<string, string>>({});
   const [activeTab, setActiveTab] = useState<"all" | "mcq" | "short" | "long" | "thinking">("all");
 
-  // Load from localStorage on mount
+  /* Load progress from localStorage on mount */
   useEffect(() => {
-    const cachedAnswered = localStorage.getItem(`answered_qs_${chapterData.id}`);
-    const cachedCorrect = localStorage.getItem(`correct_qs_${chapterData.id}`);
-    const cachedSelected = localStorage.getItem(`selected_opts_${chapterData.id}`);
+    const key = chapterData.id;
+    const cachedAnswered = localStorage.getItem(`answered_qs_${key}`);
+    const cachedCorrect  = localStorage.getItem(`correct_qs_${key}`);
+    const cachedSelected = localStorage.getItem(`selected_opts_${key}`);
     if (cachedAnswered) {
-      try {
-        setAnsweredQuestions(new Set(JSON.parse(cachedAnswered)));
-      } catch (e) {
-        console.error(e);
-      }
+      try { setAnsweredQuestions(new Set(JSON.parse(cachedAnswered))); } catch (e) { console.error(e); }
     }
     if (cachedCorrect) {
-      try {
-        setCorrectAnswers(new Set(JSON.parse(cachedCorrect)));
-      } catch (e) {
-        console.error(e);
-      }
+      try { setCorrectAnswers(new Set(JSON.parse(cachedCorrect))); } catch (e) { console.error(e); }
     }
     if (cachedSelected) {
-      try {
-        setSelectedOptionsMap(JSON.parse(cachedSelected));
-      } catch (e) {
-        console.error(e);
-      }
+      try { setSelectedOptionsMap(JSON.parse(cachedSelected)); } catch (e) { console.error(e); }
     }
   }, [chapterData.id]);
 
@@ -125,16 +162,19 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
     [correctAnswers, chapterData]
   );
 
-  const answeredCount = activeTopic.questions.filter((q) => answeredQuestions.has(q.id)).length;
-  const correctCount  = activeTopic.questions.filter((q) => correctAnswers.has(q.id)).length;
+  const answeredCount  = activeTopic.questions.filter((q) => answeredQuestions.has(q.id)).length;
+  const correctCount   = activeTopic.questions.filter((q) => correctAnswers.has(q.id)).length;
   const totalQuestions = activeTopic.questions.length;
   const progressPercent = Math.round((answeredCount / totalQuestions) * 100);
 
-  /* Rendered content */
+  /* KaTeX-rendered markdown content */
   const renderedContent = useMemo(
     () => parseMarkdown(activeTopic.content),
     [activeTopic.content]
   );
+
+  /* Topic nav URLs use the actual chapter slug from chapterData */
+  const chapterSlug = chapterData.id;
 
   return (
     <div className={styles.container}>
@@ -181,9 +221,12 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
               </div>
             )}
 
-            {/* Physics Simulation */}
+            {/* Chapter-aware simulation component */}
             <div className={styles.cardContent}>
-              <TopicSimulation topicId={activeTopic.id} />
+              <SimulationForChapter
+                chapterId={chapterData.id}
+                topicId={activeTopic.id}
+              />
 
               {/* KaTeX-rendered markdown content */}
               <div
@@ -193,11 +236,11 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
             </div>
           </div>
 
-          {/* Topic navigation */}
+          {/* Topic navigation — uses the real chapter slug */}
           <div className={styles.pageNavigation}>
             {prevTopic ? (
               <Link
-                href={`/class-9/science/force-and-laws-of-motion/${prevTopic.id}`}
+                href={`/class-9/science/${chapterSlug}/${prevTopic.id}`}
                 className={styles.navButton}
               >
                 ← {prevTopic.title.replace(/^\d+\.\s*/, "")}
@@ -205,7 +248,7 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
             ) : <div />}
             {nextTopic ? (
               <Link
-                href={`/class-9/science/force-and-laws-of-motion/${nextTopic.id}`}
+                href={`/class-9/science/${chapterSlug}/${nextTopic.id}`}
                 className={`${styles.navButton} ${styles.navButtonPrimary}`}
               >
                 {nextTopic.title.replace(/^\d+\.\s*/, "")} →
@@ -290,9 +333,9 @@ export default function TopicStudyClient({ chapterData, activeTopic, backUrl }: 
   );
 }
 
-/* ─────────────────────────────────────────────
+/* ─────────────────────────────────────────────────────────────────────────
  * QuestionItem
- * ───────────────────────────────────────────── */
+ * ───────────────────────────────────────────────────────────────────────── */
 interface QuestionItemProps {
   question: Question;
   index: number;
@@ -303,17 +346,13 @@ interface QuestionItemProps {
 }
 
 function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: initialSelected, onAnswer }: QuestionItemProps) {
-  const [showAnswer, setShowAnswer] = useState(isAnswered);
+  const [showAnswer, setShowAnswer]     = useState(isAnswered);
   const [selectedOption, setSelectedOption] = useState<string | null>(initialSelected || null);
   const config = QUESTION_CONFIG[question.type];
 
   useEffect(() => {
-    if (isAnswered) {
-      setShowAnswer(true);
-    }
-    if (initialSelected) {
-      setSelectedOption(initialSelected);
-    }
+    if (isAnswered) setShowAnswer(true);
+    if (initialSelected) setSelectedOption(initialSelected);
   }, [isAnswered, initialSelected]);
 
   const handleOptionSelect = (option: string) => {
@@ -353,7 +392,7 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
         </div>
       </div>
 
-      {/* Question text rendered through parseMarkdown to display any LaTeX/KaTeX formulas */}
+      {/* Question text — through parseMarkdown for LaTeX support */}
       <div
         className={styles.questionText}
         dangerouslySetInnerHTML={{ __html: parseMarkdown(question.question) }}
@@ -362,9 +401,9 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
       {question.type === "mcq" && question.options && (
         <ul className={styles.optionsList}>
           {question.options.map((opt, i) => {
-            const isSelected = selectedOption === opt;
-            const isCorrectOpt = showAnswer && opt === question.correctAnswer;
-            const isWrong = showAnswer && isSelected && opt !== question.correctAnswer;
+            const isSelected    = selectedOption === opt;
+            const isCorrectOpt  = showAnswer && opt === question.correctAnswer;
+            const isWrong       = showAnswer && isSelected && opt !== question.correctAnswer;
 
             return (
               <li key={i}>
@@ -374,7 +413,7 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
                   disabled={isAnswered}
                 >
                   <span className={styles.optionLetter}>{String.fromCharCode(65 + i)}</span>
-                  {/* Option text also goes through parseMarkdown for inline formula support */}
+                  {/* Option text through parseMarkdown for inline formula support */}
                   <span
                     className={styles.optionText}
                     dangerouslySetInnerHTML={{ __html: parseMarkdown(opt) }}
@@ -405,12 +444,12 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
         <div className={styles.answerBox}>
           <div className={styles.correctAnswer}>
             <strong style={{ color: "#10b981" }}>✓ Correct Answer:</strong>
-            {/* Correct answer rendered through markdown for LaTeX formula support */}
+            {/* Correct answer through parseMarkdown for LaTeX formula support */}
             <span dangerouslySetInnerHTML={{ __html: parseMarkdown(question.correctAnswer) }} />
           </div>
           <div className={styles.explanation}>
             <strong>📖 Explanation:</strong>
-            {/* Explanation rendered through markdown for full LaTeX and formatting support */}
+            {/* Explanation through parseMarkdown for full LaTeX and formatting support */}
             <span dangerouslySetInnerHTML={{ __html: parseMarkdown(question.explanation) }} />
           </div>
         </div>
