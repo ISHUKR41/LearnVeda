@@ -1,0 +1,127 @@
+
+
+Isko Tum acche tarike se samjho yaar matlab itna simple to Hai and har EK sab topic and topic padhao bahut jyada detailing mein itna acche tarike se real life ke sath usko matlab interact karo uske sath usko matlab attach karo taki sab chij samajh mein a jaaye Kisi Ko agar nahin bhi kuchh aata Ho usko bhi ijili tarike se samajh mein a jaaye easy tu understand English rakhna 
+
+
+ And sabse bade mein bahut jyada detailing mein rakhna and questions bhi ekadam acche khase level ka hona chahie 
+
+
+
+
+
+
+
+And a process har EK topic and sub topic ke bad hona chahie and har EK topic and sub topic ke liye and har EK chapter ke liye and har EK subject ke liye Mujhe alag se files and folders chahiye it is a request
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+add picture related to topic and subtopic pls 
+
+
+and haaar gagha mujhe pictures chiaye mujhe haar topic and subtopic ke liye tum internet ka bhe use kar sakte ho ye to tum khud se generate kar dena pls 
+
+
+
+
+
+
+
+
+
+and koi koi text bhe bhout hee bekar show kar raha hai like this and many more aise hee texts hai kahi kahi par 
+
+
+
+
+
+
+
+
+
+
+1 \text{ Newton} = 1 \text{ kg} \times 1 \text{ m/s}^2
+
+
+
+abhi bhe bhout sare places par ye problem aa hee raha hai yaar 
+
+Step 2: Rate of change of momentum:
+rac{Delta p}{Delta t} = rac{m(vf - vi)}{Delta t} = m imes rac{(vf - vi)}{Delta t}
+
+Step 3: Recall that acceleration a = rac{vf - viDelta t}, so:
+rac{Delta p}{Delta t} = m imes a
+
+Step 4: Force is proportional to this rate of change:
+F propto ma
+
+Using the SI unit definition of Newton (choosing the proportionality constant = 1):
+
+oxed{F = ma}
+
+
+
+yeha par bhe kuch samaj mai nhi aa raha hai mujhe jesa book mai rahta hai osa hee chiaye ye to uss se bhe aacha 
+
+
+
+
+and ye mai sare topics and subtopics ke liye bol raha hu 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mera dashboard bhe update hona chiaye 
+
+
+
+and jab mai kisi ek question ka ans kar duu to wo ans save bhe ho jana chiaye iske liye tumko jitna technlogies ka use karna hai and jitna libraries ka use karna hai karo pls 
+
+
+
+
+and better fonts and texts ka use karo 
+
+
+
+
+
+
+
+and simuations and animations bhe add karo haar ek topic and subtopic ke liye pls 
+
+
+
+
+
