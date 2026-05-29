@@ -38,7 +38,7 @@ export default function SignInPage() {
         It automatically connects to Clerk via the environment keys.
         Appearance, theming, and redirect URLs are configured in ClerkProvider.
       */}
-      <SignIn />
+      <SignIn fallbackRedirectUrl="/dashboard" forceRedirectUrl="/dashboard" />
     </div>
   );
 }

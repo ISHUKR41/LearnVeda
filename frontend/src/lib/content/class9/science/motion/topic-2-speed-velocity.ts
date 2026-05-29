@@ -13,7 +13,7 @@ export const speedVelocity: Topic = {
   title: "2. Speed and Velocity — How Fast and Which Way",
   estimatedMinutes: 32,
   imageUrl:
-    "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=1200",
+    "/images/topics/motion/speed-velocity.png",
   content: `
 ### Two Words That Mean Different Things in Physics
 

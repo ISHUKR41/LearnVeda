@@ -444,6 +444,7 @@ model UserProgress {
   completed   Boolean   @default(false)
   score       Int?      // Chapter mastery score (0-100)
   timeSpent   Int       @default(0) // Time spent in minutes
+  answers     String?   // JSON-serialized string of user's answered questions and selected options
   lastStudied DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 

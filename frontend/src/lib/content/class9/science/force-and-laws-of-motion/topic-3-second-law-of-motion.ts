@@ -26,8 +26,7 @@ export const secondLawOfMotion: Topic = {
    * A rocket mid-launch perfectly illustrates F = ma:
    * massive thrust force → enormous acceleration despite huge mass.
    */
-  imageUrl:
-    "https://images.unsplash.com/photo-1457799327830-26e4e7f06e1a?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/topics/force/second-law-fma.png",
 
   content: `
 ### The Missing Piece: HOW MUCH Does Force Change Motion?

@@ -12,8 +12,7 @@ export const conservationOfMomentum: Topic = {
   id: "conservation-of-momentum",
   title: "5. Law of Conservation of Momentum",
   estimatedMinutes: 45,
-  imageUrl:
-    "https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/topics/force/conservation-momentum.png",
 
   content: `
 ### The Most Universal Law in Physics

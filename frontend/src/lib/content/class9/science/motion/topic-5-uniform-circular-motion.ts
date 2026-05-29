@@ -13,7 +13,7 @@ export const uniformCircularMotion: Topic = {
   title: "5. Uniform Circular Motion and Graphical Analysis",
   estimatedMinutes: 30,
   imageUrl:
-    "https://images.unsplash.com/photo-1479659929431-4342107adfc1?auto=format&fit=crop&q=80&w=1200",
+    "/images/topics/motion/circular-motion.png",
   content: `
 ### Circles and the Deception of "Constant Speed"
 

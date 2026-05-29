@@ -13,7 +13,7 @@ export const acceleration: Topic = {
   title: "3. Acceleration — The Rate of Change of Velocity",
   estimatedMinutes: 32,
   imageUrl:
-    "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80&w=1200",
+    "/images/topics/motion/acceleration.png",
   content: `
 ### What Happens When Velocity Changes?
 

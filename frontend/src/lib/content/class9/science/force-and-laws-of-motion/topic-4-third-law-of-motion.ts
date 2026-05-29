@@ -17,8 +17,7 @@ export const thirdLawOfMotion: Topic = {
 
   /* A rocket launch — the ultimate Third Law machine:
    * gases pushed DOWN (action) → rocket goes UP (reaction) */
-  imageUrl:
-    "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/topics/force/third-law.png",
 
   content: `
 ### The Most Mind-Bending Law in Physics

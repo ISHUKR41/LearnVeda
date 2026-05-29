@@ -13,7 +13,7 @@ export const evaporation: Topic = {
   title: "4. Evaporation — Surface Escape and Cooling",
   estimatedMinutes: 28,
   imageUrl:
-    "https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?auto=format&fit=crop&q=80&w=1200",
+    "/images/topics/matter/evaporation.png",
   content: `
 ### Why Does a Wet Shirt Dry on Its Own?
 

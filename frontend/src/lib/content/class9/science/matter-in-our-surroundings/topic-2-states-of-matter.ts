@@ -13,7 +13,7 @@ export const statesOfMatter: Topic = {
   title: "2. Three States of Matter — Solid, Liquid, Gas",
   estimatedMinutes: 30,
   imageUrl:
-    "https://images.unsplash.com/photo-1616400619175-5beda3a17896?auto=format&fit=crop&q=80&w=1200",
+    "/images/topics/matter/states-of-matter.png",
   content: `
 ### The Same Substance in Three Forms
 

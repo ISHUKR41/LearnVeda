@@ -13,7 +13,7 @@ export const equationsOfMotion: Topic = {
   title: "4. Equations of Motion — The Three Master Formulas",
   estimatedMinutes: 38,
   imageUrl:
-    "https://images.unsplash.com/photo-1534996858221-380b92700493?auto=format&fit=crop&q=80&w=1200",
+    "/images/topics/motion/equations-of-motion.png",
   content: `
 ### Three Equations That Rule All Uniform Acceleration Problems
 

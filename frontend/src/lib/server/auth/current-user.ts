@@ -18,7 +18,7 @@
  */
 
 import type { NextRequest } from "next/server";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser, clerkClient } from "@clerk/nextjs/server";
 import { getSessionFromRequest, verifySessionToken } from "@/lib/server/auth/session";
 import { getPlatformRepository, getPersistenceAdapterName } from "@/lib/server/repositories/get-platform-repository";
 import type { PublicUser, LearningTrack } from "@/types/auth";
@@ -151,8 +151,29 @@ async function getClerkAuthenticatedUser(): Promise<PublicUser | null> {
       return null;
     }
 
+    // Self-healing: if the user does not have a username in Clerk, programmatically
+    // generate and set one to completely bypass Clerk's username onboarding prompt loops.
+    let resolvedUsername = clerkProfile.username;
+    if (!resolvedUsername) {
+      try {
+        const base = (clerkProfile.firstName || clerkProfile.emailAddresses?.[0]?.emailAddress?.split("@")[0] || "student")
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, "");
+        resolvedUsername = `${base}_${Math.floor(1000 + Math.random() * 9000)}`;
+        
+        const client = await clerkClient();
+        await client.users.updateUser(clerkUserId, {
+          username: resolvedUsername,
+        });
+        console.log(`[current-user] Programmatically set missing Clerk username to: ${resolvedUsername}`);
+      } catch (err) {
+        console.error("[current-user] Failed to programmatically set Clerk username:", err);
+        resolvedUsername = clerkProfile.username; // fallback to original
+      }
+    }
+
     // Build a display name from Clerk's profile fields
-    const displayName = [clerkProfile.firstName, clerkProfile.lastName]
+    const displayName = resolvedUsername || [clerkProfile.firstName, clerkProfile.lastName]
       .filter(Boolean)
       .join(" ") || clerkProfile.emailAddresses?.[0]?.emailAddress?.split("@")[0] || "Student";
 
@@ -175,6 +196,21 @@ async function getClerkAuthenticatedUser(): Promise<PublicUser | null> {
       
       const publicUser = repository.users.toPublic(userByEmail);
       clerkToLocalUserCache.set(clerkUserId, publicUser);
+
+      // Sync the onboardingComplete flag to Clerk publicMetadata to prevent onboarding loops
+      if (!clerkProfile.publicMetadata?.onboardingComplete) {
+        try {
+          const client = await clerkClient();
+          await client.users.updateUserMetadata(clerkUserId, {
+            publicMetadata: {
+              onboardingComplete: true,
+            },
+          });
+        } catch (err) {
+          console.error("[current-user] Failed to update Clerk user metadata for existing user:", err);
+        }
+      }
+
       return publicUser;
     }
 
@@ -191,6 +227,20 @@ async function getClerkAuthenticatedUser(): Promise<PublicUser | null> {
 
     // Cache the new user for future requests
     clerkToLocalUserCache.set(clerkUserId, newUser);
+
+    // Sync the onboardingComplete flag to Clerk publicMetadata to prevent onboarding loops
+    if (!clerkProfile.publicMetadata?.onboardingComplete) {
+      try {
+        const client = await clerkClient();
+        await client.users.updateUserMetadata(clerkUserId, {
+          publicMetadata: {
+            onboardingComplete: true,
+          },
+        });
+      } catch (err) {
+        console.error("[current-user] Failed to update Clerk user metadata for auto-provisioned user:", err);
+      }
+    }
 
     return newUser;
   } catch (error) {

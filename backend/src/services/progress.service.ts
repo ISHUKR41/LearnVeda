@@ -30,6 +30,7 @@ export interface ProgressUpdate {
   completed?: boolean;
   score?: number;
   timeSpent?: number; // minutes
+  answers?: string;   // JSON string of user answers
 }
 
 export interface XPResult {
@@ -75,16 +76,17 @@ export async function updateChapterProgress(
     const timeSpent = data.timeSpent ?? 0;
 
     await client.query(
-      `INSERT INTO "UserProgress" (id, "userId", "chapterId", completed, score, "timeSpent", "lastStudied", "updatedAt")
-       VALUES (gen_random_uuid()::text, $1, $2, $3, $4, $5, NOW(), NOW())
+      `INSERT INTO "UserProgress" (id, "userId", "chapterId", completed, score, "timeSpent", answers, "lastStudied", "updatedAt")
+       VALUES (gen_random_uuid()::text, $1, $2, $3, $4, $5, $6, NOW(), NOW())
        ON CONFLICT ("userId", "chapterId")
        DO UPDATE SET
          completed = COALESCE($3, "UserProgress".completed),
          score = GREATEST(COALESCE($4, "UserProgress".score), "UserProgress".score),
          "timeSpent" = "UserProgress"."timeSpent" + COALESCE($5, 0),
+         answers = COALESCE($6, "UserProgress".answers),
          "lastStudied" = NOW(),
          "updatedAt" = NOW()`,
-      [data.userId, data.chapterId, data.completed ?? false, score, timeSpent]
+      [data.userId, data.chapterId, data.completed ?? false, score, timeSpent, data.answers ?? null]
     );
 
     /* ── Step 2: Calculate XP earned ── */
@@ -255,7 +257,7 @@ async function updateStreakCounter(client: PoolClient, userId: string) {
 export async function getUserProgressSummary(userId: string) {
   const result = await pool.query(
     `SELECT
-       up.id, up."chapterId", up.completed, up.score, up."timeSpent", up."lastStudied",
+       up.id, up."chapterId", up.completed, up.score, up."timeSpent", up.answers, up."lastStudied",
        ch.title AS "chapterTitle", ch.slug AS "chapterSlug",
        s.name AS "subjectName", s.slug AS "subjectSlug",
        cc.name AS "className", cc.slug AS "classSlug"

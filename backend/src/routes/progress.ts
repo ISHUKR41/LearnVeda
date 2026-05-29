@@ -90,7 +90,7 @@ router.get("/chapters", async (req: Request, res: Response) => {
 
     const result = await pool.query(
       `SELECT
-         up."chapterId", up.completed, up.score, up."timeSpent", up."lastStudied",
+         up."chapterId", up.completed, up.score, up."timeSpent", up.answers, up."lastStudied",
          ch.title AS "chapterTitle", ch."orderIndex",
          s.name AS "subjectName", s.slug AS "subjectSlug",
          cc.name AS "className", cc.slug AS "classSlug"
@@ -125,10 +125,11 @@ router.put("/chapters/:id", async (req: Request, res: Response) => {
   const userId = req.user!.userId;
   const chapterId = String(req.params.id);
 
-  const { completed, score, timeSpent } = req.body as {
+  const { completed, score, timeSpent, answers } = req.body as {
     completed?: boolean;
     score?: number;
     timeSpent?: number;
+    answers?: string;
   };
 
   // Validate score range
@@ -155,6 +156,7 @@ router.put("/chapters/:id", async (req: Request, res: Response) => {
       completed,
       score,
       timeSpent,
+      answers,
     });
 
     if ("error" in result) {

@@ -13,7 +13,7 @@ export const whatIsMatter: Topic = {
   title: "1. What Is Matter? — Physical Nature and Particles",
   estimatedMinutes: 25,
   imageUrl:
-    "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=1200",
+    "/images/topics/matter/what-is-matter.png",
 
   content: `
 ### Everything Around You Is Matter

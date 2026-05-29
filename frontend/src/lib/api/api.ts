@@ -261,7 +261,7 @@ export const contentApi = {
 /** Progress API */
 export const progressApi = {
   getUserProgress: () => api.get("/progress"),
-  updateChapterProgress: (chapterId: string, data: { completed?: boolean; score?: number }) =>
+  updateChapterProgress: (chapterId: string, data: { completed?: boolean; score?: number; answers?: string; timeSpent?: number }) =>
     api.put(`/progress/chapters/${chapterId}`, data),
 };
 

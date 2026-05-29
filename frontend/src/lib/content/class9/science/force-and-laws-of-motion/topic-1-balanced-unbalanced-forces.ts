@@ -14,8 +14,7 @@ export const balancedUnbalancedForces: Topic = {
   id: "balanced-unbalanced-forces",
   title: "1. Introduction to Force: Balanced & Unbalanced Forces",
   estimatedMinutes: 55,
-  imageUrl:
-    "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/topics/force/balanced-unbalanced-forces.png",
 
   content: `
 ### What is Force? — Starting from Absolute Zero

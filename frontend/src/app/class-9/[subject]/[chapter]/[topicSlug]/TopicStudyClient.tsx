@@ -85,21 +85,53 @@ export default function TopicStudyClient({
   const [selectedOptionsMap,setSelectedOptionsMap]= useState<Record<string, string>>({});
   const [activeTab, setActiveTab] = useState<"all" | "mcq" | "short" | "long" | "thinking">("all");
 
-  /* Load progress from localStorage on mount */
+  /* Load progress from database and fallback to localStorage on mount */
   useEffect(() => {
     const key = chapterData.id;
+    
+    // 1. Restore from localStorage first for immediate visual hydration
     const cachedAnswered = localStorage.getItem(`answered_qs_${key}`);
     const cachedCorrect  = localStorage.getItem(`correct_qs_${key}`);
     const cachedSelected = localStorage.getItem(`selected_opts_${key}`);
     if (cachedAnswered) {
-      try { setAnsweredQuestions(new Set(JSON.parse(cachedAnswered))); } catch (e) { console.error(e); }
+      try { setAnsweredQuestions(new Set(JSON.parse(cachedAnswered))); } catch (e) {}
     }
     if (cachedCorrect) {
-      try { setCorrectAnswers(new Set(JSON.parse(cachedCorrect))); } catch (e) { console.error(e); }
+      try { setCorrectAnswers(new Set(JSON.parse(cachedCorrect))); } catch (e) {}
     }
     if (cachedSelected) {
-      try { setSelectedOptionsMap(JSON.parse(cachedSelected)); } catch (e) { console.error(e); }
+      try { setSelectedOptionsMap(JSON.parse(cachedSelected)); } catch (e) {}
     }
+
+    // 2. Query DB to fetch the persistent global state and keep it in sync
+    progressApi.getUserProgress()
+      .then((res: any) => {
+        if (res.data?.ok && res.data.data?.progress) {
+          const chapProgress = res.data.data.progress.find((p: any) => p.chapterId === key);
+          if (chapProgress && chapProgress.answers) {
+            try {
+              const parsed = JSON.parse(chapProgress.answers);
+              if (parsed.answeredQuestions) {
+                const aq = new Set<string>(parsed.answeredQuestions);
+                setAnsweredQuestions(aq);
+                localStorage.setItem(`answered_qs_${key}`, JSON.stringify(Array.from(aq)));
+              }
+              if (parsed.correctAnswers) {
+                const cq = new Set<string>(parsed.correctAnswers);
+                setCorrectAnswers(cq);
+                localStorage.setItem(`correct_qs_${key}`, JSON.stringify(Array.from(cq)));
+              }
+              if (parsed.selectedOptions) {
+                setSelectedOptionsMap(parsed.selectedOptions);
+                localStorage.setItem(`selected_opts_${key}`, JSON.stringify(parsed.selectedOptions));
+              }
+            } catch (e) {
+              console.error("[TopicStudyClient] Error parsing DB answers:", e);
+            }
+          }
+        }
+      })
+      .catch((err) => console.error("[TopicStudyClient] Error loading progress from DB:", err));
   }, [chapterData.id]);
 
   const filteredQuestions = useMemo(() => {
@@ -116,8 +148,12 @@ export default function TopicStudyClient({
 
   const handleQuestionAnswered = useCallback(
     (questionId: string, isCorrect: boolean, selectedOpt?: string) => {
+      let nextAnswered = new Set<string>();
+      let nextSelected: Record<string, string> = {};
+
       setAnsweredQuestions((prev) => {
         const next = new Set(prev).add(questionId);
+        nextAnswered = next;
         localStorage.setItem(`answered_qs_${chapterData.id}`, JSON.stringify(Array.from(next)));
         return next;
       });
@@ -125,8 +161,14 @@ export default function TopicStudyClient({
       if (selectedOpt) {
         setSelectedOptionsMap((prev) => {
           const next = { ...prev, [questionId]: selectedOpt };
+          nextSelected = next;
           localStorage.setItem(`selected_opts_${chapterData.id}`, JSON.stringify(next));
           return next;
+        });
+      } else {
+        setSelectedOptionsMap((prev) => {
+          nextSelected = prev;
+          return prev;
         });
       }
 
@@ -134,12 +176,20 @@ export default function TopicStudyClient({
         setCorrectAnswers((prev) => {
           const next = new Set(prev).add(questionId);
           localStorage.setItem(`correct_qs_${chapterData.id}`, JSON.stringify(Array.from(next)));
+          
           const totalQuestions = chapterData.topics.reduce((acc, t) => acc + t.questions.length, 0);
           const newScore = Math.round((next.size / totalQuestions) * 100);
           const isCompleted = next.size === totalQuestions;
 
+          // Prepare answers JSON payload for DB update
+          const answersPayload = JSON.stringify({
+            answeredQuestions: Array.from(nextAnswered.size ? nextAnswered : new Set([questionId])),
+            correctAnswers: Array.from(next),
+            selectedOptions: Object.keys(nextSelected).length ? nextSelected : { [questionId]: selectedOpt || "" },
+          });
+
           progressApi
-            .updateChapterProgress(chapterData.id, { completed: isCompleted, score: newScore })
+            .updateChapterProgress(chapterData.id, { completed: isCompleted, score: newScore, answers: answersPayload })
             .then((res) => {
               if (res.data?.ok) {
                 const d = res.data.data;
@@ -152,14 +202,26 @@ export default function TopicStudyClient({
           return next;
         });
       } else {
-        const totalQuestions = chapterData.topics.reduce((acc, t) => acc + t.questions.length, 0);
-        const newScore = Math.round((correctAnswers.size / totalQuestions) * 100);
-        progressApi
-          .updateChapterProgress(chapterData.id, { completed: false, score: newScore })
-          .catch(console.error);
+        setCorrectAnswers((prev) => {
+          const totalQuestions = chapterData.topics.reduce((acc, t) => acc + t.questions.length, 0);
+          const newScore = Math.round((prev.size / totalQuestions) * 100);
+
+          // Prepare answers JSON payload for DB update
+          const answersPayload = JSON.stringify({
+            answeredQuestions: Array.from(nextAnswered.size ? nextAnswered : new Set([questionId])),
+            correctAnswers: Array.from(prev),
+            selectedOptions: Object.keys(nextSelected).length ? nextSelected : { [questionId]: selectedOpt || "" },
+          });
+
+          progressApi
+            .updateChapterProgress(chapterData.id, { completed: false, score: newScore, answers: answersPayload })
+            .catch(console.error);
+
+          return prev;
+        });
       }
     },
-    [correctAnswers, chapterData]
+    [chapterData]
   );
 
   const answeredCount  = activeTopic.questions.filter((q) => answeredQuestions.has(q.id)).length;

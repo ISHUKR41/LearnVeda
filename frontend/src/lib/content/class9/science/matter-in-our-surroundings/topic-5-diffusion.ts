@@ -13,7 +13,7 @@ export const diffusion: Topic = {
   title: "5. Diffusion — Nature's Mixing Mechanism",
   estimatedMinutes: 25,
   imageUrl:
-    "https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?auto=format&fit=crop&q=80&w=1200",
+    "/images/topics/matter/diffusion.png",
   content: `
 ### The Invisible Mixing Force
 

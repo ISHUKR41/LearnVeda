@@ -38,7 +38,7 @@ export default function SignUpPage() {
         It provides secure workflows: OAuth, Email OTP, password creation.
         Appearance, theming, and redirect URLs are configured in ClerkProvider.
       */}
-      <SignUp />
+      <SignUp fallbackRedirectUrl="/dashboard" forceRedirectUrl="/dashboard" />
     </div>
   );
 }

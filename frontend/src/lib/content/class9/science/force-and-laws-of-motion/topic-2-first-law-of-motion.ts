@@ -13,8 +13,7 @@ export const firstLawOfMotionInertia: Topic = {
   id: "first-law-of-motion-inertia",
   title: "2. Newton's First Law of Motion: The Law of Inertia",
   estimatedMinutes: 35,
-  imageUrl:
-    "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/topics/force/first-law-inertia.png",
 
   content: `
 ### The Discovery That Changed Everything

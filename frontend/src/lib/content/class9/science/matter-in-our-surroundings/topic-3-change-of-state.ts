@@ -13,7 +13,7 @@ export const changeOfState: Topic = {
   title: "3. Changes of State — Melting, Boiling & Beyond",
   estimatedMinutes: 35,
   imageUrl:
-    "https://images.unsplash.com/photo-1562505040-ececd41a2f55?auto=format&fit=crop&q=80&w=1200",
+    "/images/topics/matter/change-of-state.png",
   content: `
 ### Matter Transforms — The Same Substance in Different Forms
 

@@ -100,7 +100,8 @@ export default async function proxy(req: NextRequest): Promise<NextResponse | Re
       }
     });
 
-    return await handler(req);
+    const res = await handler(req, undefined as any);
+    return res || NextResponse.next();
   } catch (err) {
     /* Auth failed (invalid token, network issue, etc.) */
     const msg = err instanceof Error ? err.message : String(err);

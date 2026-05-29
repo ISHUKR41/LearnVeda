@@ -12,7 +12,7 @@ export const distanceDisplacement: Topic = {
   title: "1. Rest, Motion — Distance vs Displacement",
   estimatedMinutes: 28,
   imageUrl:
-    "https://images.unsplash.com/photo-1590349279-63e1b877a1de?auto=format&fit=crop&q=80&w=1200",
+    "/images/topics/motion/distance-displacement.png",
 
   content: `
 ### The World Is Always Moving
