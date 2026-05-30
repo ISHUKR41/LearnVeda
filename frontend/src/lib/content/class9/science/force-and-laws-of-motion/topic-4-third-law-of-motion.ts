@@ -38,7 +38,13 @@ export const thirdLawOfMotion: Topic = {
     "balloon-jet",
     "book-on-table-reaction",
     "wall-push-skater",
-    "horse-cart-paradox"
+    "horse-cart-paradox",
+    "jet-engine",
+    "astronaut-push",
+    "swimming-propulsion",
+    "spring-release",
+    "horse-cart-resolved",
+    "trampoline-bounce"
   ],
 
   content: `

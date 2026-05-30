@@ -424,12 +424,11 @@ export function Sim_swimming_propulsion() {
       ctx.strokeStyle = "#38bdf830";
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.ellipse(stateRef.current.x - 50 + i * 15, H / 2 + 10, 15 + i * 8, 5, 0, 0, Math.PI * 2);
+      ctx.ellipse(s.x - 50 + i * 15, H / 2 + 10, 15 + i * 8, 5, 0, 0, Math.PI * 2);
       ctx.stroke();
     }
 
-    // Swimmer
-    const s = stateRef.current;
+    // Swimmer (s is already declared above)
     const armAngle = Math.sin(s.strokePhase) * 0.8;
     ctx.save();
     ctx.translate(s.x, H / 2);

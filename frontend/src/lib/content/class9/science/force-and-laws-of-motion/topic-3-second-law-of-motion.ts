@@ -47,7 +47,14 @@ export const secondLawOfMotion: Topic = {
     "ramp-race",
     "braking-distance",
     "force-acceleration-graph",
-    "mass-comparison"
+    "mass-comparison",
+    "fma-live-graph",
+    "impulse-demo",
+    "variable-mass-rocket",
+    "sports-fma",
+    "spring-mass-oscillator",
+    "braking-calc",
+    "fma-race"
   ],
 
   content: `

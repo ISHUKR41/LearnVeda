@@ -35,7 +35,15 @@ export const balancedUnbalancedForces: Topic = {
     "elevator-scale",
     "parachute-terminal",
     "spring-balance",
-    "friction-surfaces"
+    "friction-surfaces",
+    "inclined-plane",
+    "atwood-machine",
+    "buoyancy-forces",
+    "vector-2d",
+    "gravity-planets",
+    "bridge-tension",
+    "seesaw-torque",
+    "satellite-orbit"
   ],
 
   content: `

@@ -31,9 +31,16 @@ export const conservationOfMomentum: Topic = {
     "momentum-constant",
     "collision-lab",
     "newtons-cradle",
-    "billiards-physics",
+    "billiards-shot",
     "explosion-demo",
-    "rocket-equation"
+    "rocket-equation",
+    "ballistic-pendulum",
+    "2d-collision",
+    "rocket-staging",
+    "ice-skater-collision",
+    "momentum-timeline",
+    "recoil-calculator",
+    "momentum-quiz"
   ],
 
   content: `
