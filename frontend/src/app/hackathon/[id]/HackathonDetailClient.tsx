@@ -34,7 +34,6 @@ import {
   Send,
   Timer
 } from "lucide-react";
-import { useAuth } from "@clerk/nextjs";
 import styles from "./HackathonDetail.module.css";
 
 // Dynamic confetti import to ensure fast page load
@@ -75,8 +74,14 @@ interface HackathonDetailClientProps {
 }
 
 export default function HackathonDetailClient({ id }: HackathonDetailClientProps) {
-  const { getToken, isSignedIn, isLoaded } = useAuth();
+  const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/auth/me", { cache: "no-store" })
+      .then((r) => setIsSignedIn(r.ok))
+      .catch(() => setIsSignedIn(false));
+  }, []);
 
   // API states
   const [hackathon, setHackathon] = useState<Hackathon | null>(null);
@@ -174,7 +179,6 @@ export default function HackathonDetailClient({ id }: HackathonDetailClientProps
   }, [hackathon?.endTime]);
 
   const handleRegister = async () => {
-    if (!isLoaded) return;
     if (!isSignedIn) {
       router.push("/sign-in?redirect=" + encodeURIComponent(`/hackathon/${id}`));
       return;
@@ -184,13 +188,12 @@ export default function HackathonDetailClient({ id }: HackathonDetailClientProps
     setFormNotice("");
 
     try {
-      const token = await getToken();
       const res = await fetch(`http://localhost:4000/api/hackathons/${id}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token || ""}`
-        }
+        },
+        credentials: "include",
       });
 
       const payload = await res.json();
@@ -249,13 +252,12 @@ export default function HackathonDetailClient({ id }: HackathonDetailClientProps
     setIsSubmitting(true);
 
     try {
-      const token = await getToken();
       const response = await fetch(`http://localhost:4000/api/hackathons/${id}/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token || ""}`,
         },
+        credentials: "include",
         body: JSON.stringify({
           teamName: teamName.trim(),
           projectDesc: projectDesc.trim(),

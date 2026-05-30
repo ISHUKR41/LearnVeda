@@ -14,8 +14,8 @@
  */
 
 import dynamic from "next/dynamic";
-import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import DashboardLoadingSkeleton from "./DashboardLoadingSkeleton";
 
 /* ─────────────────────────────────────────────
@@ -50,12 +50,10 @@ const DashboardClient = dynamic(() => import("./DashboardClient"), {
  *   4. If authenticated, render the lazy-loaded DashboardClient
  */
 export default async function DashboardPage() {
-  // Use Clerk's server-side auth to check if the user is signed in
-  const { userId } = await auth();
+  const cookieStore = await cookies();
+  const session = cookieStore.get("eduquest_session");
 
-  // Defense-in-depth: redirect unauthenticated users to sign-in
-  // The middleware should catch this first, but this is a safety net
-  if (!userId) {
+  if (!session?.value) {
     redirect("/sign-in?redirect_url=/dashboard");
   }
 

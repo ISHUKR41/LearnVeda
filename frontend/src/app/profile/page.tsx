@@ -23,7 +23,6 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "@clerk/nextjs";
 import {
   Flame, Star, Sword, BookOpen, CheckCircle2,
   TrendingUp, ArrowRight, Pencil, Zap, Trophy, Lock,
@@ -149,9 +148,6 @@ function formatRelativeTime(timestamp: string): string {
  * 4. Render the profile UI with live data
  */
 export default function ProfilePage() {
-  /* Clerk's hook — gives us the Clerk session state immediately */
-  const { isSignedIn, isLoaded: clerkLoaded } = useUser();
-
   /* Read auth state from the global Zustand store */
   const { user, isAuthenticated, isLoading: authLoading } = useAuthStore();
   const { setXp, xp, level, progressPercent, xpToNextLevel } = useLevelStore();
@@ -198,7 +194,7 @@ export default function ProfilePage() {
    * This prevents the "Sign In" prompt from flashing for authenticated users
    * during the ~200ms window between mount and /api/auth/me response.
    */
-  if (!clerkLoaded || authLoading || (isSignedIn && !isAuthenticated) || dataLoading) {
+  if (authLoading || dataLoading) {
     return <ProfileSkeleton />;
   }
 

@@ -29,7 +29,6 @@ import {
   Award,
   BookOpen
 } from "lucide-react";
-import { useAuth } from "@clerk/nextjs";
 import styles from "./Hackathon.module.css";
 
 // Dynamic confetti import to ensure fast page load
@@ -128,7 +127,6 @@ const LIVE_STANDINGS = [
 ];
 
 export default function HackathonClient() {
-  const { getToken, userId } = useAuth();
   const [events, setEvents] = useState<HackathonEvent[]>(HACKATHON_CATALOG);
   const [registeredIds, setRegisteredIds] = useState<string[]>([]);
   const [activeFilter, setActiveFilter] = useState<"all" | "live" | "upcoming" | "completed">("all");
@@ -227,15 +225,12 @@ export default function HackathonClient() {
     setIsSubmitting(true);
 
     try {
-      // Get secure authorization token from Clerk session
-      const token = await getToken();
-      
       const response = await fetch(`http://localhost:4000/api/events/${hackathonId}/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token || ""}`,
         },
+        credentials: "include",
         body: JSON.stringify({
           teamName: teamName.trim(),
           projectDesc: projectDesc.trim(),

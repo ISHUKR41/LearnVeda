@@ -20,7 +20,6 @@ import { SITE_CONFIG } from "@/lib/constants";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import Footer from "@/components/layout/Footer/Footer";
 import Providers from "@/components/providers/Providers";
-import { ClerkProvider } from "@clerk/nextjs";
 import "@/styles/globals.css";
 import "katex/dist/katex.min.css";
 
@@ -155,12 +154,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
          * It is a "use client" component but keeps the layout itself as a server component.
          * Inside: QueryClientProvider, Toaster, ThemeInitializer
          */}
-        <ClerkProvider
-          signInForceRedirectUrl="/dashboard"
-          signUpForceRedirectUrl="/dashboard"
-          signInUrl="/sign-in"
-          signUpUrl="/sign-up"
-        >
           <Providers>
             {/* Global sticky navigation bar — appears on every page */}
             <Navbar />
@@ -177,7 +170,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
             {/* Global footer — appears on every page */}
             <Footer />
           </Providers>
-        </ClerkProvider>
       </body>
     </html>
   );

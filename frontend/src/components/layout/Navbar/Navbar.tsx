@@ -17,7 +17,6 @@ import {
   Menu, X, Sun, Moon, BookOpen, ChevronDown, Zap,
   Search, Bell, Flame, Swords, User, Wallet, Settings, ShieldCheck
 } from "lucide-react";
-import { useAuth, UserButton } from "@clerk/nextjs";
 import styles from "./Navbar.module.css";
 import type { PublicUser } from "@/types/auth";
 
@@ -36,7 +35,6 @@ interface NavbarShellProps {
 
 /** Stateful navbar implementation */
 function NavbarShell({ pathname }: NavbarShellProps) {
-  const { isLoaded, isSignedIn } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDesktopGroup, setActiveDesktopGroup] = useState<string | null>(null);
   /**
@@ -54,6 +52,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
   const router = useRouter();
   const [sessionState, setSessionState] = useState<"checking" | "guest" | "authenticated">("checking");
   const [currentUser, setCurrentUser] = useState<PublicUser | null>(null);
+  const isSignedIn = sessionState === "authenticated";
 
   /* Read saved theme from localStorage ONLY on the client after mount.
    * Default is dark — only switch to light if the user explicitly saved "light".
@@ -218,7 +217,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
           </Link>
 
           {/* Authenticated-only icons: notifications bell + streak flame */}
-          {isLoaded && isSignedIn && (
+          {isSignedIn && (
             <>
               <Link href="/notifications" className={styles.iconBtn} aria-label="Notifications">
                 <Bell size={17} />
@@ -236,7 +235,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
 
           {/* Auth buttons (desktop) */}
           <div className={styles.authButtons}>
-            {isLoaded && !isSignedIn && (
+            {!isSignedIn && (
               <>
                 <Link href="/sign-in" className={styles.btnGhost}>Sign In</Link>
                 <Link href="/sign-up" className={styles.btnPrimary}>
@@ -244,18 +243,14 @@ function NavbarShell({ pathname }: NavbarShellProps) {
                 </Link>
               </>
             )}
-            {isLoaded && isSignedIn && (
+            {isSignedIn && (
               <>
                 <Link href="/dashboard" className={styles.btnGhost}>
                   <Zap size={14} /> Dashboard
                 </Link>
-                <UserButton 
-                  appearance={{
-                    elements: {
-                      userButtonAvatarBox: `${styles.accountAvatarBox} w-8 h-8 rounded-full border border-[rgba(255,255,255,0.06)]`
-                    }
-                  }}
-                />
+                <button onClick={handleSignOut} className={styles.btnGhost} style={{ cursor: "pointer" }}>
+                  Sign Out
+                </button>
               </>
             )}
           </div>
@@ -303,18 +298,16 @@ function NavbarShell({ pathname }: NavbarShellProps) {
             </div>
 
             <div className={styles.drawerAuth}>
-              {isLoaded && isSignedIn && (
+              {isSignedIn && (
                 <>
                   <Link href="/dashboard" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
                   <Link href="/profile" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><User size={16} /> Profile</Link>
                   <Link href="/wallet" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><Wallet size={16} /> Wallet</Link>
                   <Link href="/settings" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><Settings size={16} /> Settings</Link>
-                  <div style={{ padding: "8px 16px" }}>
-                    <UserButton />
-                  </div>
+                  <button onClick={handleSignOut} className={styles.drawerBtnSecondary}>Sign Out</button>
                 </>
               )}
-              {isLoaded && !isSignedIn && (
+              {!isSignedIn && (
                 <>
                   <Link href="/sign-in" className={styles.drawerBtnSecondary} onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
                   <Link href="/sign-up" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Start Free</Link>
