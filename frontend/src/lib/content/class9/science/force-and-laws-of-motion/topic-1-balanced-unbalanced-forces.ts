@@ -30,7 +30,12 @@ export const balancedUnbalancedForces: Topic = {
     "tug-of-war-win",
     "extreme-balanced",
     "extreme-unbalanced",
-    "micro-forces"
+    "micro-forces",
+    "fbd-builder",
+    "elevator-scale",
+    "parachute-terminal",
+    "spring-balance",
+    "friction-surfaces"
   ],
 
   content: `

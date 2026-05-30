@@ -42,7 +42,12 @@ export const secondLawOfMotion: Topic = {
     "fma-bullet",
     "fma-tug",
     "fma-equilibrium",
-    "fma-breakaway"
+    "fma-breakaway",
+    "fma-calculator",
+    "ramp-race",
+    "braking-distance",
+    "force-acceleration-graph",
+    "mass-comparison"
   ],
 
   content: `

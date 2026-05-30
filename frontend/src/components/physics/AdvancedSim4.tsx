@@ -23,9 +23,9 @@ function bg(g:CanvasRenderingContext2D,w:number,h:number){
   for(let x=40;x<w;x+=40){g.beginPath();g.moveTo(x,0);g.lineTo(x,h);g.stroke();}
   for(let y=40;y<h;y+=40){g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();}
 }
-function rr(g:CanvasRenderingContext2D,x:number,y:number,w:number,h:number,r:number,fill:string,stroke?:string){
+function rr(g:CanvasRenderingContext2D,x:number,y:number,w:number,h:number,r:number,fill:string,stroke?:string,lw?:number){
   g.save();g.beginPath();g.roundRect(x,y,w,h,r);g.fillStyle=fill;g.fill();
-  if(stroke){g.strokeStyle=stroke;g.lineWidth=1.5;g.stroke();}g.restore();
+  if(stroke){g.strokeStyle=stroke;g.lineWidth=lw??1.5;g.stroke();}g.restore();
 }
 function ib(g:CanvasRenderingContext2D,lines:[string,string][],x:number,y:number,w=165){
   const ph=8,lh=16,h=lines.length*lh+ph*2;
@@ -231,7 +231,7 @@ function IceSkatersSim(){
       <Sl label="Skater 1 mass" value={m1} min={30} max={100} step={5} onChange={setM1} unit=" kg"/>
       <Sl label="Skater 2 mass" value={m2} min={30} max={150} step={5} onChange={setM2} unit=" kg"/>
       <Sl label="Push Force" value={pushF} min={50} max={500} step={25} onChange={setPF} unit=" N"/>
-      <button onClick={()=>{setPushed(p=>!p);pRef.current=!pRef.current;v1.current=0;v2.current=0;p1.current=W/2-30;p2.current=W/2+30;}} style={{padding:"8px",borderRadius:8,fontSize:12,fontWeight:700,cursor:"pointer",border:"none",background:pushed?"#7c3aed":"#1d4ed8",color:"#fff"}}>{pushed?"↺ Reset":"👋 Push!"}</button>
+      <button onClick={()=>{setPushed(p=>!p);pRef.current=!pRef.current;v1.current=0;v2.current=0;p1.current=290-30;p2.current=290+30;}} style={{padding:"8px",borderRadius:8,fontSize:12,fontWeight:700,cursor:"pointer",border:"none",background:pushed?"#7c3aed":"#1d4ed8",color:"#fff"}}>{pushed?"↺ Reset":"👋 Push!"}</button>
     </div>
     <div style={eq}>Same force on both → lighter skater accelerates more (a=F/m) &nbsp;|&nbsp; Both get same IMPULSE but different velocity</div></div>
   );

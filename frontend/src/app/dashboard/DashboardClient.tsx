@@ -549,6 +549,14 @@ export default function DashboardClient() {
    * ActivityGraph and AchievementsCard received empty string on first render.
    */
 
+  /*
+   * loadDashboard — fetches all dashboard data from the backend.
+   * Extracted as a standalone async function so it can be called:
+   *   1. On initial mount
+   *   2. When the browser tab becomes visible again (visibilitychange)
+   *   3. When the window regains focus (user switches back from study page)
+   * This ensures XP/level/streak are always up-to-date.
+   */
   useEffect(() => {
     let isMounted = true;
 
@@ -582,19 +590,14 @@ export default function DashboardClient() {
         setSnapshot(snap);
 
         /*
-         * userId is now derived in the render path from snap.user.id.
-         * No need to set it here — removing this eliminates the race condition.
-         */
-
-        /*
          * Step 2: Fetch wallet and level data in parallel for speed.
          * These are independent of each other so we fire them together.
+         * Level data uses no-store so it reflects XP changes immediately.
          */
         const [walletRes, levelRes] = await Promise.all([
           fetch("/api/wallet", { cache: "no-store" }),
           fetch(`/api/levels?user_level=${snap.user.level}`, {
-            cache: "force-cache",
-            next: { revalidate: 86400 },
+            cache: "no-store",
           }),
         ]);
 
@@ -621,8 +624,32 @@ export default function DashboardClient() {
       }
     }
 
+    /* Initial load */
     loadDashboard();
-    return () => { isMounted = false; };
+
+    /*
+     * Re-fetch dashboard when the user returns to this tab.
+     * This catches the common flow: user studies a topic → answers questions →
+     * switches back to dashboard tab → data refreshes with new XP/level.
+     */
+    function handleVisibilityChange() {
+      if (document.visibilityState === "visible" && isMounted) {
+        loadDashboard();
+      }
+    }
+
+    function handleFocus() {
+      if (isMounted) loadDashboard();
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      isMounted = false;
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("focus", handleFocus);
+    };
   }, [router]);
 
   /* ── Loading state ─────────────────────────────────────────── */

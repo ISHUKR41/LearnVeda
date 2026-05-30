@@ -29,7 +29,12 @@ export const firstLawOfMotionInertia: Topic = {
     "train-stop",
     "coin-flick",
     "book-slide",
-    "hovercraft"
+    "hovercraft",
+    "tablecloth-pull",
+    "bus-passengers",
+    "coin-stack-flick",
+    "ball-on-train",
+    "hammer-head"
   ],
 
   content: `

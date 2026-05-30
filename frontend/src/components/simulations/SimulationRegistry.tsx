@@ -77,7 +77,43 @@ const Sim_momentum_impulse2 = dynamic(() => import('./Topic5').then(mod => mod.S
 const Sim_momentum_reverse = dynamic(() => import('./Topic5').then(mod => mod.Sim_momentum_reverse), { ssr: false });
 const Sim_momentum_constant = dynamic(() => import('./Topic5').then(mod => mod.Sim_momentum_constant), { ssr: false });
 
+/* ── Advanced Simulations: Topic 1 (Balanced/Unbalanced Forces) ── */
+const Sim_fbd_builder = dynamic(() => import('./Topic1Advanced').then(mod => mod.Sim_fbd_builder), { ssr: false });
+const Sim_elevator_scale = dynamic(() => import('./Topic1Advanced').then(mod => mod.Sim_elevator_scale), { ssr: false });
+const Sim_parachute_terminal = dynamic(() => import('./Topic1Advanced').then(mod => mod.Sim_parachute_terminal), { ssr: false });
+const Sim_spring_balance = dynamic(() => import('./Topic1Advanced').then(mod => mod.Sim_spring_balance), { ssr: false });
+const Sim_friction_surfaces = dynamic(() => import('./Topic1Advanced').then(mod => mod.Sim_friction_surfaces), { ssr: false });
+
+/* ── Advanced Simulations: Topic 2 (First Law / Inertia) ── */
+const Sim_tablecloth_pull = dynamic(() => import('./Topic2Advanced').then(mod => mod.Sim_tablecloth_pull), { ssr: false });
+const Sim_bus_passengers = dynamic(() => import('./Topic2Advanced').then(mod => mod.Sim_bus_passengers), { ssr: false });
+const Sim_coin_stack_flick = dynamic(() => import('./Topic2Advanced').then(mod => mod.Sim_coin_stack_flick), { ssr: false });
+const Sim_ball_on_train = dynamic(() => import('./Topic2Advanced').then(mod => mod.Sim_ball_on_train), { ssr: false });
+const Sim_hammer_head = dynamic(() => import('./Topic2Advanced').then(mod => mod.Sim_hammer_head), { ssr: false });
+
+/* ── Advanced Simulations: Topic 3 (Second Law F=ma) ── */
+const Sim_fma_calculator = dynamic(() => import('./Topic3Advanced').then(mod => mod.Sim_fma_calculator), { ssr: false });
+const Sim_ramp_race = dynamic(() => import('./Topic3Advanced').then(mod => mod.Sim_ramp_race), { ssr: false });
+const Sim_braking_distance = dynamic(() => import('./Topic3Advanced').then(mod => mod.Sim_braking_distance), { ssr: false });
+const Sim_force_acceleration_graph = dynamic(() => import('./Topic3Advanced').then(mod => mod.Sim_force_acceleration_graph), { ssr: false });
+const Sim_mass_comparison = dynamic(() => import('./Topic3Advanced').then(mod => mod.Sim_mass_comparison), { ssr: false });
+
+/* ── Advanced Simulations: Topic 4 (Third Law) ── */
+const Sim_rocket_propulsion = dynamic(() => import('./Topic4Advanced').then(mod => mod.Sim_rocket_propulsion), { ssr: false });
+const Sim_balloon_jet = dynamic(() => import('./Topic4Advanced').then(mod => mod.Sim_balloon_jet), { ssr: false });
+const Sim_book_on_table_reaction = dynamic(() => import('./Topic4Advanced').then(mod => mod.Sim_book_on_table_reaction), { ssr: false });
+const Sim_wall_push_skater = dynamic(() => import('./Topic4Advanced').then(mod => mod.Sim_wall_push_skater), { ssr: false });
+const Sim_horse_cart_paradox = dynamic(() => import('./Topic4Advanced').then(mod => mod.Sim_horse_cart_paradox), { ssr: false });
+
+/* ── Advanced Simulations: Topic 5 (Conservation of Momentum) ── */
+const Sim_collision_lab = dynamic(() => import('./Topic5Advanced').then(mod => mod.Sim_collision_lab), { ssr: false });
+const Sim_newtons_cradle = dynamic(() => import('./Topic5Advanced').then(mod => mod.Sim_newtons_cradle), { ssr: false });
+const Sim_billiards_shot = dynamic(() => import('./Topic5Advanced').then(mod => mod.Sim_billiards_shot), { ssr: false });
+const Sim_explosion_demo = dynamic(() => import('./Topic5Advanced').then(mod => mod.Sim_explosion_demo), { ssr: false });
+const Sim_rocket_equation = dynamic(() => import('./Topic5Advanced').then(mod => mod.Sim_rocket_equation), { ssr: false });
+
 export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
+  /* ── Topic 1: Balanced/Unbalanced Forces (15 original + 5 advanced = 20) ── */
   "balanced-ice": Sim_balanced_ice,
   "unbalanced-ice": Sim_unbalanced_ice,
   "balanced-wood": Sim_balanced_wood,
@@ -93,6 +129,13 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "extreme-balanced": Sim_extreme_balanced,
   "extreme-unbalanced": Sim_extreme_unbalanced,
   "micro-forces": Sim_micro_forces,
+  "fbd-builder": Sim_fbd_builder,
+  "elevator-scale": Sim_elevator_scale,
+  "parachute-terminal": Sim_parachute_terminal,
+  "spring-balance": Sim_spring_balance,
+  "friction-surfaces": Sim_friction_surfaces,
+
+  /* ── Topic 2: First Law / Inertia (15 original + 5 advanced = 20) ── */
   "inertia-rest": Sim_inertia_rest,
   "inertia-motion-space": Sim_inertia_motion_space,
   "inertia-heavy": Sim_inertia_heavy,
@@ -108,6 +151,13 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "coin-flick": Sim_coin_flick,
   "book-slide": Sim_book_slide,
   "hovercraft": Sim_hovercraft,
+  "tablecloth-pull": Sim_tablecloth_pull,
+  "bus-passengers": Sim_bus_passengers,
+  "coin-stack-flick": Sim_coin_stack_flick,
+  "ball-on-train": Sim_ball_on_train,
+  "hammer-head": Sim_hammer_head,
+
+  /* ── Topic 3: Second Law F=ma (15 original + 5 advanced = 20) ── */
   "fma-standard": Sim_fma_standard,
   "fma-double-mass": Sim_fma_double_mass,
   "fma-double-force": Sim_fma_double_force,
@@ -123,6 +173,13 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "fma-tug": Sim_fma_tug,
   "fma-equilibrium": Sim_fma_equilibrium,
   "fma-breakaway": Sim_fma_breakaway,
+  "fma-calculator": Sim_fma_calculator,
+  "ramp-race": Sim_ramp_race,
+  "braking-distance": Sim_braking_distance,
+  "force-acceleration-graph": Sim_force_acceleration_graph,
+  "mass-comparison": Sim_mass_comparison,
+
+  /* ── Topic 4: Third Law (15 original + 5 advanced = 20) ── */
   "action-reaction-push": Sim_action_reaction_push,
   "recoil-gun": Sim_recoil_gun,
   "rocket-launch": Sim_rocket_launch,
@@ -138,6 +195,13 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "spring-push": Sim_spring_push,
   "magnet-repel": Sim_magnet_repel,
   "cannon-fire": Sim_cannon_fire,
+  "rocket-propulsion": Sim_rocket_propulsion,
+  "balloon-jet": Sim_balloon_jet,
+  "book-on-table-reaction": Sim_book_on_table_reaction,
+  "wall-push-skater": Sim_wall_push_skater,
+  "horse-cart-paradox": Sim_horse_cart_paradox,
+
+  /* ── Topic 5: Conservation of Momentum (15 original + 5 advanced = 20) ── */
   "momentum-heavy": Sim_momentum_heavy,
   "momentum-fast": Sim_momentum_fast,
   "momentum-collision": Sim_momentum_collision,
@@ -153,6 +217,11 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "momentum-impulse2": Sim_momentum_impulse2,
   "momentum-reverse": Sim_momentum_reverse,
   "momentum-constant": Sim_momentum_constant,
+  "collision-lab": Sim_collision_lab,
+  "newtons-cradle": Sim_newtons_cradle,
+  "billiards-shot": Sim_billiards_shot,
+  "explosion-demo": Sim_explosion_demo,
+  "rocket-equation": Sim_rocket_equation,
 };
 
 interface SimulationRendererProps {

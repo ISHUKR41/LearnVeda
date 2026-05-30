@@ -29,9 +29,9 @@ function bg(g: CanvasRenderingContext2D, w: number, h: number) {
   for (let x=40;x<w;x+=40){g.beginPath();g.moveTo(x,0);g.lineTo(x,h);g.stroke();}
   for (let y=40;y<h;y+=40){g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();}
 }
-function rr(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number, fill: string, stroke?: string) {
+function rr(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number, fill: string, stroke?: string, lw?: number) {
   g.save(); g.beginPath(); g.roundRect(x,y,w,h,r); g.fillStyle=fill; g.fill();
-  if(stroke){g.strokeStyle=stroke;g.lineWidth=1.5;g.stroke();} g.restore();
+  if(stroke){g.strokeStyle=stroke;g.lineWidth=lw??1.5;g.stroke();} g.restore();
 }
 function infoBox(g: CanvasRenderingContext2D, lines: [string,string][], x: number, y: number, w=165) {
   const ph=8,lh=16,h=lines.length*lh+ph*2;

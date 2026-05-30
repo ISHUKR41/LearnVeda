@@ -36,8 +36,14 @@ export function getPostgresPool(): Pool {
     return globalForDatabase.__eduquestPostgresPool;
   }
 
+  /* ── Fix pg SSL warning by ensuring explicit sslmode=verify-full ── */
+  let connStr = process.env.DATABASE_URL;
+  if (connStr.includes("sslmode=require") && !connStr.includes("sslmode=verify-full")) {
+    connStr = connStr.replace("sslmode=require", "sslmode=verify-full");
+  }
+
   const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: connStr,
     max: Number(process.env.POSTGRES_POOL_MAX ?? 10),
     idleTimeoutMillis: Number(process.env.POSTGRES_IDLE_TIMEOUT_MS ?? 30_000),
     connectionTimeoutMillis: Number(process.env.POSTGRES_CONNECT_TIMEOUT_MS ?? 3_000),
@@ -52,12 +58,14 @@ export function getPostgresPool(): Pool {
   globalForDatabase.__eduquestPostgresPool = pool;
 
   // All EduQuest tables live in the public schema (eduquest_* prefix).
-  // Setting search_path to 'public' ensures every query resolves correctly
-  // without needing explicit schema qualifiers.
-  globalForDatabase.__eduquestPostgresPool.on('connect', (client) => {
-    client.query("SET search_path TO public").catch((err) => {
+  // Set search_path once per new client connection using async/await
+  // to avoid the "client already executing query" deprecation warning.
+  pool.on('connect', async (client) => {
+    try {
+      await client.query("SET search_path TO public");
+    } catch (err) {
       console.error('[postgres] Failed to set search_path:', err);
-    });
+    }
   });
 
   return globalForDatabase.__eduquestPostgresPool;

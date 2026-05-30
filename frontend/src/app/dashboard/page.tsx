@@ -10,12 +10,12 @@
  *          this server guard acts as a defense-in-depth layer.
  * USED BY: Next.js App Router — renders at "/dashboard"
  * DEPENDENCIES: next/dynamic, DashboardClient, DashboardLoadingSkeleton, @clerk/nextjs/server
- * LAST UPDATED: 2026-05-27
+ * LAST UPDATED: 2026-05-30
  */
 
 import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
+import { auth } from "@clerk/nextjs/server";
 import DashboardLoadingSkeleton from "./DashboardLoadingSkeleton";
 
 /* ─────────────────────────────────────────────
@@ -50,10 +50,9 @@ const DashboardClient = dynamic(() => import("./DashboardClient"), {
  *   4. If authenticated, render the lazy-loaded DashboardClient
  */
 export default async function DashboardPage() {
-  const cookieStore = await cookies();
-  const session = cookieStore.get("eduquest_session");
+  const { userId } = await auth();
 
-  if (!session?.value) {
+  if (!userId) {
     redirect("/sign-in?redirect_url=/dashboard");
   }
 

@@ -33,7 +33,12 @@ export const thirdLawOfMotion: Topic = {
     "car-tires",
     "spring-push",
     "magnet-repel",
-    "cannon-fire"
+    "cannon-fire",
+    "rocket-propulsion",
+    "balloon-jet",
+    "book-on-table-reaction",
+    "wall-push-skater",
+    "horse-cart-paradox"
   ],
 
   content: `

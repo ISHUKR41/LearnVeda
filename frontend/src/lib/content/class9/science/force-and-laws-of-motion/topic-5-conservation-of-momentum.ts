@@ -28,7 +28,12 @@ export const conservationOfMomentum: Topic = {
     "momentum-impulse1",
     "momentum-impulse2",
     "momentum-reverse",
-    "momentum-constant"
+    "momentum-constant",
+    "collision-lab",
+    "newtons-cradle",
+    "billiards-physics",
+    "explosion-demo",
+    "rocket-equation"
   ],
 
   content: `

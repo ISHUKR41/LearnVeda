@@ -75,7 +75,7 @@ export async function PUT(
       ]
     );
 
-    const updatedUser = updated[0];
+    const updatedUser = updated.rows[0];
     const newLevel = updatedUser?.level ?? oldLevel;
     const totalXp = updatedUser?.xp ?? (user.xp ?? 0) + xpEarned;
 
@@ -197,7 +197,7 @@ export async function GET(
         [user.id, chapterId]
       );
 
-      const row = rows[0];
+      const row = rows.rows[0];
       return NextResponse.json({
         ok: true,
         data: {
