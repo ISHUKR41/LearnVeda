@@ -70,12 +70,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-import { auth } from "@clerk/nextjs/server";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function Class9ChapterPage({ params }: PageProps) {
-  const { userId } = await auth();
-  if (!userId) redirect("/sign-in");
+  const cookieStore = await cookies();
+  const session = cookieStore.get("eduquest_session");
+  if (!session) redirect("/sign-in");
 
   const resolvedParams = await params;
   const { subject, chapter } = resolvedParams;
