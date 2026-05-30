@@ -187,7 +187,7 @@ export function Sim_crash_test() {
           <div style={{ fontSize: 12, color: "#f97316", fontWeight: 700, marginBottom: 4 }}>Speed: {speed} km/h</div>
           <input type="range" min={20} max={120} value={speed} onChange={e => { setSpeed(+e.target.value); reset(); }} style={{ width: "100%", accentColor: "#f97316" }} disabled={phase !== "ready"} />
         </div>
-        <button onClick={() => { setHasSeatbelt(!hasSeatbelt); reset(); }} style={{ padding: "10px 18px", borderRadius: 10, fontWeight: 700, fontSize: 13, border: "none", cursor: "pointer", background: hasSeatbelt ? "#10b98120" : "#ef444420", color: hasSeatbelt ? "#10b981" : "#ef4444", border: `1px solid ${hasSeatbelt ? "#10b981" : "#ef4444"}` as any }}>
+        <button onClick={() => { setHasSeatbelt(!hasSeatbelt); reset(); }} style={{ padding: "10px 18px", borderRadius: 10, fontWeight: 700, fontSize: 13, cursor: "pointer", background: hasSeatbelt ? "#10b98120" : "#ef444420", color: hasSeatbelt ? "#10b981" : "#ef4444", border: `1px solid ${hasSeatbelt ? "#10b981" : "#ef4444"}` }}>
           {hasSeatbelt ? "✓ Seatbelt ON" : "✗ Seatbelt OFF"}
         </button>
         <button onClick={phase === "ready" ? start : reset} style={{ padding: "10px 20px", borderRadius: 10, fontWeight: 700, border: "none", cursor: "pointer", background: phase === "ready" ? "#10b981" : "#1e293b", color: phase === "ready" ? "#0f172a" : "#cbd5e1" }}>
@@ -466,7 +466,7 @@ export function Sim_spinning_skater() {
     ctx.fillStyle = "#64748b";
     ctx.font = "12px Inter";
     ctx.textAlign = "center";
-    ctx.fillText(`L = Iω = ${armsIn ? "0.3" : "1.0"} × ${currentOmega.toFixed(1)} = ${(armsIn ? I_in : I_out) * currentOmega.toFixed(1) as unknown as number | string} (conserved!)`, W / 2, H - 12);
+    ctx.fillText(`L = Iω = ${armsIn ? "0.3" : "1.0"} × ${currentOmega.toFixed(1)} = ${((armsIn ? I_in : I_out) * currentOmega).toFixed(2)} (conserved!)`, W / 2, H - 12);
 
     animRef.current = requestAnimationFrame(draw);
   }, [spinning, currentOmega, armsIn, armLength]);

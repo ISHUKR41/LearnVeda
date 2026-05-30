@@ -288,7 +288,7 @@ export function Sim_atwood_machine() {
           {/* Mass 2 */}
           <rect x="172" y={100 + display.y2} width="56" height="56" rx="8" fill={m2 >= m1 ? "#6366f1" : "#334155"} stroke="#818cf8" strokeWidth="2" />
           <text x="200" y={132 + display.y2} textAnchor="middle" fill="#fff" fontSize="14" fontWeight="700" fontFamily="JetBrains Mono">{m2} kg</text>
-          <text x="210" y={165 + display.y2} textAnchor="left" fill="#ef4444" fontSize="11" fontFamily="JetBrains Mono">{(m2 * g).toFixed(0)}N↓</text>
+          <text x="210" y={165 + display.y2} textAnchor="start" fill="#ef4444" fontSize="11" fontFamily="JetBrains Mono">{(m2 * g).toFixed(0)}N↓</text>
           {/* Acceleration arrow */}
           {running && Math.abs(display.v) > 0.1 && (
             <text x="150" y="280" textAnchor="middle" fill="#10b981" fontSize="13" fontWeight="700" fontFamily="JetBrains Mono">a = {Math.abs(accel).toFixed(2)} m/s²</text>

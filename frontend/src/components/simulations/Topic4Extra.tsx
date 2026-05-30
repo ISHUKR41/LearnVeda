@@ -893,7 +893,7 @@ export function Sim_trampoline_bounce() {
     ctx.fillText(`${Math.max(0, s.y).toFixed(1)}m`, 78, (H - 80 + personY) / 2);
 
     animRef.current = requestAnimationFrame(step);
-  }, [display.force, s, weight, mass, g, k_trampoline]);
+  }, [display.force, weight, mass, g, k_trampoline]);
 
   useEffect(() => {
     if (running) { stateRef.current = { y: jumpHeight, v: 0, onTrampoline: false, contactTime: 0 }; lastRef.current = 0; animRef.current = requestAnimationFrame(step); }

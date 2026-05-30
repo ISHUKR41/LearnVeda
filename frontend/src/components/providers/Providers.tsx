@@ -84,8 +84,6 @@ export default function Providers({ children }: ProvidersProps) {
           formButtonPrimary: { background: "#2563EB" },
         },
       }}
-      afterSignInUrl="/dashboard"
-      afterSignUpUrl="/dashboard"
     >
       <QueryClientProvider client={queryClient}>
         <ThemeInitializer />

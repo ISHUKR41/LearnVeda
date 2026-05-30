@@ -1,7 +1,17 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+/**
+ * FILE: ForceEngine.tsx
+ * PURPOSE: Professional canvas-based physics simulation engine for Force & Laws of Motion.
+ *          Renders smooth 60fps animations with real Newtonian mechanics:
+ *          - Newton's 2nd Law: F = ma
+ *          - Kinetic & static friction: f = μN
+ *          - Real-time telemetry overlay (velocity, acceleration, net force, KE)
+ *          - Force vector arrows drawn on canvas (no DOM layout issues)
+ *          - All animation state in refs → no stale-closure bugs
+ */
+
+import React, { useEffect, useRef, useState, useCallback } from "react";
 
 export interface ForceEngineConfig {
   initialMass: number;
@@ -15,224 +25,412 @@ export interface ForceEngineConfig {
   scenarioDescription: string;
 }
 
+/* ── Physics state stored in a ref (never triggers re-renders) ─────────────── */
+interface PhysicsState {
+  x: number;        /* object centre x in metres (0 = start) */
+  v: number;        /* velocity m/s */
+  a: number;        /* acceleration m/s² */
+  lastTime: number; /* DOMHighResTimeStamp of previous frame */
+  forceLeft: number;
+  forceRight: number;
+  mass: number;
+  mu: number;
+}
+
+/* ── Pixel‑per‑metre scale: 40 px = 1 m ─────────────────────── */
+const PX_PER_M = 40;
+const GRAVITY  = 9.8;
+
+/** Draws an arrowhead at (x,y) pointing in direction θ (radians). */
+function drawArrowHead(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  theta: number,
+  size = 10,
+) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(theta);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(-size, -size / 2);
+  ctx.lineTo(-size,  size / 2);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
 export default function ForceEngine({ config }: { config: ForceEngineConfig }) {
-  const [mass, setMass] = useState(config.initialMass);
-  const [forceLeft, setForceLeft] = useState(config.presetForceLeft || 0);
-  const [forceRight, setForceRight] = useState(config.presetForceRight || 0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  
-  // Physics state
-  const physicsState = useRef({
-    x: 0,
-    v: config.initialVelocity,
-    a: 0,
-    lastTime: 0
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const rafRef    = useRef<number>(0);
+  const stateRef  = useRef<PhysicsState>({
+    x:         0,
+    v:         config.initialVelocity,
+    a:         0,
+    lastTime:  0,
+    forceLeft:  config.presetForceLeft  ?? 0,
+    forceRight: config.presetForceRight ?? 0,
+    mass:       config.initialMass,
+    mu:         config.frictionCoefficient,
   });
 
-  const [displayState, setDisplayState] = useState({ x: 0, v: config.initialVelocity, a: 0 });
-  const reqRef = useRef<number>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  /* ── UI sliders (only affect stateRef, NOT re-render physics) ──────── */
+  const [mass,       setMass]       = useState(config.initialMass);
+  const [forceLeft,  setForceLeft]  = useState(config.presetForceLeft  ?? 0);
+  const [forceRight, setForceRight] = useState(config.presetForceRight ?? 0);
+  const [isPlaying,  setIsPlaying]  = useState(false);
 
-  const updatePhysics = (time: number) => {
-    if (!physicsState.current.lastTime) {
-      physicsState.current.lastTime = time;
-      reqRef.current = requestAnimationFrame(updatePhysics);
-      return;
-    }
+  /* ── Display telemetry (updated each frame via setState) ────────────── */
+  const [tele, setTele] = useState({ v: config.initialVelocity, a: 0, netF: 0, ke: 0 });
 
-    const dt = (time - physicsState.current.lastTime) / 1000; // seconds
-    physicsState.current.lastTime = time;
+  /* Propagate slider changes into the physics ref immediately */
+  useEffect(() => { stateRef.current.mass       = mass;       }, [mass]);
+  useEffect(() => { stateRef.current.forceLeft  = forceLeft;  }, [forceLeft]);
+  useEffect(() => { stateRef.current.forceRight = forceRight; }, [forceRight]);
 
-    const netAppliedForce = forceRight - forceLeft;
-    
-    // Friction calculation (f = mu * N = mu * m * g)
-    const gravity = 9.8;
-    const maxFriction = config.frictionCoefficient * mass * gravity;
-    
-    let actualFriction = 0;
-    
-    if (physicsState.current.v > 0) {
-      actualFriction = -maxFriction;
-    } else if (physicsState.current.v < 0) {
-      actualFriction = maxFriction;
-    } else {
-      // If stationary, static friction opposes applied force up to maxFriction
-      if (Math.abs(netAppliedForce) <= maxFriction) {
-        actualFriction = -netAppliedForce;
+  /* ── Canvas renderer (the simulation loop) ─────────────────────────── */
+  const render = useCallback((timestamp: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const s   = stateRef.current;
+    const ctx = canvas.getContext("2d")!;
+    const W   = canvas.width;
+    const H   = canvas.height;
+
+    /* Physics step ─────────────────────────────────────── */
+    if (s.lastTime > 0) {
+      const dt = Math.min((timestamp - s.lastTime) / 1000, 0.05); /* cap at 50 ms */
+
+      const fNet      = s.forceRight - s.forceLeft;
+      const maxFric   = s.mu * s.mass * GRAVITY;
+
+      let friction = 0;
+      if (s.v > 0.01) {
+        friction = -maxFric;
+      } else if (s.v < -0.01) {
+        friction =  maxFric;
       } else {
-        actualFriction = netAppliedForce > 0 ? -maxFriction : maxFriction;
+        /* Static friction: exactly opposes net applied force up to maxFric */
+        friction = Math.abs(fNet) <= maxFric ? -fNet : (fNet > 0 ? -maxFric : maxFric);
       }
+
+      const totalForce = fNet + friction;
+      s.a = totalForce / s.mass;
+      s.v += s.a * dt;
+
+      /* Snap to zero if nearly still and net force is balanced */
+      if (Math.abs(s.v) < 0.05 && Math.abs(fNet) <= maxFric) {
+        s.v = 0;
+        s.a = 0;
+      }
+
+      /* Position advance */
+      s.x += s.v * dt;
+
+      /* Screen wrap in metres */
+      const halfW = (W / 2) / PX_PER_M;
+      if (s.x >  halfW + 1) s.x = -halfW - 1;
+      if (s.x < -halfW - 1) s.x =  halfW + 1;
+
+      /* Update telemetry display (throttled via setState — safe, separate from physics) */
+      const ke = 0.5 * s.mass * s.v * s.v;
+      setTele({ v: s.v, a: s.a, netF: totalForce, ke });
+    }
+    s.lastTime = timestamp;
+
+    /* ── Draw ────────────────────────────────────────────── */
+    /* Background */
+    ctx.fillStyle = "#020617";
+    ctx.fillRect(0, 0, W, H);
+
+    /* Grid lines */
+    ctx.strokeStyle = "#0f172a";
+    ctx.lineWidth = 1;
+    const gridSpacing = 40;
+    for (let gx = 0; gx < W; gx += gridSpacing) {
+      ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
+    }
+    for (let gy = 0; gy < H; gy += gridSpacing) {
+      ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke();
     }
 
-    const netForce = netAppliedForce + actualFriction;
-    const a = netForce / mass;
-    
-    physicsState.current.a = a;
-    physicsState.current.v += a * dt;
-    
-    // Stop completely if velocity is tiny and acceleration is near zero due to friction
-    if (Math.abs(physicsState.current.v) < 0.1 && Math.abs(netAppliedForce) <= maxFriction) {
-      physicsState.current.v = 0;
-      physicsState.current.a = 0;
+    /* Ground surface */
+    const groundY = H - 56;
+    ctx.fillStyle = "#1e293b";
+    ctx.fillRect(0, groundY, W, 56);
+
+    /* Surface texture lines */
+    ctx.strokeStyle = "#334155";
+    ctx.lineWidth = 1;
+    for (let tx = 0; tx < W; tx += 20) {
+      ctx.beginPath();
+      ctx.moveTo(tx, groundY);
+      ctx.lineTo(tx - 10, groundY + 20);
+      ctx.stroke();
     }
 
-    physicsState.current.x += physicsState.current.v * dt * 10; // *10 for visual scale (pixels/m)
+    /* Surface label */
+    ctx.fillStyle = "#475569";
+    ctx.font = "bold 11px 'JetBrains Mono', monospace";
+    ctx.textAlign = "left";
+    ctx.fillText(`μ = ${config.frictionCoefficient} · ${config.environmentName}`, 12, groundY + 22);
 
-    // Wrap around screen
-    if (containerRef.current) {
-      const width = containerRef.current.clientWidth;
-      if (physicsState.current.x > width / 2 + 50) physicsState.current.x = -width / 2 - 50;
-      if (physicsState.current.x < -width / 2 - 50) physicsState.current.x = width / 2 + 50;
+    /* Object (block) */
+    const blockW = 80;
+    const blockH = 56;
+    const cx     = W / 2 + s.x * PX_PER_M; /* object centre x in pixels */
+    const blockX = cx - blockW / 2;
+    const blockY = groundY - blockH;
+
+    /* Block shadow */
+    ctx.fillStyle = "rgba(99,102,241,0.15)";
+    ctx.beginPath();
+    ctx.ellipse(cx, groundY + 4, blockW / 2, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    /* Block body with gradient */
+    const grad = ctx.createLinearGradient(blockX, blockY, blockX, blockY + blockH);
+    grad.addColorStop(0, "#6366f1");
+    grad.addColorStop(1, "#4338ca");
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.roundRect(blockX, blockY, blockW, blockH, 10);
+    ctx.fill();
+
+    /* Block highlight */
+    ctx.fillStyle = "rgba(255,255,255,0.12)";
+    ctx.beginPath();
+    ctx.roundRect(blockX + 6, blockY + 5, blockW - 12, 14, 5);
+    ctx.fill();
+
+    /* Block border */
+    ctx.strokeStyle = "#818cf8";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(blockX, blockY, blockW, blockH, 10);
+    ctx.stroke();
+
+    /* Mass label on block */
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 15px 'JetBrains Mono', monospace";
+    ctx.textAlign = "center";
+    ctx.fillText(`${s.mass} kg`, cx, blockY + blockH / 2 + 6);
+
+    /* ── Force arrows ────────────────────────────────────── */
+    const arrowY = blockY + blockH / 2;
+
+    /* Right force arrow (green) */
+    if (s.forceRight > 0) {
+      const arrowLen = Math.min(s.forceRight * 0.8, 140);
+      const ax       = cx + blockW / 2;
+      const bx       = ax + arrowLen;
+
+      ctx.strokeStyle = "#10b981";
+      ctx.lineWidth   = 3;
+      ctx.beginPath(); ctx.moveTo(ax, arrowY); ctx.lineTo(bx - 2, arrowY); ctx.stroke();
+      ctx.fillStyle = "#10b981";
+      drawArrowHead(ctx, bx, arrowY, 0);
+
+      ctx.font = "bold 12px 'JetBrains Mono', monospace";
+      ctx.textAlign = "left";
+      ctx.fillText(`${s.forceRight} N →`, bx + 4, arrowY + 4);
     }
 
-    setDisplayState({
-      x: physicsState.current.x,
-      v: physicsState.current.v,
-      a: physicsState.current.a
-    });
+    /* Left force arrow (red) */
+    if (s.forceLeft > 0) {
+      const arrowLen = Math.min(s.forceLeft * 0.8, 140);
+      const ax       = cx - blockW / 2;
+      const bx       = ax - arrowLen;
 
-    reqRef.current = requestAnimationFrame(updatePhysics);
-  };
+      ctx.strokeStyle = "#ef4444";
+      ctx.lineWidth   = 3;
+      ctx.beginPath(); ctx.moveTo(ax, arrowY); ctx.lineTo(bx + 2, arrowY); ctx.stroke();
+      ctx.fillStyle = "#ef4444";
+      drawArrowHead(ctx, bx, arrowY, Math.PI);
 
+      ctx.font = "bold 12px 'JetBrains Mono', monospace";
+      ctx.textAlign = "right";
+      ctx.fillText(`← ${s.forceLeft} N`, bx - 4, arrowY + 4);
+    }
+
+    /* Velocity vector (cyan, above block) */
+    if (Math.abs(s.v) > 0.1) {
+      const vScale = Math.min(Math.abs(s.v) * 8, 100);
+      const dir    = s.v > 0 ? 1 : -1;
+      const vy     = blockY - 20;
+
+      ctx.strokeStyle = "#22d3ee";
+      ctx.lineWidth   = 2;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(cx, vy); ctx.lineTo(cx + dir * vScale, vy); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = "#22d3ee";
+      drawArrowHead(ctx, cx + dir * (vScale + 2), vy, dir > 0 ? 0 : Math.PI, 8);
+
+      ctx.font = "bold 11px 'JetBrains Mono', monospace";
+      ctx.textAlign = dir > 0 ? "left" : "right";
+      ctx.fillStyle = "#22d3ee";
+      ctx.fillText(`v = ${Math.abs(s.v).toFixed(1)} m/s`, cx + dir * (vScale + 16), vy + 4);
+    }
+
+    /* Centre line (reference) */
+    ctx.strokeStyle = "#1e3a5f";
+    ctx.lineWidth   = 1;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath(); ctx.moveTo(W / 2, 0); ctx.lineTo(W / 2, groundY); ctx.stroke();
+    ctx.setLineDash([]);
+
+    rafRef.current = requestAnimationFrame(render);
+  }, []); /* stable — all state accessed via refs */
+
+  /* ── Animation lifecycle ────────────────────────────────────────────── */
   useEffect(() => {
     if (isPlaying) {
-      physicsState.current.lastTime = performance.now();
-      reqRef.current = requestAnimationFrame(updatePhysics);
+      stateRef.current.lastTime = 0;
+      rafRef.current = requestAnimationFrame(render);
     } else {
-      if (reqRef.current) cancelAnimationFrame(reqRef.current);
+      cancelAnimationFrame(rafRef.current);
     }
-    return () => {
-      if (reqRef.current) cancelAnimationFrame(reqRef.current);
-    };
-  }, [isPlaying, forceLeft, forceRight, mass]);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [isPlaying, render]);
+
+  /* Draw one static frame when paused so canvas isn't blank */
+  useEffect(() => {
+    if (!isPlaying) {
+      const canvas = canvasRef.current;
+      if (canvas) render(performance.now());
+      cancelAnimationFrame(rafRef.current);
+    }
+  }, [isPlaying, render]);
 
   const handleReset = () => {
     setIsPlaying(false);
-    physicsState.current = { x: 0, v: config.initialVelocity, a: 0, lastTime: 0 };
-    setDisplayState({ x: 0, v: config.initialVelocity, a: 0 });
-    setForceLeft(config.presetForceLeft || 0);
-    setForceRight(config.presetForceRight || 0);
-    setMass(config.initialMass);
+    cancelAnimationFrame(rafRef.current);
+    const newMass      = config.initialMass;
+    const newFL        = config.presetForceLeft  ?? 0;
+    const newFR        = config.presetForceRight ?? 0;
+    stateRef.current   = { x: 0, v: config.initialVelocity, a: 0, lastTime: 0, forceLeft: newFL, forceRight: newFR, mass: newMass, mu: config.frictionCoefficient };
+    setMass(newMass);
+    setForceLeft(newFL);
+    setForceRight(newFR);
+    setTele({ v: config.initialVelocity, a: 0, netF: 0, ke: 0 });
   };
 
+  /* ── Label style helpers ─────────────────────────────────────────── */
+  const card: React.CSSProperties  = { background: "#0b1120", borderRadius: 18, padding: "24px 28px", margin: "32px 0", border: "1px solid #1e293b", boxShadow: "0 12px 40px rgba(0,0,0,0.5)", fontFamily: "Inter, system-ui, sans-serif" };
+  const tRow: React.CSSProperties  = { display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 13, marginBottom: 8 };
+  const tVal: React.CSSProperties  = { fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: 15 };
+  const bar : React.CSSProperties  = { height: 4, borderRadius: 2, background: "#1e293b", overflow: "hidden", marginBottom: 14 };
+  const slRow: React.CSSProperties = { marginBottom: 16 };
+  const slLbl: React.CSSProperties = { display: "flex", justifyContent: "space-between", fontSize: 12, fontWeight: 700, marginBottom: 6 };
+
   return (
-    <div className="w-full bg-[#0b1120] rounded-2xl p-6 my-8 border border-slate-800 shadow-2xl relative overflow-hidden font-sans">
-      <div className="mb-6 border-b border-slate-800 pb-4">
-        <h3 className="text-xl font-bold text-white mb-2">Physics Sandbox: {config.environmentName}</h3>
-        <p className="text-slate-400 text-sm">{config.scenarioDescription}</p>
+    <div style={card}>
+      {/* Header */}
+      <div style={{ borderBottom: "1px solid #1e293b", paddingBottom: 16, marginBottom: 20 }}>
+        <h3 style={{ color: "#f1f5f9", fontSize: 20, fontWeight: 800, margin: 0, letterSpacing: -0.3 }}>
+          ⚡ Physics Sandbox — {config.environmentName}
+        </h3>
+        <p style={{ color: "#64748b", fontSize: 13, margin: "6px 0 0", lineHeight: 1.6 }}>
+          {config.scenarioDescription}
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="col-span-1 md:col-span-3">
-          <div ref={containerRef} className="relative h-64 border-b-4 border-slate-600 bg-gradient-to-b from-transparent to-slate-900/50 flex items-end justify-center overflow-hidden">
-            {/* Background Grid */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-            
-            {/* The Object */}
-            <motion.div
-              className="absolute bottom-0 w-32 h-32 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-[0_0_30px_rgba(79,70,229,0.4)] flex flex-col items-center justify-center z-10 border-2 border-indigo-300"
-              style={{ x: displayState.x }}
+      {/* Canvas viewport */}
+      <canvas
+        ref={canvasRef}
+        width={700}
+        height={220}
+        style={{ width: "100%", borderRadius: 12, border: "1px solid #1e293b", display: "block" }}
+      />
+
+      {/* Telemetry + Controls row */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginTop: 20 }}>
+
+        {/* Telemetry panel */}
+        <div style={{ background: "#0f172a", borderRadius: 14, padding: 18, border: "1px solid #1e293b" }}>
+          <div style={{ fontSize: 10, color: "#475569", textTransform: "uppercase", letterSpacing: 1.5, fontWeight: 700, marginBottom: 14 }}>Live Telemetry</div>
+
+          <div style={tRow}>
+            <span style={{ color: "#94a3b8" }}>Velocity</span>
+            <span style={{ ...tVal, color: "#22d3ee" }}>{tele.v.toFixed(2)} m/s</span>
+          </div>
+          <div style={bar}><div style={{ height: "100%", borderRadius: 2, background: "#22d3ee", width: `${Math.min(Math.abs(tele.v) * 4, 100)}%`, transition: "width .1s" }} /></div>
+
+          <div style={tRow}>
+            <span style={{ color: "#94a3b8" }}>Acceleration</span>
+            <span style={{ ...tVal, color: "#f59e0b" }}>{tele.a.toFixed(2)} m/s²</span>
+          </div>
+          <div style={bar}><div style={{ height: "100%", borderRadius: 2, background: "#f59e0b", width: `${Math.min(Math.abs(tele.a) * 8, 100)}%`, transition: "width .1s" }} /></div>
+
+          <div style={tRow}>
+            <span style={{ color: "#94a3b8" }}>Net Force</span>
+            <span style={{ ...tVal, color: "#a78bfa" }}>{tele.netF.toFixed(1)} N</span>
+          </div>
+          <div style={bar}><div style={{ height: "100%", borderRadius: 2, background: "#a78bfa", width: `${Math.min(Math.abs(tele.netF) * 1.2, 100)}%`, transition: "width .1s" }} /></div>
+
+          <div style={tRow}>
+            <span style={{ color: "#94a3b8" }}>Kinetic Energy</span>
+            <span style={{ ...tVal, color: "#10b981" }}>{tele.ke.toFixed(1)} J</span>
+          </div>
+
+          <div style={{ marginTop: 10, paddingTop: 10, borderTop: "1px solid #1e293b", fontSize: 11, color: "#334155" }}>
+            F = ma · μ = {config.frictionCoefficient} · g = 9.8 m/s²
+          </div>
+        </div>
+
+        {/* Sliders panel */}
+        <div style={{ background: "#0f172a", borderRadius: 14, padding: 18, border: "1px solid #1e293b" }}>
+          <div style={{ fontSize: 10, color: "#475569", textTransform: "uppercase", letterSpacing: 1.5, fontWeight: 700, marginBottom: 14 }}>Controls</div>
+
+          {config.allowUserForceChange !== false && (
+            <>
+              <div style={slRow}>
+                <div style={slLbl}>
+                  <span style={{ color: "#ef4444" }}>← Push Left</span>
+                  <span style={{ color: "#ef4444", fontFamily: "monospace" }}>{forceLeft} N</span>
+                </div>
+                <input type="range" min={0} max={200} value={forceLeft} onChange={(e) => setForceLeft(Number(e.target.value))} style={{ width: "100%", accentColor: "#ef4444" }} />
+              </div>
+
+              <div style={slRow}>
+                <div style={slLbl}>
+                  <span style={{ color: "#10b981" }}>Push Right →</span>
+                  <span style={{ color: "#10b981", fontFamily: "monospace" }}>{forceRight} N</span>
+                </div>
+                <input type="range" min={0} max={200} value={forceRight} onChange={(e) => setForceRight(Number(e.target.value))} style={{ width: "100%", accentColor: "#10b981" }} />
+              </div>
+            </>
+          )}
+
+          {config.allowUserMassChange !== false && (
+            <div style={slRow}>
+              <div style={slLbl}>
+                <span style={{ color: "#818cf8" }}>Mass</span>
+                <span style={{ color: "#818cf8", fontFamily: "monospace" }}>{mass} kg</span>
+              </div>
+              <input type="range" min={1} max={100} value={mass} onChange={(e) => setMass(Number(e.target.value))} style={{ width: "100%", accentColor: "#818cf8" }} />
+            </div>
+          )}
+
+          {/* Play/Pause + Reset buttons */}
+          <div style={{ display: "flex", gap: 10, marginTop: 8 }}>
+            <button
+              onClick={() => setIsPlaying(!isPlaying)}
+              style={{ flex: 1, padding: "11px 0", borderRadius: 10, fontWeight: 800, fontSize: 13, border: "none", cursor: "pointer", background: isPlaying ? "rgba(239,68,68,0.15)" : "#10b981", color: isPlaying ? "#ef4444" : "#0f172a", boxShadow: isPlaying ? "none" : "0 0 18px rgba(16,185,129,0.35)", transition: "all .15s" }}
             >
-              <span className="text-white font-bold text-2xl">{mass} kg</span>
-              
-              {/* Force Vectors */}
-              {forceRight > 0 && (
-                <div className="absolute top-1/2 -right-4 translate-x-full -translate-y-1/2 flex items-center">
-                  <div className="h-2 bg-emerald-500" style={{ width: `${Math.min(forceRight, 150)}px` }}></div>
-                  <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-emerald-500 border-b-[8px] border-b-transparent"></div>
-                  <span className="ml-2 text-emerald-400 font-mono font-bold whitespace-nowrap">{forceRight} N</span>
-                </div>
-              )}
-              {forceLeft > 0 && (
-                <div className="absolute top-1/2 -left-4 -translate-x-full -translate-y-1/2 flex items-center flex-row-reverse">
-                  <div className="h-2 bg-rose-500" style={{ width: `${Math.min(forceLeft, 150)}px` }}></div>
-                  <div className="w-0 h-0 border-t-[8px] border-t-transparent border-r-[12px] border-r-rose-500 border-b-[8px] border-b-transparent"></div>
-                  <span className="mr-2 text-rose-400 font-mono font-bold whitespace-nowrap">{forceLeft} N</span>
-                </div>
-              )}
-            </motion.div>
+              {isPlaying ? "⏸ PAUSE" : "▶ RUN"}
+            </button>
+            <button
+              onClick={handleReset}
+              style={{ padding: "11px 20px", borderRadius: 10, fontWeight: 700, fontSize: 13, border: "1px solid #334155", cursor: "pointer", background: "#1e293b", color: "#94a3b8", transition: "all .15s" }}
+            >
+              ↺ RESET
+            </button>
           </div>
         </div>
-
-        {/* Dashboard */}
-        <div className="col-span-1 bg-slate-900 rounded-xl p-4 border border-slate-800 flex flex-col gap-4">
-          <div className="text-xs uppercase tracking-wider text-slate-500 font-bold mb-2">Telemetry</div>
-          
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span className="text-slate-400">Velocity</span>
-              <span className="text-cyan-400 font-mono">{displayState.v.toFixed(2)} m/s</span>
-            </div>
-            <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-              <div className="bg-cyan-500 h-full transition-all" style={{ width: `${Math.min(Math.abs(displayState.v) * 2, 100)}%` }}></div>
-            </div>
-          </div>
-
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span className="text-slate-400">Acceleration</span>
-              <span className="text-amber-400 font-mono">{displayState.a.toFixed(2)} m/s²</span>
-            </div>
-            <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-              <div className="bg-amber-500 h-full transition-all" style={{ width: `${Math.min(Math.abs(displayState.a) * 5, 100)}%` }}></div>
-            </div>
-          </div>
-
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span className="text-slate-400">Net Force</span>
-              <span className="text-purple-400 font-mono">{(forceRight - forceLeft).toFixed(1)} N</span>
-            </div>
-          </div>
-
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span className="text-slate-400">Friction Coeff</span>
-              <span className="text-slate-300 font-mono">μ = {config.frictionCoefficient}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Controls */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 bg-slate-900/50 p-6 rounded-xl border border-slate-800">
-        {config.allowUserForceChange !== false && (
-          <>
-            <div>
-              <label className="block text-rose-400 text-sm font-bold mb-3 flex justify-between">
-                <span>Push Left (N)</span>
-                <span>{forceLeft}</span>
-              </label>
-              <input type="range" min="0" max="200" value={forceLeft} onChange={(e) => setForceLeft(Number(e.target.value))} className="w-full accent-rose-500" />
-            </div>
-            <div>
-              <label className="block text-emerald-400 text-sm font-bold mb-3 flex justify-between">
-                <span>Push Right (N)</span>
-                <span>{forceRight}</span>
-              </label>
-              <input type="range" min="0" max="200" value={forceRight} onChange={(e) => setForceRight(Number(e.target.value))} className="w-full accent-emerald-500" />
-            </div>
-          </>
-        )}
-        
-        {config.allowUserMassChange !== false && (
-          <div>
-            <label className="block text-indigo-400 text-sm font-bold mb-3 flex justify-between">
-              <span>Mass (kg)</span>
-              <span>{mass}</span>
-            </label>
-            <input type="range" min="1" max="100" value={mass} onChange={(e) => setMass(Number(e.target.value))} className="w-full accent-indigo-500" />
-          </div>
-        )}
-      </div>
-
-      <div className="flex justify-center gap-4">
-        <button onClick={() => setIsPlaying(!isPlaying)} className={`px-8 py-3 rounded-xl font-bold transition-all ${isPlaying ? 'bg-rose-500/20 text-rose-500 border border-rose-500/50 hover:bg-rose-500/30' : 'bg-emerald-500 text-slate-900 hover:bg-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.3)]'}`}>
-          {isPlaying ? "PAUSE SIMULATION" : "RUN SIMULATION"}
-        </button>
-        <button onClick={handleReset} className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl transition-colors font-semibold">
-          RESET
-        </button>
       </div>
     </div>
   );
