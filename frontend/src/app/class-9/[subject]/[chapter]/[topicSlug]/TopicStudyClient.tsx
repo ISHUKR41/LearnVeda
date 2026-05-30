@@ -188,13 +188,23 @@ export default function TopicStudyClient({
             selectedOptions: Object.keys(nextSelected).length ? nextSelected : { [questionId]: selectedOpt || "" },
           });
 
-          progressApi
-            .updateChapterProgress(chapterData.id, { completed: isCompleted, score: newScore, answers: answersPayload })
-            .then((res) => {
-              if (res.data?.ok) {
-                const d = res.data.data;
-                if (d.leveledUp) toast.success(`🎉 Level Up! You are now Level ${d.newLevel}!`);
-                else toast.success(`+${d.xpEarned} XP earned!`);
+          fetch(`/api/progress/chapters/${chapterData.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              completed: isCompleted,
+              score: newScore,
+              answers: answersPayload,
+              correctCount: next.size,
+            }),
+          })
+            .then((r) => r.json())
+            .then((data) => {
+              if (data.ok) {
+                const d = data.data;
+                if (d?.leveledUp) toast.success(`🎉 Level Up! You are now Level ${d.newLevel}!`);
+                else if (d?.xpEarned) toast.success(`+${d.xpEarned} XP earned!`);
               }
             })
             .catch(console.error);
@@ -213,9 +223,12 @@ export default function TopicStudyClient({
             selectedOptions: Object.keys(nextSelected).length ? nextSelected : { [questionId]: selectedOpt || "" },
           });
 
-          progressApi
-            .updateChapterProgress(chapterData.id, { completed: false, score: newScore, answers: answersPayload })
-            .catch(console.error);
+          fetch(`/api/progress/chapters/${chapterData.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ completed: false, score: newScore, answers: answersPayload, correctCount: prev.size }),
+          }).catch(console.error);
 
           return prev;
         });

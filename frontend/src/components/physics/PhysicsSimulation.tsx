@@ -12,6 +12,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import dynamic from "next/dynamic";
 import styles from "./PhysicsSimulation.module.css";
 import {
   CarSafetySimulation,
@@ -20,6 +21,28 @@ import {
   RecoilSimulation,
   BallisticPendulumSimulation,
 } from "./BonusSimulations";
+
+/* ─── Lazy-load the 15-sim advanced packs per topic ─── */
+const AdvancedTopic1Sims = dynamic(
+  () => import("./AdvancedSim1").then((m) => m.AdvancedTopic1Sims),
+  { ssr: false }
+);
+const AdvancedTopic2Sims = dynamic(
+  () => import("./AdvancedSim2").then((m) => m.AdvancedTopic2Sims),
+  { ssr: false }
+);
+const AdvancedTopic3Sims = dynamic(
+  () => import("./AdvancedSim3").then((m) => m.AdvancedTopic3Sims),
+  { ssr: false }
+);
+const AdvancedTopic4Sims = dynamic(
+  () => import("./AdvancedSim4").then((m) => m.AdvancedTopic4Sims),
+  { ssr: false }
+);
+const AdvancedTopic5Sims = dynamic(
+  () => import("./AdvancedSim5").then((m) => m.AdvancedTopic5Sims),
+  { ssr: false }
+);
 
 /* ───────────────────────────────────────────────────────
  * Helper: custom tab button row used by every simulation
@@ -3851,6 +3874,27 @@ export default function TopicSimulation({ topicId }: TopicSimulationProps) {
       return null;
   }
 
+  /* Which advanced sim pack to render for this topic */
+  let advancedSims: React.ReactNode = null;
+  switch (topicId) {
+    case "balanced-unbalanced-forces":
+      advancedSims = <AdvancedTopic1Sims />;
+      break;
+    case "first-law-of-motion-inertia":
+    case "first-law-of-motion":
+      advancedSims = <AdvancedTopic2Sims />;
+      break;
+    case "second-law-of-motion":
+      advancedSims = <AdvancedTopic3Sims />;
+      break;
+    case "third-law-of-motion":
+      advancedSims = <AdvancedTopic4Sims />;
+      break;
+    case "conservation-of-momentum":
+      advancedSims = <AdvancedTopic5Sims />;
+      break;
+  }
+
   return (
     <div>
       {coreSim}
@@ -3898,6 +3942,9 @@ export default function TopicSimulation({ topicId }: TopicSimulationProps) {
           </div>
         )}
       </div>
+
+      {/* Advanced simulations pack (15 sims per topic) */}
+      {advancedSims}
     </div>
   );
 }

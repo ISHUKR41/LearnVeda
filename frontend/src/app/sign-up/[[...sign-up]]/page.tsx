@@ -1,98 +1,57 @@
-"use client";
+/**
+ * FILE: page.tsx
+ * LOCATION: src/app/sign-up/[[...sign-up]]/page.tsx
+ * PURPOSE: Registration page using Clerk's hosted SignUp component.
+ * DEPENDENCIES: @clerk/nextjs, SignUp.module.css
+ */
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { SignUp } from "@clerk/nextjs";
 import styles from "../SignUp.module.css";
 
+export const metadata = {
+  title: "Create Account – EduQuest",
+  description: "Join EduQuest free and start your gamified learning journey today.",
+};
+
 export default function SignUpPage() {
-  const router = useRouter();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-
-    try {
-      const res = await fetch("/api/auth/sign-up", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data?.error?.message || "Could not create account. Please try again.");
-        return;
-      }
-
-      router.push("/dashboard");
-      router.refresh();
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
-        <div style={{ textAlign: "center", padding: "2rem 0" }}>
-          <h1 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: "0.5rem" }}>
-            Join EduQuest
-          </h1>
-          <p style={{ color: "var(--color-text-secondary)", marginBottom: "2rem" }}>
-            Create your free account and start learning today
-          </p>
-          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: 360, margin: "0 auto" }}>
-            <input
-              type="text"
-              placeholder="Full name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              style={{ padding: "0.75rem 1rem", borderRadius: "8px", border: "1px solid var(--color-border)", background: "var(--color-bg-card)", color: "inherit", fontSize: "1rem" }}
-            />
-            <input
-              type="email"
-              placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              style={{ padding: "0.75rem 1rem", borderRadius: "8px", border: "1px solid var(--color-border)", background: "var(--color-bg-card)", color: "inherit", fontSize: "1rem" }}
-            />
-            <input
-              type="password"
-              placeholder="Password (min 8 chars)"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={8}
-              style={{ padding: "0.75rem 1rem", borderRadius: "8px", border: "1px solid var(--color-border)", background: "var(--color-bg-card)", color: "inherit", fontSize: "1rem" }}
-            />
-            {error && (
-              <p style={{ color: "#ef4444", fontSize: "0.875rem", margin: 0 }}>{error}</p>
-            )}
-            <button
-              type="submit"
-              disabled={loading}
-              style={{ padding: "0.75rem 1rem", borderRadius: "8px", background: "var(--color-primary)", color: "#fff", fontWeight: 600, fontSize: "1rem", border: "none", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1 }}
-            >
-              {loading ? "Creating account..." : "Create Account"}
-            </button>
-          </form>
-          <p style={{ marginTop: "1.5rem", color: "var(--color-text-secondary)" }}>
-            Already have an account?{" "}
-            <a href="/sign-in" style={{ color: "var(--color-primary)", fontWeight: 600 }}>
-              Sign in
-            </a>
-          </p>
+        {/* Left branding panel */}
+        <div className={styles.panel}>
+          <div className={styles.panelBadge}>⚡ Start Free</div>
+          <div className={styles.panelBody}>
+            <h2 className={styles.panelHeading}>
+              Join 50,000+ Students on EduQuest
+            </h2>
+            <p className={styles.panelSubtext}>
+              Create your free account in seconds. Get access to CBSE Class 9–12
+              study plans, live battle quizzes, and a global leaderboard.
+            </p>
+            <ul className={styles.featureList}>
+              <li>✓ Day-wise structured study plans</li>
+              <li>✓ Real-time quiz battles</li>
+              <li>✓ XP, streaks &amp; achievements</li>
+              <li>✓ 1200+ practice questions</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Clerk sign-up widget */}
+        <div className={styles.formPanel}>
+          <SignUp
+            appearance={{
+              elements: {
+                rootBox: { width: "100%" },
+                card: {
+                  background: "transparent",
+                  boxShadow: "none",
+                  border: "none",
+                  padding: 0,
+                },
+              },
+            }}
+          />
         </div>
       </div>
     </div>

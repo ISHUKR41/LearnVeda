@@ -22,6 +22,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import dynamic from "next/dynamic";
 import { useUIStore } from "@/store/uiStore";
+import { ClerkProvider } from "@clerk/nextjs";
 
 /*
  * Dynamically import the LevelUpModal so it is only loaded when needed.
@@ -144,6 +145,8 @@ export default function Providers({ children }: ProvidersProps) {
   const [queryClient] = useState(() => getQueryClient());
 
   return (
+    /* ClerkProvider enables <SignIn />, <SignUp />, useUser(), etc. */
+    <ClerkProvider>
     <QueryClientProvider client={queryClient}>
       {/* Restore the saved theme preference on first mount */}
       <ThemeInitializer />
@@ -186,5 +189,6 @@ export default function Providers({ children }: ProvidersProps) {
         }}
       />
     </QueryClientProvider>
+    </ClerkProvider>
   );
 }
