@@ -17,7 +17,24 @@ export const thirdLawOfMotion: Topic = {
 
   /* A rocket launch — the ultimate Third Law machine:
    * gases pushed DOWN (action) → rocket goes UP (reaction) */
-  imageUrl: "/images/topics/force/third-law.png",
+  imageUrl: "/images/topics/force/third-law-hero.png",
+  simulationIds: [
+    "action-reaction-push",
+    "recoil-gun",
+    "rocket-launch",
+    "swimmer-wall",
+    "walking-friction",
+    "ice-skater",
+    "bird-flight",
+    "boat-jump",
+    "balloon-air",
+    "firehose",
+    "hammer-nail",
+    "car-tires",
+    "spring-push",
+    "magnet-repel",
+    "cannon-fire"
+  ],
 
   content: `
 ### The Most Mind-Bending Law in Physics
@@ -38,7 +55,7 @@ More precisely:
 
 > **"Whenever object A exerts a force on object B, object B simultaneously exerts an equal and opposite force on object A."**
 
-![Rocket Launch — Newton Third Law Thrust](https://images.unsplash.com/photo-1517976547714-720226b864c1?w=800&q=80)
+![Rocket Launch — Newton Third Law Thrust](/images/topics/force/third-law-hero.png)
 
 In mathematics, using vector notation (double backslash for correct rendering):
 
@@ -110,7 +127,7 @@ No air needed! This is why rockets work in the vacuum of space where there's not
 
 Both bullet and gun experience equal and opposite forces. But since the gun is hundreds of times heavier than the bullet (F = ma → a = F/m), the gun's acceleration is much smaller. Still, without a firm grip or shoulder rest, the recoil can cause injury.
 
-![Action and Reaction — Equal and Opposite Forces](https://images.unsplash.com/photo-1563089145-599997674d42?w=800&q=80)
+![Action and Reaction — Equal and Opposite Forces](/images/topics/force/action-reaction-swimming.png)
 
 #### Example 5: Rowing a Boat
 

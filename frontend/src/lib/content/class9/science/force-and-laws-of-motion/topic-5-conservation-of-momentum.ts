@@ -12,7 +12,24 @@ export const conservationOfMomentum: Topic = {
   id: "conservation-of-momentum",
   title: "5. Law of Conservation of Momentum",
   estimatedMinutes: 45,
-  imageUrl: "/images/topics/force/conservation-momentum.png",
+  imageUrl: "/images/topics/force/momentum-hero.png",
+  simulationIds: [
+    "momentum-heavy",
+    "momentum-fast",
+    "momentum-collision",
+    "momentum-stop",
+    "momentum-bullet",
+    "momentum-train",
+    "momentum-change",
+    "momentum-braking",
+    "momentum-zero",
+    "momentum-asteroid",
+    "momentum-pingpong",
+    "momentum-impulse1",
+    "momentum-impulse2",
+    "momentum-reverse",
+    "momentum-constant"
+  ],
 
   content: `
 ### The Most Universal Law in Physics
@@ -46,7 +63,7 @@ $$p_{\\text{total}} = p_1 + p_2 + p_3 + \\ldots = m_1 v_1 + m_2 v_2 + m_3 v_3 + 
 
 ### Stating the Law of Conservation of Momentum
 
-![Billiard balls — a perfect demonstration of momentum conservation](https://images.unsplash.com/photo-1520095972714-909e91b038e5?auto=format&fit=crop&w=900&q=80)
+![Billiard balls — a perfect demonstration of momentum conservation](/images/topics/force/momentum-hero.png)
 
 > **"In the absence of any external unbalanced force, the total momentum of a system of objects remains constant (conserved) before and after any interaction."**
 
@@ -58,7 +75,7 @@ This equation says: **total momentum before = total momentum after**. The intera
 
 **Critical condition:** The law holds only when **no external unbalanced force** acts on the system. Internal forces between objects (like collision forces) always come in equal-opposite Third Law pairs, so they cancel in the total — they cannot change the total momentum.
 
-![Billiard Balls — Conservation of Momentum in Collisions](https://images.unsplash.com/photo-1530028828-25e6512edb5a?w=800&q=80)
+![Billiard Balls — Conservation of Momentum in Collisions](/images/topics/force/momentum-collision-types.png)
 
 ---
 
@@ -132,7 +149,7 @@ When a bomb explodes, the total momentum before = 0 (stationary). After, the fra
 $$0 = m_{\\text{bullet}} \\times v_{\\text{bullet}} + m_{\\text{gun}} \\times v_{\\text{gun}}$$
 $$\\Rightarrow v_{\\text{gun}} = -\\frac{m_{\\text{bullet}} \\times v_{\\text{bullet}}}{m_{\\text{gun}}}$$
 
-![Fireworks Explosion — Momentum Conservation](https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=800&q=80)
+![Fireworks Explosion — Momentum Conservation](/images/topics/force/gun-recoil-momentum.png)
 
 #### Application 2: Rocket Propulsion
 

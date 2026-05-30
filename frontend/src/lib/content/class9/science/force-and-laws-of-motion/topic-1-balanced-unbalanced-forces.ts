@@ -14,7 +14,24 @@ export const balancedUnbalancedForces: Topic = {
   id: "balanced-unbalanced-forces",
   title: "1. Introduction to Force: Balanced & Unbalanced Forces",
   estimatedMinutes: 55,
-  imageUrl: "/images/topics/force/balanced-unbalanced-forces.png",
+  imageUrl: "/images/topics/force/balanced-forces-hero.png",
+  simulationIds: [
+    "balanced-ice",
+    "unbalanced-ice",
+    "balanced-wood",
+    "unbalanced-wood",
+    "balanced-space",
+    "unbalanced-space",
+    "heavy-balanced",
+    "heavy-unbalanced",
+    "light-balanced",
+    "light-unbalanced",
+    "tug-of-war-tie",
+    "tug-of-war-win",
+    "extreme-balanced",
+    "extreme-unbalanced",
+    "micro-forces"
+  ],
 
   content: `
 ### What is Force? — Starting from Absolute Zero
@@ -62,7 +79,7 @@ To give you a feel:
 
 ### Five Major Effects of Force
 
-![Tug of War — balanced vs unbalanced forces in action](https://images.unsplash.com/photo-1555597673-b21d5c935865?auto=format&fit=crop&w=900&q=80)
+![Balanced and Unbalanced Forces — Force arrows on objects](/images/topics/force/balanced-forces-hero.png)
 
 Force doesn't just move things — it can do five distinctly different things:
 
@@ -102,7 +119,7 @@ Not all forces require physical touching! Scientists classify forces into two ma
 | **Contact Force** | Requires physical touch between objects | Push, Pull, Friction, Normal Force, Tension, Air Resistance, Spring Force |
 | **Non-Contact Force** | Acts over a distance without touching | Gravity, Magnetism, Electrostatic Force |
 
-![Contact vs Non-Contact Forces](https://images.unsplash.com/photo-1532094349884-543559371b1a?w=800&q=80)
+![Contact Forces vs Non-Contact Forces — Push, Pull, Friction vs Gravity, Magnetism](/images/topics/force/contact-noncontact-forces.png)
 
 
 **Deep Example — Magnetism:** A magnet can pull iron filings toward itself without touching them — that is a non-contact force. But when you physically push the filings with your finger, that is a contact force. The magnet and the iron filings interact through an invisible **magnetic field**.
@@ -128,7 +145,7 @@ Imagine a perfectly matched Tug-of-War. Team A pulls the rope left with **100 N*
 
 This is a classic example of **Balanced Forces**. When two or more forces acting on an object result in a **net (total) force of zero**, those forces are balanced.
 
-![Balanced vs Unbalanced Forces — Tug of War](https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80)
+![Balanced vs Unbalanced Forces — Tug of War](/images/topics/force/free-body-diagram.png)
 
 
 $$\\vec{F}_{net} = \\vec{F}_1 + \\vec{F}_2 + ... = 0$$

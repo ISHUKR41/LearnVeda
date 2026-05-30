@@ -26,7 +26,24 @@ export const secondLawOfMotion: Topic = {
    * A rocket mid-launch perfectly illustrates F = ma:
    * massive thrust force → enormous acceleration despite huge mass.
    */
-  imageUrl: "/images/topics/force/second-law-fma.png",
+  imageUrl: "/images/topics/force/second-law-hero.png",
+  simulationIds: [
+    "fma-standard",
+    "fma-double-mass",
+    "fma-double-force",
+    "fma-friction",
+    "fma-heavy-friction",
+    "fma-micro",
+    "fma-macro",
+    "fma-opposing",
+    "fma-braking",
+    "fma-rocket",
+    "fma-asteroid",
+    "fma-bullet",
+    "fma-tug",
+    "fma-equilibrium",
+    "fma-breakaway"
+  ],
 
   content: `
 ### The Missing Piece: HOW MUCH Does Force Change Motion?
@@ -132,7 +149,7 @@ This is one of the most famous equations in human history. In three symbols, it 
 
 ---
 
-![Newton Second Law — Force equals Mass times Acceleration](https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80)
+![Newton Second Law — Force equals Mass times Acceleration](/images/topics/force/second-law-hero.png)
 
 ### Step 4: Understanding F = ma — Deep Intuition
 
@@ -152,7 +169,7 @@ $$m_1 : m_2 = a_2 : a_1 \\quad (\\text{when } F \\text{ is constant})$$
 
 #### The Three-Way Relationship
 
-![Rocket launch — F = ma in spectacular action](https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=900&q=80)
+![Rocket launch — F = ma in spectacular action](/images/topics/force/second-law-hero.png)
 
 $$a = \\frac{F}{m}$$
 
@@ -186,7 +203,7 @@ From F = ma: if mass = 1 kg and acceleration = 1 m/s², then force = **1 Newton*
 
 ---
 
-![Cricket Ball — Impulse and Momentum](https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=80)
+![Cricket Ball — Impulse and Momentum](/images/topics/force/fma-mass-comparison.png)
 
 ### Step 6: Impulse — Force × Time = Change in Momentum
 

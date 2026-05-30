@@ -700,6 +700,39 @@
   background: rgba(239, 68, 68, 0.15) !important;
 }
 
+/* Non-MCQ Text Area */
+.textAreaWrapper {
+  margin-bottom: 16px;
+}
+
+.answerTextArea {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--color-text-primary, #e2e8f0);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 100px;
+  transition: all 0.2s ease;
+}
+
+.answerTextArea:focus {
+  outline: none;
+  border-color: rgba(99, 102, 241, 0.5);
+  background: rgba(15, 23, 42, 0.8);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+.answerTextArea:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: rgba(15, 23, 42, 0.3);
+}
+
 /* ═══════════════════════════════════════════
  * 6. ANSWER REVEAL
  * ═══════════════════════════════════════════ */

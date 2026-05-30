@@ -70,7 +70,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
+import { auth } from "@clerk/nextjs/server";
+
 export default async function Class9ChapterPage({ params }: PageProps) {
+  const { userId, redirectToSignIn } = await auth();
+  if (!userId) return redirectToSignIn();
+
   const resolvedParams = await params;
   const { subject, chapter } = resolvedParams;
   const backUrl = `/class-9/${subject}`;

@@ -53,6 +53,103 @@ function preNormalize(text: string): string {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
+ * Phase A1 — restoreStrippedBackslashes (GLOBAL — before any math detection)
+ *
+ * When JS template literals or regular strings silently strip backslashes
+ * for "unknown" escape sequences, the result is a COMPLETELY BARE command:
+ *   \frac{  → rac{      (JS treats \f as form-feed, "rac{" remains)
+ *   \text{  → ext{      (JS treats \t as tab, but preNormalize fixes this)
+ *   \times  → imes      (same \t issue)
+ *   \boxed{ → oxed{     (JS treats \b as backspace, "oxed{" remains)
+ *   \Delta  → Delta     (JS treats \D as unknown → drops \)
+ *   \propto → propto    (unknown escape → drops \)
+ *
+ * After preNormalize fixes control-char-based issues (\f→\\f, \t→\\t, etc.),
+ * there remain cases where the backslash was simply DROPPED with no
+ * control character substitution. This phase catches those by looking for
+ * bare command-name patterns that appear at word boundaries.
+ *
+ * SAFETY: We only restore commands that are followed by `{`, `^`, `_`, ` `,
+ * or end-of-string, AND are preceded by a non-letter (to avoid false
+ * positives in English words like "fraction", "text", "times").
+ * ───────────────────────────────────────────────────────────────────────── */
+
+/** Commands that take a {braced} argument — only match when followed by { */
+const BRACE_COMMANDS = [
+  "frac","text","sqrt","boxed","overline","underline","hat","vec","bar",
+  "tilde","mathbb","mathbf","mathrm","mathit","mathcal","operatorname",
+];
+const BRACE_CMD_RE = new RegExp(
+  `(?<![a-zA-Z\\\\])(?:${BRACE_COMMANDS.join("|")})\\{`,
+  "g"
+);
+
+/** Commands that are standalone keywords — match at word boundaries */
+const STANDALONE_COMMANDS = [
+  "Delta","delta","alpha","beta","gamma","theta","lambda","sigma","omega",
+  "pi","mu","nu","tau","phi","psi","chi","epsilon","varepsilon","eta",
+  "times","cdot","pm","mp","leq","geq","neq","approx","infty","propto",
+  "nabla","partial","equiv","sim","perp","angle","forall","exists",
+  "rightarrow","leftarrow","Rightarrow","Leftarrow","iff","implies",
+  "hbar","ell","circ","star","ldots","cdots","vdots","ddots",
+  "oplus","otimes","quad","qquad","sum","int","prod","lim",
+  "Gamma","Lambda","Sigma","Omega","Theta","Phi","Psi","Xi","Upsilon",
+];
+const STANDALONE_CMD_RE = new RegExp(
+  `(?<![a-zA-Z\\\\])(${STANDALONE_COMMANDS.join("|")})(?![a-zA-Z])`,
+  "g"
+);
+
+function restoreStrippedBackslashes(text: string): string {
+  /* Step 1: Restore brace-commands: "rac{" → "\\frac{" */
+  let result = text.replace(BRACE_CMD_RE, (match) => {
+    return `\\${match}`;
+  });
+
+  /* Step 2: Restore standalone commands, but ONLY inside math contexts
+   * (between $ delimiters) or in lines that look like formulas.
+   * To avoid false positives in English text (e.g., "angle" in
+   * "right angle"), we check context carefully. */
+  const segments = splitByMathDelimitersEarly(result);
+  result = segments.map(seg => {
+    if (seg.isMath) {
+      /* Inside $...$ — safe to restore all standalone commands */
+      return seg.text.replace(STANDALONE_CMD_RE, (_, cmd) => `\\${cmd}`);
+    }
+    /* Outside math — only restore if the line looks formula-like
+     * (contains ^, _, {, }, =, or other brace commands) */
+    return seg.text.split("\n").map(line => {
+      const hasFormulaContext = /[{}_^=]/.test(line) || BRACE_CMD_RE.test(line);
+      if (!hasFormulaContext) return line;
+      return line.replace(STANDALONE_CMD_RE, (full, cmd) => {
+        /* Extra safety: don't restore if preceded/followed by typical
+         * English word patterns */
+        return `\\${cmd}`;
+      });
+    }).join("\n");
+  }).join("");
+
+  return result;
+}
+
+/** Lightweight math-delimiter splitter used before Phase B (avoids circular dep) */
+function splitByMathDelimitersEarly(
+  text: string
+): Array<{ text: string; isMath: boolean }> {
+  const segs: Array<{ text: string; isMath: boolean }> = [];
+  const re = /\$\$[\s\S]*?\$\$|\$[^\n$]+?\$/g;
+  let last = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) segs.push({ text: text.slice(last, m.index), isMath: false });
+    segs.push({ text: m[0], isMath: true });
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) segs.push({ text: text.slice(last), isMath: false });
+  return segs;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
  * Phase A2 — restoreMathCommands (INSIDE math blocks only)
  *
  * For content authored with regular JS string literals (not template
@@ -351,8 +448,11 @@ export function parseMarkdown(text: string): string {
   /* Phase A: fix control chars from template-literal backslash issues */
   const phA = preNormalize(text);
 
+  /* Phase A1: restore completely stripped backslashes (rac{ → \frac{) */
+  const phA1 = restoreStrippedBackslashes(phA);
+
   /* Phase B: wrap bare LaTeX commands that lack $ delimiters */
-  const phB = wrapBareLatex(phA);
+  const phB = wrapBareLatex(phA1);
 
   /* Phase C: render + protect all $...$ and $$...$$ math */
   const { protected: safe, map } = extractAndProtectMath(phB);

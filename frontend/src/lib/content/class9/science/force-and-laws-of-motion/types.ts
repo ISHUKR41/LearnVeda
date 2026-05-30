@@ -35,6 +35,8 @@ export interface Topic {
   estimatedMinutes?: number;
   /** Cover image URL for this topic */
   imageUrl?: string;
+  /** Optional simulation IDs attached to this topic */
+  simulationIds?: string[];
 }
 
 /** A complete chapter with all its topics */

@@ -572,8 +572,8 @@ function DiffusionSim({ running, speed }: { running: boolean; speed: number }) {
       ctx.strokeStyle = "#30363d"; ctx.lineWidth = 1.5; ctx.stroke();
 
       /* Concentration indicator (left = red, right = blue) */
-      let redLeft = S.redGas.filter(p => p.x < W/2).length;
-      let blueRight = S.blueGas.filter(p => p.x > W/2).length;
+      const redLeft = S.redGas.filter(p => p.x < W/2).length;
+      const blueRight = S.blueGas.filter(p => p.x > W/2).length;
 
       /* Gradient background to show concentration */
       const redConc = redLeft / S.redGas.length;

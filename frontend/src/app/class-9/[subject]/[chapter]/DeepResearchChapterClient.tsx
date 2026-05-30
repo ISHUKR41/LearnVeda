@@ -28,6 +28,7 @@ import { parseMarkdown } from "@/lib/utils/parseMarkdown";
 import { progressApi } from "@/lib/api/api";
 import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
+import SimulationRenderer from "@/components/simulations/SimulationRegistry";
 
 /* Chapter-aware simulation components — loaded lazily per chapter */
 const PhysicsSimulation = dynamic(() => import("@/components/physics/PhysicsSimulation"), { ssr: false, loading: () => <div style={{ height: 40 }} /> });
@@ -113,6 +114,18 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
     });
     return stats;
   }, [chapterData.topics, answeredQuestions, correctAnswers]);
+
+  /* Save text answer without grading it immediately */
+  const handleSaveTextAnswer = useCallback(
+    (questionId: string, text: string) => {
+      setSelectedOptionsMap((prev) => {
+        const next = { ...prev, [questionId]: text };
+        localStorage.setItem(`selected_opts_${chapterData.id}`, JSON.stringify(next));
+        return next;
+      });
+    },
+    [chapterData.id]
+  );
 
   /* Save progress to DB and award XP on correct answer */
   const handleQuestionAnswered = useCallback(
@@ -341,6 +354,13 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
                 dangerouslySetInnerHTML={{ __html: parseMarkdown(activeTopic.content) }}
               />
 
+              {/* ── Interactive Simulations ── */}
+              {activeTopic.simulationIds && activeTopic.simulationIds.length > 0 && (
+                <div className={styles.simulationsSection}>
+                  <SimulationRenderer simulationIds={activeTopic.simulationIds} />
+                </div>
+              )}
+
               {/* ── Divider ── */}
               <div className={styles.sectionDivider}>
                 <span className={styles.dividerLine} />
@@ -364,15 +384,16 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
               {/* ── Questions ── */}
               <div className={styles.questionsContainer}>
                 {activeTopic.questions.map((q, idx) => (
-                  <QuestionItem
-                    key={q.id}
-                    question={q}
-                    index={idx + 1}
-                    isAnswered={answeredQuestions.has(q.id)}
-                    isCorrect={correctAnswers.has(q.id)}
-                    selectedOption={selectedOptionsMap[q.id] || null}
-                    onAnswer={handleQuestionAnswered}
-                  />
+                    <QuestionItem
+                      key={q.id}
+                      index={idx + 1}
+                      question={q}
+                      isAnswered={answeredQuestions.has(q.id)}
+                      isCorrect={correctAnswers.has(q.id)}
+                      selectedOption={selectedOptionsMap[q.id] || null}
+                      onAnswer={handleQuestionAnswered}
+                      onTextSave={handleSaveTextAnswer}
+                    />
                 ))}
               </div>
 
@@ -427,11 +448,13 @@ interface QuestionItemProps {
   isCorrect: boolean;
   selectedOption: string | null;
   onAnswer: (questionId: string, isCorrect: boolean, selectedOpt?: string) => void;
+  onTextSave: (questionId: string, text: string) => void;
 }
 
-function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: initialSelected, onAnswer }: QuestionItemProps) {
+function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: initialSelected, onAnswer, onTextSave }: QuestionItemProps) {
   const [showAnswer, setShowAnswer] = useState(isAnswered);
-  const [selectedOption, setSelectedOption] = useState<string | null>(initialSelected || null);
+  const [selectedOption, setSelectedOption] = useState<string | null>(question.type === "mcq" ? (initialSelected || null) : null);
+  const [typedAnswer, setTypedAnswer] = useState<string>(question.type !== "mcq" ? (initialSelected || "") : "");
   const config = QUESTION_CONFIG[question.type];
 
   useEffect(() => {
@@ -439,13 +462,21 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
       setShowAnswer(true);
     }
     if (initialSelected) {
-      setSelectedOption(initialSelected);
+      if (question.type === "mcq") {
+        setSelectedOption(initialSelected);
+      } else {
+        setTypedAnswer(initialSelected);
+      }
     }
-  }, [isAnswered, initialSelected]);
+  }, [isAnswered, initialSelected, question.type]);
 
   const handleOptionSelect = (option: string) => {
     if (isAnswered) return;
     setSelectedOption(option);
+  };
+
+  const handleTextBlur = () => {
+    onTextSave(question.id, typedAnswer);
   };
 
   const handleRevealAnswer = () => {
@@ -454,7 +485,7 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
       if (question.type === "mcq") {
         onAnswer(question.id, selectedOption === question.correctAnswer, selectedOption || undefined);
       } else {
-        onAnswer(question.id, true);
+        onAnswer(question.id, true, typedAnswer || undefined);
       }
     } else {
       setShowAnswer(false);
@@ -514,6 +545,21 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
             );
           })}
         </ul>
+      )}
+
+      {/* Non-MCQ Text Area */}
+      {question.type !== "mcq" && (
+        <div className={styles.textAreaWrapper}>
+          <textarea
+            className={styles.answerTextArea}
+            placeholder="Type your answer here to save your progress..."
+            value={typedAnswer}
+            onChange={(e) => setTypedAnswer(e.target.value)}
+            onBlur={handleTextBlur}
+            disabled={isAnswered && showAnswer}
+            rows={4}
+          />
+        </div>
       )}
 
       <button

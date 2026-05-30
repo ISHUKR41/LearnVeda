@@ -13,7 +13,24 @@ export const firstLawOfMotionInertia: Topic = {
   id: "first-law-of-motion-inertia",
   title: "2. Newton's First Law of Motion: The Law of Inertia",
   estimatedMinutes: 35,
-  imageUrl: "/images/topics/force/first-law-inertia.png",
+  imageUrl: "/images/topics/force/inertia-hero.png",
+  simulationIds: [
+    "inertia-rest",
+    "inertia-motion-space",
+    "inertia-heavy",
+    "inertia-light",
+    "friction-stop",
+    "ice-slide",
+    "sudden-push",
+    "sudden-pull",
+    "space-push",
+    "space-coast",
+    "train-start",
+    "train-stop",
+    "coin-flick",
+    "book-slide",
+    "hovercraft"
+  ],
 
   content: `
 ### The Discovery That Changed Everything
@@ -46,7 +63,7 @@ Let us break this down into two separate but equally important statements:
 
 ### Understanding Inertia — The "Laziness" of Matter
 
-![Voyager spacecraft — Newton's First Law in deep space](https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=900&q=80)
+![Voyager spacecraft — Newton's First Law in deep space](/images/topics/force/inertia-hero.png)
 
 Newton's First Law is fundamentally about **Inertia**. The word comes from the Latin *iners*, meaning "idle" or "lazy."
 
@@ -82,7 +99,7 @@ The tendency of a body to **remain at rest** and resist being set into motion.
 
 **Classic Demonstration:** Pull a tablecloth out from under plates and glasses with a very quick jerk. If done fast enough, the dishes barely move! Their inertia of rest keeps them in place while the tablecloth slides under them.
 
-![Inertia of Rest — Coins on a Card](https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80)
+![Inertia of Rest — Coins on a Card](/images/topics/force/coin-inertia-experiment.png)
 
 
 **Another Example:** When a bus at a bus stop suddenly starts moving, passengers standing inside lurch backward. Their feet move with the bus (friction from the floor), but their upper bodies have inertia of rest — they resist the forward acceleration and appear to fall backward.
@@ -109,7 +126,7 @@ The tendency of a body to **continue moving in the same straight-line direction*
 
 When a car crashes into a wall, the car stops almost instantly (an enormous braking force). But your body — due to its inertia of motion — continues moving forward at the original car speed. If there's no seatbelt, your body slams into the steering wheel or windshield with tremendous force. The seatbelt provides the necessary backward force to decelerate your body along with the car.
 
-![Seatbelt Safety — Inertia of Motion](https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80)
+![Seatbelt Safety — Inertia of Motion](/images/topics/force/inertia-hero.png)
 
 
 #### Karate Board Breaking
@@ -940,6 +957,157 @@ For Class 9, always assume you're in an inertial frame (ground level, not rotati
         "**Evaluating the claim:**\nThe physicist is largely correct, and this is actually a deep insight into the foundations of Newtonian mechanics.\n\n**Newton's First Law as a definition of inertial frames:**\nThe First Law states: in the absence of external forces, objects move at constant velocity. But this is only observationally true in certain reference frames — inertial frames. The First Law implicitly DEFINES inertial frames as those frames where this law holds. So the law and the definition are circular in a sense.\n\n**Example:** In an accelerating car (non-inertial frame), a ball on the seat slides backward even though no visible horizontal force acts on it. The First Law 'fails.' But this isn't really a failure — it's a signal that the car is a non-inertial frame.\n\n**What physics looks like in a non-inertial frame:**\nTo apply Newton's Laws in accelerating frames, physicists introduce 'fictitious forces' (pseudo-forces):\n- **In an accelerating car:** A backward pseudo-force ma acts on all objects (makes things slide backward)\n- **On a rotating Earth:** The Coriolis force deflects moving objects sideways (causes hurricanes to rotate!)\n- **On a spinning space station:** Centrifugal pseudo-force creates artificial gravity\n\nThese forces are NOT real — they don't have reaction partners (Newton's Third Law) and disappear when you switch to an inertial frame. But mathematically, adding pseudo-forces makes Newton's equations work in any frame.\n\n**Conclusion:** The First Law DOES double as a definition of inertial frames, but it also DOES contain physical content: the observation that such frames exist, that they're not arbitrarily rare, and that they're related by constant-velocity transformations (Galilean relativity). Without this physical observation, there would be no reason to expect inertial frames to exist at all.",
       explanation:
         "This is a genuinely advanced topic in the philosophy of physics. The circularity of Newton's First Law — it simultaneously is a law and defines the frames where it applies — was recognized by philosophers like Mach, and ultimately led Einstein to general relativity, where gravity itself is understood as curved spacetime, not a force.",
+    },
+
+    /* ══════════════════════════════════════════
+     *  EXTRA MCQ QUESTIONS (t2q61–t2q70)
+     * ══════════════════════════════════════════ */
+    {
+      id: "t2q61",
+      type: "mcq",
+      points: 10,
+      question:
+        "A stack of 10 coins is placed on a table. If you quickly flick the bottom coin with your finger, the remaining 9 coins stay in place. This is because of:",
+      options: [
+        "Friction between coins",
+        "Inertia of rest",
+        "Gravity acting on the coins",
+        "Air resistance on the coins",
+      ],
+      correctAnswer: "Inertia of rest",
+      explanation:
+        "The remaining 9 coins tend to remain at rest due to inertia of rest. The force applied by the flick acts for such a short time that it cannot overcome the inertia of the entire stack. Only the bottom coin receives the direct force and flies out. Friction alone would make all coins slide together, and gravity only pulls them down, not sideways. Air resistance is negligible for heavy coins.",
+    },
+    {
+      id: "t2q62",
+      type: "mcq",
+      points: 10,
+      question:
+        "A horse suddenly starts galloping. The rider sitting on the horse falls backward. This happens because:",
+      options: [
+        "The horse pushes the rider backward",
+        "The upper body of the rider tends to remain at rest (inertia of rest)",
+        "Gravity suddenly increases on the rider",
+        "The rider's weight increases",
+      ],
+      correctAnswer:
+        "The upper body of the rider tends to remain at rest (inertia of rest)",
+      explanation:
+        "When the horse starts suddenly, the lower body of the rider (in contact with the horse) moves forward with the horse, but the upper body tends to remain at rest due to inertia. This causes the rider to fall backward. The horse does not push the rider backward — it's the rider's own inertia resisting the sudden forward motion. This is a classic demonstration of inertia of rest.",
+    },
+    {
+      id: "t2q63",
+      type: "mcq",
+      points: 10,
+      question:
+        "A ball is thrown vertically upward inside a moving train. If the train moves at constant velocity, the ball will:",
+      options: [
+        "Fall behind the person who threw it",
+        "Fall in front of the person who threw it",
+        "Come back to the person's hand",
+        "Hit the ceiling and stay there",
+      ],
+      correctAnswer: "Come back to the person's hand",
+      explanation:
+        "Since the train moves at constant velocity (inertial frame), the ball shares the horizontal velocity of the train (and the person) due to inertia. The ball moves up and down relative to the person, but horizontally it moves with the same velocity as the train. So it returns to the thrower's hand. This is Galilean relativity in action — physics works the same in all inertial frames. If the train were accelerating, the ball would not return to the hand!",
+    },
+    {
+      id: "t2q64",
+      type: "mcq",
+      points: 10,
+      question:
+        "Dust particles are removed from a carpet when it is beaten with a stick because:",
+      options: [
+        "The stick pushes the dust out",
+        "The carpet moves forward suddenly but dust stays behind due to inertia of rest",
+        "Air pressure pushes the dust out",
+        "Static electricity releases the dust",
+      ],
+      correctAnswer:
+        "The carpet moves forward suddenly but dust stays behind due to inertia of rest",
+      explanation:
+        "When you beat a carpet with a stick, the carpet fibers move suddenly in the direction of the hit. But the dust particles sitting on the carpet tend to stay at rest (inertia of rest). The relative motion between the carpet and dust dislodges the particles. The stick never touches the dust directly. This is the same principle as the coin-card experiment!",
+    },
+    {
+      id: "t2q65",
+      type: "mcq",
+      points: 10,
+      question:
+        "Newton's First Law is also called the Law of Inertia because:",
+      options: [
+        "It defines the concept of inertia",
+        "It was the first law Newton discovered",
+        "It only applies to heavy objects",
+        "It involves the use of force",
+      ],
+      correctAnswer: "It defines the concept of inertia",
+      explanation:
+        "Newton's First Law describes the natural tendency of objects to resist changes in their state of motion — which IS the definition of inertia. The law states that objects at rest stay at rest and objects in motion stay in motion (at constant velocity) unless acted upon by an unbalanced external force. This 'resistance to change' is exactly what inertia means. It applies to ALL objects regardless of mass, though heavier objects have MORE inertia.",
+    },
+    {
+      id: "t2q66",
+      type: "short",
+      points: 15,
+      question:
+        "A person standing on a bus stumbles forward when the bus suddenly stops. Explain this phenomenon using Newton's First Law.",
+      correctAnswer:
+        "When the bus is moving, the person's body is also moving with the same velocity as the bus (both share the same state of motion).\n\nWhen the bus stops suddenly (brakes applied):\n- The lower body (feet) stops with the bus because of friction between shoes and bus floor.\n- The upper body continues to move forward due to inertia of motion — it was moving and tends to keep moving.\n\nThis causes the person to stumble forward.\n\n**Newton's First Law states:** An object in motion continues to move with the same velocity unless acted upon by an external unbalanced force.\n\nThe upper body had no unbalanced backward force acting on it (unlike the feet which had friction), so it continued moving forward.\n\n**Safety connection:** This is exactly why we wear seatbelts. The seatbelt provides the backward force needed to decelerate the upper body along with the car during sudden braking.",
+      explanation:
+        "This is one of the most common and important examples of inertia of motion in everyday life. The key insight is that different parts of the body experience different forces during sudden deceleration.",
+    },
+    {
+      id: "t2q67",
+      type: "short",
+      points: 15,
+      question:
+        "Why does a fast bowler in cricket take a long run-up before bowling? Explain using the concept of inertia.",
+      correctAnswer:
+        "A fast bowler takes a long run-up to build up their body's momentum and inertia of motion before releasing the ball.\n\nDuring the run-up:\n- The bowler's entire body (including the bowling arm and the ball) gains forward velocity.\n- When the bowler reaches the crease and delivers the ball, the ball already has the forward velocity of the bowler's approach.\n- The bowling action adds the arm's rotational velocity ON TOP of the run-up velocity.\n\nDue to inertia of motion, the ball tends to maintain its forward velocity even after leaving the bowler's hand. The result is a much faster delivery than bowling from a standing position.\n\n**Formula connection:** v_ball = v_run-up + v_arm_rotation\n\nThis is why fast bowlers can bowl at 140+ km/h — they combine their body's inertia with the arm's action.",
+      explanation:
+        "Inertia of motion helps explain why a moving run-up adds speed to the ball. The ball retains the velocity it had before release (from the run-up) plus gains additional velocity from the bowling arm action.",
+    },
+    {
+      id: "t2q68",
+      type: "short",
+      points: 15,
+      question:
+        "A magician pulls a tablecloth from under dishes without disturbing them. Which property of matter makes this possible? What conditions must be met for success?",
+      correctAnswer:
+        "This is possible because of **inertia of rest**. The dishes on the tablecloth tend to remain at rest due to their inertia.\n\n**Conditions for success:**\n1. **Speed:** The tablecloth must be pulled VERY quickly — the force acts for such a short time that the dishes cannot overcome their inertia.\n2. **Smooth cloth:** The tablecloth should be smooth (low friction) so that the frictional force between cloth and dishes is minimal.\n3. **Heavy dishes:** Heavier objects have more inertia, so they resist motion better.\n4. **No wrinkles:** The cloth must be pulled straight without catching on dish edges.\n5. **Flat pull:** Pull horizontally, not at an angle (an upward component would lift the dishes).\n\nIf pulled slowly, friction would have time to accelerate the dishes and pull them along. Speed is the critical factor.",
+      explanation:
+        "The tablecloth trick works because inertia of rest combined with very short interaction time means the frictional impulse is too small to significantly accelerate the heavy dishes.",
+    },
+    {
+      id: "t2q69",
+      type: "mcq",
+      points: 10,
+      question:
+        "An object continues to move with constant velocity in the absence of any external force. This is a statement of:",
+      options: [
+        "Newton's Third Law",
+        "Newton's Second Law",
+        "Newton's First Law",
+        "Law of Conservation of Energy",
+      ],
+      correctAnswer: "Newton's First Law",
+      explanation:
+        "Newton's First Law (Law of Inertia) states that an object at rest stays at rest, and an object in motion continues to move with the same velocity (constant speed in a straight line), unless acted upon by an unbalanced external force. The key phrase 'continues to move with constant velocity in the absence of force' is the definition of the First Law. The Second Law deals with what happens when a force IS applied (F = ma). The Third Law deals with action-reaction pairs.",
+    },
+    {
+      id: "t2q70",
+      type: "mcq",
+      points: 10,
+      question:
+        "Which of the following has the MOST inertia?",
+      options: [
+        "A feather",
+        "A cricket ball",
+        "A car",
+        "A loaded truck",
+      ],
+      correctAnswer: "A loaded truck",
+      explanation:
+        "Inertia is directly proportional to mass. The more massive an object, the greater its inertia (resistance to change in state of motion). Among the given options, a loaded truck has the maximum mass (several tonnes), so it has the MOST inertia. It requires the largest force to start, stop, or change its direction. A feather has the least inertia because it has the smallest mass. This is why a loaded truck takes much longer to stop than a cricket ball moving at the same speed.",
     },
   ],
 };

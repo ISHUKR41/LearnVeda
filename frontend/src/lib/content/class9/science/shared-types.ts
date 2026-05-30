@@ -60,6 +60,8 @@ export interface Topic {
   estimatedMinutes?: number;
   /** Cover image URL (Unsplash) shown in focused-study mode */
   imageUrl?: string;
+  /** Array of simulation component IDs to render alongside this topic */
+  simulationIds?: string[];
 }
 
 /**

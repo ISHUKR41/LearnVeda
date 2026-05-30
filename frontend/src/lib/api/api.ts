@@ -263,6 +263,20 @@ export const progressApi = {
   getUserProgress: () => api.get("/progress"),
   updateChapterProgress: (chapterId: string, data: { completed?: boolean; score?: number; answers?: string; timeSpent?: number }) =>
     api.put(`/progress/chapters/${chapterId}`, data),
+  
+  /** Save an individual question answer for tracking */
+  saveAnswer: (data: {
+    chapterId: string;
+    topicId: string;
+    questionId: string;
+    userAnswer: string;
+    isCorrect: boolean;
+    timeSpent?: number;
+  }) => api.post("/progress/answers", data),
+
+  /** Get progress for a specific topic (questions answered, score, etc.) */
+  getTopicProgress: (chapterId: string, topicId: string) =>
+    api.get(`/progress/chapters/${chapterId}/topics/${topicId}`),
 };
 
 /** Battle API */

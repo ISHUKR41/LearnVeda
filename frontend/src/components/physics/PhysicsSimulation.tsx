@@ -2347,7 +2347,7 @@ export function ActionReactionSimulation() {
     };
     animRef.current = requestAnimationFrame(animate);
     return () => { if (animRef.current) cancelAnimationFrame(animRef.current); };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [launched, thrust]);
 
   /* ── Simulation 2: Skateboard Push ── */
