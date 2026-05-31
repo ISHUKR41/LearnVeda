@@ -1,0 +1,254 @@
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_YWNjdXJhdGUtc2VydmFsLTYyLmNsZXJrLmFjY291bnRzLmRldiQ
+CLERK_SECRET_KEY=sk_test_dp3FP5E2lVw4ViEm0fjCI3ykCP00AbAwj87KnxBuc7
+
+pk_test_YWNjdXJhdGUtc2VydmFsLTYyLmNsZXJrLmFjY291bnRzLmRldiQ
+
+https://api.clerk.com
+
+https://accurate-serval-62.clerk.accounts.dev
+
+https://accurate-serval-62.clerk.accounts.dev/.well-known/jwks.json
+
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxcKY2jSEB3CcvHGNW3/C
+7CxC2Zxj3FuZUBZdGA5d9kCP5yC3hAbv+xd+Cl8TI7zbNNU47fQlDR8L9L3No9q6
+R4eHEQI5R6SO1+U0+knqYWUi+HSd7K4aQeD/1iklYSUCh5dqnArsP9w8N4QHiT4B
+4uYDAonY8+F/SL1PJb1h+rz95ahWhYAgCWNsbBO8thbgnW//WtUPBO5tLDI9Atdv
+SrIsaofYKKScwXii2xaP6VpJZ93L3O8fVpUieVh70SCACWsHUipwzFw6vENJcIwB
+c8JpW5+wivs20s8dFv62EYzeSwOqkpFYTUBl2kBvuwUXMRSkAsv49dXDrngaAUPE
+AQIDAQAB
+-----END PUBLIC KEY-----
+
+mujhe clerk auth hee chaiye mera website par aacha se work bhe kar raha hai bus mai tumko share nhi kar sakte hu to mera se clerk key mat hee magnana
+
+and class 9th ke force & laws of motion mai approx 25 se 30 simulations add karo and professional simullations hona chiaye jitna jada professional simulations ho sake
+
+and mujhe haar ek topic and subtopic ke liye 25 se 30 simulations chiaye fully professional and animated and with proper logic and mind jitna jada deepthinking and deeplogic ka use kar sako pls and
+
+mera website par sab working hai to mai tumko jitna bol raha hu sirf usi par work karna pls
+
+sab cheez fully logic and dimag and bhout jada soch samaj kar karna sab cheez pls
+
+and dashboard bhe working nhi hai agar koi questions sahi karta hu to dashboard mai score to update hona hee chiaye and dashboard mai jitna bhe functions hai mujhe fully working mai chiaye pls
+
+and bhout sare simualations work nhi kar rahe hai and work kar bhe rahe to aacha se work nhi kar rahe hai isliye isko aacah se soch samaj kar pura logic and mind and deepthinking and aacha se research karke karo bhai and add more simulations pls
+
+and pls impove karte jao pls sab cheez ko and dashboard mai jitna bhe funcitons hai sab mujhe fully professional way mai working mai chiaye and tumko jitna bhe technlogies ka use karna hai karo pls
+
+and bhout sare simulation proper work nhi kar rahe hai to usko pls pura logic and mind and dimag laga kar karna pls
+
+and pls impove karte jao pls sab cheez ko and dashboard mai jitna bhe funcitons hai sab mujhe fully professional way mai working mai chiaye and tumko jitna bhe technlogies ka use karna hai karo pls
+
+and clerk auth is not working so fix it and debug it
+
+and baar baar jab mai signin ye phir signup kar raha hu to bhout hee jada probelm ho raha hai baar baar kabhi dashboard par jaa raha hai akbhi signin wale page par kabhi signup wale page par and ye loop chalte jaa raha hai baar baar baar pls isko bhe sahi kar dena bhai
+
+and contact page or bhe jada fully professional and modern banao jitna jada professional ho sakte hai sab cheez professional hee hona chiaiye
+
+and jab mai koi chapter bhe open kar raha hu to dashboard par q redirect kar de raha hai pls sab cheez ko sach samaj kar karo yaar pura logic and mind and dimag ka use karke pls it is a request bro
+
+koi na koi new probelm aa hee jaaa raha hai haar baar
+
+and jab mai signout bhe kar de raha hu to bhe dashboard open ho raha hai autmotically ye sab cheez ho raha hai yaar
+
+tumko jitna libraies and technlogies ka use karna hai kar loo
+
+
+
+
+
+
+
+
+
+
+
+dashboard update bhe hona chiaye dashboard mai jitne bhe funcitons hai sabhi mujhe fully working mai chiaye haar ek cheez and haar ek user ke liye iske liye tum fully logic and mind ka use karna and sab cheez fully professional hona chiaye okay
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mujhe or bhe jada simualations add karke doo mujhe haar ek topic ke liye or bhe jada simulations add karke doo jitna jada tum add kar sakte hoo and fully professional and working hona chiaye and animated bhe and tumko iske liye jitna bhe libraies and tools ka need ho sab install kar lena pls and sare ke sare simulations mujhe fully professional and working mai chiaye abhi bhe bhout sare simulations jo hai wo working mai nhi hai and work bhe kar rahe hai to aacha se work nhi kar rahe hai but mujhe to fully working mai and professional mai chiaye jo phela se hai usko or jada improve karo and or bhe simulations add karo pls 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. APIs & Backend Logic
+   - Node.js
+   - Express.js
+   - REST API
+   - GraphQL
+   - WebSockets
+   - Microservices
+
+3. Database & Storage
+   - MySQL
+   - PostgreSQL
+   - MongoDB
+   - Redis
+   - Firebase Storage
+   - AWS S3
+
+4. Auth & Permissions
+   - JWT Authentication
+   - OAuth 2.0
+   - Google Login
+   - GitHub Login
+   - Role-Based Access Control (RBAC)
+   - Session Management
+
+5. Hosting & Deployment
+   - GitHub
+   - Vercel
+   - Netlify
+   - Docker
+   - Nginx
+   - Linux Server
+
+6. Cloud & Compute
+   - AWS
+   - Google Cloud Platform (GCP)
+   - Microsoft Azure
+   - Kubernetes
+   - Serverless Functions
+
+7. CI/CD & Version Control
+   - Git
+   - GitHub
+   - GitLab
+   - GitHub Actions
+   - Jenkins
+   - CI/CD Pipelines
+
+8. Security & RLS
+   - HTTPS
+   - SSL/TLS
+   - CORS
+   - SQL Injection Prevention
+   - XSS Prevention
+   - CSRF Protection
+   - Row Level Security (RLS)
+
+9. Rate Limiting
+   - API Rate Limiting
+   - Request Throttling
+   - API Gateway
+   - DDoS Protection
+
+10. Caching & CDN
+    - Redis
+    - Cloudflare
+    - CDN
+    - Browser Caching
+    - Server-Side Caching
+
+11. Load Balancing & Scaling
+    - Nginx Load Balancer
+    - HAProxy
+    - Horizontal Scaling
+    - Vertical Scaling
+    - Kubernetes Scaling
+
+12. Error Tracking & Logs
+    - Winston
+    - Morgan
+    - Sentry
+    - Grafana
+    - Prometheus
+    - ELK Stack (Elasticsearch, Logstash, Kibana)
+
+PRODUCTION FULL-STACK DEVELOPER =
+
+Frontend
++ Backend
++ Database
++ Authentication
++ Deployment
++ Cloud
++ CI/CD
++ Security
++ Rate Limiting
++ Caching
++ Scaling
++ Monitoring
+
+
+
+
+
+
+
+Website Mera Thoda Sa bhi lag nahin karna chahie Thoda Sa bhi legging nahin hona chahie mere website mein and jitna jyada simulation add kar sakte ho karo fulli professional hona chahie sab chij and animated and animation ke sath and real world ke example ke sath add karo and jo pahle se Hain usko aur jyada improve karo and kuchh bhi delete Mat Karna jitna bhi simulation hai aur jyada add karo 
+
+
+
+
+
+And dashboard mein jitne bhi function hai mujhe sab ki fulli working mein chahie iske liye Tumko jitne bhi files and folder create karne hain kar lo jitna bhi Tumko library and tools ka need ho sab chij kar lo 
+
+
+
+And haar user ka sab chij अलग-अलग hona chahie 
+
+
+Matlab dashboard jo hai mujhe fully function working mein chahie iske liye tum apna pura logic mind and dimag and deep thinking ka use karo sab chij karo jitna yaar tum kar sakte ho mujhe fully professional and working mein chahie

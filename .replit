@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "web", "postgresql-16"]
+modules = ["nodejs-20", "web"]
 [agent]
 expertMode = true
 stack = "BEST_EFFORT_FALLBACK"
@@ -24,7 +24,7 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd frontend && npx next dev -p 5000 -H 0.0.0.0"
+args = "cd frontend && npm run dev -- -p 5000 -H 0.0.0.0"
 waitForPort = 5000
 
 [[ports]]
@@ -42,6 +42,9 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL = "/sign-up"
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL = "/dashboard"
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL = "/dashboard"
 NEXT_PUBLIC_CLERK_AFTER_SIGN_OUT_URL = "/"
+NODE_ENV = "development"
+PORT = "4000"
+NEXT_PUBLIC_API_URL = ""
 
 [nix]
 channel = "stable-25_05"
