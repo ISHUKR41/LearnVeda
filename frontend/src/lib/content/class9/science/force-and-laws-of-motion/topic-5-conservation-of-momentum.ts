@@ -40,7 +40,10 @@ export const conservationOfMomentum: Topic = {
     "ice-skater-collision",
     "momentum-timeline",
     "recoil-calculator",
-    "momentum-quiz"
+    "momentum-quiz",
+    "car-crash-analysis",
+    "fireworks-explosion",
+    "pool-table"
   ],
 
   content: `

@@ -183,12 +183,40 @@ const Sim_recoil_calculator = dynamic(() => import('./Topic5Extra').then(mod => 
 const Sim_momentum_quiz = dynamic(() => import('./Topic5Extra').then(mod => mod.Sim_momentum_quiz), { ssr: false });
 
 /* ══════════════════════════════════════════════════════════════════
+ * PREMIUM TIER — High-fidelity, animated simulations
+ * ══════════════════════════════════════════════════════════════════ */
+
+/* ── Topic 1 Premium (2) ── */
+const Sim_crane_load_balancer = dynamic(() => import('./Topic1Premium').then(mod => mod.Sim_crane_load_balancer), { ssr: false });
+const Sim_banked_curve = dynamic(() => import('./Topic1Premium').then(mod => mod.Sim_banked_curve), { ssr: false });
+
+/* ── Topic 2 Premium (2) ── */
+const Sim_galileo_ramp = dynamic(() => import('./Topic2Premium').then(mod => mod.Sim_galileo_ramp), { ssr: false });
+const Sim_iss_microgravity = dynamic(() => import('./Topic2Premium').then(mod => mod.Sim_iss_microgravity), { ssr: false });
+
+/* ── Topic 3 Premium (3) ── */
+const Sim_pulley_system = dynamic(() => import('./Topic3Premium').then(mod => mod.Sim_pulley_system), { ssr: false });
+const Sim_elevator_fma = dynamic(() => import('./Topic3Premium').then(mod => mod.Sim_elevator_fma), { ssr: false });
+const Sim_drag_race = dynamic(() => import('./Topic3Premium').then(mod => mod.Sim_drag_race), { ssr: false });
+
+/* ── Topic 4 Premium (4) ── */
+const Sim_skateboard_push = dynamic(() => import('./Topic4Premium').then(mod => mod.Sim_skateboard_push), { ssr: false });
+const Sim_rowing_boat = dynamic(() => import('./Topic4Premium').then(mod => mod.Sim_rowing_boat), { ssr: false });
+const Sim_fire_extinguisher_cart = dynamic(() => import('./Topic4Premium').then(mod => mod.Sim_fire_extinguisher_cart), { ssr: false });
+const Sim_newtons_cradle_advanced = dynamic(() => import('./Topic4Premium').then(mod => mod.Sim_newtons_cradle_advanced), { ssr: false });
+
+/* ── Topic 5 Premium (3) ── */
+const Sim_car_crash_analysis = dynamic(() => import('./Topic5Premium').then(mod => mod.Sim_car_crash_analysis), { ssr: false });
+const Sim_fireworks_explosion = dynamic(() => import('./Topic5Premium').then(mod => mod.Sim_fireworks_explosion), { ssr: false });
+const Sim_pool_table = dynamic(() => import('./Topic5Premium').then(mod => mod.Sim_pool_table), { ssr: false });
+
+/* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
  * ══════════════════════════════════════════════════════════════════ */
 export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
 
-  /* ── Topic 1: Balanced/Unbalanced Forces (15 original + 5 advanced + 8 extra = 28) ── */
+  /* ── Topic 1: Balanced/Unbalanced Forces (15 + 5 + 8 + 2 premium = 30) ── */
   "balanced-ice":          Sim_balanced_ice,
   "unbalanced-ice":        Sim_unbalanced_ice,
   "balanced-wood":         Sim_balanced_wood,
@@ -217,8 +245,10 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "bridge-tension":        Sim_bridge_tension,
   "seesaw-torque":         Sim_seesaw_torque,
   "satellite-orbit":       Sim_satellite_orbit,
+  "crane-load-balancer":   Sim_crane_load_balancer,
+  "banked-curve":          Sim_banked_curve,
 
-  /* ── Topic 2: First Law / Inertia (15 original + 5 advanced + 7 extra = 27) ── */
+  /* ── Topic 2: First Law / Inertia (15 + 5 + 7 + 2 premium = 29 → +1 needed but close) ── */
   "inertia-rest":          Sim_inertia_rest,
   "inertia-motion-space":  Sim_inertia_motion_space,
   "inertia-heavy":         Sim_inertia_heavy,
@@ -246,8 +276,10 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "detailed-coin-flick":   Sim_detailed_coin_flick,
   "friction-removal":      Sim_friction_removal,
   "bus-jerk":              Sim_bus_jerk,
+  "galileo-ramp":          Sim_galileo_ramp,
+  "iss-microgravity":      Sim_iss_microgravity,
 
-  /* ── Topic 3: Second Law F=ma (15 original + 5 advanced + 7 extra = 27) ── */
+  /* ── Topic 3: Second Law F=ma (15 + 5 + 7 + 3 premium = 30) ── */
   "fma-standard":              Sim_fma_standard,
   "fma-double-mass":           Sim_fma_double_mass,
   "fma-double-force":          Sim_fma_double_force,
@@ -275,8 +307,11 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "spring-mass-oscillator":    Sim_spring_mass_oscillator,
   "braking-calc":              Sim_braking_calc,
   "fma-race":                  Sim_fma_race,
+  "pulley-system":             Sim_pulley_system,
+  "elevator-fma":              Sim_elevator_fma,
+  "drag-race":                 Sim_drag_race,
 
-  /* ── Topic 4: Third Law (15 original + 5 advanced + 6 extra = 26) ── */
+  /* ── Topic 4: Third Law (15 + 5 + 6 + 4 premium = 30) ── */
   "action-reaction-push":      Sim_action_reaction_push,
   "recoil-gun":                Sim_recoil_gun,
   "rocket-launch":             Sim_rocket_launch,
@@ -303,8 +338,12 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "spring-release":            Sim_spring_release,
   "horse-cart-resolved":       Sim_horse_cart_resolved,
   "trampoline-bounce":         Sim_trampoline_bounce,
+  "skateboard-push":           Sim_skateboard_push,
+  "rowing-boat":               Sim_rowing_boat,
+  "fire-extinguisher-cart":    Sim_fire_extinguisher_cart,
+  "newtons-cradle-advanced":   Sim_newtons_cradle_advanced,
 
-  /* ── Topic 5: Conservation of Momentum (15 original + 5 advanced + 7 extra = 27) ── */
+  /* ── Topic 5: Conservation of Momentum (15 + 5 + 7 + 3 premium = 30) ── */
   "momentum-heavy":            Sim_momentum_heavy,
   "momentum-fast":             Sim_momentum_fast,
   "momentum-collision":        Sim_momentum_collision,
@@ -332,6 +371,9 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "momentum-timeline":         Sim_momentum_timeline,
   "recoil-calculator":         Sim_recoil_calculator,
   "momentum-quiz":             Sim_momentum_quiz,
+  "car-crash-analysis":        Sim_car_crash_analysis,
+  "fireworks-explosion":       Sim_fireworks_explosion,
+  "pool-table":                Sim_pool_table,
 };
 
 /* ── Renderer component — used by topic pages to render all simulations ── */

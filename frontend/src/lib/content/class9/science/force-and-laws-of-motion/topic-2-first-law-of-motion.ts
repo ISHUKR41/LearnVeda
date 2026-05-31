@@ -41,7 +41,9 @@ export const firstLawOfMotionInertia: Topic = {
     "pendulum-inertia",
     "detailed-coin-flick",
     "friction-removal",
-    "bus-jerk"
+    "bus-jerk",
+    "galileo-ramp",
+    "iss-microgravity"
   ],
 
   content: `

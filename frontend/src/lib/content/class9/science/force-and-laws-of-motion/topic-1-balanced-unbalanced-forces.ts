@@ -43,7 +43,9 @@ export const balancedUnbalancedForces: Topic = {
     "gravity-planets",
     "bridge-tension",
     "seesaw-torque",
-    "satellite-orbit"
+    "satellite-orbit",
+    "crane-load-balancer",
+    "banked-curve"
   ],
 
   content: `

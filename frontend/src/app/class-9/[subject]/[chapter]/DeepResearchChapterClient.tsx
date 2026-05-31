@@ -25,7 +25,6 @@ import Link from "next/link";
 import styles from "./DeepResearchChapter.module.css";
 import type { Chapter, Topic, Question } from "@/lib/content/class9/science/force-and-laws-of-motion";
 import { parseMarkdown } from "@/lib/utils/parseMarkdown";
-import { progressApi } from "@/lib/api/api";
 import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
 import SimulationRenderer from "@/components/simulations/SimulationRegistry";
@@ -127,9 +126,19 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
     [chapterData.id]
   );
 
-  /* Save progress to DB and award XP on correct answer */
+  /* Save progress to DB and award XP on correct answer.
+   * Uses fetch() directly to the Next.js internal API routes so that
+   * XP, Stars, Streak, and Level all get saved to PostgreSQL properly.
+   */
   const handleQuestionAnswered = useCallback(
     (questionId: string, isCorrect: boolean, selectedOpt?: string) => {
+      /* Find the question to determine its type for XP calculation */
+      const question = activeTopic?.questions.find((q) => q.id === questionId);
+      const questionType = question?.type === "thinking" ? "deep-thinking"
+        : question?.type === "short" ? "short-answer"
+        : question?.type === "long" ? "long-answer"
+        : "mcq";
+
       setAnsweredQuestions((prev) => {
         const next = new Set(prev).add(questionId);
         localStorage.setItem(`answered_qs_${chapterData.id}`, JSON.stringify(Array.from(next)));
@@ -144,6 +153,36 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
         });
       }
 
+      /* ── 1. Save individual answer via /api/progress/answers (awards XP + Stars + Streak) ── */
+      fetch("/api/progress/answers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chapterId: chapterData.id,
+          topicId: activeTopicId,
+          questionId,
+          userAnswer: selectedOpt || "",
+          isCorrect,
+          timeSpent: 0,
+          questionType,
+        }),
+      })
+        .then((r) => r.json())
+        .then((res) => {
+          if (res.ok && res.data) {
+            const d = res.data;
+            if (d.isCorrect && d.xpAwarded > 0) {
+              if (d.leveledUp) {
+                toast.success(`🎉 Level Up! You are now Level ${d.newLevel}!`);
+              } else {
+                toast.success(`+${d.xpAwarded} XP · +${d.starsAwarded} ⭐ earned!`);
+              }
+            }
+          }
+        })
+        .catch(console.error);
+
+      /* ── 2. Update chapter-level progress via /api/progress/chapters/[chapterId] ── */
       if (isCorrect) {
         setCorrectAnswers((prev) => {
           const next = new Set(prev).add(questionId);
@@ -152,28 +191,34 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
           const newScore = Math.round((next.size / totalQuestions) * 100);
           const isCompleted = next.size === totalQuestions;
 
-          progressApi
-            .updateChapterProgress(chapterData.id, { completed: isCompleted, score: newScore })
-            .then((res) => {
-              if (res.data?.ok) {
-                const d = res.data.data;
-                if (d.leveledUp) toast.success(`🎉 Level Up! You are now Level ${d.newLevel}!`);
-                else toast.success(`+${d.xpEarned} XP earned!`);
-              }
-            })
-            .catch(console.error);
+          fetch(`/api/progress/chapters/${encodeURIComponent(chapterData.id)}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              score: newScore,
+              completed: isCompleted,
+              correctCount: next.size,
+              answers: JSON.stringify({ answeredQuestions: Array.from(next) }),
+            }),
+          }).catch(console.error);
 
           return next;
         });
       } else {
         const totalQuestions = chapterData.topics.reduce((acc, t) => acc + t.questions.length, 0);
         const newScore = Math.round((correctAnswers.size / totalQuestions) * 100);
-        progressApi
-          .updateChapterProgress(chapterData.id, { completed: false, score: newScore })
-          .catch(console.error);
+        fetch(`/api/progress/chapters/${encodeURIComponent(chapterData.id)}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            score: newScore,
+            completed: false,
+            correctCount: correctAnswers.size,
+          }),
+        }).catch(console.error);
       }
     },
-    [correctAnswers, chapterData]
+    [correctAnswers, chapterData, activeTopicId, activeTopic]
   );
 
   const handleTopicChange = useCallback((topicId: string) => {

@@ -54,7 +54,10 @@ export const secondLawOfMotion: Topic = {
     "sports-fma",
     "spring-mass-oscillator",
     "braking-calc",
-    "fma-race"
+    "fma-race",
+    "pulley-system",
+    "elevator-fma",
+    "drag-race"
   ],
 
   content: `

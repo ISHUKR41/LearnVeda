@@ -44,7 +44,11 @@ export const thirdLawOfMotion: Topic = {
     "swimming-propulsion",
     "spring-release",
     "horse-cart-resolved",
-    "trampoline-bounce"
+    "trampoline-bounce",
+    "skateboard-push",
+    "rowing-boat",
+    "fire-extinguisher-cart",
+    "newtons-cradle-advanced"
   ],
 
   content: `

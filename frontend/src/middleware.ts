@@ -1,33 +1,28 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
-const protectedRoutes = [
-  '/dashboard',
-  '/profile',
-  '/wallet',
-  '/settings',
-  '/notifications',
-]
+/**
+ * Routes that require authentication.
+ * Unauthenticated users hitting these will be redirected to Clerk's sign-in page.
+ */
+const isProtectedRoute = createRouteMatcher([
+  '/dashboard(.*)',
+  '/profile(.*)',
+  '/wallet(.*)',
+  '/settings(.*)',
+  '/notifications(.*)',
+])
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-  const isProtected = protectedRoutes.some((route) => pathname.startsWith(route))
-
-  if (isProtected) {
-    const sessionCookie = request.cookies.get('eduquest_session')
-    if (!sessionCookie) {
-      const signInUrl = new URL('/sign-in', request.url)
-      signInUrl.searchParams.set('redirect_url', pathname)
-      return NextResponse.redirect(signInUrl)
-    }
+export default clerkMiddleware(async (auth, request) => {
+  if (isProtectedRoute(request)) {
+    await auth.protect()
   }
-
-  return NextResponse.next()
-}
+})
 
 export const config = {
   matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
     '/(api|trpc)(.*)',
   ],
 }
