@@ -45,7 +45,14 @@ export const balancedUnbalancedForces: Topic = {
     "seesaw-torque",
     "satellite-orbit",
     "crane-load-balancer",
-    "banked-curve"
+    "banked-curve",
+    "projectile-motion-pro",
+    "inclined-plane-pro",
+    "vector-addition-pro",
+    "circular-motion-pro",
+    "wind-tunnel",
+    "force-table-lab",
+    "centripetal-lab"
   ],
 
   content: `

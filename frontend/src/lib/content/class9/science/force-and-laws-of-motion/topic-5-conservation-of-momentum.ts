@@ -43,7 +43,14 @@ export const conservationOfMomentum: Topic = {
     "momentum-quiz",
     "car-crash-analysis",
     "fireworks-explosion",
-    "pool-table"
+    "pool-table",
+    "newtons-cradle-pro",
+    "simple-pendulum-pro",
+    "spring-oscillator-pro",
+    "billiards-2d",
+    "rocket-fuel-burn",
+    "superball-rebound",
+    "momentum-explosion-2d"
   ],
 
   content: `

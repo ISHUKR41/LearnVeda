@@ -43,7 +43,12 @@ export const firstLawOfMotionInertia: Topic = {
     "friction-removal",
     "bus-jerk",
     "galileo-ramp",
-    "iss-microgravity"
+    "iss-microgravity",
+    "free-fall-drag-pro",
+    "horizontal-throw-pro",
+    "friction-transition",
+    "seatbelt-demo",
+    "galileo-plane"
   ],
 
   content: `

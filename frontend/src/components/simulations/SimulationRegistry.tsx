@@ -218,6 +218,46 @@ const Sim_fireworks_explosion = dynamic(() => import('./Topic5Premium').then(mod
 const Sim_pool_table = dynamic(() => import('./Topic5Premium').then(mod => mod.Sim_pool_table), { ssr: false });
 
 /* ══════════════════════════════════════════════════════════════════
+ * PROFESSIONAL TIER 6 — Deep-physics canvas sims (auto-start, HiDPI)
+ * 15 fully-animated simulations from Topic6Professional.tsx
+ * ══════════════════════════════════════════════════════════════════ */
+const Sim_projectile_motion_pro  = dynamic(() => import('./Topic6Professional').then(m => m.Sim_projectile_motion_pro),  { ssr: false });
+const Sim_simple_pendulum_pro    = dynamic(() => import('./Topic6Professional').then(m => m.Sim_simple_pendulum_pro),    { ssr: false });
+const Sim_spring_oscillator_pro  = dynamic(() => import('./Topic6Professional').then(m => m.Sim_spring_oscillator_pro),  { ssr: false });
+const Sim_free_fall_drag_pro     = dynamic(() => import('./Topic6Professional').then(m => m.Sim_free_fall_drag_pro),     { ssr: false });
+const Sim_atwood_machine_pro     = dynamic(() => import('./Topic6Professional').then(m => m.Sim_atwood_machine_pro),     { ssr: false });
+const Sim_inclined_plane_pro     = dynamic(() => import('./Topic6Professional').then(m => m.Sim_inclined_plane_pro),     { ssr: false });
+const Sim_circular_motion_pro    = dynamic(() => import('./Topic6Professional').then(m => m.Sim_circular_motion_pro),    { ssr: false });
+const Sim_impulse_momentum_pro   = dynamic(() => import('./Topic6Professional').then(m => m.Sim_impulse_momentum_pro),   { ssr: false });
+const Sim_car_braking_pro        = dynamic(() => import('./Topic6Professional').then(m => m.Sim_car_braking_pro),        { ssr: false });
+const Sim_vector_addition_pro    = dynamic(() => import('./Topic6Professional').then(m => m.Sim_vector_addition_pro),    { ssr: false });
+const Sim_explosion_recoil_pro   = dynamic(() => import('./Topic6Professional').then(m => m.Sim_explosion_recoil_pro),   { ssr: false });
+const Sim_friction_transition    = dynamic(() => import('./Topic6Professional').then(m => m.Sim_friction_transition),    { ssr: false });
+const Sim_horizontal_throw_pro   = dynamic(() => import('./Topic6Professional').then(m => m.Sim_horizontal_throw_pro),   { ssr: false });
+const Sim_newtons_cradle_pro     = dynamic(() => import('./Topic6Professional').then(m => m.Sim_newtons_cradle_pro),     { ssr: false });
+const Sim_fma_graph_pro          = dynamic(() => import('./Topic6Professional').then(m => m.Sim_fma_graph_pro),          { ssr: false });
+
+/* ══════════════════════════════════════════════════════════════════
+ * PROFESSIONAL TIER 7 — Ultra-realistic advanced physics sims
+ * 15 more fully-animated simulations from Topic7Professional.tsx
+ * ══════════════════════════════════════════════════════════════════ */
+const Sim_wind_tunnel            = dynamic(() => import('./Topic7Professional').then(m => m.Sim_wind_tunnel),            { ssr: false });
+const Sim_seatbelt_demo          = dynamic(() => import('./Topic7Professional').then(m => m.Sim_seatbelt_demo),          { ssr: false });
+const Sim_galileo_plane          = dynamic(() => import('./Topic7Professional').then(m => m.Sim_galileo_plane),          { ssr: false });
+const Sim_elevator_accel         = dynamic(() => import('./Topic7Professional').then(m => m.Sim_elevator_accel),         { ssr: false });
+const Sim_net_force_lab          = dynamic(() => import('./Topic7Professional').then(m => m.Sim_net_force_lab),          { ssr: false });
+const Sim_stopping_distance_pro  = dynamic(() => import('./Topic7Professional').then(m => m.Sim_stopping_distance_pro),  { ssr: false });
+const Sim_paired_magnets         = dynamic(() => import('./Topic7Professional').then(m => m.Sim_paired_magnets),         { ssr: false });
+const Sim_propeller_thrust       = dynamic(() => import('./Topic7Professional').then(m => m.Sim_propeller_thrust),       { ssr: false });
+const Sim_air_hockey             = dynamic(() => import('./Topic7Professional').then(m => m.Sim_air_hockey),             { ssr: false });
+const Sim_billiards_2d           = dynamic(() => import('./Topic7Professional').then(m => m.Sim_billiards_2d),           { ssr: false });
+const Sim_rocket_fuel_burn       = dynamic(() => import('./Topic7Professional').then(m => m.Sim_rocket_fuel_burn),       { ssr: false });
+const Sim_superball_rebound      = dynamic(() => import('./Topic7Professional').then(m => m.Sim_superball_rebound),      { ssr: false });
+const Sim_force_table_lab        = dynamic(() => import('./Topic7Professional').then(m => m.Sim_force_table_lab),        { ssr: false });
+const Sim_centripetal_lab        = dynamic(() => import('./Topic7Professional').then(m => m.Sim_centripetal_lab),        { ssr: false });
+const Sim_momentum_explosion_2d  = dynamic(() => import('./Topic7Professional').then(m => m.Sim_momentum_explosion_2d),  { ssr: false });
+
+/* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
  * ══════════════════════════════════════════════════════════════════ */
@@ -381,6 +421,40 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "car-crash-analysis":        Sim_car_crash_analysis,
   "fireworks-explosion":       Sim_fireworks_explosion,
   "pool-table":                Sim_pool_table,
+
+  /* ── Topic 6 Professional (15) ── distributed across all 5 topics ── */
+  "projectile-motion-pro":     Sim_projectile_motion_pro,
+  "simple-pendulum-pro":       Sim_simple_pendulum_pro,
+  "spring-oscillator-pro":     Sim_spring_oscillator_pro,
+  "free-fall-drag-pro":        Sim_free_fall_drag_pro,
+  "atwood-machine-pro":        Sim_atwood_machine_pro,
+  "inclined-plane-pro":        Sim_inclined_plane_pro,
+  "circular-motion-pro":       Sim_circular_motion_pro,
+  "impulse-momentum-pro":      Sim_impulse_momentum_pro,
+  "car-braking-pro":           Sim_car_braking_pro,
+  "vector-addition-pro":       Sim_vector_addition_pro,
+  "explosion-recoil-pro":      Sim_explosion_recoil_pro,
+  "friction-transition":       Sim_friction_transition,
+  "horizontal-throw-pro":      Sim_horizontal_throw_pro,
+  "newtons-cradle-pro":        Sim_newtons_cradle_pro,
+  "fma-graph-pro":             Sim_fma_graph_pro,
+
+  /* ── Topic 7 Professional (15) ── even more advanced physics sims ── */
+  "wind-tunnel":               Sim_wind_tunnel,
+  "seatbelt-demo":             Sim_seatbelt_demo,
+  "galileo-plane":             Sim_galileo_plane,
+  "elevator-accel":            Sim_elevator_accel,
+  "net-force-lab":             Sim_net_force_lab,
+  "stopping-distance-pro":     Sim_stopping_distance_pro,
+  "paired-magnets":            Sim_paired_magnets,
+  "propeller-thrust":          Sim_propeller_thrust,
+  "air-hockey":                Sim_air_hockey,
+  "billiards-2d":              Sim_billiards_2d,
+  "rocket-fuel-burn":          Sim_rocket_fuel_burn,
+  "superball-rebound":         Sim_superball_rebound,
+  "force-table-lab":           Sim_force_table_lab,
+  "centripetal-lab":           Sim_centripetal_lab,
+  "momentum-explosion-2d":     Sim_momentum_explosion_2d,
 };
 
 /* ══════════════════════════════════════════════════════════════════════
