@@ -1,10 +1,9 @@
 /**
- * FILE: middleware.ts
- * LOCATION: src/middleware.ts
- * PURPOSE: Clerk authentication middleware for Next.js App Router.
- *          This file MUST be at src/middleware.ts — Next.js only reads middleware
- *          from this exact path. Placing it anywhere else (e.g. proxy.ts) means
- *          NO middleware runs at all, causing all auth issues.
+ * FILE: proxy.ts
+ * LOCATION: src/proxy.ts
+ * PURPOSE: Clerk authentication proxy for Next.js 16 App Router.
+ *          Next.js 16 renamed "middleware.ts" → "proxy.ts".
+ *          This file MUST be at src/proxy.ts for Vercel deployments.
  *
  * WHAT THIS DOES:
  *   1. If a signed-in user hits /sign-in or /sign-up → redirect to /dashboard
@@ -57,7 +56,7 @@ export default clerkMiddleware(async (auth, request) => {
   }
 });
 
-/* ── Matcher: run middleware on all routes except static assets ─────────────── */
+/* ── Matcher: run proxy on all routes except static assets ─────────────────── */
 export const config = {
   matcher: [
     /* Skip Next.js internals and all static files */
