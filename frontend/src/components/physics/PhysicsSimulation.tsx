@@ -44,6 +44,28 @@ const AdvancedTopic5Sims = dynamic(
   { ssr: false }
 );
 
+/* ─── Lazy-load the 9-sim EXTRA packs per topic (new — brings total to ~30 per topic) ─── */
+const AdvancedTopic1ExtraSims = dynamic(
+  () => import("./AdvancedSim1Extra").then((m) => m.AdvancedTopic1ExtraSims),
+  { ssr: false }
+);
+const AdvancedTopic2ExtraSims = dynamic(
+  () => import("./AdvancedSim2Extra").then((m) => m.AdvancedTopic2ExtraSims),
+  { ssr: false }
+);
+const AdvancedTopic3ExtraSims = dynamic(
+  () => import("./AdvancedSim3Extra").then((m) => m.AdvancedTopic3ExtraSims),
+  { ssr: false }
+);
+const AdvancedTopic4ExtraSims = dynamic(
+  () => import("./AdvancedSim4Extra").then((m) => m.AdvancedTopic4ExtraSims),
+  { ssr: false }
+);
+const AdvancedTopic5ExtraSims = dynamic(
+  () => import("./AdvancedSim5Extra").then((m) => m.AdvancedTopic5ExtraSims),
+  { ssr: false }
+);
+
 /* ───────────────────────────────────────────────────────
  * Helper: custom tab button row used by every simulation
  * ─────────────────────────────────────────────────────── */
@@ -3895,6 +3917,27 @@ export default function TopicSimulation({ topicId }: TopicSimulationProps) {
       break;
   }
 
+  /* Which EXTRA sim pack to render (9 additional sims per topic — brings total to ~30) */
+  let extraSims: React.ReactNode = null;
+  switch (topicId) {
+    case "balanced-unbalanced-forces":
+      extraSims = <AdvancedTopic1ExtraSims />;
+      break;
+    case "first-law-of-motion-inertia":
+    case "first-law-of-motion":
+      extraSims = <AdvancedTopic2ExtraSims />;
+      break;
+    case "second-law-of-motion":
+      extraSims = <AdvancedTopic3ExtraSims />;
+      break;
+    case "third-law-of-motion":
+      extraSims = <AdvancedTopic4ExtraSims />;
+      break;
+    case "conservation-of-momentum":
+      extraSims = <AdvancedTopic5ExtraSims />;
+      break;
+  }
+
   return (
     <div>
       {coreSim}
@@ -3945,6 +3988,9 @@ export default function TopicSimulation({ topicId }: TopicSimulationProps) {
 
       {/* Advanced simulations pack (15 sims per topic) */}
       {advancedSims}
+
+      {/* Extra simulations pack (9 more per topic — total ≈ 30 simulations) */}
+      {extraSims}
     </div>
   );
 }

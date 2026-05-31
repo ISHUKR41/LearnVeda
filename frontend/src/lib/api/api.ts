@@ -1,81 +1,48 @@
 /**
  * FILE: api.ts
  * LOCATION: frontend/src/lib/api/api.ts
- * PURPOSE: Central API client for communicating with the EduQuest backend.
- *          Wraps Axios with authentication token management, automatic token
- *          refresh, request/response interceptors, and type-safe helpers.
+ * PURPOSE: Central API client for communicating with EduQuest Next.js API routes.
+ *          Uses relative URLs (/api/*) so it works both locally and in production
+ *          without any environment variable changes.
  *
- * ARCHITECTURE:
- *  - Singleton Axios instance with base URL configuration
- *  - Request interceptor: Attaches JWT access token to every request
- *  - Response interceptor: Handles 401 errors with automatic token refresh
- *  - Token storage: In-memory for access token, localStorage for refresh token
- *    (httpOnly cookie is preferred in production)
+ * IMPORTANT: This file is browser-only. API calls are relative to the Next.js
+ *            app origin (/api/*), which points to the App Router route handlers.
+ *            There is NO separate Express backend needed for these client calls.
  *
  * DEPENDENCIES: axios
- * USED BY: All frontend pages and components that need backend data
- * LAST UPDATED: 2026-05-19
+ * USED BY: All frontend pages/components that call backend data
+ * LAST UPDATED: 2026-05-31
  */
 
 import axios, { AxiosInstance, AxiosError, InternalAxiosRequestConfig } from "axios";
 
 /* ─────────────────────────────────────────────
- * Configuration
+ * Base URL Configuration
+ *
+ * Uses relative /api paths so requests always go to the Next.js API routes
+ * on the same origin. NEXT_PUBLIC_API_URL can override for a separate API server.
  * ───────────────────────────────────────────── */
-
-/**
- * Backend API base URL.
- * - Development: http://localhost:4000/api
- * - Production: Configured via NEXT_PUBLIC_API_URL environment variable
- */
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000/api";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "/api";
 
 /* ─────────────────────────────────────────────
- * Token Storage
- * Access token is kept in memory (not localStorage) for security.
- * If the tab is closed, the user must refresh via the refresh token.
+ * In-memory access token (NOT localStorage — more secure, no XSS leak)
  * ───────────────────────────────────────────── */
 let accessToken: string | null = null;
 
-/**
- * Sets the access token in memory.
- * Called after login, registration, or token refresh.
- */
-export function setAccessToken(token: string | null): void {
-  accessToken = token;
-}
+export function setAccessToken(token: string | null): void  { accessToken = token; }
+export function getAccessToken(): string | null              { return accessToken; }
 
-/**
- * Gets the current access token from memory.
- */
-export function getAccessToken(): string | null {
-  return accessToken;
-}
-
-/**
- * Stores the refresh token in localStorage.
- * NOTE: In production, prefer httpOnly cookies for refresh tokens.
- */
 export function setRefreshToken(token: string | null): void {
   if (typeof window === "undefined") return;
-  if (token) {
-    localStorage.setItem("eduquest_refresh_token", token);
-  } else {
-    localStorage.removeItem("eduquest_refresh_token");
-  }
+  if (token) { localStorage.setItem("eduquest_refresh_token", token); }
+  else        { localStorage.removeItem("eduquest_refresh_token"); }
 }
 
-/**
- * Retrieves the refresh token from localStorage.
- */
 export function getRefreshToken(): string | null {
   if (typeof window === "undefined") return null;
   return localStorage.getItem("eduquest_refresh_token");
 }
 
-/**
- * Clears all authentication tokens. Called on logout.
- */
 export function clearTokens(): void {
   accessToken = null;
   if (typeof window !== "undefined") {
@@ -85,93 +52,63 @@ export function clearTokens(): void {
 }
 
 /* ─────────────────────────────────────────────
- * Axios Instance
+ * Axios Instance — all EduQuest API calls go through this
  * ───────────────────────────────────────────── */
-
-/**
- * Central Axios instance — all API calls go through this.
- * Configured with sensible defaults for the EduQuest backend.
- */
 const api: AxiosInstance = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 15_000,           // 15 second timeout
-  headers: {
-    "Content-Type": "application/json",
-  },
-  withCredentials: true,     // Send cookies in cross-origin requests
+  baseURL:         API_BASE_URL,
+  timeout:         15_000,
+  headers:         { "Content-Type": "application/json" },
+  withCredentials: true,    /* Send cookies (Clerk __session cookie) on every request */
 });
 
 /* ─────────────────────────────────────────────
- * Request Interceptor
- * Automatically attaches the JWT access token to every outgoing request.
+ * Request Interceptor — attach Bearer token if available
  * ───────────────────────────────────────────── */
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
-
-    // Add request ID for tracing
     config.headers["X-Request-ID"] = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 /* ─────────────────────────────────────────────
- * Response Interceptor
- * Handles 401 Unauthorized responses by attempting a token refresh.
- * If the refresh succeeds, the original request is retried.
- * If the refresh fails, the user is redirected to the login page.
+ * Response Interceptor — handle 401 with token refresh (legacy cookie auth)
+ * For Clerk-authenticated users this is a no-op since Clerk handles its own session.
  * ───────────────────────────────────────────── */
 let isRefreshing = false;
-let failedQueue: Array<{
-  resolve: (value: unknown) => void;
-  reject: (error: unknown) => void;
-}> = [];
+let failedQueue: Array<{ resolve: (v: unknown) => void; reject: (e: unknown) => void }> = [];
 
-/**
- * Processes the queue of failed requests after a token refresh.
- * All queued requests are retried with the new access token.
- */
 function processQueue(error: AxiosError | null, token: string | null = null): void {
   failedQueue.forEach(({ resolve, reject }) => {
-    if (error) {
-      reject(error);
-    } else {
-      resolve(token);
-    }
+    if (error) reject(error); else resolve(token);
   });
   failedQueue = [];
 }
 
 api.interceptors.response.use(
-  // Success — pass through
   (response) => response,
-
-  // Error handler
   async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+    const original = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-    // Only attempt refresh for 401 errors (expired access token)
-    if (error.response?.status !== 401 || originalRequest._retry) {
+    if (error.response?.status !== 401 || original._retry) {
       return Promise.reject(error);
     }
 
-    // Prevent multiple simultaneous refresh attempts
     if (isRefreshing) {
       return new Promise((resolve, reject) => {
         failedQueue.push({ resolve, reject });
       }).then((token) => {
-        originalRequest.headers.Authorization = `Bearer ${token}`;
-        return api(originalRequest);
+        original.headers.Authorization = `Bearer ${token}`;
+        return api(original);
       });
     }
 
-    originalRequest._retry = true;
-    isRefreshing = true;
-
+    original._retry = true;
+    isRefreshing    = true;
     const refreshToken = getRefreshToken();
 
     if (!refreshToken) {
@@ -181,237 +118,172 @@ api.interceptors.response.use(
     }
 
     try {
-      const { data } = await axios.post(`${API_BASE_URL}/auth/refresh`, {
-        refreshToken,
-      });
-
-      const newAccessToken = data.data.accessToken;
-      const newRefreshToken = data.data.refreshToken;
-
-      setAccessToken(newAccessToken);
-      setRefreshToken(newRefreshToken);
-
-      processQueue(null, newAccessToken);
-
-      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-      return api(originalRequest);
+      const { data } = await axios.post(`${API_BASE_URL}/auth/refresh`, { refreshToken });
+      setAccessToken(data.data.accessToken);
+      setRefreshToken(data.data.refreshToken);
+      processQueue(null, data.data.accessToken);
+      original.headers.Authorization = `Bearer ${data.data.accessToken}`;
+      return api(original);
     } catch (refreshError) {
       processQueue(refreshError as AxiosError, null);
       clearTokens();
-
-      // Redirect to login if on client side
-      if (typeof window !== "undefined") {
-        window.location.href = "/sign-in?expired=true";
-      }
-
       return Promise.reject(refreshError);
     } finally {
       isRefreshing = false;
     }
-  }
+  },
 );
 
 /* ─────────────────────────────────────────────
- * Type-Safe API Response Types
+ * Type-Safe Response Wrapper
  * ───────────────────────────────────────────── */
-
-/** Standard API response wrapper */
 export interface ApiResponse<T> {
-  ok: boolean;
-  data: T;
-  error?: {
-    code: string;
-    message: string;
-  };
+  ok:     boolean;
+  data:   T;
+  error?: { code: string; message: string };
 }
 
 /* ─────────────────────────────────────────────
- * Convenience Methods
- * Type-safe wrappers around the API client for common operations.
+ * Domain-specific API namespaces
+ * Each method corresponds to one Next.js API route handler.
  * ───────────────────────────────────────────── */
 
-/** Auth API */
 export const authApi = {
-  register: (data: { name: string; email: string; password: string; classLevel?: string }) =>
-    api.post("/auth/register", data),
-
-  login: (data: { email: string; password: string }) =>
-    api.post("/auth/login", data),
-
+  register: (d: { name: string; email: string; password: string; classLevel?: string }) =>
+    api.post("/auth/sign-up", d),
+  login:  (d: { email: string; password: string }) =>
+    api.post("/auth/sign-in", d),
   refresh: (refreshToken: string) =>
     api.post("/auth/refresh", { refreshToken }),
-
-  logout: () => api.post("/auth/logout"),
-
-  me: () => api.get("/auth/me"),
+  logout: () => api.post("/auth/sign-out"),
+  me:     () => api.get("/auth/me"),
 };
 
-/** Content API */
 export const contentApi = {
-  getClasses: () => api.get("/content/classes"),
-  getClass: (slug: string) => api.get(`/content/classes/${slug}`),
-  getSubject: (id: string) => api.get(`/content/subjects/${id}`),
-  getChapter: (id: string) => api.get(`/content/chapters/${id}`),
-  getTopic: (id: string) => api.get(`/content/topics/${id}`),
-  getEngineering: () => api.get("/content/engineering"),
-  getLanguage: (slug: string) => api.get(`/content/engineering/${slug}`),
-  getStats: () => api.get("/content/stats"),
+  getClasses:     ()           => api.get("/classes"),
+  getSubjects:    ()           => api.get("/content/subjects"),
+  getClass:       (slug: string)    => api.get(`/classes?class=${slug}`),
+  getSubject:     (id: string)      => api.get(`/content/subjects?id=${id}`),
+  getChapter:     (id: string)      => api.get(`/subjects/${id}/chapters`),
+  getEngineering: ()           => api.get("/classes?class=engineering"),
+  getLanguage:    (slug: string)    => api.get(`/classes?class=engineering&lang=${slug}`),
+  getStats:       ()           => api.get("/platform-stats"),
 };
 
-/** Progress API */
 export const progressApi = {
+  /**
+   * GET /api/progress — fetches the current user's overall progress across chapters.
+   * The response is used by TopicStudyClient to restore answered questions on mount.
+   */
   getUserProgress: () => api.get("/progress"),
-  updateChapterProgress: (chapterId: string, data: { completed?: boolean; score?: number; answers?: string; timeSpent?: number }) =>
-    api.put(`/progress/chapters/${chapterId}`, data),
-  
-  /** Save an individual question answer for tracking */
+
+  updateChapterProgress: (
+    chapterId: string,
+    data: { completed?: boolean; score?: number; answers?: string; timeSpent?: number },
+  ) => api.put(`/progress/chapters/${chapterId}`, data),
+
   saveAnswer: (data: {
-    chapterId: string;
-    topicId: string;
-    questionId: string;
-    userAnswer: string;
-    isCorrect: boolean;
-    timeSpent?: number;
+    chapterId:    string;
+    topicId:      string;
+    questionId:   string;
+    userAnswer:   string;
+    isCorrect:    boolean;
+    timeSpent?:   number;
+    questionType?: string;
   }) => api.post("/progress/answers", data),
 
-  /** Get progress for a specific topic (questions answered, score, etc.) */
   getTopicProgress: (chapterId: string, topicId: string) =>
     api.get(`/progress/chapters/${chapterId}/topics/${topicId}`),
 };
 
-/** Battle API */
 export const battleApi = {
-  joinQueue: (data: { subjectId: string; mode?: string }) =>
-    api.post("/battle/queue", data),
-  leaveQueue: () => api.delete("/battle/queue"),
-  getMatch: (matchId: string) => api.get(`/battle/matches/${matchId}`),
-  submitAnswer: (matchId: string, data: { questionId: string; answer: string }) =>
-    api.post(`/battle/matches/${matchId}/answer`, data),
+  joinQueue:     (d: { subjectId: string; mode?: string }) => api.post("/battle/matchmaking", d),
+  leaveQueue:    ()                                         => api.delete("/battle/matchmaking"),
+  getMatch:      (matchId: string)                          => api.get(`/battles/${matchId}`),
+  submitAnswer:  (matchId: string, d: { questionId: string; answer: string }) =>
+    api.post(`/battles/${matchId}/answer`, d),
 };
 
-/** Community API */
 export const communityApi = {
-  getPosts: (params?: { category?: string; limit?: number; offset?: number }) =>
+  getPosts:   (params?: { category?: string; limit?: number; offset?: number }) =>
     api.get("/community/posts", { params }),
-  getPost: (postId: string) => api.get(`/community/posts/${postId}`),
-  createPost: (data: { title: string; content: string; categoryId: string }) =>
-    api.post("/community/posts", data),
-  likePost: (postId: string) => api.post(`/community/posts/${postId}/like`),
-  deletePost: (postId: string) => api.delete(`/community/posts/${postId}`),
+  getPost:    (id: string)                               => api.get(`/community/posts/${id}`),
+  createPost: (d: { title: string; content: string; categoryId: string }) =>
+    api.post("/community/posts", d),
+  likePost:   (id: string)                               => api.post(`/community/posts/${id}/like`),
+  deletePost: (id: string)                               => api.delete(`/community/posts/${id}`),
 };
 
-/** Wallet API */
 export const walletApi = {
-  getWallet: () => api.get("/wallet"),
-  getHistory: (params?: { type?: string; limit?: number; offset?: number }) =>
-    api.get("/wallet/history", { params }),
+  getWallet:  ()                                                      => api.get("/wallet"),
+  getHistory: (p?: { type?: string; limit?: number; offset?: number }) =>
+    api.get("/wallet", { params: p }),
 };
 
-/** Events API */
 export const eventsApi = {
-  getEvents: (params?: { status?: string; type?: string; limit?: number; offset?: number }) =>
-    api.get("/events", { params }),
-  getEvent: (id: string) => api.get(`/events/${id}`),
-  register: (eventId: string) => api.post(`/events/${eventId}/register`),
-  cancelRegistration: (eventId: string) => api.delete(`/events/${eventId}/register`),
+  getEvents:           (p?: { status?: string; type?: string; limit?: number; offset?: number }) =>
+    api.get("/events", { params: p }),
+  getEvent:            (id: string)  => api.get(`/events?id=${id}`),
+  register:            (eventId: string) => api.post("/events/register", { eventId }),
+  cancelRegistration:  (eventId: string) => api.delete(`/events/register?eventId=${eventId}`),
 };
 
-/** Leaderboard API */
 export const leaderboardApi = {
-  getGlobal: (params?: { limit?: number; classLevel?: string }) =>
-    api.get("/leaderboard", { params }),
-  getBattle: (params?: { limit?: number }) =>
-    api.get("/leaderboard/battle", { params }),
+  getGlobal: (p?: { limit?: number; classLevel?: string }) =>
+    api.get("/leaderboard", { params: p }),
+  getBattle: (p?: { limit?: number }) =>
+    api.get("/leaderboard", { params: p }),
 };
 
-/** Notifications API */
 export const notificationsApi = {
-  getAll: (params?: { limit?: number; unreadOnly?: boolean }) =>
-    api.get("/notifications", { params }),
-  markRead: (id: string) => api.patch(`/notifications/${id}/read`),
-  markAllRead: () => api.patch("/notifications/read-all"),
+  getAll:       (p?: { limit?: number; unreadOnly?: boolean }) =>
+    api.get("/notifications", { params: p }),
+  markRead:     (id: string) => api.patch(`/notifications?id=${id}`),
+  markAllRead:  ()           => api.patch("/notifications"),
 };
 
-/** Users API */
 export const usersApi = {
-  getProfile: (userId: string) => api.get(`/users/${userId}`),
-  getStats: (userId: string) => api.get(`/users/${userId}/stats`),
-  updateProfile: (userId: string, data: { name?: string; track?: string }) =>
-    api.put(`/users/${userId}/profile`, data),
+  getProfile:    (userId: string) => api.get(`/users/me`),
+  getStats:      (userId: string) => api.get(`/users/me`),
+  updateProfile: (_userId: string, data: { name?: string; track?: string }) =>
+    api.put("/users/me", data),
 };
 
-/** Search API */
 export const searchApi = {
   search: (query: string, params?: { type?: string; limit?: number }) =>
     api.get("/search", { params: { q: query, ...params } }),
 };
 
-/**
- * Coding API — Engineering section learning plans, lessons, and submissions.
- * Used by: Engineering pages, code editor, submission history
- */
 export const codingApi = {
-  /** Get all learning plans for a programming language */
   getLanguagePlans: (slug: string) =>
-    api.get(`/coding/languages/${slug}/plans`),
-
-  /** Get all daily lessons for a specific learning plan */
-  getPlanLessons: (planId: string) =>
-    api.get(`/coding/plans/${planId}/lessons`),
-
-  /** Get a single lesson with theory content and problems */
-  getLesson: (lessonId: string) =>
-    api.get(`/coding/lessons/${lessonId}`),
-
-  /** Get a coding problem with starter code and sample test cases */
-  getProblem: (problemId: string) =>
-    api.get(`/coding/problems/${problemId}`),
-
-  /** Submit a code solution for grading */
-  submitSolution: (problemId: string, data: { code: string; language: string }) =>
-    api.post(`/coding/problems/${problemId}/submit`, data),
-
-  /** Get the current user's submission history */
-  getSubmissions: (params?: { limit?: number; offset?: number }) =>
-    api.get("/coding/submissions", { params }),
-
-  /** Get the user's best submission for a specific problem */
-  getBestSubmission: (problemId: string) =>
-    api.get(`/coding/submissions/${problemId}/best`),
+    api.get(`/classes?class=engineering&lang=${slug}`),
+  getPlanLessons:   (planId: string) =>
+    api.get(`/classes?planId=${planId}`),
+  getLesson:        (lessonId: string) =>
+    api.get(`/classes?lessonId=${lessonId}`),
+  getProblem:       (problemId: string) =>
+    api.get(`/classes?problemId=${problemId}`),
+  submitSolution:   (problemId: string, d: { code: string; language: string }) =>
+    api.post(`/classes/submit`, { problemId, ...d }),
+  getSubmissions:   (p?: { limit?: number; offset?: number }) =>
+    api.get("/classes/submissions", { params: p }),
+  getBestSubmission:(problemId: string) =>
+    api.get(`/classes/submissions?best=1&problemId=${problemId}`),
 };
 
-/**
- * Tests API — Mock test execution, scoring, and results.
- * Used by: Class pages (take test), test history page
- */
 export const testsApi = {
-  /** Get available tests for a specific chapter */
   getChapterTests: (chapterId: string) =>
-    api.get(`/tests/chapter/${chapterId}`),
-
-  /** Get test details with questions (answers hidden) */
-  getTest: (testId: string) =>
-    api.get(`/tests/${testId}`),
-
-  /** Start a new test session */
-  startTest: (testId: string) =>
-    api.post(`/tests/${testId}/start`),
-
-  /** Submit answers and get graded results */
-  submitTest: (testId: string, data: {
-    scoreId: string;
-    answers: Array<{ questionId: string; userAnswer: string }>;
-    timeTaken?: number;
-  }) =>
-    api.post(`/tests/${testId}/submit`, data),
-
-  /** Get detailed results for a completed test attempt */
-  getResults: (testId: string, scoreId: string) =>
-    api.get(`/tests/${testId}/results/${scoreId}`),
-
-  /** Get the current user's test history */
-  getHistory: (params?: { limit?: number; offset?: number }) =>
-    api.get("/tests/history", { params }),
+    api.get(`/test?chapterId=${chapterId}`),
+  getTest:         (testId: string) =>
+    api.get(`/test?testId=${testId}`),
+  startTest:       (testId: string) =>
+    api.post(`/test/start`, { testId }),
+  submitTest:      (testId: string, d: { scoreId: string; answers: unknown[]; timeTaken?: number }) =>
+    api.post(`/test/submit`, { testId, ...d }),
+  getResults:      (testId: string, scoreId: string) =>
+    api.get(`/test/results?testId=${testId}&scoreId=${scoreId}`),
+  getHistory:      (p?: { limit?: number; offset?: number }) =>
+    api.get("/test/history", { params: p }),
 };
 
 export default api;
