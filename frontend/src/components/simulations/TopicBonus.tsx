@@ -1456,7 +1456,7 @@ export function Sim_magnet_forces() {
  * Person pushes DOWN on floor (action) → floor pushes UP (reaction) → person jumps
  * ══════════════════════════════════════════════════ */
 export function Sim_jump_floor() {
-  const canvasRef = useRef<HTMLCanvasRef | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef    = useRef<number>(0);
   const state     = useRef({ y: 0, vy: 0, phase: "ready" as "ready"|"jump"|"fall"|"land" });
   const [mass, setMass]       = useState(60);
