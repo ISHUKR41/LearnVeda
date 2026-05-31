@@ -54,6 +54,9 @@ export default function Providers({ children }: { children: ReactNode }) {
 
   return (
     <ClerkProvider
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
+      afterSignOutUrl="/"
       appearance={{
         variables: {
           colorPrimary: "#2563EB",
