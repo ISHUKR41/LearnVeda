@@ -3,12 +3,9 @@
  * LOCATION: src/components/layout/Navbar/Navbar.tsx
  * PURPOSE: Main top navigation bar for the EduQuest platform.
  *          Sticky, glass-morphism, responsive dropdowns and mobile drawer.
- *          Auth state is read directly from Clerk (useUser + useClerk).
- *          Sign-out calls clerk.signOut() which properly clears the Clerk
- *          session — no redirect loop, no stale cookies.
+ *          Auth state is read from the Zustand authStore (session cookie based).
  * USED BY: src/app/layout.tsx
- * DEPENDENCIES: next/link, lucide-react, @clerk/nextjs, Navbar.module.css
- * LAST UPDATED: 2026-05-31
+ * DEPENDENCIES: next/link, lucide-react, authStore, useAuth, Navbar.module.css
  */
 
 "use client";
@@ -20,14 +17,10 @@ import {
   Menu, X, Sun, Moon, BookOpen, ChevronDown, Zap,
   Search, Bell, Flame, Swords, User, Wallet, Settings
 } from "lucide-react";
-import { useClerk, useUser } from "@clerk/nextjs";
+import { useAuthStore } from "@/store/authStore";
+import { useAuth } from "@/hooks/useAuth";
 import styles from "./Navbar.module.css";
 
-/**
- * Navbar Component
- * Thin wrapper that re-mounts the shell on route changes to keep
- * dropdown state clean without extra manual resets.
- */
 export default function Navbar() {
   const pathname = usePathname();
   return <NavbarShell key={pathname} pathname={pathname} />;
@@ -37,33 +30,19 @@ interface NavbarShellProps {
   pathname: string;
 }
 
-/** Stateful navbar implementation */
 function NavbarShell({ pathname }: NavbarShellProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDesktopGroup, setActiveDesktopGroup] = useState<string | null>(null);
-
-  /**
-   * Theme state — initializes to TRUE (dark) on both server and client.
-   * EduQuest defaults to dark mode. The server renders data-theme="dark" and
-   * this initial value matches it, preventing hydration mismatches.
-   */
   const [isDark, setIsDark] = useState(true);
-
-  /** Prevents theme icon hydration mismatch — render neutral icon until mounted. */
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const router = useRouter();
 
-  /* ── Clerk auth state ──────────────────────────────────────────
-   * useUser() is the Clerk-recommended hook for reading the signed-in
-   * user. It returns { isLoaded, isSignedIn, user } — no manual fetch needed.
-   * useClerk() gives us the signOut() method.
-   * ─────────────────────────────────────────────────────────────── */
-  const { isLoaded, isSignedIn, user: clerkUser } = useUser();
-  const { signOut } = useClerk();
+  /* Auth state from Zustand store — hydrated by useAuth hook */
+  useAuth();
+  const { isAuthenticated, isLoading, user } = useAuthStore();
 
-  /* Read saved theme from localStorage ONLY on the client after mount */
   useEffect(() => {
     setMounted(true);
     const stored = localStorage.getItem("eduquest-theme");
@@ -99,14 +78,18 @@ function NavbarShell({ pathname }: NavbarShellProps) {
     localStorage.setItem("eduquest-theme", newDark ? "dark" : "light");
   };
 
-  /**
-   * handleSignOut — uses Clerk's signOut() method.
-   * After Clerk clears its session it redirects to "/" automatically.
-   * We also close the mobile menu just in case it was open.
-   */
   const handleSignOut = async () => {
     setIsMobileMenuOpen(false);
-    await signOut({ redirectUrl: "/" });
+    try {
+      await fetch("/api/auth/sign-out", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch {
+      /* ignore */
+    }
+    useAuthStore.getState().clearUser();
+    router.push("/");
     router.refresh();
   };
 
@@ -125,9 +108,8 @@ function NavbarShell({ pathname }: NavbarShellProps) {
     setActiveDesktopGroup(prev => prev === group ? null : group);
   };
 
-  /* Show auth buttons only after Clerk has loaded to avoid flicker */
-  const authReady = isLoaded;
-  const displayName = clerkUser?.firstName ?? clerkUser?.username ?? "Student";
+  const authReady = !isLoading;
+  const displayName = user?.name?.split(" ")[0] ?? "Student";
 
   return (
     <nav className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ""}`} role="navigation">
@@ -194,7 +176,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
           </Link>
 
           {/* Authenticated-only icons */}
-          {authReady && isSignedIn && (
+          {authReady && isAuthenticated && (
             <>
               <Link href="/notifications" className={styles.iconBtn} aria-label="Notifications">
                 <Bell size={17} />
@@ -212,8 +194,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
 
           {/* Auth buttons (desktop) */}
           <div className={styles.authButtons}>
-            {/* While Clerk is loading, show nothing to avoid flicker */}
-            {authReady && !isSignedIn && (
+            {authReady && !isAuthenticated && (
               <>
                 <Link href="/sign-in" className={styles.btnGhost}>Sign In</Link>
                 <Link href="/sign-up" className={styles.btnPrimary}>
@@ -221,7 +202,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
                 </Link>
               </>
             )}
-            {authReady && isSignedIn && (
+            {authReady && isAuthenticated && (
               <>
                 <Link href="/dashboard" className={styles.btnGhost}>
                   <Zap size={14} /> {displayName}
@@ -275,7 +256,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
             </div>
 
             <div className={styles.drawerAuth}>
-              {authReady && isSignedIn && (
+              {authReady && isAuthenticated && (
                 <>
                   <Link href="/dashboard" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
                   <Link href="/profile" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><User size={16} /> Profile</Link>
@@ -284,7 +265,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
                   <button onClick={handleSignOut} className={styles.drawerBtnSecondary}>Sign Out</button>
                 </>
               )}
-              {authReady && !isSignedIn && (
+              {authReady && !isAuthenticated && (
                 <>
                   <Link href="/sign-in" className={styles.drawerBtnSecondary} onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
                   <Link href="/sign-up" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Start Free</Link>

@@ -220,6 +220,40 @@
   gap: var(--space-1);
 }
 
+.fieldGroup { display: flex; flex-direction: column; gap: var(--space-1); }
+
+.formTitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-5);
+  text-align: center;
+}
+
+.errorMsg {
+  font-size: var(--font-size-small);
+  color: var(--color-danger);
+  background: var(--color-danger-lightest, rgba(239,68,68,0.08));
+  border: 1px solid var(--color-danger-light, rgba(239,68,68,0.3));
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-3);
+}
+
+.switchLink {
+  text-align: center;
+  margin-top: var(--space-4);
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+}
+
+.switchLink a {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+.switchLink a:hover { text-decoration: underline; }
+
 .label {
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-medium);
