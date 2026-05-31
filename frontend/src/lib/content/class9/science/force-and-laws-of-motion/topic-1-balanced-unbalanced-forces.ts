@@ -52,7 +52,10 @@ export const balancedUnbalancedForces: Topic = {
     "circular-motion-pro",
     "wind-tunnel",
     "force-table-lab",
-    "centripetal-lab"
+    "centripetal-lab",
+    "force-decomposition",
+    "fluid-buoyancy",
+    "orbital-slingshot"
   ],
 
   content: `

@@ -519,6 +519,113 @@
 
 .submitBtn:active { transform: translateY(0); }
 
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  filter: none;
+}
+
+/* Loading state modifier — keeps button size stable */
+.submitBtnLoading {
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Small label hint (e.g., "min 20 chars") */
+.labelHint {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 4px;
+}
+
+/* Spinner icon animation */
+.spinnerIcon {
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Error banner inside the form */
+.formErrorBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 12px 16px;
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.22);
+  border-radius: 12px;
+  color: #fca5a5;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.formErrorBanner svg { color: #ef4444; flex-shrink: 0; margin-top: 1px; }
+
+/* Success state — replaces the whole form */
+.formSuccessBanner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 2rem;
+  gap: 1rem;
+}
+
+.successIcon {
+  color: #10b981;
+  animation: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bounceIn {
+  0%   { transform: scale(0.3); opacity: 0; }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.successTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.successText {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  max-width: 380px;
+  margin: 0;
+}
+
+.successReset {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 24px;
+  background: rgba(16,185,129,0.1);
+  color: #10b981;
+  border: 1px solid rgba(16,185,129,0.28);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.15s;
+}
+
+.successReset:hover {
+  background: rgba(16,185,129,0.18);
+  transform: translateY(-1px);
+}
+
 /* ════════════════════════════════════════
    FAQ
    ════════════════════════════════════════ */

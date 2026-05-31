@@ -48,7 +48,10 @@ export const firstLawOfMotionInertia: Topic = {
     "horizontal-throw-pro",
     "friction-transition",
     "seatbelt-demo",
-    "galileo-plane"
+    "galileo-plane",
+    "double-pendulum",
+    "rolling-incline",
+    "terminal-velocity"
   ],
 
   content: `

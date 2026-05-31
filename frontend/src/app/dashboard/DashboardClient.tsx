@@ -575,9 +575,12 @@ export default function DashboardClient() {
 
         if (!isMounted) return;
 
-        /* Redirect to sign in if the session has expired */
+        /* 401 = Clerk session not yet synced to DB, or key mismatch.
+         * Do NOT router.push("/sign-in") here — that creates an infinite loop:
+         * dashboard → API 401 → /sign-in → Clerk sees auth → /dashboard → repeat.
+         * Instead, show an inline error with a manual sign-in link. */
         if (dashRes.status === 401) {
-          router.push("/sign-in");
+          setError("Session expired. Please sign in again to view your dashboard.");
           return;
         }
 

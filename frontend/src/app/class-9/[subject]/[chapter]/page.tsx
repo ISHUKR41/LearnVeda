@@ -70,14 +70,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
-
 export default async function Class9ChapterPage({ params }: PageProps) {
-  /* Protect this page: Clerk middleware handles most cases,
-   * but this server-side check is a safety net. */
-  const { userId } = await auth();
-  if (!userId) redirect("/sign-in");
+  /* NOTE: Chapter content pages are intentionally PUBLIC — students can browse
+   * without logging in. Authentication is only required when submitting answers
+   * (handled by /api/progress which returns 401 and the client shows a sign-in
+   * prompt inline). Removing the server-side auth check fixes the redirect loop:
+   * unauthenticated click → /sign-in → Clerk fallback → /dashboard (wrong). */
 
   const resolvedParams = await params;
   const { subject, chapter } = resolvedParams;

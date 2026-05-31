@@ -63,7 +63,11 @@ export const secondLawOfMotion: Topic = {
     "atwood-machine-pro",
     "elevator-accel",
     "net-force-lab",
-    "stopping-distance-pro"
+    "stopping-distance-pro",
+    "spring-shm",
+    "elevator-weight",
+    "friction-lab",
+    "projectile-range"
   ],
 
   content: `

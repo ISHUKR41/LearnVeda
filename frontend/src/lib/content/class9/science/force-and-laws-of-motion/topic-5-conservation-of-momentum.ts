@@ -50,7 +50,9 @@ export const conservationOfMomentum: Topic = {
     "billiards-2d",
     "rocket-fuel-burn",
     "superball-rebound",
-    "momentum-explosion-2d"
+    "momentum-explosion-2d",
+    "collision-lab-2d",
+    "momentum-split"
   ],
 
   content: `

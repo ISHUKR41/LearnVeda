@@ -53,7 +53,10 @@ export const thirdLawOfMotion: Topic = {
     "impulse-momentum-pro",
     "paired-magnets",
     "propeller-thrust",
-    "air-hockey"
+    "air-hockey",
+    "impulse-airbag",
+    "circular-centripetal",
+    "resonance-demo"
   ],
 
   content: `

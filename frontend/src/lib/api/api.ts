@@ -146,41 +146,48 @@ export interface ApiResponse<T> {
 /* ─────────────────────────────────────────────
  * Domain-specific API namespaces
  * Each method corresponds to one Next.js API route handler.
+ *
+ * IMPORTANT: Paths must NOT have a leading "/".
+ * Axios treats "/path" as absolute from the origin, bypassing baseURL entirely.
+ * Without the leading slash, axios appends to baseURL:
+ *   baseURL="/api" + "progress" → "/api/progress"  ✓
+ *   baseURL="/api" + "/progress" → "/progress"      ✗ (ignores /api)
  * ───────────────────────────────────────────── */
 
 export const authApi = {
   register: (d: { name: string; email: string; password: string; classLevel?: string }) =>
-    api.post("/auth/sign-up", d),
-  login:  (d: { email: string; password: string }) =>
-    api.post("/auth/sign-in", d),
+    api.post("auth/sign-up", d),
+  login:   (d: { email: string; password: string }) =>
+    api.post("auth/sign-in", d),
   refresh: (refreshToken: string) =>
-    api.post("/auth/refresh", { refreshToken }),
-  logout: () => api.post("/auth/sign-out"),
-  me:     () => api.get("/auth/me"),
+    api.post("auth/refresh", { refreshToken }),
+  logout: () => api.post("auth/sign-out"),
+  me:     () => api.get("auth/me"),
 };
 
 export const contentApi = {
-  getClasses:     ()           => api.get("/classes"),
-  getSubjects:    ()           => api.get("/content/subjects"),
-  getClass:       (slug: string)    => api.get(`/classes?class=${slug}`),
-  getSubject:     (id: string)      => api.get(`/content/subjects?id=${id}`),
-  getChapter:     (id: string)      => api.get(`/subjects/${id}/chapters`),
-  getEngineering: ()           => api.get("/classes?class=engineering"),
-  getLanguage:    (slug: string)    => api.get(`/classes?class=engineering&lang=${slug}`),
-  getStats:       ()           => api.get("/platform-stats"),
+  getClasses:     ()                => api.get("classes"),
+  getSubjects:    ()                => api.get("content/subjects"),
+  getClass:       (slug: string)    => api.get(`classes?class=${slug}`),
+  getSubject:     (id: string)      => api.get(`content/subjects?id=${id}`),
+  getChapter:     (id: string)      => api.get(`subjects/${id}/chapters`),
+  getEngineering: ()                => api.get("classes?class=engineering"),
+  getLanguage:    (slug: string)    => api.get(`classes?class=engineering&lang=${slug}`),
+  getStats:       ()                => api.get("platform-stats"),
 };
 
 export const progressApi = {
   /**
    * GET /api/progress — fetches the current user's overall progress across chapters.
+   * Returns 401 when not signed in (handled gracefully in TopicStudyClient).
    * The response is used by TopicStudyClient to restore answered questions on mount.
    */
-  getUserProgress: () => api.get("/progress"),
+  getUserProgress: () => api.get("progress"),
 
   updateChapterProgress: (
     chapterId: string,
     data: { completed?: boolean; score?: number; answers?: string; timeSpent?: number },
-  ) => api.put(`/progress/chapters/${chapterId}`, data),
+  ) => api.put(`progress/chapters/${chapterId}`, data),
 
   saveAnswer: (data: {
     chapterId:    string;
@@ -190,100 +197,93 @@ export const progressApi = {
     isCorrect:    boolean;
     timeSpent?:   number;
     questionType?: string;
-  }) => api.post("/progress/answers", data),
+  }) => api.post("progress/answers", data),
 
   getTopicProgress: (chapterId: string, topicId: string) =>
-    api.get(`/progress/chapters/${chapterId}/topics/${topicId}`),
+    api.get(`progress/chapters/${chapterId}/topics/${topicId}`),
 };
 
 export const battleApi = {
-  joinQueue:     (d: { subjectId: string; mode?: string }) => api.post("/battle/matchmaking", d),
-  leaveQueue:    ()                                         => api.delete("/battle/matchmaking"),
-  getMatch:      (matchId: string)                          => api.get(`/battles/${matchId}`),
-  submitAnswer:  (matchId: string, d: { questionId: string; answer: string }) =>
-    api.post(`/battles/${matchId}/answer`, d),
+  joinQueue:    (d: { subjectId: string; mode?: string }) => api.post("battle/matchmaking", d),
+  leaveQueue:   ()                                         => api.delete("battle/matchmaking"),
+  getMatch:     (matchId: string)                          => api.get(`battles/${matchId}`),
+  submitAnswer: (matchId: string, d: { questionId: string; answer: string }) =>
+    api.post(`battles/${matchId}/answer`, d),
 };
 
 export const communityApi = {
   getPosts:   (params?: { category?: string; limit?: number; offset?: number }) =>
-    api.get("/community/posts", { params }),
-  getPost:    (id: string)                               => api.get(`/community/posts/${id}`),
+    api.get("community/posts", { params }),
+  getPost:    (id: string)                               => api.get(`community/posts/${id}`),
   createPost: (d: { title: string; content: string; categoryId: string }) =>
-    api.post("/community/posts", d),
-  likePost:   (id: string)                               => api.post(`/community/posts/${id}/like`),
-  deletePost: (id: string)                               => api.delete(`/community/posts/${id}`),
+    api.post("community/posts", d),
+  likePost:   (id: string)                               => api.post(`community/posts/${id}/like`),
+  deletePost: (id: string)                               => api.delete(`community/posts/${id}`),
 };
 
 export const walletApi = {
-  getWallet:  ()                                                      => api.get("/wallet"),
-  getHistory: (p?: { type?: string; limit?: number; offset?: number }) =>
-    api.get("/wallet", { params: p }),
+  getWallet:  ()                                                         => api.get("wallet"),
+  getHistory: (p?: { type?: string; limit?: number; offset?: number })  =>
+    api.get("wallet", { params: p }),
 };
 
 export const eventsApi = {
-  getEvents:           (p?: { status?: string; type?: string; limit?: number; offset?: number }) =>
-    api.get("/events", { params: p }),
-  getEvent:            (id: string)  => api.get(`/events?id=${id}`),
-  register:            (eventId: string) => api.post("/events/register", { eventId }),
-  cancelRegistration:  (eventId: string) => api.delete(`/events/register?eventId=${eventId}`),
+  getEvents:          (p?: { status?: string; type?: string; limit?: number; offset?: number }) =>
+    api.get("events", { params: p }),
+  getEvent:           (id: string)       => api.get(`events?id=${id}`),
+  register:           (eventId: string)  => api.post("events/register", { eventId }),
+  cancelRegistration: (eventId: string)  => api.delete(`events/register?eventId=${eventId}`),
 };
 
 export const leaderboardApi = {
   getGlobal: (p?: { limit?: number; classLevel?: string }) =>
-    api.get("/leaderboard", { params: p }),
+    api.get("leaderboard", { params: p }),
   getBattle: (p?: { limit?: number }) =>
-    api.get("/leaderboard", { params: p }),
+    api.get("leaderboard", { params: p }),
 };
 
 export const notificationsApi = {
-  getAll:       (p?: { limit?: number; unreadOnly?: boolean }) =>
-    api.get("/notifications", { params: p }),
-  markRead:     (id: string) => api.patch(`/notifications?id=${id}`),
-  markAllRead:  ()           => api.patch("/notifications"),
+  getAll:      (p?: { limit?: number; unreadOnly?: boolean }) =>
+    api.get("notifications", { params: p }),
+  markRead:    (id: string) => api.patch(`notifications?id=${id}`),
+  markAllRead: ()           => api.patch("notifications"),
 };
 
 export const usersApi = {
-  getProfile:    (userId: string) => api.get(`/users/me`),
-  getStats:      (userId: string) => api.get(`/users/me`),
+  getProfile:    (_userId: string) => api.get("users/me"),
+  getStats:      (_userId: string) => api.get("users/me"),
   updateProfile: (_userId: string, data: { name?: string; track?: string }) =>
-    api.put("/users/me", data),
+    api.put("users/me", data),
 };
 
 export const searchApi = {
   search: (query: string, params?: { type?: string; limit?: number }) =>
-    api.get("/search", { params: { q: query, ...params } }),
+    api.get("search", { params: { q: query, ...params } }),
 };
 
 export const codingApi = {
-  getLanguagePlans: (slug: string) =>
-    api.get(`/classes?class=engineering&lang=${slug}`),
-  getPlanLessons:   (planId: string) =>
-    api.get(`/classes?planId=${planId}`),
-  getLesson:        (lessonId: string) =>
-    api.get(`/classes?lessonId=${lessonId}`),
-  getProblem:       (problemId: string) =>
-    api.get(`/classes?problemId=${problemId}`),
+  getLanguagePlans: (slug: string)      => api.get(`classes?class=engineering&lang=${slug}`),
+  getPlanLessons:   (planId: string)    => api.get(`classes?planId=${planId}`),
+  getLesson:        (lessonId: string)  => api.get(`classes?lessonId=${lessonId}`),
+  getProblem:       (problemId: string) => api.get(`classes?problemId=${problemId}`),
   submitSolution:   (problemId: string, d: { code: string; language: string }) =>
-    api.post(`/classes/submit`, { problemId, ...d }),
+    api.post("classes/submit", { problemId, ...d }),
   getSubmissions:   (p?: { limit?: number; offset?: number }) =>
-    api.get("/classes/submissions", { params: p }),
-  getBestSubmission:(problemId: string) =>
-    api.get(`/classes/submissions?best=1&problemId=${problemId}`),
+    api.get("classes/submissions", { params: p }),
+  getBestSubmission: (problemId: string) =>
+    api.get(`classes/submissions?best=1&problemId=${problemId}`),
 };
 
 export const testsApi = {
-  getChapterTests: (chapterId: string) =>
-    api.get(`/test?chapterId=${chapterId}`),
-  getTest:         (testId: string) =>
-    api.get(`/test?testId=${testId}`),
-  startTest:       (testId: string) =>
-    api.post(`/test/start`, { testId }),
+  getChapterTests: (chapterId: string) => api.get(`test?chapterId=${chapterId}`),
+  getTest:         (testId: string)    => api.get(`test?testId=${testId}`),
+  startTest:       (testId: string)    => api.post("test/start", { testId }),
   submitTest:      (testId: string, d: { scoreId: string; answers: unknown[]; timeTaken?: number }) =>
-    api.post(`/test/submit`, { testId, ...d }),
+    api.post("test/submit", { testId, ...d }),
   getResults:      (testId: string, scoreId: string) =>
-    api.get(`/test/results?testId=${testId}&scoreId=${scoreId}`),
+    api.get(`test/results?testId=${testId}&scoreId=${scoreId}`),
   getHistory:      (p?: { limit?: number; offset?: number }) =>
-    api.get("/test/history", { params: p }),
+    api.get("test/history", { params: p }),
 };
 
 export default api;

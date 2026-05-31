@@ -258,6 +258,30 @@ const Sim_centripetal_lab        = dynamic(() => import('./Topic7Professional').
 const Sim_momentum_explosion_2d  = dynamic(() => import('./Topic7Professional').then(m => m.Sim_momentum_explosion_2d),  { ssr: false });
 
 /* ══════════════════════════════════════════════════════════════════
+ * PROFESSIONAL TIER 8 — 15 ultra-professional physics simulations
+ * Topic8Professional.tsx: orbital slingshot, double pendulum,
+ * 2D collision lab, friction lab, projectile range, spring SHM,
+ * elevator weight, circular motion, terminal velocity, airbag
+ * impulse, rolling incline, force decomposition, fluid buoyancy,
+ * momentum split, resonance demo
+ * ══════════════════════════════════════════════════════════════════ */
+const Sim_orbital_slingshot  = dynamic(() => import('./Topic8Professional').then(m => m.Sim_orbital_slingshot),  { ssr: false });
+const Sim_double_pendulum    = dynamic(() => import('./Topic8Professional').then(m => m.Sim_double_pendulum),    { ssr: false });
+const Sim_collision_lab_2d   = dynamic(() => import('./Topic8Professional').then(m => m.Sim_collision_lab_2d),   { ssr: false });
+const Sim_friction_lab       = dynamic(() => import('./Topic8Professional').then(m => m.Sim_friction_lab),       { ssr: false });
+const Sim_projectile_range   = dynamic(() => import('./Topic8Professional').then(m => m.Sim_projectile_range),   { ssr: false });
+const Sim_spring_shm         = dynamic(() => import('./Topic8Professional').then(m => m.Sim_spring_shm),         { ssr: false });
+const Sim_elevator_weight    = dynamic(() => import('./Topic8Professional').then(m => m.Sim_elevator_weight),    { ssr: false });
+const Sim_circular_centripetal = dynamic(() => import('./Topic8Professional').then(m => m.Sim_circular_centripetal), { ssr: false });
+const Sim_terminal_velocity  = dynamic(() => import('./Topic8Professional').then(m => m.Sim_terminal_velocity),  { ssr: false });
+const Sim_impulse_airbag     = dynamic(() => import('./Topic8Professional').then(m => m.Sim_impulse_airbag),     { ssr: false });
+const Sim_rolling_incline    = dynamic(() => import('./Topic8Professional').then(m => m.Sim_rolling_incline),    { ssr: false });
+const Sim_force_decomposition = dynamic(() => import('./Topic8Professional').then(m => m.Sim_force_decomposition), { ssr: false });
+const Sim_fluid_buoyancy     = dynamic(() => import('./Topic8Professional').then(m => m.Sim_fluid_buoyancy),     { ssr: false });
+const Sim_momentum_split     = dynamic(() => import('./Topic8Professional').then(m => m.Sim_momentum_split),     { ssr: false });
+const Sim_resonance_demo     = dynamic(() => import('./Topic8Professional').then(m => m.Sim_resonance_demo),     { ssr: false });
+
+/* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
  * ══════════════════════════════════════════════════════════════════ */
@@ -455,6 +479,23 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "force-table-lab":           Sim_force_table_lab,
   "centripetal-lab":           Sim_centripetal_lab,
   "momentum-explosion-2d":     Sim_momentum_explosion_2d,
+
+  /* ── Topic 8 Professional (15) ── ultra-professional physics sims ── */
+  "orbital-slingshot":         Sim_orbital_slingshot,
+  "double-pendulum":           Sim_double_pendulum,
+  "collision-lab-2d":          Sim_collision_lab_2d,
+  "friction-lab":              Sim_friction_lab,
+  "projectile-range":          Sim_projectile_range,
+  "spring-shm":                Sim_spring_shm,
+  "elevator-weight":           Sim_elevator_weight,
+  "circular-centripetal":      Sim_circular_centripetal,
+  "terminal-velocity":         Sim_terminal_velocity,
+  "impulse-airbag":            Sim_impulse_airbag,
+  "rolling-incline":           Sim_rolling_incline,
+  "force-decomposition":       Sim_force_decomposition,
+  "fluid-buoyancy":            Sim_fluid_buoyancy,
+  "momentum-split":            Sim_momentum_split,
+  "resonance-demo":            Sim_resonance_demo,
 };
 
 /* ══════════════════════════════════════════════════════════════════════

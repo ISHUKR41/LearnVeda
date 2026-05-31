@@ -1,179 +1,95 @@
 /**
  * FILE: route.ts
  * LOCATION: src/app/api/levels/route.ts
- * PURPOSE: Level system API — returns XP thresholds, badge data, and perks
- *          for all 100 levels or for a specific level number.
- *
- *          Clients use this to:
- *          1. Render the XP progress bar on the dashboard (current + next level).
- *          2. Show the "Level up!" celebration modal with new perks.
- *          3. Display level badges on leaderboard rows.
+ * PURPOSE: Level progression API — returns current and next level metadata for a
+ *          given user level number. Level definitions are hardcoded in-memory
+ *          (no DB table required — levels are product constants, not user data).
  *
  * ROUTES:
- *   GET /api/levels              → All 100 levels (cached 24h, rarely changes)
- *   GET /api/levels?n=10         → Single level by number (for progress bar)
- *   GET /api/levels?user_level=7 → Returns levels N and N+1 for progress bar
+ *   GET /api/levels                  → All level definitions
+ *   GET /api/levels?n=5              → Single level by number
+ *   GET /api/levels?user_level=7     → Current + next level (for dashboard XP bar)
  *
- * CACHING:
- *   Level data almost never changes after initial seeding.
- *   We serve it with a 24-hour CDN cache + stale-while-revalidate.
- *
- * USED BY: Dashboard XP bar, Leaderboard badge row, Level-up modal
- * DEPENDENCIES: getPostgresPool, api-response helpers
- * LAST UPDATED: 2026-05-25
+ * USED BY: DashboardClient.tsx (LevelProgressCard)
+ * LAST UPDATED: 2026-05-31
  */
 
-import { type NextRequest } from "next/server";
-import { getPostgresPool } from "@/lib/server/database/postgres";
+import type { NextRequest } from "next/server";
 import { apiSuccess, apiError } from "@/lib/server/utils/api-response";
 
-/* Force Node.js runtime — required for the PostgreSQL pool */
 export const runtime = "nodejs";
 
-/*
- * Aggressive caching: level definitions rarely change.
- * 24-hour max-age + 1-week stale-while-revalidate means CDNs and Next.js
- * Data Cache will serve this without hitting the DB most of the time.
- */
-const LEVELS_CACHE_HEADERS = {
+/* ─────────────────────────────────────────────
+ * Level definitions — hardcoded product constants.
+ * xpRequired = cumulative XP to reach that level.
+ * ───────────────────────────────────────────── */
+
+interface LevelDef {
+  levelNumber: number;
+  xpRequired:  number;
+  xpToNext:    number;
+  title:       string;
+  badgeName:   string;
+  badgeIcon:   string;
+  badgeColor:  string;
+  perks:       Record<string, string>;
+}
+
+/* 10 levels — each level ~50–100% more XP than the previous */
+const LEVEL_DEFS: Omit<LevelDef, "xpToNext">[] = [
+  { levelNumber: 1,  xpRequired: 0,     title: "Learner",     badgeName: "Seedling",    badgeIcon: "🌱", badgeColor: "#6B7280", perks: { community: "Post in community",       battle: "Join casual battles"        } },
+  { levelNumber: 2,  xpRequired: 150,   title: "Explorer",    badgeName: "Sprout",      badgeIcon: "🌿", badgeColor: "#10B981", perks: { leaderboard: "Class leaderboard",    profile: "Custom avatar border"       } },
+  { levelNumber: 3,  xpRequired: 400,   title: "Practitioner",badgeName: "Star",        badgeIcon: "⭐", badgeColor: "#F59E0B", perks: { badges: "Milestone badges",          battle: "Rated battles"               } },
+  { levelNumber: 4,  xpRequired: 800,   title: "Scholar",     badgeName: "Scholar",     badgeIcon: "📖", badgeColor: "#3B82F6", perks: { wallet: "Bonus Stars on streaks",   analytics: "Study analytics"          } },
+  { levelNumber: 5,  xpRequired: 1400,  title: "Achiever",    badgeName: "Achiever",    badgeIcon: "🏅", badgeColor: "#8B5CF6", perks: { events: "Priority registration",    star: "Gold profile star"             } },
+  { levelNumber: 6,  xpRequired: 2200,  title: "Expert",      badgeName: "Expert",      badgeIcon: "🔷", badgeColor: "#06B6D4", perks: { battle: "Expert battle tier",       simulations: "Premium simulations"   } },
+  { levelNumber: 7,  xpRequired: 3200,  title: "Master",      badgeName: "Master",      badgeIcon: "💎", badgeColor: "#EC4899", perks: { leaderboard: "Global leaderboard", mentorship: "Mentor badge"            } },
+  { levelNumber: 8,  xpRequired: 4500,  title: "Champion",    badgeName: "Champion",    badgeIcon: "🏆", badgeColor: "#F97316", perks: { events: "Exclusive championships", rank: "Champion rank badge"           } },
+  { levelNumber: 9,  xpRequired: 6200,  title: "Legend",      badgeName: "Legend",      badgeIcon: "🌟", badgeColor: "#EF4444", perks: { all: "Full platform access",        prestige: "Legend prestige frame"     } },
+  { levelNumber: 10, xpRequired: 8500,  title: "Grandmaster", badgeName: "Grandmaster", badgeIcon: "👑", badgeColor: "#FBBF24", perks: { hall: "Hall of Fame entry",         ultimate: "Grandmaster crown"         } },
+];
+
+/* Pre-compute xpToNext for each level */
+const LEVELS: LevelDef[] = LEVEL_DEFS.map((def, i) => ({
+  ...def,
+  xpToNext: i < LEVEL_DEFS.length - 1
+    ? LEVEL_DEFS[i + 1].xpRequired - def.xpRequired
+    : 0, /* Max level — no "next" */
+}));
+
+/* ─────────────────────────────────────────────
+ * Cache headers — level definitions never change between deploys
+ * ───────────────────────────────────────────── */
+const CACHE_HEADERS = {
   "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
 } as const;
 
 /* ─────────────────────────────────────────────
  * GET /api/levels
  * ───────────────────────────────────────────── */
-
-/**
- * Returns level data from the eduquest_levels table.
- *
- * Query modes:
- *   ?n=10          → Single level (for badge display)
- *   ?user_level=7  → Returns level 7 and 8 (for dashboard XP bar)
- *   (no params)    → All 100 levels (for the full progression screen)
- *
- * Single level response:
- * {
- *   ok: true,
- *   data: {
- *     level: { levelNumber, xpRequired, xpToNext, title, badgeName, badgeIcon, badgeColor, perks }
- *   }
- * }
- *
- * User level progress response:
- * {
- *   ok: true,
- *   data: {
- *     current: Level,
- *     next: Level | null   (null when user is level 100)
- *   }
- * }
- *
- * All levels response:
- * {
- *   ok: true,
- *   data: { levels: Level[], total: 100 }
- * }
- */
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const pool = getPostgresPool();
 
-  /* ── Mode 1: Single level by number (?n=10) ──────────────── */
+  /* Mode 1: Single level by number (?n=5) */
   const nParam = searchParams.get("n");
   if (nParam !== null) {
     const n = parseInt(nParam, 10);
-    if (isNaN(n) || n < 1 || n > 100) {
-      return apiError("INVALID_LEVEL", "Level number must be between 1 and 100.", 400);
+    const level = LEVELS.find(l => l.levelNumber === n);
+    if (!level) {
+      return apiError("LEVEL_NOT_FOUND", `Level ${n} not found.`, 404);
     }
-
-    try {
-      const result = await pool.query(
-        `SELECT
-           level_number  AS "levelNumber",
-           xp_required   AS "xpRequired",
-           xp_to_next    AS "xpToNext",
-           title,
-           badge_name    AS "badgeName",
-           badge_icon    AS "badgeIcon",
-           badge_color   AS "badgeColor",
-           perks
-         FROM eduquest_levels
-         WHERE level_number = $1`,
-        [n],
-      );
-
-      if (result.rows.length === 0) {
-        return apiError("LEVEL_NOT_FOUND", `Level ${n} not found in the database.`, 404);
-      }
-
-      return apiSuccess({ level: result.rows[0] }, { headers: LEVELS_CACHE_HEADERS });
-    } catch (err) {
-      console.error("[GET /api/levels] DB error:", err);
-      return apiError("DB_ERROR", "Failed to fetch level data.", 500);
-    }
+    return apiSuccess({ level }, { headers: CACHE_HEADERS });
   }
 
-  /* ── Mode 2: Current + next levels for dashboard progress bar (?user_level=7) ── */
+  /* Mode 2: Current + next level for dashboard XP bar (?user_level=7) */
   const userLevelParam = searchParams.get("user_level");
   if (userLevelParam !== null) {
-    const userLevel = parseInt(userLevelParam, 10);
-    if (isNaN(userLevel) || userLevel < 1 || userLevel > 100) {
-      return apiError("INVALID_LEVEL", "user_level must be between 1 and 100.", 400);
-    }
-
-    try {
-      /*
-       * Fetch the current level and the next level in one query using a WHERE IN.
-       * If userLevel = 100, there is no next level — the query returns 1 row.
-       */
-      const result = await pool.query(
-        `SELECT
-           level_number  AS "levelNumber",
-           xp_required   AS "xpRequired",
-           xp_to_next    AS "xpToNext",
-           title,
-           badge_name    AS "badgeName",
-           badge_icon    AS "badgeIcon",
-           badge_color   AS "badgeColor",
-           perks
-         FROM eduquest_levels
-         WHERE level_number IN ($1, $2)
-         ORDER BY level_number ASC`,
-        [userLevel, userLevel + 1],
-      );
-
-      const current = result.rows.find((r) => r.levelNumber === userLevel) ?? null;
-      const next    = result.rows.find((r) => r.levelNumber === userLevel + 1) ?? null;
-
-      return apiSuccess({ current, next }, { headers: LEVELS_CACHE_HEADERS });
-    } catch (err) {
-      console.error("[GET /api/levels] DB error:", err);
-      return apiError("DB_ERROR", "Failed to fetch level progress data.", 500);
-    }
+    const userLevel = Math.max(1, Math.min(parseInt(userLevelParam, 10) || 1, 10));
+    const current = LEVELS.find(l => l.levelNumber === userLevel) ?? LEVELS[0];
+    const next    = LEVELS.find(l => l.levelNumber === userLevel + 1) ?? null;
+    return apiSuccess({ current, next }, { headers: CACHE_HEADERS });
   }
 
-  /* ── Mode 3: All 100 levels (full progression screen) ────── */
-  try {
-    const result = await pool.query(
-      `SELECT
-         level_number  AS "levelNumber",
-         xp_required   AS "xpRequired",
-         xp_to_next    AS "xpToNext",
-         title,
-         badge_name    AS "badgeName",
-         badge_icon    AS "badgeIcon",
-         badge_color   AS "badgeColor",
-         perks
-       FROM eduquest_levels
-       ORDER BY level_number ASC`,
-    );
-
-    return apiSuccess(
-      { levels: result.rows, total: result.rows.length },
-      { headers: LEVELS_CACHE_HEADERS },
-    );
-  } catch (err) {
-    console.error("[GET /api/levels] DB error:", err);
-    return apiError("DB_ERROR", "Failed to fetch all levels.", 500);
-  }
+  /* Mode 3: All levels */
+  return apiSuccess({ levels: LEVELS, total: LEVELS.length }, { headers: CACHE_HEADERS });
 }

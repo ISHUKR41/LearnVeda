@@ -21,7 +21,6 @@ import {
   MessageSquare,
   Phone,
   School,
-  Send,
   Shield,
   Sparkles,
   Trophy,
@@ -29,6 +28,7 @@ import {
   Zap,
 } from "lucide-react";
 import styles from "./Contact.module.css";
+import ContactFormClient from "./ContactFormClient";
 
 /* ISR: revalidate every 24 hours — contact info rarely changes */
 export const revalidate = 86400;
@@ -318,56 +318,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Right — form (static HTML; JS submit handled client-side via /api/contact) */}
+          {/* Right — interactive client-side form (ContactFormClient handles submit + toast) */}
           <div className={styles.formCard}>
-            <form className={styles.form} action="/api/contact" method="POST">
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label className={styles.label} htmlFor="firstName">First Name</label>
-                  <input id="firstName" name="firstName" type="text" className={styles.input} placeholder="Rahul" required />
-                </div>
-                <div className={styles.formGroup}>
-                  <label className={styles.label} htmlFor="lastName">Last Name</label>
-                  <input id="lastName" name="lastName" type="text" className={styles.input} placeholder="Sharma" required />
-                </div>
-              </div>
-
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="email">Email Address</label>
-                <input id="email" name="email" type="email" className={styles.input} placeholder="rahul@example.com" required />
-              </div>
-
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="subject">Subject</label>
-                <select id="subject" name="subject" className={styles.select} required>
-                  <option value="">Select a topic…</option>
-                  <option value="student-support">Student Support</option>
-                  <option value="institution">School / Institution Partnership</option>
-                  <option value="events">Events & Sponsorship</option>
-                  <option value="content">Content Creator Collaboration</option>
-                  <option value="bug">Bug Report</option>
-                  <option value="feature">Feature Request</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="message">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  className={styles.textarea}
-                  placeholder="Describe your question or issue in detail…"
-                  required
-                />
-              </div>
-
-              <button type="submit" className={styles.submitBtn}>
-                <Send size={15} />
-                Send Message
-              </button>
-            </form>
+            <ContactFormClient />
           </div>
         </div>
       </section>
