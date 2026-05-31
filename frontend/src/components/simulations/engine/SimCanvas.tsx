@@ -202,7 +202,8 @@ export default function SimCanvas({ config }: { config: SimCanvasConfig }) {
   });
 
   /* React state (sliders, play/pause, reset token) */
-  const [running, setRunning] = useState(false);
+  /* Auto-start: running = true so simulations play immediately when scrolled into view */
+  const [running, setRunning] = useState(true);
   const [resetTok, setResetTok] = useState(0);
   const [fLeft,  setFLeft ] = useState(config.initForceLeft  ?? 0);
   const [fRight, setFRight] = useState(config.initForceRight ?? 0);
