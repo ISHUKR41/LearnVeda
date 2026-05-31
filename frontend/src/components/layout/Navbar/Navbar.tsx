@@ -3,9 +3,12 @@
  * LOCATION: src/components/layout/Navbar/Navbar.tsx
  * PURPOSE: Main top navigation bar for the EduQuest platform.
  *          Sticky, glass-morphism, responsive dropdowns and mobile drawer.
+ *          Auth state is read directly from Clerk (useUser + useClerk).
+ *          Sign-out calls clerk.signOut() which properly clears the Clerk
+ *          session — no redirect loop, no stale cookies.
  * USED BY: src/app/layout.tsx
- * DEPENDENCIES: next/link, lucide-react, Navbar.module.css, constants.ts
- * LAST UPDATED: 2026-05-17
+ * DEPENDENCIES: next/link, lucide-react, @clerk/nextjs, Navbar.module.css
+ * LAST UPDATED: 2026-05-31
  */
 
 "use client";
@@ -15,14 +18,15 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Menu, X, Sun, Moon, BookOpen, ChevronDown, Zap,
-  Search, Bell, Flame, Swords, User, Wallet, Settings, ShieldCheck
+  Search, Bell, Flame, Swords, User, Wallet, Settings
 } from "lucide-react";
+import { useClerk, useUser } from "@clerk/nextjs";
 import styles from "./Navbar.module.css";
-import type { PublicUser } from "@/types/auth";
 
 /**
  * Navbar Component
- * @cache-buster - Added to invalidate stale Turbopack browser cache
+ * Thin wrapper that re-mounts the shell on route changes to keep
+ * dropdown state clean without extra manual resets.
  */
 export default function Navbar() {
   const pathname = usePathname();
@@ -37,37 +41,35 @@ interface NavbarShellProps {
 function NavbarShell({ pathname }: NavbarShellProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDesktopGroup, setActiveDesktopGroup] = useState<string | null>(null);
+
   /**
    * Theme state — initializes to TRUE (dark) on both server and client.
    * EduQuest defaults to dark mode. The server renders data-theme="dark" and
    * this initial value matches it, preventing hydration mismatches.
-   * The actual localStorage value is then read in useEffect to honour
-   * any explicit user preference (only switching to light if they saved "light").
    */
   const [isDark, setIsDark] = useState(true);
-  /** Tracks whether the component has mounted on the client. Used to prevent
-   *  theme icon hydration mismatch — we render a neutral icon until mounted. */
+
+  /** Prevents theme icon hydration mismatch — render neutral icon until mounted. */
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const router = useRouter();
-  const [sessionState, setSessionState] = useState<"checking" | "guest" | "authenticated">("checking");
-  const [currentUser, setCurrentUser] = useState<PublicUser | null>(null);
-  const isSignedIn = sessionState === "authenticated";
 
-  /* Read saved theme from localStorage ONLY on the client after mount.
-   * Default is dark — only switch to light if the user explicitly saved "light".
-   * This prevents the server from rendering a different icon than the client. */
+  const router = useRouter();
+
+  /* ── Clerk auth state ──────────────────────────────────────────
+   * useUser() is the Clerk-recommended hook for reading the signed-in
+   * user. It returns { isLoaded, isSignedIn, user } — no manual fetch needed.
+   * useClerk() gives us the signOut() method.
+   * ─────────────────────────────────────────────────────────────── */
+  const { isLoaded, isSignedIn, user: clerkUser } = useUser();
+  const { signOut } = useClerk();
+
+  /* Read saved theme from localStorage ONLY on the client after mount */
   useEffect(() => {
     setMounted(true);
     const stored = localStorage.getItem("eduquest-theme");
-    // If no stored preference, keep dark (matches server default).
-    // Only honour an explicit "light" choice.
     const prefersDark = stored ? stored === "dark" : true;
     setIsDark(prefersDark);
-    // Persist the default so future page loads are also consistent.
-    if (!stored) {
-      localStorage.setItem("eduquest-theme", "dark");
-    }
+    if (!stored) localStorage.setItem("eduquest-theme", "dark");
   }, []);
 
   useEffect(() => {
@@ -91,46 +93,20 @@ function NavbarShell({ pathname }: NavbarShellProps) {
     }
   }, [isDark]);
 
-  useEffect(() => {
-    let isMounted = true;
-    async function loadSession() {
-      try {
-        const res = await fetch("/api/auth/me", { cache: "no-store" });
-        if (!isMounted) return;
-
-        if (res.ok) {
-          const payload = await res.json();
-          const user = payload?.data?.user ?? null;
-          setCurrentUser(user);
-          setSessionState(user ? "authenticated" : "guest");
-          return;
-        }
-
-        setCurrentUser(null);
-        setSessionState("guest");
-      } catch {
-        if (isMounted) {
-          setCurrentUser(null);
-          setSessionState("guest");
-        }
-      }
-    }
-    loadSession();
-    return () => { isMounted = false; };
-  }, []);
-
   const toggleTheme = () => {
     const newDark = !isDark;
     setIsDark(newDark);
     localStorage.setItem("eduquest-theme", newDark ? "dark" : "light");
   };
 
+  /**
+   * handleSignOut — uses Clerk's signOut() method.
+   * After Clerk clears its session it redirects to "/" automatically.
+   * We also close the mobile menu just in case it was open.
+   */
   const handleSignOut = async () => {
-    await fetch("/api/auth/sign-out", { method: "POST" });
-    setSessionState("guest");
-    setCurrentUser(null);
     setIsMobileMenuOpen(false);
-    router.push("/");
+    await signOut({ redirectUrl: "/" });
     router.refresh();
   };
 
@@ -149,12 +125,14 @@ function NavbarShell({ pathname }: NavbarShellProps) {
     setActiveDesktopGroup(prev => prev === group ? null : group);
   };
 
-  const isAdmin = currentUser?.role === "admin";
+  /* Show auth buttons only after Clerk has loaded to avoid flicker */
+  const authReady = isLoaded;
+  const displayName = clerkUser?.firstName ?? clerkUser?.username ?? "Student";
 
   return (
     <nav className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ""}`} role="navigation">
       <div className={styles.navbarInner}>
-        
+
         {/* Logo */}
         <Link href="/" className={styles.logo}>
           <BookOpen className={styles.logoIcon} size={20} />
@@ -198,7 +176,6 @@ function NavbarShell({ pathname }: NavbarShellProps) {
               <div className={styles.dropdown}>
                 <Link href="/community" className={styles.dropdownLink}>Community</Link>
                 <Link href="/events" className={styles.dropdownLink}>Events</Link>
-                <Link href="/hackathon" className={styles.dropdownLink}>Hackathons</Link>
                 <Link href="/leaderboard" className={styles.dropdownLink}>Leaderboard</Link>
                 <Link href="/features" className={styles.dropdownLink}>Features</Link>
                 <Link href="/pricing" className={styles.dropdownLink}>Pricing</Link>
@@ -211,13 +188,13 @@ function NavbarShell({ pathname }: NavbarShellProps) {
         {/* Right Actions */}
         <div className={styles.navActions}>
 
-          {/* Search icon — always visible, links to the global search page */}
+          {/* Search icon */}
           <Link href="/search" className={styles.iconBtn} aria-label="Search">
             <Search size={18} />
           </Link>
 
-          {/* Authenticated-only icons: notifications bell + streak flame */}
-          {isSignedIn && (
+          {/* Authenticated-only icons */}
+          {authReady && isSignedIn && (
             <>
               <Link href="/notifications" className={styles.iconBtn} aria-label="Notifications">
                 <Bell size={17} />
@@ -228,14 +205,15 @@ function NavbarShell({ pathname }: NavbarShellProps) {
             </>
           )}
 
-          {/* Theme toggle — shows neutral Sun until client-side mount to avoid hydration mismatch */}
+          {/* Theme toggle */}
           <button className={styles.themeToggle} onClick={toggleTheme} aria-label="Toggle theme">
             {mounted ? (isDark ? <Sun size={18} /> : <Moon size={18} />) : <Sun size={18} />}
           </button>
 
           {/* Auth buttons (desktop) */}
           <div className={styles.authButtons}>
-            {!isSignedIn && (
+            {/* While Clerk is loading, show nothing to avoid flicker */}
+            {authReady && !isSignedIn && (
               <>
                 <Link href="/sign-in" className={styles.btnGhost}>Sign In</Link>
                 <Link href="/sign-up" className={styles.btnPrimary}>
@@ -243,10 +221,10 @@ function NavbarShell({ pathname }: NavbarShellProps) {
                 </Link>
               </>
             )}
-            {isSignedIn && (
+            {authReady && isSignedIn && (
               <>
                 <Link href="/dashboard" className={styles.btnGhost}>
-                  <Zap size={14} /> Dashboard
+                  <Zap size={14} /> {displayName}
                 </Link>
                 <button onClick={handleSignOut} className={styles.btnGhost} style={{ cursor: "pointer" }}>
                   Sign Out
@@ -275,7 +253,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
               <span className={styles.logoText}>EduQuest</span>
               <button onClick={() => setIsMobileMenuOpen(false)} className={styles.closeBtn}><X size={24} /></button>
             </div>
-            
+
             <div className={styles.drawerSection}>
               <div className={styles.drawerSectionTitle}>Learn</div>
               <Link href="/class-9" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Class 9</Link>
@@ -291,14 +269,13 @@ function NavbarShell({ pathname }: NavbarShellProps) {
               <Link href="/battle" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Live Battles</Link>
               <Link href="/community" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Community</Link>
               <Link href="/events" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Events</Link>
-              <Link href="/hackathon" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Hackathons</Link>
               <Link href="/leaderboard" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Leaderboard</Link>
               <Link href="/features" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Features</Link>
               <Link href="/pricing" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Pricing</Link>
             </div>
 
             <div className={styles.drawerAuth}>
-              {isSignedIn && (
+              {authReady && isSignedIn && (
                 <>
                   <Link href="/dashboard" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
                   <Link href="/profile" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><User size={16} /> Profile</Link>
@@ -307,7 +284,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
                   <button onClick={handleSignOut} className={styles.drawerBtnSecondary}>Sign Out</button>
                 </>
               )}
-              {!isSignedIn && (
+              {authReady && !isSignedIn && (
                 <>
                   <Link href="/sign-in" className={styles.drawerBtnSecondary} onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
                   <Link href="/sign-up" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Start Free</Link>

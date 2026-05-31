@@ -70,13 +70,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-import { cookies } from "next/headers";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 export default async function Class9ChapterPage({ params }: PageProps) {
-  const cookieStore = await cookies();
-  const session = cookieStore.get("eduquest_session");
-  if (!session) redirect("/sign-in");
+  /* Protect this page: Clerk middleware handles most cases,
+   * but this server-side check is a safety net. */
+  const { userId } = await auth();
+  if (!userId) redirect("/sign-in");
 
   const resolvedParams = await params;
   const { subject, chapter } = resolvedParams;
