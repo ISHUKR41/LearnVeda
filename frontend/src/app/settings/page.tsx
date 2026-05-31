@@ -35,6 +35,7 @@ import {
   EyeOff, CheckCircle2, Settings2, Info,
 } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
+import { useClerk } from "@clerk/nextjs";
 import toast from "react-hot-toast";
 import styles from "./Settings.module.css";
 
@@ -102,6 +103,7 @@ function SettingsSection({
  */
 export default function SettingsPage() {
   const router = useRouter();
+  const { signOut } = useClerk();
   const { user, isAuthenticated, isLoading, clearUser, updateUser } = useAuthStore();
 
   /* ── Profile form state ── */
@@ -293,10 +295,9 @@ export default function SettingsPage() {
     } catch {
       /* Even if the server call fails, clear local state */
     }
-
     clearUser();
-    router.push("/");
-    router.refresh();
+    /* Sign out via Clerk — redirects to "/" not "/dashboard" */
+    await signOut({ redirectUrl: "/" });
   }
 
   /* ─────────────────────────────────────────────

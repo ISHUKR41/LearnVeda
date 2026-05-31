@@ -1,11 +1,9 @@
 /*
  * FILE: Navbar.tsx
  * LOCATION: src/components/layout/Navbar/Navbar.tsx
- * PURPOSE: Main top navigation bar for the EduQuest platform.
- *          Sticky, glass-morphism, responsive dropdowns and mobile drawer.
- *          Auth state is read from the Zustand authStore (session cookie based).
- * USED BY: src/app/layout.tsx
- * DEPENDENCIES: next/link, lucide-react, authStore, useAuth, Navbar.module.css
+ * PURPOSE: Main top navigation bar. Auth state from Clerk (useUser + useClerk).
+ *          Sign-out calls clerk.signOut() which clears the Clerk session properly.
+ * LAST UPDATED: 2026-05-31
  */
 
 "use client";
@@ -17,8 +15,7 @@ import {
   Menu, X, Sun, Moon, BookOpen, ChevronDown, Zap,
   Search, Bell, Flame, Swords, User, Wallet, Settings
 } from "lucide-react";
-import { useAuthStore } from "@/store/authStore";
-import { useAuth } from "@/hooks/useAuth";
+import { useClerk, useUser } from "@clerk/nextjs";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
@@ -26,11 +23,7 @@ export default function Navbar() {
   return <NavbarShell key={pathname} pathname={pathname} />;
 }
 
-interface NavbarShellProps {
-  pathname: string;
-}
-
-function NavbarShell({ pathname }: NavbarShellProps) {
+function NavbarShell({ pathname }: { pathname: string }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDesktopGroup, setActiveDesktopGroup] = useState<string | null>(null);
   const [isDark, setIsDark] = useState(true);
@@ -38,10 +31,8 @@ function NavbarShell({ pathname }: NavbarShellProps) {
   const [scrolled, setScrolled] = useState(false);
 
   const router = useRouter();
-
-  /* Auth state from Zustand store — hydrated by useAuth hook */
-  useAuth();
-  const { isAuthenticated, isLoading, user } = useAuthStore();
+  const { isLoaded, isSignedIn, user: clerkUser } = useUser();
+  const { signOut } = useClerk();
 
   useEffect(() => {
     setMounted(true);
@@ -78,19 +69,10 @@ function NavbarShell({ pathname }: NavbarShellProps) {
     localStorage.setItem("eduquest-theme", newDark ? "dark" : "light");
   };
 
+  /* Sign out via Clerk — redirects to home, not dashboard */
   const handleSignOut = async () => {
     setIsMobileMenuOpen(false);
-    try {
-      await fetch("/api/auth/sign-out", {
-        method: "POST",
-        credentials: "include",
-      });
-    } catch {
-      /* ignore */
-    }
-    useAuthStore.getState().clearUser();
-    router.push("/");
-    router.refresh();
+    await signOut({ redirectUrl: "/" });
   };
 
   const isActive = (href: string) => {
@@ -99,29 +81,25 @@ function NavbarShell({ pathname }: NavbarShellProps) {
   };
 
   const closeDesktopMenuOnBlur = (e: FocusEvent<HTMLLIElement>) => {
-    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-      setActiveDesktopGroup(null);
-    }
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) setActiveDesktopGroup(null);
   };
 
   const toggleDesktopGroup = (group: string) => {
     setActiveDesktopGroup(prev => prev === group ? null : group);
   };
 
-  const authReady = !isLoading;
-  const displayName = user?.name?.split(" ")[0] ?? "Student";
+  const authReady = isLoaded;
+  const displayName = clerkUser?.firstName ?? clerkUser?.username ?? "Student";
 
   return (
     <nav className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ""}`} role="navigation">
       <div className={styles.navbarInner}>
 
-        {/* Logo */}
         <Link href="/" className={styles.logo}>
           <BookOpen className={styles.logoIcon} size={20} />
           <span className={styles.logoText}>EduQuest</span>
         </Link>
 
-        {/* Desktop Nav */}
         <ul className={styles.navLinks}>
           <li className={styles.navItem} onBlur={closeDesktopMenuOnBlur}>
             <button className={`${styles.navBtn} ${activeDesktopGroup === "classes" ? styles.active : ""}`} onClick={() => toggleDesktopGroup("classes")}>
@@ -167,16 +145,11 @@ function NavbarShell({ pathname }: NavbarShellProps) {
           </li>
         </ul>
 
-        {/* Right Actions */}
         <div className={styles.navActions}>
-
-          {/* Search icon */}
           <Link href="/search" className={styles.iconBtn} aria-label="Search">
             <Search size={18} />
           </Link>
-
-          {/* Authenticated-only icons */}
-          {authReady && isAuthenticated && (
+          {authReady && isSignedIn && (
             <>
               <Link href="/notifications" className={styles.iconBtn} aria-label="Notifications">
                 <Bell size={17} />
@@ -186,15 +159,11 @@ function NavbarShell({ pathname }: NavbarShellProps) {
               </Link>
             </>
           )}
-
-          {/* Theme toggle */}
           <button className={styles.themeToggle} onClick={toggleTheme} aria-label="Toggle theme">
             {mounted ? (isDark ? <Sun size={18} /> : <Moon size={18} />) : <Sun size={18} />}
           </button>
-
-          {/* Auth buttons (desktop) */}
           <div className={styles.authButtons}>
-            {authReady && !isAuthenticated && (
+            {authReady && !isSignedIn && (
               <>
                 <Link href="/sign-in" className={styles.btnGhost}>Sign In</Link>
                 <Link href="/sign-up" className={styles.btnPrimary}>
@@ -202,7 +171,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
                 </Link>
               </>
             )}
-            {authReady && isAuthenticated && (
+            {authReady && isSignedIn && (
               <>
                 <Link href="/dashboard" className={styles.btnGhost}>
                   <Zap size={14} /> {displayName}
@@ -213,19 +182,12 @@ function NavbarShell({ pathname }: NavbarShellProps) {
               </>
             )}
           </div>
-
-          {/* Hamburger — mobile only */}
-          <button
-            className={styles.mobileToggle}
-            onClick={() => setIsMobileMenuOpen(true)}
-            aria-label="Open menu"
-          >
+          <button className={styles.mobileToggle} onClick={() => setIsMobileMenuOpen(true)} aria-label="Open menu">
             <Menu size={22} />
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <>
           <div className={styles.mobileOverlay} onClick={() => setIsMobileMenuOpen(false)} />
@@ -234,7 +196,6 @@ function NavbarShell({ pathname }: NavbarShellProps) {
               <span className={styles.logoText}>EduQuest</span>
               <button onClick={() => setIsMobileMenuOpen(false)} className={styles.closeBtn}><X size={24} /></button>
             </div>
-
             <div className={styles.drawerSection}>
               <div className={styles.drawerSectionTitle}>Learn</div>
               <Link href="/class-9" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Class 9</Link>
@@ -243,7 +204,6 @@ function NavbarShell({ pathname }: NavbarShellProps) {
               <Link href="/class-12" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Class 12</Link>
               <Link href="/engineering" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Engineering</Link>
             </div>
-
             <div className={styles.drawerSection}>
               <div className={styles.drawerSectionTitle}>Practice & Explore</div>
               <Link href="/test" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Test Center</Link>
@@ -254,9 +214,8 @@ function NavbarShell({ pathname }: NavbarShellProps) {
               <Link href="/features" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Features</Link>
               <Link href="/pricing" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Pricing</Link>
             </div>
-
             <div className={styles.drawerAuth}>
-              {authReady && isAuthenticated && (
+              {authReady && isSignedIn && (
                 <>
                   <Link href="/dashboard" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
                   <Link href="/profile" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><User size={16} /> Profile</Link>
@@ -265,7 +224,7 @@ function NavbarShell({ pathname }: NavbarShellProps) {
                   <button onClick={handleSignOut} className={styles.drawerBtnSecondary}>Sign Out</button>
                 </>
               )}
-              {authReady && !isAuthenticated && (
+              {authReady && !isSignedIn && (
                 <>
                   <Link href="/sign-in" className={styles.drawerBtnSecondary} onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
                   <Link href="/sign-up" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Start Free</Link>
