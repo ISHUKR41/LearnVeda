@@ -1,10 +1,17 @@
 /**
  * FILE: SimulationRegistry.tsx
  * PURPOSE: Central registry for ALL simulations across all 5 Force & Laws of Motion topics.
- * Each simulation is lazily imported so only the simulations actually rendered are loaded.
- * Topics 1–5 each have 20 original + 5 advanced + 7-8 extra = 27–28 simulations per topic.
+ *
+ * KEY DESIGN DECISIONS:
+ *   1. "use client" — IntersectionObserver and useState require a client component.
+ *   2. Each simulation is lazily IMPORTED via next/dynamic (code-split per simulation).
+ *   3. Each simulation is lazily MOUNTED via IntersectionObserver — only renders when
+ *      it scrolls into view (300px before). This prevents 30 canvas RAF loops running
+ *      simultaneously, which caused severe performance issues.
  */
-import React, { ComponentType } from "react";
+"use client";
+
+import React, { ComponentType, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 
 /* ══════════════════════════════════════════════════════════════════
@@ -376,6 +383,53 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "pool-table":                Sim_pool_table,
 };
 
+/* ══════════════════════════════════════════════════════════════════════
+ * LazySimulation — mounts a simulation only when it scrolls into view.
+ * Uses IntersectionObserver with a 300px rootMargin so each canvas
+ * component is mounted just before the user reaches it, not all at once.
+ * This prevents 30 simultaneous requestAnimationFrame loops.
+ * ══════════════════════════════════════════════════════════════════════ */
+interface LazySimProps {
+  id: string;
+  Comp: ComponentType<any>;
+}
+
+function LazySimulation({ id, Comp }: LazySimProps) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    /* Fallback for environments without IntersectionObserver */
+    if (typeof IntersectionObserver === "undefined") { setVisible(true); return; }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { rootMargin: "300px 0px", threshold: 0 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={wrapRef} id={`sim-${id}`}>
+      {visible ? (
+        <Comp />
+      ) : (
+        <div style={{
+          height: 380, borderRadius: 18, background: "#0b1120",
+          border: "1px solid #1e293b", display: "flex", alignItems: "center",
+          justifyContent: "center", color: "#334155", fontSize: 14,
+          fontFamily: "Inter, system-ui, sans-serif",
+        }}>
+          ⏳ Loading simulation…
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ── Renderer component — used by topic pages to render all simulations ── */
 interface SimulationRendererProps {
   simulationIds: string[];
@@ -385,14 +439,14 @@ export default function SimulationRenderer({ simulationIds }: SimulationRenderer
   if (!simulationIds || simulationIds.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-8 my-8">
+    <div style={{ display: "flex", flexDirection: "column", gap: 32, margin: "32px 0" }}>
       {simulationIds.map((id) => {
-        const SimulationComponent = SIMULATION_REGISTRY[id];
-        if (!SimulationComponent) {
+        const Comp = SIMULATION_REGISTRY[id];
+        if (!Comp) {
           console.warn(`[SimulationRegistry] No component found for simulation ID: "${id}"`);
           return null;
         }
-        return <SimulationComponent key={id} />;
+        return <LazySimulation key={id} id={id} Comp={Comp} />;
       })}
     </div>
   );

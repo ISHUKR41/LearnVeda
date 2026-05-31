@@ -89,6 +89,18 @@ export default function ForceEngine({ config }: { config: ForceEngineConfig }) {
   useEffect(() => { stateRef.current.forceLeft  = forceLeft;  }, [forceLeft]);
   useEffect(() => { stateRef.current.forceRight = forceRight; }, [forceRight]);
 
+  /* ── HiDPI canvas setup — run once after mount ──────────────────────── */
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    /* Physical pixels based on the CSS 700×220 logical size */
+    canvas.width  = 700 * dpr;
+    canvas.height = 220 * dpr;
+    const ctx = canvas.getContext("2d");
+    if (ctx) ctx.scale(dpr, dpr);
+  }, []);
+
   /* ── Canvas renderer (the simulation loop) ─────────────────────────── */
   const render = useCallback((timestamp: number) => {
     const canvas = canvasRef.current;
@@ -96,8 +108,9 @@ export default function ForceEngine({ config }: { config: ForceEngineConfig }) {
 
     const s   = stateRef.current;
     const ctx = canvas.getContext("2d")!;
-    const W   = canvas.width;
-    const H   = canvas.height;
+    const dpr = window.devicePixelRatio || 1;
+    const W   = canvas.width  / dpr;
+    const H   = canvas.height / dpr;
 
     /* Physics step ─────────────────────────────────────── */
     if (s.lastTime > 0) {

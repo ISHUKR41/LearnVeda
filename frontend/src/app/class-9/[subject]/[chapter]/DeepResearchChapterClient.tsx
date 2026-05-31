@@ -29,17 +29,6 @@ import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
 import SimulationRenderer from "@/components/simulations/SimulationRegistry";
 
-/* Chapter-aware simulation components — loaded lazily per chapter */
-const PhysicsSimulation = dynamic(() => import("@/components/physics/PhysicsSimulation"), { ssr: false, loading: () => <div style={{ height: 40 }} /> });
-const MatterSimulation  = dynamic(() => import("@/components/physics/MatterSimulation"),  { ssr: false, loading: () => <div style={{ height: 40 }} /> });
-const MotionSimulation  = dynamic(() => import("@/components/physics/MotionSimulation"),  { ssr: false, loading: () => <div style={{ height: 40 }} /> });
-
-function SimulationForChapter({ chapterId, topicId }: { chapterId: string; topicId: string }) {
-  if (chapterId === "matter-in-our-surroundings" || chapterId === "matter-in-surroundings") return <MatterSimulation topicId={topicId} />;
-  if (chapterId === "motion") return <MotionSimulation topicId={topicId} />;
-  return <PhysicsSimulation topicId={topicId} />;
-}
-
 /* ─────────────────────────────────────────────
  * Component Props
  * ───────────────────────────────────────────── */
@@ -389,9 +378,6 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
                   ⚡ Focused Study Mode
                 </Link>
               </div>
-
-              {/* ── Chapter-aware simulation component ── */}
-              <SimulationForChapter chapterId={chapterData.id} topicId={activeTopic.id} />
 
               {/* ── Rendered Markdown Content with KaTeX math ── */}
               <div

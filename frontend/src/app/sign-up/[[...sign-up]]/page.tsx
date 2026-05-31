@@ -1,3 +1,13 @@
+/**
+ * FILE: page.tsx
+ * LOCATION: src/app/sign-up/[[...sign-up]]/page.tsx
+ * PURPOSE: Sign-up page using Clerk's hosted SignUp widget.
+ *          Uses fallbackRedirectUrl (NOT forceRedirectUrl) so Clerk can respect
+ *          any redirect_url parameter set by the middleware.
+ *          This prevents the sign-up → dashboard → sign-in loop.
+ * LAST UPDATED: 2026-05-31
+ */
+
 import { SignUp } from "@clerk/nextjs";
 import styles from "../SignUp.module.css";
 
@@ -5,6 +15,8 @@ export default function SignUpPage() {
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
+
+        {/* ── Left panel: Feature highlights ── */}
         <div className={styles.promisePanel}>
           <div className={styles.promiseBadge}>⚡ Start Free</div>
           <div className={styles.promiseMid}>
@@ -39,15 +51,17 @@ export default function SignUpPage() {
             </div>
           </div>
         </div>
+
+        {/* ── Right panel: Clerk sign-up widget ── */}
         <div className={styles.card}>
           <SignUp
             routing="path"
             path="/sign-up"
             signInUrl="/sign-in"
-            forceRedirectUrl="/dashboard"
             fallbackRedirectUrl="/dashboard"
           />
         </div>
+
       </div>
     </div>
   );
