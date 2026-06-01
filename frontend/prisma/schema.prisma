@@ -192,7 +192,7 @@ model LearningPlan {
 model Question {
   id          String    @id @default(cuid())
   content     String
-  options     String    // JSON string of options
+  options     String?   // JSON string of options
   answer      String
   explanation String?
   youtubeLink String?   // Video solution link
