@@ -19,6 +19,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 import { useEffect, useRef, useState } from "react";
 import {
   AlertCircle,
@@ -532,6 +533,10 @@ function AchievementsCard() {
  * ───────────────────────────────────────────── */
 export default function DashboardClient() {
   const router = useRouter();
+  /* Clerk client-side auth state — used to prevent the redirect loop:
+   * If Clerk says user IS signed in but API returns 401 (server-side JWT
+   * validation issue), we show an error instead of bouncing to sign-in. */
+  const { isLoaded: clerkLoaded, isSignedIn } = useUser();
 
   const [snapshot,     setSnapshot]     = useState<DashboardSnapshot | null>(null);
   const [wallet,       setWallet]       = useState<WalletData | null>(null);
@@ -575,12 +580,32 @@ export default function DashboardClient() {
 
         if (!isMounted) return;
 
-        /* 401 = Session expired or missing.
-         * Now that middleware.ts protects /dashboard, reaching here with 401
-         * means the cookie expired mid-session. Safe to redirect to sign-in —
-         * middleware prevents the infinite loop (no cookie → middleware stops at sign-in). */
+        /* 401 = Session missing or Clerk JWT validation failed on server side.
+         *
+         * IMPORTANT: We check isSignedIn (Clerk client-side) before redirecting.
+         * If Clerk client says user IS signed in but API returns 401, it means
+         * server-side auth is having a transient issue — redirecting would cause
+         * an infinite loop (sign-in → dashboard → 401 → sign-in → ...).
+         * In that case we retry once after a short delay, then show an error.
+         */
         if (dashRes.status === 401) {
-          router.replace("/sign-in?redirect_url=/dashboard");
+          if (clerkLoaded && isSignedIn) {
+            /* User is genuinely signed in — server auth glitch, retry once */
+            await new Promise(r => setTimeout(r, 800));
+            const retry = await fetch("/api/dashboard", { cache: "no-store" });
+            if (retry.ok) {
+              const retryPayload = await retry.json() as DashboardApiResponse;
+              if (retryPayload.ok && retryPayload.data && isMounted) {
+                setSnapshot(retryPayload.data);
+              }
+            } else if (isMounted) {
+              setError("Session authentication error. Please refresh the page or sign in again.");
+            }
+          } else if (clerkLoaded && !isSignedIn) {
+            /* Genuinely not signed in — safe to redirect */
+            router.replace("/sign-in?redirect_url=/dashboard");
+          }
+          /* If !clerkLoaded yet, wait — the effect will re-run when clerkLoaded changes */
           return;
         }
 
