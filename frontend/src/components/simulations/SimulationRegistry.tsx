@@ -282,6 +282,30 @@ const Sim_momentum_split     = dynamic(() => import('./Topic8Professional').then
 const Sim_resonance_demo     = dynamic(() => import('./Topic8Professional').then(m => m.Sim_resonance_demo),     { ssr: false });
 
 /* ══════════════════════════════════════════════════════════════════
+ * PROFESSIONAL TIER 9 — 15 brand-new ultra-realistic canvas sims
+ * Topic9Professional.tsx: elastic/inelastic collision comparator,
+ * Newton's 2nd law track, inclined plane analyzer, centripetal,
+ * rocket propulsion, projectile with drag, pulley MA, spring SHM,
+ * 2D momentum sandbox, impulse duration, FBD builder, Newton's
+ * cradle, terminal velocity, 2D vector addition, energy track
+ * ══════════════════════════════════════════════════════════════════ */
+const Sim_collision_comparator         = dynamic(() => import('./Topic9Professional').then(m => m.Sim_collision_comparator),         { ssr: false });
+const Sim_newton_second_track          = dynamic(() => import('./Topic9Professional').then(m => m.Sim_newton_second_track),          { ssr: false });
+const Sim_inclined_force_lab           = dynamic(() => import('./Topic9Professional').then(m => m.Sim_inclined_force_lab),           { ssr: false });
+const Sim_centripetal_force_explorer   = dynamic(() => import('./Topic9Professional').then(m => m.Sim_centripetal_force_explorer),   { ssr: false });
+const Sim_rocket_variable_mass         = dynamic(() => import('./Topic9Professional').then(m => m.Sim_rocket_variable_mass),         { ssr: false });
+const Sim_projectile_air_drag          = dynamic(() => import('./Topic9Professional').then(m => m.Sim_projectile_air_drag),          { ssr: false });
+const Sim_pulley_mechanical_advantage  = dynamic(() => import('./Topic9Professional').then(m => m.Sim_pulley_mechanical_advantage),  { ssr: false });
+const Sim_spring_damping_oscillator    = dynamic(() => import('./Topic9Professional').then(m => m.Sim_spring_damping_oscillator),    { ssr: false });
+const Sim_momentum_2d_sandbox          = dynamic(() => import('./Topic9Professional').then(m => m.Sim_momentum_2d_sandbox),          { ssr: false });
+const Sim_impulse_force_duration       = dynamic(() => import('./Topic9Professional').then(m => m.Sim_impulse_force_duration),       { ssr: false });
+const Sim_fbd_interactive_builder      = dynamic(() => import('./Topic9Professional').then(m => m.Sim_fbd_interactive_builder),      { ssr: false });
+const Sim_newtons_cradle_physics       = dynamic(() => import('./Topic9Professional').then(m => m.Sim_newtons_cradle_physics),       { ssr: false });
+const Sim_free_fall_terminal           = dynamic(() => import('./Topic9Professional').then(m => m.Sim_free_fall_terminal),           { ssr: false });
+const Sim_vector_force_addition_2d     = dynamic(() => import('./Topic9Professional').then(m => m.Sim_vector_force_addition_2d),     { ssr: false });
+const Sim_energy_conservation_track    = dynamic(() => import('./Topic9Professional').then(m => m.Sim_energy_conservation_track),    { ssr: false });
+
+/* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
  * ══════════════════════════════════════════════════════════════════ */
@@ -496,6 +520,23 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "fluid-buoyancy":            Sim_fluid_buoyancy,
   "momentum-split":            Sim_momentum_split,
   "resonance-demo":            Sim_resonance_demo,
+
+  /* ── Topic 9 Professional (15) — ultra-realistic new physics sims ── */
+  "collision-comparator":        Sim_collision_comparator,
+  "newton-second-track":         Sim_newton_second_track,
+  "inclined-force-lab":          Sim_inclined_force_lab,
+  "centripetal-force-explorer":  Sim_centripetal_force_explorer,
+  "rocket-variable-mass":        Sim_rocket_variable_mass,
+  "projectile-air-drag":         Sim_projectile_air_drag,
+  "pulley-mechanical-advantage": Sim_pulley_mechanical_advantage,
+  "spring-damping-oscillator":   Sim_spring_damping_oscillator,
+  "momentum-2d-sandbox":         Sim_momentum_2d_sandbox,
+  "impulse-force-duration":      Sim_impulse_force_duration,
+  "fbd-interactive-builder":     Sim_fbd_interactive_builder,
+  "newtons-cradle-physics":      Sim_newtons_cradle_physics,
+  "free-fall-terminal":          Sim_free_fall_terminal,
+  "vector-force-addition-2d":    Sim_vector_force_addition_2d,
+  "energy-conservation-track":   Sim_energy_conservation_track,
 };
 
 /* ══════════════════════════════════════════════════════════════════════

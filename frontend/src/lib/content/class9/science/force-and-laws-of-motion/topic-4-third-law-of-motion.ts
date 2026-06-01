@@ -56,7 +56,11 @@ export const thirdLawOfMotion: Topic = {
     "air-hockey",
     "impulse-airbag",
     "circular-centripetal",
-    "resonance-demo"
+    "resonance-demo",
+    "rocket-variable-mass",
+    "impulse-force-duration",
+    "newtons-cradle-physics",
+    "vector-force-addition-2d"
   ],
 
   content: `

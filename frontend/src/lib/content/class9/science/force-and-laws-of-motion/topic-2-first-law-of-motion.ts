@@ -51,7 +51,10 @@ export const firstLawOfMotionInertia: Topic = {
     "galileo-plane",
     "double-pendulum",
     "rolling-incline",
-    "terminal-velocity"
+    "terminal-velocity",
+    "centripetal-force-explorer",
+    "spring-damping-oscillator",
+    "free-fall-terminal"
   ],
 
   content: `

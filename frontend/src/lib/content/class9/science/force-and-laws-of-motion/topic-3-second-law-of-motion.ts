@@ -67,7 +67,12 @@ export const secondLawOfMotion: Topic = {
     "spring-shm",
     "elevator-weight",
     "friction-lab",
-    "projectile-range"
+    "projectile-range",
+    "newton-second-track",
+    "rocket-variable-mass",
+    "pulley-mechanical-advantage",
+    "inclined-force-lab",
+    "energy-conservation-track"
   ],
 
   content: `

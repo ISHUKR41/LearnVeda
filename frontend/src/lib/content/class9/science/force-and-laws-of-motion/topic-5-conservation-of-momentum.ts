@@ -52,7 +52,12 @@ export const conservationOfMomentum: Topic = {
     "superball-rebound",
     "momentum-explosion-2d",
     "collision-lab-2d",
-    "momentum-split"
+    "momentum-split",
+    "collision-comparator",
+    "momentum-2d-sandbox",
+    "newtons-cradle-physics",
+    "impulse-force-duration",
+    "projectile-air-drag"
   ],
 
   content: `

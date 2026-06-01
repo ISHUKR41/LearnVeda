@@ -55,7 +55,12 @@ export const balancedUnbalancedForces: Topic = {
     "centripetal-lab",
     "force-decomposition",
     "fluid-buoyancy",
-    "orbital-slingshot"
+    "orbital-slingshot",
+    "inclined-force-lab",
+    "fbd-interactive-builder",
+    "free-fall-terminal",
+    "vector-force-addition-2d",
+    "energy-conservation-track"
   ],
 
   content: `

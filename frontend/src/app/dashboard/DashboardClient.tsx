@@ -631,27 +631,31 @@ export default function DashboardClient() {
     loadDashboard();
 
     /*
-     * Re-fetch dashboard when the user returns to this tab.
-     * This catches the common flow: user studies a topic → answers questions →
-     * switches back to dashboard tab → data refreshes with new XP/level.
+     * Re-fetch dashboard when the user returns to this tab after 5+ minutes away.
+     * The 5-minute throttle prevents the "baar baar auto refresh" loop where every
+     * navigation or Alt+Tab triggered a full reload and caused an infinite refresh
+     * cycle. Now refreshes only happen when the tab has been hidden for a while.
      */
+    let lastLoadedAt = Date.now();
+
     function handleVisibilityChange() {
       if (document.visibilityState === "visible" && isMounted) {
-        loadDashboard();
+        const minutesAway = (Date.now() - lastLoadedAt) / 60_000;
+        if (minutesAway >= 5) {
+          lastLoadedAt = Date.now();
+          loadDashboard();
+        }
+      } else {
+        /* record when tab was hidden */
+        lastLoadedAt = Date.now();
       }
     }
 
-    function handleFocus() {
-      if (isMounted) loadDashboard();
-    }
-
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("focus", handleFocus);
 
     return () => {
       isMounted = false;
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener("focus", handleFocus);
     };
   }, [router]);
 
