@@ -48,7 +48,12 @@ export const thirdLawOfMotion: Topic = {
     "skateboard-push",
     "rowing-boat",
     "fire-extinguisher-cart",
-    "newtons-cradle-advanced"
+    "newtons-cradle-advanced",
+    "ice-skaters-push",
+    "rocket-exhaust-new",
+    "swimmer-wall-push",
+    "book-force-pairs",
+    "gun-recoil-new"
   ],
 
   content: `

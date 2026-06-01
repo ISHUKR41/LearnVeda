@@ -44,7 +44,12 @@ export const firstLawOfMotionInertia: Topic = {
     "bus-jerk",
     "galileo-ramp",
     "iss-microgravity",
-    "seatbelt-demo"
+    "seatbelt-demo",
+    "space-drift-pro",
+    "bus-brake-inertia",
+    "coin-card-inertia",
+    "mass-inertia-lab",
+    "galileo-ramp-pro"
   ],
 
   content: `

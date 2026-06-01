@@ -45,7 +45,12 @@ export const balancedUnbalancedForces: Topic = {
     "force-decomposition",
     "inclined-force-lab",
     "fbd-interactive-builder",
-    "vector-force-addition-2d"
+    "vector-force-addition-2d",
+    "force-vector-lab-pro",
+    "tug-war-live",
+    "gravity-normal-pair",
+    "friction-threshold",
+    "balanced-break"
   ],
 
   content: `

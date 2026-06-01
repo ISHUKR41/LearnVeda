@@ -376,6 +376,42 @@ const Sim_pendulum_conservation_v11 = dynamic(() => import('./Topic11Professiona
 const Sim_momentum_graph_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_momentum_graph_pro), { ssr: false });
 
 /* ══════════════════════════════════════════════════════════════════
+ * ULTRA-PRO TIER — 25 brand-new professional canvas simulations
+ * All within CBSE Class 9 NCERT Force & Laws of Motion syllabus.
+ * TopicUltraPro.tsx: 5 per topic × 5 topics = 25 simulations.
+ * ══════════════════════════════════════════════════════════════════ */
+/* Topic 1 */
+const Sim_force_vector_lab_pro  = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_force_vector_lab_pro),  { ssr: false });
+const Sim_tug_war_live          = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_tug_war_live),          { ssr: false });
+const Sim_gravity_normal_pair   = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_gravity_normal_pair),   { ssr: false });
+const Sim_friction_threshold    = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_friction_threshold),    { ssr: false });
+const Sim_balanced_break        = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_balanced_break),        { ssr: false });
+/* Topic 2 */
+const Sim_space_drift_pro       = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_space_drift_pro),       { ssr: false });
+const Sim_bus_brake_inertia     = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_bus_brake_inertia),     { ssr: false });
+const Sim_coin_card_inertia     = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_coin_card_inertia),     { ssr: false });
+const Sim_mass_inertia_lab      = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_mass_inertia_lab),      { ssr: false });
+const Sim_galileo_ramp_pro      = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_galileo_ramp_pro),      { ssr: false });
+/* Topic 3 */
+const Sim_fma_lab_ultra         = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_fma_lab_ultra),         { ssr: false });
+const Sim_heavy_mass_accel      = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_heavy_mass_accel),      { ssr: false });
+const Sim_car_braking_ultra     = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_car_braking_pro),     { ssr: false });
+const Sim_momentum_rate_demo    = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_momentum_rate_demo),    { ssr: false });
+const Sim_cricket_impulse       = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_cricket_impulse),       { ssr: false });
+/* Topic 4 */
+const Sim_ice_skaters_push      = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_ice_skaters_push),      { ssr: false });
+const Sim_rocket_exhaust_new    = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_rocket_exhaust_new),    { ssr: false });
+const Sim_swimmer_wall_push     = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_swimmer_wall_push),     { ssr: false });
+const Sim_book_force_pairs      = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_book_force_pairs),      { ssr: false });
+const Sim_gun_recoil_new        = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_gun_recoil_new),        { ssr: false });
+/* Topic 5 */
+const Sim_elastic_collision_1d  = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_elastic_collision_1d), { ssr: false });
+const Sim_inelastic_stick_pro   = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_inelastic_stick_pro),  { ssr: false });
+const Sim_explosion_from_rest   = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_explosion_from_rest),  { ssr: false });
+const Sim_bullet_clay_momentum  = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_bullet_clay_momentum), { ssr: false });
+const Sim_newton_cradle_pro     = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_newton_cradle_pro),    { ssr: false });
+
+/* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
  * ══════════════════════════════════════════════════════════════════ */
@@ -412,6 +448,13 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "satellite-orbit":       Sim_satellite_orbit,
   "crane-load-balancer":   Sim_crane_load_balancer,
   "banked-curve":          Sim_banked_curve,
+
+  /* ── Topic 1: Ultra-Pro additions (5 new) ── */
+  "force-vector-lab-pro":  Sim_force_vector_lab_pro,
+  "tug-war-live":          Sim_tug_war_live,
+  "gravity-normal-pair":   Sim_gravity_normal_pair,
+  "friction-threshold":    Sim_friction_threshold,
+  "balanced-break":        Sim_balanced_break,
 
   /* ── Topic 2: First Law / Inertia (15 + 5 + 7 + 2 premium = 29 → +1 needed but close) ── */
   "inertia-rest":          Sim_inertia_rest,
@@ -476,6 +519,13 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "elevator-fma":              Sim_elevator_fma,
   "drag-race":                 Sim_drag_race,
 
+  /* ── Topic 3: Ultra-Pro additions (5 new) ── */
+  "fma-lab-ultra":             Sim_fma_lab_ultra,
+  "heavy-mass-accel":          Sim_heavy_mass_accel,
+  "car-braking-ultra":         Sim_car_braking_ultra,
+  "momentum-rate-demo":        Sim_momentum_rate_demo,
+  "cricket-impulse":           Sim_cricket_impulse,
+
   /* ── Topic 4: Third Law (15 + 5 + 6 + 4 premium = 30) ── */
   "action-reaction-push":      Sim_action_reaction_push,
   "recoil-gun":                Sim_recoil_gun,
@@ -508,6 +558,20 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "fire-extinguisher-cart":    Sim_fire_extinguisher_cart,
   "newtons-cradle-advanced":   Sim_newtons_cradle_advanced,
 
+  /* ── Topic 4: Ultra-Pro additions (5 new) ── */
+  "ice-skaters-push":          Sim_ice_skaters_push,
+  "rocket-exhaust-new":        Sim_rocket_exhaust_new,
+  "swimmer-wall-push":         Sim_swimmer_wall_push,
+  "book-force-pairs":          Sim_book_force_pairs,
+  "gun-recoil-new":            Sim_gun_recoil_new,
+
+  /* ── Topic 2: Ultra-Pro additions (5 new) ── */
+  "space-drift-pro":           Sim_space_drift_pro,
+  "bus-brake-inertia":         Sim_bus_brake_inertia,
+  "coin-card-inertia":         Sim_coin_card_inertia,
+  "mass-inertia-lab":          Sim_mass_inertia_lab,
+  "galileo-ramp-pro":          Sim_galileo_ramp_pro,
+
   /* ── Topic 5: Conservation of Momentum (15 + 5 + 7 + 3 premium = 30) ── */
   "momentum-heavy":            Sim_momentum_heavy,
   "momentum-fast":             Sim_momentum_fast,
@@ -539,6 +603,13 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "car-crash-analysis":        Sim_car_crash_analysis,
   "fireworks-explosion":       Sim_fireworks_explosion,
   "pool-table":                Sim_pool_table,
+
+  /* ── Topic 5: Ultra-Pro additions (5 new) ── */
+  "elastic-collision-1d":      Sim_elastic_collision_1d,
+  "inelastic-stick-pro":       Sim_inelastic_stick_pro,
+  "explosion-from-rest":       Sim_explosion_from_rest,
+  "bullet-clay-momentum":      Sim_bullet_clay_momentum,
+  "newton-cradle-pro":         Sim_newton_cradle_pro,
 
   /* ── Topic 6 Professional (15) ── distributed across all 5 topics ── */
   "projectile-motion-pro":     Sim_projectile_motion_pro,

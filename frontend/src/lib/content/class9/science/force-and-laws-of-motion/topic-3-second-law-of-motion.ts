@@ -57,7 +57,12 @@ export const secondLawOfMotion: Topic = {
     "fma-race",
     "pulley-system",
     "elevator-fma",
-    "drag-race"
+    "drag-race",
+    "fma-lab-ultra",
+    "heavy-mass-accel",
+    "car-braking-ultra",
+    "momentum-rate-demo",
+    "cricket-impulse"
   ],
 
   content: `
