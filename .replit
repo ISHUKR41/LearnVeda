@@ -24,7 +24,7 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd frontend && npm run dev -- -p 5000 -H 0.0.0.0"
+args = "cd frontend && NODE_OPTIONS=--max-old-space-size=4096 npx next dev -p 5000 -H 0.0.0.0"
 waitForPort = 5000
 
 [[ports]]
@@ -38,6 +38,7 @@ EDUQUEST_PERSISTENCE_ADAPTER = "postgres"
 NODE_ENV = "development"
 PORT = "4000"
 NEXT_PUBLIC_API_URL = ""
+EDUQUEST_ALLOW_STATIC_FALLBACKS = "true"
 
 [nix]
 channel = "stable-25_05"
