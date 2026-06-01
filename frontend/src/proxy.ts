@@ -1,21 +1,19 @@
 /**
- * FILE: middleware.ts
- * LOCATION: src/middleware.ts
- * PURPOSE: Next.js + Clerk middleware for authentication boundaries.
+ * FILE: proxy.ts
+ * LOCATION: src/proxy.ts
+ * PURPOSE: Next.js 16 proxy (formerly middleware) for Clerk authentication.
  *          Protects dashboard, battle, profile, wallet, and settings while
  *          keeping curriculum and subject pages public.
  *
- *   IMPORTANT: This middleware uses auth.protect() from Clerk — NOT manual
- *   redirect logic. Manual redirects (checking isAuthenticated && isAuthRoute)
- *   caused an infinite loop:
+ *   IMPORTANT: Uses auth.protect() from Clerk — NOT manual redirect logic.
+ *   Manual redirects caused an infinite loop:
  *     dashboard → 401 → sign-in → (Clerk sees user logged in) → dashboard → loop
  *
- *   Using auth.protect() lets Clerk handle all redirect logic correctly,
- *   including the "already signed in" case on sign-in/sign-up pages.
+ *   Using auth.protect() lets Clerk handle all redirect logic correctly.
  *
  *   Public routes: everything except the explicitly protected list.
  *   Class content pages (/class-9/..., /class-10/...) are intentionally PUBLIC
- *   so students can preview content without signing in.
+ *   so students can preview without signing in.
  *
  * LAST UPDATED: 2026-06-01
  */
