@@ -8,7 +8,6 @@
  */
 
 import { SignUp } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
 import Link from "next/link";
 import { BookOpen, Brain, Star, Users } from "lucide-react";
 import styles from "../SignUp.module.css";
@@ -18,32 +17,53 @@ export const metadata = {
   description: "Join thousands of Indian students on EduQuest. Study smarter with gamified learning, XP, streaks, and live quiz battles.",
 };
 
-/* Clerk component appearance — matches EduQuest dark design system */
+/* Clerk component appearance — matches EduQuest dark design system.
+ * Note: @clerk/nextjs v7+ uses inline appearance config directly. */
 const clerkAppearance = {
-  baseTheme: dark,
   variables: {
-    colorPrimary:         "#2563EB",
+    colorPrimary:         "#10B981",
     colorBackground:      "#0d1b2e",
     colorInputBackground: "#0a1628",
     colorText:            "#E2E8F0",
     colorTextSecondary:   "#94A3B8",
     colorInputText:       "#E2E8F0",
+    colorNeutral:         "#1e2d3d",
+    colorShimmer:         "rgba(16,185,129,0.07)",
     borderRadius:         "12px",
     fontFamily:           "Inter, system-ui, sans-serif",
+    fontSize:             "14px",
   },
   elements: {
-    rootBox:  { width: "100%" },
-    card:     { background: "transparent", boxShadow: "none", border: "none", padding: 0 },
+    rootBox:              { width: "100%" },
+    card:                 { background: "transparent", boxShadow: "none", border: "none", padding: 0 },
+    headerTitle:          { color: "#E2E8F0" },
+    headerSubtitle:       { color: "#64748B" },
+    formFieldLabel:       { color: "#94A3B8" },
+    formFieldInput:       { background: "#0a1628", border: "1px solid #1e2d3d", color: "#E2E8F0" },
+    formButtonPrimary: {
+      background: "linear-gradient(135deg,#10B981,#059669)",
+      color: "#fff",
+      borderRadius: "10px",
+      fontWeight: 600,
+    },
     socialButtonsBlockButton: {
       background: "rgba(255,255,255,0.05)",
       border: "1px solid rgba(255,255,255,0.12)",
       borderRadius: "10px",
       color: "#E2E8F0",
     },
+    socialButtonsBlockButtonText: { color: "#E2E8F0" },
+    dividerLine:          { background: "#1e2d3d" },
+    dividerText:          { color: "#475569" },
+    footerActionText:     { color: "#64748B" },
+    footerActionLink:     { color: "#34D399" },
+    identityPreviewText:  { color: "#E2E8F0" },
+    identityPreviewEditButton: { color: "#34D399" },
+    otpCodeFieldInput:    { background: "#0a1628", border: "1px solid #1e2d3d", color: "#E2E8F0" },
   },
 };
 
-/* Benefits shown in left panel — maps to existing .promiseCard/.promiseIcon CSS classes */
+/* Benefits shown in left panel */
 const BENEFITS: { icon: typeof Brain; cls: "blue" | "amber" | "green"; title: string; desc: string }[] = [
   { icon: Brain,  cls: "blue",  title: "CBSE Class 9–12",   desc: "Full NCERT-aligned curriculum with 1,000+ questions" },
   { icon: Star,   cls: "amber", title: "XP & Level System", desc: "Earn XP for every correct answer and level up" },
@@ -78,7 +98,7 @@ export default function SignUpPage() {
 
           {/* Bottom tagline */}
           <div className={styles.promiseBottom}>
-            <p className={styles.promiseTitle}>India's most gamified learning platform</p>
+            <p className={styles.promiseTitle}>India&apos;s most gamified learning platform</p>
             <p className={styles.switchLink} style={{ marginTop: 8 }}>
               Already have an account?{" "}
               <Link href="/sign-in" style={{ color: "#34D399", textDecoration: "none" }}>Sign in →</Link>

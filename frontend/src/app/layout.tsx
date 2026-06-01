@@ -148,7 +148,11 @@ interface RootLayoutProps {
  */
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      afterSignOutUrl="/"
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
+    >
       <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} dark`} data-theme="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
         <body>
           {/*
