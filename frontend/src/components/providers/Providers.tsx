@@ -4,8 +4,8 @@ import { useEffect, useState, type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import dynamic from "next/dynamic";
-import { ClerkProvider } from "@clerk/nextjs";
 import { useUIStore } from "@/store/uiStore";
+import { useAuthStore } from "@/store/authStore";
 
 const LevelUpModal = dynamic(
   () => import("@/components/gamification/LevelUpModal"),
@@ -49,63 +49,62 @@ function ThemeInitializer() {
   return null;
 }
 
+/* Hydrates the global auth store on mount by calling /api/auth/me */
+function AuthHydrator() {
+  const { setUser, setLoading } = useAuthStore();
+
+  useEffect(() => {
+    fetch("/api/auth/me", { cache: "no-store" })
+      .then(async (res) => {
+        if (res.ok) {
+          const body = await res.json();
+          const user = body?.data?.user ?? body?.user;
+          if (user) setUser(user);
+          else setLoading(false);
+        } else {
+          setLoading(false);
+        }
+      })
+      .catch(() => setLoading(false));
+  }, [setUser, setLoading]);
+
+  return null;
+}
+
 export default function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => getQueryClient());
 
   return (
-    <ClerkProvider
-      signInUrl="/sign-in"
-      signUpUrl="/sign-up"
-      afterSignOutUrl="/"
-      appearance={{
-        variables: {
-          colorPrimary: "#2563EB",
-          colorBackground: "#0b1120",
-          colorInputBackground: "#0f172a",
-          colorInputText: "#f1f5f9",
-          colorText: "#f1f5f9",
-          colorTextSecondary: "#94a3b8",
-          colorNeutral: "#1e293b",
-          borderRadius: "10px",
-        },
-        elements: {
-          card: { background: "#0b1120", border: "1px solid #1e293b" },
-          headerTitle: { color: "#f1f5f9" },
-          headerSubtitle: { color: "#64748b" },
-          formButtonPrimary: { background: "#2563EB" },
-        },
-      }}
-    >
-      <QueryClientProvider client={queryClient}>
-        <ThemeInitializer />
-        {children}
-        <LevelUpModal />
-        <Toaster
-          position="top-right"
-          reverseOrder={false}
-          gutter={10}
-          toastOptions={{
-            duration: 4000,
-            style: {
-              borderRadius: "10px",
-              fontFamily: "Inter, sans-serif",
-              fontSize: "14px",
-              fontWeight: 500,
-              maxWidth: "380px",
-              padding: "12px 16px",
-              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.12)",
-            },
-            success: {
-              iconTheme: { primary: "#10B981", secondary: "#ECFDF5" },
-              style: { background: "#ECFDF5", color: "#065F46", border: "1px solid #A7F3D0" },
-            },
-            error: {
-              iconTheme: { primary: "#EF4444", secondary: "#FEF2F2" },
-              style: { background: "#FEF2F2", color: "#991B1B", border: "1px solid #FECACA" },
-            },
-          }}
-        />
-      </QueryClientProvider>
-    </ClerkProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeInitializer />
+      <AuthHydrator />
+      {children}
+      <LevelUpModal />
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        gutter={10}
+        toastOptions={{
+          duration: 4000,
+          style: {
+            borderRadius: "10px",
+            fontFamily: "Inter, sans-serif",
+            fontSize: "14px",
+            fontWeight: 500,
+            maxWidth: "380px",
+            padding: "12px 16px",
+            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.12)",
+          },
+          success: {
+            iconTheme: { primary: "#10B981", secondary: "#ECFDF5" },
+            style: { background: "#ECFDF5", color: "#065F46", border: "1px solid #A7F3D0" },
+          },
+          error: {
+            iconTheme: { primary: "#EF4444", secondary: "#FEF2F2" },
+            style: { background: "#FEF2F2", color: "#991B1B", border: "1px solid #FECACA" },
+          },
+        }}
+      />
+    </QueryClientProvider>
   );
 }
