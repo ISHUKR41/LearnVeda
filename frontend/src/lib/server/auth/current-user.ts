@@ -1,14 +1,23 @@
 /**
  * FILE: current-user.ts
  * LOCATION: src/lib/server/auth/current-user.ts
- * PURPOSE: Resolves the currently authenticated user from the session cookie.
- * USED BY: All API route handlers, /api/auth/me, /api/dashboard, etc.
+ * PURPOSE: Resolves the currently authenticated user from either:
+ *   1. A Clerk session (primary — used for Google login and new accounts)
+ *   2. A legacy httpOnly cookie session (fallback — legacy email/password logins)
+ *
+ *   When a Clerk user is found whose email is not yet in the database, a new
+ *   EduQuest user row is created just-in-time (JIT provisioning) so the student
+ *   can immediately access their dashboard after first Google sign-in.
+ *
+ * USED BY: All API route handlers — /api/dashboard, /api/wallet, /api/achievements, etc.
+ * LAST UPDATED: 2026-06-01
  */
 
 import type { NextRequest } from "next/server";
 import { getSessionFromRequest } from "@/lib/server/auth/session";
 import { getPostgresPool } from "@/lib/server/database/postgres";
 import type { PublicUser, LearningTrack, UserRole } from "@/types/auth";
+import { randomUUID } from "crypto";
 
 const DEFAULT_TRACK: LearningTrack = "class-9";
 const DEFAULT_ROLE: UserRole       = "student";
@@ -39,7 +48,89 @@ function rowToPublicUser(row: EduQuestUserRow): PublicUser {
   };
 }
 
+/* ─────────────────────────────────────────────
+ * findOrCreateClerkUser
+ * Looks up an EduQuest user by email from Clerk data.
+ * If no row exists, inserts one (JIT provisioning).
+ * ───────────────────────────────────────────── */
+async function findOrCreateClerkUser(
+  email: string,
+  displayName: string,
+  clerkUserId: string,
+): Promise<PublicUser | null> {
+  try {
+    const pool = getPostgresPool();
+
+    /* Try to find an existing EduQuest account with this email */
+    const existing = await pool.query<EduQuestUserRow>(
+      `SELECT id, name, email, track, role, level, xp, streak, created_at
+         FROM eduquest_users
+        WHERE lower(email) = lower($1)`,
+      [email],
+    );
+
+    if (existing.rows.length > 0) {
+      return rowToPublicUser(existing.rows[0]);
+    }
+
+    /*
+     * No existing account → create one.
+     * password_hash is set to a placeholder so the row satisfies the NOT NULL
+     * constraint. Clerk users never use password auth, so this is never read.
+     */
+    const newId = randomUUID();
+    const inserted = await pool.query<EduQuestUserRow>(
+      `INSERT INTO eduquest_users
+         (id, name, email, password_hash, track, role, level, xp, streak)
+       VALUES ($1, $2, $3, $4, $5, $6, 1, 0, 0)
+       ON CONFLICT (email) DO UPDATE
+         SET name = EXCLUDED.name
+       RETURNING id, name, email, track, role, level, xp, streak, created_at`,
+      [newId, displayName, email.toLowerCase(), `clerk-${clerkUserId}`, DEFAULT_TRACK, DEFAULT_ROLE],
+    );
+
+    return inserted.rows.length > 0 ? rowToPublicUser(inserted.rows[0]) : null;
+  } catch (err) {
+    console.error("[current-user] JIT provisioning error:", err);
+    return null;
+  }
+}
+
+/* ─────────────────────────────────────────────
+ * getAuthenticatedUser  (main export)
+ * Priority 1: Clerk session
+ * Priority 2: Legacy httpOnly cookie session
+ * ───────────────────────────────────────────── */
 export async function getAuthenticatedUser(request: NextRequest): Promise<PublicUser | null> {
+
+  /* ── Attempt 1: Clerk ─────────────────────── */
+  try {
+    const { auth, currentUser } = await import("@clerk/nextjs/server");
+    const { userId } = await auth();
+
+    if (userId) {
+      /* currentUser() gives us the full Clerk user object with email/name */
+      const clerkUser = await currentUser();
+      if (clerkUser) {
+        const email =
+          clerkUser.primaryEmailAddress?.emailAddress ??
+          clerkUser.emailAddresses[0]?.emailAddress;
+
+        const displayName =
+          [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(" ") ||
+          clerkUser.username ||
+          (email ? email.split("@")[0] : "Student");
+
+        if (email) {
+          return await findOrCreateClerkUser(email, displayName, userId);
+        }
+      }
+    }
+  } catch {
+    /* Clerk not configured or JWT validation failed — fall through to cookie auth */
+  }
+
+  /* ── Attempt 2: Legacy cookie session ────── */
   try {
     const session = getSessionFromRequest(request);
     if (!session) return null;
@@ -52,11 +143,14 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Public
     );
     return result.rows.length > 0 ? rowToPublicUser(result.rows[0]) : null;
   } catch (err) {
-    console.error("[current-user] Session lookup error:", err);
+    console.error("[current-user] Cookie session lookup error:", err);
     return null;
   }
 }
 
+/* ─────────────────────────────────────────────
+ * getAuthenticatedUserFromToken  (WebSocket / batch contexts)
+ * ───────────────────────────────────────────── */
 export async function getAuthenticatedUserFromToken(
   token: string | undefined,
 ): Promise<PublicUser | null> {

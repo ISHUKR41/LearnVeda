@@ -306,6 +306,46 @@ const Sim_vector_force_addition_2d     = dynamic(() => import('./Topic9Professio
 const Sim_energy_conservation_track    = dynamic(() => import('./Topic9Professional').then(m => m.Sim_energy_conservation_track),    { ssr: false });
 
 /* ══════════════════════════════════════════════════════════════════
+ * PROFESSIONAL TIER 10 — 28 brand-new advanced physics simulations
+ * Topic10Professional.tsx: lunar lander, planet gravity drop, cannon
+ * angles, crumple zone, spring catapult, centripetal cut, reaction
+ * braking, pendulum energy, feather vacuum, fluid drag shapes,
+ * collision lab, firework momentum, Newton sandbox, rolling slope,
+ * airbag impulse, earth/moon drop, satellite orbit, swimming,
+ * tug of war, molecular gas, cricket impulse, momentum graph,
+ * parachute phases, archery, balloon car, trebuchet, roller coaster,
+ * force superposition
+ * ══════════════════════════════════════════════════════════════════ */
+const Sim_lunar_lander               = dynamic(() => import('./Topic10Professional').then(m => m.Sim_lunar_lander),               { ssr: false });
+const Sim_gravity_planets_drop       = dynamic(() => import('./Topic10Professional').then(m => m.Sim_gravity_planets_drop),       { ssr: false });
+const Sim_cannon_angles              = dynamic(() => import('./Topic10Professional').then(m => m.Sim_cannon_angles),              { ssr: false });
+const Sim_crumple_zone               = dynamic(() => import('./Topic10Professional').then(m => m.Sim_crumple_zone),               { ssr: false });
+const Sim_spring_catapult            = dynamic(() => import('./Topic10Professional').then(m => m.Sim_spring_catapult),            { ssr: false });
+const Sim_centripetal_cut            = dynamic(() => import('./Topic10Professional').then(m => m.Sim_centripetal_cut),            { ssr: false });
+const Sim_reaction_braking           = dynamic(() => import('./Topic10Professional').then(m => m.Sim_reaction_braking),           { ssr: false });
+const Sim_pendulum_energy            = dynamic(() => import('./Topic10Professional').then(m => m.Sim_pendulum_energy),            { ssr: false });
+const Sim_feather_vacuum             = dynamic(() => import('./Topic10Professional').then(m => m.Sim_feather_vacuum),             { ssr: false });
+const Sim_fluid_drag_shapes          = dynamic(() => import('./Topic10Professional').then(m => m.Sim_fluid_drag_shapes),          { ssr: false });
+const Sim_collision_lab_pro          = dynamic(() => import('./Topic10Professional').then(m => m.Sim_collision_lab_pro),          { ssr: false });
+const Sim_firework_momentum          = dynamic(() => import('./Topic10Professional').then(m => m.Sim_firework_momentum),          { ssr: false });
+const Sim_newton_sandbox             = dynamic(() => import('./Topic10Professional').then(m => m.Sim_newton_sandbox),             { ssr: false });
+const Sim_rolling_slope_mass         = dynamic(() => import('./Topic10Professional').then(m => m.Sim_rolling_slope_mass),         { ssr: false });
+const Sim_airbag_impulse             = dynamic(() => import('./Topic10Professional').then(m => m.Sim_airbag_impulse),             { ssr: false });
+const Sim_earth_moon_drop            = dynamic(() => import('./Topic10Professional').then(m => m.Sim_earth_moon_drop),            { ssr: false });
+const Sim_satellite_orbit_pro        = dynamic(() => import('./Topic10Professional').then(m => m.Sim_satellite_orbit_pro),        { ssr: false });
+const Sim_swimming_propulsion_pro    = dynamic(() => import('./Topic10Professional').then(m => m.Sim_swimming_propulsion_pro),    { ssr: false });
+const Sim_tug_of_war_analysis        = dynamic(() => import('./Topic10Professional').then(m => m.Sim_tug_of_war_analysis),        { ssr: false });
+const Sim_molecular_gas              = dynamic(() => import('./Topic10Professional').then(m => m.Sim_molecular_gas),              { ssr: false });
+const Sim_cricket_impulse            = dynamic(() => import('./Topic10Professional').then(m => m.Sim_cricket_impulse),            { ssr: false });
+const Sim_momentum_graph             = dynamic(() => import('./Topic10Professional').then(m => m.Sim_momentum_graph),             { ssr: false });
+const Sim_parachute_phases           = dynamic(() => import('./Topic10Professional').then(m => m.Sim_parachute_phases),           { ssr: false });
+const Sim_archery_launch             = dynamic(() => import('./Topic10Professional').then(m => m.Sim_archery_launch),             { ssr: false });
+const Sim_balloon_rocket_car         = dynamic(() => import('./Topic10Professional').then(m => m.Sim_balloon_rocket_car),         { ssr: false });
+const Sim_trebuchet                  = dynamic(() => import('./Topic10Professional').then(m => m.Sim_trebuchet),                  { ssr: false });
+const Sim_roller_coaster             = dynamic(() => import('./Topic10Professional').then(m => m.Sim_roller_coaster),             { ssr: false });
+const Sim_force_superposition        = dynamic(() => import('./Topic10Professional').then(m => m.Sim_force_superposition),        { ssr: false });
+
+/* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
  * ══════════════════════════════════════════════════════════════════ */
@@ -537,6 +577,36 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "free-fall-terminal":          Sim_free_fall_terminal,
   "vector-force-addition-2d":    Sim_vector_force_addition_2d,
   "energy-conservation-track":   Sim_energy_conservation_track,
+
+  /* ── Topic 10 Professional (28) — new advanced CBSE Class 9 physics sims ── */
+  "lunar-lander":                Sim_lunar_lander,
+  "gravity-planets-drop":        Sim_gravity_planets_drop,
+  "cannon-angles":               Sim_cannon_angles,
+  "crumple-zone":                Sim_crumple_zone,
+  "spring-catapult":             Sim_spring_catapult,
+  "centripetal-cut":             Sim_centripetal_cut,
+  "reaction-braking":            Sim_reaction_braking,
+  "pendulum-energy":             Sim_pendulum_energy,
+  "feather-vacuum":              Sim_feather_vacuum,
+  "fluid-drag-shapes":           Sim_fluid_drag_shapes,
+  "collision-lab-pro":           Sim_collision_lab_pro,
+  "firework-momentum":           Sim_firework_momentum,
+  "newton-sandbox":              Sim_newton_sandbox,
+  "rolling-slope-mass":          Sim_rolling_slope_mass,
+  "airbag-impulse":              Sim_airbag_impulse,
+  "earth-moon-drop":             Sim_earth_moon_drop,
+  "satellite-orbit-pro":         Sim_satellite_orbit_pro,
+  "swimming-propulsion-pro":     Sim_swimming_propulsion_pro,
+  "tug-of-war-analysis":         Sim_tug_of_war_analysis,
+  "molecular-gas":               Sim_molecular_gas,
+  "cricket-impulse":             Sim_cricket_impulse,
+  "momentum-graph":              Sim_momentum_graph,
+  "parachute-phases":            Sim_parachute_phases,
+  "archery-launch":              Sim_archery_launch,
+  "balloon-rocket-car":          Sim_balloon_rocket_car,
+  "trebuchet":                   Sim_trebuchet,
+  "roller-coaster":              Sim_roller_coaster,
+  "force-superposition":         Sim_force_superposition,
 };
 
 /* ══════════════════════════════════════════════════════════════════════

@@ -16,6 +16,7 @@
 
 import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import { SITE_CONFIG } from "@/lib/constants";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import Footer from "@/components/layout/Footer/Footer";
@@ -147,30 +148,32 @@ interface RootLayoutProps {
  */
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} dark`} data-theme="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body>
-        {/*
-         * Providers wraps everything that needs client-side context.
-         * It is a "use client" component but keeps the layout itself as a server component.
-         * Inside: QueryClientProvider, Toaster, ThemeInitializer
-         */}
-          <Providers>
-            {/* Global sticky navigation bar — appears on every page */}
-            <Navbar />
+    <ClerkProvider>
+      <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} dark`} data-theme="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
+        <body>
+          {/*
+           * Providers wraps everything that needs client-side context.
+           * It is a "use client" component but keeps the layout itself as a server component.
+           * Inside: QueryClientProvider, Toaster, ThemeInitializer
+           */}
+            <Providers>
+              {/* Global sticky navigation bar — appears on every page */}
+              <Navbar />
 
-            {/*
-             * Main content area — each page component renders here.
-             * flex: 1 ensures this area expands to fill available height
-             * so the footer always stays at the bottom even on short pages.
-             */}
-            <main className="app-main">
-              {children}
-            </main>
+              {/*
+               * Main content area — each page component renders here.
+               * flex: 1 ensures this area expands to fill available height
+               * so the footer always stays at the bottom even on short pages.
+               */}
+              <main className="app-main">
+                {children}
+              </main>
 
-            {/* Global footer — appears on every page */}
-            <Footer />
-          </Providers>
-      </body>
-    </html>
+              {/* Global footer — appears on every page */}
+              <Footer />
+            </Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

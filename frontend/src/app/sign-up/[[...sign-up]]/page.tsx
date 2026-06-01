@@ -1,254 +1,101 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/sign-up/[[...sign-up]]/page.tsx
- * PURPOSE: Sign-up page with custom registration form.
- *          Posts to /api/auth/sign-up which sets an httpOnly session cookie.
- *          Fixed: sends selectedClass (not track) and acceptTerms:true to match schema.
+ * PURPOSE: Clerk-powered sign-up page. [[...sign-up]] catch-all lets Clerk handle
+ *          OAuth callbacks and multi-step email verification. Left panel shows
+ *          EduQuest benefits; right panel renders Clerk's <SignUp> component.
  * LAST UPDATED: 2026-06-01
  */
 
-"use client";
-
-import { useState, type FormEvent } from "react";
+import { SignUp } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { BookOpen, UserPlus, Mail, Lock, User, ChevronDown } from "lucide-react";
-import { useAuthStore } from "@/store/authStore";
+import { BookOpen, Brain, Star, Users } from "lucide-react";
 import styles from "../SignUp.module.css";
 
-const TRACKS = [
-  { value: "class-9",     label: "Class 9  — CBSE Board" },
-  { value: "class-10",    label: "Class 10 — Board Prep" },
-  { value: "class-11",    label: "Class 11 — Stream Start" },
-  { value: "class-12",    label: "Class 12 — Board + Entrance" },
-  { value: "engineering", label: "Engineering — Coding Tracks" },
-] as const;
+export const metadata = {
+  title: "Create Account — EduQuest",
+  description: "Join thousands of Indian students on EduQuest. Study smarter with gamified learning, XP, streaks, and live quiz battles.",
+};
+
+/* Clerk component appearance — matches EduQuest dark design system */
+const clerkAppearance = {
+  baseTheme: dark,
+  variables: {
+    colorPrimary:         "#2563EB",
+    colorBackground:      "#0d1b2e",
+    colorInputBackground: "#0a1628",
+    colorText:            "#E2E8F0",
+    colorTextSecondary:   "#94A3B8",
+    colorInputText:       "#E2E8F0",
+    borderRadius:         "12px",
+    fontFamily:           "Inter, system-ui, sans-serif",
+  },
+  elements: {
+    rootBox:  { width: "100%" },
+    card:     { background: "transparent", boxShadow: "none", border: "none", padding: 0 },
+    socialButtonsBlockButton: {
+      background: "rgba(255,255,255,0.05)",
+      border: "1px solid rgba(255,255,255,0.12)",
+      borderRadius: "10px",
+      color: "#E2E8F0",
+    },
+  },
+};
+
+/* Benefits shown in left panel — maps to existing .promiseCard/.promiseIcon CSS classes */
+const BENEFITS: { icon: typeof Brain; cls: "blue" | "amber" | "green"; title: string; desc: string }[] = [
+  { icon: Brain,  cls: "blue",  title: "CBSE Class 9–12",   desc: "Full NCERT-aligned curriculum with 1,000+ questions" },
+  { icon: Star,   cls: "amber", title: "XP & Level System", desc: "Earn XP for every correct answer and level up" },
+  { icon: Users,  cls: "green", title: "Real-time Battles", desc: "Challenge peers in timed live quiz battles" },
+];
 
 export default function SignUpPage() {
-  const router = useRouter();
-  const { setUser } = useAuthStore();
-
-  const [name,          setName]          = useState("");
-  const [email,         setEmail]         = useState("");
-  const [password,      setPassword]      = useState("");
-  const [selectedClass, setSelectedClass] = useState<string>("class-9");
-  const [error,         setError]         = useState("");
-  const [isLoading,     setIsLoading]     = useState(false);
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    setError("");
-
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
-
-    /* Basic password strength: needs at least one letter and one number */
-    if (!/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
-      setError("Password must contain at least one letter and one number.");
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const res = await fetch("/api/auth/sign-up", {
-        method:      "POST",
-        headers:     { "Content-Type": "application/json" },
-        credentials: "include",
-        /* FIX: schema expects selectedClass (not track) and acceptTerms:true */
-        body: JSON.stringify({
-          name:          name.trim(),
-          email:         email.trim(),
-          password,
-          selectedClass,
-          acceptTerms:   true,
-        }),
-      });
-
-      const body = await res.json();
-
-      if (!res.ok) {
-        const msg = body?.error?.message ?? "Registration failed. Please try again.";
-        setError(msg);
-        return;
-      }
-
-      /* Hydrate auth store from the response user object */
-      const user = body?.data?.user ?? body?.user;
-      if (user) setUser(user);
-
-      router.push("/dashboard");
-    } catch {
-      setError("Network error. Please check your connection.");
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
 
-        {/* ── Left panel: value propositions ── */}
+        {/* ── Left branding panel (desktop only) ─────────────────── */}
         <div className={styles.promisePanel}>
-          <div className={styles.promiseBadge}>⚡ Start Free</div>
+          {/* Logo */}
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, color: "#34D399", textDecoration: "none", fontWeight: 700, fontSize: 18 }}>
+            <BookOpen size={22} aria-hidden="true" />
+            <span>EduQuest</span>
+          </Link>
 
+          {/* Middle: benefit cards */}
           <div className={styles.promiseMid}>
-            <div className={styles.promiseCard}>
-              <div className={`${styles.promiseIcon} ${styles.blue}`}>⚡</div>
-              <div>
-                <p className={styles.promiseCardTitle}>Day-wise Study Plans</p>
-                <p className={styles.promiseCardDesc}>Structured CBSE curriculum, topic by topic</p>
+            {BENEFITS.map((b) => (
+              <div key={b.title} className={styles.promiseCard}>
+                <div className={`${styles.promiseIcon} ${styles[b.cls]}`}>
+                  <b.icon size={18} aria-hidden="true" />
+                </div>
+                <p className={styles.promiseCardTitle}>{b.title}</p>
+                <p className={styles.promiseCardDesc}>{b.desc}</p>
               </div>
-            </div>
-            <div className={styles.promiseCard}>
-              <div className={`${styles.promiseIcon} ${styles.amber}`}>🏆</div>
-              <div>
-                <p className={styles.promiseCardTitle}>Live Quiz Battles</p>
-                <p className={styles.promiseCardDesc}>Compete with peers in real-time MCQ battles</p>
-              </div>
-            </div>
-            <div className={styles.promiseCard}>
-              <div className={`${styles.promiseIcon} ${styles.green}`}>📚</div>
-              <div>
-                <p className={styles.promiseCardTitle}>1200+ Practice Questions</p>
-                <p className={styles.promiseCardDesc}>MCQ, short, long, and HOTS coverage</p>
-              </div>
-            </div>
+            ))}
           </div>
 
+          {/* Bottom tagline */}
           <div className={styles.promiseBottom}>
-            <h2 className={styles.promiseTitle}>Join 50,000+ students on EduQuest</h2>
-            <div className={styles.promiseList}>
-              <span>✓ Free to start, no credit card needed</span>
-              <span>✓ Class 9–12 CBSE + Engineering tracks</span>
-              <span>✓ Global leaderboard ranking</span>
-            </div>
+            <p className={styles.promiseTitle}>India's most gamified learning platform</p>
+            <p className={styles.switchLink} style={{ marginTop: 8 }}>
+              Already have an account?{" "}
+              <Link href="/sign-in" style={{ color: "#34D399", textDecoration: "none" }}>Sign in →</Link>
+            </p>
           </div>
         </div>
 
-        {/* ── Right panel: registration form ── */}
+        {/* ── Right: Clerk sign-up component ─────────────────────── */}
         <div className={styles.card}>
-          <div className={styles.header}>
-            <div className={styles.logo}>
-              <BookOpen size={20} />
-            </div>
-            <h1 className={styles.title}>Create your account</h1>
-            <p className={styles.subtitle}>Free forever. Start in under 30 seconds.</p>
-          </div>
-
-          <form onSubmit={handleSubmit} className={styles.form} noValidate>
-            {error && (
-              <div className={styles.errorMsg} role="alert">
-                {error}
-              </div>
-            )}
-
-            {/* Full Name */}
-            <div className={styles.fieldGroup}>
-              <label className={styles.label} htmlFor="name">Full Name</label>
-              <div className={styles.inputWrap}>
-                <User size={16} className={styles.inputIcon} />
-                <input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className={`${styles.input} ${styles.inputWithIcon}`}
-                  placeholder="Your full name"
-                  autoComplete="name"
-                  required
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className={styles.fieldGroup}>
-              <label className={styles.label} htmlFor="email">Email</label>
-              <div className={styles.inputWrap}>
-                <Mail size={16} className={styles.inputIcon} />
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={`${styles.input} ${styles.inputWithIcon}`}
-                  placeholder="you@example.com"
-                  autoComplete="email"
-                  required
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-
-            {/* Password */}
-            <div className={styles.fieldGroup}>
-              <label className={styles.label} htmlFor="password">Password</label>
-              <div className={styles.inputWrap}>
-                <Lock size={16} className={styles.inputIcon} />
-                <input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className={`${styles.input} ${styles.inputWithIcon}`}
-                  placeholder="At least 8 chars, include a number"
-                  autoComplete="new-password"
-                  required
-                  minLength={8}
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-
-            {/* Learning Track */}
-            <div className={styles.fieldGroup}>
-              <label className={styles.label} htmlFor="selectedClass">Learning Track</label>
-              <div className={styles.inputWrap} style={{ position: "relative" }}>
-                <select
-                  id="selectedClass"
-                  value={selectedClass}
-                  onChange={(e) => setSelectedClass(e.target.value)}
-                  className={styles.input}
-                  disabled={isLoading}
-                  style={{ paddingRight: "2.5rem", appearance: "none" }}
-                >
-                  {TRACKS.map((t) => (
-                    <option key={t.value} value={t.value}>{t.label}</option>
-                  ))}
-                </select>
-                <ChevronDown
-                  size={14}
-                  style={{
-                    position: "absolute", right: "0.85rem", top: "50%",
-                    transform: "translateY(-50%)", pointerEvents: "none",
-                    color: "var(--color-text-muted)"
-                  }}
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className={styles.submitBtn}
-              disabled={isLoading || !name || !email || !password}
-            >
-              {isLoading
-                ? <><span className={styles.spinner}>⟳</span> Creating account…</>
-                : <><UserPlus size={16} /> Create Free Account</>
-              }
-            </button>
-          </form>
-
-          <p className={styles.switchLink}>
-            Already have an account?{" "}
-            <Link href="/sign-in">Sign in here</Link>
-          </p>
+          <SignUp
+            appearance={clerkAppearance}
+            redirectUrl="/dashboard"
+            afterSignUpUrl="/dashboard"
+            afterSignInUrl="/dashboard"
+            signInUrl="/sign-in"
+          />
         </div>
-
       </div>
     </div>
   );

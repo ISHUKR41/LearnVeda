@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "web"]
+modules = ["nodejs-20", "web", "postgresql-16"]
 [agent]
 expertMode = true
 stack = "BEST_EFFORT_FALLBACK"
@@ -39,6 +39,12 @@ NODE_ENV = "development"
 PORT = "4000"
 NEXT_PUBLIC_API_URL = ""
 EDUQUEST_ALLOW_STATIC_FALLBACKS = "true"
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = "pk_test_YWNjdXJhdGUtc2VydmFsLTYyLmNsZXJrLmFjY291bnRzLmRldiQ"
+CLERK_SECRET_KEY = "sk_test_dp3FP5E2lVw4ViEm0fjCI3ykCP00AbAwj87KnxBuc7"
+NEXT_PUBLIC_CLERK_SIGN_IN_URL = "/sign-in"
+NEXT_PUBLIC_CLERK_SIGN_UP_URL = "/sign-up"
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL = "/dashboard"
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL = "/dashboard"
 
 [nix]
 channel = "stable-25_05"

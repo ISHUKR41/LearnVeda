@@ -1,157 +1,111 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/sign-in/[[...sign-in]]/page.tsx
- * PURPOSE: Sign-in page with custom email/password form.
- *          Posts to /api/auth/sign-in which sets an httpOnly session cookie.
+ * PURPOSE: Clerk-powered sign-in page. [[...sign-in]] catch-all lets Clerk handle
+ *          OAuth callbacks. Left panel shows EduQuest branding with feature highlights;
+ *          right panel renders Clerk's <SignIn> component with dark theme appearance.
  * LAST UPDATED: 2026-06-01
  */
 
-"use client";
-
-import { useState, type FormEvent } from "react";
+import { SignIn } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { BookOpen, LogIn, Mail, Lock } from "lucide-react";
-import { useAuthStore } from "@/store/authStore";
+import { BookOpen, Flame, Trophy, Zap } from "lucide-react";
 import styles from "../SignIn.module.css";
 
+export const metadata = {
+  title: "Sign In — EduQuest",
+  description: "Sign in to your EduQuest account to continue learning, competing, and levelling up.",
+};
+
+/* Clerk component appearance — matches EduQuest dark design system */
+const clerkAppearance = {
+  baseTheme: dark,
+  variables: {
+    colorPrimary:         "#2563EB",
+    colorBackground:      "#0d1b2e",
+    colorInputBackground: "#0a1628",
+    colorText:            "#E2E8F0",
+    colorTextSecondary:   "#94A3B8",
+    colorInputText:       "#E2E8F0",
+    borderRadius:         "12px",
+    fontFamily:           "Inter, system-ui, sans-serif",
+  },
+  elements: {
+    rootBox:              { width: "100%" },
+    card:                 { background: "transparent", boxShadow: "none", border: "none", padding: 0 },
+    socialButtonsBlockButton: {
+      background: "rgba(255,255,255,0.05)",
+      border: "1px solid rgba(255,255,255,0.12)",
+      borderRadius: "10px",
+      color: "#E2E8F0",
+    },
+  },
+};
+
+/* Feature highlights shown in left panel */
+const FEATURES = [
+  { icon: Flame,  bg: "rgba(245,158,11,0.15)", color: "#F59E0B", title: "Daily Streaks",  desc: "Streak multipliers up to 3× XP" },
+  { icon: Trophy, bg: "rgba(37,99,235,0.15)",  color: "#60A5FA", title: "Live Battles",   desc: "Compete with peers in real-time" },
+  { icon: Zap,    bg: "rgba(16,185,129,0.15)", color: "#10B981", title: "XP System",      desc: "10 XP for every correct answer" },
+];
+
 export default function SignInPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get("redirect_url") ?? "/dashboard";
-  const { setUser } = useAuthStore();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    setError("");
-    setIsLoading(true);
-
-    try {
-      const res = await fetch("/api/auth/sign-in", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), password }),
-        credentials: "include",
-      });
-
-      const body = await res.json();
-
-      if (!res.ok) {
-        setError(body?.error?.message ?? "Sign in failed. Please try again.");
-        return;
-      }
-
-      const user = body?.data?.user ?? body?.user;
-      if (user) setUser(user);
-
-      router.push(redirectUrl);
-    } catch {
-      setError("Network error. Please check your connection.");
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
 
-        {/* Left panel */}
+        {/* ── Left branding panel (desktop only) ─────────────────── */}
         <div className={styles.panel}>
-          <div className={styles.panelBadge}>🎓 EduQuest</div>
+          {/* Logo badge at top */}
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, color: "#60A5FA", textDecoration: "none", fontWeight: 700, fontSize: 18, marginBottom: 24 }}>
+            <BookOpen size={22} aria-hidden="true" />
+            <span>EduQuest</span>
+          </Link>
+
+          {/* Body content */}
           <div className={styles.panelBody}>
-            <h2 className={styles.panelTitle}>
-              India&apos;s #1 Gamified Learning Platform
-            </h2>
+            <h1 className={styles.panelTitle}>Resume your<br />learning journey</h1>
             <p className={styles.panelText}>
-              Study smarter with day-wise plans, battle peers in real-time quizzes,
-              earn XP, and climb the leaderboard.
+              Sign in with Google or your email to continue earning XP, maintaining
+              your streak, and climbing the leaderboard.
             </p>
-          </div>
-          <div className={styles.panelStats}>
-            <span>50K+ Students</span>
-            <span>1200+ Questions</span>
-            <span>Class 9–12</span>
-          </div>
-        </div>
 
-        {/* Right panel: sign-in form */}
-        <div className={styles.card}>
-          <div className={styles.header}>
-            <div className={styles.logo}>
-              <BookOpen size={20} />
+            {/* Feature highlight items */}
+            <div className={styles.panelStats}>
+              {FEATURES.map((f) => (
+                <div key={f.title} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+                  <div style={{ width: 36, height: 36, borderRadius: 9, background: f.bg, color: f.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <f.icon size={16} aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#E2E8F0" }}>{f.title}</p>
+                    <p style={{ margin: 0, fontSize: 12, color: "#64748B" }}>{f.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <h1 className={styles.title}>Welcome back</h1>
-            <p className={styles.subtitle}>Sign in to continue your learning journey</p>
           </div>
 
-          <form onSubmit={handleSubmit} className={styles.form} noValidate>
-            {error && (
-              <div className={styles.formError} role="alert">
-                {error}
-              </div>
-            )}
-
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor="email">Email</label>
-              <div className={styles.inputWrap}>
-                <Mail size={16} className={styles.inputIcon} />
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={`${styles.input} ${styles.inputWithIcon}`}
-                  placeholder="you@example.com"
-                  autoComplete="email"
-                  required
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-
-            <div className={styles.field}>
-              <label className={styles.label} htmlFor="password">Password</label>
-              <div className={styles.inputWrap}>
-                <Lock size={16} className={styles.inputIcon} />
-                <input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className={`${styles.input} ${styles.inputWithIcon}`}
-                  placeholder="Your password"
-                  autoComplete="current-password"
-                  required
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className={styles.submitBtn}
-              disabled={isLoading || !email || !password}
-            >
-              {isLoading ? (
-                <><span className={styles.spinner}>⟳</span> Signing in…</>
-              ) : (
-                <><LogIn size={16} /> Sign In</>
-              )}
-            </button>
-          </form>
-
-          <p className={styles.footerText}>
-            Don&apos;t have an account?{" "}
-            <Link href="/sign-up" className={styles.footerLink}>Create one free</Link>
+          {/* Footer */}
+          <p className={styles.switchLink} style={{ marginTop: "auto" }}>
+            New to EduQuest?{" "}
+            <Link href="/sign-up" style={{ color: "#60A5FA", textDecoration: "none" }}>
+              Create a free account →
+            </Link>
           </p>
         </div>
 
+        {/* ── Right: Clerk sign-in component ─────────────────────── */}
+        <div className={styles.card}>
+          <SignIn
+            appearance={clerkAppearance}
+            redirectUrl="/dashboard"
+            afterSignInUrl="/dashboard"
+            afterSignUpUrl="/dashboard"
+            signUpUrl="/sign-up"
+          />
+        </div>
       </div>
     </div>
   );
