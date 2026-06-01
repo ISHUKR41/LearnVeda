@@ -76,6 +76,13 @@ function NavbarShell({ pathname }: { pathname: string }) {
     } catch {
       /* Continue even if server call fails */
     }
+    /* Clear ALL stale auth data from localStorage to prevent the auth-store
+       (auth.store.ts) from re-hydrating a ghost session on next page load */
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("eduquest_user");
+      localStorage.removeItem("eduquest_refresh_token");
+      localStorage.removeItem("eduquest_session");
+    }
     clearUser();
     router.push("/");
   };

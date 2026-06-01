@@ -575,12 +575,12 @@ export default function DashboardClient() {
 
         if (!isMounted) return;
 
-        /* 401 = Clerk session not yet synced to DB, or key mismatch.
-         * Do NOT router.push("/sign-in") here — that creates an infinite loop:
-         * dashboard → API 401 → /sign-in → Clerk sees auth → /dashboard → repeat.
-         * Instead, show an inline error with a manual sign-in link. */
+        /* 401 = Session expired or missing.
+         * Now that middleware.ts protects /dashboard, reaching here with 401
+         * means the cookie expired mid-session. Safe to redirect to sign-in —
+         * middleware prevents the infinite loop (no cookie → middleware stops at sign-in). */
         if (dashRes.status === 401) {
-          setError("Session expired. Please sign in again to view your dashboard.");
+          router.replace("/sign-in?redirect_url=/dashboard");
           return;
         }
 
@@ -631,17 +631,19 @@ export default function DashboardClient() {
     loadDashboard();
 
     /*
-     * Re-fetch dashboard when the user returns to this tab after 5+ minutes away.
-     * The 5-minute throttle prevents the "baar baar auto refresh" loop where every
-     * navigation or Alt+Tab triggered a full reload and caused an infinite refresh
-     * cycle. Now refreshes only happen when the tab has been hidden for a while.
+     * Re-fetch dashboard when the user returns to this tab.
+     * Uses a 30-second minimum debounce so:
+     *   • Quick Alt+Tab / accidental navigation doesn't trigger a full reload
+     *   • After a quiz session (~1-2 min away) the dashboard shows fresh XP immediately
+     * This is intentionally shorter than the old 5-minute window to make XP
+     * updates visible as soon as the student returns from a study/quiz session.
      */
     let lastLoadedAt = Date.now();
 
     function handleVisibilityChange() {
       if (document.visibilityState === "visible" && isMounted) {
-        const minutesAway = (Date.now() - lastLoadedAt) / 60_000;
-        if (minutesAway >= 5) {
+        const secondsAway = (Date.now() - lastLoadedAt) / 1_000;
+        if (secondsAway >= 30) {
           lastLoadedAt = Date.now();
           loadDashboard();
         }
