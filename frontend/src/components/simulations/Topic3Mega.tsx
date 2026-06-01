@@ -277,7 +277,7 @@ export function Sim_projectile_fma() {
       arr(ctx, p.x - 30, p.y, p.x - 30, p.y + 30, RED, "g=9.8↓");
       ctx.fillStyle = "rgba(15,23,42,0.8)"; ctx.strokeStyle = GRAY; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.roundRect(10, 10, 290, 95, 6); ctx.fill(); ctx.stroke();
-      txt(ctx, `Horizontal: ax = 0  →  vₓ = const = ${v0 * Math.cos(ang * Math.PI / 180).toFixed(1)} m/s`, 18, 30, GREEN, 11);
+      txt(ctx, `Horizontal: ax = 0  →  vₓ = const = ${(v0 * Math.cos(ang * Math.PI / 180)).toFixed(1)} m/s`, 18, 30, GREEN, 11);
       txt(ctx, `Vertical: ay = g = 9.8 m/s²  →  vy changes`, 18, 50, AMBER, 11);
       txt(ctx, `F = ma: Only gravity acts (downward)`, 18, 70, WHITE, 11);
       txt(ctx, `t = ${p.t.toFixed(2)}s  |  Range ≈ ${(v0 * v0 * Math.sin(2 * ang * Math.PI / 180) / 9.8).toFixed(1)}m`, 18, 90, GRAY, 11);

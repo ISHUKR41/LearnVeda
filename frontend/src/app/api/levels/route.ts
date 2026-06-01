@@ -35,27 +35,77 @@ interface LevelDef {
   perks:       Record<string, string>;
 }
 
-/* 10 levels — each level ~50–100% more XP than the previous */
-const LEVEL_DEFS: Omit<LevelDef, "xpToNext">[] = [
-  { levelNumber: 1,  xpRequired: 0,     title: "Learner",     badgeName: "Seedling",    badgeIcon: "🌱", badgeColor: "#6B7280", perks: { community: "Post in community",       battle: "Join casual battles"        } },
-  { levelNumber: 2,  xpRequired: 150,   title: "Explorer",    badgeName: "Sprout",      badgeIcon: "🌿", badgeColor: "#10B981", perks: { leaderboard: "Class leaderboard",    profile: "Custom avatar border"       } },
-  { levelNumber: 3,  xpRequired: 400,   title: "Practitioner",badgeName: "Star",        badgeIcon: "⭐", badgeColor: "#F59E0B", perks: { badges: "Milestone badges",          battle: "Rated battles"               } },
-  { levelNumber: 4,  xpRequired: 800,   title: "Scholar",     badgeName: "Scholar",     badgeIcon: "📖", badgeColor: "#3B82F6", perks: { wallet: "Bonus Stars on streaks",   analytics: "Study analytics"          } },
-  { levelNumber: 5,  xpRequired: 1400,  title: "Achiever",    badgeName: "Achiever",    badgeIcon: "🏅", badgeColor: "#8B5CF6", perks: { events: "Priority registration",    star: "Gold profile star"             } },
-  { levelNumber: 6,  xpRequired: 2200,  title: "Expert",      badgeName: "Expert",      badgeIcon: "🔷", badgeColor: "#06B6D4", perks: { battle: "Expert battle tier",       simulations: "Premium simulations"   } },
-  { levelNumber: 7,  xpRequired: 3200,  title: "Master",      badgeName: "Master",      badgeIcon: "💎", badgeColor: "#EC4899", perks: { leaderboard: "Global leaderboard", mentorship: "Mentor badge"            } },
-  { levelNumber: 8,  xpRequired: 4500,  title: "Champion",    badgeName: "Champion",    badgeIcon: "🏆", badgeColor: "#F97316", perks: { events: "Exclusive championships", rank: "Champion rank badge"           } },
-  { levelNumber: 9,  xpRequired: 6200,  title: "Legend",      badgeName: "Legend",      badgeIcon: "🌟", badgeColor: "#EF4444", perks: { all: "Full platform access",        prestige: "Legend prestige frame"     } },
-  { levelNumber: 10, xpRequired: 8500,  title: "Grandmaster", badgeName: "Grandmaster", badgeIcon: "👑", badgeColor: "#FBBF24", perks: { hall: "Hall of Fame entry",         ultimate: "Grandmaster crown"         } },
+const TIER_NAMES = [
+  "Bronze",
+  "Silver",
+  "Gold",
+  "Platinum",
+  "Sapphire",
+  "Emerald",
+  "Ruby",
+  "Diamond",
+  "Legend",
+  "Grandmaster"
 ];
 
-/* Pre-compute xpToNext for each level */
-const LEVELS: LevelDef[] = LEVEL_DEFS.map((def, i) => ({
-  ...def,
-  xpToNext: i < LEVEL_DEFS.length - 1
-    ? LEVEL_DEFS[i + 1].xpRequired - def.xpRequired
-    : 0, /* Max level — no "next" */
-}));
+const TIER_ICONS = ["🌱", "🌿", "⭐", "📖", "🏅", "🔷", "💎", "🏆", "🌟", "👑"];
+const TIER_COLORS = [
+  "#6B7280", // Bronze
+  "#10B981", // Silver
+  "#F59E0B", // Gold
+  "#3B82F6", // Sapphire
+  "#8B5CF6", // Emerald
+  "#06B6D4", // Platinum
+  "#EC4899", // Ruby
+  "#F97316", // Diamond
+  "#EF4444", // Legend
+  "#FBBF24"  // Grandmaster
+];
+
+const BASE_TITLES = [
+  "Learner",
+  "Explorer",
+  "Practitioner",
+  "Scholar",
+  "Achiever",
+  "Expert",
+  "Master",
+  "Champion",
+  "Legend",
+  "Grandmaster"
+];
+
+const LEVELS: LevelDef[] = Array.from({ length: 100 }, (_, idx) => {
+  const n = idx + 1;
+  const tierIdx = Math.min(9, Math.floor((n - 1) / 10));
+  const titleIdx = (n - 1) % 10;
+  const xpRequired = 100 * (n - 1) * (n - 1);
+  const xpToNext = n < 100 ? 100 * n * n - xpRequired : 0;
+
+  const title = tierIdx === 0 ? BASE_TITLES[titleIdx] : `${TIER_NAMES[tierIdx]} ${BASE_TITLES[titleIdx]}`;
+  const badgeName = title;
+  const badgeIcon = TIER_ICONS[tierIdx];
+  const badgeColor = TIER_COLORS[tierIdx];
+
+  const perks: Record<string, string> = {
+    community: `Access to Tier ${tierIdx + 1} community chat`,
+    battle: `Unlock Tier ${tierIdx + 1} battles`,
+  };
+  if (n % 5 === 0) {
+    perks.bonus = `Special milestone bonus stars unlocked`;
+  }
+
+  return {
+    levelNumber: n,
+    xpRequired,
+    xpToNext,
+    title,
+    badgeName,
+    badgeIcon,
+    badgeColor,
+    perks
+  };
+});
 
 /* ─────────────────────────────────────────────
  * Cache headers — level definitions never change between deploys
@@ -84,7 +134,7 @@ export async function GET(request: NextRequest) {
   /* Mode 2: Current + next level for dashboard XP bar (?user_level=7) */
   const userLevelParam = searchParams.get("user_level");
   if (userLevelParam !== null) {
-    const userLevel = Math.max(1, Math.min(parseInt(userLevelParam, 10) || 1, 10));
+    const userLevel = Math.max(1, Math.min(parseInt(userLevelParam, 10) || 1, 100));
     const current = LEVELS.find(l => l.levelNumber === userLevel) ?? LEVELS[0];
     const next    = LEVELS.find(l => l.levelNumber === userLevel + 1) ?? null;
     return apiSuccess({ current, next }, { headers: CACHE_HEADERS });

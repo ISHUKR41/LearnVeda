@@ -26,33 +26,10 @@ import { create } from "zustand";
  * This follows a mild exponential curve — learning feels rewarding early
  * but requires consistent effort to reach higher levels.
  */
-export const XP_PER_LEVEL_TABLE: number[] = [
-  0,       // Level 1
-  200,     // Level 2
-  500,     // Level 3
-  1000,    // Level 4
-  1800,    // Level 5
-  2800,    // Level 6
-  4000,    // Level 7
-  5500,    // Level 8
-  7200,    // Level 9
-  9000,    // Level 10  ← Monetization gate activates here
-  11200,   // Level 11
-  13800,   // Level 12
-  16800,   // Level 13
-  20200,   // Level 14
-  24000,   // Level 15
-  28500,   // Level 16
-  33500,   // Level 17
-  39000,   // Level 18
-  45200,   // Level 19
-  52000,   // Level 20
-];
-
-/* Fill levels 21–100 using a quadratic formula for completeness */
-for (let lvl = 21; lvl <= 100; lvl++) {
-  XP_PER_LEVEL_TABLE.push(Math.round(52000 + (lvl - 20) * (lvl - 20) * 120));
-}
+export const XP_PER_LEVEL_TABLE: number[] = Array.from(
+  { length: 100 },
+  (_, idx) => 100 * idx * idx
+);
 
 /* ─────────────────────────────────────────────
  * Utility Functions

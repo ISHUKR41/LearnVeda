@@ -47,8 +47,6 @@ const STARS_REWARDS: Record<string, number> = {
   default:         10,
 };
 
-const LEVEL_XP_THRESHOLDS = [0, 150, 400, 800, 1400, 2200, 3200, 4500, 6200, 8500];
-
 function isoDate(value: Date | string | null): string | null {
   if (!value) return null;
   return value instanceof Date
@@ -57,13 +55,7 @@ function isoDate(value: Date | string | null): string | null {
 }
 
 function levelFromXp(xp: number): number {
-  let level = 1;
-  for (let index = 0; index < LEVEL_XP_THRESHOLDS.length; index++) {
-    if (xp >= LEVEL_XP_THRESHOLDS[index]) {
-      level = index + 1;
-    }
-  }
-  return level;
+  return Math.max(1, Math.min(100, Math.floor(1 + Math.sqrt(xp / 100))));
 }
 
 /* ─────────────────────────────────────────────────────────────────────

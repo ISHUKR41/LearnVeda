@@ -336,7 +336,7 @@ const Sim_satellite_orbit_pro        = dynamic(() => import('./Topic10Profession
 const Sim_swimming_propulsion_pro    = dynamic(() => import('./Topic10Professional').then(m => m.Sim_swimming_propulsion_pro),    { ssr: false });
 const Sim_tug_of_war_analysis        = dynamic(() => import('./Topic10Professional').then(m => m.Sim_tug_of_war_analysis),        { ssr: false });
 const Sim_molecular_gas              = dynamic(() => import('./Topic10Professional').then(m => m.Sim_molecular_gas),              { ssr: false });
-const Sim_cricket_impulse            = dynamic(() => import('./Topic10Professional').then(m => m.Sim_cricket_impulse),            { ssr: false });
+const Sim_cricket_impulse_v10        = dynamic(() => import('./Topic10Professional').then(m => m.Sim_cricket_impulse),            { ssr: false });
 const Sim_momentum_graph             = dynamic(() => import('./Topic10Professional').then(m => m.Sim_momentum_graph),             { ssr: false });
 const Sim_parachute_phases           = dynamic(() => import('./Topic10Professional').then(m => m.Sim_parachute_phases),           { ssr: false });
 const Sim_archery_launch             = dynamic(() => import('./Topic10Professional').then(m => m.Sim_archery_launch),             { ssr: false });
@@ -700,7 +700,7 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "swimming-propulsion-pro":     Sim_swimming_propulsion_pro,
   "tug-of-war-analysis":         Sim_tug_of_war_analysis,
   "molecular-gas":               Sim_molecular_gas,
-  "cricket-impulse":             Sim_cricket_impulse,
+  "cricket-impulse-v10":         Sim_cricket_impulse_v10,
   "momentum-graph":              Sim_momentum_graph,
   "parachute-phases":            Sim_parachute_phases,
   "archery-launch":              Sim_archery_launch,

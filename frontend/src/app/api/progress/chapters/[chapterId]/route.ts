@@ -64,16 +64,14 @@ export async function PUT(
     const newMilestone = completed ? 4 : levelMilestoneFromScore(normalizedScore);
     const levelsAwarded = Math.max(0, newMilestone - oldMilestone);
 
-const LEVEL_XP_THRESHOLDS = [0, 150, 400, 800, 1400, 2200, 3200, 4500, 6200, 8500];
-
     const oldLevel = user.level ?? 1;
     let newLevel = oldLevel;
     let totalXp = user.xp ?? 0;
     let streak = user.streak ?? 0;
 
     if (levelsAwarded > 0) {
-      const targetLevel = Math.min(10, oldLevel + levelsAwarded);
-      const targetMinXp = LEVEL_XP_THRESHOLDS[targetLevel - 1] ?? 0;
+      const targetLevel = Math.min(100, oldLevel + levelsAwarded);
+      const targetMinXp = 100 * (targetLevel - 1) * (targetLevel - 1);
 
       const updated = await queryPostgres<{
         xp: number;

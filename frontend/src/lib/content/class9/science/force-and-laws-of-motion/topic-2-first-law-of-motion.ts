@@ -36,20 +36,13 @@ export const firstLawOfMotionInertia: Topic = {
     "ball-on-train",
     "hammer-head",
     "crash-test",
-    "marble-tube",
-    "spinning-skater",
-    "pendulum-inertia",
-    "detailed-coin-flick",
     "friction-removal",
     "bus-jerk",
     "galileo-ramp",
-    "iss-microgravity",
     "seatbelt-demo",
-    "space-drift-pro",
     "bus-brake-inertia",
     "coin-card-inertia",
-    "mass-inertia-lab",
-    "galileo-ramp-pro"
+    "mass-inertia-lab"
   ],
 
   content: `

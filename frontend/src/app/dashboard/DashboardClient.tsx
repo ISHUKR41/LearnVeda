@@ -685,7 +685,7 @@ export default function DashboardClient() {
       isMounted = false;
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [router]);
+  }, [router, clerkLoaded, isSignedIn]);
 
   /* ── Loading state ─────────────────────────────────────────── */
   if (isLoading) return <DashboardSkeleton />;

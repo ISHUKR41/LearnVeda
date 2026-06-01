@@ -1,7 +1,9 @@
 /**
- * FILE: proxy.ts
- * LOCATION: src/proxy.ts
+ * FILE: middleware.ts
+ * LOCATION: src/middleware.ts
  * PURPOSE: Next.js + Clerk middleware for authentication boundaries.
+ *          Protects dashboard, battle, profile, wallet, and settings while
+ *          keeping curriculum and subject pages public.
  *
  *   IMPORTANT: This middleware uses auth.protect() from Clerk — NOT manual
  *   redirect logic. Manual redirects (checking isAuthenticated && isAuthRoute)
