@@ -44,12 +44,6 @@ const AdvancedTopic5Sims = dynamic(
   { ssr: false }
 );
 
-/* ─── Pro simulation pack — 8 ultra-accurate simulations for ALL topics ─── */
-const AdvancedProSims = dynamic(
-  () => import("./AdvancedSimPro").then((m) => ({ default: m.AdvancedSimPro })),
-  { ssr: false }
-);
-
 /* ─── Lazy-load the 9-sim EXTRA packs per topic (new — brings total to ~30 per topic) ─── */
 const AdvancedTopic1ExtraSims = dynamic(
   () => import("./AdvancedSim1Extra").then((m) => m.AdvancedTopic1ExtraSims),
@@ -3998,8 +3992,6 @@ export default function TopicSimulation({ topicId }: TopicSimulationProps) {
       {/* Extra simulations pack (9 more per topic — total ≈ 30 simulations) */}
       {extraSims}
 
-      {/* Pro simulation pack — 8 ultra-professional simulations covering all 5 topics */}
-      <AdvancedProSims />
     </div>
   );
 }

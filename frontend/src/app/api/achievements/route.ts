@@ -6,7 +6,7 @@
  *          user data (XP, level, streak) — no separate DB tables required.
  *
  * ENDPOINT:
- *   GET /api/achievements?userId=<id>
+ *   GET /api/achievements
  *
  * RESPONSE:
  *   {
@@ -22,6 +22,7 @@
  */
 
 import { type NextRequest, NextResponse } from "next/server";
+import { getAuthenticatedUser } from "@/lib/server/auth/current-user";
 import { getPostgresPool } from "@/lib/server/database/postgres";
 
 export const runtime = "nodejs";
@@ -124,46 +125,47 @@ const ACHIEVEMENT_DEFS: AchievementDef[] = [
 ];
 
 /* ─────────────────────────────────────────────
- * GET /api/achievements?userId=<id>
+ * GET /api/achievements
  * ───────────────────────────────────────────── */
 export async function GET(request: NextRequest): Promise<NextResponse> {
-  const { searchParams } = new URL(request.url);
-  const userId = searchParams.get("userId") || null;
+  const user = await getAuthenticatedUser(request);
+  if (!user) {
+    return NextResponse.json(
+      { ok: false, error: { message: "Please sign in to view achievements." } },
+      { status: 401 },
+    );
+  }
 
   /* Fetch the user's real stats to determine which achievements are earned */
-  let userXp    = 0;
-  let userLevel = 1;
-  let userStreak = 0;
+  let userXp = user.xp ?? 0;
+  let userLevel = user.level ?? 1;
+  let userStreak = user.streak ?? 0;
 
-  if (userId) {
-    try {
-      const pool = getPostgresPool();
-      const userResult = await pool.query<{ xp: number | null; level: number | null; streak: number | null }>(
-        `SELECT xp, level, streak FROM eduquest_users WHERE id = $1`,
-        [userId],
-      );
-      const row = userResult.rows[0];
-      if (row) {
-        userXp     = Number(row.xp     ?? 0);
-        userLevel  = Number(row.level  ?? 1);
-        userStreak = Number(row.streak ?? 0);
-      }
-    } catch {
-      /* DB error — leave stats at default 0. Achievements will all be locked. */
+  try {
+    const pool = getPostgresPool();
+    const userResult = await pool.query<{ xp: number | null; level: number | null; streak: number | null }>(
+      `SELECT xp, level, streak FROM eduquest_users WHERE id = $1`,
+      [user.id],
+    );
+    const row = userResult.rows[0];
+    if (row) {
+      userXp = Number(row.xp ?? userXp);
+      userLevel = Number(row.level ?? userLevel);
+      userStreak = Number(row.streak ?? userStreak);
     }
+  } catch {
+    /* DB error - keep stats from the authenticated user snapshot. */
   }
 
   /* Evaluate each achievement against the user's stats */
   const achievements = ACHIEVEMENT_DEFS.map(def => {
     let earned = false;
-    if (userId) {
-      switch (def.thresholdType) {
-        case "always":   earned = true;                           break;
-        case "xp":       earned = userXp     >= def.thresholdValue; break;
-        case "level":    earned = userLevel  >= def.thresholdValue; break;
-        case "streak":   earned = userStreak >= def.thresholdValue; break;
-        case "chapters": earned = false; /* future: check chapter completions */ break;
-      }
+    switch (def.thresholdType) {
+      case "always":   earned = true;                            break;
+      case "xp":       earned = userXp >= def.thresholdValue;     break;
+      case "level":    earned = userLevel >= def.thresholdValue;  break;
+      case "streak":   earned = userStreak >= def.thresholdValue; break;
+      case "chapters": earned = false; /* future: check chapter completions */ break;
     }
     return {
       id:             def.id,

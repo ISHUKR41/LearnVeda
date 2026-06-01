@@ -140,7 +140,7 @@ const FAQ_ITEMS = [
   {
     question: "How is my personal data protected?",
     answer:
-      "We use Clerk for authentication (enterprise-grade session management), argon2 password hashing, httpOnly cookies, rate limiting on every API endpoint, and input sanitization. We never store plaintext passwords and follow OWASP security standards.",
+      "EduQuest uses Clerk for authentication, session management, Google sign-in support, and protected route checks. Sensitive APIs validate the signed-in user before returning dashboard, wallet, activity, or achievement data.",
   },
   {
     question: "Can I access EduQuest on mobile?",
@@ -150,7 +150,7 @@ const FAQ_ITEMS = [
   {
     question: "How do XP and levels work?",
     answer:
-      "You earn 10 XP per correct answer. Levels follow a square-root curve (Level = √(XP ÷ 50)), so early levels are fast to reach while higher levels require sustained study. Your daily streak multiplies your XP gain up to 3×.",
+      "Correct answers award XP and Stars by question type. Dashboard level progress uses fixed XP thresholds, while chapter completion awards level milestones at 25%, 50%, 75%, and 100%.",
   },
   {
     question: "How do I report a bug or suggest a feature?",
@@ -168,7 +168,7 @@ const FAQ_ITEMS = [
  * TRUST BADGES
  * ───────────────────────────────────────────────────── */
 const TRUST_ITEMS = [
-  { icon: Shield, label: "Secure Auth", sub: "Clerk + argon2" },
+  { icon: Shield, label: "Secure Auth", sub: "Clerk sessions" },
   { icon: Clock, label: "24h Support", sub: "Mon–Sat" },
   { icon: Zap, label: "99.9% Uptime", sub: "SLA guaranteed" },
   { icon: CheckCircle2, label: "CBSE Aligned", sub: "Class 9–12" },
@@ -183,10 +183,6 @@ export default function ContactPage() {
 
       {/* ══════════════════════ HERO ══════════════════════ */}
       <section className={styles.hero}>
-        {/* Decorative background blobs */}
-        <div className={styles.heroBlobLeft} aria-hidden />
-        <div className={styles.heroBlobRight} aria-hidden />
-
         <div className={styles.heroInner}>
           <div className={styles.kicker}>
             <Sparkles size={13} />
@@ -353,7 +349,6 @@ export default function ContactPage() {
       {/* ══════════════════ CTA ══════════════════ */}
       <section className={styles.ctaSection}>
         <div className={styles.ctaCard}>
-          <div className={styles.ctaGlow} aria-hidden />
           <div className={styles.ctaBadge}>
             <Sparkles size={12} /> Join 50,000+ students
           </div>

@@ -122,9 +122,10 @@ export default function SignInPage() {
         <div className={styles.card}>
           <SignIn
             appearance={clerkAppearance}
-            redirectUrl="/dashboard"
-            afterSignInUrl="/dashboard"
-            afterSignUpUrl="/dashboard"
+            routing="path"
+            path="/sign-in"
+            fallbackRedirectUrl="/dashboard"
+            signUpFallbackRedirectUrl="/dashboard"
             signUpUrl="/sign-up"
           />
         </div>

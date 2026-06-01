@@ -307,7 +307,7 @@ export function Sim_curling_stone(){
       for(let i=0;i<5;i++){ctx.beginPath();ctx.moveTo(0,gy+20+i*18);ctx.lineTo(W,gy+20+i*18);ctx.stroke();}
       /* target circles */
       const tx=W*0.78, ty=gy-2;
-      for(const[r2,c] of[[35,"#DC2626"],[25,"#E2E8F0"],[15,"#DC2626"],[7,"#E2E8F0"]]){
+      for(const [r2, c] of [[35, "#DC2626"], [25, "#E2E8F0"], [15, "#DC2626"], [7, "#E2E8F0"]] as const){
         ctx.beginPath();ctx.arc(tx,ty,r2,0,Math.PI*2);ctx.fillStyle=c;ctx.fill();
         ctx.strokeStyle="#1e2d3d";ctx.lineWidth=1;ctx.stroke();
       }
@@ -524,7 +524,7 @@ export function Sim_electric_car(){
       /* EV label */
       label(ctx,"EV",cx-8,cy-20,"#E2E8F0",11);
       /* force arrows */
-      if(running&&force>0) arrow(ctx,cx+40,cy,"cx+40+60",cy,"#10B981","");
+      if(running&&force>0) arrow(ctx,cx+40,cy,cx+100,cy,"#10B981","");
       if(vRef.current>0.1) arrow(ctx,cx+40,cy,cx+40+Math.min(80,vRef.current*6),cy,"#10B981",`F=${force}N`);
       if(f_roll>1) arrow(ctx,cx-40,cy,cx-40-Math.min(50,f_roll*0.01),cy,"#F87171",`fr=${f_roll.toFixed(0)}N`);
       /* v indicator */
@@ -2894,7 +2894,7 @@ export function Sim_explosion_momentum(){
       <div style={TELE}>
         <div style={TV}><span style={TK}>Σpx</span><span style={{...TP,color:"#10B981"}}>{tele.px}</span></div>
         <div style={TV}><span style={TK}>Σpy</span><span style={{...TP,color:"#10B981"}}>{tele.py}</span></div>
-        <div style={TV}><span style={TK}>Total |Σp|</span><span style={{...TP,color:"#10B981"}}>{Math.sqrt(+tele.px**2 + +tele.py**2).toFixed(3)} ≈ 0</span></div>
+        <div style={TV}><span style={TK}>Total |Σp|</span><span style={{...TP,color:"#10B981"}}>{Math.sqrt((+tele.px) ** 2 + (+tele.py) ** 2).toFixed(3)} ≈ 0</span></div>
         <div style={TV}><span style={TK}>Stage</span><span style={{...TP,color:"#F59E0B"}}>{tele.state}</span></div>
       </div>
     </div>

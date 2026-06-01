@@ -21,6 +21,7 @@ import { randomUUID } from "crypto";
 
 const DEFAULT_TRACK: LearningTrack = "class-9";
 const DEFAULT_ROLE: UserRole       = "student";
+const ENABLE_LEGACY_AUTH = process.env.EDUQUEST_ENABLE_LEGACY_AUTH === "true";
 
 interface EduQuestUserRow {
   id:         string;
@@ -62,15 +63,22 @@ async function findOrCreateClerkUser(
     const pool = getPostgresPool();
 
     /* Try to find an existing EduQuest account with this email */
-    const existing = await pool.query<EduQuestUserRow>(
-      `SELECT id, name, email, track, role, level, xp, streak, created_at
+    const existing = await pool.query<EduQuestUserRow & { password_hash?: string }>(
+      `SELECT id, name, email, track, role, level, xp, streak, created_at, password_hash
          FROM eduquest_users
         WHERE lower(email) = lower($1)`,
       [email],
     );
 
     if (existing.rows.length > 0) {
-      return rowToPublicUser(existing.rows[0]);
+      const userRow = existing.rows[0];
+      if (userRow.password_hash !== `clerk-${clerkUserId}`) {
+        await pool.query(
+          `UPDATE eduquest_users SET password_hash = $1 WHERE id = $2`,
+          [`clerk-${clerkUserId}`, userRow.id]
+        );
+      }
+      return rowToPublicUser(userRow);
     }
 
     /*
@@ -109,6 +117,22 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Public
     const { userId } = await auth();
 
     if (userId) {
+      /* First check if user exists in database by clerk-${userId} to avoid slow external API call */
+      try {
+        const pool = getPostgresPool();
+        const existing = await pool.query<EduQuestUserRow>(
+          `SELECT id, name, email, track, role, level, xp, streak, created_at
+             FROM eduquest_users
+            WHERE password_hash = $1`,
+          [`clerk-${userId}`],
+        );
+        if (existing.rows.length > 0) {
+          return rowToPublicUser(existing.rows[0]);
+        }
+      } catch (dbErr) {
+        console.error("[current-user] Fast Clerk ID lookup failed:", dbErr);
+      }
+
       /* currentUser() gives us the full Clerk user object with email/name */
       const clerkUser = await currentUser();
       if (clerkUser) {
@@ -130,7 +154,11 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Public
     /* Clerk not configured or JWT validation failed — fall through to cookie auth */
   }
 
-  /* ── Attempt 2: Legacy cookie session ────── */
+  if (!ENABLE_LEGACY_AUTH) {
+    return null;
+  }
+
+  /* Attempt 2: Legacy cookie session */
   try {
     const session = getSessionFromRequest(request);
     if (!session) return null;

@@ -47,17 +47,21 @@ const STARS_REWARDS: Record<string, number> = {
   default:         10,
 };
 
-/* ── Level threshold: level N requires N² × 100 XP total ────────────── */
-function xpForLevel(level: number): number {
-  return level * level * 100;
+const LEVEL_XP_THRESHOLDS = [0, 150, 400, 800, 1400, 2200, 3200, 4500, 6200, 8500];
+
+function isoDate(value: Date | string | null): string | null {
+  if (!value) return null;
+  return value instanceof Date
+    ? value.toISOString().slice(0, 10)
+    : new Date(value).toISOString().slice(0, 10);
 }
 
-/* ── Calculate level from total XP ──────────────────────────────────── */
 function levelFromXp(xp: number): number {
   let level = 1;
-  while (xpForLevel(level + 1) <= xp) {
-    level++;
-    if (level >= 100) break;
+  for (let index = 0; index < LEVEL_XP_THRESHOLDS.length; index++) {
+    if (xp >= LEVEL_XP_THRESHOLDS[index]) {
+      level = index + 1;
+    }
   }
   return level;
 }
@@ -164,7 +168,7 @@ export async function POST(request: NextRequest) {
          * Only increment streak if last_active_at was yesterday or null.
          * If last_active_at is today, streak is already counted.
          */
-        const lastActive = row.last_active ? row.last_active.slice(0, 10) : null;
+        const lastActive = isoDate(row.last_active);
         const yesterday  = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
 
         if (lastActive !== todayUTC) {
@@ -176,6 +180,7 @@ export async function POST(request: NextRequest) {
           await pool.query(
             `UPDATE eduquest_users
                 SET streak         = $1,
+                    longest_streak = GREATEST(longest_streak, $1),
                     last_active_at = NOW()
               WHERE id = $2`,
             [newStreak, user.id]

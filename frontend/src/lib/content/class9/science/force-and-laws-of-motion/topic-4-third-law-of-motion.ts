@@ -48,19 +48,7 @@ export const thirdLawOfMotion: Topic = {
     "skateboard-push",
     "rowing-boat",
     "fire-extinguisher-cart",
-    "newtons-cradle-advanced",
-    "explosion-recoil-pro",
-    "impulse-momentum-pro",
-    "paired-magnets",
-    "propeller-thrust",
-    "air-hockey",
-    "impulse-airbag",
-    "circular-centripetal",
-    "resonance-demo",
-    "rocket-variable-mass",
-    "impulse-force-duration",
-    "newtons-cradle-physics",
-    "vector-force-addition-2d"
+    "newtons-cradle-advanced"
   ],
 
   content: `

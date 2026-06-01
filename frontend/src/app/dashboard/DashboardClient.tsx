@@ -19,7 +19,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AlertCircle,
   ArrowRight,
@@ -317,19 +317,18 @@ function LevelProgressCard({
  * Renders a 12-week GitHub-style contribution grid.
  * Each cell = one day; fill color encodes question volume (intensity 0–4).
  * The grid is padded so the first column always starts on Sunday.
- * Fetches from GET /api/activity?userId=<id>&days=84.
+ * Fetches from GET /api/activity?days=84.
  * ───────────────────────────────────────────── */
-function ActivityGraph({ userId }: { userId: string }) {
+function ActivityGraph() {
   const [days,       setDays]       = useState<ActivityDay[]>([]);
   const [activeDays, setActiveDays] = useState(0);
   const [curStreak,  setCurStreak]  = useState(0);
   const [isLoading,  setIsLoading]  = useState(true);
 
   useEffect(() => {
-    if (!userId) return;
     setIsLoading(true);
 
-    fetch(`/api/activity?userId=${encodeURIComponent(userId)}&days=84`, {
+    fetch("/api/activity?days=84", {
       cache: "no-store",
     })
       .then(r => (r.ok ? r.json() : null))
@@ -342,7 +341,7 @@ function ActivityGraph({ userId }: { userId: string }) {
       })
       .catch(() => {})
       .finally(() => setIsLoading(false));
-  }, [userId]);
+  }, []);
 
   /*
    * Pad the day array so the first visible cell falls on Sunday (col 0).
@@ -435,15 +434,14 @@ function ActivityGraph({ userId }: { userId: string }) {
  * Shows a compact grid of earned and locked achievement badges.
  * Earned badges glow with the achievement's brand color.
  * Locked badges are dimmed to guide the user on what to unlock next.
- * Fetches from GET /api/achievements?userId=<id>.
+ * Fetches from GET /api/achievements.
  * ───────────────────────────────────────────── */
-function AchievementsCard({ userId }: { userId: string }) {
+function AchievementsCard() {
   const [achievements, setAchievements] = useState<AchievementData[]>([]);
   const [summary, setSummary]           = useState({ total: 0, earned: 0, percent: 0 });
 
   useEffect(() => {
-    if (!userId) return;
-    fetch(`/api/achievements?userId=${encodeURIComponent(userId)}`)
+    fetch("/api/achievements", { cache: "no-store" })
       .then(r => (r.ok ? r.json() : null))
       .then((payload: AchievementsApiResponse | null) => {
         if (payload?.ok && payload.data) {
@@ -453,7 +451,7 @@ function AchievementsCard({ userId }: { userId: string }) {
         }
       })
       .catch(() => {});
-  }, [userId]);
+  }, []);
 
   return (
     <div className={styles.card}>
@@ -530,8 +528,7 @@ function AchievementsCard({ userId }: { userId: string }) {
 /* ─────────────────────────────────────────────
  * DashboardClient — main exported component
  * Fetches dashboard snapshot, wallet, levels, and then renders all sections.
- * The activity graph and achievements card receive the userId from the snapshot
- * and handle their own data fetching independently.
+ * Activity and achievements are bound to the authenticated user on the server.
  * ───────────────────────────────────────────── */
 export default function DashboardClient() {
   const router = useRouter();
@@ -542,6 +539,7 @@ export default function DashboardClient() {
   const [nextLevel,    setNextLevel]    = useState<LevelData | null>(null);
   const [error,        setError]        = useState("");
   const [isLoading,    setIsLoading]    = useState(true);
+  const hasLoadedOnceRef = useRef(false);
 
   /*
    * userId is derived directly from snapshot in the render path (below).
@@ -561,7 +559,9 @@ export default function DashboardClient() {
     let isMounted = true;
 
     async function loadDashboard() {
-      setIsLoading(true);
+      if (!hasLoadedOnceRef.current) {
+        setIsLoading(true);
+      }
       setError("");
 
       try {
@@ -623,6 +623,7 @@ export default function DashboardClient() {
           setError("Network error while loading your dashboard.");
         }
       } finally {
+        hasLoadedOnceRef.current = true;
         if (isMounted) setIsLoading(false);
       }
     }
@@ -693,8 +694,6 @@ export default function DashboardClient() {
    * This guarantees ActivityGraph and AchievementsCard always receive a
    * valid userId from the very first render after snapshot loads.
    */
-  const userId = snapshot.user.id;
-
   return (
     <div className={styles.page}>
       <div className={styles.inner}>
@@ -779,7 +778,7 @@ export default function DashboardClient() {
              * Conditionally rendered: requires userId from the snapshot.
              * ActivityGraph handles its own loading/empty states internally.
              */}
-            {userId && <ActivityGraph userId={userId} />}
+            <ActivityGraph />
 
             {/* Streak calendar — last 7 days with visual status dots */}
             <div className={styles.card}>
@@ -814,7 +813,7 @@ export default function DashboardClient() {
              * Achievements badge grid — up to 12 earned/locked badges.
              * Conditionally rendered: requires userId from the snapshot.
              */}
-            {userId && <AchievementsCard userId={userId} />}
+            <AchievementsCard />
 
             {/* Recent activity feed */}
             <div className={styles.card}>

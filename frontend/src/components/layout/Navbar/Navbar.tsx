@@ -10,6 +10,7 @@
 import { useState, useEffect, type FocusEvent } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useClerk } from "@clerk/nextjs";
 import {
   Menu, X, Sun, Moon, BookOpen, ChevronDown, Zap,
   Search, Bell, Flame, Swords, User, Wallet, Settings
@@ -30,6 +31,7 @@ function NavbarShell({ pathname }: { pathname: string }) {
   const [scrolled, setScrolled] = useState(false);
 
   const router = useRouter();
+  const { signOut } = useClerk();
   const { user, isAuthenticated, isLoading } = useAuthStore();
 
   useEffect(() => {
@@ -72,7 +74,8 @@ function NavbarShell({ pathname }: { pathname: string }) {
   const handleSignOut = async () => {
     setIsMobileMenuOpen(false);
     try {
-      await fetch("/api/auth/sign-out", { method: "POST" });
+      await fetch("/api/auth/sign-out", { method: "POST", credentials: "include" });
+      await signOut({ redirectUrl: "/" });
     } catch {
       /* Continue even if server call fails */
     }
@@ -84,7 +87,7 @@ function NavbarShell({ pathname }: { pathname: string }) {
       localStorage.removeItem("eduquest_session");
     }
     clearUser();
-    router.push("/");
+    router.replace("/");
   };
 
   const isActive = (href: string) => {

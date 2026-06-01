@@ -43,21 +43,7 @@ export const conservationOfMomentum: Topic = {
     "momentum-quiz",
     "car-crash-analysis",
     "fireworks-explosion",
-    "pool-table",
-    "newtons-cradle-pro",
-    "simple-pendulum-pro",
-    "spring-oscillator-pro",
-    "billiards-2d",
-    "rocket-fuel-burn",
-    "superball-rebound",
-    "momentum-explosion-2d",
-    "collision-lab-2d",
-    "momentum-split",
-    "collision-comparator",
-    "momentum-2d-sandbox",
-    "newtons-cradle-physics",
-    "impulse-force-duration",
-    "projectile-air-drag"
+    "pool-table"
   ],
 
   content: `

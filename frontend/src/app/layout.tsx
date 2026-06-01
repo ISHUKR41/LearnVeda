@@ -152,6 +152,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       afterSignOutUrl="/"
       signInUrl="/sign-in"
       signUpUrl="/sign-up"
+      signInFallbackRedirectUrl="/dashboard"
+      signUpFallbackRedirectUrl="/dashboard"
     >
       <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} dark`} data-theme="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
         <body>

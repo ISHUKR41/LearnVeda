@@ -148,6 +148,11 @@ export default function TopicStudyClient({
 
   const handleQuestionAnswered = useCallback(
     (questionId: string, isCorrect: boolean, selectedOpt?: string) => {
+      const question = activeTopic.questions.find((q) => q.id === questionId);
+      const questionType = question?.type === "thinking" ? "deep-thinking"
+        : question?.type === "short" ? "short-answer"
+        : question?.type === "long" ? "long-answer"
+        : "mcq";
       let nextAnswered = new Set<string>();
       let nextSelected: Record<string, string> = {};
 
@@ -173,6 +178,28 @@ export default function TopicStudyClient({
       }
 
       if (isCorrect) {
+        fetch("/api/progress/answers", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            chapterId: chapterData.id,
+            topicId: activeTopic.id,
+            questionId,
+            userAnswer: selectedOpt || "",
+            isCorrect,
+            timeSpent: 0,
+            questionType,
+          }),
+        })
+          .then((r) => r.json())
+          .then((res) => {
+            if (res.ok && res.data?.isCorrect && res.data.xpAwarded > 0) {
+              toast.success(`+${res.data.xpAwarded} XP +${res.data.starsAwarded} Stars earned!`);
+            }
+          })
+          .catch(console.error);
+
         setCorrectAnswers((prev) => {
           const next = new Set(prev).add(questionId);
           localStorage.setItem(`correct_qs_${chapterData.id}`, JSON.stringify(Array.from(next)));
@@ -234,7 +261,7 @@ export default function TopicStudyClient({
         });
       }
     },
-    [chapterData]
+    [chapterData, activeTopic]
   );
 
   const answeredCount  = activeTopic.questions.filter((q) => answeredQuestions.has(q.id)).length;
@@ -438,10 +465,12 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
   const handleRevealAnswer = () => {
     if (!showAnswer) {
       setShowAnswer(true);
-      if (question.type === "mcq") {
-        onAnswer(question.id, selectedOption === question.correctAnswer, selectedOption || undefined);
-      } else {
-        onAnswer(question.id, true);
+      if (!isAnswered) {
+        if (question.type === "mcq") {
+          onAnswer(question.id, selectedOption === question.correctAnswer, selectedOption || undefined);
+        } else {
+          onAnswer(question.id, true);
+        }
       }
     } else {
       setShowAnswer(false);

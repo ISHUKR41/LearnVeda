@@ -57,22 +57,7 @@ export const secondLawOfMotion: Topic = {
     "fma-race",
     "pulley-system",
     "elevator-fma",
-    "drag-race",
-    "fma-graph-pro",
-    "car-braking-pro",
-    "atwood-machine-pro",
-    "elevator-accel",
-    "net-force-lab",
-    "stopping-distance-pro",
-    "spring-shm",
-    "elevator-weight",
-    "friction-lab",
-    "projectile-range",
-    "newton-second-track",
-    "rocket-variable-mass",
-    "pulley-mechanical-advantage",
-    "inclined-force-lab",
-    "energy-conservation-track"
+    "drag-race"
   ],
 
   content: `

@@ -1,20 +1,16 @@
 /**
- * FILE: proxy.ts
- * LOCATION: src/proxy.ts
- * PURPOSE: Next.js + Clerk request proxy for authentication boundaries.
- *          Study and account surfaces require a real Clerk session, which avoids
- *          stale legacy cookies causing redirect loops.
+ * FILE: middleware.ts
+ * LOCATION: src/middleware.ts
+ * PURPOSE: Next.js + Clerk middleware for authentication boundaries.
+ *          Protects dashboard, battle, profile, wallet, and settings while
+ *          keeping curriculum and subject pages public.
  */
 
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
+// Keep curriculum pages (/class-9, etc.) public so users can browse them without being forced to log in.
 const isProtectedRoute = createRouteMatcher([
-  "/class-9(.*)",
-  "/class-10(.*)",
-  "/class-11(.*)",
-  "/class-12(.*)",
-  "/engineering(.*)",
   "/battle(.*)",
   "/community(.*)",
   "/dashboard(.*)",

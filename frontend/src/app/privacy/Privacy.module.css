@@ -1,13 +1,181 @@
 /*
  * FILE: Privacy.module.css
  * LOCATION: src/app/privacy/Privacy.module.css
- * PURPOSE: Page-specific legal content styles for Privacy Policy.
+ * PURPOSE: Professional legal page styles for the privacy policy.
  * USED BY: src/app/privacy/page.tsx
- * LAST UPDATED: 2026-05-11
+ * LAST UPDATED: 2026-06-01
  */
 
-.page { max-width: 760px; margin: 0 auto; padding: var(--space-12) var(--space-4) var(--space-16); }
-.kicker { color: var(--color-primary); font-size: var(--font-size-small); font-weight: var(--font-weight-semibold); text-transform: uppercase; }
-.page h1 { margin: var(--space-3) 0 var(--space-5); font-size: var(--font-size-h1); }
-.page h2 { margin: var(--space-8) 0 var(--space-2); font-size: var(--font-size-h4); }
-.page p { color: var(--color-text-secondary); line-height: var(--line-height-relaxed); }
+.page {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-4) var(--space-16);
+}
+
+.hero {
+  max-width: 760px;
+  margin-bottom: var(--space-8);
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  color: var(--color-primary);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hero h1 {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h1);
+  color: var(--color-text-primary);
+}
+
+.hero p,
+.note p,
+.card p,
+.policyItem p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.summaryBand {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-12);
+  padding: var(--space-5);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.summaryBand div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.summaryBand span,
+.sectionHeader span {
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-xsmall);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summaryBand strong {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-body);
+}
+
+.section {
+  margin-top: var(--space-12);
+}
+
+.sectionHeader {
+  max-width: 700px;
+  margin-bottom: var(--space-5);
+}
+
+.sectionHeader h2,
+.note h2 {
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h3);
+  color: var(--color-text-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.card {
+  min-height: 210px;
+  padding: var(--space-5);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.card svg {
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+}
+
+.card h3,
+.policyItem h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+}
+
+.card p,
+.policyItem p,
+.note p {
+  margin: 0;
+  font-size: var(--font-size-small);
+}
+
+.policyList {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.policyItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.policyIcon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-primary);
+  background: rgba(88, 166, 255, 0.1);
+  border-radius: 8px;
+}
+
+.note {
+  margin-top: var(--space-12);
+  padding: var(--space-6);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding-top: var(--space-8);
+  }
+
+  .summaryBand,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .policyItem {
+    grid-template-columns: 1fr;
+  }
+}

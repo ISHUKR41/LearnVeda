@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import dynamic from "next/dynamic";
+import { useAuth } from "@clerk/nextjs";
 import { useUIStore } from "@/store/uiStore";
 import { useAuthStore } from "@/store/authStore";
 
@@ -51,9 +52,17 @@ function ThemeInitializer() {
 
 /* Hydrates the global auth store on mount by calling /api/auth/me */
 function AuthHydrator() {
-  const { setUser, setLoading } = useAuthStore();
+  const { isLoaded, isSignedIn } = useAuth();
+  const { setUser, setLoading, clearUser } = useAuthStore();
 
   useEffect(() => {
+    if (!isLoaded) return;
+
+    if (!isSignedIn) {
+      clearUser();
+      return;
+    }
+
     fetch("/api/auth/me", { cache: "no-store" })
       .then(async (res) => {
         if (res.ok) {
@@ -66,7 +75,7 @@ function AuthHydrator() {
         }
       })
       .catch(() => setLoading(false));
-  }, [setUser, setLoading]);
+  }, [isLoaded, isSignedIn, setUser, setLoading, clearUser]);
 
   return null;
 }

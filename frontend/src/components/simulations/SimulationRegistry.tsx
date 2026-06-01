@@ -345,6 +345,36 @@ const Sim_trebuchet                  = dynamic(() => import('./Topic10Profession
 const Sim_roller_coaster             = dynamic(() => import('./Topic10Professional').then(m => m.Sim_roller_coaster),             { ssr: false });
 const Sim_force_superposition        = dynamic(() => import('./Topic10Professional').then(m => m.Sim_force_superposition),        { ssr: false });
 
+/* ── Topic 11 Professional (28) — ultra-professional physics simulations ── */
+const Sim_bridge_load_forces = dynamic(() => import('./Topic11Professional').then(m => m.Sim_bridge_load_forces), { ssr: false });
+const Sim_hot_air_balloon    = dynamic(() => import('./Topic11Professional').then(m => m.Sim_hot_air_balloon),    { ssr: false });
+const Sim_curling_stone      = dynamic(() => import('./Topic11Professional').then(m => m.Sim_curling_stone),      { ssr: false });
+const Sim_space_debris       = dynamic(() => import('./Topic11Professional').then(m => m.Sim_space_debris),       { ssr: false });
+const Sim_electric_car       = dynamic(() => import('./Topic11Professional').then(m => m.Sim_electric_car),       { ssr: false });
+const Sim_rocket_engine      = dynamic(() => import('./Topic11Professional').then(m => m.Sim_rocket_engine),      { ssr: false });
+const Sim_elevator_dynamics  = dynamic(() => import('./Topic11Professional').then(m => m.Sim_elevator_dynamics),  { ssr: false });
+const Sim_gun_recoil         = dynamic(() => import('./Topic11Professional').then(m => m.Sim_gun_recoil),         { ssr: false });
+const Sim_rowing_boat_v11    = dynamic(() => import('./Topic11Professional').then(m => m.Sim_rowing_boat),        { ssr: false });
+const Sim_billiards_break    = dynamic(() => import('./Topic11Professional').then(m => m.Sim_billiards_break),    { ssr: false });
+const Sim_ice_skaters        = dynamic(() => import('./Topic11Professional').then(m => m.Sim_ice_skaters),        { ssr: false });
+const Sim_newtons_cradle_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_newtons_cradle),     { ssr: false });
+const Sim_ballistic_pendulum_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_ballistic_pendulum), { ssr: false });
+const Sim_projectile_2d_v11  = dynamic(() => import('./Topic11Professional').then(m => m.Sim_projectile_2d),  { ssr: false });
+const Sim_gas_piston_v11     = dynamic(() => import('./Topic11Professional').then(m => m.Sim_gas_piston),     { ssr: false });
+const Sim_inclined_plane_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_inclined_plane_pro), { ssr: false });
+const Sim_atwood_machine_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_atwood_machine), { ssr: false });
+const Sim_force_superposition_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_force_superposition_pro), { ssr: false });
+const Sim_cannon_ship_v11    = dynamic(() => import('./Topic11Professional').then(m => m.Sim_cannon_ship),    { ssr: false });
+const Sim_impulse_momentum_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_impulse_momentum), { ssr: false });
+const Sim_spring_hooke_v11   = dynamic(() => import('./Topic11Professional').then(m => m.Sim_spring_hooke),   { ssr: false });
+const Sim_fbd_builder_v11    = dynamic(() => import('./Topic11Professional').then(m => m.Sim_fbd_builder_pro),    { ssr: false });
+const Sim_circular_motion_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_circular_motion_pro), { ssr: false });
+const Sim_friction_types_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_friction_types), { ssr: false });
+const Sim_gravity_well_v11   = dynamic(() => import('./Topic11Professional').then(m => m.Sim_gravity_well),   { ssr: false });
+const Sim_explosion_momentum_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_explosion_momentum), { ssr: false });
+const Sim_pendulum_conservation_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_pendulum_conservation), { ssr: false });
+const Sim_momentum_graph_v11 = dynamic(() => import('./Topic11Professional').then(m => m.Sim_momentum_graph_pro), { ssr: false });
+
 /* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
@@ -607,6 +637,36 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "trebuchet":                   Sim_trebuchet,
   "roller-coaster":              Sim_roller_coaster,
   "force-superposition":         Sim_force_superposition,
+
+  /* ── Topic 11 Professional (28) ── */
+  "bridge-load-forces-v11":      Sim_bridge_load_forces,
+  "hot-air-balloon-v11":         Sim_hot_air_balloon,
+  "curling-stone-v11":           Sim_curling_stone,
+  "space-debris-v11":            Sim_space_debris,
+  "electric-car-v11":            Sim_electric_car,
+  "rocket-engine-v11":           Sim_rocket_engine,
+  "elevator-dynamics-v11":       Sim_elevator_dynamics,
+  "gun-recoil-v11":              Sim_gun_recoil,
+  "rowing-boat-v11":             Sim_rowing_boat_v11,
+  "billiards-break-v11":         Sim_billiards_break,
+  "ice-skaters-v11":             Sim_ice_skaters,
+  "newtons-cradle-v11":          Sim_newtons_cradle_v11,
+  "ballistic-pendulum-v11":      Sim_ballistic_pendulum_v11,
+  "projectile-2d-v11":           Sim_projectile_2d_v11,
+  "gas-piston-v11":              Sim_gas_piston_v11,
+  "inclined-plane-v11":          Sim_inclined_plane_v11,
+  "atwood-machine-v11":          Sim_atwood_machine_v11,
+  "force-superposition-v11":     Sim_force_superposition_v11,
+  "cannon-ship-v11":             Sim_cannon_ship_v11,
+  "impulse-momentum-v11":        Sim_impulse_momentum_v11,
+  "spring-hooke-v11":            Sim_spring_hooke_v11,
+  "fbd-builder-v11":             Sim_fbd_builder_v11,
+  "circular-motion-v11":         Sim_circular_motion_v11,
+  "friction-types-v11":          Sim_friction_types_v11,
+  "gravity-well-v11":            Sim_gravity_well_v11,
+  "explosion-momentum-v11":      Sim_explosion_momentum_v11,
+  "pendulum-conservation-v11":   Sim_pendulum_conservation_v11,
+  "momentum-graph-v11":          Sim_momentum_graph_v11,
 };
 
 /* ══════════════════════════════════════════════════════════════════════

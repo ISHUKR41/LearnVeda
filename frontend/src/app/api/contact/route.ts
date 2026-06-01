@@ -122,9 +122,18 @@ export async function POST(request: NextRequest) {
     });
   } catch (err) {
     console.error("[POST /api/contact] DB error:", err);
+    return NextResponse.json(
+      {
+        ok: false,
+        error: {
+          code: "CONTACT_SAVE_FAILED",
+          message: "We could not save your message right now. Please try again in a moment.",
+        },
+      },
+      { status: 503 },
+    );
   }
 
-  /* Always return success to the user — even if DB write failed we've logged it */
   return NextResponse.json(
     {
       ok: true,

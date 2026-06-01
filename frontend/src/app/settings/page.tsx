@@ -35,7 +35,7 @@ import {
   EyeOff, CheckCircle2, Settings2, Info,
 } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
-import { useRouter } from "next/navigation";
+import { useClerk } from "@clerk/nextjs";
 import toast from "react-hot-toast";
 import styles from "./Settings.module.css";
 
@@ -103,6 +103,7 @@ function SettingsSection({
  */
 export default function SettingsPage() {
   const router = useRouter();
+  const { signOut } = useClerk();
   const { user, isAuthenticated, isLoading, clearUser, updateUser } = useAuthStore();
 
   /* ── Profile form state ── */
@@ -290,9 +291,15 @@ export default function SettingsPage() {
    * ───────────────────────────────────────────── */
   async function handleSignOut() {
     try {
-      await fetch("/api/auth/sign-out", { method: "POST" });
+      await fetch("/api/auth/sign-out", { method: "POST", credentials: "include" });
+      await signOut({ redirectUrl: "/" });
     } catch {
       /* Even if the server call fails, clear local state */
+    }
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("eduquest_user");
+      localStorage.removeItem("eduquest_refresh_token");
+      localStorage.removeItem("eduquest_session");
     }
     clearUser();
     router.push("/");

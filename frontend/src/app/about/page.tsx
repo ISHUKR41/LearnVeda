@@ -67,7 +67,7 @@ async function getRealStats(): Promise<RealStats> {
       SELECT
         (SELECT COUNT(*)::TEXT FROM eduquest_users)    AS students,
         (SELECT COUNT(*)::TEXT FROM eduquest_chapters) AS chapters,
-        (SELECT COUNT(*)::TEXT FROM eduquest_questions WHERE is_active = TRUE) AS questions,
+        (SELECT COUNT(*)::TEXT FROM eduquest_questions) AS questions,
         (SELECT COUNT(*)::TEXT FROM eduquest_subjects) AS subjects,
         (SELECT COUNT(*)::TEXT FROM eduquest_events)   AS events
     `);

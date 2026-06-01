@@ -513,10 +513,12 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
   const handleRevealAnswer = () => {
     if (!showAnswer) {
       setShowAnswer(true);
-      if (question.type === "mcq") {
-        onAnswer(question.id, selectedOption === question.correctAnswer, selectedOption || undefined);
-      } else {
-        onAnswer(question.id, true, typedAnswer || undefined);
+      if (!isAnswered) {
+        if (question.type === "mcq") {
+          onAnswer(question.id, selectedOption === question.correctAnswer, selectedOption || undefined);
+        } else {
+          onAnswer(question.id, true, typedAnswer || undefined);
+        }
       }
     } else {
       setShowAnswer(false);
