@@ -52,7 +52,13 @@ export const thirdLawOfMotion: Topic = {
     "pro4-swimmer-wall-push",
     "pro4-gun-recoil-sim",
     "pro4-boat-jump",
-    "pro4-ball-wall-bounce"
+    "pro4-ball-wall-bounce",
+    "ultra4-cannon-recoil",
+    "ultra4-rocket-thrust",
+    "ultra4-skater-wall-push",
+    "ultra4-collision-pairs",
+    "ultra4-swimmer-wall",
+    "ultra4-boat-jump"
   ],
 
   content: `

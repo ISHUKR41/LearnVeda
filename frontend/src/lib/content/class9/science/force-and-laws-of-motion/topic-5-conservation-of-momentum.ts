@@ -47,7 +47,13 @@ export const conservationOfMomentum: Topic = {
     "pro5-newtons-cradle",
     "pro5-explosion-momentum",
     "pro5-rocket-momentum",
-    "pro5-momentum-graph"
+    "pro5-momentum-graph",
+    "ultra5-elastic-collision-1d",
+    "ultra5-inelastic-collision",
+    "ultra5-explosion-rest",
+    "ultra5-newtons-cradle",
+    "ultra5-rocket-momentum",
+    "ultra5-momentum-graph-live"
   ],
 
   content: `

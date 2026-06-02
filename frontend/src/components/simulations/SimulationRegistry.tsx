@@ -453,6 +453,47 @@ const Sim_pro5_rocket_momentum        = dynamic(() => import('./TopicPhysicsNew5
 const Sim_pro5_momentum_graph         = dynamic(() => import('./TopicPhysicsNew5').then(m => m.Pro5_MomentumGraph),         { ssr: false });
 
 /* ══════════════════════════════════════════════════════════════════
+ * ULTRA-NEW TIER — 30 brand-new ultra-professional canvas sims
+ * TopicUltraNew1–5.tsx: 6 per topic × 5 topics = 30 simulations.
+ * Real Newtonian mechanics, interactive sliders, 60fps Canvas RAF.
+ * ══════════════════════════════════════════════════════════════════ */
+/* ── TopicUltraNew1 — Topic 1: Balanced & Unbalanced Forces ── */
+const Sim_ultra1_force_balance_lab  = dynamic(() => import('./TopicUltraNew1').then(m => m.Ultra1_ForceBalanceLab),  { ssr: false });
+const Sim_ultra1_vector_addition_2d = dynamic(() => import('./TopicUltraNew1').then(m => m.Ultra1_VectorAddition2D), { ssr: false });
+const Sim_ultra1_static_kinetic     = dynamic(() => import('./TopicUltraNew1').then(m => m.Ultra1_StaticKinetic),    { ssr: false });
+const Sim_ultra1_elevator_forces    = dynamic(() => import('./TopicUltraNew1').then(m => m.Ultra1_ElevatorForces),   { ssr: false });
+const Sim_ultra1_inclined_block     = dynamic(() => import('./TopicUltraNew1').then(m => m.Ultra1_InclinedBlock),    { ssr: false });
+const Sim_ultra1_force_pairs_table  = dynamic(() => import('./TopicUltraNew1').then(m => m.Ultra1_ForcePairsTable),  { ssr: false });
+/* ── TopicUltraNew2 — Topic 2: Newton's First Law / Inertia ── */
+const Sim_ultra2_coin_glass_inertia = dynamic(() => import('./TopicUltraNew2').then(m => m.Ultra2_CoinGlassInertia), { ssr: false });
+const Sim_ultra2_seatbelt_crash     = dynamic(() => import('./TopicUltraNew2').then(m => m.Ultra2_SeatbeltCrash),    { ssr: false });
+const Sim_ultra2_space_coasting     = dynamic(() => import('./TopicUltraNew2').then(m => m.Ultra2_SpaceCoasting),    { ssr: false });
+const Sim_ultra2_bus_brake          = dynamic(() => import('./TopicUltraNew2').then(m => m.Ultra2_BusBrake),         { ssr: false });
+const Sim_ultra2_mass_inertia       = dynamic(() => import('./TopicUltraNew2').then(m => m.Ultra2_MassInertia),      { ssr: false });
+const Sim_ultra2_galileo_ramp       = dynamic(() => import('./TopicUltraNew2').then(m => m.Ultra2_GalileoRamp),      { ssr: false });
+/* ── TopicUltraNew3 — Topic 3: Newton's Second Law F=ma ── */
+const Sim_ultra3_fma_live_lab       = dynamic(() => import('./TopicUltraNew3').then(m => m.Ultra3_FmaLiveLab),       { ssr: false });
+const Sim_ultra3_mass_comparison    = dynamic(() => import('./TopicUltraNew3').then(m => m.Ultra3_MassComparison),   { ssr: false });
+const Sim_ultra3_impulse_demo       = dynamic(() => import('./TopicUltraNew3').then(m => m.Ultra3_ImpulseDemo),      { ssr: false });
+const Sim_ultra3_braking_distance   = dynamic(() => import('./TopicUltraNew3').then(m => m.Ultra3_BrakingDistance),  { ssr: false });
+const Sim_ultra3_rocket_fma         = dynamic(() => import('./TopicUltraNew3').then(m => m.Ultra3_RocketFma),        { ssr: false });
+const Sim_ultra3_fma_force_graph    = dynamic(() => import('./TopicUltraNew3').then(m => m.Ultra3_FmaForceGraph),    { ssr: false });
+/* ── TopicUltraNew4 — Topic 4: Newton's Third Law ── */
+const Sim_ultra4_cannon_recoil      = dynamic(() => import('./TopicUltraNew4').then(m => m.Ultra4_CannonRecoil),     { ssr: false });
+const Sim_ultra4_rocket_thrust      = dynamic(() => import('./TopicUltraNew4').then(m => m.Ultra4_RocketThrust),     { ssr: false });
+const Sim_ultra4_skater_wall_push   = dynamic(() => import('./TopicUltraNew4').then(m => m.Ultra4_SkaterWallPush),   { ssr: false });
+const Sim_ultra4_collision_pairs    = dynamic(() => import('./TopicUltraNew4').then(m => m.Ultra4_CollisionPairs),   { ssr: false });
+const Sim_ultra4_swimmer_wall       = dynamic(() => import('./TopicUltraNew4').then(m => m.Ultra4_SwimmerWall),      { ssr: false });
+const Sim_ultra4_boat_jump          = dynamic(() => import('./TopicUltraNew4').then(m => m.Ultra4_BoatJump),         { ssr: false });
+/* ── TopicUltraNew5 — Topic 5: Conservation of Momentum ── */
+const Sim_ultra5_elastic_collision  = dynamic(() => import('./TopicUltraNew5').then(m => m.Ultra5_ElasticCollision1D),   { ssr: false });
+const Sim_ultra5_inelastic          = dynamic(() => import('./TopicUltraNew5').then(m => m.Ultra5_InelasticCollision),    { ssr: false });
+const Sim_ultra5_explosion_rest     = dynamic(() => import('./TopicUltraNew5').then(m => m.Ultra5_ExplosionRest),          { ssr: false });
+const Sim_ultra5_newtons_cradle     = dynamic(() => import('./TopicUltraNew5').then(m => m.Ultra5_NewtonsCradle),          { ssr: false });
+const Sim_ultra5_rocket_momentum    = dynamic(() => import('./TopicUltraNew5').then(m => m.Ultra5_RocketMomentum),         { ssr: false });
+const Sim_ultra5_momentum_graph     = dynamic(() => import('./TopicUltraNew5').then(m => m.Ultra5_MomentumGraphLive),      { ssr: false });
+
+/* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
  * ══════════════════════════════════════════════════════════════════ */
@@ -819,6 +860,46 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "pro5-explosion-momentum":     Sim_pro5_explosion_momentum,
   "pro5-rocket-momentum":        Sim_pro5_rocket_momentum,
   "pro5-momentum-graph":         Sim_pro5_momentum_graph,
+
+  /* ── Ultra-New Tier — Topic 1 (6 ultra-professional) ── */
+  "ultra1-force-balance-lab":    Sim_ultra1_force_balance_lab,
+  "ultra1-vector-addition-2d":   Sim_ultra1_vector_addition_2d,
+  "ultra1-static-kinetic":       Sim_ultra1_static_kinetic,
+  "ultra1-elevator-forces":      Sim_ultra1_elevator_forces,
+  "ultra1-inclined-block":       Sim_ultra1_inclined_block,
+  "ultra1-force-pairs-table":    Sim_ultra1_force_pairs_table,
+
+  /* ── Ultra-New Tier — Topic 2 (6 ultra-professional) ── */
+  "ultra2-coin-glass-inertia":   Sim_ultra2_coin_glass_inertia,
+  "ultra2-seatbelt-crash":       Sim_ultra2_seatbelt_crash,
+  "ultra2-space-coasting":       Sim_ultra2_space_coasting,
+  "ultra2-bus-brake":            Sim_ultra2_bus_brake,
+  "ultra2-mass-inertia":         Sim_ultra2_mass_inertia,
+  "ultra2-galileo-ramp":         Sim_ultra2_galileo_ramp,
+
+  /* ── Ultra-New Tier — Topic 3 (6 ultra-professional) ── */
+  "ultra3-fma-live-lab":         Sim_ultra3_fma_live_lab,
+  "ultra3-mass-comparison":      Sim_ultra3_mass_comparison,
+  "ultra3-impulse-demo":         Sim_ultra3_impulse_demo,
+  "ultra3-braking-distance":     Sim_ultra3_braking_distance,
+  "ultra3-rocket-fma":           Sim_ultra3_rocket_fma,
+  "ultra3-fma-force-graph":      Sim_ultra3_fma_force_graph,
+
+  /* ── Ultra-New Tier — Topic 4 (6 ultra-professional) ── */
+  "ultra4-cannon-recoil":        Sim_ultra4_cannon_recoil,
+  "ultra4-rocket-thrust":        Sim_ultra4_rocket_thrust,
+  "ultra4-skater-wall-push":     Sim_ultra4_skater_wall_push,
+  "ultra4-collision-pairs":      Sim_ultra4_collision_pairs,
+  "ultra4-swimmer-wall":         Sim_ultra4_swimmer_wall,
+  "ultra4-boat-jump":            Sim_ultra4_boat_jump,
+
+  /* ── Ultra-New Tier — Topic 5 (6 ultra-professional) ── */
+  "ultra5-elastic-collision-1d": Sim_ultra5_elastic_collision,
+  "ultra5-inelastic-collision":  Sim_ultra5_inelastic,
+  "ultra5-explosion-rest":       Sim_ultra5_explosion_rest,
+  "ultra5-newtons-cradle":       Sim_ultra5_newtons_cradle,
+  "ultra5-rocket-momentum":      Sim_ultra5_rocket_momentum,
+  "ultra5-momentum-graph-live":  Sim_ultra5_momentum_graph,
 };
 
 /* ══════════════════════════════════════════════════════════════════════

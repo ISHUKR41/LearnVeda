@@ -48,7 +48,13 @@ export const balancedUnbalancedForces: Topic = {
     "pro1-weight-normal",
     "pro1-tug-of-war",
     "pro1-equil-breaker",
-    "pro1-force-vectors-2d"
+    "pro1-force-vectors-2d",
+    "ultra1-force-balance-lab",
+    "ultra1-vector-addition-2d",
+    "ultra1-static-kinetic",
+    "ultra1-elevator-forces",
+    "ultra1-inclined-block",
+    "ultra1-force-pairs-table"
   ],
 
   content: `

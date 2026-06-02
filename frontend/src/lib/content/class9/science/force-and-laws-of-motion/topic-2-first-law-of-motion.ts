@@ -48,7 +48,13 @@ export const firstLawOfMotionInertia: Topic = {
     "pro2-bus-passenger",
     "pro2-friction-decel",
     "pro2-tablecloth-trick",
-    "pro2-galileo-ramp"
+    "pro2-galileo-ramp",
+    "ultra2-coin-glass-inertia",
+    "ultra2-seatbelt-crash",
+    "ultra2-space-coasting",
+    "ultra2-bus-brake",
+    "ultra2-mass-inertia",
+    "ultra2-galileo-ramp"
   ],
 
   content: `

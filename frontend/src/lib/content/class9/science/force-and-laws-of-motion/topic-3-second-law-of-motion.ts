@@ -61,7 +61,13 @@ export const secondLawOfMotion: Topic = {
     "pro3-force-effect",
     "pro3-fma-graph",
     "pro3-rocket-fma",
-    "pro3-momentum-change"
+    "pro3-momentum-change",
+    "ultra3-fma-live-lab",
+    "ultra3-mass-comparison",
+    "ultra3-impulse-demo",
+    "ultra3-braking-distance",
+    "ultra3-rocket-fma",
+    "ultra3-fma-force-graph"
   ],
 
   content: `
