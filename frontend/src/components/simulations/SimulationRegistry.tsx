@@ -412,6 +412,47 @@ const Sim_bullet_clay_momentum  = dynamic(() => import('./TopicUltraPro').then(m
 const Sim_newton_cradle_pro     = dynamic(() => import('./TopicUltraPro').then(m => m.Sim_newton_cradle_pro),    { ssr: false });
 
 /* ══════════════════════════════════════════════════════════════════
+ * PROFESSIONAL NEW TIER — 30 brand-new deep-physics canvas sims
+ * TopicPhysicsNew1–5.tsx: 6 per topic × 5 topics = 30 simulations.
+ * Pure HTML5 Canvas + requestAnimationFrame, no external deps.
+ * ══════════════════════════════════════════════════════════════════ */
+/* ── TopicPhysicsNew1 — Topic 1: Balanced & Unbalanced Forces ── */
+const Sim_pro1_net_force_block   = dynamic(() => import('./TopicPhysicsNew1').then(m => m.Pro1_NetForceBlock),   { ssr: false });
+const Sim_pro1_friction_surfaces = dynamic(() => import('./TopicPhysicsNew1').then(m => m.Pro1_FrictionSurfaces), { ssr: false });
+const Sim_pro1_weight_normal     = dynamic(() => import('./TopicPhysicsNew1').then(m => m.Pro1_WeightNormal),     { ssr: false });
+const Sim_pro1_tug_of_war        = dynamic(() => import('./TopicPhysicsNew1').then(m => m.Pro1_TugOfWar),         { ssr: false });
+const Sim_pro1_equil_breaker     = dynamic(() => import('./TopicPhysicsNew1').then(m => m.Pro1_EquilBreaker),     { ssr: false });
+const Sim_pro1_force_vectors_2d  = dynamic(() => import('./TopicPhysicsNew1').then(m => m.Pro1_ForceVectors2D),  { ssr: false });
+/* ── TopicPhysicsNew2 — Topic 2: Newton's First Law / Inertia ── */
+const Sim_pro2_space_coasting    = dynamic(() => import('./TopicPhysicsNew2').then(m => m.Pro2_SpaceCoasting),    { ssr: false });
+const Sim_pro2_inertia_mass_comp = dynamic(() => import('./TopicPhysicsNew2').then(m => m.Pro2_InertiaMassComp), { ssr: false });
+const Sim_pro2_bus_passenger     = dynamic(() => import('./TopicPhysicsNew2').then(m => m.Pro2_BusPassenger),     { ssr: false });
+const Sim_pro2_friction_decel    = dynamic(() => import('./TopicPhysicsNew2').then(m => m.Pro2_FrictionDecel),    { ssr: false });
+const Sim_pro2_tablecloth_trick  = dynamic(() => import('./TopicPhysicsNew2').then(m => m.Pro2_TableclothTrick),  { ssr: false });
+const Sim_pro2_galileo_ramp      = dynamic(() => import('./TopicPhysicsNew2').then(m => m.Pro2_GalileoRamp),      { ssr: false });
+/* ── TopicPhysicsNew3 — Topic 3: Newton's Second Law F=ma ── */
+const Sim_pro3_fma_interactive   = dynamic(() => import('./TopicPhysicsNew3').then(m => m.Pro3_FMA_Interactive),  { ssr: false });
+const Sim_pro3_mass_effect       = dynamic(() => import('./TopicPhysicsNew3').then(m => m.Pro3_MassEffect),       { ssr: false });
+const Sim_pro3_force_effect      = dynamic(() => import('./TopicPhysicsNew3').then(m => m.Pro3_ForceEffect),      { ssr: false });
+const Sim_pro3_fma_graph         = dynamic(() => import('./TopicPhysicsNew3').then(m => m.Pro3_FMA_Graph),         { ssr: false });
+const Sim_pro3_rocket_fma        = dynamic(() => import('./TopicPhysicsNew3').then(m => m.Pro3_RocketFMA),         { ssr: false });
+const Sim_pro3_momentum_change   = dynamic(() => import('./TopicPhysicsNew3').then(m => m.Pro3_MomentumChange),   { ssr: false });
+/* ── TopicPhysicsNew4 — Topic 4: Newton's Third Law ── */
+const Sim_pro4_action_reaction_cannon = dynamic(() => import('./TopicPhysicsNew4').then(m => m.Pro4_ActionReactionCannon), { ssr: false });
+const Sim_pro4_rocket_propulsion      = dynamic(() => import('./TopicPhysicsNew4').then(m => m.Pro4_RocketPropulsion),     { ssr: false });
+const Sim_pro4_swimmer_wall_push      = dynamic(() => import('./TopicPhysicsNew4').then(m => m.Pro4_SwimmerWallPush),      { ssr: false });
+const Sim_pro4_gun_recoil_sim         = dynamic(() => import('./TopicPhysicsNew4').then(m => m.Pro4_GunRecoilSim),         { ssr: false });
+const Sim_pro4_boat_jump              = dynamic(() => import('./TopicPhysicsNew4').then(m => m.Pro4_BoatJump),              { ssr: false });
+const Sim_pro4_ball_wall_bounce       = dynamic(() => import('./TopicPhysicsNew4').then(m => m.Pro4_BallWallBounce),       { ssr: false });
+/* ── TopicPhysicsNew5 — Topic 5: Conservation of Momentum ── */
+const Sim_pro5_elastic_collision_1d   = dynamic(() => import('./TopicPhysicsNew5').then(m => m.Pro5_ElasticCollision1D),   { ssr: false });
+const Sim_pro5_inelastic_collision    = dynamic(() => import('./TopicPhysicsNew5').then(m => m.Pro5_InelasticCollision),    { ssr: false });
+const Sim_pro5_newtons_cradle         = dynamic(() => import('./TopicPhysicsNew5').then(m => m.Pro5_NewtonsCradle),         { ssr: false });
+const Sim_pro5_explosion_momentum     = dynamic(() => import('./TopicPhysicsNew5').then(m => m.Pro5_ExplosionMomentum),     { ssr: false });
+const Sim_pro5_rocket_momentum        = dynamic(() => import('./TopicPhysicsNew5').then(m => m.Pro5_RocketMomentum),        { ssr: false });
+const Sim_pro5_momentum_graph         = dynamic(() => import('./TopicPhysicsNew5').then(m => m.Pro5_MomentumGraph),         { ssr: false });
+
+/* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
  * ══════════════════════════════════════════════════════════════════ */
@@ -738,6 +779,46 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "explosion-momentum-v11":      Sim_explosion_momentum_v11,
   "pendulum-conservation-v11":   Sim_pendulum_conservation_v11,
   "momentum-graph-v11":          Sim_momentum_graph_v11,
+
+  /* ── Professional New Tier — Topic 1 (6 new) ── */
+  "pro1-net-force-block":        Sim_pro1_net_force_block,
+  "pro1-friction-surfaces":      Sim_pro1_friction_surfaces,
+  "pro1-weight-normal":          Sim_pro1_weight_normal,
+  "pro1-tug-of-war":             Sim_pro1_tug_of_war,
+  "pro1-equil-breaker":          Sim_pro1_equil_breaker,
+  "pro1-force-vectors-2d":       Sim_pro1_force_vectors_2d,
+
+  /* ── Professional New Tier — Topic 2 (6 new) ── */
+  "pro2-space-coasting":         Sim_pro2_space_coasting,
+  "pro2-inertia-mass-comp":      Sim_pro2_inertia_mass_comp,
+  "pro2-bus-passenger":          Sim_pro2_bus_passenger,
+  "pro2-friction-decel":         Sim_pro2_friction_decel,
+  "pro2-tablecloth-trick":       Sim_pro2_tablecloth_trick,
+  "pro2-galileo-ramp":           Sim_pro2_galileo_ramp,
+
+  /* ── Professional New Tier — Topic 3 (6 new) ── */
+  "pro3-fma-interactive":        Sim_pro3_fma_interactive,
+  "pro3-mass-effect":            Sim_pro3_mass_effect,
+  "pro3-force-effect":           Sim_pro3_force_effect,
+  "pro3-fma-graph":              Sim_pro3_fma_graph,
+  "pro3-rocket-fma":             Sim_pro3_rocket_fma,
+  "pro3-momentum-change":        Sim_pro3_momentum_change,
+
+  /* ── Professional New Tier — Topic 4 (6 new) ── */
+  "pro4-action-reaction-cannon": Sim_pro4_action_reaction_cannon,
+  "pro4-rocket-propulsion":      Sim_pro4_rocket_propulsion,
+  "pro4-swimmer-wall-push":      Sim_pro4_swimmer_wall_push,
+  "pro4-gun-recoil-sim":         Sim_pro4_gun_recoil_sim,
+  "pro4-boat-jump":              Sim_pro4_boat_jump,
+  "pro4-ball-wall-bounce":       Sim_pro4_ball_wall_bounce,
+
+  /* ── Professional New Tier — Topic 5 (6 new) ── */
+  "pro5-elastic-collision-1d":   Sim_pro5_elastic_collision_1d,
+  "pro5-inelastic-collision":    Sim_pro5_inelastic_collision,
+  "pro5-newtons-cradle":         Sim_pro5_newtons_cradle,
+  "pro5-explosion-momentum":     Sim_pro5_explosion_momentum,
+  "pro5-rocket-momentum":        Sim_pro5_rocket_momentum,
+  "pro5-momentum-graph":         Sim_pro5_momentum_graph,
 };
 
 /* ══════════════════════════════════════════════════════════════════════

@@ -692,6 +692,17 @@ export default function DashboardClient() {
 
   /* ── Error state ───────────────────────────────────────────── */
   if (error || !snapshot) {
+    /*
+     * IMPORTANT: Do NOT show a "Sign In" link here when the user IS already
+     * signed in. Clicking "Sign In" while signed in creates an infinite loop:
+     *   error → "Sign In" link → /sign-in → Clerk redirects back to /dashboard
+     *   → same error → same link → loop forever.
+     *
+     * Instead:
+     *   - Signed in but data failed  → show "Refresh Page" button (transient API error)
+     *   - Not signed in              → show "Sign In" link (actually needs auth)
+     */
+    const needsSignIn = clerkLoaded && !isSignedIn;
     return (
       <div className={styles.page}>
         <div className={styles.inner}>
@@ -699,9 +710,23 @@ export default function DashboardClient() {
             <AlertCircle size={22} />
             <div>
               <h1>Dashboard could not load</h1>
-              <p>{error || "Please sign in again to continue."}</p>
+              <p>
+                {error ||
+                  (needsSignIn
+                    ? "Please sign in to view your dashboard."
+                    : "A temporary error occurred. Please refresh the page.")}
+              </p>
             </div>
-            <Link href="/sign-in" className={styles.errorAction}>Sign In</Link>
+            {needsSignIn ? (
+              <Link href="/sign-in" className={styles.errorAction}>Sign In</Link>
+            ) : (
+              <button
+                className={styles.errorAction}
+                onClick={() => window.location.reload()}
+              >
+                Refresh Page
+              </button>
+            )}
           </div>
         </div>
       </div>

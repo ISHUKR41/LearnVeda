@@ -46,7 +46,13 @@ export const thirdLawOfMotion: Topic = {
     "ice-skaters-push",
     "swimmer-wall-push",
     "book-force-pairs",
-    "gun-recoil-new"
+    "gun-recoil-new",
+    "pro4-action-reaction-cannon",
+    "pro4-rocket-propulsion",
+    "pro4-swimmer-wall-push",
+    "pro4-gun-recoil-sim",
+    "pro4-boat-jump",
+    "pro4-ball-wall-bounce"
   ],
 
   content: `

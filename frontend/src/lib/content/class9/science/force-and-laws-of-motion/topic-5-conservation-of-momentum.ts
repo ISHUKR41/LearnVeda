@@ -41,7 +41,13 @@ export const conservationOfMomentum: Topic = {
     "inelastic-stick-pro",
     "explosion-from-rest",
     "bullet-clay-momentum",
-    "newton-cradle-pro"
+    "newton-cradle-pro",
+    "pro5-elastic-collision-1d",
+    "pro5-inelastic-collision",
+    "pro5-newtons-cradle",
+    "pro5-explosion-momentum",
+    "pro5-rocket-momentum",
+    "pro5-momentum-graph"
   ],
 
   content: `

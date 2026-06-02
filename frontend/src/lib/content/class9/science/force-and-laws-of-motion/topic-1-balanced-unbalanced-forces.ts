@@ -42,7 +42,13 @@ export const balancedUnbalancedForces: Topic = {
     "gravity-normal-pair",
     "friction-threshold",
     "balanced-break",
-    "net-force-lab"
+    "net-force-lab",
+    "pro1-net-force-block",
+    "pro1-friction-surfaces",
+    "pro1-weight-normal",
+    "pro1-tug-of-war",
+    "pro1-equil-breaker",
+    "pro1-force-vectors-2d"
   ],
 
   content: `

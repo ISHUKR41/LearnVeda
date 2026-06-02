@@ -42,7 +42,13 @@ export const firstLawOfMotionInertia: Topic = {
     "seatbelt-demo",
     "bus-brake-inertia",
     "coin-card-inertia",
-    "mass-inertia-lab"
+    "mass-inertia-lab",
+    "pro2-space-coasting",
+    "pro2-inertia-mass-comp",
+    "pro2-bus-passenger",
+    "pro2-friction-decel",
+    "pro2-tablecloth-trick",
+    "pro2-galileo-ramp"
   ],
 
   content: `

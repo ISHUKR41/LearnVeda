@@ -55,7 +55,13 @@ export const secondLawOfMotion: Topic = {
     "heavy-mass-accel",
     "car-braking-ultra",
     "momentum-rate-demo",
-    "cricket-impulse"
+    "cricket-impulse",
+    "pro3-fma-interactive",
+    "pro3-mass-effect",
+    "pro3-force-effect",
+    "pro3-fma-graph",
+    "pro3-rocket-fma",
+    "pro3-momentum-change"
   ],
 
   content: `
