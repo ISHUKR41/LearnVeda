@@ -5,11 +5,16 @@
  *
  *   CORRECT ANSWER:
  *     1. Awards XP to eduquest_users (MCQ=15, short=25, long=30, deep=35)
- *     2. Recalculates and updates user level (quadratic: level N = N²×100 XP)
+ *     2. Recalculates and updates user level (formula: floor(1 + sqrt(XP / 100)))
  *     3. Awards Stars to eduquest_wallet (MCQ=10, short=15, long=20, deep=25)
  *     4. Writes a wallet transaction record for the Stars credit
  *     5. Upserts eduquest_daily_streaks for today (questions_answered + xp_earned)
  *     6. Updates user streak in eduquest_users if they haven't studied today yet
+ *     7. Checks chapter completion milestones and awards level bonuses:
+ *        - 25% chapter (10 correct) → +1 level bonus
+ *        - 50% chapter (20 correct) → +1 level bonus (cumulative +2)
+ *        - 75% chapter (30 correct) → +1 level bonus (cumulative +3)
+ *        - 100% chapter (40 correct) → +1 level bonus (cumulative +4)
  *
  *   WRONG ANSWER:
  *     - Only reads current XP/level, no mutations.
@@ -18,9 +23,10 @@
  *   { chapterId, topicId, questionId, userAnswer, isCorrect, timeSpent, questionType? }
  *
  * RESPONSE:
- *   { ok, data: { answerId, xpAwarded, starsAwarded, newXp, newLevel, leveledUp } }
+ *   { ok, data: { answerId, xpAwarded, starsAwarded, newXp, newLevel, leveledUp,
+ *                 milestoneLevels, milestoneReached } }
  *
- * LAST UPDATED: 2026-05-30
+ * LAST UPDATED: 2026-06-02
  */
 
 import { NextRequest, NextResponse } from "next/server";
@@ -47,6 +53,29 @@ const STARS_REWARDS: Record<string, number> = {
   default:         10,
 };
 
+/*
+ * Chapter milestone thresholds — number of correct answers required to
+ * unlock each of the four level-bonus milestones within a chapter.
+ *
+ *   MILESTONE_25:  10 correct answers = "25% chapter complete"  → +1 level
+ *   MILESTONE_50:  20 correct answers = "50% chapter complete"  → +1 level
+ *   MILESTONE_75:  30 correct answers = "75% chapter complete"  → +1 level
+ *   MILESTONE_100: 40 correct answers = "100% chapter complete" → +1 level
+ *
+ * Rationale: A standard EduQuest chapter has ~40 questions per topic ×
+ * multiple topics. These thresholds map to practical study milestones
+ * (~10 questions per session) that are achievable and motivating.
+ */
+const MILESTONE_THRESHOLDS = {
+  25:  10,   /* 25% → needs 10 correct */
+  50:  20,   /* 50% → needs 20 correct */
+  75:  30,   /* 75% → needs 30 correct */
+  100: 40,   /* 100% → needs 40 correct */
+} as const;
+
+/* ── Level bonus per milestone ───────────────────────────────────────── */
+const MILESTONE_LEVEL_BONUS = 1;  /* Each milestone awards +1 level */
+
 function isoDate(value: Date | string | null): string | null {
   if (!value) return null;
   return value instanceof Date
@@ -56,6 +85,109 @@ function isoDate(value: Date | string | null): string | null {
 
 function levelFromXp(xp: number): number {
   return Math.max(1, Math.min(100, Math.floor(1 + Math.sqrt(xp / 100))));
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * checkAndAwardChapterMilestones
+ *
+ * After a correct answer in a chapter, upserts the chapter milestone row
+ * and checks whether any new milestone has been reached. For each newly
+ * reached milestone, awards a level bonus by incrementing the user's level
+ * directly in the database.
+ *
+ * Returns: { levelsAwarded, milestoneReached }
+ * ───────────────────────────────────────────────────────────────────── */
+async function checkAndAwardChapterMilestones(
+  userId: string,
+  chapterId: string,
+): Promise<{ levelsAwarded: number; milestoneReached: string | null }> {
+  if (!chapterId) return { levelsAwarded: 0, milestoneReached: null };
+
+  const pool = getPostgresPool();
+
+  try {
+    /* Upsert the chapter milestone row, incrementing correct count atomically.
+     * Return the updated state so we can check which milestones are newly hit. */
+    const result = await pool.query<{
+      questions_correct:     number;
+      milestone_25_awarded:  boolean;
+      milestone_50_awarded:  boolean;
+      milestone_75_awarded:  boolean;
+      milestone_100_awarded: boolean;
+    }>(
+      `INSERT INTO eduquest_chapter_milestones
+         (user_id, chapter_id, questions_correct)
+       VALUES ($1, $2, 1)
+       ON CONFLICT (user_id, chapter_id) DO UPDATE
+         SET questions_correct = eduquest_chapter_milestones.questions_correct + 1,
+             updated_at        = NOW()
+       RETURNING
+         questions_correct,
+         milestone_25_awarded,
+         milestone_50_awarded,
+         milestone_75_awarded,
+         milestone_100_awarded`,
+      [userId, chapterId],
+    );
+
+    if (result.rows.length === 0) return { levelsAwarded: 0, milestoneReached: null };
+
+    const row = result.rows[0];
+    const correct = row.questions_correct;
+
+    /* Determine which milestone(s) have been newly reached this answer.
+     * We check each threshold and only fire if:
+     *   1. The new correct count crosses the threshold
+     *   2. The milestone has NOT been awarded yet
+     */
+    let levelsAwarded  = 0;
+    let milestoneLabel: string | null = null;
+
+    const checks: Array<{
+      pct: 25 | 50 | 75 | 100;
+      alreadyAwarded: boolean;
+      flagColumn: string;
+      label: string;
+    }> = [
+      { pct: 25,  alreadyAwarded: row.milestone_25_awarded,  flagColumn: "milestone_25_awarded",  label: "25%" },
+      { pct: 50,  alreadyAwarded: row.milestone_50_awarded,  flagColumn: "milestone_50_awarded",  label: "50%" },
+      { pct: 75,  alreadyAwarded: row.milestone_75_awarded,  flagColumn: "milestone_75_awarded",  label: "75%" },
+      { pct: 100, alreadyAwarded: row.milestone_100_awarded, flagColumn: "milestone_100_awarded", label: "100%" },
+    ];
+
+    for (const check of checks) {
+      const threshold = MILESTONE_THRESHOLDS[check.pct];
+      if (correct >= threshold && !check.alreadyAwarded) {
+        /* Mark this milestone as awarded (idempotent — won't fire again) */
+        await pool.query(
+          `UPDATE eduquest_chapter_milestones
+              SET ${check.flagColumn} = TRUE, updated_at = NOW()
+            WHERE user_id = $1 AND chapter_id = $2`,
+          [userId, chapterId],
+        );
+
+        /* Award the level bonus directly to the user */
+        await pool.query(
+          `UPDATE eduquest_users
+              SET level = LEAST(100, level + $1), updated_at = NOW()
+            WHERE id = $2`,
+          [MILESTONE_LEVEL_BONUS, userId],
+        );
+
+        levelsAwarded++;
+        milestoneLabel = check.label;
+
+        /* Only award ONE milestone per answer (prevents multiple pop-ups on first use) */
+        break;
+      }
+    }
+
+    return { levelsAwarded, milestoneReached: milestoneLabel };
+  } catch (err) {
+    /* Milestone errors must NEVER break the core answer flow — log and continue */
+    console.error("[progress/answers] Chapter milestone check failed:", err);
+    return { levelsAwarded: 0, milestoneReached: null };
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -100,10 +232,12 @@ export async function POST(request: NextRequest) {
 
     const pool = getPostgresPool();
 
-    let newXp     = 0;
-    let newLevel  = 1;
-    let leveledUp = false;
-    let oldLevel  = 1;
+    let newXp          = 0;
+    let newLevel       = 1;
+    let leveledUp      = false;
+    let oldLevel       = 1;
+    let milestoneLevels = 0;
+    let milestoneReached: string | null = null;
 
     if (xpAwarded > 0) {
       /*
@@ -130,7 +264,7 @@ export async function POST(request: NextRequest) {
         newXp    = row.xp;
         newLevel = levelFromXp(newXp);
 
-        /* ── 5b. Level up if threshold crossed ─────────────────────── */
+        /* ── 5b. Level up if XP threshold crossed ─────────────────── */
         if (newLevel > oldLevel) {
           leveledUp = true;
           await pool.query(
@@ -143,7 +277,7 @@ export async function POST(request: NextRequest) {
          * Upsert: if a row for today already exists, increment counts.
          * If not, insert a new row and check if streak should increase.
          */
-        const todayUTC = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+        const todayUTC = new Date().toISOString().slice(0, 10);
 
         await pool.query(
           `INSERT INTO eduquest_daily_streaks
@@ -164,10 +298,7 @@ export async function POST(request: NextRequest) {
         const yesterday  = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
 
         if (lastActive !== todayUTC) {
-          /* New day — either extend streak (if yesterday) or reset to 1 */
-          const newStreak = (lastActive === yesterday)
-            ? row.streak + 1
-            : 1;
+          const newStreak = (lastActive === yesterday) ? row.streak + 1 : 1;
 
           await pool.query(
             `UPDATE eduquest_users
@@ -178,11 +309,30 @@ export async function POST(request: NextRequest) {
             [newStreak, user.id]
           );
         }
+
+        /* ── 5e. Check chapter completion milestones ─────────────────── *
+         * Runs AFTER XP/streak updates so that level bonuses are additive
+         * on top of the XP-based level, not overwriting it.
+         */
+        const milestoneResult = await checkAndAwardChapterMilestones(user.id, chapterId);
+        milestoneLevels  = milestoneResult.levelsAwarded;
+        milestoneReached = milestoneResult.milestoneReached;
+
+        /* If milestone awarded extra levels, re-read final level from DB */
+        if (milestoneLevels > 0) {
+          const lvlResult = await pool.query<{ level: number }>(
+            `SELECT level FROM eduquest_users WHERE id = $1`,
+            [user.id]
+          );
+          if (lvlResult.rows.length > 0) {
+            newLevel = lvlResult.rows[0].level;
+            leveledUp = true;  /* Milestone = level up too */
+          }
+        }
       }
 
       /* ── 6. Award Stars via wallet upsert + transaction record ─────── */
       if (starsAwarded > 0) {
-        /* Ensure the wallet row exists (lazy-create on first answer) */
         await pool.query(
           `INSERT INTO eduquest_wallet (user_id, balance, total_earned, total_spent)
            VALUES ($1, 0, 0, 0)
@@ -190,7 +340,6 @@ export async function POST(request: NextRequest) {
           [user.id]
         );
 
-        /* Increment balance and total_earned atomically; get wallet id */
         const walletResult = await pool.query<{ id: string; balance: number }>(
           `UPDATE eduquest_wallet
               SET balance      = balance + $1,
@@ -201,7 +350,6 @@ export async function POST(request: NextRequest) {
           [starsAwarded, user.id]
         );
 
-        /* Write an immutable ledger entry for audit purposes */
         if (walletResult.rows.length > 0) {
           const walletId     = walletResult.rows[0].id;
           const balanceAfter = walletResult.rows[0].balance;
@@ -233,7 +381,8 @@ export async function POST(request: NextRequest) {
 
     console.log(
       `[progress/answers] user=${user.id} q=${questionId} correct=${isCorrect} ` +
-      `xp+${xpAwarded} stars+${starsAwarded} total_xp=${newXp} level=${newLevel}`
+      `xp+${xpAwarded} stars+${starsAwarded} total_xp=${newXp} level=${newLevel}` +
+      (milestoneLevels > 0 ? ` MILESTONE:${milestoneReached}(+${milestoneLevels}lvl)` : "")
     );
 
     /* ── 7. Return result ────────────────────────────────────────── */
@@ -246,7 +395,10 @@ export async function POST(request: NextRequest) {
         newXp,
         newLevel,
         leveledUp,
-        isCorrect: Boolean(isCorrect),
+        isCorrect:       Boolean(isCorrect),
+        /* Milestone fields — used by the frontend to show a celebration banner */
+        milestoneLevels,
+        milestoneReached,
       },
     });
   } catch (error) {

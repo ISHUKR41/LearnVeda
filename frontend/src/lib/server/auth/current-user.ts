@@ -9,11 +9,20 @@
  *   EduQuest user row is created just-in-time (JIT provisioning) so the student
  *   can immediately access their dashboard after first Google sign-in.
  *
+ * CRITICAL NOTE: auth() and currentUser() MUST be statically imported at module
+ * level. Dynamic imports break Next.js's request context cache that Clerk depends
+ * on to read the session JWT inside API route handlers (Node.js runtime).
+ *
  * USED BY: All API route handlers — /api/dashboard, /api/wallet, /api/achievements, etc.
- * LAST UPDATED: 2026-06-01
+ * LAST UPDATED: 2026-06-02
  */
 
 import type { NextRequest } from "next/server";
+/* Static imports — REQUIRED for Clerk's internal request-context cache to work.
+ * DO NOT change to dynamic imports (await import(...)). Dynamic imports in API
+ * routes cause auth() to lose the request context, returning userId: null even
+ * when the user has a valid Clerk session in the browser. */
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { getSessionFromRequest } from "@/lib/server/auth/session";
 import { getPostgresPool } from "@/lib/server/database/postgres";
 import type { PublicUser, LearningTrack, UserRole } from "@/types/auth";
@@ -72,6 +81,7 @@ async function findOrCreateClerkUser(
 
     if (existing.rows.length > 0) {
       const userRow = existing.rows[0];
+      /* Sync the Clerk user ID mapping if it has changed */
       if (userRow.password_hash !== `clerk-${clerkUserId}`) {
         await pool.query(
           `UPDATE eduquest_users SET password_hash = $1 WHERE id = $2`,
@@ -83,8 +93,8 @@ async function findOrCreateClerkUser(
 
     /*
      * No existing account → create one.
-     * password_hash is set to a placeholder so the row satisfies the NOT NULL
-     * constraint. Clerk users never use password auth, so this is never read.
+     * password_hash is set to clerk-<userId> so future fast lookups by Clerk ID work.
+     * Clerk users never use password auth, so this placeholder is never read for login.
      */
     const newId = randomUUID();
     const inserted = await pool.query<EduQuestUserRow>(
@@ -106,18 +116,26 @@ async function findOrCreateClerkUser(
 
 /* ─────────────────────────────────────────────
  * getAuthenticatedUser  (main export)
- * Priority 1: Clerk session
- * Priority 2: Legacy httpOnly cookie session
+ *
+ * Priority 1: Clerk session (JWT via cookies or Authorization header)
+ *   - First tries fast DB lookup by clerk-<userId> to avoid Clerk API roundtrip
+ *   - Falls back to currentUser() for email/name, then JIT-provisions a DB row
+ * Priority 2: Legacy httpOnly cookie session (disabled unless ENABLE_LEGACY_AUTH=true)
+ *
+ * The `request` param is accepted so legacy cookie auth can read the session
+ * cookie. For Clerk auth, auth() reads the session from Next.js request context
+ * (headers/cookies propagated automatically in App Router route handlers).
  * ───────────────────────────────────────────── */
 export async function getAuthenticatedUser(request: NextRequest): Promise<PublicUser | null> {
 
-  /* ── Attempt 1: Clerk ─────────────────────── */
+  /* ── Attempt 1: Clerk session ─────────────────────── */
   try {
-    const { auth, currentUser } = await import("@clerk/nextjs/server");
+    /* auth() reads the Clerk session JWT from Next.js headers() / cookies() context.
+     * This works correctly in App Router API route handlers when statically imported. */
     const { userId } = await auth();
 
     if (userId) {
-      /* First check if user exists in database by clerk-${userId} to avoid slow external API call */
+      /* Fast path: check if this Clerk user already has a DB row (avoids Clerk API call) */
       try {
         const pool = getPostgresPool();
         const existing = await pool.query<EduQuestUserRow>(
@@ -133,7 +151,7 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Public
         console.error("[current-user] Fast Clerk ID lookup failed:", dbErr);
       }
 
-      /* currentUser() gives us the full Clerk user object with email/name */
+      /* Slow path: fetch full Clerk user object to get email/name for provisioning */
       const clerkUser = await currentUser();
       if (clerkUser) {
         const email =
@@ -149,16 +167,24 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Public
           return await findOrCreateClerkUser(email, displayName, userId);
         }
       }
+
+      console.warn(`[current-user] Clerk userId=${userId} found but no email available`);
+      return null;
     }
-  } catch {
-    /* Clerk not configured or JWT validation failed — fall through to cookie auth */
+  } catch (err) {
+    /* Log auth errors so we can see what's failing in the server console */
+    const msg = err instanceof Error ? err.message : String(err);
+    if (!msg.includes("NEXT_PUBLIC_CLERK") && !msg.includes("publishableKey")) {
+      console.error("[current-user] Clerk auth error:", msg);
+    }
+    /* Fall through to legacy auth */
   }
 
+  /* ── Attempt 2: Legacy httpOnly cookie session ─────────────────────── */
   if (!ENABLE_LEGACY_AUTH) {
     return null;
   }
 
-  /* Attempt 2: Legacy cookie session */
   try {
     const session = getSessionFromRequest(request);
     if (!session) return null;
@@ -178,6 +204,7 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Public
 
 /* ─────────────────────────────────────────────
  * getAuthenticatedUserFromToken  (WebSocket / batch contexts)
+ * Used when the Clerk session is passed as a bearer token instead of cookie.
  * ───────────────────────────────────────────── */
 export async function getAuthenticatedUserFromToken(
   token: string | undefined,

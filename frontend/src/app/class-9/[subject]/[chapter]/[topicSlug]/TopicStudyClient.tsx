@@ -64,11 +64,12 @@ interface TopicStudyClientProps {
   backUrl: string;
 }
 
+/* XP values match /api/progress/answers route exactly */
 const QUESTION_CONFIG = {
-  mcq:      { label: "MCQ",      color: "#6366f1", points: 10, icon: "◉" },
-  short:    { label: "SHORT",    color: "#10b981", points: 15, icon: "✎" },
-  long:     { label: "LONG",     color: "#f59e0b", points: 20, icon: "✍" },
-  thinking: { label: "THINKING", color: "#ef4444", points: 25, icon: "🧠" },
+  mcq:      { label: "MCQ",      color: "#6366f1", points: 15, icon: "◉" },
+  short:    { label: "SHORT",    color: "#10b981", points: 25, icon: "✎" },
+  long:     { label: "LONG",     color: "#f59e0b", points: 30, icon: "✍" },
+  thinking: { label: "THINKING", color: "#ef4444", points: 35, icon: "🧠" },
 } as const;
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -195,7 +196,23 @@ export default function TopicStudyClient({
           .then((r) => r.json())
           .then((res) => {
             if (res.ok && res.data?.isCorrect && res.data.xpAwarded > 0) {
-              toast.success(`+${res.data.xpAwarded} XP +${res.data.starsAwarded} Stars earned!`);
+              /* Show milestone celebration first if one was reached */
+              if (res.data.milestoneReached && res.data.milestoneLevels > 0) {
+                toast.success(
+                  `🏆 ${res.data.milestoneReached} chapter complete! +${res.data.milestoneLevels} level bonus!`,
+                  { duration: 5000 }
+                );
+              } else if (res.data.leveledUp) {
+                toast.success(
+                  `⬆️ Level Up! You reached Level ${res.data.newLevel}!`,
+                  { duration: 4000 }
+                );
+              } else {
+                toast.success(
+                  `+${res.data.xpAwarded} XP  •  +${res.data.starsAwarded} ⭐ Stars`,
+                  { duration: 2500 }
+                );
+              }
             }
           })
           .catch(console.error);
@@ -269,6 +286,18 @@ export default function TopicStudyClient({
   const totalQuestions = activeTopic.questions.length;
   const progressPercent = Math.round((answeredCount / totalQuestions) * 100);
 
+  /* Calculate total XP earned using the actual per-type XP values */
+  const earnedXp = activeTopic.questions
+    .filter((q) => correctAnswers.has(q.id))
+    .reduce((sum, q) => {
+      const cfg = QUESTION_CONFIG[q.type as keyof typeof QUESTION_CONFIG];
+      return sum + (cfg?.points ?? 15);
+    }, 0);
+  const maxXp = activeTopic.questions.reduce((sum, q) => {
+    const cfg = QUESTION_CONFIG[q.type as keyof typeof QUESTION_CONFIG];
+    return sum + (cfg?.points ?? 15);
+  }, 0);
+
   /* KaTeX-rendered markdown content */
   const renderedContent = useMemo(
     () => parseMarkdown(activeTopic.content),
@@ -294,7 +323,7 @@ export default function TopicStudyClient({
         </div>
         <div className={styles.scoreBadge}>
           <span className={styles.scoreLabel}>Score</span>
-          <span className={styles.scoreValue}>{correctCount * 10} / {totalQuestions * 10} XP</span>
+          <span className={styles.scoreValue}>{earnedXp} / {maxXp} XP</span>
         </div>
       </header>
 
@@ -492,7 +521,7 @@ function QuestionItem({ question, index, isAnswered, isCorrect, selectedOption: 
         </span>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <span className={styles.questionNum}>Q{index}</span>
-          <span className={styles.points}>+{question.points || config.points} pts</span>
+          <span className={styles.points}>+{config.points} pts</span>
         </div>
       </div>
 

@@ -69,7 +69,7 @@ const clerkAppearance = {
 const FEATURES = [
   { icon: Flame,  bg: "rgba(245,158,11,0.15)", color: "#F59E0B", title: "Daily Streaks",  desc: "Streak multipliers up to 3× XP" },
   { icon: Trophy, bg: "rgba(37,99,235,0.15)",  color: "#60A5FA", title: "Live Battles",   desc: "Compete with peers in real-time" },
-  { icon: Zap,    bg: "rgba(16,185,129,0.15)", color: "#10B981", title: "XP System",      desc: "10 XP for every correct answer" },
+  { icon: Zap,    bg: "rgba(16,185,129,0.15)", color: "#10B981", title: "XP System",      desc: "15–35 XP per question + chapter milestones" },
 ];
 
 export default function SignInPage() {
