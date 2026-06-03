@@ -1,44 +1,57 @@
 <div align="center">
 
-# ⚔️ EduQuest
+<br/>
 
-### India's #1 Gamified Learning Platform for Class 9–12 & Engineering
+```
+███████╗██████╗ ██╗   ██╗ ██████╗ ██╗   ██╗███████╗███████╗████████╗
+██╔════╝██╔══██╗██║   ██║██╔═══██╗██║   ██║██╔════╝██╔════╝╚══██╔══╝
+█████╗  ██║  ██║██║   ██║██║   ██║██║   ██║█████╗  ███████╗   ██║   
+██╔══╝  ██║  ██║██║   ██║██║▄▄ ██║██║   ██║██╔══╝  ╚════██║   ██║   
+███████╗██████╔╝╚██████╔╝╚██████╔╝╚██████╔╝███████╗███████║   ██║   
+╚══════╝╚═════╝  ╚═════╝  ╚══▀▀═╝  ╚═════╝ ╚══════╝╚══════╝   ╚═╝   
+```
+
+### ⚔️ India's #1 Gamified Learning Platform for Class 9–12 & Engineering
 
 <p align="center">
-  <strong>Study smarter. Battle harder. Level up.</strong><br/>
-  CBSE NCERT curriculum meets BGMI-style 1v1 quiz battles, XP leveling, and a full virtual economy.
+  <em>Where every chapter studied, battle won, and streak maintained<br/>compounds into measurable, unstoppable growth.</em>
 </p>
 
 <br/>
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.2.6-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Prisma](https://img.shields.io/badge/Prisma-7.8-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://prisma.io/)
+[![React](https://img.shields.io/badge/React-19.2.4-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://postgresql.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-7.8.0-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://prisma.io/)
 
-[![Express](https://img.shields.io/badge/Express-5.x-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
-[![Socket.IO](https://img.shields.io/badge/Socket.IO-4.8-010101?style=for-the-badge&logo=socket.io&logoColor=white)](https://socket.io/)
+[![Express](https://img.shields.io/badge/Express-5.2.1-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Socket.IO](https://img.shields.io/badge/Socket.IO-4.8.3-010101?style=for-the-badge&logo=socket.io&logoColor=white)](https://socket.io/)
 [![Redis](https://img.shields.io/badge/Redis-7.x-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Clerk](https://img.shields.io/badge/Clerk-Auth-6C47FF?style=for-the-badge&logo=clerk&logoColor=white)](https://clerk.com/)
+[![Clerk](https://img.shields.io/badge/Clerk-7.4.1-6C47FF?style=for-the-badge&logo=clerk&logoColor=white)](https://clerk.com/)
 
-[![Status](https://img.shields.io/badge/Status-Active_Development-22C55E?style=for-the-badge&logo=github&logoColor=white)](#)
-[![Migrations](https://img.shields.io/badge/Migrations-21_Applied-6366F1?style=for-the-badge&logo=postgresql&logoColor=white)](#-migration-history)
-[![License](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Active_Development-22C55E?style=for-the-badge&logo=statuspage&logoColor=white)](#)
+[![Students](https://img.shields.io/badge/Students-50%2C000+-F59E0B?style=for-the-badge&logo=graduation-cap&logoColor=white)](#)
+[![DB Migrations](https://img.shields.io/badge/DB_Migrations-21_Applied-6366F1?style=for-the-badge&logo=postgresql&logoColor=white)](#-migration-history)
+[![License](https://img.shields.io/badge/License-MIT-10B981?style=for-the-badge)](LICENSE)
 
 <br/>
 
 <p align="center">
   <a href="#-overview">Overview</a> &nbsp;·&nbsp;
+  <a href="#-platform-at-a-glance">At a Glance</a> &nbsp;·&nbsp;
   <a href="#-live-features">Features</a> &nbsp;·&nbsp;
   <a href="#-tech-stack">Tech Stack</a> &nbsp;·&nbsp;
   <a href="#-project-structure">Structure</a> &nbsp;·&nbsp;
   <a href="#-getting-started">Get Started</a> &nbsp;·&nbsp;
   <a href="#-database-schema">Database</a> &nbsp;·&nbsp;
   <a href="#-api-reference">API</a> &nbsp;·&nbsp;
+  <a href="#-gamification-engine">Gamification</a> &nbsp;·&nbsp;
   <a href="#️-roadmap">Roadmap</a>
 </p>
+
+<br/>
 
 </div>
 
@@ -46,20 +59,44 @@
 
 ## 📖 Overview
 
-**EduQuest** is a production-grade, full-stack gamified learning platform engineered for Indian students in **Class 9–12** and aspiring engineers. It transforms passive studying into an addictive, competitive experience — think of it as the intersection of **LeetCode's consistency tracking**, **Duolingo's streak mechanics**, and **BGMI's ranked matchmaking**, purpose-built for the NCERT curriculum and engineering job prep.
+**EduQuest** is a production-grade, full-stack gamified educational platform built from the ground up for Indian students in **Class 9–12** and aspiring engineers. It turns passive studying into a deeply competitive, streak-driven, XP-rewarding experience by combining the best of three worlds:
 
-### Why EduQuest?
+```
+  LeetCode's consistency          Duolingo's streak              BGMI's ranked
+  tracking & structure     +      mechanics & daily          +   matchmaking & 
+  (day-wise study plans)          habit loops                    1v1 competition
+                                                    =
+                            ⚔️  EduQuest
+         The gamified OS for Indian students — CBSE + Engineering + Battle Arena
+```
 
-| Problem | EduQuest Solution |
-|---------|------------------|
-| Students don't know *what* to study today | **Day-wise structured plans** — open the app and start Day 14 |
-| Motivation dies after a few days | **XP levels, streaks & leaderboards** — make every study session count |
-| No competitive edge for students | **Real-time 1v1 quiz battles** — prove your knowledge under pressure |
-| Physics concepts are abstract | **25+ interactive canvas simulations** — see Newton's laws live |
-| Engineering prep is scattered | **12+ FAANG-focused coding tracks** — DSA to System Design in 30–60 days |
-| No community for Indian students | **Subject-specific forums** — get help from peers and mentors |
+### Why Students Choose EduQuest
 
-> EduQuest is not just another EdTech app — it's a gamified OS for studying, where every chapter completed, battle won, and streak maintained compounds into measurable progress.
+| The Problem | The EduQuest Solution |
+|-------------|----------------------|
+| "I don't know what to study today" | **Day-wise plans** — open the app, it says "Day 14: Newton's Second Law." Done. |
+| "I lose motivation after 3 days" | **XP + streaks + leaderboard** — missing one day resets your streak publicly |
+| "Theory is boring and abstract" | **25+ interactive physics simulations** — drag sliders, watch F=ma happen live |
+| "No competition to push me harder" | **Real-time 1v1 quiz battles** — beat your batch mate to prove who's smarter |
+| "Engineering prep is all over the place" | **12+ FAANG-focused coding tracks** — C to Rust, DSA to System Design in 30–60 days |
+| "I study alone and get stuck" | **Subject-specific forums** — peers and mentors answer within hours |
+| "Can't track if I'm actually improving" | **12-week activity heatmap + Recharts analytics** — GitHub for studying |
+
+---
+
+## 📊 Platform at a Glance
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        EDUQUEST BY THE NUMBERS                              │
+├──────────────┬──────────────┬──────────────┬──────────────┬─────────────────┤
+│  👥 50,000+  │  📚 500+     │  ❓ 10,000+  │  💻 12+      │  🏛️ 6+          │
+│   Students   │   Chapters   │  Questions   │  Lang Tracks │  Live Events    │
+├──────────────┼──────────────┼──────────────┼──────────────┼─────────────────┤
+│  🎓 4        │  ⚔️ Real-Time │  🏆 100      │  🔭 25+      │  💰 Stars       │
+│  CBSE Classes│  1v1 Battles │  XP Levels   │  Simulations │  Virtual Wallet │
+└──────────────┴──────────────┴──────────────┴──────────────┴─────────────────┘
+```
 
 ---
 
@@ -69,31 +106,30 @@
 <tr>
 <td valign="top" width="50%">
 
-### 🎓 CBSE Academic System
-- ✅ Full NCERT-aligned curriculum (Class 9–12)
-- ✅ Day-wise structured study plans (15–60 days per subject)
-- ✅ Chapter-by-chapter progress tracking with XP
-- ✅ Subject deep-dive pages with rich content
+### 🎓 Academic System (CBSE)
+- ✅ Full NCERT 2025–26 syllabus (Class 9–12)
+- ✅ Day-wise study plans (15–60 days per subject)
+- ✅ Chapter-by-chapter progress with XP rewards
 - ✅ Class 11 stream selection — Science / Commerce / Arts
 - ✅ Class 12 board + JEE / NEET entrance prep
-- ✅ Chapter assessments & mock tests
-- ✅ KaTeX math equation rendering
-- ✅ YouTube video lecture integration per topic
-- ✅ 25+ interactive physics simulations (Class 9)
+- ✅ ~20 MCQs per topic (CBSE + HOTS level)
+- ✅ KaTeX math rendering for equations & formulas
+- ✅ YouTube video lecture mapped to every topic
+- ✅ ISR — pages revalidate hourly for fresh content
 
 </td>
 <td valign="top" width="50%">
 
 ### ⚔️ Battle Arena
-- ✅ Real-time 1v1 quiz matchmaking system
-- ✅ Elo-based skill matching (opponent within ±3 levels)
-- ✅ Anti-cheat: tab detection, copy-paste block, DevTools lock
-- ✅ Speed + accuracy bonus point system
-- ✅ Streak multipliers during battles (up to 3×)
-- ✅ Stars (virtual currency) wagering on ranked matches
-- ✅ Battle history on student dashboard
-- ✅ Matchmaking lobby with live skeleton UI
-- ✅ Match result screen with XP reward animation
+- ✅ Real-time 1v1 quiz matchmaking (Socket.IO)
+- ✅ Elo-based pairing — within ±3 levels (widens to ±5 after 30s)
+- ✅ 10 MCQs per match — 15-second countdown each
+- ✅ Scoring: base + speed bonus + streak multiplier
+- ✅ Anti-cheat: tab detection, DevTools block, copy-paste lock
+- ✅ Responses <500ms flagged as suspicious
+- ✅ Stars (virtual currency) wagering — max 500⭐/match
+- ✅ Battle history dashboard + XP reward animations
+- ✅ Matchmaking lobby with live skeleton loading UI
 
 </td>
 </tr>
@@ -101,88 +137,90 @@
 <td valign="top" width="50%">
 
 ### 🏆 Gamification Engine
-- ✅ 100-level XP system (15–35 XP per question)
+- ✅ **Quadratic XP curve**: `XP = 100 × (Level−1)²` across 100 levels
+- ✅ Level 1→2 requires 100 XP, Level 9→10 requires 8,100 XP
 - ✅ 7-day streak calendar on dashboard
 - ✅ GitHub-style 12-week activity heatmap
-- ✅ Chapter milestone XP bonuses
-- ✅ Achievement badge system (streaks, battles, learning)
-- ✅ Stars / Sparks virtual currency wallet
-- ✅ Global + class-filtered leaderboards
-- ✅ XP multipliers tied to streak length
-- ✅ Highest streak permanently recorded on profile
+- ✅ Streak multipliers (1.0× base → 3.0× at 30+ day streak)
+- ✅ Achievement badge system (Streaks / Battle / Academic)
+- ✅ Stars virtual wallet — earned only through learning & competing
+- ✅ Global + class-filtered + subject leaderboards
+- ✅ Highest streak permanently on public profile
 
 </td>
 <td valign="top" width="50%">
 
 ### 💻 Engineering Tracks
-- ✅ 12+ programming language & CS core tracks
+- ✅ 12+ structured programming and CS core tracks
 - ✅ C, C++, Java, Python, JavaScript, TypeScript, Rust
-- ✅ DSA (Data Structures & Algorithms) — 60-day plan
-- ✅ System Design — HLD + LLD + real-world systems
-- ✅ DBMS — SQL, normalization, indexing, transactions
-- ✅ Structured day-wise learning plans (30–60 days)
-- ✅ Daily coding lesson progression
-- ✅ Coding problem submission system
-- ✅ FAANG interview-focused content curation
+- ✅ DSA — 60-day FAANG-focused plan (Arrays → Graphs → DP)
+- ✅ System Design — HLD + LLD + scalability patterns
+- ✅ DBMS — SQL, normalization, ACID, indexing
+- ✅ Daily lesson progression with XP per day completed
+- ✅ Coding problem submissions (test case validation)
+- ✅ Interview prep catalog — IIT-professor-verified sheets
+- ✅ Semester survival guides — BTech CSE checklist system
 
 </td>
 </tr>
 <tr>
+<td valign="top" width="50%">
+
+### 🔭 Physics Simulations (Class 9)
+- ✅ 25+ canvas-based interactive simulations
+- ✅ ForceEngine — real Newtonian physics at 60fps
+- ✅ User-adjustable sliders: Mass, Force, Friction (μ)
+- ✅ Live telemetry: Velocity, Acceleration, Net Force, KE
+- ✅ Newton's 1st, 2nd, 3rd Laws — each with its own sim
+- ✅ Momentum conservation, pendulum, rocket launch
+- ✅ Free fall with air resistance toggle
+- ✅ Projectile motion with angle & velocity control
+- ✅ 100% NCERT Class 9 chapter-section aligned
+
+</td>
 <td valign="top" width="50%">
 
 ### 💬 Community & Events
-- ✅ Subject-specific discussion forums
-- ✅ Nested comment threads with mentor replies
-- ✅ Post upvote system
-- ✅ College event listings & student registration
-- ✅ Hackathon hosting, registration & live standings
-- ✅ GitHub URL project submission for hackathons
-- ✅ Event host applications with admin review console
-- ✅ Hackathon evaluation leaderboard
-
-</td>
-<td valign="top" width="50%">
-
-### 📊 Dashboard & Analytics
-- ✅ Personal learning command center
-- ✅ Per-subject progress overview
-- ✅ XP, streak & level stats at a glance
-- ✅ Recharts-powered progress graphs
-- ✅ In-app notification center
-- ✅ Live platform-wide stats on homepage
-- ✅ Admin review console (host applications)
-- ✅ User profile with achievement showcase
-- ✅ Wallet transactions & Stars balance history
+- ✅ Subject-specific discussion forums per class
+- ✅ Nested comment threads with mentor reply badge
+- ✅ Community post upvoting
+- ✅ College event listings with student registration
+- ✅ Hackathon hosting — register, submit GitHub URL
+- ✅ Live hackathon standings with evaluation scores
+- ✅ Event host applications — admin review workflow
+- ✅ Notification fanout on event approvals
+- ✅ 10 seeded demo posts + 6 live events on launch
 
 </td>
 </tr>
 <tr>
 <td valign="top" width="50%">
 
-### 🔭 Physics Simulations
-- ✅ 25+ canvas-based interactive physics demos
-- ✅ Real Newtonian mechanics engine (F = ma)
-- ✅ Friction coefficient (μ) modeling
-- ✅ Newton's 1st, 2nd, and 3rd Laws
-- ✅ Momentum conservation, free fall, pendulum
-- ✅ Rocket launch, inclined plane, projectile motion
-- ✅ 60fps render loop with interactive sliders
-- ✅ Real-time telemetry (velocity, acceleration, KE)
-- ✅ Full CBSE Class 9 syllabus alignment
+### 📊 Dashboard & Analytics
+- ✅ Personal learning command center (protected route)
+- ✅ XP progress bar with level display
+- ✅ Recharts-powered weekly performance graphs
+- ✅ 12-week activity heatmap (Intersection Observer)
+- ✅ Scroll-triggered fade-in animations (staggered delays)
+- ✅ Battle history — wins, losses, XP gained
+- ✅ Wallet balance + transaction history
+- ✅ In-app notification center with read/unread state
+- ✅ Dynamic import — heavy components load on-demand
 
 </td>
 <td valign="top" width="50%">
 
-### 🔐 Auth & Security
-- ✅ Clerk auth — Google, Microsoft, Email/password
-- ✅ Custom JWT / HTTPOnly session cookie fallback
-- ✅ 8-tier role-based access control
-- ✅ Redis-backed rate limiting (per IP + per user)
-- ✅ Helmet.js security headers (CSP, HSTS, X-Frame)
-- ✅ HPP (HTTP Parameter Pollution) protection
-- ✅ Tamper-proof PostgreSQL audit log
-- ✅ Zod schema validation on all API payloads
-- ✅ Parameterized queries — zero SQL injection surface
+### 🔐 Security & Auth
+- ✅ Clerk auth — Google / Microsoft / Email OAuth
+- ✅ Custom JWT (HS256) fallback session system
+- ✅ Argon2 password hashing (memory-hard)
+- ✅ HTTPOnly + Secure cookie sessions (XSS-immune)
+- ✅ Redis-backed sliding window rate limiting
+- ✅ Helmet.js — CSP, HSTS, X-Frame-Options headers
+- ✅ HPP (HTTP Parameter Pollution) middleware
+- ✅ Tamper-proof PostgreSQL audit trail
+- ✅ Zod validation on every single API payload
+- ✅ P50 / P95 / P99 latency monitoring
 
 </td>
 </tr>
@@ -192,91 +230,93 @@
 
 ## 🛠️ Tech Stack
 
-### Frontend
+### 🖥️ Frontend
 
-| Technology | Version | Where It's Used |
-|-----------|---------|----------------|
-| **Next.js** | `16.2.6` | App Router, SSR/ISR, API routes, image optimization |
-| **React** | `19.2.4` | UI component library throughout the app |
-| **TypeScript** | `5.x` | Strict typing across all frontend + API code |
-| **Tailwind CSS** | `4.x` | Utility-first layout and responsive breakpoints |
-| **CSS Modules** | Built-in Next.js | Scoped per-page styles — no class name collisions |
-| **Framer Motion** | `12.38.0` | Page transitions, XP animations, battle micro-interactions |
-| **Zustand** | `5.0.13` | Global client state (theme, auth, battle state) |
-| **TanStack Query** | `5.100.10` | Server state caching, background refetch, leaderboard data |
-| **Lucide React** | `1.14.0` | Consistent icon library throughout the platform |
-| **KaTeX** | `0.16.45` | Mathematical equation rendering for Physics/Math chapters |
-| **Recharts** | `3.8.1` | XP progress graphs and analytics on dashboard |
-| **Howler.js** | `2.2.4` | In-battle sound effects (correct/wrong answer audio) |
-| **React Confetti** | `6.4.0` | Achievement unlock celebration animation |
-| **React Hot Toast** | `2.6.0` | Non-intrusive XP gain and error notifications |
-| **React Hook Form** | `7.75.0` | Performant form state (sign-up, contact, submissions) |
-| **Zod** | `4.4.3` | Schema validation for forms and all API request payloads |
-| **Socket.IO Client** | `4.8.3` | WebSocket connection to real-time battle server |
-| **date-fns** | `4.1.0` | Streak calculations, heatmap date formatting |
-| **Axios** | `1.16.1` | HTTP client for API requests from client components |
-| **next-themes** | `0.4.6` | Dark/light mode toggle with system preference detection |
-| **clsx** | `2.1.1` | Conditional CSS class name composition |
-| **tailwind-merge** | `3.6.0` | Tailwind class conflict resolution utility |
+| Technology | Version | Role in EduQuest |
+|-----------|---------|-----------------|
+| **Next.js** | `16.2.6` | App Router, SSR, ISR, API Route Handlers, image optimization |
+| **React** | `19.2.4` | UI component library — server + client components |
+| **TypeScript** | `5.x` | End-to-end strict typing — `any` is banned project-wide |
+| **Tailwind CSS** | `4.x` | Utility-first layout, responsive breakpoints, dark mode |
+| **CSS Modules** | Built-in | Per-page scoped styles — zero className collisions |
+| **Framer Motion** | `12.38.0` | XP gain animations, page transitions, battle micro-interactions |
+| **Zustand** | `5.0.13` | Global client state — auth, theme, battle room state |
+| **TanStack Query** | `5.100.10` | Server state, leaderboard caching, background refetch |
+| **Lucide React** | `1.14.0` | Consistent icon library across all 50+ pages |
+| **KaTeX** | `0.16.45` | Mathematical equation rendering for Physics and Math chapters |
+| **Recharts** | `3.8.1` | XP progression charts, weekly study analytics on dashboard |
+| **Howler.js** | `2.2.4` | In-battle audio feedback — correct/wrong answer sounds |
+| **React Confetti** | `6.4.0` | Achievement unlock + level-up celebration rain animation |
+| **React Hot Toast** | `2.6.0` | Non-blocking XP gain, streak warning, error notifications |
+| **React Hook Form** | `7.75.0` | Performant uncontrolled form state — sign-up, contact, submissions |
+| **Zod** | `4.4.3` | Schema validation for all forms and API request/response payloads |
+| **Socket.IO Client** | `4.8.3` | Bidirectional WebSocket — connects to battle server in real-time |
+| **date-fns** | `4.1.0` | Streak calculations, heatmap date generation, relative timestamps |
+| **Axios** | `1.16.1` | HTTP client for `"use client"` components calling API routes |
+| **next-themes** | `0.4.6` | System-preference-aware dark/light mode toggling |
+| **clsx + tailwind-merge** | `2.1.1` / `3.6.0` | Conditional class composition + Tailwind conflict resolution |
 
-**Self-Hosted Fonts** (via `@fontsource` — zero external network requests):
+**Self-Hosted Fonts** — zero Google Fonts network latency via `@fontsource`:
 
-| Font Family | Variable | Usage in EduQuest |
-|------------|---------|-------------------|
-| **Sora** | `--font-heading` | Hero headings, page titles, XP level numbers |
-| **Inter** | `--font-body` | Body text, UI labels, descriptions, cards |
-| **Space Grotesk** | `--font-data` | Stats, leaderboard numbers, streak counters |
-| **JetBrains Mono** | `--font-code` | Code blocks, engineering track lessons |
-
----
-
-### Backend
-
-| Technology | Version | Where It's Used |
-|-----------|---------|----------------|
-| **Express** | `5.2.1` | REST API server — auth, battle, wallet, hackathon routes |
-| **Socket.IO** | `4.8.3` | Real-time battle room management and matchmaking |
-| **Prisma ORM** | `7.8.0` | Type-safe database access layer with auto-generated client |
-| **node-postgres (pg)** | `8.20.0` | Raw PostgreSQL pool for custom queries and migrations |
-| **ioredis** | `5.10.1` | Redis client — rate limiting, session caching, pub/sub |
-| **@socket.io/redis-adapter** | `8.3.0` | Horizontal Socket.IO scaling across multiple instances |
-| **Helmet** | `8.1.0` | HTTP security headers — CSP, HSTS, X-Frame-Options |
-| **compression** | `1.8.1` | Brotli/Gzip compression on all API responses |
-| **cors** | `2.8.6` | Cross-origin request policy configuration |
-| **hpp** | `0.2.3` | HTTP Parameter Pollution attack prevention |
-| **express-slow-down** | `3.1.0` | Progressive rate limiting slowdown on sensitive endpoints |
-| **morgan** | `1.10.1` | HTTP access logging in dev and production |
-| **multer** | `2.1.1` | File upload handling for hackathon project submissions |
-| **pino** | `10.3.1` | High-performance structured JSON logging |
-| **dotenv** | `17.4.2` | Environment variable management |
-| **tsx** | `4.21.0` | TypeScript execution for migration scripts |
+| Font | CSS Variable | Used For |
+|------|-------------|---------|
+| **Sora** | `--font-heading` | Hero titles, page headings, XP level display |
+| **Inter** | `--font-body` | Body text, UI labels, cards, descriptions |
+| **Space Grotesk** | `--font-data` | Stats counters, leaderboard numbers, streak count |
+| **JetBrains Mono** | `--font-code` | Code blocks, engineering lessons, terminal output |
 
 ---
 
-### Infrastructure & Database
+### ⚙️ Backend
+
+| Technology | Version | Role in EduQuest |
+|-----------|---------|-----------------|
+| **Express** | `5.2.1` | REST API server — auth, battle, wallet, hackathon, notifications |
+| **Socket.IO** | `4.8.3` | Real-time battle room lifecycle, matchmaking queue management |
+| **Prisma ORM** | `7.8.0` | Type-safe database access, auto-generated TypeScript client |
+| **node-postgres (pg)** | `8.20.0` | Raw connection pool — custom migration runner + dashboard queries |
+| **ioredis** | `5.10.1` | Redis client — rate limiting, session cache, pub/sub adapter |
+| **@socket.io/redis-adapter** | `8.3.0` | Horizontal Socket.IO scaling (multiple Node.js instances share state) |
+| **Helmet** | `8.1.0` | HTTP security headers — CSP, HSTS, X-Frame-Options, COEP |
+| **compression** | `1.8.1` | Brotli/Gzip on all responses — measurable p95 latency reduction |
+| **cors** | `2.8.6` | Strict Cross-Origin policy — only allowlisted origins can call APIs |
+| **hpp** | `0.2.3` | HTTP Parameter Pollution prevention — blocks array injection attacks |
+| **express-slow-down** | `3.1.0` | Progressive slowdown on auth endpoints before hard rate-limit |
+| **morgan** | `1.10.1` | Structured HTTP access logging — piped into Pino in production |
+| **multer** | `2.1.1` | Multipart file upload handling for hackathon project submissions |
+| **pino** | `10.3.1` | High-throughput structured JSON logging — P50/P95/P99 tracking |
+| **dotenv** | `17.4.2` | `.env` loading — never shipped to the browser |
+| **tsx** | `4.21.0` | Zero-config TypeScript execution for migration runner scripts |
+
+---
+
+### 🗄️ Infrastructure
 
 | Technology | Version | Purpose |
 |-----------|---------|---------|
-| **PostgreSQL** | `16` | Primary production database — all platform data |
-| **Redis** | `7.x` | Rate limiting, session cache, Socket.IO pub/sub |
-| **Prisma** | `7.8.0` | ORM schema definition, type generation, migrations |
-| **@prisma/adapter-pg** | `7.8.0` | Prisma driver adapter for raw pg connection pool |
-| **PGLite** | `0.4.6` | In-process lightweight SQLite-compatible DB for local dev |
-| **Docker / docker-compose** | — | Local orchestration of PostgreSQL + Redis + backend |
-| **PM2** | `ecosystem.config.js` | Node.js process management in production |
-| **Sharp** | `0.34.5` | Server-side image processing and optimization |
+| **PostgreSQL** | `16` | Primary data store — all platform data with `eduquest_` prefixed tables |
+| **Redis** | `7.x` | Rate limiting, matchmaking queue, session cache, Socket.IO pub/sub |
+| **Prisma** | `7.8.0` | ORM schema definitions, type generation, optional migration tooling |
+| **@prisma/adapter-pg** | `7.8.0` | Prisma driver that shares the existing raw `pg` pool |
+| **PGLite** | `0.4.6` | In-process PostgreSQL-compatible DB for local dev without Docker |
+| **Docker / docker-compose** | — | Full local stack — PostgreSQL 16 + Redis 7 + Express backend |
+| **PM2** | `ecosystem.config.js` | Node.js cluster manager for zero-downtime production deploys |
+| **Sharp** | `0.34.5` | Server-side image compression and AVIF/WebP format conversion |
+| **cross-env** | `10.1.0` | Cross-platform `NODE_OPTIONS` for dev server memory limits |
 
 ---
 
-### Authentication Stack
+### 🔐 Authentication Stack
 
-| Technology | Purpose |
-|-----------|---------|
-| **Clerk** (`@clerk/nextjs` `7.4.1`) | Primary auth — Google/Microsoft/Email OAuth, session tokens |
-| **Clerk Backend** (`@clerk/express` `2.1.21`) | RS256 JWT verification on the Express backend |
-| **Custom JWT (HS256)** | Legacy session fallback — works when Clerk is offline |
-| **Argon2** | Secure password hashing for email/password accounts |
-| **HTTPOnly Cookies** | Session storage — immune to XSS token theft |
+| Layer | Technology | Details |
+|-------|-----------|---------|
+| **Primary Auth** | Clerk `7.4.1` | Google, Microsoft, Email/Password — managed JWT lifecycle |
+| **Frontend SDK** | `@clerk/nextjs` | `<ClerkProvider>` wrapping root layout, catch-all sign-in/sign-up routes |
+| **Backend SDK** | `@clerk/express` | RS256 JWT verification — pulls JWKS from Clerk's `.well-known` endpoint |
+| **Fallback Auth** | Custom HS256 JWT | Enables login when Clerk is unreachable — `EDUQUEST_ENABLE_LEGACY_AUTH=true` |
+| **Password Storage** | Argon2 | Memory-hard hashing — industry standard, much stronger than bcrypt |
+| **Session Transport** | HTTPOnly Cookies | Cookie-based sessions — immune to JavaScript XSS token theft |
+| **JIT Provisioning** | `current-user.ts` | First Clerk login → auto-creates `eduquest_users` row with `clerk-` prefix |
 
 ---
 
@@ -285,159 +325,156 @@
 ```
 eduquest/                               # Monorepo root
 │
-├── frontend/                           # Next.js 16 Full-Stack Application
+├── 📱 frontend/                        # Next.js 16 App (Full-Stack)
 │   ├── src/
-│   │   ├── app/                        # App Router — every folder = a route
+│   │   ├── app/                        # App Router — folder = route
 │   │   │   │
-│   │   │   ├── page.tsx                # 🏠 Homepage (hero, stats, features, CTA)
-│   │   │   ├── layout.tsx              # Root layout — ClerkProvider, Navbar, Footer
+│   │   │   ├── 🏠 page.tsx             # Homepage: hero, live stats, features, testimonials
+│   │   │   ├── layout.tsx             # Root: ClerkProvider + Navbar + Footer + Providers
+│   │   │   ├── HomeAnimations.tsx     # Scroll-triggered IntersectionObserver animations
 │   │   │   │
-│   │   │   ├── class-9/                # 📚 Class 9 CBSE track
-│   │   │   │   ├── page.tsx            #   Subject listing (Math, Science, Social...)
-│   │   │   │   └── [subject]/          #   Dynamic subject deep-dive + chapters
-│   │   │   ├── class-10/               # 📚 Class 10 board prep
-│   │   │   │   └── [subject]/          #   Subject chapters + practice
-│   │   │   ├── class-11/               # 📚 Class 11 — stream selection
-│   │   │   │   └── [subject]/          #   Stream-filtered subjects
-│   │   │   ├── class-12/               # 📚 Class 12 — board + entrance prep
-│   │   │   │   └── [subject]/          #   Board/JEE/NEET content
+│   │   │   ├── 📚 class-9/            # CBSE Class 9 track
+│   │   │   │   ├── page.tsx           #   Subject listing hub
+│   │   │   │   └── [subject]/         #   Dynamic subject → chapters
+│   │   │   ├── 📚 class-10/           # Class 10 board prep
+│   │   │   ├── 📚 class-11/           # Class 11: Science / Commerce / Arts streams
+│   │   │   ├── 📚 class-12/           # Class 12: Board + JEE/NEET prep
 │   │   │   │
-│   │   │   ├── engineering/            # 💻 Engineering coding hub
-│   │   │   │   ├── page.tsx            #   All 12+ language cards
-│   │   │   │   └── [slug]/             #   Dynamic language/CS track pages
+│   │   │   ├── 💻 engineering/        # Engineering coding hub
+│   │   │   │   ├── page.tsx           #   12+ language & CS track cards
+│   │   │   │   └── [slug]/            #   Day-wise plan per language/subject
 │   │   │   │
-│   │   │   ├── battle/                 # ⚔️ Battle Arena
-│   │   │   │   ├── page.tsx            #   Mode selection lobby
-│   │   │   │   ├── matchmaking/        #   Live matchmaking queue UI
-│   │   │   │   └── [matchId]/          #   Real-time 1v1 battle room
+│   │   │   ├── ⚔️  battle/            # Battle Arena
+│   │   │   │   ├── page.tsx           #   Mode selection (Casual / Ranked)
+│   │   │   │   ├── BattleClient.tsx   #   Interactive battle UI (dynamic import)
+│   │   │   │   ├── matchmaking/       #   Live matchmaking queue UI
+│   │   │   │   └── [matchId]/         #   Real-time 1v1 battle room
 │   │   │   │
-│   │   │   ├── dashboard/              # 📊 Protected student dashboard
-│   │   │   ├── leaderboard/            # 🏆 Global + filtered rankings
-│   │   │   ├── community/              # 💬 Discussion forums
+│   │   │   ├── 📊 dashboard/          # Protected student dashboard
+│   │   │   │   ├── page.tsx           #   XP, streak, heatmap, battle history
+│   │   │   │   └── DashboardClient.tsx#   Interactive widgets (dynamic import)
 │   │   │   │
-│   │   │   ├── events/                 # 🏛️ Competitions & assessments
-│   │   │   ├── hackathon/              # 🔨 Single hackathon management
-│   │   │   └── hackathons/             # 🔨 All hackathons + detail
-│   │   │       └── [id]/               #   Hackathon detail, register, submit
+│   │   │   ├── 🏆 leaderboard/        # Global + class + subject rankings
+│   │   │   ├── 💬 community/          # Subject discussion forums
+│   │   │   ├── 🏛️  events/            # Competitions & academic calendar
+│   │   │   ├── 🔨 hackathon/          # Single hackathon management view
+│   │   │   ├── 🔨 hackathons/         # All hackathons + [id] detail + submissions
+│   │   │   │
+│   │   │   ├── 💰 wallet/             # Stars balance, earn methods, level milestones
+│   │   │   ├── 📝 test/               # Test center hub — chapter tests + mock exams
+│   │   │   ├── ❓  mcqs/              # MCQ practice — filter by subject/difficulty
+│   │   │   ├── 📓 notes/              # Chapter study notes & references
+│   │   │   ├── 📅 semester/           # BTech CSE semester survival guides + checklists
+│   │   │   ├── 🎤 interviews/         # SDE interview Q&A catalog (IIT-verified sheets)
+│   │   │   ├── 🔍 search/             # Full-text PostgreSQL search
+│   │   │   │
+│   │   │   ├── 👤 profile/            # Public profile + achievements + stats
+│   │   │   ├── ⚙️  settings/          # Account, notifications, privacy controls
+│   │   │   ├── 🔔 notifications/      # In-app notification center
+│   │   │   ├── 🛡️  admin/             # Admin review console (host applications)
+│   │   │   │
+│   │   │   ├── ℹ️  about/             # Mission, pillars, live platform stats
+│   │   │   ├── ✨ features/           # Full platform feature showcase
+│   │   │   ├── 💳 pricing/            # Free / Student Pro / School Partner tiers
+│   │   │   ├── 📬 contact/            # Contact form + FAQ accordion
+│   │   │   ├── ❓  faq/               # Categorized FAQ hub
+│   │   │   ├── 🔐 sign-in/            # Clerk sign-in (catch-all [[...sign-in]])
+│   │   │   ├── 🔐 sign-up/            # Clerk sign-up (catch-all [[...sign-up]])
+│   │   │   ├── 🔐 forgot-password/    # Email-based password reset flow
+│   │   │   ├── 📜 terms/              # Terms of service
+│   │   │   ├── 📜 privacy/            # Privacy policy & data handling
+│   │   │   ├── 🗺️  sitemap.ts         # Auto-generated XML sitemap
+│   │   │   └── 🤖 robots.ts           # robots.txt generation
 │   │   │
-│   │   │   ├── wallet/                 # 💰 Stars/Sparks virtual wallet
-│   │   │   ├── test/                   # 📝 Test center hub
-│   │   │   ├── mcqs/                   # ❓ MCQ practice by subject/difficulty
-│   │   │   ├── notes/                  # 📓 Study notes and references
-│   │   │   ├── semester/               # 📅 Semester planner
-│   │   │   ├── interviews/             # 🎤 Technical interview prep
-│   │   │   ├── search/                 # 🔍 Full-text search
-│   │   │   ├── profile/                # 👤 Public profile + achievements
-│   │   │   ├── settings/               # ⚙️ Account settings
-│   │   │   ├── notifications/          # 🔔 Notification center
-│   │   │   ├── admin/                  # 🛡️ Admin review console
-│   │   │   │
-│   │   │   ├── about/                  # ℹ️ About page
-│   │   │   ├── features/               # ✨ Features showcase
-│   │   │   ├── pricing/                # 💳 Pricing tiers
-│   │   │   ├── contact/                # 📬 Contact + FAQ
-│   │   │   ├── faq/                    # ❓ FAQ hub
-│   │   │   ├── sign-in/                # 🔐 Clerk sign-in (catch-all route)
-│   │   │   ├── sign-up/                # 🔐 Clerk sign-up
-│   │   │   ├── forgot-password/        # 🔐 Password reset flow
-│   │   │   ├── terms/                  # 📜 Terms of service
-│   │   │   ├── privacy/                # 📜 Privacy policy
-│   │   │   ├── sitemap.ts              # 🗺️ Auto-generated XML sitemap
-│   │   │   └── robots.ts              # 🤖 robots.txt generation
-│   │   │
-│   │   │   └── api/                    # Next.js API Route Handlers
-│   │   │       ├── auth/               #   sign-in, sign-up, sign-out, me
-│   │   │       ├── battle/             #   matchmaking, battle history
-│   │   │       ├── community/posts/    #   CRUD + comments + upvotes
-│   │   │       ├── events/             #   list, register, host-application
-│   │   │       ├── leaderboard/        #   global + class-scoped rankings
-│   │   │       ├── wallet/             #   balance + transactions
-│   │   │       ├── achievements/       #   user badge queries
-│   │   │       ├── notifications/      #   in-app notification delivery
-│   │   │       ├── questions/          #   MCQ question bank
-│   │   │       ├── profile/            #   aggregated profile data
-│   │   │       ├── progress/           #   chapter completion + XP
-│   │   │       ├── subjects/           #   curriculum subject data
-│   │   │       ├── content/            #   content discovery
-│   │   │       ├── platform-stats/     #   homepage counters
-│   │   │       ├── search/             #   full-text PostgreSQL search
-│   │   │       ├── activity/           #   12-week heatmap data
-│   │   │       ├── levels/             #   XP level definitions (1–100)
-│   │   │       ├── classes/            #   class category metadata
-│   │   │       ├── admin/              #   admin-only endpoints
-│   │   │       ├── health/             #   uptime health check
-│   │   │       └── readiness/          #   DB + Redis readiness probe
+│   │   │   └── api/                   # Next.js API Route Handlers
+│   │   │       ├── auth/              #   sign-in, sign-up, sign-out, me, change-password
+│   │   │       ├── battle/            #   matchmaking (POST/GET), history
+│   │   │       ├── community/posts/   #   list, create, [id]: detail, comment, upvote
+│   │   │       ├── events/            #   list, register, host-application
+│   │   │       ├── leaderboard/       #   global + class + engineering scope
+│   │   │       ├── wallet/            #   balance + POST transactions
+│   │   │       ├── achievements/      #   user badges
+│   │   │       ├── notifications/     #   paginated in-app notifications
+│   │   │       ├── questions/         #   MCQ bank with filters
+│   │   │       ├── profile/           #   aggregated stats + daily data
+│   │   │       ├── progress/          #   GET completion status / POST mark complete
+│   │   │       ├── subjects/          #   curriculum subjects by track
+│   │   │       ├── content/           #   content discovery endpoints
+│   │   │       ├── platform-stats/    #   homepage stat counters (real DB)
+│   │   │       ├── search/            #   full-text PostgreSQL search
+│   │   │       ├── activity/          #   12-week heatmap data
+│   │   │       ├── levels/            #   XP level definitions (1–100)
+│   │   │       ├── classes/           #   class category metadata
+│   │   │       ├── admin/             #   admin-only — host application review
+│   │   │       ├── health/            #   uptime health check
+│   │   │       └── readiness/         #   PostgreSQL + Redis probe
 │   │   │
 │   │   ├── components/
 │   │   │   ├── layout/
-│   │   │   │   ├── Navbar/             # Responsive navbar with dropdowns
-│   │   │   │   └── Footer/             # Site-wide footer
-│   │   │   ├── gamification/           # XP bars, badge cards, streak UI
-│   │   │   ├── dashboard/              # Dashboard-specific widgets
-│   │   │   ├── Home/                   # Homepage sections
-│   │   │   ├── simulations/            # 25+ Physics simulation components
-│   │   │   ├── learningproviders/      # Learning context providers
-│   │   │   └── seoui/                  # SEO schema + meta helpers
+│   │   │   │   ├── Navbar/            # Responsive navbar — dropdowns, auth state
+│   │   │   │   └── Footer/            # Site-wide footer
+│   │   │   ├── gamification/          # XP progress bars, badge cards, streak UI
+│   │   │   ├── dashboard/             # Heatmap, chart, activity widgets
+│   │   │   ├── Home/                  # Homepage hero, stats, feature sections
+│   │   │   ├── simulations/           # 25+ Physics canvas simulation components
+│   │   │   ├── learningproviders/     # Learning context + QueryClient providers
+│   │   │   └── seoui/                 # JSON-LD schema + meta tag helpers
 │   │   │
 │   │   ├── lib/
 │   │   │   ├── server/
-│   │   │   │   ├── auth/               # current-user.ts — Clerk ↔ session bridge
+│   │   │   │   ├── auth/
+│   │   │   │   │   └── current-user.ts # Clerk ↔ PostgreSQL JIT bridge
 │   │   │   │   ├── database/
-│   │   │   │   │   ├── migrations/     # 21 ordered SQL migration files
-│   │   │   │   │   ├── postgres.ts     # Singleton pg pool + query helpers
-│   │   │   │   │   ├── prisma.ts       # Prisma client singleton
-│   │   │   │   │   ├── pool.ts         # Connection pool configuration
-│   │   │   │   │   └── seed.ts         # Demo data seeder
-│   │   │   │   ├── repositories/       # Repository pattern (pg + JSON adapters)
-│   │   │   │   └── data/               # Business logic — dashboard, platform-store
-│   │   │   ├── constants.ts            # SITE_CONFIG, platform-wide constants
-│   │   │   ├── content/                # Static curriculum content definitions
-│   │   │   ├── curriculum/             # Day-wise plan generators
-│   │   │   ├── utils/                  # Shared utility helpers
-│   │   │   └── validation/             # Zod schema definitions
+│   │   │   │   │   ├── migrations/    # 21 ordered SQL migration files (001–021)
+│   │   │   │   │   ├── postgres.ts    # Singleton pg Pool + query/transaction helpers
+│   │   │   │   │   ├── prisma.ts      # Prisma client singleton (global guard)
+│   │   │   │   │   ├── pool.ts        # Pool configuration (max:10, idle:30s)
+│   │   │   │   │   └── seed.ts        # Demo data seeder script
+│   │   │   │   ├── repositories/      # Repository pattern (pg adapter + JSON adapter)
+│   │   │   │   └── data/              # Business logic — dashboard aggregation
+│   │   │   ├── constants.ts           # SITE_CONFIG, platform-wide constants
+│   │   │   ├── content/               # Static curriculum content definitions
+│   │   │   ├── curriculum/            # Day-wise plan generators
+│   │   │   ├── utils/                 # Date helpers, formatters, math utils
+│   │   │   └── validation/            # Zod schemas for all API payloads
 │   │   │
 │   │   ├── styles/
-│   │   │   └── globals.css             # 135 CSS variables — design system + dark mode
-│   │   └── types/                      # Global TypeScript type definitions
+│   │   │   └── globals.css            # 135 CSS variables — full dark mode design system
+│   │   └── types/                     # Global TypeScript types and interfaces
 │   │
 │   ├── prisma/
-│   │   ├── schema.prisma               # Full Prisma schema (12 model domains)
-│   │   └── prisma.config.ts            # Prisma configuration
-│   ├── public/images/                  # Route hero images (PNG/WebP)
-│   ├── scripts/                        # Build-time asset generation
-│   ├── next.config.ts                  # ISR, image CDN allowlist, security headers
-│   ├── tailwind.config.ts              # Design tokens
+│   │   ├── schema.prisma              # Full ORM schema — 12 model domains
+│   │   └── prisma.config.ts
+│   ├── public/images/                 # Route hero images — PNG with WebP pipeline
+│   ├── scripts/                       # Build-time asset generation scripts
+│   ├── next.config.ts                 # ISR, image CDN allowlist, security headers, Turbopack
 │   └── package.json
 │
-├── backend/                            # Express 5 + Socket.IO API Server
+├── ⚙️  backend/                        # Express 5 + Socket.IO Stateless API
 │   ├── src/
-│   │   ├── index.ts                    # Server bootstrap + graceful shutdown
-│   │   ├── routes/                     # Route handlers
-│   │   │   ├── auth.ts                 # Auth endpoints
-│   │   │   ├── battle.ts               # Battle queue + match management
-│   │   │   ├── coding.ts               # Coding problem + submission
-│   │   │   ├── wallet.ts               # Stars currency transactions
-│   │   │   ├── hackathons.ts           # Hackathon CRUD + standings
-│   │   │   ├── notifications.ts        # Notification delivery
-│   │   │   └── content.ts              # Curriculum content
+│   │   ├── index.ts                   # Server bootstrap — SIGTERM/SIGINT graceful shutdown
+│   │   ├── routes/
+│   │   │   ├── auth.ts                # Auth endpoints with rate limiting
+│   │   │   ├── battle.ts              # Battle queue + match history + scoring
+│   │   │   ├── coding.ts              # Coding problems + submission validation
+│   │   │   ├── wallet.ts              # Stars earn/spend transactions
+│   │   │   ├── hackathons.ts          # Hackathon CRUD + standings + GitHub submission
+│   │   │   ├── notifications.ts       # In-app + email notification delivery
+│   │   │   └── content.ts             # Curriculum content APIs
 │   │   ├── services/
-│   │   │   ├── socket.service.ts       # Socket.IO room lifecycle management
-│   │   │   ├── notification.service.ts # In-app + email notification dispatch
-│   │   │   └── audit.service.ts        # Tamper-proof audit trail writer
-│   │   ├── middlewares/
-│   │   │   └── auth.middleware.ts      # HS256 + RS256 JWT verification
-│   │   └── controllers/                # Business logic controllers
-│   ├── migrations/                     # Raw SQL for backend schema
+│   │   │   ├── socket.service.ts      # Room lifecycle — join, question, answer, result
+│   │   │   ├── notification.service.ts# Dispatch + auto-purge (14d read, 30d unread)
+│   │   │   └── audit.service.ts       # Immutable security event trail
+│   │   └── middlewares/
+│   │       └── auth.middleware.ts     # HS256 verify → RS256 Clerk verify fallback chain
 │   └── package.json
 │
 ├── docs/
-│   ├── IMPLEMENTATION_STATUS.md        # Live vs. planned feature status
-│   └── PRODUCTION_DEPLOYMENT.md       # Zero-downtime deployment guide
-│
-├── EduBattle_Master_Plan.md            # V3.0 — full product specification
-├── docker-compose.yml                  # PostgreSQL + Redis + backend stack
-├── .replit                             # Replit workflow + env configuration
-└── README.md                           # ← You are here
+│   ├── IMPLEMENTATION_STATUS.md       # Live vs. planned feature tracking
+│   └── PRODUCTION_DEPLOYMENT.md      # Zero-downtime deploy checklist
+├── EduBattle_Master_Plan.md           # V3.0 — complete product spec
+├── docker-compose.yml                 # PostgreSQL + Redis + backend stack
+└── README.md                          # ← You are here
 ```
 
 ---
@@ -446,73 +483,65 @@ eduquest/                               # Monorepo root
 
 ### 🌐 Public Pages
 
-| Route | Description |
-|-------|-------------|
-| `/` | Hero + live platform stats + feature highlights + CTA |
-| `/features` | Full feature showcase — comparison grid + stats banner |
-| `/pricing` | Three-tier plan: Free / Student Pro / School Partner |
-| `/about` | Platform mission, story, and values |
-| `/contact` | Contact form + comprehensive FAQ accordion |
-| `/faq` | Categorized FAQs for students, parents, and schools |
-| `/terms` | Terms of service |
-| `/privacy` | Privacy policy and data handling |
+| Route | Page | ISR Revalidation |
+|-------|------|-----------------|
+| `/` | Homepage — hero, live stats, testimonials, leaderboard preview | 5 min |
+| `/features` | Complete feature showcase with comparison grid | 12 hrs |
+| `/pricing` | Free / Student Pro / School Partner tier comparison | 12 hrs |
+| `/about` | Mission, platform pillars, real-time PostgreSQL stats | 1 hr |
+| `/contact` | Contact form + expandable FAQ accordion | 12 hrs |
+| `/faq` | Categorized FAQ hub | 12 hrs |
+| `/terms` | Terms of service | 24 hrs |
+| `/privacy` | Privacy policy & data handling | 24 hrs |
 
 ### 🎓 Academic Tracks
 
 | Route | Description |
 |-------|-------------|
 | `/class-9` | All Class 9 CBSE subjects — Math, Science, Social, English, Hindi, CS |
-| `/class-9/[subject]` | Chapter-by-chapter content, day-wise plan, XP rewards |
-| `/class-10` | Board prep subjects with chapter assessments |
-| `/class-10/[subject]` | Chapter content + practice questions |
-| `/class-11` | Stream selection landing — Science / Commerce / Arts |
-| `/class-11/[subject]` | Stream-specific chapters and topics |
-| `/class-12` | Board + JEE/NEET entrance exam focused prep |
-| `/class-12/[subject]` | Advanced board content + entrance strategy |
-| `/engineering` | All 12+ programming language and CS track cards |
-| `/engineering/[slug]` | Day-wise coding plan for a specific language or subject |
-| `/semester` | Semester planner and study calendar |
-| `/notes` | Chapter notes and reference materials |
-| `/mcqs` | MCQ practice bank — filter by subject and difficulty |
-| `/test` | Test center hub — chapter tests and mock exams |
-| `/interviews` | Technical interview question bank |
+| `/class-9/[subject]` | Chapter listing + day-wise plan + 25+ physics sims (for Force chapter) |
+| `/class-10` | Board prep subjects with assessments |
+| `/class-10/[subject]` | Chapter content + MCQ practice |
+| `/class-11` | Stream selection — Science (PCM/PCB) / Commerce / Arts |
+| `/class-11/[subject]` | Stream-filtered chapter content |
+| `/class-12` | Board + JEE / NEET entrance strategy |
+| `/class-12/[subject]` | Advanced content + past paper patterns |
+| `/engineering` | All 12+ language cards — C, C++, Java, Python, JS, TS, Rust, DSA, System Design, DBMS |
+| `/engineering/[slug]` | Full day-wise coding plan for that language/CS subject |
+| `/semester` | BTech CSE semester survival guides + priority checklists |
+| `/interviews` | SDE interview Q&A — C++ OOP, SQL, OS, IIT-professor-verified sheets |
+| `/notes` | Chapter study notes and reference materials |
+| `/mcqs` | MCQ practice bank — filter by subject, class, difficulty |
+| `/test` | Test center — chapter-wise mock tests and timed assessments |
 
 ### ⚔️ Battle Arena
 
 | Route | Description |
 |-------|-------------|
-| `/battle` | Mode selection — casual, ranked, subject-specific |
-| `/battle/matchmaking` | Elo-based live matchmaking queue with status updates |
-| `/battle/[matchId]` | Active 1v1 battle room with real-time anti-cheat |
+| `/battle` | Mode selection — Casual (free) or Ranked (Level 10+, Stars wager) |
+| `/battle/matchmaking` | Live Elo-based matchmaking — ±3 levels, widens to ±5 after 30 seconds |
+| `/battle/[matchId]` | Active 1v1 real-time battle room — 10 MCQs, anti-cheat enforced |
 
 ### 📊 Student Zone
 
 | Route | Description |
 |-------|-------------|
-| `/dashboard` | XP progress, streak heatmap, recent activity, battle history |
-| `/profile` | Public profile — achievements, stats, highest streak |
-| `/wallet` | Stars balance, transaction history, earning breakdown |
-| `/notifications` | In-app notification center — achievements, battles, streaks |
-| `/settings` | Account, notification preferences, privacy controls |
+| `/dashboard` | XP progress, streak heatmap, battle history, weekly charts |
+| `/profile` | Public profile — achievements, stats, highest streak badge |
+| `/wallet` | Stars balance, earn methods, Level 10 wager gate, transaction ledger |
+| `/notifications` | In-app notifications — achievements, battles, streak warnings |
+| `/settings` | Account, notification preferences, privacy, password change |
 
 ### 🏆 Community & Competitions
 
 | Route | Description |
 |-------|-------------|
-| `/leaderboard` | Global, class-filtered, and subject-specific rankings |
-| `/community` | Subject-specific discussion forums |
-| `/events` | College competitions and academic event calendar |
-| `/hackathons` | All active hackathons listing |
-| `/hackathons/[id]` | Hackathon detail — register, submit project, live standings |
-| `/hackathon` | Your single hackathon management and submission view |
-
-### 🔐 Auth
-
-| Route | Description |
-|-------|-------------|
-| `/sign-in` | Clerk-powered login — Google, Microsoft, or Email |
-| `/sign-up` | New account creation flow |
-| `/forgot-password` | Email-based password recovery |
+| `/leaderboard` | Global, class-filtered, subject-specific XP rankings |
+| `/community` | Subject discussion forums — Class 9-12 + Engineering |
+| `/events` | College competitions, assessments, and olympiad calendar |
+| `/hackathons` | All active hackathons with registration + live standings |
+| `/hackathons/[id]` | Hackathon detail — register, submit GitHub URL, live eval scores |
+| `/admin` | Admin console — approve/reject/request-more-info on host applications |
 
 ---
 
@@ -520,136 +549,108 @@ eduquest/                               # Monorepo root
 
 ### Prerequisites
 
-```bash
-node --version   # v20.x or higher required
-npm --version    # v10.x or higher
-```
-
-You'll also need:
-- **PostgreSQL** database — local install or use the included `docker-compose.yml`
-- **Clerk** account → [clerk.com](https://clerk.com) (free tier works perfectly)
-- **Redis** (optional — needed for rate limiting + Socket.IO scaling)
+| Tool | Minimum Version |
+|------|----------------|
+| Node.js | `v20.x` |
+| npm | `v10.x` |
+| PostgreSQL | `v14+` (or use Docker) |
+| Redis | `v6+` (optional — for rate limiting + battle scaling) |
 
 ---
 
-### Step 1 — Clone the Repository
+### ⚡ Quick Start (3 commands)
 
+```bash
+git clone https://github.com/yourusername/eduquest.git
+cd eduquest/frontend && npm install --legacy-peer-deps
+npm run db:migrate && npm run dev
+```
+
+> App runs at **http://localhost:5000** 🎉
+
+---
+
+### Step-by-Step Setup
+
+**1. Clone**
 ```bash
 git clone https://github.com/yourusername/eduquest.git
 cd eduquest
 ```
 
----
-
-### Step 2 — Install Frontend Dependencies
-
+**2. Install frontend dependencies**
 ```bash
 cd frontend
 npm install --legacy-peer-deps
+# --legacy-peer-deps needed because React 19 has peer dep conflicts with some packages
 ```
 
-> `--legacy-peer-deps` is required because React 19 has some peer dependency conflicts with a few packages.
-
----
-
-### Step 3 — Install Backend Dependencies *(for real-time battles)*
-
-The Express + Socket.IO backend is only needed for the live battle arena. All other features run inside Next.js.
-
+**3. Install backend dependencies** *(only needed for real-time battles)*
 ```bash
 cd ../backend
 npm install
 ```
 
----
-
-### Step 4 — Set Up Environment Variables
-
+**4. Configure environment variables**
 ```bash
 cd ../frontend
-cp .env.example .env.local   # Create from template
+cp .env.example .env.local
+# Edit .env.local with your values — see Environment Variables section below
 ```
 
-Fill in the values — see the full [Environment Variables](#-environment-variables) table below.
-
----
-
-### Step 5 — Spin Up PostgreSQL & Redis
-
-**Option A — Docker (recommended for local dev):**
+**5. Start PostgreSQL + Redis** *(Docker option)*
 ```bash
-# From the project root
+# From project root
 docker-compose up -d postgres redis
 ```
 
-**Option B — Existing PostgreSQL instance:**  
-Set `DATABASE_URL` in `frontend/.env.local` to your connection string.
-
----
-
-### Step 6 — Run Database Migrations
-
+**6. Run all 21 database migrations**
 ```bash
 cd frontend
 npm run db:migrate
+# Output:
+# Applying migration: 001_initial_platform.sql ✓
+# Applying migration: 002_event_catalog_audit_jobs.sql ✓
+# ...
+# Applied 21 EduQuest migration(s). ✓
 ```
 
-This applies all **21 SQL migration files** in order and tracks completed ones in `eduquest_schema_migrations`. Output looks like:
-
-```
-Applying migration: 001_initial_platform.sql
-Applying migration: 002_event_catalog_audit_jobs.sql
-...
-Applied 21 EduQuest migration(s). ✓
-```
-
----
-
-### Step 7 — Seed Demo Data *(optional)*
-
+**7. Seed demo data** *(optional — recommended for first run)*
 ```bash
 npm run db:seed
+# Seeds: 10 demo users, 10 community posts, 6 events, CBSE chapters, XP levels
 ```
 
-Seeds **10 demo leaderboard users**, **10 community posts**, **6 events**, CBSE curriculum data, and gamification records so the platform looks alive immediately.
-
----
-
-### Step 8 — Start the Development Server
-
+**8. Start the development server**
 ```bash
 npm run dev
+# ✓ Next.js 16.2.6 (Turbopack) ready at http://localhost:5000
 ```
 
-The app starts at **http://localhost:5000** 🎉
-
----
-
-### Step 9 — Start the Backend *(for real-time battles)*
-
-In a separate terminal:
+**9. Start the battle backend** *(separate terminal)*
 ```bash
-cd backend
+cd ../backend
 npm run dev
+# Express + Socket.IO listening on port 4000
 ```
 
 ---
 
-### Available Scripts
+### 📜 All Scripts
 
 | Script | Directory | Description |
 |--------|-----------|-------------|
-| `npm run dev` | `frontend/` | Start Next.js dev server on port 5000 |
+| `npm run dev` | `frontend/` | Next.js dev server — port 5000, Turbopack, hot reload |
 | `npm run build` | `frontend/` | Production Next.js build |
 | `npm run start` | `frontend/` | Start production server |
-| `npm run db:migrate` | `frontend/` | Apply all pending SQL migrations |
-| `npm run db:seed` | `frontend/` | Seed demo data into PostgreSQL |
-| `npm run typecheck` | `frontend/` | TypeScript type check (no emit) |
-| `npm run lint` | `frontend/` | ESLint code quality check |
-| `npm run dev` | `backend/` | Start Express + Socket.IO dev server |
-| `npm run build` | `backend/` | Compile TypeScript to `dist/` |
-| `npm run start` | `backend/` | Start compiled production server |
-| `docker-compose up` | root | Start PostgreSQL + Redis + backend |
+| `npm run db:migrate` | `frontend/` | Apply pending SQL migration files in order |
+| `npm run db:seed` | `frontend/` | Seed demo curriculum + user data |
+| `npm run typecheck` | `frontend/` | TypeScript strict check — zero errors required |
+| `npm run lint` | `frontend/` | ESLint 9 — must be clean before PR |
+| `npm run dev` | `backend/` | Express + Socket.IO dev server (ts-node) |
+| `npm run build` | `backend/` | Compile TypeScript → `dist/` |
+| `npm run start` | `backend/` | Start compiled production backend |
+| `docker-compose up` | root | Full stack: PostgreSQL 16 + Redis 7 + backend |
 
 ---
 
@@ -658,14 +659,16 @@ npm run dev
 ### Frontend — `frontend/.env.local`
 
 ```env
-# ── Database ────────────────────────────────────────────────────────────────
+# ── Database ─────────────────────────────────────────────────────────────────
 DATABASE_URL=postgresql://user:password@localhost:5432/eduquest
 
-# ── Adapter Mode ────────────────────────────────────────────────────────────
-EDUQUEST_PERSISTENCE_ADAPTER=postgres        # "postgres" = production mode
-EDUQUEST_ALLOW_STATIC_FALLBACKS=true         # Allow static curriculum fallback
+# ── Adapter Mode ─────────────────────────────────────────────────────────────
+# "postgres" = full production mode, all data from PostgreSQL
+# remove to fall back to JSON local adapter (offline dev without DB)
+EDUQUEST_PERSISTENCE_ADAPTER=postgres
+EDUQUEST_ALLOW_STATIC_FALLBACKS=true
 
-# ── Clerk Authentication ─────────────────────────────────────────────────────
+# ── Clerk Authentication ──────────────────────────────────────────────────────
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
 CLERK_SECRET_KEY=sk_test_...
 NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
@@ -673,18 +676,18 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 
-# ── Legacy Auth (Fallback) ───────────────────────────────────────────────────
-EDUQUEST_ENABLE_LEGACY_AUTH=true             # Enable JWT session fallback
-EDUQUEST_SESSION_SECRET=your-32-char-secret # Signs session cookies
-EDUQUEST_COOKIE_SECURE=false                 # Set true in production (HTTPS)
+# ── Legacy Auth Fallback ──────────────────────────────────────────────────────
+EDUQUEST_ENABLE_LEGACY_AUTH=true
+EDUQUEST_SESSION_SECRET=your-32+-char-cryptographically-secure-secret
+EDUQUEST_COOKIE_SECURE=false           # Set true in production (requires HTTPS)
 
-# ── Redis (Optional) ─────────────────────────────────────────────────────────
+# ── Redis (optional) ─────────────────────────────────────────────────────────
 REDIS_URL=redis://localhost:6379
 
-# ── App ──────────────────────────────────────────────────────────────────────
+# ── Application ──────────────────────────────────────────────────────────────
 NODE_ENV=development
 PORT=5000
-NEXT_PUBLIC_API_URL=                         # Empty = same-origin API calls
+NEXT_PUBLIC_API_URL=                   # Empty = same-origin; set to backend URL if separate
 ```
 
 ### Backend — `backend/.env`
@@ -694,7 +697,7 @@ DATABASE_URL=postgresql://user:password@localhost:5432/eduquest
 REDIS_URL=redis://localhost:6379
 CLERK_SECRET_KEY=sk_test_...
 CLERK_JWKS_URL=https://your-instance.clerk.accounts.dev/.well-known/jwks.json
-JWT_SECRET=your-jwt-hs256-secret
+JWT_SECRET=your-hs256-secret-for-legacy-sessions
 PORT=4000
 NODE_ENV=development
 ```
@@ -703,499 +706,637 @@ NODE_ENV=development
 
 ## 🗄️ Database Schema
 
-EduQuest uses **PostgreSQL 16** with a custom migration runner. All tables carry an `eduquest_` prefix to avoid namespace collisions.
+EduQuest uses **PostgreSQL 16** as its primary database. The schema is maintained through two parallel systems:
+- **Prisma ORM** (`frontend/prisma/schema.prisma`) — type-safe model definitions
+- **Custom SQL migration runner** — 21 ordered `.sql` files with `eduquest_` prefixed tables
 
-### Domain Map
+### Domain Overview
 
 ```
-╔══════════════════════════════════════════════════════════════════════╗
-║                     EDUQUEST DATABASE DOMAINS                       ║
-╠═══════════════════════╦══════════════════════════════════════════════╣
-║ 👤 User Management    ║ users, sessions, student_profiles            ║
-║ 🎓 Curriculum         ║ subjects, chapters, topics, user_progress    ║
-║ 💻 Engineering        ║ coding_languages, learning_plans,            ║
-║                       ║ daily_lessons, coding_problems, submissions  ║
-║ 📝 Assessment         ║ questions, mock_tests, test_scores           ║
-║ ⚔️  Battle            ║ matchmaking_tickets, matches, participants,  ║
-║                       ║ battle_history                               ║
-║ 🏆 Gamification       ║ achievements, user_achievements, wallet,     ║
-║                       ║ wallet_transactions, xp_levels, streaks      ║
-║ 💬 Community          ║ community_categories, posts, comments,       ║
-║                       ║ post_likes                                   ║
-║ 🏛️  Events            ║ events, event_registrations,                 ║
-║                       ║ host_applications                            ║
-║ 🔔 Notifications      ║ notifications (in-app + email queued)        ║
-║ 📊 Analytics          ║ audit_logs, background_jobs                  ║
-║ 🗂️  Infrastructure    ║ schema_migrations, seo_cache                 ║
-╚═══════════════════════╩══════════════════════════════════════════════╝
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                        EDUQUEST DATABASE ARCHITECTURE                        ║
+╠══════════════════════╦════════════════════════════════════════════════════════╣
+║ Domain               ║ Tables                                                 ║
+╠══════════════════════╬════════════════════════════════════════════════════════╣
+║ 👤 Identity          ║ users, sessions, student_profiles                      ║
+║ 🎓 Curriculum        ║ class_categories, streams, subjects, chapters, topics  ║
+║ 💻 Engineering       ║ coding_languages, learning_plans, daily_lessons,       ║
+║                      ║ coding_problems, coding_submissions                    ║
+║ 📝 Assessment        ║ questions, mock_tests, test_scores, user_progress      ║
+║ ⚔️  Battle           ║ matchmaking_tickets, matches, match_participants,      ║
+║                      ║ battle_history                                         ║
+║ 🏆 Gamification      ║ achievements, user_achievements, wallet,               ║
+║                      ║ wallet_transactions, xp_levels, streak_records         ║
+║ 💬 Community         ║ community_categories, community_posts,                 ║
+║                      ║ community_comments, post_likes                         ║
+║ 🏛️  Events           ║ events, event_registrations, host_applications         ║
+║ 🔔 Notifications     ║ notifications (in-app + email-queued)                  ║
+║ 📊 Infrastructure    ║ audit_logs, background_jobs, schema_migrations,        ║
+║                      ║ seo_cache                                               ║
+╚══════════════════════╩════════════════════════════════════════════════════════╝
 ```
 
-### Key Models (Prisma Schema)
+### Core Model Definitions
 
 <details>
-<summary><strong>👤 User & Profile</strong></summary>
+<summary><strong>👤 User & Identity Models</strong></summary>
 
 ```prisma
 model User {
   id            String   @id @default(cuid())
   email         String   @unique
   role          String   @default("STUDENT")
+  // GUEST | STUDENT | ENG_LEARNER | ORGANIZER | TEACHER | PARENT | MODERATOR | ADMIN
+
+  // Gamification — denormalized for O(1) dashboard reads
   xp            Int      @default(0)
   currentLevel  Int      @default(1)
   currentStreak Int      @default(0)
   highestStreak Int      @default(0)
   points        Int      @default(0)
+
+  // Safety — minors get additional content filtering
   isMinor       Boolean  @default(false)
+  parentEmail   String?
   isActive      Boolean  @default(true)
-  // + relations to progress, battles, posts, achievements, wallet...
+
+  // Relations: progress, battles, posts, comments, achievements, wallet...
 }
 
 model StudentProfile {
-  classId       String?
-  stream        String?
+  classId       String?               // "class-9" | "class-10" | ...
+  stream        String?               // "Science" | "Commerce" | "Arts"
   board         String   @default("CBSE")
-  targetExams   String?         // "JEE,NEET"
+  targetExams   String?               // "JEE,NEET" — comma-separated
+  skillLevel    String   @default("beginner")
   xpMultiplier  Float    @default(1.0)
-  // + institution, phone, parentPhone...
+  // + institution, phone, parentPhone
 }
 ```
 
 </details>
 
 <details>
-<summary><strong>🎓 Curriculum</strong></summary>
+<summary><strong>🎓 Curriculum Models</strong></summary>
 
 ```prisma
-model Subject   { name, classId, streamId, chapters[] }
-model Chapter   { title, orderIndex, topics[], progress[], tests[] }
-model Topic     { title, content, youtubeLink, questions[] }
-model Question  { content, options (JSON), answer, explanation, difficulty }
-model UserProgress { userId, chapterId, completed, score, answers (JSON) }
+model Subject   { name, classId, streamId → chapters[] }
+model Chapter   { title, orderIndex, subjectId → topics[], progress[], tests[] }
+model Topic     { title, content (Markdown), youtubeLink → questions[] }
+model Question  { content, options (JSON), answer, explanation, difficulty: EASY|MEDIUM|HARD }
+model UserProgress {
+  userId, chapterId, completed, score
+  answers    String?  // JSON-serialized selected options per question
+  @@unique([userId, chapterId])
+}
 ```
 
 </details>
 
 <details>
-<summary><strong>⚔️ Battle</strong></summary>
+<summary><strong>⚔️ Battle Models</strong></summary>
 
 ```prisma
-model Match            { subjectId, status, startTime, endTime, participants[] }
+model Match {
+  subjectId  String
+  status     String   // WAITING | ACTIVE | COMPLETED | CANCELLED
+  startTime  DateTime
+  endTime    DateTime?
+  participants MatchParticipant[]
+}
 model MatchParticipant { matchId, userId, score, isWinner }
 ```
 
 </details>
 
 <details>
-<summary><strong>🏆 Gamification</strong></summary>
+<summary><strong>🏆 Gamification Models</strong></summary>
 
 ```prisma
-model Wallet            { userId, balance (Stars) }
-model WalletTransaction { userId, amount, type (earn/spend), reason }
-model UserAchievement   { userId, title, description, badgeIcon }
+model Wallet            { userId @unique, balance Int (Stars) }
+model WalletTransaction { userId, amount, type: earn|spend, reason, createdAt }
+model UserAchievement   { userId, title, description, badgeIcon, awardedAt }
+model CodingSubmission  { userId, problemId, code, status: PASSED|FAILED|ERROR,
+                          executionTime (ms), memoryUsed, submittedAt }
 ```
 
 </details>
 
 <details>
-<summary><strong>🏛️ Events & Hackathons</strong></summary>
+<summary><strong>💬 Community & Events Models</strong></summary>
 
 ```prisma
-model Event             { title, startTime, endTime, isProctored, registrations[] }
-model EventRegistration { eventId, userId, registeredAt }
-model HostApplication   { organizerId, eventTitle, status (pending/approved/rejected) }
+model CommunityPost    { title, content, authorId, categoryId, upvotes, comments[] }
+model CommunityComment { content, postId, authorId, isMentorReply Boolean }
+model Event            { title, startTime, endTime, isProctored, registrations[] }
+model HostApplication  { organizerId, status: pending|approved|rejected, reviewNotes }
 ```
 
 </details>
 
 ### Migration History
 
-| # | Migration File | What It Creates |
-|---|---------------|----------------|
-| 001 | `initial_platform.sql` | Core users, subjects, chapters, sessions |
-| 002 | `event_catalog_audit_jobs.sql` | Events, audit logs, background jobs |
-| 003 | `subjects_chapters_progress.sql` | Progress tracking tables |
-| 004 | `event_host_applications.sql` | Organizer application workflow |
-| 005 | `achievements_battle_history.sql` | Badges and battle records |
-| 006 | `cbse_subjects_chapters.sql` | Full NCERT curriculum data |
-| 007 | `production_indexes_and_search.sql` | Performance indexes (14 indexes) |
-| 008 | `sessions.sql` | Session management tables |
-| 009 | `questions_levels_wallet.sql` | MCQ bank, XP levels, Stars wallet |
-| 010 | `seed_levels_questions.sql` | XP level seeds + sample questions |
-| 011 | `seed_demo_users_posts.sql` | 10 demo users + 10 community posts |
-| 012 | `seed_gamification_data.sql` | Streak records and achievement seeds |
-| 013 | `analytics_notifications_audit.sql` | Analytics + notification tables |
-| 014 | `production_performance_indexes.sql` | Advanced query optimization indexes |
-| 015 | `engineering_subjects_chapters.sql` | Engineering tracks curriculum |
-| 016 | `audit_logs_seo_cache.sql` | Audit trail + SEO response cache |
-| 017 | `production_performance_tuning.sql` | EXPLAIN-driven index refinements |
-| 018 | `massive_seed_data.sql` | Large-scale realistic demo data |
-| 019 | `more_events_and_posts.sql` | Additional event + community records |
-| 020 | `seed_notifications_and_improvements.sql` | Notification system data |
-| 021 | `chapter_milestones.sql` | Chapter completion milestone rewards |
+| # | File | What It Creates / Seeds |
+|---|------|------------------------|
+| `001` | `initial_platform.sql` | Core users, subjects, chapters, sessions |
+| `002` | `event_catalog_audit_jobs.sql` | Events, audit logs, background job queue |
+| `003` | `subjects_chapters_progress.sql` | User progress tracking tables |
+| `004` | `event_host_applications.sql` | Organizer application workflow |
+| `005` | `achievements_battle_history.sql` | Achievement badges + battle records |
+| `006` | `cbse_subjects_chapters.sql` | Full NCERT Class 9–12 curriculum data |
+| `007` | `production_indexes_and_search.sql` | 14 targeted performance indexes |
+| `008` | `sessions.sql` | HTTPOnly session management tables |
+| `009` | `questions_levels_wallet.sql` | MCQ bank + XP level definitions + Stars wallet |
+| `010` | `seed_levels_questions.sql` | XP level thresholds + sample MCQs |
+| `011` | `seed_demo_users_posts.sql` | 10 demo leaderboard users + 10 community posts |
+| `012` | `seed_gamification_data.sql` | Streak records + achievement seeds |
+| `013` | `analytics_notifications_audit.sql` | Analytics tracking + notification tables |
+| `014` | `production_performance_indexes.sql` | Advanced query optimizer indexes |
+| `015` | `engineering_subjects_chapters.sql` | 12+ engineering track content |
+| `016` | `audit_logs_seo_cache.sql` | Audit trail + SEO response caching |
+| `017` | `production_performance_tuning.sql` | EXPLAIN-driven compound index refinements |
+| `018` | `massive_seed_data.sql` | Large-scale realistic demo data |
+| `019` | `more_events_and_posts.sql` | Additional event + community records |
+| `020` | `seed_notifications_and_improvements.sql` | Notification system seed data |
+| `021` | `chapter_milestones.sql` | Chapter completion milestone XP rewards |
 
 ---
 
 ## 🌐 API Reference
 
-All API routes are **Next.js Route Handlers** running server-side. Authentication is verified on every protected route.
+All API routes are Next.js **Route Handlers** running server-side (edge or Node.js runtime). Authentication is verified on every `✅` protected endpoint.
 
-### 🔐 Auth
-
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `POST` | `/api/auth/sign-in` | ❌ | Email/password login → sets HTTPOnly session cookie |
-| `POST` | `/api/auth/sign-up` | ❌ | Create new account with hashed password |
-| `POST` | `/api/auth/sign-out` | ✅ | Invalidate and clear session cookie |
-| `GET` | `/api/auth/me` | ✅ | Current user + JIT Clerk sync to local DB |
-| `POST` | `/api/auth/change-password` | ✅ | Update password (verifies current password first) |
-
-### 👤 Users & Progress
+### 🔐 Auth Endpoints
 
 | Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `GET` | `/api/profile` | ✅ | Aggregated profile — XP, streak, daily stats |
-| `GET` | `/api/progress` | ✅ | Chapter completion status per subject |
-| `POST` | `/api/progress` | ✅ | Mark chapter complete + award XP |
-| `GET` | `/api/activity` | ✅ | 12-week heatmap data (daily study activity) |
-| `GET` | `/api/achievements` | ✅ | All user achievement badges |
+|--------|----------|:----:|-------------|
+| `POST` | `/api/auth/sign-in` | ❌ | Email/password → validates hash → sets HTTPOnly session cookie |
+| `POST` | `/api/auth/sign-up` | ❌ | Creates user with Argon2-hashed password |
+| `POST` | `/api/auth/sign-out` | ✅ | Invalidates and clears session cookie |
+| `GET` | `/api/auth/me` | ✅ | Returns user + JIT provisions Clerk users into local DB |
+| `POST` | `/api/auth/change-password` | ✅ | Verifies current password before updating hash |
+
+### 👤 Profile & Progress
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|:----:|-------------|
+| `GET` | `/api/profile` | ✅ | XP, streak, level, daily stats, battle win rate |
+| `GET` | `/api/progress` | ✅ | Chapter completion status across all subjects |
+| `POST` | `/api/progress` | ✅ | Mark chapter complete → awards XP + milestone check |
+| `GET` | `/api/activity` | ✅ | 84-day heatmap data — 12 weeks of daily activity |
+| `GET` | `/api/achievements` | ✅ | All unlocked achievement badges with award dates |
+| `GET` | `/api/levels` | ❌ | Full XP level table — thresholds for all 100 levels |
 
 ### ⚔️ Battle
 
 | Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `GET` | `/api/battle/history` | ✅ | User's complete match history |
-| `POST` | `/api/battle/matchmaking` | ✅ | Enter Elo matchmaking queue |
-| `GET` | `/api/battle/matchmaking` | ✅ | Poll queue status (opponent found?) |
+|--------|----------|:----:|-------------|
+| `POST` | `/api/battle/matchmaking` | ✅ | Enter Elo-based matchmaking queue |
+| `GET` | `/api/battle/matchmaking` | ✅ | Poll: has an opponent been found? |
+| `GET` | `/api/battle/history` | ✅ | Paginated past match records with scores |
 
 ### 🏆 Leaderboard
 
 | Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `GET` | `/api/leaderboard?scope=global` | ❌ | All-time global XP rankings |
-| `GET` | `/api/leaderboard?scope=class-9` | ❌ | Class 9 specific rankings |
+|--------|----------|:----:|-------------|
+| `GET` | `/api/leaderboard?scope=global` | ❌ | All-time XP rankings — all users |
+| `GET` | `/api/leaderboard?scope=class-9` | ❌ | Class 9 filtered rankings |
 | `GET` | `/api/leaderboard?scope=engineering` | ❌ | Engineering track rankings |
 
 ### 💬 Community
 
 | Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `GET` | `/api/community/posts` | ❌ | List posts (paginated, filterable by subject) |
+|--------|----------|:----:|-------------|
+| `GET` | `/api/community/posts` | ❌ | Paginated posts, filterable by category/subject |
 | `POST` | `/api/community/posts` | ✅ | Create new discussion post |
-| `GET` | `/api/community/posts/[id]` | ❌ | Post detail + nested comments |
+| `GET` | `/api/community/posts/[id]` | ❌ | Full post + nested comment thread |
 | `POST` | `/api/community/posts/[id]` | ✅ | Add comment or toggle upvote |
 
 ### 🏛️ Events
 
 | Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `GET` | `/api/events` | ❌ | List all events and competitions |
-| `POST` | `/api/events/register` | ✅ | Register for an event |
-| `POST` | `/api/events/host-application` | ✅ | Submit organizer application (writes to DB + audit log) |
+|--------|----------|:----:|-------------|
+| `GET` | `/api/events` | ❌ | All active events and competitions |
+| `POST` | `/api/events/register` | ✅ | Register authenticated user for an event |
+| `POST` | `/api/events/host-application` | ✅ | Submit organizer application (DB + audit log transaction) |
 
 ### 💰 Wallet
 
 | Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `GET` | `/api/wallet` | ✅ | Stars balance + recent transaction history |
-| `POST` | `/api/wallet` | ✅ | Process Stars transaction (earn/spend with reason) |
+|--------|----------|:----:|-------------|
+| `GET` | `/api/wallet` | ✅ | Stars balance + recent 20 transactions |
+| `POST` | `/api/wallet` | ✅ | Process Stars transaction — earn or spend with typed reason |
 
 ### 📚 Content & Curriculum
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `GET` | `/api/subjects?track=class-9` | Subjects for a class or engineering track |
+| `GET` | `/api/subjects?track=class-9` | All subjects for a class or engineering track |
 | `GET` | `/api/content` | Curriculum content discovery |
-| `GET` | `/api/questions?subject=math&difficulty=MEDIUM` | MCQ question bank with filters |
-| `GET` | `/api/levels` | All XP level thresholds (Level 1–100) |
-| `GET` | `/api/classes` | Class category metadata |
-
-### 📊 Analytics & System
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/platform-stats` | Homepage counters (students, chapters, questions) |
-| `GET` | `/api/notifications` | Paginated in-app notifications |
-| `GET` | `/api/search?q=newton` | Full-text PostgreSQL search across curriculum |
-| `GET` | `/api/health` | Server health check (uptime, version) |
-| `GET` | `/api/readiness` | PostgreSQL + Redis readiness probe |
+| `GET` | `/api/questions?subject=math&difficulty=MEDIUM` | Filtered MCQ bank |
+| `GET` | `/api/platform-stats` | Real-time homepage counters from PostgreSQL |
+| `GET` | `/api/search?q=newton` | Full-text search across curriculum content |
+| `GET` | `/api/classes` | Class category metadata (class-9 → class-12 + engineering) |
+| `GET` | `/api/notifications` | Paginated in-app notifications (auto-purge: 14d read, 30d unread) |
+| `GET` | `/api/health` | Uptime + version health check |
+| `GET` | `/api/readiness` | PostgreSQL + Redis connectivity probe |
 
 ---
 
-## 🏆 Gamification System
+## 🏆 Gamification Engine
 
-EduQuest's gamification layer makes studying feel like a competitive game. Every interaction — reading a chapter, answering a question, winning a battle — contributes to measurable progression.
+EduQuest's gamification system is the core engagement loop — every interaction rewards the student in a measurable way.
 
-### XP & Leveling (100 Levels)
+### XP Level System — 100 Levels, Quadratic Curve
 
 ```
-Level 1  ──────────────────────────────────────────  Level 100
-         │
-         │ Per MCQ question:        +15 to +35 XP
-         │ Chapter completion:      +50 XP (first time bonus)
-         │ Battle win:              +100 XP + portion of opponent's XP
-         │ Achievement unlocked:    +25 to +200 XP (badge tier)
-         │ Daily login:             +10 XP
-         │ Streak multiplier:       1.0× (no streak) → 3.0× (30+ day streak)
+Formula:  XP_required = 100 × (Level − 1)²
+
+Level  1  →  0 XP       (Starting point)
+Level  2  →  100 XP     (+100 to level up)
+Level  3  →  400 XP     (+300 to level up)
+Level  4  →  900 XP     (+500 to level up)
+Level  5  →  1,600 XP   (+700 to level up)
+Level 10  →  8,100 XP   (+1,700 to level up)
+Level 25  →  57,600 XP  (Dedicated learner tier)
+Level 50  →  240,100 XP (Expert tier)
+Level 100 →  980,100 XP (Grandmaster — top 0.1%)
 ```
+
+**XP Sources:**
+
+| Activity | XP Earned |
+|----------|-----------|
+| Correct MCQ answer | 15–35 XP |
+| Chapter completion (first time) | +50 XP bonus |
+| Battle win | 90 XP (3× base of 30) |
+| Battle loss | 30 XP (participation reward) |
+| Achievement unlocked | 25–200 XP (by tier) |
+| Daily login | 10 XP |
+| **Streak multiplier** | **×1.0 → ×3.0 (at 30+ day streak)** |
 
 ### Daily Streak System
 
-| Component | Description |
-|-----------|-------------|
-| **7-day calendar** | Shows this week's study days at a glance |
-| **12-week heatmap** | GitHub contribution-style long-term consistency view |
-| **Streak multiplier** | Study every day for bigger XP bonuses |
-| **Highest streak** | Permanently recorded on your public profile |
-| **Streak warning** | Push notification before midnight if you haven't studied |
+```
+Day 1                Day 7               Day 30             Day 100
+  │                    │                   │                   │
+  🔥 1×  ──────────── 🔥🔥 1.5×  ──────── 💫 3×  ──────────── 👑 3×
+   XP                 XP mult.            XP mult.            XP mult.
+  base                (weekly)            (monthly)           (century)
+```
 
-### Achievement Badges
+| Component | Details |
+|-----------|---------|
+| **7-day calendar** | Visual week view — filled/empty squares on dashboard |
+| **12-week heatmap** | GitHub-style grid — 84 days of activity history |
+| **Multiplier** | 1.0× base → scales linearly → caps at 3.0× (30+ day streak) |
+| **Highest streak** | Permanently displayed on public profile |
+| **Streak warning** | Notification sent before midnight if not studied that day |
 
-| Category | Example Badges |
+### Achievement Badge System
+
+| Category | Badge Examples |
 |----------|---------------|
-| 🔥 Streaks | `7-Day Warrior`, `30-Day Legend`, `100-Day God Mode` |
-| ⚔️ Battles | `First Blood`, `10-Win Club`, `Undefeated Rank` |
-| 📚 Learning | `Chapter Master`, `Subject Completionist`, `Speed Reader` |
-| 🏆 Leaderboard | `Top 10 This Week`, `#1 in Class 9`, `Global Elite` |
-| 💰 Economy | `First Stars`, `High Roller`, `Stars Millionaire` |
+| 🔥 **Streaks** | `7-Day Warrior`, `30-Day Legend`, `100-Day God Mode` |
+| ⚔️ **Battle** | `First Blood`, `10-Win Club`, `Undefeated`, `Clutch Player` |
+| 📚 **Academic** | `Chapter Master`, `Subject Completionist`, `Perfect Score` |
+| 🏆 **Leaderboard** | `Top 10 This Week`, `Class 9 Topper`, `Global Elite` |
+| 💰 **Economy** | `First Stars`, `High Roller` (500+⭐ in wallet), `Stars Millionaire` |
 
-### Stars (Virtual Currency)
+### Stars (Virtual Currency) Economy
+
+> Stars are EduQuest's **non-purchasable** virtual currency — earned **only** through learning and competing. This keeps the platform skill-based, not pay-to-win.
 
 | Action | Stars |
 |--------|-------|
-| New user signup | +100 ⭐ |
-| Correct MCQ answer | +5 to +15 ⭐ |
-| Daily login bonus | +10 ⭐ |
+| New user signup bonus | +100 ⭐ |
+| Complete a study day's questions | Up to +50 ⭐ |
 | Win a casual battle | +50 ⭐ |
 | Win a ranked battle | +50 to +200 ⭐ (based on wager) |
 | Lose a ranked battle | −wager amount |
 | Ranked entry fee | −25 ⭐ per match |
-| **Daily wager cap** | **1,000 ⭐ max** (anti-gambling safeguard) |
-| Ranked access gate | **Level 10+ required** |
+| Draw | Both players refunded in full |
+| **Max wager per match** | **500 ⭐** |
+| **Daily wager cap** | **1,000 ⭐ total** (anti-gambling safeguard) |
+| **Ranked access gate** | **Level 10+ required** |
 
 ---
 
 ## ⚔️ Battle System
 
-The Battle Arena is EduQuest's signature competitive feature — real-time 1v1 quiz duels inspired by BGMI ranked gameplay mechanics.
+The Battle Arena is EduQuest's flagship competitive feature — real-time 1v1 quiz duels with skill-based matchmaking and an anti-cheat system.
 
-### How a Battle Works
+### Complete Battle Flow
 
 ```
-Student opens /battle
-        │
-        ▼
-Selects subject + mode (Casual / Ranked)
-        │
-        ▼
-Enters matchmaking queue
-Elo algorithm finds opponent within ±3 levels
-        │
-        ▼
-Match room created (Socket.IO room)
-Both players connected and confirmed
-        │
-        ▼
-10 MCQs served simultaneously
-15-second countdown per question
-        │
-        ▼ (per question)
-Points formula:
-  Correct:         +10 base points
-  Speed bonus:     +1 to +5 (answered faster = more)
-  Streak bonus:    ×1.0 to ×3.0 (consecutive correct answers)
-  Accuracy bonus:  +5 bonus at ≥80% accuracy
-        │
-        ▼
-Match ends after 10 questions (or time expires)
-Winner declared → XP + Stars awarded
-Result saved to dashboard and battle history
+                    ┌─────────────────────────────────────┐
+                    │         STUDENT OPENS /battle        │
+                    └──────────────────┬──────────────────┘
+                                       │
+              ┌────────────────────────┼────────────────────────┐
+              │                        │                        │
+       [Casual Mode]           [Ranked Mode]             [Subject Mode]
+       (free, no stakes)   (Level 10+, Stars wager)    (specific subject)
+              │                        │                        │
+              └────────────────────────┴────────────────────────┘
+                                       │
+                              Enters matchmaking queue
+                                       │
+                    ┌─────────────────────────────────────────┐
+                    │          ELO MATCHMAKING LOGIC          │
+                    │                                         │
+                    │  Phase 1 (0–30s):  Find opponent ±3 levels  │
+                    │  Phase 2 (30s+):   Widen search to ±5 levels │
+                    └─────────────────────────────────────────┘
+                                       │
+                           Opponent found → Match created
+                                       │
+                    ┌─────────────────────────────────────────┐
+                    │            BATTLE ROOM (Socket.IO)       │
+                    │                                         │
+                    │   10 MCQs served simultaneously         │
+                    │   15-second countdown per question      │
+                    │                                         │
+                    │   ⚠️  Anti-cheat active:                │
+                    │   • Tab switch     → Strike system       │
+                    │   • DevTools open  → Server flag         │
+                    │   • Copy/paste     → Blocked             │
+                    │   • Answer < 500ms → Flagged suspicious  │
+                    │   • 3 strikes      → Auto-forfeit        │
+                    └─────────────────────────────────────────┘
+                                       │
+                         Scoring after each question:
+                    ┌─────────────────────────────────────────┐
+                    │  Base points (correct):    +10           │
+                    │  Speed bonus:              +1 to +5      │
+                    │  Streak multiplier:        ×1.0 to ×3.0  │
+                    │  Accuracy bonus (≥80%):    +5            │
+                    └─────────────────────────────────────────┘
+                                       │
+                              Match ends (10 rounds)
+                                       │
+                    ┌──────────────────┴──────────────────────┐
+                    │                                          │
+              [Winner gets]                            [Loser gets]
+              • 90 XP (3× base)                       • 30 XP (participation)
+              • Stars wager payout                    • Stars wager deducted
+              • Battle history entry                  • Battle history entry
+              • Potential achievement unlock          • Potential consolation badge
 ```
 
 ### Anti-Cheat Enforcement
 
-| Cheat Attempt | EduQuest Response |
-|--------------|-------------------|
-| Tab switch / window blur | Strike issued (3 strikes = auto-forfeit) |
-| DevTools opened (F12) | Immediately flagged to server |
-| Right-click context menu | Silently blocked |
-| Ctrl+C / Ctrl+V (copy-paste) | Intercepted and prevented |
-| Screen recording detection | Viewport size anomaly monitoring |
-| 3 strikes total | Auto-forfeit + audit log entry |
+| Threat Vector | Detection Method | Consequence |
+|---------------|-----------------|-------------|
+| Tab switch / window blur | `visibilitychange` event + `window.onblur` | Strike issued (3 = forfeit) |
+| DevTools opened | F12 keydown + viewport dimension anomaly | Immediate server flag |
+| Copy-paste answers | `oncopy`, `onpaste`, `oncut` prevention | Silently blocked |
+| Right-click inspection | `oncontextmenu` disabled in battle | Silently blocked |
+| Lightning-fast answers | Response timestamp < 500ms | Flagged in audit log |
+| Multiple accounts | IP + device fingerprint (planned) | Account review |
+| 3 accumulated strikes | Auto-forfeit trigger | −Stars + audit entry |
 
 ---
 
 ## 💻 Engineering Tracks
 
-Structured coding education from first principles to FAANG interview readiness — **one day at a time**.
+From complete beginner to FAANG-interview-ready — one structured day at a time.
 
-### Programming Languages
+### Programming Language Tracks
 
-| Track | Slug | Duration | Focus Area |
-|-------|------|----------|-----------|
-| **C Language** | `c-language` | 30 days | Fundamentals, pointers, memory management |
-| **C++** | `cpp` | 45 days | OOP, STL, competitive programming patterns |
-| **Java** | `java` | 45 days | OOP, Collections Framework, Spring basics |
-| **Python** | `python` | 30 days | Scripting, data manipulation, automation |
-| **JavaScript** | `javascript` | 30 days | ES6+, async/await, DOM, modern patterns |
-| **TypeScript** | `typescript` | 20 days | Types, generics, utility types, decorators |
-| **Rust** | `rust` | 60 days | Ownership, memory safety, systems programming |
+| Language | Slug | Duration | Focus |
+|----------|------|----------|-------|
+| **C Language** | `c-language` | 30 days | Fundamentals, pointers, memory management, bit manipulation |
+| **C++** | `cpp` | 45 days | OOP, STL, templates, competitive programming patterns |
+| **Java** | `java` | 45 days | OOP, Collections, exceptions, Spring Boot basics |
+| **Python** | `python` | 30 days | Scripting, data structures, automation, library ecosystem |
+| **JavaScript** | `javascript` | 30 days | ES6+, async/await, DOM, closures, modern patterns |
+| **TypeScript** | `typescript` | 20 days | Types, interfaces, generics, decorators, utility types |
+| **Rust** | `rust` | 60 days | Ownership, lifetimes, memory safety, systems programming |
 
-### CS Core Subjects
+### CS Core Subject Tracks
 
-| Track | Slug | Duration | Focus Area |
-|-------|------|----------|-----------|
-| **Data Structures & Algorithms** | `dsa` | 60 days | Arrays → Trees → Graphs → DP — FAANG-level |
-| **System Design** | `system-design` | 45 days | HLD, LLD, scalability, real-world architectures |
-| **DBMS** | `dbms` | 30 days | SQL, normalization, indexing, ACID transactions |
+| Subject | Slug | Duration | Focus |
+|---------|------|----------|-------|
+| **DSA** | `dsa` | 60 days | Arrays → LinkedList → Trees → Graphs → DP → Greedy |
+| **System Design** | `system-design` | 45 days | HLD, LLD, CAP theorem, scalability, real-world designs |
+| **DBMS** | `dbms` | 30 days | Relational model, SQL, normalization, ACID, indexing |
 
-### Day-Wise Learning Structure
+### Standard Day-Wise Learning Structure
 
 ```
-Language Track (e.g., Python — 30 Days)
+Track Timeline (Example: Python — 30 Days)
 │
-├── Day 01–05   ── Fundamentals & Setup
-├── Day 06–10   ── Core Syntax & Data Types  
-├── Day 11–15   ── Functions, Modules, OOP
-├── Day 16–20   ── Intermediate Patterns
-├── Day 21–25   ── Data Structures in Language
-├── Day 26–28   ── Real Projects & Applications
-└── Day 29–30   ── Interview Problems & Review
+├── Day 01–05 ── Environment setup, syntax, data types, control flow
+├── Day 06–10 ── Functions, scope, modules, file I/O
+├── Day 11–15 ── OOP — classes, inheritance, polymorphism
+├── Day 16–20 ── Data structures — lists, dicts, sets, stacks, queues
+├── Day 21–25 ── Algorithms — sorting, searching, recursion
+├── Day 26–28 ── Projects — build 2 real Python scripts
+└── Day 29–30 ── Interview problems + mock test + review
 ```
+
+### Bonus Learning Resources
+
+| Resource | Description |
+|----------|-------------|
+| **`/semester`** | BTech CSE semester survival guides — CPU scheduling, 3NF normalization, exam checklists |
+| **`/interviews`** | SDE interview Q&A catalog — IIT-professor-verified C++, SQL, OS thread questions |
+| **`/notes`** | Chapter study notes and condensed reference material |
+| **`/mcqs`** | MCQ practice bank — 10,000+ questions filterable by subject and difficulty |
 
 ---
 
 ## 📚 CBSE Curriculum (Class 9–12)
 
-### Class 9 — Foundation
+### Class 9 — Foundation Year
 
-| Subject | Key Chapters |
-|---------|-------------|
-| **Mathematics** | Number Systems, Polynomials, Geometry, Mensuration, Statistics |
-| **Science** | Matter, Living Organisms, Motion & Force *(with 25+ simulations)*, Sound |
-| **Social Science** | History, Geography, Civics (Political Science), Economics |
-| **English** | Literature, Grammar, Writing Skills |
-| **Hindi** | Literature and language proficiency |
-| **Computer Applications** | Python basics, HTML, digital literacy |
+| Subject | Key Topics | Special Feature |
+|---------|-----------|----------------|
+| **Mathematics** | Number Systems, Polynomials, Lines & Angles, Circles, Statistics | — |
+| **Science** | Matter, Living Organisms, Motion, Force & Laws of Motion, Sound, Light | ⚡ 25+ Physics Simulations |
+| **Social Science** | French Revolution, Geography, Democratic Politics, Economics basics | — |
+| **English** | Literature (Beehive/Moments), Grammar, Creative Writing | — |
+| **Hindi** | Kshitij prose and poetry, language exercises | — |
+| **Computer Applications** | Python basics, HTML, digital literacy, MS Office | — |
 
-> 🔭 **Physics Simulations**: Class 9's "Force & Laws of Motion" chapter features **25+ interactive canvas-based simulations** — students can manipulate real physics parameters with sliders and see Newton's Laws in action at 60fps.
+> **🔭 Physics Simulations Spotlight**: The Force & Laws of Motion chapter has **25+ interactive canvas simulations** — students see F=ma, friction, momentum conservation, and Newton's three laws in real-time with adjustable parameters.
 
-### Class 10 — Board Preparation
+### Class 10 — Board Examination Prep
 
 | Subject | Board Exam Focus |
 |---------|----------------|
-| Mathematics | Coordinate geometry, Trigonometry, Probability, Statistics |
-| Science | Chemical reactions, Electricity, Light, Heredity, Our Environment |
-| Social Science | Resources, Development, Democracy, Consumer Rights |
-| English | Literature comprehension + formal writing for board format |
+| Mathematics | Real Numbers, Polynomials, Triangles, Coordinate Geometry, Trigonometry, Probability |
+| Science | Chemical Reactions, Acids/Bases, Metals, Life Processes, Electricity, Light |
+| Social Science | Resources, Development, Money & Credit, Democracy, Outcomes of Democracy |
+| English | First Flight + Footprints without Feet, formal writing for board patterns |
 
-### Class 11 — Stream Selection
+### Class 11 — Stream Specialization
 
-| Stream | Core Subjects |
-|--------|--------------|
-| **Science (PCM)** | Physics, Chemistry, Mathematics, English, CS/IP |
-| **Science (PCB)** | Physics, Chemistry, Biology, English |
-| **Commerce** | Accountancy, Business Studies, Economics, Math (optional) |
-| **Arts / Humanities** | History, Geography, Political Science, Psychology, Sociology |
+| Stream | Subjects Included |
+|--------|------------------|
+| **Science (PCM)** | Physics, Chemistry, Mathematics, English, CS/Informatics Practices |
+| **Science (PCB)** | Physics, Chemistry, Biology, English, Physical Education |
+| **Commerce** | Accountancy, Business Studies, Economics, Mathematics (optional), English |
+| **Arts / Humanities** | History, Geography, Political Science, Psychology, Sociology, English |
 
-### Class 12 — Board + Entrance Prep
+### Class 12 — Board + Competitive Entrance
 
-| Track | Focus |
-|-------|-------|
-| **CBSE Board** | Complete NCERT curriculum + past 10-year paper patterns |
-| **JEE Mains** | Physics + Chemistry + Mathematics with JEE-specific problem sets |
-| **NEET** | Physics + Chemistry + Biology with NEET exam strategy |
+| Track | Content Strategy |
+|-------|----------------|
+| **CBSE Board** | Complete NCERT syllabus + 10-year question paper pattern analysis |
+| **JEE Mains** | Physics + Chemistry + Mathematics with JEE-level problem sets |
+| **NEET** | Physics + Chemistry + Biology with NEET-specific objective MCQs |
 
 ---
 
 ## 🔭 Physics Simulation Engine
 
-EduQuest's most unique feature — a custom **canvas-based Newtonian physics engine** built entirely in TypeScript.
+EduQuest's most unique differentiator — a custom-built **real Newtonian physics engine** rendered on HTML Canvas.
 
 ### Engine Architecture
 
 ```
-ForceEngine (TypeScript + HTML Canvas)
+ForceEngine.tsx (TypeScript + Canvas API)
 │
 ├── Physics Core
-│   ├── F = ma  (Newton's Second Law)
-│   ├── Friction modeling: f = μN
-│   ├── Kinetic energy: KE = ½mv²
-│   ├── Momentum: p = mv  (conservation on collision)
-│   └── Projectile decomposition: vx, vy components
+│   ├── Newton's Second Law:    F = ma  → a = F/m
+│   ├── Friction force:         f = μ × N  (normal force)
+│   ├── Kinetic energy:         KE = ½mv²
+│   ├── Momentum:               p = mv  (conservation on collision)
+│   └── Projectile components:  vx = v·cos(θ),  vy = v·sin(θ)
 │
-├── Render Loop
-│   ├── requestAnimationFrame at 60fps
-│   ├── Real-time telemetry overlay (velocity, acceleration, force)
-│   └── Interactive slider parameters (mass, force, friction, angle)
+├── Real-Time Telemetry Overlay
+│   ├── Velocity (m/s) — live
+│   ├── Acceleration (m/s²) — live
+│   ├── Net Force (N) — live
+│   └── Kinetic Energy (J) — live
 │
-└── CBSE Alignment
-    └── Each simulation maps to specific NCERT chapter sections
+├── Interactive Controls
+│   ├── Mass slider (0.5 kg → 10 kg)
+│   ├── Applied Force slider (left/right, −20N → +20N)
+│   ├── Friction coefficient slider (μ = 0.0 → 1.0)
+│   └── Angle control (for projectile/incline sims)
+│
+└── 60fps Render Loop
+    └── requestAnimationFrame — deterministic physics timestep
 ```
 
-### Simulations Catalogue
+### Simulation Catalogue
 
-| Simulation | NCERT Topic |
-|------------|------------|
-| Newton's First Law (Inertia) | Force & Laws of Motion — 9.2 |
-| Newton's Second Law (F=ma) | Force & Laws of Motion — 9.3 |
-| Newton's Third Law (Action-Reaction) | Force & Laws of Motion — 9.4 |
-| Balanced vs. Unbalanced Forces | Force & Laws of Motion — 9.1 |
-| Momentum Conservation | Force & Laws of Motion — 9.5 |
-| Free Fall with Air Resistance | Gravitation — 10.1 |
-| Projectile Motion | Motion — 8.x |
-| Pendulum & SHM | Sound — intro |
-| Friction Coefficient Demo | Force & Laws of Motion — 9.2 |
-| Rocket Launch Physics | Newton's Third Law applied |
-| Inclined Plane Force Components | Force resolution |
-| Collision (elastic/inelastic) | Momentum chapter |
-| *+ 13 more simulations...* | Full NCERT Class 9 coverage |
+| Simulation | NCERT Reference | Interactive Parameters |
+|------------|----------------|----------------------|
+| Newton's First Law — Inertia | Ch. 9.2 | Mass, initial push |
+| Newton's Second Law — F=ma | Ch. 9.3 | Mass, Applied Force |
+| Newton's Third Law — Action/Reaction | Ch. 9.4 | Force magnitude |
+| Balanced Forces — Static | Ch. 9.1 | Two opposing forces |
+| Unbalanced Forces — Acceleration | Ch. 9.1 | Net force display |
+| Momentum Conservation — Collision | Ch. 9.5 | Two object masses |
+| Free Fall — With/Without Air Resistance | Gravitation | Mass, drag toggle |
+| Projectile Motion | Motion | Angle, initial velocity |
+| Pendulum — Period Demonstration | Sound intro | Length, mass |
+| Friction Coefficient Comparison | Ch. 9.2 | μ slider |
+| Inclined Plane — Force Components | Applied | Angle, mass |
+| Rocket Launch — Reaction Force | Newton's 3rd | Thrust magnitude |
+| *+ 13 additional simulations* | Full coverage | Varies |
 
 ---
 
-## 🔐 Security & Anti-Cheat
+## 🔐 Security Architecture
 
-### Application Security Layers
+### Multi-Layer Security Stack
 
-| Layer | Technology | Protection |
-|-------|-----------|------------|
-| **Password hashing** | Argon2 | Industry-standard, memory-hard hashing |
-| **Session storage** | HTTPOnly + Secure cookies | Immune to XSS token theft |
-| **JWT verification** | RS256 (Clerk) + HS256 fallback | Tamper-proof token validation |
-| **Rate limiting** | Redis sliding window | Per-IP and per-user limits on all endpoints |
-| **Security headers** | Helmet.js | CSP, HSTS, X-Frame-Options, X-Content-Type |
-| **Parameter pollution** | HPP middleware | Blocks array-based query injection |
-| **Input validation** | Zod schemas | Every API payload validated before processing |
-| **SQL injection** | Parameterized queries | No string interpolation in database calls |
-| **Audit trail** | PostgreSQL audit logs | Every security event is tamper-proof logged |
-| **CORS** | Configured allowlist | Only trusted origins can make API calls |
+```
+Request enters EduQuest
+        │
+        ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  Layer 1: Network — HTTPS/TLS (enforced in production)         │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 2: Helmet.js Security Headers                            │
+│           CSP | HSTS | X-Frame: SAMEORIGIN | X-Content-Type    │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 3: Rate Limiting — Redis sliding window                  │
+│           Per-IP: 100 req/15min | Auth endpoints: 5/15min       │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 4: HPP — Blocks array-based query parameter injection   │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 5: CORS — Only allowlisted origins accepted             │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 6: Authentication verification                           │
+│           Clerk RS256 JWT → HS256 fallback → 401 if both fail  │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 7: Zod payload validation — every API body schema-checked│
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 8: Parameterized SQL — zero injection surface            │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 9: Role-based access control — 8-tier permission matrix  │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 10: Tamper-proof audit log — every security event stored │
+└─────────────────────────────────────────────────────────────────┘
+        │
+        ▼
+     Response
+```
 
-### Role-Based Access Control
+### Role Permission Matrix
 
-| Role | Who | Access |
-|------|-----|--------|
-| `GUEST` | Unauthenticated visitor | Public pages only |
-| `STUDENT` | Registered CBSE student | Dashboard, battles, leaderboard, community |
-| `ENG_LEARNER` | Engineering track student | All engineering features + battles |
-| `TEACHER` | Educator account | Student progress monitoring |
-| `ORGANIZER` | College / club | Create and manage events, hackathons |
-| `PARENT` | Parent account | Child's progress and streak reports |
-| `MODERATOR` | Community mod | Post / comment moderation tools |
-| `ADMIN` | Platform admin | Full system — all endpoints + admin console |
+| Feature | GUEST | STUDENT | ENG_LEARNER | TEACHER | ORGANIZER | PARENT | MOD | ADMIN |
+|---------|:-----:|:-------:|:-----------:|:-------:|:---------:|:------:|:---:|:-----:|
+| Public pages | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Curriculum content | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Dashboard / Battle | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ |
+| Engineering tracks | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ |
+| Ranked battles | ❌ | Level 10+ | Level 10+ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Create events | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ |
+| View student progress | ❌ | Self only | Self only | ✅ | ❌ | Child only | ❌ | ✅ |
+| Moderate community | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| Admin console | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 
-### Performance Optimizations
+### Performance Monitoring
 
-| Optimization | Implementation |
-|-------------|---------------|
-| **ISR** | Marketing pages revalidate every 12–24 hours |
-| **Dynamic imports** | Heavy client components load on-demand |
-| **Server-first** | All pages are server components with selective `"use client"` |
-| **pg Pool singleton** | One shared connection pool per process (max 10 connections) |
-| **Denormalized XP** | XP + streak stored on user row — no joins on the hot dashboard path |
-| **Image optimization** | Sharp + Next/Image — AVIF → WebP → original fallback |
-| **Font self-hosting** | `@fontsource` — zero Google Fonts DNS round-trips |
-| **Redis pub/sub** | Socket.IO scales horizontally across Node.js instances |
-| **Brotli/Gzip** | All Express responses compressed via `compression` middleware |
-| **14 DB indexes** | Covering leaderboard, search, dashboard, notifications, battle history |
+| Metric | Threshold | Action |
+|--------|-----------|--------|
+| P50 latency | < 200ms | Normal |
+| P95 latency | < 500ms | Normal |
+| Slow request | > 1,000ms | Warning logged |
+| Critical request | > 5,000ms | Error logged |
+| Heap usage | > 85% | Alert |
+| DB pool utilization | > 80% | Scale warning |
+| CPU load | > 0.8 avg | Alert |
+
+---
+
+## 📡 Real-Time Battle Architecture
+
+### Socket.IO Room Lifecycle
+
+```
+Browser A (Player 1)              Socket.IO Server               Browser B (Player 2)
+         │                              │                                  │
+         ├── emit("join_queue") ───────▶│                                  │
+         │                              │◀─── emit("join_queue") ──────────┤
+         │                              │                                  │
+         │                   [Elo match: ±3 levels found]                  │
+         │                              │                                  │
+         │◀─ emit("match_found") ───────┤──── emit("match_found") ────────▶│
+         │                              │                                  │
+         ├── join(room: matchId) ───────▶│◀─── join(room: matchId) ─────────┤
+         ├── emit("ready") ────────────▶│◀──── emit("ready") ──────────────┤
+         │                              │                                  │
+         │                    [Both ready — game starts]                   │
+         │                              │                                  │
+         │◀─ emit("question", Q1) ──────┤──── emit("question", Q1) ───────▶│
+         ├── emit("answer", {ans, ms}) ▶│◀───── emit("answer", {ans, ms}) ─┤
+         │                              │  [Validate + score + anti-cheat] │
+         │◀─ emit("score_update") ──────┤──── emit("score_update") ────────▶│
+         │                ...10 rounds...                                  │
+         │◀─ emit("battle_result") ─────┤──── emit("battle_result") ───────▶│
+         │                              │                                  │
+         │   [Award XP + Stars]         │   [Award XP, deduct Stars]       │
+```
+
+**Redis Pub/Sub** adapter enables **horizontal scaling** — multiple Node.js instances share socket state, so the battle system can handle thousands of concurrent games across a cluster.
 
 ---
 
@@ -1205,178 +1346,156 @@ ForceEngine (TypeScript + HTML Canvas)
 |---------|:-------:|:-------------:|:-----------------:|
 | Full CBSE curriculum (Class 9–12) | ✅ | ✅ | ✅ |
 | Day-wise study plans | ✅ | ✅ | ✅ |
-| XP, streaks & leaderboard | ✅ | ✅ | ✅ |
+| XP + streaks + leaderboard | ✅ | ✅ | ✅ |
 | Community forums | ✅ | ✅ | ✅ |
 | Physics simulations (25+) | ✅ | ✅ | ✅ |
 | Casual battle mode | ✅ | ✅ | ✅ |
-| Ranked battle mode | ❌ | ✅ | ✅ |
+| Public events + hackathons | ✅ | ✅ | ✅ |
+| Ranked battle mode (Stars wager) | ❌ | ✅ | ✅ |
 | All 12+ engineering tracks | ❌ | ✅ | ✅ |
-| Mock tests & assessments | ❌ | ✅ | ✅ |
-| Progress analytics | ❌ | ✅ | ✅ |
-| Priority matchmaking | ❌ | ✅ | ✅ |
-| Teacher dashboard | ❌ | ❌ | ✅ |
+| Mock tests + timed assessments | ❌ | ✅ | ✅ |
+| Analytics dashboard (charts) | ❌ | ✅ | ✅ |
+| Priority Elo matchmaking | ❌ | ✅ | ✅ |
+| Teacher batch management | ❌ | ❌ | ✅ |
 | School leaderboard | ❌ | ❌ | ✅ |
 | Parent progress reports | ❌ | ❌ | ✅ |
-| Custom events & hackathons | ❌ | ❌ | ✅ |
+| Custom event hosting | ❌ | ❌ | ✅ |
+| Dedicated school support | ❌ | ❌ | ✅ |
 | **Price** | **₹0 / month** | **Coming Soon** | **Contact Us** |
 
 ---
 
-## 📡 Real-Time Architecture
+## 🎨 Design System
 
-```
-Browser (Next.js Client)
-        │
-        │  REST (API Routes)     WebSocket (Socket.IO)
-        │ ──────────────────    ──────────────────────
-        ▼                                ▼
-Next.js Server                  Express + Socket.IO
-(Port 5000)                         (Port 4000)
-        │                                │
-        │                         Redis Pub/Sub Adapter
-        │                         (horizontal scaling)
-        │                                │
-        └──────────────────────────────── ▼
-                              PostgreSQL 16 (Database)
+EduQuest uses a custom design system in `globals.css` with **135 CSS custom properties** — zero runtime CSS-in-JS overhead.
+
+### Color Palette
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--primary` | `#2563EB` | CTA buttons, links, active nav items, focus rings |
+| `--primary-hover` | `#1D4ED8` | Button hover states |
+| `--accent` | `#F59E0B` | Achievement badges, streak flame icon, highlights |
+| `--success` | `#10B981` | XP gain notifications, correct answers, streak active |
+| `--destructive` | `#EF4444` | Error states, wrong answers, streak lost |
+| `--battle` | `#8B5CF6` | Battle arena purple — exclusive to /battle routes |
+| `--engineering` | `#06B6D4` | Engineering track cyan accent |
+| `--bg-hero` | `#0B1120 → #141B2D` | Homepage dark navy gradient |
+| `--card-bg` | `rgba(255,255,255,0.04)` | Glassmorphism card surfaces |
+| `--text-primary` | `#F8FAFC` | Main body text in dark mode |
+| `--text-muted` | `#94A3B8` | Secondary labels, timestamps, captions |
+| `--border-subtle` | `rgba(255,255,255,0.08)` | Card borders, dividers |
+
+### Layout Tokens
+
+```css
+--max-content-width: 80rem;       /* 1280px max page container */
+--nav-height:        64px;        /* Fixed sticky navbar height */
+--section-padding:   5rem;        /* Consistent vertical section spacing */
+--card-radius:       12px;        /* Standard card border radius */
+--card-padding:      1.5rem;      /* Inner card padding */
 ```
 
-### Socket.IO Battle Flow
+### Scroll Animation System
 
-```
-Player A                    Server                    Player B
-   │                           │                         │
-   ├── join_queue ────────────▶│                         │
-   │                           │◀──────── join_queue ────┤
-   │                           │                         │
-   │                     [Elo matching: ±3 levels]       │
-   │                           │                         │
-   │◀── match_found ───────────┤──── match_found ───────▶│
-   │                           │                         │
-   ├── ready ─────────────────▶│◀─────────── ready ──────┤
-   │                           │                         │
-   │◀── question (Q1) ─────────┤──── question (Q1) ─────▶│
-   ├── answer ────────────────▶│◀──────────── answer ────┤
-   │                           │  [Validate + Score]     │
-   │◀── score_update ──────────┤──── score_update ───────▶│
-   │          ...10 rounds...  │                         │
-   │◀── battle_result ─────────┤──── battle_result ──────▶│
+EduQuest uses `IntersectionObserver` (via `HomeAnimations.tsx`) for scroll-triggered animations with staggered delays:
+
+```javascript
+// Elements with .animate-on-scroll become .is-visible when entering viewport
+// Staggered delays via modifier classes:
+.delay-1 { transition-delay: 200ms; }   // First child
+.delay-2 { transition-delay: 400ms; }   // Second child
+.delay-3 { transition-delay: 600ms; }   // Third child
+// Threshold: 10% of element must be visible before triggering
 ```
 
 ---
 
 ## 🗺️ Roadmap
 
-### 🔨 In Progress
+### 🔴 In Progress (Active Development)
 
-- [ ] Complete Socket.IO live battle room (persistent WebSocket, sub-100ms sync)
-- [ ] Battle countdown animation + post-match results summary screen
-- [ ] Reconnection & state recovery for battles during short disconnects (partial)
+- [ ] **Complete Socket.IO battle room** — persistent WebSocket, sub-100ms answer sync
+- [ ] **Battle countdown + results sequence** — animated post-match summary screen
+- [ ] **Disconnect recovery** — reconnect to active battle within 30s without forfeit
 
-### 🔜 Q3 2026
+### 🟡 Q3 2026 (Planned)
 
-- [ ] **Real Code Execution** — Judge0 / Piston API replacing simulated code runner
-- [ ] **Background Workers** — BullMQ queue for email, certificates, notification fanout
-- [ ] **Push Notifications** — FCM + Web Push for streak warnings and battle invites
-- [ ] **WebP/AVIF Hero Assets** — Next-gen image format conversion for all route heroes
-- [ ] **Automated Test Suite** — Jest API tests + Playwright E2E browser flows
-- [ ] **Full-text Search Improvements** — Search suggestions + ranked results
+- [ ] **Real Code Execution** — Judge0 / Piston API for actual sandboxed code running (replace simulated runner)
+- [ ] **Background Workers** — BullMQ queue for email delivery, certificate generation, notification fanout
+- [ ] **Push Notifications** — FCM + Web Push API for streak warnings and battle invites
+- [ ] **WebP/AVIF Hero Images** — Convert all route PNG heroes to next-gen formats
+- [ ] **Automated Test Suite** — Jest API tests + Playwright browser E2E flows
+- [ ] **Full-Text Search v2** — Autocomplete suggestions + ranked results by relevance
 
-### 🌟 Q4 2026 – Q1 2027
+### 🟢 Q4 2026 – Q1 2027
 
-- [ ] **AI Tutor** — LLM-powered doubt explanation and personalized revision plans
+- [ ] **AI Tutor** — LLM-powered doubt explanation + personalized next-topic recommendations
 - [ ] **Mobile Apps** — React Native / Expo for Android and iOS
-- [ ] **Safe Exam Browser (SEB)** — OS-level lockdown for official proctored exams
-- [ ] **Teacher Dashboard** — Batch management, custom test creation, progress reporting
-- [ ] **Parent Portal** — Weekly streak reports, progress summaries, parent-teacher chat
-- [ ] **Group Study Rooms** — Up to 6 students studying the same chapter together live
-- [ ] **Internationalization** — Hindi, Tamil, Telugu UI translations
-- [ ] **School Leaderboard** — Intra-school competitions and class-level rankings
-- [ ] **Certificate Generation** — Auto-generated PDF certificates for event winners
-- [ ] **Referral System** — Earn Stars for referring friends to the platform
+- [ ] **Safe Exam Browser (SEB)** — OS-level process lockdown for official proctored contests
+- [ ] **Teacher Dashboard** — Batch creation, custom test builder, per-student progress view
+- [ ] **Parent Portal** — Weekly progress emails, streak summaries, parent-teacher chat
+- [ ] **Group Study Rooms** — Up to 6 students working on the same chapter simultaneously
+- [ ] **Internationalization (i18n)** — Hindi, Tamil, Telugu UI translations
+- [ ] **School Leaderboard** — Intra-school competitions + class-rank competitions
+- [ ] **Certificate Generator** — Auto-PDF certificates for hackathon and event winners
+- [ ] **Referral System** — Earn Stars for bringing friends to the platform
 
-### 🔮 Long-Term Vision
+### 🔵 Long-Term Vision
 
-- [ ] National EduQuest Quiz Olympiad — annual student competition
-- [ ] College Partnership Program — campus ambassadors + placement prep
-- [ ] Adaptive Learning Engine — ML-based next-topic recommendations
-- [ ] Live Teacher Classes — integrated LIVE sessions into day-wise plans
-- [ ] White-Label API — institutional deployment for schools and coaching centres
-- [ ] Monetization Gate — Level 10+ unlock for ranked battles (skill-based)
-
----
-
-## 🎨 Design System
-
-### Color Palette
-
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `--primary` | `#2563EB` | Buttons, links, active states, focus rings |
-| `--accent` | `#F59E0B` | Badges, streak flame, highlights |
-| `--success` | `#10B981` | XP gains, correct answers, streak active |
-| `--destructive` | `#EF4444` | Errors, wrong answers, forfeit |
-| `--battle` | `#8B5CF6` | Battle arena exclusive purple |
-| `--bg-hero` | `#0B1120 → #141B2D` | Homepage dark navy gradient |
-| `--card-bg` | `rgba(255,255,255,0.04)` | Glassmorphism card surfaces |
-| `--text-primary` | `#F8FAFC` | Main body text (dark mode) |
-| `--text-muted` | `#94A3B8` | Secondary labels, timestamps |
-
-### Layout Tokens
-
-```css
---max-content-width: 80rem;      /* Consistent page container */
---nav-height:        64px;       /* Fixed navbar height */
---section-padding:   5rem;       /* Vertical section spacing */
---card-radius:       12px;       /* Rounded card corners */
---border-subtle:     rgba(255,255,255,0.08); /* Subtle card borders */
-```
+- [ ] Annual **National EduQuest Olympiad** — platform-wide competitive event
+- [ ] **College Partnership API** — white-label EduQuest for institutional deployment
+- [ ] **Adaptive Learning Engine** — ML model that recommends next topics based on weak areas
+- [ ] **Live Teacher Classes** — integrated live video sessions into day-wise plans
+- [ ] **Offline Mode (PWA)** — study without internet, sync progress when back online
+- [ ] **Level 10 Monetization Gate** — Ranked battles unlock at Level 10 (fully skill-based)
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! EduQuest is actively developed and there's a lot to build.
+EduQuest is actively built and contributions are welcome!
 
-### Quick Start for Contributors
+### Getting Set Up
 
 ```bash
-# 1. Fork + clone
-git clone https://github.com/yourusername/eduquest.git
-
-# 2. Create a feature branch
+# Fork the repo on GitHub, then:
+git clone https://github.com/YOUR_USERNAME/eduquest.git
 git checkout -b feature/your-feature-name
+cd frontend && npm install --legacy-peer-deps
+npm run dev   # Start hacking!
+```
 
-# 3. Install and run
-cd frontend && npm install --legacy-peer-deps && npm run dev
+### Before Opening a PR
 
-# 4. Before submitting — checks must pass
-npm run typecheck   # TypeScript must be clean
-npm run lint        # ESLint must be clean
+```bash
+npm run typecheck   # Must be ✓ zero TypeScript errors
+npm run lint        # Must be ✓ zero ESLint warnings
 ```
 
 ### Code Conventions
 
-| Rule | Detail |
-|------|--------|
-| **TypeScript strict** | No `any` types. All props and return types must be explicit |
-| **Server-first** | Pages are server components by default; add `"use client"` only when needed |
-| **CSS Modules** | Every page gets its own `PageName.module.css` — no inline styles |
-| **Repository pattern** | All DB calls go through `getPlatformRepository()` — never raw SQL in components |
-| **Comment headers** | Every file starts with: FILE, LOCATION, PURPOSE, USED BY, LAST UPDATED |
-| **No mocks in prod** | All page data must come from the real PostgreSQL database |
-| **Parameterized queries** | Always use `$1, $2` placeholders — never string-interpolate SQL values |
+| Rule | Requirement |
+|------|-------------|
+| TypeScript | Strict mode — no `any`, all props typed |
+| Components | Server-first; add `"use client"` only when necessary |
+| Styling | CSS Module per page — no inline styles, no global classes |
+| Database | All DB calls through `getPlatformRepository()` — never raw SQL in components |
+| File headers | Every file: `FILE:`, `PURPOSE:`, `USED BY:`, `LAST UPDATED:` |
+| No mocks | All data from real PostgreSQL — no static fallback in production |
+| SQL | Parameterized queries everywhere — `$1, $2` — never string interpolation |
 
-### Areas That Need Help
+### Where to Contribute
 
-| Priority | Area | Description |
-|----------|------|-------------|
-| 🔴 High | **Battle (Socket.IO)** | Complete the live battle room implementation |
-| 🔴 High | **Testing** | Jest tests for API routes + Playwright E2E |
-| 🟡 Medium | **Code Execution** | Integrate Judge0 or Piston API for real code running |
-| 🟡 Medium | **Push Notifications** | FCM / Web Push setup |
-| 🟢 Normal | **i18n** | Hindi, Tamil, Telugu translations |
-| 🟢 Normal | **Mobile** | React Native / Expo app |
-| 🟢 Normal | **AI Tutor** | LLM doubt-solving integration |
+| Priority | Area | Details |
+|----------|------|---------|
+| 🔴 **Critical** | Battle room (Socket.IO) | Complete the live 1v1 implementation |
+| 🔴 **Critical** | Test suite | Jest + Playwright — zero tests currently |
+| 🟡 **Important** | Code execution | Judge0/Piston API integration |
+| 🟡 **Important** | Push notifications | FCM + Web Push setup |
+| 🟢 **Good First Issue** | i18n | Hindi, Tamil UI translations |
+| 🟢 **Good First Issue** | Accessibility | ARIA labels, keyboard nav, screen reader |
+| 🟢 **Good First Issue** | Animation polish | Framer Motion micro-interactions |
 
 ---
 
@@ -1390,41 +1509,58 @@ of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions...
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 ```
 
-See [LICENSE](LICENSE) for full license text.
+See [LICENSE](LICENSE) for the full text.
 
 ---
 
 ## 🙏 Acknowledgements
 
-- **NCERT** — Open CBSE curriculum that powers the learning tracks
-- **Clerk** — Making authentication fast and developer-friendly
-- **Vercel / Next.js team** — The App Router is genuinely excellent
-- **Prisma** — Type-safe PostgreSQL feels like magic
-- **The Indian student community** — You inspired every feature in this platform
+- **NCERT India** — Open curriculum that powers the entire CBSE learning system
+- **Clerk** — Making production-grade auth simple and developer-friendly
+- **Vercel & the Next.js team** — The App Router genuinely changed how we build
+- **Prisma** — TypeScript + PostgreSQL with this DX is something special
+- **The Indian student community** — Every feature in EduQuest was shaped by your real struggles
 
 ---
 
 <div align="center">
 
-### Built with ❤️ in India, for India's next generation of learners
+---
 
-**[⬆ Back to Top](#️-eduquest)**
+```
+  "I followed the 45-day Java plan end-to-end and got placed at a product startup.
+   The DSA section alone is worth it for anyone prepping for SDE interviews."
+                                                    — EduQuest Student (Class 2025)
+```
 
 ---
 
+### Built with ❤️ in India, for India's next generation of learners
+
+**[⬆ Back to Top](#️-india's-1-gamified-learning-platform-for-class-9-12--engineering)**
+
+<br/>
+
 <p>
-  <a href="https://github.com/yourusername/eduquest/issues/new?template=bug_report.md">🐛 Report a Bug</a>
+  <a href="https://github.com/yourusername/eduquest/issues/new?labels=bug">🐛 Report a Bug</a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/yourusername/eduquest/issues/new?template=feature_request.md">💡 Request a Feature</a>
+  <a href="https://github.com/yourusername/eduquest/issues/new?labels=enhancement">💡 Request a Feature</a>
   &nbsp;·&nbsp;
   <a href="https://github.com/yourusername/eduquest/discussions">💬 Join Discussions</a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/yourusername/eduquest/fork">🍴 Fork the Project</a>
 </p>
 
 <br/>
 
-[![Star this repo](https://img.shields.io/github/stars/yourusername/eduquest?style=for-the-badge&logo=github&color=F59E0B&logoColor=white&label=Star%20EduQuest)](https://github.com/yourusername/eduquest)
+[![Star this repo](https://img.shields.io/github/stars/yourusername/eduquest?style=for-the-badge&logo=github&color=F59E0B&logoColor=white&label=⭐%20Star%20EduQuest)](https://github.com/yourusername/eduquest)
+
+<br/>
 
 </div>
