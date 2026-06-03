@@ -15,6 +15,7 @@ import { getAuthenticatedUser } from "@/lib/server/auth/current-user";
 import { getPostgresPool } from "@/lib/server/database/postgres";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function toIntensity(count: number): 0 | 1 | 2 | 3 | 4 {
   if (count === 0) return 0;

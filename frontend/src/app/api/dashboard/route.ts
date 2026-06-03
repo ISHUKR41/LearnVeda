@@ -15,6 +15,7 @@ import { getPlatformRepository } from "@/lib/server/repositories/get-platform-re
 import { apiError, apiSuccess, NO_STORE_HEADERS } from "@/lib/server/utils/api-response";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /** Returns personalized dashboard data for the signed-in user. */
 export async function GET(request: NextRequest) {

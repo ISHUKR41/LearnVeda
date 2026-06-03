@@ -50,7 +50,21 @@ function ThemeInitializer() {
   return null;
 }
 
-/* Hydrates the global auth store on mount by calling /api/auth/me */
+/*
+ * AuthHydrator — Syncs Clerk session state with the Zustand auth store.
+ *
+ * KEY DESIGN RULE (fixes the auth redirect loop):
+ *   - Clerk's `isSignedIn` is the ONLY source of truth for "is user logged in".
+ *   - `/api/auth/me` is used to ENRICH the user object (XP, level, streak),
+ *     NOT to determine auth status.
+ *   - If Clerk says signed in but API returns 401, we RETRY (server might be
+ *     slow to sync the JWT). We NEVER call clearUser() in this scenario.
+ *   - clearUser() is ONLY called when Clerk itself says `isSignedIn === false`.
+ *
+ * This prevents the infinite loop:
+ *   sign-in → dashboard → API 401 → clearUser → Navbar shows "Sign In" →
+ *   click → /sign-in → Clerk redirects back → repeat forever.
+ */
 function AuthHydrator() {
   const { isLoaded, isSignedIn } = useAuth();
   const { setUser, setLoading, clearUser } = useAuthStore();
@@ -58,23 +72,63 @@ function AuthHydrator() {
   useEffect(() => {
     if (!isLoaded) return;
 
+    /* Clerk says NOT signed in → clear everything, done. */
     if (!isSignedIn) {
       clearUser();
       return;
     }
 
-    fetch("/api/auth/me", { cache: "no-store" })
-      .then(async (res) => {
-        if (res.ok) {
-          const body = await res.json();
-          const user = body?.data?.user ?? body?.user;
-          if (user) setUser(user);
-          else setLoading(false);
-        } else {
-          setLoading(false);
+    /* Clerk says SIGNED IN → fetch user profile to enrich the store. */
+    let cancelled = false;
+
+    async function hydrate() {
+      /* Try up to 3 times with exponential backoff.
+       * First-time Clerk users need JIT provisioning in the DB, which
+       * can fail on the first attempt if the DB is cold. */
+      const MAX_RETRIES = 3;
+      for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+        try {
+          const res = await fetch("/api/auth/me", {
+            cache: "no-store",
+            headers: { "x-retry": String(attempt) },
+          });
+
+          if (cancelled) return;
+
+          if (res.ok) {
+            const body = await res.json();
+            const user = body?.data?.user ?? body?.user;
+            if (user) {
+              setUser(user);
+              return; /* Success — done */
+            }
+          }
+
+          /* Non-200 response but Clerk says signed in:
+           * This is a transient server issue. Wait and retry.
+           * DO NOT call clearUser() here — that causes the redirect loop. */
+          if (attempt < MAX_RETRIES - 1) {
+            await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
+          }
+        } catch {
+          if (cancelled) return;
+          if (attempt < MAX_RETRIES - 1) {
+            await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
+          }
         }
-      })
-      .catch(() => setLoading(false));
+      }
+
+      /* All retries exhausted but Clerk says user IS signed in.
+       * Set loading=false so the UI renders, but keep isAuthenticated=false
+       * so the dashboard shows a "Refresh" prompt (not a sign-in link). */
+      if (!cancelled) {
+        setLoading(false);
+      }
+    }
+
+    hydrate();
+
+    return () => { cancelled = true; };
   }, [isLoaded, isSignedIn, setUser, setLoading, clearUser]);
 
   return null;

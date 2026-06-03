@@ -1,8 +1,10 @@
 /*
  * FILE: Navbar.tsx
  * LOCATION: src/components/layout/Navbar/Navbar.tsx
- * PURPOSE: Main top navigation bar. Auth state from Zustand authStore (hydrated by Providers).
- * LAST UPDATED: 2026-06-01
+ * PURPOSE: Main top navigation bar.
+ *          Uses Clerk's useAuth() as PRIMARY source of truth for auth UI.
+ *          useAuthStore is used for enriched data (XP, level, name) only.
+ * LAST UPDATED: 2026-06-02
  */
 
 "use client";
@@ -10,7 +12,7 @@
 import { useState, useEffect, type FocusEvent } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useClerk } from "@clerk/nextjs";
+import { useClerk, useAuth } from "@clerk/nextjs";
 import {
   Menu, X, Sun, Moon, BookOpen, ChevronDown, Zap,
   Search, Bell, Flame, Swords, User, Wallet, Settings
@@ -32,7 +34,11 @@ function NavbarShell({ pathname }: { pathname: string }) {
 
   const router = useRouter();
   const { signOut } = useClerk();
-  const { user, isAuthenticated, isLoading } = useAuthStore();
+
+  /* Clerk's isSignedIn = PRIMARY source of truth for showing auth buttons.
+   * This prevents the redirect loop where /api/auth/me fails but user IS signed in. */
+  const { isLoaded: clerkLoaded, isSignedIn: clerkSignedIn } = useAuth();
+  const { user, isAuthenticated, clearUser } = useAuthStore();
 
   useEffect(() => {
     setMounted(true);
@@ -70,7 +76,6 @@ function NavbarShell({ pathname }: { pathname: string }) {
   };
 
   /* Sign out — calls the API to clear the server session cookie, then clears local state */
-  const { clearUser } = useAuthStore();
   const handleSignOut = async () => {
     setIsMobileMenuOpen(false);
     try {
@@ -79,8 +84,7 @@ function NavbarShell({ pathname }: { pathname: string }) {
     } catch {
       /* Continue even if server call fails */
     }
-    /* Clear ALL stale auth data from localStorage to prevent the auth-store
-       (auth.store.ts) from re-hydrating a ghost session on next page load */
+    /* Clear ALL stale auth data from localStorage */
     if (typeof window !== "undefined") {
       localStorage.removeItem("eduquest_user");
       localStorage.removeItem("eduquest_refresh_token");
@@ -103,7 +107,11 @@ function NavbarShell({ pathname }: { pathname: string }) {
     setActiveDesktopGroup(prev => prev === group ? null : group);
   };
 
-  const authReady = !isLoading;
+  /* Auth is "ready" once Clerk has loaded. Use Clerk's isSignedIn OR Zustand
+   * isAuthenticated (whichever is true first) to avoid the flash of "Sign In"
+   * buttons for signed-in users whose /api/auth/me hasn't responded yet. */
+  const authReady = clerkLoaded;
+  const loggedIn = clerkSignedIn || isAuthenticated;
   const displayName = user?.name?.split(" ")[0] ?? "Student";
 
   return (
@@ -164,7 +172,7 @@ function NavbarShell({ pathname }: { pathname: string }) {
           <Link href="/search" className={styles.iconBtn} aria-label="Search">
             <Search size={18} />
           </Link>
-          {authReady && isAuthenticated && (
+          {authReady && loggedIn && (
             <>
               <Link href="/notifications" className={styles.iconBtn} aria-label="Notifications">
                 <Bell size={17} />
@@ -178,7 +186,7 @@ function NavbarShell({ pathname }: { pathname: string }) {
             {mounted ? (isDark ? <Sun size={18} /> : <Moon size={18} />) : <Sun size={18} />}
           </button>
           <div className={styles.authButtons}>
-            {authReady && !isAuthenticated && (
+            {authReady && !loggedIn && (
               <>
                 <Link href="/sign-in" className={styles.btnGhost}>Sign In</Link>
                 <Link href="/sign-up" className={styles.btnPrimary}>
@@ -186,7 +194,7 @@ function NavbarShell({ pathname }: { pathname: string }) {
                 </Link>
               </>
             )}
-            {authReady && isAuthenticated && (
+            {authReady && loggedIn && (
               <>
                 <Link href="/dashboard" className={styles.btnGhost}>
                   <Zap size={14} /> {displayName}
@@ -230,7 +238,7 @@ function NavbarShell({ pathname }: { pathname: string }) {
               <Link href="/pricing" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}>Pricing</Link>
             </div>
             <div className={styles.drawerAuth}>
-              {authReady && isAuthenticated && (
+              {authReady && loggedIn && (
                 <>
                   <Link href="/dashboard" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
                   <Link href="/profile" className={styles.drawerLink} onClick={() => setIsMobileMenuOpen(false)}><User size={16} /> Profile</Link>
@@ -239,7 +247,7 @@ function NavbarShell({ pathname }: { pathname: string }) {
                   <button onClick={handleSignOut} className={styles.drawerBtnSecondary}>Sign Out</button>
                 </>
               )}
-              {authReady && !isAuthenticated && (
+              {authReady && !loggedIn && (
                 <>
                   <Link href="/sign-in" className={styles.drawerBtnSecondary} onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
                   <Link href="/sign-up" className={styles.drawerBtnPrimary} onClick={() => setIsMobileMenuOpen(false)}>Start Free</Link>

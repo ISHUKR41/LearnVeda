@@ -1,9 +1,8 @@
 {
   "name": "eduquest",
-  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS=--max-old-space-size=6144 next dev",
+    "dev": "cross-env NODE_OPTIONS=--max-old-space-size=6144 next dev --webpack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

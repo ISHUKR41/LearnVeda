@@ -26,6 +26,7 @@ import { getAuthenticatedUser } from "@/lib/server/auth/current-user";
 import { getPostgresPool } from "@/lib/server/database/postgres";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /* ─────────────────────────────────────────────
  * Achievement definitions — hardcoded product constants.

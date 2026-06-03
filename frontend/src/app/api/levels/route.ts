@@ -18,6 +18,7 @@ import type { NextRequest } from "next/server";
 import { apiSuccess, apiError } from "@/lib/server/utils/api-response";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /* ─────────────────────────────────────────────
  * Level definitions — hardcoded product constants.

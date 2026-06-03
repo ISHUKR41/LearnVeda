@@ -29,6 +29,7 @@ import { apiSuccess, apiError, NO_STORE_HEADERS } from "@/lib/server/utils/api-r
 
 /* Force Node.js runtime — required for the PostgreSQL pool and cookie-based auth */
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 /* ─────────────────────────────────────────────
  * GET /api/wallet
