@@ -3,6 +3,7 @@
  * LOCATION: src/lib/content/class10/science/light-reflection-and-refraction/index.ts
  * PURPOSE: Aggregates all topics for the Class 10 Science chapter "Light - Reflection and Refraction"
  *          and exports the single Chapter object for the registry.
+ *          Also attaches flash card and mind map data to each topic for the study aids feature.
  * LAST UPDATED: 2026-06-08
  */
 
@@ -13,6 +14,16 @@ import { topic3MirrorFormulaMagnification } from "./mirror-formula/topic-3-mirro
 import { topic4LawsOfRefraction } from "./refraction/topic-4-laws-of-refraction-and-index";
 import { topic5ImageFormationByLenses } from "./spherical-lenses/topic-5-image-formation-by-lenses";
 import { topic6LensFormulaAndPower } from "./lens-formula/topic-6-lens-formula-and-power";
+import { topicFlashCards, topicMindMaps } from "./study-aids/study-aids";
+
+/* ── Helper: Attach study aids to a topic ── */
+function enrichTopic(topic: typeof topic1IntroAndLawsOfReflection) {
+  return {
+    ...topic,
+    flashCards: topicFlashCards[topic.id] || [],
+    mindMap: topicMindMaps[topic.id] || [],
+  };
+}
 
 export const lightReflectionAndRefractionChapter: Chapter = {
   id: "light-reflection-and-refraction",
@@ -21,11 +32,11 @@ export const lightReflectionAndRefractionChapter: Chapter = {
   class: "Class 10",
   chapterNumber: 10,
   topics: [
-    topic1IntroAndLawsOfReflection,
-    topic2SphericalMirrors,
-    topic3MirrorFormulaMagnification,
-    topic4LawsOfRefraction,
-    topic5ImageFormationByLenses,
-    topic6LensFormulaAndPower
-  ]
+    enrichTopic(topic1IntroAndLawsOfReflection),
+    enrichTopic(topic2SphericalMirrors),
+    enrichTopic(topic3MirrorFormulaMagnification),
+    enrichTopic(topic4LawsOfRefraction),
+    enrichTopic(topic5ImageFormationByLenses),
+    enrichTopic(topic6LensFormulaAndPower),
+  ],
 };

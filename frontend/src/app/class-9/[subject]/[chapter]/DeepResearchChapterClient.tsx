@@ -15,7 +15,7 @@
  *   - Fully responsive (mobile sidebar toggle)
  *
  * USED BY: page.tsx (Class 9 Chapter page server component)
- * LAST UPDATED: 2026-05-28
+ * LAST UPDATED: 2026-06-08
  */
 
 "use client";
@@ -28,6 +28,8 @@ import { parseMarkdown } from "@/lib/utils/parseMarkdown";
 import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
 import SimulationRenderer from "@/components/simulations/SimulationRegistry";
+import FlashCards from "@/components/chapter/FlashCards";
+import MindMap from "@/components/chapter/MindMap";
 
 /* ─────────────────────────────────────────────
  * Component Props
@@ -374,47 +376,6 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
                 <Link
                   href={`/class-9/science/${chapterData.id}/${activeTopic.id}`}
                   className={styles.focusedStudyBtn}
-                >
-                  ⚡ Focused Study Mode
-                </Link>
-              </div>
-
-              {/* ── Rendered Markdown Content with KaTeX math ── */}
-              <div
-                className={styles.markdownBody}
-                dangerouslySetInnerHTML={{ __html: parseMarkdown(activeTopic.content) }}
-              />
-
-              {/* ── Interactive Simulations ── */}
-              {activeTopic.simulationIds && activeTopic.simulationIds.length > 0 && (
-                <div className={styles.simulationsSection}>
-                  <SimulationRenderer simulationIds={activeTopic.simulationIds} />
-                </div>
-              )}
-
-              {/* ── Divider ── */}
-              <div className={styles.sectionDivider}>
-                <span className={styles.dividerLine} />
-                <span className={styles.dividerText}>Practice Questions</span>
-                <span className={styles.dividerLine} />
-              </div>
-
-              {/* Question type filter tags */}
-              <div className={styles.questionTypeFilters}>
-                {Object.entries(QUESTION_CONFIG).map(([type, config]) => {
-                  const count = activeTopic.questions.filter((q) => q.type === type).length;
-                  return (
-                    <span key={type} className={styles.filterTag} style={{ borderColor: config.color }}>
-                      <span style={{ color: config.color }}>{config.icon}</span>{" "}
-                      {config.label} ({count})
-                    </span>
-                  );
-                })}
-              </div>
-
-              {/* ── Questions ── */}
-              <div className={styles.questionsContainer}>
-                {activeTopic.questions.map((q, idx) => (
                     <QuestionItem
                       key={q.id}
                       index={idx + 1}

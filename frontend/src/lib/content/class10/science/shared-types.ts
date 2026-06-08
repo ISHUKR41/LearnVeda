@@ -61,6 +61,10 @@ export interface Topic {
   imageUrl?: string;
   /** Array of simulation component IDs to render alongside this topic */
   simulationIds?: string[];
+  /** Flash card data for quick revision — front/back pairs */
+  flashCards?: { id: string; front: string; back: string }[];
+  /** Mind map tree data for concept visualization */
+  mindMap?: { id: string; label: string; children?: any[] }[];
 }
 
 /**

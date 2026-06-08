@@ -1,0 +1,279 @@
+/**
+ * FILE: FlashCards.module.css
+ * PURPOSE: Styles for the interactive FlashCards component.
+ *          Features 3D flip animation, responsive card grid, progress bar,
+ *          keyboard navigation hints, and smooth micro-interactions.
+ * LAST UPDATED: 2026-06-08
+ */
+
+/* ── Container ── */
+.container {
+  margin: 40px 0;
+  padding: 32px;
+  background: linear-gradient(135deg, #1e1b4b08, #312e8108);
+  border-radius: 20px;
+  border: 1px solid rgba(99, 102, 241, 0.12);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #1a1a2e);
+  margin: 0;
+}
+
+.titleIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+}
+
+.counter {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, #64748b);
+  font-weight: 500;
+  background: rgba(99, 102, 241, 0.08);
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* ── Progress Bar ── */
+.progressContainer {
+  margin-bottom: 24px;
+}
+
+.progressBar {
+  height: 6px;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  border-radius: 3px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Card Viewport ── */
+.cardViewport {
+  perspective: 1200px;
+  margin-bottom: 24px;
+  min-height: 280px;
+}
+
+.cardWrapper {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cardWrapper.flipped {
+  transform: rotateY(180deg);
+}
+
+/* ── Card Faces ── */
+.cardFace {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 280px;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.cardFront {
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+.cardBack {
+  background: linear-gradient(145deg, #f0f0ff, #e8e8ff);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  transform: rotateY(180deg);
+}
+
+.cardLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+.cardFront .cardLabel {
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.cardBack .cardLabel {
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.1);
+}
+
+.cardContent {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--color-text-primary, #1e293b);
+  max-width: 600px;
+  word-wrap: break-word;
+}
+
+.cardBack .cardContent {
+  color: #312e81;
+}
+
+.flipHint {
+  margin-top: 20px;
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary, #94a3b8);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── Navigation Controls ── */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: white;
+  color: #6366f1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+}
+
+.navBtn:hover:not(:disabled) {
+  background: #6366f1;
+  color: white;
+  transform: scale(1.05);
+}
+
+.navBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.shuffleBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: white;
+  color: #6366f1;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.shuffleBtn:hover {
+  background: rgba(99, 102, 241, 0.06);
+  transform: scale(1.02);
+}
+
+/* ── Keyboard Hints ── */
+.keyboardHints {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary, #94a3b8);
+}
+
+.keyHint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.keyHint kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  font-size: 0.7rem;
+  font-family: inherit;
+  font-weight: 600;
+  color: #475569;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    margin: 24px 0;
+  }
+
+  .cardFace {
+    padding: 24px 20px;
+    min-height: 240px;
+  }
+
+  .cardViewport {
+    min-height: 240px;
+  }
+
+  .cardWrapper {
+    min-height: 240px;
+  }
+
+  .cardContent {
+    font-size: 1rem;
+  }
+
+  .keyboardHints {
+    display: none;
+  }
+}

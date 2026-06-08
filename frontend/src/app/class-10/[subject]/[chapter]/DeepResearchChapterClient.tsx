@@ -28,6 +28,8 @@ import { parseMarkdown } from "@/lib/utils/parseMarkdown";
 import dynamic from "next/dynamic";
 import { toast } from "react-hot-toast";
 import SimulationRenderer from "@/components/simulations/SimulationRegistry";
+import FlashCards from "@/components/chapter/FlashCards";
+import MindMap from "@/components/chapter/MindMap";
 
 /* ─────────────────────────────────────────────
  * Component Props
@@ -390,6 +392,22 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
                 <div className={styles.simulationsSection}>
                   <SimulationRenderer simulationIds={activeTopic.simulationIds} />
                 </div>
+              )}
+
+              {/* ── Flash Cards Study Aid ── */}
+              {activeTopic.flashCards && activeTopic.flashCards.length > 0 && (
+                <FlashCards
+                  cards={activeTopic.flashCards}
+                  title={`Quick Revision: ${activeTopic.title.replace(/^\d+\.\s*/, "")}`}
+                />
+              )}
+
+              {/* ── Mind Map Study Aid ── */}
+              {activeTopic.mindMap && activeTopic.mindMap.length > 0 && (
+                <MindMap
+                  nodes={activeTopic.mindMap}
+                  title={`Concept Map: ${activeTopic.title.replace(/^\d+\.\s*/, "")}`}
+                />
               )}
 
               {/* ── Divider ── */}
