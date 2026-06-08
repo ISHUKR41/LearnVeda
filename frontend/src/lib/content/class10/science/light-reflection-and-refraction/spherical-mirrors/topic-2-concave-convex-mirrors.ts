@@ -82,10 +82,44 @@ A convex mirror **always** forms a virtual, erect, and diminished image, regardl
 
 ---
 ### Exam Summary
-*   **Concave Mirror:** Converging mirror. Forms real/inverted images mostly, but forms a virtual/erect/enlarged image when the object is very close (between $P$ and $F$).
-*   **Convex Mirror:** Diverging mirror. ALWAYS forms virtual, erect, and diminished images. Used as rear-view mirrors.
-*   **Focal Length Relation:** $R = 2f$.
-*   **Key points:** Center of curvature ($C$), Principal Focus ($F$), Pole ($P$).
+
+#### 📌 Key Terminology
+*   **Pole ($P$):** Geometric center of the mirror's reflecting surface.
+*   **Center of Curvature ($C$):** Center of the sphere the mirror is part of. Distance from $P$ = Radius of Curvature ($R$).
+*   **Principal Focus ($F$):** Parallel rays converge here (concave) or appear to diverge from here (convex).
+*   **Focal Length ($f$):** Distance from $P$ to $F$. Relation: $\\boxed{R = 2f}$
+*   **Aperture:** Diameter of the reflecting surface.
+
+#### 🪞 Concave vs. Convex — Key Differences (Classic exam table)
+| Feature | Concave Mirror | Convex Mirror |
+|---|---|---|
+| Also called | Converging mirror | Diverging mirror |
+| Focal length | Negative ($f < 0$) | Positive ($f > 0$) |
+| Image type | Real/inverted (mostly) | Virtual, erect, **always** |
+| Magnification | Can be >1, <1, or =1 | Always < 1 (diminished) |
+| Uses | Torch, doctor's headlamp, shaving mirror | Rear-view mirror, street light reflector |
+
+#### 📍 Image Formation by Concave Mirror (5-mark table — memorize positions)
+| Object Position | Image Position | Nature | Size |
+|---|---|---|---|
+| At infinity ($\\infty$) | At $F$ | Real, Inverted | Point-sized |
+| Beyond $C$ | Between $F$ and $C$ | Real, Inverted | Diminished |
+| At $C$ | At $C$ | Real, Inverted | Same size |
+| Between $C$ and $F$ | Beyond $C$ | Real, Inverted | Enlarged |
+| At $F$ | At infinity | Real, Inverted | Highly enlarged |
+| Between $F$ and $P$ | Behind mirror | **Virtual, Erect** | Enlarged |
+
+> 🔑 **Memory Tip:** Convex mirror ALWAYS gives Virtual, Erect, Diminished (VED) images, regardless of object position.
+
+#### ⚠️ Common Mistakes
+*   Saying focus of a convex mirror is "real" — it is a **virtual focus** (rays only appear to diverge from it).
+*   Confusing concave mirror (inward curve) with convex mirror (outward curve).
+*   Forgetting that convex mirrors are used as rear-view mirrors because they have a **wider field of view**.
+
+#### 🧪 Ray Diagram Rules (3 standard rays)
+1. Ray parallel to principal axis → reflects through $F$ (concave) or appears to come from $F$ (convex).
+2. Ray through $F$ → reflects parallel to principal axis.
+3. Ray through $C$ → reflects back along the same path.
 `,
   questions: [
     // --- MCQ ---

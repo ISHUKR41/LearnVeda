@@ -527,6 +527,167 @@ function AchievementsCard() {
 }
 
 /* ─────────────────────────────────────────────
+ * ChapterProgressWidget
+ * Reads the "Light – Reflection and Refraction" quiz state from localStorage
+ * (written by DeepResearchChapterClient) and displays per-topic progress bars
+ * along with an overall completion ring and a "Continue Studying" CTA.
+ *
+ * Purely client-side — no API call needed because the chapter client caches
+ * scores in localStorage immediately after every answered question.
+ * ───────────────────────────────────────────── */
+const LIGHT_TOPICS = [
+  { id: "intro-and-laws-of-reflection",  label: "Laws of Reflection",         totalQ: 5 },
+  { id: "concave-convex-mirrors",         label: "Spherical Mirrors",           totalQ: 5 },
+  { id: "mirror-formula-magnification",   label: "Mirror Formula",              totalQ: 5 },
+  { id: "laws-of-refraction-and-index",   label: "Refraction & Index",          totalQ: 5 },
+  { id: "image-formation-by-lenses",      label: "Spherical Lenses",            totalQ: 5 },
+  { id: "lens-formula-and-power",         label: "Lens Formula & Power",        totalQ: 5 },
+] as const;
+
+const CHAPTER_ID = "light-reflection-and-refraction";
+const CHAPTER_URL = "/class-10/science/light-reflection-and-refraction";
+
+function ChapterProgressWidget() {
+  /* ── State: per-topic correct counts read from localStorage ── */
+  const [topicScores, setTopicScores] = useState<Record<string, number>>({});
+  const [mounted, setMounted] = useState(false);
+
+  /* ── Read localStorage on mount (avoids SSR hydration mismatch) ── */
+  useEffect(() => {
+    try {
+      /* The chapter client stores correct answers as a comma-joined list per topic.
+       * Key pattern: eduquest_<chapterId>_correct_<topicId> = count (number)
+       * Fall back to the chapter-wide "correct" set if per-topic key not found. */
+      const scores: Record<string, number> = {};
+
+      /* Try per-topic scores first */
+      LIGHT_TOPICS.forEach(({ id }) => {
+        const raw = localStorage.getItem(`eduquest_${CHAPTER_ID}_correct_${id}`);
+        scores[id] = raw ? parseInt(raw, 10) || 0 : 0;
+      });
+
+      /* If no per-topic data found, fall back to the aggregate correct Set */
+      const totalStored = Object.values(scores).reduce((a, b) => a + b, 0);
+      if (totalStored === 0) {
+        const raw = localStorage.getItem(`eduquest_${CHAPTER_ID}_correct`);
+        if (raw) {
+          try {
+            const arr: string[] = JSON.parse(raw);
+            /* Distribute evenly by topic prefix (qId format: t1q1, t2q3, etc.) */
+            arr.forEach((qId) => {
+              const match = qId.match(/^t(\d+)q/);
+              if (match) {
+                const idx = parseInt(match[1], 10) - 1;
+                const topic = LIGHT_TOPICS[idx];
+                if (topic) scores[topic.id] = (scores[topic.id] || 0) + 1;
+              }
+            });
+          } catch { /* ignore parse errors */ }
+        }
+      }
+
+      setTopicScores(scores);
+    } catch { /* localStorage not available (SSR guard) */ }
+    setMounted(true);
+  }, []);
+
+  /* ── Aggregate totals ── */
+  const totalCorrect = Object.values(topicScores).reduce((a, b) => a + b, 0);
+  const totalQuestions = LIGHT_TOPICS.reduce((a, t) => a + t.totalQ, 0);
+  const overallPercent = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
+  const topicsCompleted = LIGHT_TOPICS.filter(
+    ({ id, totalQ }) => (topicScores[id] || 0) >= totalQ
+  ).length;
+
+  /* Don't render on the server to avoid hydration mismatch */
+  if (!mounted) return null;
+
+  return (
+    <div className={styles.card}>
+      {/* ── Header ── */}
+      <div className={styles.chapterWidgetHeader}>
+        <div>
+          <h2 className={styles.cardTitle}>
+            <BookOpen size={16} aria-hidden="true" /> Chapter Progress
+          </h2>
+          <p className={styles.chapterWidgetSubtitle}>Light – Reflection & Refraction</p>
+        </div>
+        {/* Overall score ring */}
+        <div className={styles.chapterWidgetRing} aria-label={`${overallPercent}% complete`}>
+          <svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true">
+            <circle cx="26" cy="26" r="20" fill="none" stroke="rgba(99,102,241,0.12)" strokeWidth="3.5" />
+            <circle
+              cx="26" cy="26" r="20"
+              fill="none"
+              stroke={overallPercent >= 80 ? "#34d399" : overallPercent >= 40 ? "#818cf8" : "#6366f1"}
+              strokeWidth="3.5"
+              strokeDasharray={`${(overallPercent / 100) * (2 * Math.PI * 20)} ${2 * Math.PI * 20}`}
+              strokeDashoffset={2 * Math.PI * 20 * 0.25}
+              strokeLinecap="round"
+              style={{ transition: "stroke-dasharray 0.6s ease" }}
+            />
+            <text x="26" y="30" textAnchor="middle" fontSize="11" fontWeight="700" fill="#e2e8f0">
+              {overallPercent}%
+            </text>
+          </svg>
+        </div>
+      </div>
+
+      {/* ── Summary line ── */}
+      <p className={styles.chapterWidgetSummary}>
+        {topicsCompleted}/{LIGHT_TOPICS.length} topics completed · {totalCorrect}/{totalQuestions} correct
+      </p>
+
+      {/* ── Per-topic mini progress bars ── */}
+      <ul className={styles.chapterTopicList} aria-label="Topic progress">
+        {LIGHT_TOPICS.map(({ id, label, totalQ }) => {
+          const correct  = topicScores[id] || 0;
+          const percent  = totalQ > 0 ? Math.round((correct / totalQ) * 100) : 0;
+          const done     = correct >= totalQ;
+
+          return (
+            <li key={id} className={styles.chapterTopicRow}>
+              <Link
+                href={`${CHAPTER_URL}/${id}`}
+                className={styles.chapterTopicLink}
+                title={`Study: ${label}`}
+              >
+                {/* Label + score */}
+                <div className={styles.chapterTopicMeta}>
+                  <span className={`${styles.chapterTopicName} ${done ? styles.chapterTopicDone : ""}`}>
+                    {done && <span className={styles.chapterTopicCheck} aria-hidden="true">✓ </span>}
+                    {label}
+                  </span>
+                  <span className={styles.chapterTopicScore}>{correct}/{totalQ}</span>
+                </div>
+                {/* Progress bar */}
+                <div className={styles.chapterTopicBar} role="progressbar" aria-valuenow={percent} aria-valuemin={0} aria-valuemax={100}>
+                  <div
+                    className={styles.chapterTopicBarFill}
+                    style={{
+                      width: `${percent}%`,
+                      background: done
+                        ? "linear-gradient(90deg,#34d399,#10b981)"
+                        : "linear-gradient(90deg,#6366f1,#818cf8)",
+                    }}
+                  />
+                </div>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+
+      {/* ── CTA ── */}
+      <Link href={CHAPTER_URL} className={styles.chapterWidgetCta}>
+        {overallPercent === 100 ? "Review Chapter" : "Continue Studying"}
+        <ArrowRight size={14} aria-hidden="true" />
+      </Link>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
  * DashboardClient — main exported component
  * Fetches dashboard snapshot, wallet, levels, and then renders all sections.
  * Activity and achievements are bound to the authenticated user on the server.
@@ -818,6 +979,9 @@ export default function DashboardClient() {
 
             {/* Stars wallet card */}
             <WalletCard wallet={wallet} />
+
+            {/* Chapter progress widget — shows Light chapter score from localStorage */}
+            <ChapterProgressWidget />
           </div>
 
           {/* ── RIGHT COLUMN: Activity + Streak + Achievements + Activity Feed ── */}

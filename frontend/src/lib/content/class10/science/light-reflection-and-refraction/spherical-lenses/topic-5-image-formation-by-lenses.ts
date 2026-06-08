@@ -82,10 +82,41 @@ A concave lens **always** forms a virtual, erect, and diminished image, regardle
 
 ---
 ### Exam Summary
-*   **Convex Lens:** Converging lens. Mostly forms real/inverted images. Forms virtual/erect/enlarged when object is between $O$ and $F_1$.
-*   **Concave Lens:** Diverging lens. ALWAYS forms virtual, erect, and diminished images.
-*   **Optical Center ($O$):** Light passing through $O$ goes undeviated.
-*   **Rule of Thumb:** Convex Lens behaves similarly to Concave Mirror. Concave Lens behaves similarly to Convex Mirror.
+
+#### 📌 Key Terminology for Lenses
+*   **Optical Center ($O$):** The central point of the lens. A ray passing through $O$ passes undeviated.
+*   **Principal Foci:** A lens has **two** focal points ($F_1$ and $F_2$), one on each side.
+*   **Focal Length ($f$):** Distance from optical center to principal focus.
+*   **Convex Lens:** Thicker at center. **Converging** — bends rays inward.
+*   **Concave Lens:** Thinner at center. **Diverging** — bends rays outward.
+
+#### 🔍 Convex Lens: Image Formation Table (must-memorize for 5-mark)
+| Object Position | Image Position | Nature | Size |
+|---|---|---|---|
+| At infinity | At $F_2$ | Real, Inverted | Point-sized |
+| Beyond $2F_1$ | Between $F_2$ and $2F_2$ | Real, Inverted | Diminished |
+| At $2F_1$ | At $2F_2$ | Real, Inverted | Same size |
+| Between $F_1$ and $2F_1$ | Beyond $2F_2$ | Real, Inverted | Enlarged |
+| At $F_1$ | At infinity | Real, Inverted | Highly enlarged |
+| Between $O$ and $F_1$ | Same side as object | **Virtual, Erect** | Enlarged |
+
+> 🔑 **Concave Lens** ALWAYS gives Virtual, Erect, Diminished (VED) images — just like a Convex Mirror!
+
+#### 🔄 Mirror–Lens Comparison (HOTS question favorite)
+| Mirror | Equivalent Lens |
+|---|---|
+| Concave Mirror | Convex Lens (both converge, both can form real images) |
+| Convex Mirror | Concave Lens (both diverge, both ALWAYS give VED images) |
+
+#### 🧪 Three Ray Rules for Lenses
+1. Ray parallel to principal axis → refracts through $F_2$ (convex) or appears to come from $F_1$ (concave).
+2. Ray through optical center ($O$) → passes straight through without bending.
+3. Ray through $F_1$ → emerges parallel to principal axis (convex only).
+
+#### ⚠️ Common Mistakes
+*   Labeling the focal point: convex lens has $F_2$ on the transmission side; do NOT mix this up with the mirror's focal point.
+*   Forgetting that a convex lens acting as a magnifying glass requires the object to be **between $O$ and $F_1$**.
+*   Confusing "real image" (formed on the other side of the lens — can be projected on screen) with "virtual image" (same side as object — cannot be projected).
 `,
   questions: [
     // --- MCQ ---

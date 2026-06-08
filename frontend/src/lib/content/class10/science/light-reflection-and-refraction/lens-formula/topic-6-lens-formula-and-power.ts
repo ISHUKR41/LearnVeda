@@ -84,11 +84,49 @@ The use of powers instead of focal lengths simplifies the calculations for lens 
 
 ---
 ### Exam Summary
-*   **Lens Formula:** $1/v - 1/u = 1/f$
-*   **Magnification ($m$):** $m = h'/h = v/u$
-*   **Sign Conventions:** $f_{convex}$ is Positive, $f_{concave}$ is Negative. $u$ is always negative.
-*   **Power ($P$):** $P = 1/f$ (where $f$ is in meters). Unit is Diopter (D).
-*   **Combination Power:** $P_{total} = P_1 + P_2 + P_3 \\dots$
+
+#### 📐 The Two Key Formulas for Lenses
+$$\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f} \\quad \\text{(Lens Formula)}$$
+$$m = \\frac{h'}{h} = \\frac{v}{u} \\quad \\text{(Magnification — note: NO negative sign unlike mirrors!)}$$
+
+#### 📌 Sign Convention for Lenses
+*   **All distances** measured from **Optical Center** ($O$).
+*   Object on left → $u$ is always **Negative**.
+*   $f_{convex}$ = Positive; $f_{concave}$ = Negative.
+*   Unlike mirrors: lens magnification formula is $m = v/u$ (no negative sign).
+
+#### ⚡ Power of a Lens
+$$P = \\frac{1}{f} \\quad \\text{(f in metres)}$$
+*   Unit: **Dioptre (D)** — $1\\text{ D} = 1 \\text{ m}^{-1}$
+*   **Convex lens:** $P$ is **Positive** (converging).
+*   **Concave lens:** $P$ is **Negative** (diverging).
+
+#### 🔗 Combination of Lenses (in contact)
+$$P_{total} = P_1 + P_2 + P_3 + \\dots$$
+*   Total focal length: $\\frac{1}{f} = \\frac{1}{f_1} + \\frac{1}{f_2} + \\dots$
+*   Used in eyeglasses, camera lenses, telescopes for precise focusing.
+
+#### 🔑 Mirrors vs. Lenses — Formula Comparison (High-yield for MCQ)
+| Feature | Mirror | Lens |
+|---|---|---|
+| Formula | $1/v + 1/u = 1/f$ | $1/v - 1/u = 1/f$ |
+| Magnification | $m = -v/u$ | $m = +v/u$ |
+| Positive $f$ means | Convex mirror | Convex lens |
+| Negative $f$ means | Concave mirror | Concave lens |
+
+#### 🧮 Power of Human Eye Lens
+*   Normal human eye: approximately **+59 D** (very powerful convex lens system).
+*   Spectacle lenses used to correct defects: concave (myopia, negative power), convex (hyperopia, positive power).
+
+#### ⚠️ Common Mistakes in Lens Numericals
+*   Using mirror formula ($1/v + 1/u$) for a lens — it's $1/v - 1/u = 1/f$ for lenses.
+*   Forgetting the unit of power: **Dioptre (D)**, not cm or m.
+*   Not converting focal length to **metres** before calculating power.
+
+#### 🧪 Standard Numerical: Spectacle Prescription
+A person requires a lens of power $-2.5$ D. Find focal length and identify lens type.
+*   $f = 1/P = 1/(-2.5) = -0.4 \\text{ m} = -40 \\text{ cm}$
+*   Negative focal length → **Concave lens** → used for **Myopia (short-sightedness)**.
 `,
   questions: [
     // --- MCQ ---

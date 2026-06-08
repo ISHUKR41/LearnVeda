@@ -70,11 +70,43 @@ $$ m = \\frac{h'}{h} = - \\frac{v}{u} $$
 
 ---
 ### Exam Summary
-*   **Sign Convention:** Pole is origin. Object on left ($u < 0$). Right is positive, Left is negative. Up is positive, Down is negative.
-*   **Concave $f$:** Negative. **Convex $f$:** Positive.
-*   **Mirror Formula:** $1/v + 1/u = 1/f$
-*   **Magnification:** $m = h'/h = -v/u$
-*   $m$ is Negative for real images, Positive for virtual images.
+
+#### 📌 New Cartesian Sign Convention (NCERT rules — must memorize)
+*   All distances are measured from the **Pole** (origin).
+*   Distances measured in the **direction of incident light** (left to right) → **Positive**.
+*   Distances measured **against** incident light → **Negative**.
+*   Heights measured **upward** → Positive. Heights measured **downward** → Negative.
+*   **Object is always placed to the left**: so $u$ is always **Negative** ($u < 0$).
+
+#### 📐 Sign of $f$ by Mirror Type
+| Mirror | Focal Length $f$ | Reason |
+|---|---|---|
+| Concave | Negative ($f < 0$) | Focus is in front of mirror (real focus, opposite to incident light direction) |
+| Convex  | Positive ($f > 0$) | Focus is behind mirror (virtual focus, same side as incident light direction) |
+
+#### 🔑 The Two Key Formulas
+$$\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f} \\quad \\text{(Mirror Formula)}$$
+$$m = \\frac{h'}{h} = -\\frac{v}{u} \\quad \\text{(Magnification)}$$
+
+#### 🧮 Interpreting Magnification ($m$)
+| Value of $m$ | Meaning |
+|---|---|
+| $m < 0$ (negative) | Real and inverted image |
+| $m > 0$ (positive) | Virtual and erect image |
+| $\\|m\\| > 1$ | Image is enlarged |
+| $\\|m\\| < 1$ | Image is diminished |
+| $\\|m\\| = 1$ | Image is same size as object |
+
+#### ⚠️ Common Mistakes in Numericals
+*   Forgetting to put a **negative sign** on $u$ (object distance is always negative for real objects).
+*   Using $f$ without the correct sign — for concave mirror, $f = -15$ cm, NOT $+15$ cm.
+*   Confusing the mirror formula with the **lens formula** ($1/v - 1/u = 1/f$ for lenses vs. $1/v + 1/u = 1/f$ for mirrors).
+
+#### 🧪 Step-by-Step Numerical Method
+1. List known values with correct signs ($u$, $f$ or $v$).
+2. Apply $1/f = 1/v + 1/u$; substitute and solve for unknown.
+3. Calculate $m = -v/u$; interpret sign for nature of image.
+4. State whether image is real/virtual, erect/inverted, enlarged/diminished.
 `,
   questions: [
     // --- MCQ ---

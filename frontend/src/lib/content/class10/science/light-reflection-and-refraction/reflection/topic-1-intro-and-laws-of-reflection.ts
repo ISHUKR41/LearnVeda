@@ -80,10 +80,39 @@ A plane mirror is a flat glass surface with a thin layer of silver (the reflecti
 
 ---
 ### Exam Summary
-*   **Light:** Electromagnetic wave, travels at $3 \\times 10^8 \\text{ m/s}$ in a vacuum. Travels in straight lines (Rectilinear propagation).
-*   **Reflection:** Bouncing back of light into the same medium.
-*   **Laws of Reflection:** (1) $\\angle i = \\angle r$. (2) Incident ray, reflected ray, and normal lie in the same plane.
-*   **Plane Mirror Image:** Virtual, erect, same size, same distance, laterally inverted.
+
+#### 📌 Must-Know Definitions
+*   **Light:** A form of energy; electromagnetic wave that travels at $c = 3 \\times 10^8 \\text{ m/s}$ in a vacuum. Travels in straight lines — called **Rectilinear Propagation**.
+*   **Reflection:** Bouncing back of light into the *same* medium after striking a surface. (Distinct from refraction, which is *bending* into a new medium.)
+*   **Incident Ray:** The light ray that *hits* the surface.
+*   **Reflected Ray:** The light ray that *bounces back* from the surface.
+*   **Normal:** A line drawn *perpendicular* to the surface at the point of incidence.
+*   **Angle of Incidence ($i$):** Angle between incident ray and the normal.
+*   **Angle of Reflection ($r$):** Angle between reflected ray and the normal.
+
+#### 📐 The Two Laws of Reflection (Learn these word-for-word)
+1. $\\angle i = \\angle r$ — The angle of incidence is ALWAYS equal to the angle of reflection.
+2. The incident ray, reflected ray, and the normal at the point of incidence — all lie in the **same plane**.
+
+> 🔑 **Exam Tip:** These laws apply to BOTH plane mirrors and spherical mirrors.
+
+#### ✅ Properties of Image in a Plane Mirror (Classic 5-mark question)
+| Property | Description |
+|---|---|
+| Nature | Virtual and Erect |
+| Size | Same as object (magnification = 1) |
+| Distance | Image distance behind mirror = Object distance in front |
+| Orientation | Laterally Inverted |
+
+#### ⚠️ Common Mistakes
+*   Confusing angle of incidence with the angle the ray makes with the *surface* (always measure from the **normal**, not the surface).
+*   Saying reflected image is "behind the mirror" without adding "virtual" — virtual is essential.
+*   Lateral inversion ≠ vertical inversion. Only left-right is reversed.
+
+#### 🧪 Quick Numerical Facts
+*   Speed of light in vacuum: $c = 3 \\times 10^8 \\text{ m/s}$
+*   For full image in plane mirror: minimum mirror height = **half your height** (independent of distance).
+*   When mirror rotates by $\\theta$, reflected ray rotates by $2\\theta$.
 `,
   questions: [
     // --- MCQ (5 Questions) ---

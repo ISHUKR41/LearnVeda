@@ -74,11 +74,42 @@ $$ n_m = \\frac{\\text{Speed of light in air/vacuum } (c)}{\\text{Speed of light
 
 ---
 ### Exam Summary
-*   **Refraction:** Bending of light when traveling between two transparent media due to a change in speed.
-*   **Rarer to Denser:** Bends towards normal. **Denser to Rarer:** Bends away from normal.
-*   **Snell's Law:** $\\frac{\\sin i}{\\sin r} = \\text{constant}$
-*   **Refractive Index ($n$):** $n = c / v$ (Absolute) or $n_{21} = v_1 / v_2$ (Relative).
-*   Higher refractive index means the medium is optically denser, and light travels slower in it.
+
+#### 📌 Must-Know Definitions
+*   **Refraction:** Bending of light as it passes from one transparent medium to another due to a **change in speed**.
+*   **Refractive Index ($n$):** A dimensionless number that tells how much light slows down in a medium.
+*   **Optically Denser Medium:** Higher $n$ → light travels *slower* → bends *towards* normal.
+*   **Optically Rarer Medium:** Lower $n$ → light travels *faster* → bends *away from* normal.
+
+#### 🔑 The Laws of Refraction (Snell's Law)
+**First Law:** The incident ray, refracted ray, and normal at the point of incidence are all in the **same plane**.
+
+**Second Law (Snell's Law):**
+$$\\frac{\\sin i}{\\sin r} = n_{21} = \\frac{n_2}{n_1} = \\text{constant}$$
+
+#### 📐 Refractive Index Formulas
+$$n = \\frac{c}{v} \\quad \\text{(Absolute — from vacuum)}$$
+$$n_{21} = \\frac{v_1}{v_2} = \\frac{n_2}{n_1} \\quad \\text{(Relative — medium 2 w.r.t. medium 1)}$$
+
+#### 🔢 Standard Refractive Index Values (memorize for MCQs)
+| Medium | Refractive Index ($n$) |
+|---|---|
+| Vacuum / Air | 1.0 |
+| Water | 1.33 |
+| Crown Glass | 1.52 |
+| Diamond | 2.42 |
+
+> 🔑 **Diamond has the highest refractive index** of common materials → responsible for its brilliance.
+
+#### ⚠️ Common Mistakes
+*   Confusing refraction (*bending when entering new medium*) with reflection (*bouncing back in same medium*).
+*   Thinking light bends towards normal when going from denser to rarer — it bends **away** from normal.
+*   Forgetting that **when light enters along the normal** (perpendicular), it does NOT bend ($i = 0°$, so $r = 0°$).
+
+#### 🧪 Real-Life Examples (HOTS favorite)
+*   **Apparent depth:** Objects in water appear closer than they are (pencil in glass of water looks bent).
+*   **Mirage:** Light bends in hot air layers near the ground, making the sky appear reflected on road.
+*   **Twinkling of stars:** Atmospheric refraction causes apparent position of stars to shift continuously.
 `,
   questions: [
     // --- MCQ ---
