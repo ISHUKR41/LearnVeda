@@ -19,6 +19,7 @@ export const topic1IntroAndLawsOfReflection: Topic = {
     "light-lateral-inversion",
     "light-two-mirrors",
     "light-min-mirror",
+    "light-glass-slab-lab",
   ],
   imageUrl: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=1200",
   content: `
@@ -317,6 +318,169 @@ A plane mirror is a flat glass surface with a thin layer of silver (the reflecti
       question: "A watch shows the time as 3:25. If you look at the watch through a plane mirror, what time will the image appear to show?",
       correctAnswer: "The image will appear to show 8:35.",
       explanation: "A plane mirror causes lateral inversion. For a standard analog clock face without numbers, the mirror image time can be calculated by subtracting the actual time from 11:60 (which is 12:00). So, $11:60 - 3:25 = 8:35$. The hands are flipped horizontally across the 12-6 axis.",
+      points: 25
+    },
+
+    // ═══════════════════════════════════════════════════
+    // ADDITIONAL QUESTIONS — Set 2 (t1q21 to t1q35)
+    // Deeper coverage: numericals, real-life, edge cases
+    // ═══════════════════════════════════════════════════
+
+    // --- MCQ Set 2 ---
+    {
+      id: "t1q21",
+      type: "mcq",
+      question: "A ray of light makes an angle of $30^\\circ$ with the surface of a plane mirror. What is the angle of reflection?",
+      options: [
+        "$30^\\circ$",
+        "$60^\\circ$",
+        "$90^\\circ$",
+        "$15^\\circ$"
+      ],
+      correctAnswer: "$60^\\circ$",
+      explanation: "The angle with the surface is $30^\\circ$, but the angle of incidence is measured from the NORMAL, not the surface. Since the normal is perpendicular to the surface, $\\angle i = 90^\\circ - 30^\\circ = 60^\\circ$. By the law of reflection, $\\angle r = 60^\\circ$.",
+      points: 10
+    },
+    {
+      id: "t1q22",
+      type: "mcq",
+      question: "How many images are formed when two plane mirrors are placed parallel to each other?",
+      options: [
+        "1",
+        "2",
+        "3",
+        "Infinite"
+      ],
+      correctAnswer: "Infinite",
+      explanation: "When two mirrors are parallel ($\\theta = 0^\\circ$), the formula for the number of images is $n = (360^\\circ / \\theta) - 1$, which gives infinity. In practice, the number is very large but decreases due to absorption at each reflection.",
+      points: 10
+    },
+    {
+      id: "t1q23",
+      type: "mcq",
+      question: "The angle between the incident ray and the reflected ray is $90^\\circ$. What is the angle of incidence?",
+      options: [
+        "$30^\\circ$",
+        "$45^\\circ$",
+        "$60^\\circ$",
+        "$90^\\circ$"
+      ],
+      correctAnswer: "$45^\\circ$",
+      explanation: "The angle between the incident ray and reflected ray = $\\angle i + \\angle r = 2 \\times \\angle i$ (since $\\angle i = \\angle r$). If $2\\angle i = 90^\\circ$, then $\\angle i = 45^\\circ$.",
+      points: 10
+    },
+    {
+      id: "t1q24",
+      type: "mcq",
+      question: "Which of the following is NOT a property of the image formed by a plane mirror?",
+      options: [
+        "Virtual and erect",
+        "Same size as object",
+        "Laterally inverted",
+        "Real and inverted"
+      ],
+      correctAnswer: "Real and inverted",
+      explanation: "A plane mirror always forms a virtual, erect, same-sized, and laterally inverted image. It NEVER forms a real or inverted image. 'Real and inverted' is a property of images formed by concave mirrors for certain object positions.",
+      points: 10
+    },
+    {
+      id: "t1q25",
+      type: "mcq",
+      question: "A person stands 4 m in front of a plane mirror. He walks 1.5 m towards the mirror. How far is the person now from his image?",
+      options: [
+        "5 m",
+        "4 m",
+        "2.5 m",
+        "5.5 m"
+      ],
+      correctAnswer: "5 m",
+      explanation: "After walking 1.5 m, the person is $(4 - 1.5) = 2.5$ m from the mirror. The image is always 2.5 m behind the mirror. Total distance = $2.5 + 2.5 = 5$ m.",
+      points: 10
+    },
+
+    // --- Short Answer Set 2 ---
+    {
+      id: "t1q26",
+      type: "short",
+      question: "A plane mirror is placed horizontally. An object is placed 25 cm above the mirror. Where is the image formed, and what is the distance between the object and the image?",
+      correctAnswer: "The image is formed 25 cm below the mirror (i.e., 25 cm behind the surface). The distance between the object and image = 25 cm (above) + 25 cm (below) = 50 cm.",
+      explanation: "Image distance always equals object distance in a plane mirror, regardless of orientation.",
+      points: 15
+    },
+    {
+      id: "t1q27",
+      type: "short",
+      question: "When two mirrors are inclined at $60^\\circ$ to each other, how many images of an object placed between them are formed? Use the formula.",
+      correctAnswer: "Number of images = $(360^\\circ / \\theta) - 1 = (360^\\circ / 60^\\circ) - 1 = 6 - 1 = 5$ images.",
+      explanation: "The formula $n = (360/\\theta) - 1$ applies when $360/\\theta$ is an even integer. For $\\theta = 60^\\circ$, exactly 5 images are formed.",
+      points: 15
+    },
+    {
+      id: "t1q28",
+      type: "short",
+      question: "Why can you see your reflection in a still pond but not in rough, choppy water?",
+      correctAnswer: "A still pond has a smooth surface, so it acts like a plane mirror and causes regular (specular) reflection, forming a clear image. Choppy water has an uneven, rough surface that causes irregular (diffuse) reflection, scattering light in all directions, so no clear image is formed.",
+      explanation: "This is a perfect real-life application of the difference between regular and diffuse reflection.",
+      points: 15
+    },
+    {
+      id: "t1q29",
+      type: "short",
+      question: "State the principle of reversibility of light in reflection.",
+      correctAnswer: "The principle of reversibility states that if a ray of light is reversed after reflection (i.e., the reflected ray becomes the incident ray), it will retrace its original path exactly. This means the original incident ray becomes the new reflected ray.",
+      explanation: "This principle follows directly from the law of reflection: if $\\angle i = \\angle r$ in the forward direction, it holds equally in the reverse direction.",
+      points: 15
+    },
+    {
+      id: "t1q30",
+      type: "short",
+      question: "A mirror makes an angle of $\\theta$ with the horizontal. A ray of light travels horizontally and strikes the mirror. Express the angle of reflection in terms of $\\theta$.",
+      correctAnswer: "If the mirror makes angle $\\theta$ with the horizontal, the normal to the mirror makes angle $\\theta$ with the vertical (or $(90^\\circ - \\theta)$ with the horizontal). A horizontal ray makes angle $(90^\\circ - \\theta)$ with the normal. So, angle of incidence = angle of reflection = $(90^\\circ - \\theta)$.",
+      explanation: "Drawing the geometry carefully is key here — the normal is always perpendicular to the mirror surface.",
+      points: 15
+    },
+
+    // --- Long Answer Set 2 ---
+    {
+      id: "t1q31",
+      type: "long",
+      question: "Describe, with the help of a ray diagram, how the image of a candle flame is formed in a plane mirror. Explain why the image cannot be caught on a screen.",
+      correctAnswer: "Ray Diagram Description:\n1. Two diverging rays from a point on the candle flame travel towards the plane mirror.\n2. Each ray reflects according to the law of reflection ($\\angle i = \\angle r$).\n3. The reflected rays diverge from the mirror and reach the observer's eyes.\n4. When the observer extends the reflected rays backwards (behind the mirror), they appear to meet at a single point. This is the image.\n\nWhy the image cannot be caught on a screen:\nThe reflected rays diverge outward from the mirror — they do not actually converge at any real point in front of the mirror. They only APPEAR to come from a point behind the mirror. Since no actual light rays pass through the image point, no image is formed on a screen placed there. Such an image is called a VIRTUAL image. Only real images (formed by actual convergence of rays) can be caught on a screen.",
+      explanation: "Understanding why virtual images cannot be projected is a key conceptual difference from real images.",
+      points: 20
+    },
+    {
+      id: "t1q32",
+      type: "long",
+      question: "Two mirrors $M_1$ and $M_2$ are placed at $90^\\circ$ to each other. A ray of light strikes $M_1$ at an angle of incidence of $50^\\circ$. (a) What is the angle of reflection from $M_1$? (b) Find the angle of incidence on $M_2$. (c) Find the final direction of the reflected ray from $M_2$ with respect to the original incident ray.",
+      correctAnswer: "(a) Angle of reflection from $M_1$ = $50^\\circ$ (by law of reflection).\n\n(b) The reflected ray from $M_1$ makes an angle of $(90^\\circ - 50^\\circ) = 40^\\circ$ with $M_1$. Since $M_1$ and $M_2$ are perpendicular, the angle of incidence on $M_2$ = $(90^\\circ - 40^\\circ) = 40^\\circ$.\n\n(c) The angle of reflection from $M_2$ = $40^\\circ$. Geometrically, when two mirrors are at $90^\\circ$, the final reflected ray is always PARALLEL to the original incident ray but travels in exactly the opposite direction. This is the principle of a corner reflector and is used in cat's-eye retroreflectors.",
+      explanation: "Two perpendicular mirrors always reflect light back parallel to its incident direction — a beautiful and useful property.",
+      points: 20
+    },
+    {
+      id: "t1q33",
+      type: "long",
+      question: "Explain, with examples, how 'regular reflection' and 'diffuse reflection' differ in terms of surface type, ray behavior, and practical applications. Why do both still obey the laws of reflection?",
+      correctAnswer: "Regular (Specular) Reflection:\n• Surface: Smooth, highly polished (mirrors, calm water, polished metal).\n• Ray behavior: All parallel incident rays reflect as parallel rays in ONE specific direction.\n• Result: Forms a clear, sharp image.\n• Example: Seeing your reflection in a mirror.\n\nDiffuse (Irregular) Reflection:\n• Surface: Rough or uneven (walls, paper, fabric, matte objects).\n• Ray behavior: Parallel incident rays reflect in MANY different directions.\n• Result: No image formed, but objects become visible from all angles.\n• Example: A book is readable from any position in a lit room.\n\nWhy both obey laws of reflection:\nAt the microscopic level, even a 'rough' surface consists of countless tiny, locally flat facets. At each tiny facet, the law of reflection ($\\angle i = \\angle r$ measured from the local normal) is perfectly obeyed. Because the orientations of these micro-facets vary randomly, the reflected rays go in different macroscopic directions. The law is not violated — it is applied at every microscopic point.",
+      explanation: "This is a common 5-mark question — remember that the laws hold at every single microscopic point even for diffuse reflection.",
+      points: 20
+    },
+
+    // --- HOTS Set 2 ---
+    {
+      id: "t1q34",
+      type: "thinking",
+      question: "A flat mirror is attached to a wall so its reflecting surface is vertical. A person who is exactly 1.8 m tall stands 2 m in front of it. He wants to see his full image. The top of the mirror must be at least at the height of his eyes (1.7 m). Using geometry, find the minimum height the BOTTOM of the mirror must be placed, and hence the minimum mirror length. (Assume eyes are at 1.7 m height.)",
+      correctAnswer: "To see the bottom of his feet, light must travel from his feet (height 0 m), reflect from the mirror at some point, and reach his eyes (height 1.7 m).\n\nBy the law of reflection, the mirror point must be exactly halfway between his feet and his eyes vertically:\nMirror bottom = $(0 + 1.7) / 2 = 0.85$ m from the floor.\n\nThe mirror top must be at least halfway between his eyes (1.7 m) and the top of his head (1.8 m):\nMirror top = $(1.7 + 1.8) / 2 = 1.75$ m from the floor.\n\nMinimum mirror length = $1.75 - 0.85 = 0.90$ m = exactly HALF his height of $1.8$ m.\n\nNote: This minimum length is INDEPENDENT of his distance (2 m) from the mirror.",
+      explanation: "The classic 'minimum mirror' problem — the answer is always half the person's height, regardless of distance. This is a frequently asked HOTS question.",
+      points: 25
+    },
+    {
+      id: "t1q35",
+      type: "thinking",
+      question: "Light from a source S hits a plane mirror and reflects to point P on the wall. If the mirror is rotated by $15^\\circ$ while keeping S fixed, by what angle will the reflected spot on the wall rotate? If the wall is 3 m from the mirror, calculate approximately how far the spot moves on the wall.",
+      correctAnswer: "When the mirror rotates by $15^\\circ$, the normal also rotates by $15^\\circ$. This changes the angle of incidence by $15^\\circ$, making the angle of reflection also change by $15^\\circ$. The total change in direction of the reflected ray = $2 \\times 15^\\circ = 30^\\circ$.\n\nDistance the spot moves on the wall:\nThe reflected ray rotates by $30^\\circ$. If the wall is 3 m from the mirror:\nArc length = $r \\times \\theta$ (in radians) = $3 \\times (30^\\circ \\times \\pi / 180^\\circ) = 3 \\times 0.524 \\approx 1.57$ m.\n\nThis principle (reflected ray rotates twice as fast as the mirror) is used in optical galvanometers to measure small currents.",
+      explanation: "The $2\\theta$ rotation rule for mirrors has practical applications in precision measurement instruments.",
       points: 25
     }
   ]

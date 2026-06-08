@@ -16,6 +16,7 @@ export const topic6LensFormulaAndPower: Topic = {
     "light-power-lens",
     "light-eye-defects",
     "light-prism-dispersion",
+    "light-spectrum-prism",
   ],
   imageUrl: "https://images.unsplash.com/photo-1517594422361-5eeb8ae275a9?auto=format&fit=crop&q=80&w=1200",
   content: `
@@ -330,6 +331,168 @@ A person requires a lens of power $-2.5$ D. Find focal length and identify lens 
       question: "Why do we use 'power' instead of 'focal length' when dealing with combinations of lenses?",
       correctAnswer: "When lenses are combined, their converging or diverging effects add up. Power is a direct measure of this converging/diverging ability. \nMathematically, the formula for combined focal length is complex: $1/F = 1/f_1 + 1/f_2 + \\dots$ \nBy defining Power as $P = 1/f$, the combination formula simplifies to a simple algebraic addition: $P = P_1 + P_2 + \\dots$ \nThis makes calculations much simpler and more intuitive for designing optical instruments.",
       explanation: "Understanding why a physical quantity is defined a certain way reveals the elegance of physics conventions.",
+      points: 25
+    },
+
+    // ═══════════════════════════════════════════════════
+    // ADDITIONAL QUESTIONS — Set 2 (t6q21 to t6q35)
+    // ═══════════════════════════════════════════════════
+
+    // --- MCQ Set 2 ---
+    {
+      id: "t6q21",
+      type: "mcq",
+      question: "A concave lens has a focal length of $-25$ cm. What is its power?",
+      options: [
+        "+4 D",
+        "$-4$ D",
+        "+0.25 D",
+        "$-0.025$ D"
+      ],
+      correctAnswer: "$-4$ D",
+      explanation: "Power $P = 1/f$ where $f$ is in metres. $f = -25$ cm $= -0.25$ m. $P = 1/(-0.25) = -4$ D. Negative power indicates a diverging (concave) lens. The magnitude 4 D means it has 4 dioptres of diverging power.",
+      points: 10
+    },
+    {
+      id: "t6q22",
+      type: "mcq",
+      question: "Two lenses of powers $+3$ D and $-1$ D are placed in contact. What is the combined focal length?",
+      options: [
+        "$50$ cm",
+        "$25$ cm",
+        "$100$ cm",
+        "$33.3$ cm"
+      ],
+      correctAnswer: "$50$ cm",
+      explanation: "Combined power: $P = P_1 + P_2 = +3 + (-1) = +2$ D. Focal length: $f = 1/P = 1/2$ m $= 0.5$ m $= 50$ cm. Positive focal length → still a converging system.",
+      points: 10
+    },
+    {
+      id: "t6q23",
+      type: "mcq",
+      question: "A person wears spectacles of power $-2.5$ D. What defect do they have and what is their far point?",
+      options: [
+        "Hypermetropia; far point is 25 cm",
+        "Myopia; far point is 40 cm",
+        "Myopia; far point is 2.5 cm",
+        "Hypermetropia; far point is 40 cm"
+      ],
+      correctAnswer: "Myopia; far point is 40 cm",
+      explanation: "Negative power → concave lens → corrects MYOPIA. The far point is where the eye sees clearly without the glasses. $f = 1/P = 1/(-2.5) = -0.4$ m $= -40$ cm. The lens forms an image of distant objects at 40 cm — the person's far point. So the far point is 40 cm.",
+      points: 10
+    },
+    {
+      id: "t6q24",
+      type: "mcq",
+      question: "Using the lens formula for a convex lens ($f = +10$ cm), an object is at $u = -15$ cm. What is the magnification?",
+      options: [
+        "$m = -2$",
+        "$m = +2$",
+        "$m = -0.5$",
+        "$m = +0.5$"
+      ],
+      correctAnswer: "$m = -2$",
+      explanation: "$1/v = 1/f + 1/u = 1/10 + 1/(-15) = 3/30 - 2/30 = 1/30$. $v = +30$ cm. $m = v/u = 30/(-15) = -2$. Negative magnification → real, inverted image. Magnitude 2 → twice the size of object.",
+      points: 10
+    },
+    {
+      id: "t6q25",
+      type: "mcq",
+      question: "A lens forms an erect image of the same size as the object. What type of lens is this, and where is the object?",
+      options: [
+        "Convex lens, object at $2F_1$",
+        "Plane mirror",
+        "The situation is impossible for any single lens",
+        "Concave lens, object at $2F_1$"
+      ],
+      correctAnswer: "The situation is impossible for any single lens",
+      explanation: "For a lens to form an erect image of the same size as the object ($m = +1$), we would need $v = u$ (positive). From the lens formula: $1/v - 1/u = 1/f \\implies 1/u - 1/u = 0 = 1/f \\implies f = \\infty$ (a flat piece of glass, not a lens). So no real lens can form an erect same-sized image. (A plane mirror can, but not a lens.)",
+      points: 10
+    },
+
+    // --- Short Answer Set 2 ---
+    {
+      id: "t6q26",
+      type: "short",
+      question: "Write the lens formula. How is it different from the mirror formula? Explain the sign difference for $v$.",
+      correctAnswer: "Lens Formula: $\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$\n\nMirror Formula: $\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$\n\nKey Difference:\nIn the lens formula, it is $1/v - 1/u$ (subtraction), while in the mirror formula it is $1/v + 1/u$ (addition).\n\nSign of $v$:\n• Lens: $v > 0$ (positive) → real image (on opposite side from object). $v < 0$ (negative) → virtual image (same side as object).\n• Mirror: $v < 0$ (negative) → real image (in front of mirror). $v > 0$ (positive) → virtual image (behind mirror).\n\nThis reversal in sign convention for 'real' occurs because light passes through a lens but reflects from a mirror.",
+      explanation: "The lens and mirror formulas are similar but opposite in sign for real images. Memorise: for lenses, positive v = real (transmitted); for mirrors, negative v = real (reflected).",
+      points: 15
+    },
+    {
+      id: "t6q27",
+      type: "short",
+      question: "A student needs spectacles of power $+3$ D. What is his defect and what is his near point? (Normal near point = 25 cm)",
+      correctAnswer: "Positive power → CONVEX lens → corrects HYPERMETROPIA (far-sightedness).\n\nThe spectacle lens forms a virtual image of the near point (25 cm) at the person's actual near point:\n$f = 1/P = 1/3$ m $\\approx 33.3$ cm.\n\nUsing lens formula with $v = -d$ (near point, virtual image) and $u = -25$ cm:\n$1/v - 1/(-25) = 1/(33.3)$\n$1/v = 1/33.3 - 1/25 = 3/100 - 4/100 = -1/100$\n$v = -100$ cm.\n\nHis near point is 100 cm (1 m) — he cannot see objects closer than 1 m without glasses.",
+      explanation: "Power +3D → hypermetropia. Near point is at 1 m instead of normal 25 cm. The spectacles bring the near point from 1 m to 25 cm.",
+      points: 15
+    },
+    {
+      id: "t6q28",
+      type: "short",
+      question: "An object is placed 40 cm from a concave lens of focal length 20 cm. Find the position and nature of the image using the lens formula.",
+      correctAnswer: "Given: $u = -40$ cm, $f = -20$ cm (concave lens).\nLens formula: $1/v = 1/f + 1/u = 1/(-20) + 1/(-40) = -1/20 - 1/40 = -2/40 - 1/40 = -3/40$.\n$v = -40/3 \\approx -13.3$ cm.\n\nNature:\n• Negative $v$ → virtual image (same side as object)\n• $m = v/u = (-13.3)/(-40) = +1/3$ → erect, diminished\n\nThe image is 13.3 cm from the lens, on the same side as the object. Virtual, erect, and diminished.",
+      explanation: "A concave lens always gives: negative v (virtual), positive m (erect), m < 1 (diminished). These properties hold regardless of object position.",
+      points: 15
+    },
+    {
+      id: "t6q29",
+      type: "short",
+      question: "What is the SI unit of power of a lens? Explain the physical meaning of 1 dioptre.",
+      correctAnswer: "SI unit: Dioptre (D).\n\n1 dioptre = the power of a lens whose focal length is 1 metre.\n$P = 1/f(\\text{in metres})$, so $1 \\text{ D} = 1 \\text{ m}^{-1}$.\n\nPhysical meaning: A lens of 1 dioptre power focuses parallel rays to a point 1 metre away. A 2 D lens focuses them at 0.5 m. A 4 D lens at 0.25 m. Higher power = shorter focal length = more bending power.\n\nSign convention: Positive power → converging lens. Negative power → diverging lens.",
+      explanation: "Dioptre is the standard unit for opticians. Eyeglass prescriptions always use dioptres — a prescription of +2.5 D means a converging lens of focal length 40 cm.",
+      points: 15
+    },
+    {
+      id: "t6q30",
+      type: "short",
+      question: "A convex lens has focal length 10 cm. How far from the lens must an object be placed to produce a magnification of $+5$ (virtual, erect)?",
+      correctAnswer: "Virtual, erect image → $m = +5 > 0$. For a convex lens, $m = v/u$.\n$5 = v/u \\implies v = 5u$.\nBut for a virtual image from a convex lens, $v < 0$ (same side as object). So $v = 5u$ where both $u$ and $v$ are negative: $u = -x$, $v = -5x$.\n\nLens formula: $1/v - 1/u = 1/f$\n$1/(-5x) - 1/(-x) = 1/10$\n$-1/(5x) + 1/x = 1/10$\n$(-1 + 5)/(5x) = 1/10$\n$4/(5x) = 1/10 \\implies x = 8$ cm.\n$u = -8$ cm. Object is 8 cm from the lens.",
+      explanation: "A magnifying glass with m=5: object must be closer than focal length (8 cm < 10 cm). The closer to F, the more magnification, but the image goes further and further from the lens.",
+      points: 15
+    },
+
+    // --- Long Answer Set 2 ---
+    {
+      id: "t6q31",
+      type: "long",
+      question: "A person cannot see objects beyond 5 m. (a) What defect do they have? (b) What power of lens is needed to correct their vision to see objects at infinity? (c) If they also need to see nearby objects at 25 cm, what additional consideration might be needed?",
+      correctAnswer: "(a) The person's far point is only 5 m. They cannot see distant objects clearly. This is MYOPIA (near-sightedness). The eye lens converges too strongly, forming images in front of the retina for distant objects.\n\n(b) A concave lens must be used. It must create a virtual image of distant objects (at infinity) at the person's far point (5 m).\nObject at $u = -\\infty$, image at $v = -5$ m.\n$1/f = 1/v - 1/u = 1/(-5) - 1/(-\\infty) = -1/5 - 0 = -1/5$.\n$f = -5$ m, $P = 1/f = 1/(-5) = -0.2$ D.\n\n(c) If the person also has difficulty with near vision (presbyopia/hypermetropia), they might need bifocal lenses — the upper part has the concave lens for distant vision, and the lower part has a convex lens for reading.",
+      explanation: "Complete myopia correction: identify defect → far point → apply lens formula with u=∞ → find power. Always mention that near-far combined = bifocals.",
+      points: 20
+    },
+    {
+      id: "t6q32",
+      type: "long",
+      question: "Three lenses of powers $P_1 = +2$ D, $P_2 = -1.5$ D, and $P_3 = +4$ D are placed in contact. (a) Find the combined power. (b) Find the combined focal length. (c) Explain what type of overall lens system this represents.",
+      correctAnswer: "(a) Combined power:\n$P = P_1 + P_2 + P_3 = +2 + (-1.5) + 4 = +4.5$ D.\n\n(b) Combined focal length:\n$f = 1/P = 1/4.5 = 0.222$ m $\\approx 22.2$ cm.\n\n(c) Type of system:\nPositive combined power (+4.5 D) → CONVERGING lens system.\nFocal length is 22.2 cm — a moderately converging system.\n\nSignificance: In camera lenses and microscopes, multiple lenses are combined to control aberrations while achieving the desired focal length. Here, the middle concave lens ($P_2$) reduces spherical aberration while the two convex lenses ($P_1$ and $P_3$) provide the main converging power. The net system still converges but with less distortion than a single lens of the same focal length.",
+      explanation: "Lens combination formula: powers simply add. Multi-lens design reduces aberrations while controlling focal length — used in all modern optical instruments.",
+      points: 20
+    },
+    {
+      id: "t6q33",
+      type: "long",
+      question: "Explain the human eye as an optical instrument. What is accommodation? How does the eye adjust for near and far objects? Why does accommodation ability reduce with age?",
+      correctAnswer: "Human Eye as an Optical Instrument:\nThe eye is a complex optical system. Key components:\n• Cornea: the outer curved transparent surface — provides most of the eye's converging power (fixed, ~43 D).\n• Eye lens: a flexible biconvex lens — provides adjustable focus.\n• Retina: the screen at the back where images must form — contains light-sensitive rods and cones.\n• Iris: controls the amount of light entering.\n• Ciliary muscles: control lens shape.\n\nAccommodation:\nThe ability of the eye lens to change its focal length by changing its shape (curvature) is called accommodation.\n\nNear objects: Ciliary muscles CONTRACT → lens becomes THICKER (more curved) → focal length DECREASES → stronger converging power → image forms on retina.\n\nFar objects: Ciliary muscles RELAX → lens becomes THINNER (flatter) → focal length INCREASES → weaker converging power → image still forms on retina.\n\nWhy Accommodation Decreases with Age:\nAs we age, the eye lens gradually loses its elasticity and the ciliary muscles weaken. The lens cannot change shape as much. This condition is called PRESBYOPIA — the near point gradually recedes to beyond 25 cm. Most people over 40 need reading glasses (+ve power lenses) to compensate.",
+      explanation: "This comprehensive answer covers the full optical system of the eye, accommodation mechanism, and the age-related decline — a common 5-7 mark exam question.",
+      points: 20
+    },
+
+    // --- HOTS Set 2 ---
+    {
+      id: "t6q34",
+      type: "thinking",
+      question: "A photographer wants to take a close-up photo of a flower using a camera with a convex lens of focal length 5 cm. The film (sensor) is 5.5 cm behind the lens. How far from the flower should the camera be held? What is the magnification on the film?",
+      correctAnswer: "Given: $v = +5.5$ cm (film is on other side of lens), $f = +5$ cm.\n\nLens formula: $1/u = 1/v - 1/f = 1/5.5 - 1/5 = 10/55 - 11/55 = -1/55$.\n$u = -55$ cm.\n\nThe flower must be 55 cm in front of the lens.\n\nMagnification: $m = v/u = 5.5/(-55) = -0.1$.\n\nThe image on the film is 0.1 × (size of flower), i.e., 10 times smaller than real. Negative sign → real, inverted.\n\nInterpretation: In a camera, the film (sensor) is just slightly beyond the focal point, and objects are always much farther than the focal length. The image is always real, inverted (cameras flip images digitally), and diminished. To take a closer photo (macro photography), the camera's lens is physically extended — increasing $v$ so closer objects can be in focus.",
+      explanation: "Camera optics is a direct application of the lens formula. The film position determines how far away objects must be for sharp focus.",
+      points: 25
+    },
+    {
+      id: "t6q35",
+      type: "thinking",
+      question: "A simple compound microscope uses two convex lenses: an objective (f = 0.4 cm, closer to object) and an eyepiece (f = 2.5 cm). The object is placed 0.5 cm from the objective. If the final image is at infinity (normal adjustment), find: (a) Position of image from objective. (b) Power of objective lens. (c) Why does a microscope need two lenses instead of one?",
+      correctAnswer: "(a) Objective lens: $u = -0.5$ cm, $f = +0.4$ cm.\n$1/v = 1/f + 1/u = 1/0.4 + 1/(-0.5) = 2.5 - 2 = 0.5$.\n$v = 2$ cm from objective lens.\nThe intermediate image is 2 cm from the objective on the other side.\n\n(b) Power of objective: $P = 1/f = 1/0.004$ m $= 250$ D. (Very high power — extremely curved short-focal-length lens).\n\n(c) Why two lenses:\nA single lens of equivalent magnification would have an extremely short focal length (fraction of mm) and an extremely tiny aperture, making it physically impractical. Instead:\n• Objective (short f): creates a magnified REAL intermediate image.\n• Eyepiece (longer f): acts as a magnifying glass to view that intermediate image.\n• Combined magnification = (magnification by objective) × (angular magnification by eyepiece).\nThis two-stage design achieves very high magnifications (100× to 1000×) with practical-sized lenses.",
+      explanation: "Compound microscope design = objective (creates real magnified image) × eyepiece (magnifies that image). Two-stage amplification is why it's so powerful.",
       points: 25
     }
   ]

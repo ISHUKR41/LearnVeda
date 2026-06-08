@@ -537,6 +537,14 @@ const Sim_light_power_lens          = dynamic(() => import('./LightTopic6Simulat
 const Sim_light_eye_defects         = dynamic(() => import('./LightTopic6Simulations').then(m => m.Sim_light_eye_defects),         { ssr: false });
 const Sim_light_prism_dispersion    = dynamic(() => import('./LightTopic6Simulations').then(m => m.Sim_light_prism_dispersion),    { ssr: false });
 
+/* ── Light Advanced Lab (6 deep-dive simulations) ── */
+const Sim_light_glass_slab_lab      = dynamic(() => import('./LightAdvancedLabSimulations').then(m => m.Sim_light_glass_slab_lab),      { ssr: false });
+const Sim_light_snell_calculator    = dynamic(() => import('./LightAdvancedLabSimulations').then(m => m.Sim_light_snell_calculator),    { ssr: false });
+const Sim_light_mirror_ray_tracer   = dynamic(() => import('./LightAdvancedLabSimulations').then(m => m.Sim_light_mirror_ray_tracer),   { ssr: false });
+const Sim_light_lens_ray_tracer     = dynamic(() => import('./LightAdvancedLabSimulations').then(m => m.Sim_light_lens_ray_tracer),     { ssr: false });
+const Sim_light_tir_explorer        = dynamic(() => import('./LightAdvancedLabSimulations').then(m => m.Sim_light_tir_explorer),        { ssr: false });
+const Sim_light_spectrum_prism      = dynamic(() => import('./LightAdvancedLabSimulations').then(m => m.Sim_light_spectrum_prism),      { ssr: false });
+
 /* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
@@ -988,6 +996,14 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "light-power-lens":          Sim_light_power_lens,
   "light-eye-defects":         Sim_light_eye_defects,
   "light-prism-dispersion":    Sim_light_prism_dispersion,
+
+  /* ── Advanced Lab Simulations (6 deep-dive sims) ── */
+  "light-glass-slab-lab":      Sim_light_glass_slab_lab,
+  "light-snell-calculator":    Sim_light_snell_calculator,
+  "light-mirror-ray-tracer":   Sim_light_mirror_ray_tracer,
+  "light-lens-ray-tracer":     Sim_light_lens_ray_tracer,
+  "light-tir-explorer":        Sim_light_tir_explorer,
+  "light-spectrum-prism":      Sim_light_spectrum_prism,
 };
 
 /* ══════════════════════════════════════════════════════════════════════

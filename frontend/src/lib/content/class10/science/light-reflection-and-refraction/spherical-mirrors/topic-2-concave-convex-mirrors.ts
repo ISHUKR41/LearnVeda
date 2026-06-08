@@ -18,6 +18,7 @@ export const topic2SphericalMirrors: Topic = {
     "light-mirror-terms",
     "light-concave-positions",
     "light-mirror-uses",
+    "light-mirror-ray-tracer",
   ],
   imageUrl: "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?auto=format&fit=crop&q=80&w=1200",
   content: `
@@ -324,6 +325,168 @@ A convex mirror **always** forms a virtual, erect, and diminished image, regardl
       question: "Suppose you cover the lower half of a concave mirror with an opaque black paper. How will the image of an object placed in front of the mirror be affected?",
       correctAnswer: "The full image of the object will still be formed. \nEvery small part of the mirror's surface can form a complete image by reflecting rays from all parts of the object. \nHowever, since half the reflecting surface is blocked, only half the amount of light reaches the image point. Therefore, the image will be complete but its brightness will be reduced to half.",
       explanation: "A common misconception is that half the mirror means half the image. However, rays from the top and bottom of the object strike all unblocked parts of the mirror.",
+      points: 25
+    },
+
+    // ═══════════════════════════════════════════════════
+    // ADDITIONAL QUESTIONS — Set 2 (t2q21 to t2q35)
+    // ═══════════════════════════════════════════════════
+
+    // --- MCQ Set 2 ---
+    {
+      id: "t2q21",
+      type: "mcq",
+      question: "Which mirror is used by dentists to get a magnified view of the patient's teeth?",
+      options: [
+        "Plane mirror",
+        "Concave mirror",
+        "Convex mirror",
+        "Both concave and convex"
+      ],
+      correctAnswer: "Concave mirror",
+      explanation: "When the object (teeth) is placed between the pole and focus of a concave mirror, it gives a virtual, erect, and MAGNIFIED image. This is why dentists use small concave mirrors on handles.",
+      points: 10
+    },
+    {
+      id: "t2q22",
+      type: "mcq",
+      question: "An object is placed between the pole (P) and focus (F) of a concave mirror. The image formed will be:",
+      options: [
+        "Real, inverted, magnified",
+        "Real, inverted, diminished",
+        "Virtual, erect, magnified",
+        "Virtual, inverted, magnified"
+      ],
+      correctAnswer: "Virtual, erect, magnified",
+      explanation: "When the object is between P and F of a concave mirror, the reflected rays diverge and appear to come from a point behind the mirror. The image is virtual (cannot be formed on screen), erect (same orientation as object), and magnified.",
+      points: 10
+    },
+    {
+      id: "t2q23",
+      type: "mcq",
+      question: "A concave mirror has a radius of curvature of 40 cm. What is its focal length?",
+      options: [
+        "80 cm",
+        "40 cm",
+        "20 cm",
+        "10 cm"
+      ],
+      correctAnswer: "20 cm",
+      explanation: "The relationship between radius of curvature and focal length is $f = R/2$. Therefore, $f = 40/2 = 20$ cm. For a concave mirror, using sign convention: $f = -20$ cm.",
+      points: 10
+    },
+    {
+      id: "t2q24",
+      type: "mcq",
+      question: "Which mirror always produces a virtual, erect, and diminished image irrespective of object position?",
+      options: [
+        "Plane mirror",
+        "Concave mirror",
+        "Convex mirror",
+        "None of the above"
+      ],
+      correctAnswer: "Convex mirror",
+      explanation: "A convex mirror is a diverging mirror. Because its focus and center of curvature are behind the reflecting surface, it can NEVER form a real image. Regardless of object position, it always forms a virtual, erect, and diminished image — hence its use as a rear-view mirror.",
+      points: 10
+    },
+    {
+      id: "t2q25",
+      type: "mcq",
+      question: "For a concave mirror of focal length $f$, at what object distance does the image have the same size as the object?",
+      options: [
+        "At $f$",
+        "At $2f$",
+        "Between $f$ and $2f$",
+        "At infinity"
+      ],
+      correctAnswer: "At $2f$",
+      explanation: "When the object is at $C$ (center of curvature, distance $= 2f$ from the mirror), the image is also formed at $C$. The image is real, inverted, and of the SAME size as the object (magnification $= -1$).",
+      points: 10
+    },
+
+    // --- Short Answer Set 2 ---
+    {
+      id: "t2q26",
+      type: "short",
+      question: "State two practical uses of a concave mirror. Explain the reason for each use based on image properties.",
+      correctAnswer: "1. In torches and headlights: When a lamp is placed at the focus of a concave mirror, it reflects light as a powerful, parallel beam (rays from focus become parallel after reflection). This provides a concentrated, far-reaching beam of light.\n2. As a shaving/makeup mirror: When the face is placed between P and F, the concave mirror forms a virtual, erect, and magnified image of the face, making it easier to see details.",
+      explanation: "Always justify mirror uses by linking to the specific image property that makes it useful.",
+      points: 15
+    },
+    {
+      id: "t2q27",
+      type: "short",
+      question: "Define 'principal axis', 'center of curvature', and 'radius of curvature' of a spherical mirror.",
+      correctAnswer: "Principal Axis: The imaginary straight line passing through the pole (P) and the center of curvature (C) of the spherical mirror.\nCenter of Curvature (C): The center of the hollow sphere of which the spherical mirror is a part. It lies at a distance R from the mirror's pole.\nRadius of Curvature (R): The radius of the hollow sphere of which the mirror is a part. It equals the distance between the pole and the center of curvature.",
+      explanation: "These are foundational definitions. Remember: C is always in front of a concave mirror and behind a convex mirror.",
+      points: 15
+    },
+    {
+      id: "t2q28",
+      type: "short",
+      question: "An object is placed at infinity in front of a concave mirror of focal length 15 cm. Where is the image formed and what are its characteristics?",
+      correctAnswer: "When the object is at infinity, the incident rays are parallel to the principal axis. After reflection, they converge at the principal focus (F). Image is formed at F, i.e., 15 cm in front of the mirror. The image is real, inverted, and highly diminished (point-sized).",
+      explanation: "Object at infinity → Image at F. Object at F → Image at infinity. These are mirror pairs you must know.",
+      points: 15
+    },
+    {
+      id: "t2q29",
+      type: "short",
+      question: "Why is a convex mirror preferred over a plane mirror as a rear-view mirror in automobiles?",
+      correctAnswer: "A convex mirror is preferred because:\n1. It always forms a virtual, erect image — the driver always sees objects upright.\n2. It has a much wider field of view than a plane mirror of the same size because it is a diverging mirror.\n3. The diminished image allows the driver to see a larger area behind the vehicle.\nA plane mirror would only show a narrow field directly behind, making it less safe.",
+      explanation: "The convex mirror sacrifices image size but gains a wide-angle view — safety over magnification.",
+      points: 15
+    },
+    {
+      id: "t2q30",
+      type: "short",
+      question: "A concave mirror produces an inverted image of the same size as the object. If the object is 20 cm from the mirror, find the focal length and radius of curvature.",
+      correctAnswer: "An inverted, same-sized image means the object is at the center of curvature (C). So $u = R = 20$ cm. Therefore, $R = 20$ cm, and focal length $f = R/2 = 10$ cm.",
+      explanation: "Magnification $m = -1$ → object at $C = 2f$. So $2f = 20$, giving $f = 10$ cm.",
+      points: 15
+    },
+
+    // --- Long Answer Set 2 ---
+    {
+      id: "t2q31",
+      type: "long",
+      question: "Draw a ray diagram showing image formation when an object is placed between the focus (F) and center of curvature (C) of a concave mirror. State the position, nature, and size of the image.",
+      correctAnswer: "Ray Diagram Description (object between F and C):\n1. Ray 1: Parallel to principal axis → reflects through focus F.\n2. Ray 2: Passing through focus F → reflects parallel to principal axis.\n3. These two reflected rays diverge slightly but their extensions backwards meet the x-axis. Wait — actually both rays converge. They are NOT diverging in this case.\nCorrect analysis: Both reflected rays actually intersect BEYOND C (i.e., at a distance > 2f from the mirror).\n\nImage Properties (object between F and C):\n• Position: Beyond center of curvature C (i.e., beyond 2f)\n• Nature: Real and Inverted\n• Size: Magnified (larger than the object)\n\nThis is used in projectors where a magnified real image is needed.",
+      explanation: "The image moves to beyond C when the object is between F and C — one of the trickier positions to memorize.",
+      points: 20
+    },
+    {
+      id: "t2q32",
+      type: "long",
+      question: "An object of height 6 cm is placed 20 cm in front of a concave mirror of focal length 12 cm. Find: (a) Position of image using mirror formula. (b) Height of image using magnification. (c) State the nature of the image.",
+      correctAnswer: "Given: $h_o = 6$ cm, $u = -20$ cm, $f = -12$ cm.\n\n(a) Mirror formula: $1/f = 1/v + 1/u$\n$1/(-12) = 1/v + 1/(-20)$\n$1/v = -1/12 + 1/20 = -5/60 + 3/60 = -2/60 = -1/30$\n$v = -30$ cm.\nThe image is 30 cm in front of the mirror.\n\n(b) Magnification: $m = -v/u = -(-30)/(-20) = -30/20 = -1.5$\n$h_i = m \\times h_o = -1.5 \\times 6 = -9$ cm.\nThe image is 9 cm tall. The negative sign confirms it is inverted.\n\n(c) Nature: Real (v is negative, so image is in front of the mirror), Inverted (magnification is negative), Magnified (|m| > 1).",
+      explanation: "A complete numerical answer requires: mirror formula for v, magnification formula for size, and interpreting signs for nature.",
+      points: 20
+    },
+    {
+      id: "t2q33",
+      type: "long",
+      question: "Explain with ray diagram the use of concave mirrors as solar concentrators for heating purposes. What image-forming property makes them suitable?",
+      correctAnswer: "Solar Concentrator (Concave Mirror):\n\nPrinciple: Sunlight comes from a very large distance (effectively infinity). When parallel rays from the sun fall on a large concave mirror, they all converge at the principal focus (F) after reflection.\n\nRay Diagram Description:\nParallel rays (from sun) → strike concave mirror surface → all reflect and converge at focus F → enormous heat is generated at F.\n\nProperty That Makes It Suitable:\n1. Object at infinity (sun) → image at F (real, point-sized).\n2. All the light energy from the large mirror surface is concentrated to one tiny focal point.\n3. This massively concentrates solar energy, generating temperatures over $1000^\\circ$C at the focus.\n\nApplications: Solar cookers use small concave mirrors to cook food. Large parabolic concave mirrors in solar power plants concentrate sunlight to generate steam and drive turbines.",
+      explanation: "Connecting the 'object at infinity → image at F' rule to real-world solar energy is a frequently asked application question.",
+      points: 20
+    },
+
+    // --- HOTS Set 2 ---
+    {
+      id: "t2q34",
+      type: "thinking",
+      question: "A concave mirror of focal length 10 cm forms a real image twice the size of the object. (a) Find the object distance. (b) If the object is moved 5 cm further away from this position, qualitatively describe what happens to the image — does it become larger or smaller, move closer or farther?",
+      correctAnswer: "(a) Real image twice as large: $m = -2$ (real = negative magnification).\n$m = -v/u \\implies -2 = -v/u \\implies v = 2u$.\nMirror formula: $1/f = 1/v + 1/u \\implies 1/(-10) = 1/(2u) + 1/u = 3/(2u)$\n$2u = -30 \\implies u = -15$ cm.\nObject is 15 cm in front of the mirror.\n\n(b) Currently, object is between F and C (at 15 cm, with f = 10 cm and C = 20 cm). Moving 5 cm further places the object at 20 cm = exactly at C.\nAt C: Image forms at C itself — same size ($m = -1$). So the image becomes SMALLER (from 2× to 1× size) and MOVES CLOSER (from 30 cm to 20 cm).",
+      explanation: "As object moves away from F towards C, real image shrinks and moves closer to mirror — the relationship is inversely tied through the mirror formula.",
+      points: 25
+    },
+    {
+      id: "t2q35",
+      type: "thinking",
+      question: "In SONAR systems and some satellite dishes, parabolic (rather than spherical) mirrors are used instead of spherical mirrors. Explain qualitatively why a parabolic mirror is more ideal for focusing parallel rays than a spherical mirror.",
+      correctAnswer: "Spherical Mirror Limitation (Spherical Aberration):\nFor a spherical mirror, rays parallel to the principal axis but far from it (marginal rays) do not converge to exactly the same focus as paraxial rays (close to the axis). This means a spherical mirror has a blurred focus — it doesn't form a perfect point image from parallel rays.\n\nParabolic Mirror Advantage:\nA paraboloid has the unique geometric property that ALL rays parallel to its axis — regardless of their distance from the axis — converge to one perfectly sharp focal point. This eliminates spherical aberration entirely.\n\nPractical Implication:\nFor large mirrors (like satellite dishes or radio telescopes), a spherical mirror wastes energy because not all radiation is focused precisely. A parabolic mirror concentrates ALL incoming energy to a single receiver. That's why all large reflector telescopes, satellite dishes, and flashlight reflectors are parabolic, not spherical.",
+      explanation: "Spherical aberration is the key concept here. Parabolic mirrors eliminate it by exact geometry, but their manufacturing is more expensive.",
       points: 25
     }
   ]

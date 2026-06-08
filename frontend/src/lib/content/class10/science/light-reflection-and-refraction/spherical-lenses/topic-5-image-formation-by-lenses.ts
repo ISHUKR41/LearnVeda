@@ -16,6 +16,7 @@ export const topic5ImageFormationByLenses: Topic = {
     "light-concave-lens",
     "light-lens-positions",
     "light-lens-compare",
+    "light-lens-ray-tracer",
   ],
   imageUrl: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&q=80&w=1200",
   content: `
@@ -320,6 +321,168 @@ A concave lens **always** forms a virtual, erect, and diminished image, regardle
       question: "A laser beam passing through a convex lens is observed in a smoke-filled room. As the beam passes the focus, does it remain a single point of light forever?",
       correctAnswer: "No. The convex lens converges the parallel laser beam to a single point at the focus. However, after passing through the focal point, the light rays continue to travel in straight lines, crossing over each other. Thus, the beam diverges again after the focus, spreading out into a cone of light.",
       explanation: "Light rays don't stop at the focus. The focus is merely the intersection point, after which rectilinear propagation continues.",
+      points: 25
+    },
+
+    // ═══════════════════════════════════════════════════
+    // ADDITIONAL QUESTIONS — Set 2 (t5q21 to t5q35)
+    // ═══════════════════════════════════════════════════
+
+    // --- MCQ Set 2 ---
+    {
+      id: "t5q21",
+      type: "mcq",
+      question: "Which lens is thicker at the edges and thinner at the centre?",
+      options: [
+        "Convex lens",
+        "Biconcave lens",
+        "Plano-convex lens",
+        "Converging lens"
+      ],
+      correctAnswer: "Biconcave lens",
+      explanation: "A biconcave (concave) lens curves inward on both surfaces, making it thicker at the edges and thinner at the centre. This shape causes light rays to diverge, which is why it is called a diverging lens. In contrast, a convex lens is thicker at the centre and thinner at the edges.",
+      points: 10
+    },
+    {
+      id: "t5q22",
+      type: "mcq",
+      question: "An object is placed at the focus of a convex lens. The image formed is:",
+      options: [
+        "At $2F_2$, real, inverted, same size",
+        "At $F_2$, virtual, erect",
+        "At infinity, real, inverted, highly magnified",
+        "Between $F_2$ and $2F_2$, real, inverted"
+      ],
+      correctAnswer: "At infinity, real, inverted, highly magnified",
+      explanation: "When the object is at $F_1$ (focus of a convex lens), the refracted rays emerge parallel to the principal axis and meet at infinity. The image is real, inverted, and infinitely magnified. This is the principle used in searchlights and theater spotlights — placing a light source at the focus creates a parallel beam.",
+      points: 10
+    },
+    {
+      id: "t5q23",
+      type: "mcq",
+      question: "Which defect of the eye is corrected by a concave lens?",
+      options: [
+        "Hypermetropia (far-sightedness)",
+        "Myopia (near-sightedness)",
+        "Presbyopia",
+        "Astigmatism"
+      ],
+      correctAnswer: "Myopia (near-sightedness)",
+      explanation: "In myopia, the eye lens is too converging — it focuses light in front of the retina. A concave (diverging) lens diverges the incoming rays before they enter the eye, effectively reducing convergence so the image falls correctly on the retina. Hypermetropia is corrected by a convex (converging) lens.",
+      points: 10
+    },
+    {
+      id: "t5q24",
+      type: "mcq",
+      question: "A convex lens of focal length 20 cm. An object is placed at 30 cm from the lens. Using lens formula, where is the image?",
+      options: [
+        "60 cm on the same side as object",
+        "60 cm on the opposite side",
+        "12 cm on the opposite side",
+        "At infinity"
+      ],
+      correctAnswer: "60 cm on the opposite side",
+      explanation: "Lens formula: $1/v - 1/u = 1/f$. Here $u = -30$ cm, $f = +20$ cm (convex). $1/v = 1/f + 1/u = 1/20 + 1/(-30) = 1/20 - 1/30 = 3/60 - 2/60 = 1/60$. $v = +60$ cm. Positive $v$ means the image is on the opposite side — real and inverted.",
+      points: 10
+    },
+    {
+      id: "t5q25",
+      type: "mcq",
+      question: "What happens to the focal length of a glass convex lens when it is completely immersed in water (n_glass > n_water)?",
+      options: [
+        "Focal length decreases",
+        "Focal length increases",
+        "Focal length remains unchanged",
+        "Lens becomes a concave lens"
+      ],
+      correctAnswer: "Focal length increases",
+      explanation: "The focal length of a lens depends on the relative refractive index (n_lens / n_medium). When immersed in water, the relative refractive index of glass decreases (because n_water is closer to n_glass than air is). A smaller relative refractive index means less bending of light, so the focal length INCREASES. The lens is still converging but weaker.",
+      points: 10
+    },
+
+    // --- Short Answer Set 2 ---
+    {
+      id: "t5q26",
+      type: "short",
+      question: "A convex lens produces a virtual image. Where is the object placed? What are the properties of the image?",
+      correctAnswer: "The object must be placed BETWEEN the optical centre (O) and the focus ($F_1$) of the convex lens — i.e., at a distance less than the focal length from the lens.\n\nProperties of the image:\n• Virtual (cannot be formed on screen; rays appear to diverge from image point)\n• Erect (same orientation as object)\n• Magnified (larger than the object)\n• On the SAME side as the object (in front of the lens)\n\nThis is the principle of a magnifying glass.",
+      explanation: "Object between O and F of a convex lens → virtual, erect, magnified image on same side. This is a magnifying glass.",
+      points: 15
+    },
+    {
+      id: "t5q27",
+      type: "short",
+      question: "Define the 'optical centre' of a lens. Why does a ray of light passing through the optical centre not deviate?",
+      correctAnswer: "Optical centre (O): A point on the principal axis of the lens such that a ray of light passing through it goes straight through without any refraction (deviation).\n\nWhy no deviation: At the optical centre, the two surfaces of the lens are locally parallel (like a glass slab). A ray passing through a glass slab with parallel surfaces emerges parallel to the incident ray, only laterally displaced. For a very thin lens, this lateral displacement is negligibly small, so the ray appears to pass through undeviated.",
+      explanation: "The optical centre behaves like a zero-thickness glass slab. Practically, rays through O are undeviated — used as one of the principal rays in ray diagrams.",
+      points: 15
+    },
+    {
+      id: "t5q28",
+      type: "short",
+      question: "An object is placed at $2F_1$ of a convex lens. Where is the image formed? What are its properties? What is the practical application of this position?",
+      correctAnswer: "Image position: At $2F_2$ on the other side of the lens (equal distance from lens as object).\n\nProperties:\n• Real and inverted\n• Same size as the object ($m = -1$)\n• At $2F_2$ (twice the focal length on the image side)\n\nPractical application: This is used in photocopiers and some cameras to produce a 1:1 copy of the original document. The object and image are the same size.",
+      explanation: "Object at 2F → image at 2F on other side, same size. m = -1. Used in 1:1 imaging devices.",
+      points: 15
+    },
+    {
+      id: "t5q29",
+      type: "short",
+      question: "Differentiate between a real image and a virtual image formed by a convex lens.",
+      correctAnswer: "Real Image (Convex Lens):\n• Formed when object is beyond $F_1$ (object distance > focal length)\n• Actual intersection of refracted rays\n• Can be formed on a screen\n• Inverted relative to object\n• Magnification is negative ($m < 0$)\n• $v$ is positive (image on other side of lens)\n\nVirtual Image (Convex Lens):\n• Formed when object is between O and $F_1$ (object distance < focal length)\n• Apparent intersection of extended refracted rays (diverging rays appear to meet behind the lens)\n• CANNOT be formed on a screen\n• Erect relative to object\n• Magnification is positive ($m > 0$)\n• $v$ is negative (image on same side as object)",
+      explanation: "The lens formula sign for v determines real vs virtual. For a convex lens: +v = real, -v = virtual.",
+      points: 15
+    },
+    {
+      id: "t5q30",
+      type: "short",
+      question: "A student is told that a particular lens always forms a virtual, erect, and diminished image of any object placed in front of it. Identify the type of lens and explain why it always behaves this way.",
+      correctAnswer: "The lens is a CONCAVE (diverging) lens.\n\nWhy it always forms virtual, erect, diminished images:\nA concave lens is a diverging lens. It has a virtual focus (the focus is on the same side as the incident light). Regardless of object position, refracted rays from a concave lens always diverge. When extended backwards, they appear to meet at a virtual focus behind the lens (on the same side as the object). This always produces a virtual, erect image. Because the virtual focus is between the lens and the object, the image is always smaller than the object (diminished).",
+      explanation: "A concave lens ALWAYS produces virtual, erect, diminished images — no exceptions. This makes it predictable and useful for wide-angle viewing applications.",
+      points: 15
+    },
+
+    // --- Long Answer Set 2 ---
+    {
+      id: "t5q31",
+      type: "long",
+      question: "An object of height 5 cm is placed 25 cm in front of a convex lens of focal length 15 cm. Find: (a) Position of image (b) Size of image (c) Nature of image. Also describe whether the image can be seen on a screen.",
+      correctAnswer: "Given: $h_o = 5$ cm, $u = -25$ cm, $f = +15$ cm.\n\n(a) Lens formula: $1/v - 1/u = 1/f$\n$1/v = 1/f + 1/u = 1/15 + 1/(-25) = 1/15 - 1/25 = 5/75 - 3/75 = 2/75$\n$v = 75/2 = +37.5$ cm.\nImage is 37.5 cm from the lens on the other side (positive → other side).\n\n(b) Magnification: $m = v/u = (+37.5)/(-25) = -1.5$\n$h_i = m \\times h_o = -1.5 \\times 5 = -7.5$ cm.\nImage height is 7.5 cm. Negative → inverted.\n\n(c) Nature:\n• Real (v is positive for a convex lens → image on far side)\n• Inverted ($m < 0$)\n• Magnified ($|m| = 1.5 > 1$)\n\nThe image CAN be formed on a screen because it is real — the refracted rays actually converge at $v = 37.5$ cm. A screen placed 37.5 cm from the lens on the far side will show the image.",
+      explanation: "For a convex lens: positive v = real = can be projected on a screen. Full procedure: 1/v calculation → magnification → size → nature interpretation.",
+      points: 20
+    },
+    {
+      id: "t5q32",
+      type: "long",
+      question: "With the help of ray diagrams, describe the image formed by a convex lens when: (a) Object is beyond $2F_1$ and (b) Object is between $F_1$ and $2F_1$.",
+      correctAnswer: "(a) Object beyond $2F_1$:\nRay diagram description:\n• Ray 1 (parallel to axis) → refracts through $F_2$\n• Ray 2 (through $F_1$) → refracts parallel to axis\n• Both rays converge between $F_2$ and $2F_2$\n\nImage properties:\n• Real and inverted\n• Diminished (|m| < 1)\n• Between $F_2$ and $2F_2$\n• Application: Camera lens, human eye (distant objects).\n\n(b) Object between $F_1$ and $2F_1$:\nRay diagram description:\n• Ray 1 (parallel to axis) → refracts through $F_2$\n• Ray 2 (through $F_1$) → refracts parallel to axis\n• Both rays converge beyond $2F_2$\n\nImage properties:\n• Real and inverted\n• Magnified (|m| > 1)\n• Beyond $2F_2$\n• Application: Projector, slide projector, overhead projector.",
+      explanation: "Two key cases for a convex lens: object beyond 2F gives diminished real image (camera); object between F and 2F gives magnified real image (projector).",
+      points: 20
+    },
+    {
+      id: "t5q33",
+      type: "long",
+      question: "Explain in detail how a convex lens can correct hypermetropia (far-sightedness). What happens to light in a hypermetropic eye, and how does the correcting lens fix it?",
+      correctAnswer: "Hypermetropia (Far-sightedness):\nA person with hypermetropia can see distant objects clearly but cannot see near objects clearly. Their near point is farther than 25 cm.\n\nCause: The eyeball is shorter than normal, OR the eye lens is too flat (less converging). As a result, when looking at a nearby object (25 cm), the rays converge BEHIND the retina, not on it.\n\nCorrection with Convex Lens:\n1. A convex (converging) lens is placed in front of the eye.\n2. When looking at a near object at 25 cm, the convex lens converges the rays before they enter the eye.\n3. This extra convergence compensates for the eye's insufficient convergence.\n4. The eye can now focus the image exactly on the retina.\n5. Essentially, the convex lens creates a virtual, erect, magnified image of the near object at the person's far point (e.g., 100 cm), which the hypermetropic eye CAN see clearly.\n\nRequired lens power:\n$P = 1/f = 1/(\\text{near point in m}) - 1/(0.25)$ [adjusted for actual near point]",
+      explanation: "Hypermetropia correction = convex lens + image shifts from behind retina to on retina. Always explain WHY the image was off-retina first.",
+      points: 20
+    },
+
+    // --- HOTS Set 2 ---
+    {
+      id: "t5q34",
+      type: "thinking",
+      question: "Two identical convex lenses are placed coaxially (on the same axis) with their focal points coinciding. One lens faces the object, the other faces the image side. What is the effective focal length of this system? How does this compare to a single lens?",
+      correctAnswer: "When the focal points of two lenses coincide, they are separated by a distance $d = f_1 + f_2$ (since each focal point is at $f$ from its lens, and they're back-to-back). Wait — if the lenses are placed so that the second focal point of lens 1 coincides with the first focal point of lens 2, then $d = f_1 + f_2$.\n\nUsing the formula for two thin lenses separated by distance $d$:\n$1/F = 1/f_1 + 1/f_2 - d/(f_1 \\cdot f_2)$\n\nFor identical lenses ($f_1 = f_2 = f$) with $d = 2f$:\n$1/F = 1/f + 1/f - 2f/f^2 = 2/f - 2/f = 0$\n$F = \\infty$.\n\nInterpretation: The system produces a PARALLEL beam from a parallel beam — it is a telescopic (afocal) system, like a simple beam expander or Galilean telescope principle. It doesn't focus light to a point at all!",
+      explanation: "When two identical lenses are separated by their combined focal lengths, the power cancels to zero. This is the basis of telescopic optical systems.",
+      points: 25
+    },
+    {
+      id: "t5q35",
+      type: "thinking",
+      question: "A magnifying glass (convex lens) is used to read very small text. A student notices that if they hold the lens very close to the page, it magnifies well; but as they lift it away, at some point the image suddenly flips (becomes inverted) and they can no longer read. Explain this observation using optics principles.",
+      correctAnswer: "Phase 1 — Object between O and F (lens close to page):\n• Object distance < focal length\n• Lens formula gives $v < 0$ → virtual, erect, magnified image\n• Student sees magnified text clearly (the magnifying glass function)\n\nTransition — Object at exactly F:\n• Object distance = focal length\n• $1/v = 0$ → $v = \\infty$ → no image formed\n• Student sees a bright blur (parallel rays)\n\nPhase 2 — Object beyond F (lens lifted higher than f from page):\n• Object distance > focal length\n• Lens formula gives $v > 0$ → real, inverted, image on other side\n• The real image forms somewhere in space above the lens\n• The student's eye, which is looking down at the page through the lens, now sees the inverted real image floating above the lens — text appears flipped\n\nConclusion: The critical transition point is when the object is at the focal length. Beyond it, the lens acts as a projector, not a magnifier.",
+      explanation: "This beautifully demonstrates the complete behaviour of a convex lens in a single real scenario. The flip corresponds exactly to the object crossing the focal plane.",
       points: 25
     }
   ]

@@ -311,6 +311,168 @@ $$m = \\frac{h'}{h} = -\\frac{v}{u} \\quad \\text{(Magnification)}$$
       correctAnswer: "For a concave mirror, let $f = -x$ ($x > 0$). The object is at the focus, so $u = -x$.\nMirror formula: $1/v + 1/(-x) = 1/(-x) \\implies 1/v = 0$.\nTherefore, $v = \\infty$.\nMagnification $m = -v/u = -(\\infty) / (-x) = \\infty$.\nThe physical interpretation is that the reflected rays are perfectly parallel and never intersect in finite space. The image is formed at infinity and is infinitely large.",
       explanation: "Applying the limits of the formula ($1/0 = \\infty$) aligns with the geometric ray diagram where rays emerging from the focus become parallel after reflection.",
       points: 25
+    },
+
+    // ═══════════════════════════════════════════════════
+    // ADDITIONAL QUESTIONS — Set 2 (t3q21 to t3q35)
+    // ═══════════════════════════════════════════════════
+
+    // --- MCQ Set 2 ---
+    {
+      id: "t3q21",
+      type: "mcq",
+      question: "In the New Cartesian Sign Convention for mirrors, distances measured in the direction of incident light are taken as:",
+      options: [
+        "Negative",
+        "Positive",
+        "Zero",
+        "Depends on mirror type"
+      ],
+      correctAnswer: "Positive",
+      explanation: "In the New Cartesian Convention: incident light travels from left to right. Distances measured in the direction of incident light (left to right, i.e., behind the mirror for reflected rays) are positive. Object is always on the left, so $u$ is negative. For a real image (in front of mirror), $v$ is also negative.",
+      points: 10
+    },
+    {
+      id: "t3q22",
+      type: "mcq",
+      question: "For a concave mirror of focal length $-15$ cm, an object is placed at $u = -10$ cm. Using the mirror formula, the image distance $v$ is:",
+      options: [
+        "$-30$ cm",
+        "$+30$ cm",
+        "$-6$ cm",
+        "$+6$ cm"
+      ],
+      correctAnswer: "$+30$ cm",
+      explanation: "Mirror formula: $1/v + 1/u = 1/f \\implies 1/v = 1/f - 1/u = 1/(-15) - 1/(-10) = -1/15 + 1/10 = -2/30 + 3/30 = 1/30$. So $v = +30$ cm. Positive $v$ means the image is behind the mirror — it is virtual.",
+      points: 10
+    },
+    {
+      id: "t3q23",
+      type: "mcq",
+      question: "A concave mirror produces a real, inverted image of magnification $-3$. If the object is 8 cm from the mirror, where is the image?",
+      options: [
+        "8 cm in front",
+        "24 cm behind the mirror",
+        "24 cm in front of the mirror",
+        "6 cm in front"
+      ],
+      correctAnswer: "24 cm in front of the mirror",
+      explanation: "$m = -v/u \\implies -3 = -v/(-8) \\implies -3 = v/8 \\implies v = -24$ cm. Negative $v$ means the image is 24 cm in front of the mirror (real image). The negative magnification confirms it is real and inverted.",
+      points: 10
+    },
+    {
+      id: "t3q24",
+      type: "mcq",
+      question: "What is the magnification produced by a plane mirror?",
+      options: [
+        "+2",
+        "$-1$",
+        "$+1$",
+        "0"
+      ],
+      correctAnswer: "$+1$",
+      explanation: "For a plane mirror, the image has the same size as the object ($h_i = h_o$) and is erect (same orientation). Therefore, magnification $m = +h_i/h_o = +1$. The positive sign confirms it is virtual and erect.",
+      points: 10
+    },
+    {
+      id: "t3q25",
+      type: "mcq",
+      question: "The focal length of a concave mirror is $-20$ cm. An object is placed at $u = -30$ cm. Using the mirror formula, the focal length of the image is at $v = $ _____.",
+      options: [
+        "$-60$ cm",
+        "$+60$ cm",
+        "$-12$ cm",
+        "$+20$ cm"
+      ],
+      correctAnswer: "$-60$ cm",
+      explanation: "$1/v = 1/f - 1/u = 1/(-20) - 1/(-30) = -1/20 + 1/30 = -3/60 + 2/60 = -1/60$. So $v = -60$ cm. The negative sign means the image is 60 cm in front of the mirror, i.e., real.",
+      points: 10
+    },
+
+    // --- Short Answer Set 2 ---
+    {
+      id: "t3q26",
+      type: "short",
+      question: "Write the mirror formula. Define each symbol with its sign convention for a concave mirror forming a real image.",
+      correctAnswer: "Mirror Formula: $\\frac{1}{f} = \\frac{1}{v} + \\frac{1}{u}$\n\nFor a concave mirror forming a real image:\n• $f$ = focal length: NEGATIVE (focus is in front of the mirror)\n• $u$ = object distance: NEGATIVE (object is always in front, i.e., to the left)\n• $v$ = image distance: NEGATIVE (real image is in front of the mirror)",
+      explanation: "For a concave mirror, all three quantities (f, u, and v for real image) are negative. Only v is positive for a virtual image (object between P and F).",
+      points: 15
+    },
+    {
+      id: "t3q27",
+      type: "short",
+      question: "A magnification of $m = -1/2$ is produced by a mirror. Is the mirror concave or convex? Is the image real or virtual? Is it magnified or diminished?",
+      correctAnswer: "• The magnification is negative ($m < 0$), which means the image is REAL and INVERTED.\n• $|m| = 1/2 < 1$, which means the image is DIMINISHED (smaller than the object).\n• A real image is only possible with a concave mirror (convex mirrors always form virtual images).\n• Therefore, it is a CONCAVE mirror.\n• Real, inverted, diminished images from a concave mirror occur when the object is beyond the center of curvature (C).",
+      explanation: "Remember: negative $m$ → real + inverted. $|m| < 1$ → diminished. Only concave mirrors form real images.",
+      points: 15
+    },
+    {
+      id: "t3q28",
+      type: "short",
+      question: "An object is placed 30 cm in front of a concave mirror of focal length 20 cm. Calculate the position of the image and state whether it is real or virtual.",
+      correctAnswer: "$u = -30$ cm, $f = -20$ cm.\nMirror formula: $1/v = 1/f - 1/u = -1/20 - (-1/30) = -1/20 + 1/30 = -3/60 + 2/60 = -1/60$.\n$v = -60$ cm.\nThe image is 60 cm in front of the mirror. Negative $v$ → real image.",
+      explanation: "Standard mirror formula calculation. Object beyond C (30 > 2×20 is false; 30 > 20 = between C and F, wait: f=20, C=40, so 30 is between F and C). Image beyond C at 60 cm.",
+      points: 15
+    },
+    {
+      id: "t3q29",
+      type: "short",
+      question: "Define linear magnification for a mirror. When is it positive and when is it negative?",
+      correctAnswer: "Linear magnification: $m = \\frac{\\text{Height of image } (h_i)}{\\text{Height of object } (h_o)} = \\frac{-v}{u}$\n\n• Positive magnification ($m > 0$): The image is virtual and erect (same orientation as object). This happens when the image is behind the mirror.\n• Negative magnification ($m < 0$): The image is real and inverted. This happens when the image is in front of the mirror.",
+      explanation: "The sign of magnification directly tells you image orientation and nature. Learn: positive → virtual+erect, negative → real+inverted.",
+      points: 15
+    },
+    {
+      id: "t3q30",
+      type: "short",
+      question: "An erect image 3 times the size of the object is formed 18 cm behind a mirror. What type of mirror is it, and what is its focal length?",
+      correctAnswer: "Image is erect and magnified → virtual image. Virtual images behind the mirror have $v > 0$, so $v = +18$ cm. Magnification is $+3$ (positive for erect), so $m = -v/u \\implies 3 = -18/u \\implies u = -6$ cm.\nMirror formula: $1/f = 1/v + 1/u = 1/18 + 1/(-6) = 1/18 - 3/18 = -2/18 = -1/9$.\n$f = -9$ cm (negative → concave mirror). It is a CONCAVE mirror with focal length 9 cm.",
+      explanation: "Erect + magnified + behind mirror = virtual image from a concave mirror (object between P and F).",
+      points: 15
+    },
+
+    // --- Long Answer Set 2 ---
+    {
+      id: "t3q31",
+      type: "long",
+      question: "A 2-cm tall object is placed perpendicular to the principal axis of a concave mirror. The object is at 12 cm from the mirror, and the focal length is 8 cm. Find: (a) Position of image, (b) Height of image, (c) Nature of image.",
+      correctAnswer: "Given: $h_o = 2$ cm, $u = -12$ cm, $f = -8$ cm.\n\n(a) Mirror formula:\n$1/v = 1/f - 1/u = 1/(-8) - 1/(-12) = -1/8 + 1/12 = -3/24 + 2/24 = -1/24$\n$v = -24$ cm.\nImage is 24 cm in front of the mirror.\n\n(b) Magnification:\n$m = -v/u = -(-24)/(-12) = -24/12 = -2$\n$h_i = m \\times h_o = -2 \\times 2 = -4$ cm.\nImage is 4 cm tall. Negative sign → inverted.\n\n(c) Nature:\n• $v$ is negative → Real (in front of mirror)\n• $m$ is negative → Inverted\n• $|m| = 2 > 1$ → Magnified\n→ Real, Inverted, and Magnified image, 24 cm in front.",
+      explanation: "Full 5-step solution: given → formula application → v → m → height → nature. Always interpret signs.",
+      points: 20
+    },
+    {
+      id: "t3q32",
+      type: "long",
+      question: "Explain the New Cartesian Sign Convention for mirrors. How does it help in solving problems systematically? Give one example of how wrong sign usage leads to an incorrect answer.",
+      correctAnswer: "New Cartesian Sign Convention:\n1. All distances are measured from the pole (P) of the mirror.\n2. Distances measured in the direction of incident light (left to right, i.e., behind the mirror) are POSITIVE.\n3. Distances measured opposite to the direction of incident light (in front of the mirror) are NEGATIVE.\n4. Heights above the principal axis are POSITIVE.\n5. Heights below the principal axis are NEGATIVE.\n\nKey consequences:\n• Object distance ($u$) is always NEGATIVE (object in front of mirror).\n• Focal length of concave mirror ($f$) is NEGATIVE (focus in front).\n• Focal length of convex mirror ($f$) is POSITIVE (focus behind mirror).\n• Real image: $v$ is NEGATIVE. Virtual image: $v$ is POSITIVE.\n\nWhy it helps: It eliminates ambiguity — you never need to guess direction. The sign tells you everything.\n\nError Example: If a student incorrectly takes $u = +20$ cm instead of $-20$ cm for a concave mirror of $f = -15$ cm:\n$1/v = -1/15 - 1/20 = -4/60 - 3/60 = -7/60 \\implies v = -8.57$ cm.\nCorrect answer: $1/v = -1/15 + 1/20 = -4/60 + 3/60 = -1/60 \\implies v = -60$ cm.\nThe sign error gives a completely wrong position!",
+      explanation: "Sign convention is not optional — it is the foundation of all optics calculations. One wrong sign can flip the entire answer.",
+      points: 20
+    },
+    {
+      id: "t3q33",
+      type: "long",
+      question: "Describe how the image formed by a concave mirror changes as an object is moved continuously from infinity to the pole. Include position, size, and nature at each key position.",
+      correctAnswer: "As object moves from infinity to pole of a concave mirror:\n\n1. Object at INFINITY → Image at F; Real, inverted, point-sized (highly diminished).\n2. Object beyond C (>2f) → Image between F and C; Real, inverted, diminished (|m| < 1).\n3. Object AT C (=2f) → Image at C; Real, inverted, same size (m = -1).\n4. Object between F and C → Image beyond C; Real, inverted, magnified (|m| > 1).\n5. Object AT F → Image at infinity; Real, inverted, infinitely large.\n6. Object between F and P (<f) → Image behind mirror; Virtual, erect, magnified (m > +1).\n\nSummary pattern:\n• Moving from ∞ towards F: image moves from F towards C (real, getting bigger)\n• Moving from F towards P: image jumps to behind mirror and is virtual+erect",
+      explanation: "This comprehensive table covers all 6 object positions for a concave mirror — a guaranteed exam question. Memorize the jump at F.",
+      points: 20
+    },
+
+    // --- HOTS Set 2 ---
+    {
+      id: "t3q34",
+      type: "thinking",
+      question: "A doctor uses a concave mirror of focal length 2 cm to examine a patient's eye. If the eye is 3 cm from the mirror, find the position and magnification of the image. Is this image suitable for examination? Explain.",
+      correctAnswer: "Given: $f = -2$ cm, $u = -3$ cm.\nMirror formula: $1/v = 1/f - 1/u = 1/(-2) - 1/(-3) = -1/2 + 1/3 = -3/6 + 2/6 = -1/6$.\n$v = +6$ cm (positive → behind the mirror).\n\nMagnification: $m = -v/u = -(+6)/(-3) = +2$.\n\nThe image is virtual (behind mirror), erect, and MAGNIFIED by 2 times.\n\nSuitability: YES, this is ideal for examination. The doctor sees a magnified, erect, virtual image of the patient's eye. The virtual image appears to be 6 cm behind the mirror, and since it is magnified × 2, fine details like blood vessels, iris, and pupil are much easier to examine.",
+      explanation: "Object between P and F of concave mirror → virtual, erect, magnified image. This is why concave mirrors are used in medical examination tools.",
+      points: 25
+    },
+    {
+      id: "t3q35",
+      type: "thinking",
+      question: "You are given two concave mirrors A and B with focal lengths $f_A = 10$ cm and $f_B = 20$ cm. An object is placed at 30 cm in front of each. Compare the image positions and magnifications for mirrors A and B. What does this tell you about how focal length affects image properties?",
+      correctAnswer: "Mirror A ($f = -10$ cm, $u = -30$ cm):\n$1/v_A = -1/10 + 1/30 = -3/30 + 1/30 = -2/30 \\implies v_A = -15$ cm.\n$m_A = -(-15)/(-30) = -0.5$. Image: real, inverted, at 15 cm, half the object size.\n\nMirror B ($f = -20$ cm, $u = -30$ cm):\n$1/v_B = -1/20 + 1/30 = -3/60 + 2/60 = -1/60 \\implies v_B = -60$ cm.\n$m_B = -(-60)/(-30) = -2$. Image: real, inverted, at 60 cm, twice the object size.\n\nConclusion: A longer focal length (Mirror B) places the image farther away and magnifies more for the same object distance. A shorter focal length (Mirror A) gives a closer, less magnified image. This is why cameras need different focal length lenses for telephoto vs wide-angle shots.",
+      explanation: "Comparing two mirrors reveals the fundamental trade-off: longer focal length = more magnification + farther image = telephoto behavior.",
+      points: 25
     }
   ]
 };
