@@ -1806,19 +1806,39 @@
   }
 
   .topicHero {
-    height: 180px;
+    height: auto;
+    padding-top: 16px;
+    padding-bottom: 32px;
   }
 
   .heroTopicTitle {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   .heroContent {
-    padding: 16px 20px;
+    position: relative;
+    padding: 16px;
+    width: 100%;
+  }
+
+  .heroNav {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 16px;
+    padding: 0 16px;
+  }
+
+  .tabs {
+    top: 120px; /* 64px global header + 56px local header */
   }
 
   .tabLabel {
-    display: none;
+    display: block; /* Show text for clarity but smaller */
+    font-size: 0.7rem;
   }
 
   .examTipGrid {
