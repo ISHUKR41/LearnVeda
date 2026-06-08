@@ -545,6 +545,20 @@ const Sim_light_lens_ray_tracer     = dynamic(() => import('./LightAdvancedLabSi
 const Sim_light_tir_explorer        = dynamic(() => import('./LightAdvancedLabSimulations').then(m => m.Sim_light_tir_explorer),        { ssr: false });
 const Sim_light_spectrum_prism      = dynamic(() => import('./LightAdvancedLabSimulations').then(m => m.Sim_light_spectrum_prism),      { ssr: false });
 
+/* ── Topic 7: TIR & Optical Fibres — 5 new dedicated simulations ── */
+const Sim_light_tir_critical_angle  = dynamic(() => import('./LightTopic7Simulations').then(m => m.Sim_light_tir_critical_angle),  { ssr: false });
+const Sim_light_fiber_optic_path    = dynamic(() => import('./LightTopic7Simulations').then(m => m.Sim_light_fiber_optic_path),    { ssr: false });
+const Sim_light_mirage_formation    = dynamic(() => import('./LightTopic7Simulations').then(m => m.Sim_light_mirage_formation),    { ssr: false });
+const Sim_light_diamond_sparkle     = dynamic(() => import('./LightTopic7Simulations').then(m => m.Sim_light_diamond_sparkle),     { ssr: false });
+const Sim_light_snell_tir_calc      = dynamic(() => import('./LightTopic7Simulations').then(m => m.Sim_light_snell_tir_calc),      { ssr: false });
+
+/* ── Topic 8: Dispersion, Scattering & Human Eye — 5 new simulations ── */
+const Sim_light_prism_dispersion_adv = dynamic(() => import('./LightTopic8Simulations').then(m => m.Sim_light_prism_dispersion_adv), { ssr: false });
+const Sim_light_rainbow_droplet      = dynamic(() => import('./LightTopic8Simulations').then(m => m.Sim_light_rainbow_droplet),      { ssr: false });
+const Sim_light_rayleigh_sky         = dynamic(() => import('./LightTopic8Simulations').then(m => m.Sim_light_rayleigh_sky),         { ssr: false });
+const Sim_light_eye_anatomy          = dynamic(() => import('./LightTopic8Simulations').then(m => m.Sim_light_eye_anatomy),          { ssr: false });
+const Sim_light_vision_defect_fix    = dynamic(() => import('./LightTopic8Simulations').then(m => m.Sim_light_vision_defect_fix),    { ssr: false });
+
 /* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
@@ -1004,6 +1018,20 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "light-lens-ray-tracer":     Sim_light_lens_ray_tracer,
   "light-tir-explorer":        Sim_light_tir_explorer,
   "light-spectrum-prism":      Sim_light_spectrum_prism,
+
+  /* ── Topic 7: TIR & Optical Fibres — 5 dedicated simulations ── */
+  "light-tir-critical-angle":  Sim_light_tir_critical_angle,
+  "light-fiber-optic-path":    Sim_light_fiber_optic_path,
+  "light-mirage-formation":    Sim_light_mirage_formation,
+  "light-diamond-sparkle":     Sim_light_diamond_sparkle,
+  "light-snell-tir-calc":      Sim_light_snell_tir_calc,
+
+  /* ── Topic 8: Dispersion, Scattering & Human Eye — 5 dedicated simulations ── */
+  "light-prism-dispersion-adv": Sim_light_prism_dispersion_adv,
+  "light-rainbow-droplet":      Sim_light_rainbow_droplet,
+  "light-rayleigh-sky":         Sim_light_rayleigh_sky,
+  "light-eye-anatomy":          Sim_light_eye_anatomy,
+  "light-vision-defect-fix":    Sim_light_vision_defect_fix,
 };
 
 /* ══════════════════════════════════════════════════════════════════════

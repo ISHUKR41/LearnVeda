@@ -38,6 +38,13 @@ export const topic7TotalInternalReflection: Topic = {
   title: "7. Total Internal Reflection and Optical Fibres",
   estimatedMinutes: 55,
   simulationIds: [
+    /* New dedicated Topic 7 simulations */
+    "light-tir-critical-angle",   /* drag angle → watch TIR snap on/off */
+    "light-fiber-optic-path",     /* animated photon bouncing through bent fibre */
+    "light-mirage-formation",     /* hot road → curved rays → virtual mirage */
+    "light-diamond-sparkle",      /* gem facet ray tracing with TIR bounces */
+    "light-snell-tir-calc",       /* n₁/n₂ sliders → live critical angle */
+    /* Shared simulations from other topics */
     "light-tir",
     "light-tir-explorer",
     "light-optical-fiber",

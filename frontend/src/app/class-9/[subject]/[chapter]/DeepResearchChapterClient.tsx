@@ -381,6 +381,57 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
                 </Link>
               </div>
 
+              {/* ── Topic Markdown Content ──
+                   The content field holds the full study text for this topic
+                   (thousands of words with real-life examples, derivations, etc.)
+                   parseMarkdown converts Markdown + KaTeX → safe HTML. */}
+              {activeTopic.content && (
+                <div
+                  className={styles.mdContent}
+                  dangerouslySetInnerHTML={{ __html: parseMarkdown(activeTopic.content) }}
+                />
+              )}
+
+              {/* ── Interactive Simulations ──
+                   Renders Canvas-based physics simulations for this topic.
+                   simulationIds are defined in the topic content file. */}
+              {activeTopic.simulationIds && activeTopic.simulationIds.length > 0 && (
+                <div className={styles.simulationsSection}>
+                  <h3 className={styles.sectionHeading}>
+                    🔬 Interactive Simulations
+                  </h3>
+                  <SimulationRenderer simulationIds={activeTopic.simulationIds.slice(0, 5)} />
+                </div>
+              )}
+
+              {/* ── Practice Questions ──
+                   All questions for this topic displayed with instant feedback.
+                   Correct answers earn XP via /api/progress/answers. */}
+              {activeTopic.questions && activeTopic.questions.length > 0 && (
+                <div className={styles.questionsSection}>
+                  <h3 className={styles.sectionHeading}>
+                    📝 Practice Questions
+                    <span className={styles.questionCountChip}>
+                      {activeTopic.questions.length} Questions
+                    </span>
+                  </h3>
+                  <div className={styles.questionsList}>
+                    {activeTopic.questions.map((question, idx) => (
+                      <QuestionItem
+                        key={question.id}
+                        question={question}
+                        index={idx + 1}
+                        isAnswered={answeredQuestions.has(question.id)}
+                        isCorrect={correctAnswers.has(question.id)}
+                        selectedOption={selectedOptionsMap[question.id] || null}
+                        onAnswer={handleQuestionAnswered}
+                        onTextSave={handleSaveTextAnswer}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* ── Topic Navigation ── */}
               <div className={styles.topicNavigation}>
                 {chapterData.topics.indexOf(activeTopic) > 0 && (

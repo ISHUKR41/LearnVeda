@@ -34,10 +34,16 @@ export const topic8DispersionAndHumanEye: Topic = {
   title: "8. Dispersion, Scattering, Atmosphere & the Human Eye",
   estimatedMinutes: 70,
   simulationIds: [
+    /* New dedicated Topic 8 simulations */
+    "light-prism-dispersion-adv",   /* drag apex angle → VIBGYOR fans out */
+    "light-rainbow-droplet",         /* animated water droplet rainbow */
+    "light-rayleigh-sky",            /* drag sun → sky colour changes */
+    "light-eye-anatomy",             /* interactive human eye cross-section */
+    "light-vision-defect-fix",       /* myopia / hyperopia correction */
+    /* Shared simulations from other topics */
     "light-prism-dispersion",
     "light-spectrum-prism",
     "light-eye-defects",
-    "light-tir-explorer",
   ],
   imageUrl: "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?auto=format&fit=crop&q=80&w=1200",
 
