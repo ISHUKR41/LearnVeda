@@ -11,6 +11,13 @@ export const topic4LawsOfRefraction: Topic = {
   id: "laws-of-refraction-and-index",
   title: "4. Refraction of Light and Refractive Index",
   estimatedMinutes: 55,
+  simulationIds: [
+    "light-refraction-demo",
+    "light-snells-law",
+    "light-tir",
+    "light-optical-fiber",
+    "light-apparent-depth",
+  ],
   imageUrl: "https://images.unsplash.com/photo-1544265747-062e5b8ce1b2?auto=format&fit=crop&q=80&w=1200",
   content: `
 ### What is Refraction of Light?

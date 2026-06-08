@@ -12,6 +12,13 @@ export const topic2SphericalMirrors: Topic = {
   id: "concave-convex-mirrors",
   title: "2. Spherical Mirrors: Concave and Convex",
   estimatedMinutes: 60,
+  simulationIds: [
+    "light-concave-rays",
+    "light-convex-rays",
+    "light-mirror-terms",
+    "light-concave-positions",
+    "light-mirror-uses",
+  ],
   imageUrl: "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?auto=format&fit=crop&q=80&w=1200",
   content: `
 ### What is a Spherical Mirror?

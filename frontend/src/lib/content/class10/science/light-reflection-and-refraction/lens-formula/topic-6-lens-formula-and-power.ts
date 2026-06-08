@@ -11,6 +11,12 @@ export const topic6LensFormulaAndPower: Topic = {
   id: "lens-formula-and-power",
   title: "6. Lens Formula and Power of a Lens",
   estimatedMinutes: 50,
+  simulationIds: [
+    "light-lens-formula-calc",
+    "light-power-lens",
+    "light-eye-defects",
+    "light-prism-dispersion",
+  ],
   imageUrl: "https://images.unsplash.com/photo-1517594422361-5eeb8ae275a9?auto=format&fit=crop&q=80&w=1200",
   content: `
 ### Sign Convention for Spherical Lenses

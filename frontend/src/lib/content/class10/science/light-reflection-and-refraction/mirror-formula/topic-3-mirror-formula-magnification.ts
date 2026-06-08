@@ -11,6 +11,12 @@ export const topic3MirrorFormulaMagnification: Topic = {
   id: "mirror-formula-magnification",
   title: "3. Sign Convention, Mirror Formula, and Magnification",
   estimatedMinutes: 50,
+  simulationIds: [
+    "light-sign-convention",
+    "light-mirror-formula-calc",
+    "light-magnification-demo",
+    "light-mirror-ray-builder",
+  ],
   imageUrl: "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=1200",
   content: `
 ### New Cartesian Sign Convention

@@ -11,6 +11,12 @@ export const topic5ImageFormationByLenses: Topic = {
   id: "image-formation-by-lenses",
   title: "5. Spherical Lenses and Image Formation",
   estimatedMinutes: 60,
+  simulationIds: [
+    "light-convex-lens",
+    "light-concave-lens",
+    "light-lens-positions",
+    "light-lens-compare",
+  ],
   imageUrl: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&q=80&w=1200",
   content: `
 ### What is a Spherical Lens?

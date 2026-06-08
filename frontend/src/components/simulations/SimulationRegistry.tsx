@@ -494,6 +494,50 @@ const Sim_ultra5_rocket_momentum    = dynamic(() => import('./TopicUltraNew5').t
 const Sim_ultra5_momentum_graph     = dynamic(() => import('./TopicUltraNew5').then(m => m.Ultra5_MomentumGraphLive),      { ssr: false });
 
 /* ══════════════════════════════════════════════════════════════════
+ * LIGHT — Reflection and Refraction (Class 10 Science)
+ * 27 brand-new optics simulations across 6 topics
+ * ══════════════════════════════════════════════════════════════════ */
+
+/* ── Light Topic 1: Reflection (5 sims) ── */
+const Sim_light_plane_mirror        = dynamic(() => import('./LightTopic1Simulations').then(m => m.Sim_light_plane_mirror),        { ssr: false });
+const Sim_light_regular_diffuse     = dynamic(() => import('./LightTopic1Simulations').then(m => m.Sim_light_regular_diffuse),     { ssr: false });
+const Sim_light_lateral_inversion   = dynamic(() => import('./LightTopic1Simulations').then(m => m.Sim_light_lateral_inversion),   { ssr: false });
+const Sim_light_two_mirrors         = dynamic(() => import('./LightTopic1Simulations').then(m => m.Sim_light_two_mirrors),         { ssr: false });
+const Sim_light_min_mirror          = dynamic(() => import('./LightTopic1Simulations').then(m => m.Sim_light_min_mirror),          { ssr: false });
+
+/* ── Light Topic 2: Spherical Mirrors (5 sims) ── */
+const Sim_light_concave_rays        = dynamic(() => import('./LightTopic2Simulations').then(m => m.Sim_light_concave_rays),        { ssr: false });
+const Sim_light_convex_rays         = dynamic(() => import('./LightTopic2Simulations').then(m => m.Sim_light_convex_rays),         { ssr: false });
+const Sim_light_mirror_terms        = dynamic(() => import('./LightTopic2Simulations').then(m => m.Sim_light_mirror_terms),        { ssr: false });
+const Sim_light_concave_positions   = dynamic(() => import('./LightTopic2Simulations').then(m => m.Sim_light_concave_positions),   { ssr: false });
+const Sim_light_mirror_uses         = dynamic(() => import('./LightTopic2Simulations').then(m => m.Sim_light_mirror_uses),         { ssr: false });
+
+/* ── Light Topic 3: Mirror Formula (4 sims) ── */
+const Sim_light_mirror_formula_calc = dynamic(() => import('./LightTopic3Simulations').then(m => m.Sim_light_mirror_formula_calc), { ssr: false });
+const Sim_light_magnification_demo  = dynamic(() => import('./LightTopic3Simulations').then(m => m.Sim_light_magnification_demo),  { ssr: false });
+const Sim_light_sign_convention     = dynamic(() => import('./LightTopic3Simulations').then(m => m.Sim_light_sign_convention),     { ssr: false });
+const Sim_light_mirror_ray_builder  = dynamic(() => import('./LightTopic3Simulations').then(m => m.Sim_light_mirror_ray_builder),  { ssr: false });
+
+/* ── Light Topic 4: Refraction (5 sims) ── */
+const Sim_light_refraction_demo     = dynamic(() => import('./LightTopic4Simulations').then(m => m.Sim_light_refraction_demo),     { ssr: false });
+const Sim_light_snells_law          = dynamic(() => import('./LightTopic4Simulations').then(m => m.Sim_light_snells_law),          { ssr: false });
+const Sim_light_tir                 = dynamic(() => import('./LightTopic4Simulations').then(m => m.Sim_light_tir),                 { ssr: false });
+const Sim_light_optical_fiber       = dynamic(() => import('./LightTopic4Simulations').then(m => m.Sim_light_optical_fiber),       { ssr: false });
+const Sim_light_apparent_depth      = dynamic(() => import('./LightTopic4Simulations').then(m => m.Sim_light_apparent_depth),      { ssr: false });
+
+/* ── Light Topic 5: Lenses (4 sims) ── */
+const Sim_light_convex_lens         = dynamic(() => import('./LightTopic5Simulations').then(m => m.Sim_light_convex_lens),         { ssr: false });
+const Sim_light_concave_lens        = dynamic(() => import('./LightTopic5Simulations').then(m => m.Sim_light_concave_lens),        { ssr: false });
+const Sim_light_lens_positions      = dynamic(() => import('./LightTopic5Simulations').then(m => m.Sim_light_lens_positions),      { ssr: false });
+const Sim_light_lens_compare        = dynamic(() => import('./LightTopic5Simulations').then(m => m.Sim_light_lens_compare),        { ssr: false });
+
+/* ── Light Topic 6: Lens Formula & Power (4 sims) ── */
+const Sim_light_lens_formula_calc   = dynamic(() => import('./LightTopic6Simulations').then(m => m.Sim_light_lens_formula_calc),   { ssr: false });
+const Sim_light_power_lens          = dynamic(() => import('./LightTopic6Simulations').then(m => m.Sim_light_power_lens),          { ssr: false });
+const Sim_light_eye_defects         = dynamic(() => import('./LightTopic6Simulations').then(m => m.Sim_light_eye_defects),         { ssr: false });
+const Sim_light_prism_dispersion    = dynamic(() => import('./LightTopic6Simulations').then(m => m.Sim_light_prism_dispersion),    { ssr: false });
+
+/* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
  * ══════════════════════════════════════════════════════════════════ */
@@ -900,6 +944,50 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "ultra5-newtons-cradle":       Sim_ultra5_newtons_cradle,
   "ultra5-rocket-momentum":      Sim_ultra5_rocket_momentum,
   "ultra5-momentum-graph-live":  Sim_ultra5_momentum_graph,
+
+  /* ══════════════════════════════════════════════════════════════════
+   * LIGHT — Reflection and Refraction (Class 10 Science)
+   * 27 optics simulations across 6 topics
+   * ══════════════════════════════════════════════════════════════════ */
+
+  /* ── Topic 1: Introduction & Laws of Reflection (5 sims) ── */
+  "light-plane-mirror":        Sim_light_plane_mirror,
+  "light-regular-diffuse":     Sim_light_regular_diffuse,
+  "light-lateral-inversion":   Sim_light_lateral_inversion,
+  "light-two-mirrors":         Sim_light_two_mirrors,
+  "light-min-mirror":          Sim_light_min_mirror,
+
+  /* ── Topic 2: Spherical Mirrors (5 sims) ── */
+  "light-concave-rays":        Sim_light_concave_rays,
+  "light-convex-rays":         Sim_light_convex_rays,
+  "light-mirror-terms":        Sim_light_mirror_terms,
+  "light-concave-positions":   Sim_light_concave_positions,
+  "light-mirror-uses":         Sim_light_mirror_uses,
+
+  /* ── Topic 3: Mirror Formula & Magnification (4 sims) ── */
+  "light-mirror-formula-calc": Sim_light_mirror_formula_calc,
+  "light-magnification-demo":  Sim_light_magnification_demo,
+  "light-sign-convention":     Sim_light_sign_convention,
+  "light-mirror-ray-builder":  Sim_light_mirror_ray_builder,
+
+  /* ── Topic 4: Refraction & Laws of Refraction (5 sims) ── */
+  "light-refraction-demo":     Sim_light_refraction_demo,
+  "light-snells-law":          Sim_light_snells_law,
+  "light-tir":                 Sim_light_tir,
+  "light-optical-fiber":       Sim_light_optical_fiber,
+  "light-apparent-depth":      Sim_light_apparent_depth,
+
+  /* ── Topic 5: Image Formation by Lenses (4 sims) ── */
+  "light-convex-lens":         Sim_light_convex_lens,
+  "light-concave-lens":        Sim_light_concave_lens,
+  "light-lens-positions":      Sim_light_lens_positions,
+  "light-lens-compare":        Sim_light_lens_compare,
+
+  /* ── Topic 6: Lens Formula & Power (4 sims) ── */
+  "light-lens-formula-calc":   Sim_light_lens_formula_calc,
+  "light-power-lens":          Sim_light_power_lens,
+  "light-eye-defects":         Sim_light_eye_defects,
+  "light-prism-dispersion":    Sim_light_prism_dispersion,
 };
 
 /* ══════════════════════════════════════════════════════════════════════

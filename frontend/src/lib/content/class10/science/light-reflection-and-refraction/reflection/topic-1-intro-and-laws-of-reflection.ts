@@ -13,6 +13,13 @@ export const topic1IntroAndLawsOfReflection: Topic = {
   id: "intro-and-laws-of-reflection",
   title: "1. Introduction to Light and Laws of Reflection",
   estimatedMinutes: 45,
+  simulationIds: [
+    "light-plane-mirror",
+    "light-regular-diffuse",
+    "light-lateral-inversion",
+    "light-two-mirrors",
+    "light-min-mirror",
+  ],
   imageUrl: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=1200",
   content: `
 ### What is Light?
