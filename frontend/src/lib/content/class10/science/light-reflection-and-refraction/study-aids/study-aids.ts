@@ -1,13 +1,23 @@
 /**
  * FILE: study-aids.ts
  * LOCATION: src/lib/content/class10/science/light-reflection-and-refraction/study-aids/study-aids.ts
- * PURPOSE: Comprehensive flash cards (20+ per topic) and deep mind maps for all 6 topics
+ * PURPOSE: Comprehensive flash cards (20+ per topic) and deep mind maps for all 8 topics
  *          in the Light – Reflection and Refraction chapter.
  *          Used for quick revision, exam preparation, and deep concept retention.
  *
  * STRUCTURE:
  *   - topicFlashCards: Record<topicId, FlashCard[]> — 20–25 cards per topic
  *   - topicMindMaps:   Record<topicId, MindMapNode[]> — hierarchical concept trees
+ *
+ * TOPICS COVERED:
+ *   1. intro-and-laws-of-reflection     (22 cards)
+ *   2. concave-convex-mirrors            (23 cards)
+ *   3. mirror-formula-magnification      (22 cards)
+ *   4. laws-of-refraction-and-index      (22 cards)
+ *   5. image-formation-by-lenses         (22 cards)
+ *   6. lens-formula-and-power            (22 cards)
+ *   7. total-internal-reflection         (22 cards) ← NEW
+ *   8. dispersion-and-human-eye          (22 cards) ← NEW
  *
  * LAST UPDATED: 2026-06-08
  */
@@ -316,6 +326,106 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
       back: "1/F = 1/f₁ + 1/f₂. Or equivalently P = P₁ + P₂. This is derived by applying the lens formula sequentially, where the image of the first lens acts as the virtual object for the second." },
     { id: "fc6-22", front: "If a convex lens (f = 30 cm) and concave lens (f = −60 cm) are combined, effective f?",
       back: "1/F = 1/30 + 1/(−60) = 2/60 − 1/60 = 1/60. F = +60 cm. P = 1/0.6 ≈ +1.67 D. The combination is still converging but weaker than the convex lens alone." },
+  ],
+
+  /* ─────────────────────────────────────────────────────────────
+   * Topic 7: Total Internal Reflection & Optical Fibres (22 cards)
+   * ───────────────────────────────────────────────────────────── */
+  "total-internal-reflection": [
+    { id: "fc7-1",  front: "What is Total Internal Reflection (TIR)?",
+      back: "When light travels from a denser medium to a rarer medium and the angle of incidence exceeds the critical angle, 100% of the light is reflected back into the denser medium. No refraction occurs." },
+    { id: "fc7-2",  front: "State the TWO conditions necessary for TIR.",
+      back: "1. Light must travel from a DENSER medium to a RARER medium (e.g., glass to air). 2. The angle of incidence must be GREATER than the critical angle (i > iₒ). BOTH must hold simultaneously." },
+    { id: "fc7-3",  front: "Define Critical Angle (iₒ).",
+      back: "The angle of incidence in the denser medium for which the refracted ray in the rarer medium grazes the surface (angle of refraction = 90°). Beyond this angle, TIR occurs." },
+    { id: "fc7-4",  front: "Derive the formula for Critical Angle.",
+      back: "Apply Snell's Law at critical angle: n₁ sin(iₒ) = n₂ sin(90°). So sin(iₒ) = n₂/n₁. For glass-air: sin(iₒ) = 1/n (where n = refractive index of glass). iₒ = sin⁻¹(1/n)." },
+    { id: "fc7-5",  front: "Critical angle of glass (n = 1.5)?",
+      back: "sin(iₒ) = 1/1.5 = 2/3 = 0.667. iₒ = sin⁻¹(0.667) ≈ 41.8°. Any ray hitting a glass-air surface at more than 41.8° undergoes TIR." },
+    { id: "fc7-6",  front: "Why does diamond sparkle so brilliantly?",
+      back: "Diamond has n ≈ 2.42, giving a tiny critical angle of about 24.4°. The gem is cut so nearly all light hitting a facet exceeds this angle → multiple TIRs → light exits only from the top, creating intense sparkle." },
+    { id: "fc7-7",  front: "Compare critical angles: Water, Glass, Diamond.",
+      back: "Water (n=1.33): iₒ ≈ 48.75°. Glass (n=1.50): iₒ ≈ 41.8°. Diamond (n=2.42): iₒ ≈ 24.4°. Higher refractive index → smaller critical angle → TIR easier to achieve." },
+    { id: "fc7-8",  front: "What is a Mirage? Explain using TIR.",
+      back: "In deserts, hot air near the ground is less dense (lower n). Light from distant objects curves progressively as it passes through layers of decreasing n, eventually exceeding the critical angle → TIR. Observer sees an inverted sky image on the 'ground' — looks like water." },
+    { id: "fc7-9",  front: "Describe the structure of an optical fibre.",
+      back: "Core: thin glass/plastic rod with high refractive index n₁. Cladding: outer layer with lower n₂ (n₁ > n₂) so TIR occurs. Buffer jacket: protective outer plastic coating. Light enters one end and TIR keeps it confined to the core along its entire length." },
+    { id: "fc7-10", front: "How does light propagate through an optical fibre?",
+      back: "Light enters at an angle > critical angle at the core-cladding interface → TIR. Every time light hits the boundary, it is totally internally reflected. The signal bounces along the core from one end to the other with virtually no loss, even through bends." },
+    { id: "fc7-11", front: "Advantages of optical fibres over copper cables?",
+      back: "1. Much higher bandwidth (terabits/s). 2. Very low signal loss — transmit over km without amplifiers. 3. Immune to electromagnetic interference (EMI). 4. Secure — cannot tap without breaking the fibre. 5. Lightweight. 6. No short-circuit risk." },
+    { id: "fc7-12", front: "Medical use of optical fibres?",
+      back: "Endoscopes: a bundle of fibres guides light into the body cavity (illumination bundle) and transmits the image back (imaging bundle). Enables non-invasive internal examination of stomach, intestine, lungs, joints." },
+    { id: "fc7-13", front: "Why is a prism periscope better than a mirror periscope?",
+      back: "A 45°-90°-45° prism uses TIR at its hypotenuse (45° > iₒ of glass ≈ 41.8°) → 100% light reflection. A silver mirror reflects only ~95% and tarnishes over time. Prism: brighter image, no maintenance." },
+    { id: "fc7-14", front: "What happens when i = iₒ exactly?",
+      back: "The refracted ray travels along the surface (r = 90°). This is the borderline case. Practically, a very faint refracted beam grazes the interface. Just above this angle, full TIR begins." },
+    { id: "fc7-15", front: "What is Snell's Window?",
+      back: "From underwater, the entire above-water world is visible through a circular cone (half-angle = 48.75° for water). Outside this cone, the surface looks like a perfect mirror due to TIR. Also called 'cone of silence' or 'Snell's window'." },
+    { id: "fc7-16", front: "Why does an air bubble in glass appear silvery?",
+      back: "The air inside has n = 1 (rarer) while glass has n ≈ 1.5 (denser). Light traveling in glass hits the glass-air interface of the bubble at angles exceeding the critical angle → TIR → bubble reflects light brilliantly, appearing silver." },
+    { id: "fc7-17", front: "Can TIR occur when light goes from air to glass?",
+      back: "NO. TIR only occurs when light travels from a DENSER medium to a RARER medium. Air (n=1) to glass (n=1.5): light goes from rarer to denser → it bends toward the normal → refraction, not TIR." },
+    { id: "fc7-18", front: "What is the relation between critical angle and refractive index?",
+      back: "sin(iₒ) = 1/n (for medium vs air). So n = 1/sin(iₒ). Higher n → smaller sin(iₒ) → smaller iₒ. A denser material has a smaller critical angle, making TIR easier to trigger." },
+    { id: "fc7-19", front: "HOTS: Why do optical fibres work even when bent?",
+      back: "As long as the bend radius is not too sharp, the angle of incidence at the core-cladding interface remains > critical angle at every point. TIR continues around bends. Very sharp bends can couple light out — hence minimum bend radius specifications for fibre optic cables." },
+    { id: "fc7-20", front: "CBSE Exam: A ray in glass (n=1.5) hits glass-air interface at 45°. TIR or refraction?",
+      back: "Critical angle = sin⁻¹(1/1.5) ≈ 41.8°. Given angle = 45° > 41.8° → TIR occurs. The ray is totally internally reflected; no refracted ray enters air." },
+    { id: "fc7-21", front: "CBSE Exam: Calculate critical angle for a medium with n = √2.",
+      back: "sin(iₒ) = 1/n = 1/√2 = 0.707. iₒ = sin⁻¹(0.707) = 45°. So the critical angle is exactly 45° for a medium of refractive index √2 (≈ 1.414)." },
+    { id: "fc7-22", front: "Applications of TIR — list at least 5.",
+      back: "1. Optical fibres (internet, telecom, medical). 2. Prism periscopes (submarines, binoculars). 3. Diamond cutting (gem sparkle). 4. Road reflectors/cat's eyes. 5. Endoscopes. 6. LASIK eye surgery guides. 7. Rear reflectors on vehicles. 8. Mirage (natural phenomenon)." },
+  ],
+
+  /* ─────────────────────────────────────────────────────────────
+   * Topic 8: Dispersion, Scattering, Atmosphere & Human Eye (22 cards)
+   * ───────────────────────────────────────────────────────────── */
+  "dispersion-and-human-eye": [
+    { id: "fc8-1",  front: "What is Dispersion of Light?",
+      back: "The splitting of white light into its constituent colours (VIBGYOR) when it passes through a prism. Caused by different wavelengths having different refractive indices — violet has highest n and bends most, red has lowest n and bends least." },
+    { id: "fc8-2",  front: "What is the order of colours in the visible spectrum? Which bends most/least?",
+      back: "VIBGYOR: Violet, Indigo, Blue, Green, Yellow, Orange, Red. Violet bends MOST (highest n ≈ 1.530 in glass). Red bends LEAST (lowest n ≈ 1.515 in glass). Remember: 'VIBGYOR' — first bends most, last bends least." },
+    { id: "fc8-3",  front: "Why does a prism disperse white light?",
+      back: "White light = mixture of all colours. Each colour has a different wavelength → different refractive index in glass (n ∝ 1/λ roughly). Different n → different bending by Snell's Law → colours separate spatially." },
+    { id: "fc8-4",  front: "How can you recombine the spectrum back to white light?",
+      back: "1. Use a second inverted prism — it recombines VIBGYOR → white light. 2. Spin a Newton's colour disc (sectors coloured VIBGYOR) at high speed → appears white due to persistence of vision." },
+    { id: "fc8-5",  front: "Explain Primary Rainbow formation.",
+      back: "Sunlight enters a spherical water droplet → refracts + disperses. Inside the droplet: ONE total internal reflection. Then exits → second refraction. Red light exits at 42°, violet at 40°. Red appears at top, violet at bottom. Sun must be behind the observer." },
+    { id: "fc8-6",  front: "How does Secondary Rainbow differ from Primary?",
+      back: "Secondary: TWO total internal reflections inside the droplet. Colours are REVERSED: violet at top (53°), red at bottom (51°). It appears above the primary rainbow. Dimmer because energy is lost at each reflection. Dark Alexander's band lies between the two." },
+    { id: "fc8-7",  front: "State Rayleigh's Law of Scattering.",
+      back: "Intensity of scattered light ∝ 1/λ⁴. Shorter wavelengths scatter far more than longer ones. Blue light (λ ≈ 450 nm) scatters ~5.5× more than red light (λ ≈ 700 nm). This explains sky colour, sunset colour, etc." },
+    { id: "fc8-8",  front: "Why is the sky blue?",
+      back: "Air molecules (O₂, N₂) are tiny — they scatter light via Rayleigh scattering (∝ 1/λ⁴). Blue light has short wavelength → scattered most → fills the entire sky. Red and orange scatter little → pass straight through." },
+    { id: "fc8-9",  front: "Why does the sun appear red/orange at sunrise and sunset?",
+      back: "At horizon, sunlight travels through maximum atmosphere thickness. Blue, violet, green scatter away en route. Only longer wavelengths (red, orange) reach the observer → sun looks red/orange. At noon, path is short → white/yellow sun." },
+    { id: "fc8-10", front: "Why are clouds white?",
+      back: "Cloud droplets are much larger than air molecules (>1 µm). Large particles → Mie scattering → all wavelengths scattered EQUALLY. All colours together → white cloud. (Rayleigh applies to small particles; Mie to large ones.)" },
+    { id: "fc8-11", front: "Why are danger signals (traffic lights, vehicles) RED?",
+      back: "Red has the longest wavelength → scattered LEAST by fog and atmospheric particles. It travels farthest before being scattered/absorbed. So red signals remain visible even in poor visibility conditions from long distances." },
+    { id: "fc8-12", front: "What is the Tyndall Effect?",
+      back: "When light passes through a colloidal solution or suspension, the path of the beam becomes visible when viewed from the side, because colloidal particles scatter light. Examples: dusty room sunbeam, foggy headlights, blue eye colour. Shorter λ scattered more." },
+    { id: "fc8-13", front: "Why do stars twinkle but planets do not?",
+      back: "Stars are point sources of light. Turbulent atmospheric layers with varying density/temperature refract starlight differently moment to moment → intensity fluctuates → twinkling. Planets are extended discs; fluctuations from different points average out → steady light." },
+    { id: "fc8-14", front: "Why can we see the sun about 2 minutes before actual sunrise?",
+      back: "Atmospheric refraction: atmosphere is denser near the ground. Sunlight bends (refracts) as it enters the atmosphere — it curves toward the earth. So the image of the sun is visible above the horizon even when the actual sun is still below it." },
+    { id: "fc8-15", front: "Name the main parts of the human eye and their functions.",
+      back: "Cornea: focuses most light. Iris: controls pupil size (light entry). Lens: fine-focuses (accommodation). Retina: converts light to nerve signals. Rods: dim light/B&W vision. Cones: colour vision. Fovea: sharpest vision. Optic nerve: carries signals to brain." },
+    { id: "fc8-16", front: "What is Accommodation of the Eye?",
+      back: "The ability of the eye to adjust its focal length by changing the shape of the crystalline lens. Ciliary muscles contract → lens becomes more curved (shorter f) for near objects. Muscles relax → lens becomes flatter (longer f) for distant objects." },
+    { id: "fc8-17", front: "Near point and Far point of a normal human eye?",
+      back: "Near point: 25 cm (Least Distance of Distinct Vision). Objects closer than 25 cm appear blurry. Far point: infinity. A normal eye can see clearly from 25 cm to ∞ using accommodation." },
+    { id: "fc8-18", front: "What is Myopia? Cause and correction.",
+      back: "Myopia (short-sightedness): near vision OK, far vision blurry. Cause: eyeball too long OR lens too converging → image forms in front of retina. Far point < ∞. Correction: CONCAVE lens with power P = −1/far-point(m) D." },
+    { id: "fc8-19", front: "What is Hypermetropia? Cause and correction.",
+      back: "Hypermetropia (long-sightedness): far vision OK, near vision blurry (near point > 25 cm). Cause: eyeball too short OR lens too flat → image forms behind retina. Correction: CONVEX lens whose virtual image of close object falls at person's actual near point." },
+    { id: "fc8-20", front: "What is Presbyopia? Who gets it? How is it corrected?",
+      back: "Age-related defect (40+): ciliary muscles weaken and crystalline lens hardens → reduced accommodation range. Near point recedes, may also have distant vision problems. Correction: bifocal lenses — upper half concave (far), lower half convex (near)." },
+    { id: "fc8-21", front: "CBSE Numerics: A myopic person's far point is 2 m. Required corrective lens power?",
+      back: "Need concave lens to form virtual image of ∞ at 2 m. f = −2 m. P = 1/f = 1/(−2) = −0.5 D. Prescribe −0.5 D concave lens." },
+    { id: "fc8-22", front: "CBSE Numerics: A hypermetropic person's near point is 1 m. Corrective lens power?",
+      back: "Need convex lens to form virtual image of object at 25 cm at the person's near point 1 m. Using lens formula: 1/v − 1/u = 1/f → u = −0.25 m, v = −1.0 m. 1/f = 1/(−1) − 1/(−0.25) = −1 + 4 = +3. P = +3 D." },
   ],
 };
 
@@ -681,6 +791,188 @@ export const topicMindMaps: Record<string, { id: string; label: string; children
         { id: "mm6-4c", label: "Violet: highest n, bends MOST" },
         { id: "mm6-4d", label: "Red: lowest n, bends LEAST" },
         { id: "mm6-4e", label: "Rainbow = dispersion by water droplets" },
+      ]
+    },
+  ],
+
+  /* ─────────────────────────────────────────────────────────────
+   * Topic 7: Total Internal Reflection & Optical Fibres (mind map)
+   * ───────────────────────────────────────────────────────────── */
+  "total-internal-reflection": [
+    {
+      id: "mm7-1", label: "Total Internal Reflection (TIR)", children: [
+        { id: "mm7-1a", label: "Definition: 100% reflection back into denser medium" },
+        {
+          id: "mm7-1b", label: "Two Conditions (BOTH required)", children: [
+            { id: "mm7-1b1", label: "1. Light travels from DENSER to RARER medium" },
+            { id: "mm7-1b2", label: "2. Angle of incidence > Critical Angle (i > iₒ)" },
+          ]
+        },
+        {
+          id: "mm7-1c", label: "Three Cases at Glass-Air Boundary", children: [
+            { id: "mm7-1c1", label: "i < iₒ → Partial refraction + partial reflection" },
+            { id: "mm7-1c2", label: "i = iₒ → Refracted ray grazes surface (r = 90°)" },
+            { id: "mm7-1c3", label: "i > iₒ → TOTAL internal reflection (no refraction)" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm7-2", label: "Critical Angle", children: [
+        { id: "mm7-2a", label: "Formula: sin(iₒ) = 1/n  (denser medium vs air)" },
+        { id: "mm7-2b", label: "General: sin(iₒ) = n₂/n₁  (n₁ > n₂)" },
+        { id: "mm7-2c", label: "Derivation: Apply Snell's Law with r = 90°" },
+        {
+          id: "mm7-2d", label: "Critical Angles for Common Materials", children: [
+            { id: "mm7-2d1", label: "Water (n=1.33): iₒ ≈ 48.75°" },
+            { id: "mm7-2d2", label: "Glass (n=1.50): iₒ ≈ 41.8°" },
+            { id: "mm7-2d3", label: "Diamond (n=2.42): iₒ ≈ 24.4° (SMALLEST → most sparkle)" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm7-3", label: "Natural Phenomena Due to TIR", children: [
+        {
+          id: "mm7-3a", label: "Mirage (Desert)", children: [
+            { id: "mm7-3a1", label: "Hot ground heats air → hot rarer air below" },
+            { id: "mm7-3a2", label: "Skylight curves downward then TIR curves it up" },
+            { id: "mm7-3a3", label: "Observer sees sky image on ground → 'water' illusion" },
+          ]
+        },
+        { id: "mm7-3b", label: "Diamond sparkle: small iₒ → many TIR bounces inside" },
+        { id: "mm7-3c", label: "Air bubble in glass: looks shiny/silvery due to TIR" },
+        { id: "mm7-3d", label: "Snell's window: entire above-water world compressed into 97.5° cone" },
+      ]
+    },
+    {
+      id: "mm7-4", label: "Optical Fibres", children: [
+        {
+          id: "mm7-4a", label: "Structure", children: [
+            { id: "mm7-4a1", label: "Core: high n₁ (glass/plastic, ~1.5–1.62)" },
+            { id: "mm7-4a2", label: "Cladding: lower n₂ (n₁ > n₂) → ensures TIR" },
+            { id: "mm7-4a3", label: "Buffer jacket: protective outer plastic" },
+          ]
+        },
+        { id: "mm7-4b", label: "Working: TIR at core-cladding boundary; 100% efficient" },
+        { id: "mm7-4c", label: "vs Copper: Higher bandwidth, less loss, immune to EMI" },
+        {
+          id: "mm7-4d", label: "Applications", children: [
+            { id: "mm7-4d1", label: "Internet/telecom: terabits per second" },
+            { id: "mm7-4d2", label: "Medical endoscopes: illumination + imaging bundles" },
+            { id: "mm7-4d3", label: "Cable TV: thousands of channels per fibre" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm7-5", label: "Prism Periscope (TIR vs Mirrors)", children: [
+        { id: "mm7-5a", label: "45°-90°-45° prism: light hits hypotenuse at 45° > iₒ of glass" },
+        { id: "mm7-5b", label: "TIR: 100% efficiency vs silver mirror ~95%" },
+        { id: "mm7-5c", label: "Used in: submarines, binoculars (Porro prism design)" },
+      ]
+    },
+  ],
+
+  /* ─────────────────────────────────────────────────────────────
+   * Topic 8: Dispersion, Scattering, Atmosphere & Human Eye (mind map)
+   * ───────────────────────────────────────────────────────────── */
+  "dispersion-and-human-eye": [
+    {
+      id: "mm8-1", label: "Dispersion of White Light", children: [
+        { id: "mm8-1a", label: "Definition: splitting of white light into VIBGYOR by prism" },
+        { id: "mm8-1b", label: "Cause: different wavelengths → different n → different bending" },
+        {
+          id: "mm8-1c", label: "VIBGYOR Spectrum", children: [
+            { id: "mm8-1c1", label: "Violet: highest n (~1.530) → bends MOST" },
+            { id: "mm8-1c2", label: "Red: lowest n (~1.515) → bends LEAST" },
+            { id: "mm8-1c3", label: "Order: V-I-B-G-Y-O-R (violet at bottom, red at top)" },
+          ]
+        },
+        { id: "mm8-1d", label: "Recombination: 2nd inverted prism / Newton's disc → white" },
+      ]
+    },
+    {
+      id: "mm8-2", label: "Rainbow", children: [
+        {
+          id: "mm8-2a", label: "Primary Rainbow", children: [
+            { id: "mm8-2a1", label: "Process: 2 refractions + 1 TIR inside water droplet" },
+            { id: "mm8-2a2", label: "Red outside (42°), Violet inside (40°)" },
+            { id: "mm8-2a3", label: "Sun behind you, rain in front" },
+          ]
+        },
+        {
+          id: "mm8-2b", label: "Secondary Rainbow", children: [
+            { id: "mm8-2b1", label: "Process: 2 refractions + 2 TIR → reversed colours" },
+            { id: "mm8-2b2", label: "Violet outside (53°), Red inside (51°) — REVERSED" },
+            { id: "mm8-2b3", label: "Above primary; dimmer (energy loss in 2 TIRs)" },
+            { id: "mm8-2b4", label: "Alexander's dark band between primary and secondary" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm8-3", label: "Scattering of Light (Rayleigh)", children: [
+        { id: "mm8-3a", label: "Scattering intensity ∝ 1/λ⁴ → shorter λ scattered MORE" },
+        { id: "mm8-3b", label: "Blue sky: air molecules scatter blue most → fills sky" },
+        { id: "mm8-3c", label: "Red sunset: long path → blue scattered away → red/orange remains" },
+        { id: "mm8-3d", label: "White clouds: large droplets → Mie scattering → all colours equally → white" },
+        { id: "mm8-3e", label: "Red danger signals: red scattered least → visible in fog from far away" },
+        { id: "mm8-3f", label: "Tyndall Effect: scattering makes beam visible from side (dusty room, fog)" },
+      ]
+    },
+    {
+      id: "mm8-4", label: "Atmospheric Refraction", children: [
+        { id: "mm8-4a", label: "Cause: varying air density (T) → varying n in layers" },
+        { id: "mm8-4b", label: "Stars twinkle: point source + turbulent atmosphere → fluctuating intensity" },
+        { id: "mm8-4c", label: "Planets steady: extended disc source → fluctuations average out" },
+        { id: "mm8-4d", label: "Sunrise/sunset: sun visible ~2 min before/after geometric crossing" },
+        { id: "mm8-4e", label: "Flattened sun: bottom edge refracted more than top edge → oval shape" },
+      ]
+    },
+    {
+      id: "mm8-5", label: "Human Eye Structure", children: [
+        { id: "mm8-5a", label: "Cornea: front transparent curved surface (~70% of focusing)" },
+        { id: "mm8-5b", label: "Iris + Pupil: control light entry (constricts in bright light)" },
+        { id: "mm8-5c", label: "Crystalline Lens: adjustable biconvex; ciliary muscles change shape" },
+        { id: "mm8-5d", label: "Retina: light-sensitive layer; rods (dim light/B&W), cones (colour)" },
+        { id: "mm8-5e", label: "Fovea: highest cone density → sharpest vision" },
+        { id: "mm8-5f", label: "Blind spot: optic nerve exit, no photoreceptors" },
+        { id: "mm8-5g", label: "Accommodation: lens changes focal length for near/far objects" },
+        {
+          id: "mm8-5h", label: "Normal Eye Ranges", children: [
+            { id: "mm8-5h1", label: "Near point: 25 cm (Least Distance of Distinct Vision)" },
+            { id: "mm8-5h2", label: "Far point: infinity (relaxed lens focuses here)" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm8-6", label: "Defects of Vision & Corrections", children: [
+        {
+          id: "mm8-6a", label: "Myopia (Short-sightedness)", children: [
+            { id: "mm8-6a1", label: "Near clear, Far blurry" },
+            { id: "mm8-6a2", label: "Cause: long eyeball OR strong lens" },
+            { id: "mm8-6a3", label: "Image forms IN FRONT of retina" },
+            { id: "mm8-6a4", label: "Fix: CONCAVE (diverging) lens; P = −1/far-point(m)" },
+          ]
+        },
+        {
+          id: "mm8-6b", label: "Hypermetropia (Long-sightedness)", children: [
+            { id: "mm8-6b1", label: "Far clear, Near blurry (near point > 25 cm)" },
+            { id: "mm8-6b2", label: "Cause: short eyeball OR weak lens" },
+            { id: "mm8-6b3", label: "Image forms BEHIND retina" },
+            { id: "mm8-6b4", label: "Fix: CONVEX (converging) lens" },
+          ]
+        },
+        {
+          id: "mm8-6c", label: "Presbyopia", children: [
+            { id: "mm8-6c1", label: "Age-related: ciliary muscles weaken + lens stiffens" },
+            { id: "mm8-6c2", label: "Cannot accommodate for near objects" },
+            { id: "mm8-6c3", label: "Fix: reading glasses (convex); bifocals if also myopic" },
+          ]
+        },
+        { id: "mm8-6d", label: "Astigmatism: non-spherical cornea → cylindrical lens correction" },
       ]
     },
   ],

@@ -14,6 +14,8 @@ import { topic3MirrorFormulaMagnification } from "./mirror-formula/topic-3-mirro
 import { topic4LawsOfRefraction } from "./refraction/topic-4-laws-of-refraction-and-index";
 import { topic5ImageFormationByLenses } from "./spherical-lenses/topic-5-image-formation-by-lenses";
 import { topic6LensFormulaAndPower } from "./lens-formula/topic-6-lens-formula-and-power";
+import { topic7TotalInternalReflection } from "./tir-optical-fibres/topic-7-total-internal-reflection";
+import { topic8DispersionAndHumanEye } from "./dispersion-scattering/topic-8-dispersion-and-human-eye";
 import { topicFlashCards, topicMindMaps } from "./study-aids/study-aids";
 
 /* ── Helper: Attach study aids to a topic ── */
@@ -38,5 +40,7 @@ export const lightReflectionAndRefractionChapter: Chapter = {
     enrichTopic(topic4LawsOfRefraction),
     enrichTopic(topic5ImageFormationByLenses),
     enrichTopic(topic6LensFormulaAndPower),
+    enrichTopic(topic7TotalInternalReflection),
+    enrichTopic(topic8DispersionAndHumanEye),
   ],
 };

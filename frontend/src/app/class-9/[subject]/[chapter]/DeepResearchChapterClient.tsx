@@ -376,17 +376,9 @@ export default function DeepResearchChapterClient({ chapterData, backUrl }: Deep
                 <Link
                   href={`/class-9/science/${chapterData.id}/${activeTopic.id}`}
                   className={styles.focusedStudyBtn}
-                    <QuestionItem
-                      key={q.id}
-                      index={idx + 1}
-                      question={q}
-                      isAnswered={answeredQuestions.has(q.id)}
-                      isCorrect={correctAnswers.has(q.id)}
-                      selectedOption={selectedOptionsMap[q.id] || null}
-                      onAnswer={handleQuestionAnswered}
-                      onTextSave={handleSaveTextAnswer}
-                    />
-                ))}
+                >
+                  Focused Study Mode →
+                </Link>
               </div>
 
               {/* ── Topic Navigation ── */}
