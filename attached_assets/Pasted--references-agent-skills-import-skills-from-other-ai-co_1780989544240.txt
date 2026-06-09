@@ -1,0 +1,77 @@
+
+
+
+
+/references/agent/skills#import-skills-from-other-ai-coding-tools
+
+
+npx rulesync init
+npx rulesync import --targets claudecode --features skills
+npx rulesync generate --targets replit --features skills
+
+
+
+
+
+for the class 10th Light – Reflection and Refraction  simulations 
+
+https://docs.google.com/document/d/1jzcaLNaZxPrtkk0b4jbSG5VEKCjr4lz8gUjpR6z5M0U/edit?usp=sharing
+
+https://docs.google.com/document/d/e/2PACX-1vQeO6j61dMAZObfNbwcxPpJ0Kkv9nkWk0OHFAEjewn3g-82XYzV19DfZ7s16B4Y3i1pEhLJ9z59aQw3/pub
+
+<iframe src="https://docs.google.com/document/d/e/2PACX-1vQeO6j61dMAZObfNbwcxPpJ0Kkv9nkWk0OHFAEjewn3g-82XYzV19DfZ7s16B4Y3i1pEhLJ9z59aQw3/pub?embedded=true"></iframe>
+
+
+
+
+
+
+
+
+
+
+
+
+and add aur more simualtions related to their topic and subtopic and subtopic ke subtopic and and related to the class 10th 
+
+and simulation bhout hee jada real and modern and animated and professional hona chiaye iske liye tumko jitna bhe libraeis and tools and repo ka need ho sab use kar lena simuations mujhe bhout hee real and best hee chiaye 
+
+
+
+
+add more content and add more questions pls 
+
+and or aacha se and detailed way mai and real life example ke sath padhao bhai aise padho ki koi bhe new student aaya to bhe usko sab cheez aacha se samaj mai aaye 
+
+
+
+
+and jab mai class 9th ke force and laws of motion wale chapter ke kisi bhe topic par jata hu and uss par mai focus mode mai jata hu to bhout sare simulations add rahte hai but aise normal mai nhi rahta hai but mai chata hu ki normal mai bhe utna hee simuation dikhe pls and ye haar ek topic and subtopic ke liye bol raha hu mai 
+
+
+
+
+
+
+
+
+
+
+and add more pictures pls by the help of nano banana and class 10th ke liye bol raha hu yaar and ye mujhe haar ek topic and subtopic and subtopic ke subtopic ke liye chiaye pls yaar 
+
+
+
+and also read the [class%2010th%20document.txt](file;file:///c%3A/Users/MR.ROBOT/OneDrive%20-%20Park%20University/Desktop/New%20folder%20%283%29/education/education/class%2010th%20document.txt) pls 
+
+
+
+
+
+and simulation ko or jada detailing mai karo and simulations mai sab cheez mention hona chaiye pls isko bhe mind mai rakhna 
+
+pictures par bhe work karna hai bhai 
+
+
+
+
+and vercel par deploy karna mai koi bhe error nhi aana chaiye pls isko mind mai rakhna pls

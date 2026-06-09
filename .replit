@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "web", "postgresql-16"]
+modules = ["nodejs-20", "web"]
 [agent]
 expertMode = true
 stack = "BEST_EFFORT_FALLBACK"
@@ -46,6 +46,7 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL = "/sign-up"
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL = "/dashboard"
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL = "/dashboard"
 NEXT_TEST_WASM = "1"
+EDUQUEST_SESSION_SECRET = "eduquest-replit-session-secret-2024-change-in-prod"
 
 [nix]
 channel = "stable-25_05"

@@ -1,0 +1,71 @@
+
+
+
+
+
+iska use karo jo maine niche mai tumko link diya hai pls dono link ka use karo yaar 
+https://www.skills.sh/
+https://getdesign.md/
+
+
+
+
+https://www.skills.sh/
+
+and iska bhe use karna pls pls and aacha se website ko analize karke use karna pls
+
+and maine jo upar mai tumko ye https://www.skills.sh/  link diya hai iska bhout hee jada use karna iss chapter mai jitna jada tum use kar sakte hoo isme bhout sare .md files and folder hai to sabko aacha se padh kar and soch samaj kar mera Light – Reflection and Refraction iss chapter mai implement karna pls and bhout hee jada aacha se implemet karna yaar 
+ 
+
+
+
+
+https://getdesign.md/
+
+and maine jo upar mai tumko ye https://getdesign.md/  link diya hai iska bhout hee jada use karna iss chapter mai jitna jada tum use kar sakte hoo isme bhout sare .md files and folder hai to sabko aacha se padh kar and soch samaj kar mera Light – Reflection and Refraction iss chapter mai implement karna pls and bhout hee jada aacha se implemet karna yaar 
+
+
+
+
+class 10th ke folder ke andar class 10th ka Light – Reflection and Refraction
+
+
+
+
+iss folder mai sab cheez karna and iske liye tumko sab cheez starrting se hee karna hai class 9th se kuch bhe refercence mat lena pls jo maine tumko details diya hai uska use karo pls pls pls baby 
+
+world mai jitna bhe skiils hai sabka use karna pls 
+
+
+and jitna jada tum technlogies use kar sakte hoo karo and jitna bhe lirabies and tools use karna hai karo and jitna bhe repo use karna hai karo 
+
+
+bus mera webiste fully responive and lag free rahna chaiye
+
+
+
+
+
+/references/agent/skills#import-skills-from-other-ai-coding-tools
+
+
+npx rulesync init
+npx rulesync import --targets claudecode --features skills
+npx rulesync generate --targets replit --features skills
+
+
+
+
+
+for the class 10th Light – Reflection and Refraction  simulations 
+
+https://docs.google.com/document/d/1jzcaLNaZxPrtkk0b4jbSG5VEKCjr4lz8gUjpR6z5M0U/edit?usp=sharing
+
+https://docs.google.com/document/d/e/2PACX-1vQeO6j61dMAZObfNbwcxPpJ0Kkv9nkWk0OHFAEjewn3g-82XYzV19DfZ7s16B4Y3i1pEhLJ9z59aQw3/pub
+
+<iframe src="https://docs.google.com/document/d/e/2PACX-1vQeO6j61dMAZObfNbwcxPpJ0Kkv9nkWk0OHFAEjewn3g-82XYzV19DfZ7s16B4Y3i1pEhLJ9z59aQw3/pub?embedded=true"></iframe>
+
+
+
+
+
