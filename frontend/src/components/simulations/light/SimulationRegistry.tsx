@@ -265,6 +265,313 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     icon: "👁️",
     component: lazyLoad(() => import("./eye/HumanEyeSim")),
   },
+
+  /* ─────────────────────────────────────────────────────────────────
+   * EXTENDED TOPIC 1 — Reflection & Plane Mirrors
+   * Extra simulation IDs referenced in topic-1 content file.
+   * Mapped to PlaneMirrorSim which handles multiple modes.
+   * ───────────────────────────────────────────────────────────────── */
+  "light-min-mirror": {
+    title: "Minimum Mirror Height for Full-Body Image",
+    description: "Prove that you need only half your height to see yourself fully",
+    category: "reflection",
+    icon: "📐",
+    component: lazyLoad(() => import("./reflection/PlaneMirrorSim")),
+  },
+  "light-glass-slab-lab": {
+    title: "Glass Slab — Lateral Displacement Lab",
+    description: "Trace a ray through a glass slab and measure the lateral shift",
+    category: "refraction",
+    icon: "🔲",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+
+  /* ─────────────────────────────────────────────────────────────────
+   * EXTENDED TOPIC 2 — Spherical Mirrors
+   * ───────────────────────────────────────────────────────────────── */
+  "light-concave-rays": {
+    title: "Concave Mirror — Principal Rays",
+    description: "Draw the 3 principal rays and find the image position",
+    category: "mirrors",
+    icon: "🔍",
+    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+  "light-convex-rays": {
+    title: "Convex Mirror — Ray Diagram",
+    description: "See why convex mirrors always form virtual, diminished images",
+    category: "mirrors",
+    icon: "🚗",
+    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+  "light-mirror-terms": {
+    title: "Spherical Mirror Terminology",
+    description: "Interactive diagram: Pole, Centre of Curvature, Focus, Principal Axis",
+    category: "mirrors",
+    icon: "📚",
+    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+  "light-concave-positions": {
+    title: "Concave Mirror — All 6 Object Positions",
+    description: "Move the object through all 6 positions and observe image changes",
+    category: "mirrors",
+    icon: "📍",
+    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+  "light-mirror-uses": {
+    title: "Real-Life Applications of Mirrors",
+    description: "Headlights, solar furnaces, dentist mirrors, and rear-view mirrors",
+    category: "mirrors",
+    icon: "🔆",
+    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+  "light-mirror-ray-tracer": {
+    title: "Mirror Ray Tracer",
+    description: "Drag object and focal length to compute image using mirror formula",
+    category: "mirrors",
+    icon: "✏️",
+    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+
+  /* ─────────────────────────────────────────────────────────────────
+   * EXTENDED TOPIC 3 — Mirror Formula & Sign Convention
+   * ───────────────────────────────────────────────────────────────── */
+  "light-sign-convention": {
+    title: "New Cartesian Sign Convention",
+    description: "Interactive axes showing positive/negative distance conventions",
+    category: "mirrors",
+    icon: "📏",
+    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+  "light-mirror-formula-calc": {
+    title: "Mirror Formula Calculator",
+    description: "Enter u and f, compute v with live ray diagram (1/v + 1/u = 1/f)",
+    category: "mirrors",
+    icon: "🧮",
+    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+  "light-magnification-demo": {
+    title: "Magnification Visualiser",
+    description: "See how image size compares to object: m = -v/u",
+    category: "mirrors",
+    icon: "🔭",
+    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+  "light-mirror-ray-builder": {
+    title: "Mirror Ray Diagram Builder",
+    description: "Step-by-step ray diagram construction for concave and convex mirrors",
+    category: "mirrors",
+    icon: "🖊️",
+    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+
+  /* ─────────────────────────────────────────────────────────────────
+   * EXTENDED TOPIC 4 — Refraction & Snell's Law
+   * ───────────────────────────────────────────────────────────────── */
+  "light-refraction-demo": {
+    title: "Refraction at a Boundary",
+    description: "Watch light bend as it crosses from one medium to another",
+    category: "refraction",
+    icon: "🌊",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+  "light-snells-law": {
+    title: "Snell's Law Interactive",
+    description: "Adjust angle of incidence and refractive index to verify n₁sinθ₁ = n₂sinθ₂",
+    category: "refraction",
+    icon: "📐",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+  "light-tir": {
+    title: "Total Internal Reflection",
+    description: "Slowly increase the angle until TIR occurs at the critical angle",
+    category: "refraction",
+    icon: "⚡",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+  "light-optical-fiber": {
+    title: "Optical Fibre — Light Bouncing",
+    description: "Animated photon bouncing through a bent optical fibre using TIR",
+    category: "refraction",
+    icon: "💡",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+  "light-apparent-depth": {
+    title: "Apparent Depth Illusion",
+    description: "Why a pool appears shallower than it really is",
+    category: "refraction",
+    icon: "🏊",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+  "light-snell-calculator": {
+    title: "Snell's Law Calculator",
+    description: "Input n₁, n₂, and θ₁ to compute θ₂ and critical angle",
+    category: "refraction",
+    icon: "🧮",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+  "light-tir-explorer": {
+    title: "TIR Critical Angle Explorer",
+    description: "Drag refractive index sliders to find the exact critical angle",
+    category: "refraction",
+    icon: "🔬",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+
+  /* ─────────────────────────────────────────────────────────────────
+   * EXTENDED TOPIC 5 — Spherical Lenses
+   * ───────────────────────────────────────────────────────────────── */
+  "light-convex-lens": {
+    title: "Convex Lens — Image Formation",
+    description: "Drag object through all 6 positions with principal rays",
+    category: "lenses",
+    icon: "🔬",
+    component: lazyLoad(() => import("./lenses/ConvexLensSim")),
+  },
+  "light-concave-lens": {
+    title: "Concave Lens — Always Virtual",
+    description: "Diverging lens: always forms virtual, erect, diminished image",
+    category: "lenses",
+    icon: "🔎",
+    component: lazyLoad(() => import("./lenses/ConvexLensSim")),
+  },
+  "light-lens-positions": {
+    title: "Lens — All 6 Object Positions",
+    description: "Move the object and watch image type and position change",
+    category: "lenses",
+    icon: "📍",
+    component: lazyLoad(() => import("./lenses/ConvexLensSim")),
+  },
+  "light-lens-compare": {
+    title: "Convex vs Concave Lens Comparison",
+    description: "Side-by-side comparison of converging vs diverging lenses",
+    category: "lenses",
+    icon: "⚖️",
+    component: lazyLoad(() => import("./lenses/ConvexLensSim")),
+  },
+  "light-lens-ray-tracer": {
+    title: "Lens Ray Diagram Tracer",
+    description: "Build ray diagrams step-by-step for any lens position",
+    category: "lenses",
+    icon: "✏️",
+    component: lazyLoad(() => import("./lenses/ConvexLensSim")),
+  },
+
+  /* ─────────────────────────────────────────────────────────────────
+   * EXTENDED TOPIC 6 — Lens Formula & Power
+   * ───────────────────────────────────────────────────────────────── */
+  "light-lens-formula-calc": {
+    title: "Lens Formula Calculator",
+    description: "1/v − 1/u = 1/f — enter any two values to find the third",
+    category: "lenses",
+    icon: "🧮",
+    component: lazyLoad(() => import("./lenses/ConvexLensSim")),
+  },
+  "light-power-lens": {
+    title: "Power of a Lens",
+    description: "Adjust focal length and see power change in dioptres (P = 1/f)",
+    category: "lenses",
+    icon: "💪",
+    component: lazyLoad(() => import("./lenses/ConvexLensSim")),
+  },
+  "light-eye-defects": {
+    title: "Eye Defects & Lens Correction",
+    description: "Myopia, hypermetropia, and presbyopia — causes and corrections",
+    category: "eye",
+    icon: "👓",
+    component: lazyLoad(() => import("./eye/HumanEyeSim")),
+  },
+  "light-prism-dispersion": {
+    title: "Prism Dispersion",
+    description: "White light enters a prism and splits into VIBGYOR spectrum",
+    category: "dispersion",
+    icon: "🌈",
+    component: lazyLoad(() => import("./dispersion/PrismDispersionSim")),
+  },
+  "light-spectrum-prism": {
+    title: "Visible Spectrum through Prism",
+    description: "Explore wavelengths of each colour in the visible spectrum",
+    category: "dispersion",
+    icon: "🎨",
+    component: lazyLoad(() => import("./dispersion/PrismDispersionSim")),
+  },
+
+  /* ─────────────────────────────────────────────────────────────────
+   * EXTENDED TOPIC 7 — Total Internal Reflection
+   * ───────────────────────────────────────────────────────────────── */
+  "light-tir-critical-angle": {
+    title: "Critical Angle — TIR Switch",
+    description: "Drag angle to watch TIR snap on/off at the critical angle",
+    category: "refraction",
+    icon: "⚡",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+  "light-fiber-optic-path": {
+    title: "Optical Fibre — Photon Path",
+    description: "Animated photon bouncing through a bent fibre using TIR",
+    category: "refraction",
+    icon: "🌐",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+  "light-mirage-formation": {
+    title: "Mirage Formation",
+    description: "Hot road causes curved rays that create a virtual mirage",
+    category: "refraction",
+    icon: "🌡️",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+  "light-diamond-sparkle": {
+    title: "Diamond Sparkle — Gem TIR",
+    description: "TIR inside a diamond creates total sparkle from all facets",
+    category: "refraction",
+    icon: "💎",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+  "light-snell-tir-calc": {
+    title: "Snell's Law & TIR Calculator",
+    description: "Slide n₁/n₂ to compute critical angle with live diagram",
+    category: "refraction",
+    icon: "🧮",
+    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+
+  /* ─────────────────────────────────────────────────────────────────
+   * EXTENDED TOPIC 8 — Dispersion & Human Eye
+   * ───────────────────────────────────────────────────────────────── */
+  "light-prism-dispersion-adv": {
+    title: "Advanced Prism — VIBGYOR Fan",
+    description: "Drag apex angle to fan out the full spectrum with wavelength display",
+    category: "dispersion",
+    icon: "🌈",
+    component: lazyLoad(() => import("./dispersion/PrismDispersionSim")),
+  },
+  "light-rainbow-droplet": {
+    title: "Rainbow — Water Droplet",
+    description: "Refraction + TIR + dispersion inside a single water droplet",
+    category: "dispersion",
+    icon: "🌦️",
+    component: lazyLoad(() => import("./dispersion/PrismDispersionSim")),
+  },
+  "light-rayleigh-sky": {
+    title: "Rayleigh Scattering — Blue Sky / Red Sunset",
+    description: "Drag the Sun angle to see why sky is blue and sunsets are red",
+    category: "dispersion",
+    icon: "🌅",
+    component: lazyLoad(() => import("./dispersion/PrismDispersionSim")),
+  },
+  "light-eye-anatomy": {
+    title: "Human Eye — Interactive Anatomy",
+    description: "Click each part of the eye to learn its function",
+    category: "eye",
+    icon: "👁️",
+    component: lazyLoad(() => import("./eye/HumanEyeSim")),
+  },
+  "light-vision-defect-fix": {
+    title: "Vision Defect Correction",
+    description: "Myopia / Hypermetropia — see corrective lens in action",
+    category: "eye",
+    icon: "🤓",
+    component: lazyLoad(() => import("./eye/HumanEyeSim")),
+  },
 };
 
 /* ═══════════════════════════════════════════════════

@@ -50,7 +50,7 @@ import Link from "next/link";
 import styles from "./DeepResearchChapter.module.css";
 import type { Chapter, Topic, Question } from "@/lib/content/class10/science/shared-types";
 import { parseMarkdown } from "@/lib/utils/parseMarkdown";
-import SimulationRenderer from "@/components/simulations/SimulationRegistry";
+import SmartSimulationRenderer from "@/components/simulations/SmartSimulationRenderer";
 import FlashCards from "@/components/chapter/FlashCards";
 import MindMap from "@/components/chapter/MindMap";
 import { getDiagramForTopic } from "@/components/chapter/light/TopicDiagrams";
@@ -774,7 +774,7 @@ export default function DeepResearchChapterClient({
                             <span className={styles.sectionHeadingIcon}>🔬</span>
                             Interactive Simulations
                           </div>
-                          <SimulationRenderer simulationIds={activeTopic.simulationIds} />
+                          <SmartSimulationRenderer simulationIds={activeTopic.simulationIds} />
                         </div>
                       )}
 

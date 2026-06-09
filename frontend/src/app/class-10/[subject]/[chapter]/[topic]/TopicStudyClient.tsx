@@ -45,7 +45,7 @@ import type { Topic, Chapter, Question } from "@/lib/content/class10/science/sha
 import { parseMarkdown } from "@/lib/utils/parseMarkdown";
 import FlashCards from "@/components/chapter/FlashCards";
 import MindMap from "@/components/chapter/MindMap";
-import SimulationRenderer from "@/components/simulations/SimulationRegistry";
+import SmartSimulationRenderer from "@/components/simulations/SmartSimulationRenderer";
 import { getDiagramForTopic } from "@/components/chapter/light/TopicDiagrams";
 
 /* ─────────────────────────────────────────────
@@ -448,7 +448,7 @@ export default function TopicStudyClient({
               {topic.simulationIds && topic.simulationIds.length > 0 && (
                 <div className={styles.simSection}>
                   <div className={styles.simHeading}>🔬 Interactive Simulations</div>
-                  <SimulationRenderer simulationIds={topic.simulationIds} />
+                  <SmartSimulationRenderer simulationIds={topic.simulationIds} />
                 </div>
               )}
 
