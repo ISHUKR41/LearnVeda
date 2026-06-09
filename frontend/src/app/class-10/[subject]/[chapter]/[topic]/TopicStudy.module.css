@@ -979,9 +979,9 @@
  * ═══════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
-  .hero { height: 280px; }
+  .hero { height: auto; min-height: 280px; padding-bottom: 70px; }
   .heroTitle { font-size: 1.75rem; }
-  .heroContent { bottom: 60px; padding: 0 28px; }
+  .heroContent { position: relative; bottom: auto; left: auto; right: auto; padding: 60px 28px 20px; }
   .heroNavRow { left: 28px; right: 28px; }
 
   .learnPanel,
@@ -994,13 +994,14 @@
 }
 
 @media (max-width: 600px) {
-  .hero { height: 220px; }
+  .hero { min-height: auto; padding-bottom: 60px; }
   .heroTitle { font-size: 1.4rem; }
-  .heroContent { bottom: 50px; padding: 0 20px; }
+  .heroContent { padding: 40px 20px 10px; }
   .heroNavRow { left: 20px; right: 20px; bottom: 14px; }
   .heroNavBtnLabel { display: none; }
 
-  .topBar { padding: 0 16px; }
+  .topBar { padding: 0 16px; height: auto; min-height: 58px; flex-wrap: wrap; }
+  .topBarCenter { width: 100%; order: 3; padding-bottom: 10px; margin-top: -5px; }
   .topBarChapter { display: none; }
   .topBarSep     { display: none; }
 
@@ -1010,6 +1011,7 @@
   .panelPad { padding: 20px 16px; }
 
   .examTips { grid-template-columns: 1fr; }
-  .tabs { padding: 0 16px; }
+  .tabs { padding: 0 16px; top: 108px; }
   .tab  { padding: 12px 14px; }
+  .qTypeRow { flex-direction: column; align-items: flex-start; }
 }

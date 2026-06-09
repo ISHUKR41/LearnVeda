@@ -17,8 +17,9 @@ export const topic5ImageFormationByLenses: Topic = {
     "light-lens-positions",
     "light-lens-compare",
     "light-lens-ray-tracer",
+    "adv-convex-lens",
   ],
-  imageUrl: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/light/topic5-spherical-lenses.png",
   content: `
 ### What is a Spherical Lens?
 

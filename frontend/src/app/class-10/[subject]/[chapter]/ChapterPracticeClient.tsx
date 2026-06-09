@@ -87,7 +87,7 @@ export default function ChapterPracticeClient({ snapshot, backUrl }: ChapterPrac
     setShowHint(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!selectedOption || isSubmitted) return;
 
     const correct = selectedOption === currentQuestion.answer;
@@ -99,10 +99,29 @@ export default function ChapterPracticeClient({ snapshot, backUrl }: ChapterPrac
     const currentAttempts = (attempts[questionId] || 0) + 1;
     setAttempts({ ...attempts, [questionId]: currentAttempts });
 
+    let pointsAwarded = 0;
     if (correct) {
       setScore((prev) => prev + 1);
-      const pointsAwarded = currentAttempts === 1 ? currentQuestion.points : Math.round(currentQuestion.points / 2);
+      pointsAwarded = currentAttempts === 1 ? currentQuestion.points : Math.round(currentQuestion.points / 2);
       setXpEarned((prev) => prev + pointsAwarded);
+    }
+
+    try {
+      await fetch("/api/progress/answers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chapterId: "light-reflection-and-refraction", // using default or derive from props
+          topicId: "chapter-practice",
+          questionId,
+          userAnswer: selectedOption,
+          isCorrect: correct,
+          timeSpent: 10, // dummy value for now
+          questionType: "mcq"
+        }),
+      });
+    } catch (e) {
+      console.error("Failed to sync progress:", e);
     }
   };
 

@@ -44,8 +44,11 @@ export const topic8DispersionAndHumanEye: Topic = {
     "light-prism-dispersion",
     "light-spectrum-prism",
     "light-eye-defects",
+    /* Advanced engine-based simulations */
+    "adv-prism-dispersion",
+    "adv-human-eye",
   ],
-  imageUrl: "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/light/topic8-dispersion.png",
 
   content: `
 ### Dispersion of White Light Through a Prism

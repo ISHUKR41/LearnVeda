@@ -50,7 +50,7 @@ export const topic7TotalInternalReflection: Topic = {
     "light-optical-fiber",
     "light-snell-calculator",
   ],
-  imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/light/topic7-tir-optical-fibre.png",
 
   content: `
 ### What is Total Internal Reflection?

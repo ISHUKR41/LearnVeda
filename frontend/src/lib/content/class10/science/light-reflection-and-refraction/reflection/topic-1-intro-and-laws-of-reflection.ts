@@ -20,8 +20,9 @@ export const topic1IntroAndLawsOfReflection: Topic = {
     "light-two-mirrors",
     "light-min-mirror",
     "light-glass-slab-lab",
+    "adv-plane-mirror",
   ],
-  imageUrl: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/light/topic1-reflection-laws.png",
   content: `
 ### What is Light?
 

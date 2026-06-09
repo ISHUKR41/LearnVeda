@@ -560,6 +560,17 @@ const Sim_light_eye_anatomy          = dynamic(() => import('./LightTopic8Simula
 const Sim_light_vision_defect_fix    = dynamic(() => import('./LightTopic8Simulations').then(m => m.Sim_light_vision_defect_fix),    { ssr: false });
 
 /* ══════════════════════════════════════════════════════════════════
+ * ADVANCED LIGHT SIMULATIONS — Engine-based (SimulationEngine.tsx)
+ * High-fidelity Canvas simulations with slider controls & glassmorphic UI
+ * ══════════════════════════════════════════════════════════════════ */
+const Sim_adv_plane_mirror      = dynamic(() => import('./light/reflection/PlaneMirrorSim'),     { ssr: false });
+const Sim_adv_concave_mirror    = dynamic(() => import('./light/mirrors/ConcaveMirrorSim'),      { ssr: false });
+const Sim_adv_snells_law        = dynamic(() => import('./light/refraction/SnellsLawSim'),       { ssr: false });
+const Sim_adv_convex_lens       = dynamic(() => import('./light/lenses/ConvexLensSim'),          { ssr: false });
+const Sim_adv_prism_dispersion  = dynamic(() => import('./light/dispersion/PrismDispersionSim'), { ssr: false });
+const Sim_adv_human_eye         = dynamic(() => import('./light/eye/HumanEyeSim'),               { ssr: false });
+
+/* ══════════════════════════════════════════════════════════════════
  * SIMULATION REGISTRY — maps string ID → React component
  * IDs use kebab-case (matching the simulationIds in topic content files)
  * ══════════════════════════════════════════════════════════════════ */
@@ -1032,6 +1043,29 @@ export const SIMULATION_REGISTRY: Record<string, ComponentType<any>> = {
   "light-rayleigh-sky":         Sim_light_rayleigh_sky,
   "light-eye-anatomy":          Sim_light_eye_anatomy,
   "light-vision-defect-fix":    Sim_light_vision_defect_fix,
+
+  /* ══════════════════════════════════════════════════════════════════
+   * ADVANCED ENGINE-BASED LIGHT SIMULATIONS (Phase 2)
+   * High-fidelity Canvas simulations with SimulationEngine.tsx
+   * ══════════════════════════════════════════════════════════════════ */
+
+  /* ── Reflection ── */
+  "adv-plane-mirror":           Sim_adv_plane_mirror,
+
+  /* ── Spherical Mirrors ── */
+  "adv-concave-mirror":         Sim_adv_concave_mirror,
+
+  /* ── Refraction ── */
+  "adv-snells-law":             Sim_adv_snells_law,
+
+  /* ── Lenses ── */
+  "adv-convex-lens":            Sim_adv_convex_lens,
+
+  /* ── Dispersion ── */
+  "adv-prism-dispersion":       Sim_adv_prism_dispersion,
+
+  /* ── Human Eye ── */
+  "adv-human-eye":              Sim_adv_human_eye,
 };
 
 /* ══════════════════════════════════════════════════════════════════════

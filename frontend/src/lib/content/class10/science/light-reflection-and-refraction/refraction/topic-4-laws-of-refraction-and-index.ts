@@ -19,8 +19,9 @@ export const topic4LawsOfRefraction: Topic = {
     "light-apparent-depth",
     "light-snell-calculator",
     "light-tir-explorer",
+    "adv-snells-law",
   ],
-  imageUrl: "https://images.unsplash.com/photo-1544265747-062e5b8ce1b2?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/light/topic4-refraction.png",
   content: `
 ### What is Refraction of Light?
 

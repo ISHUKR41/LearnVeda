@@ -16,6 +16,7 @@ import { topic5ImageFormationByLenses } from "./spherical-lenses/topic-5-image-f
 import { topic6LensFormulaAndPower } from "./lens-formula/topic-6-lens-formula-and-power";
 import { topic7TotalInternalReflection } from "./tir-optical-fibres/topic-7-total-internal-reflection";
 import { topic8DispersionAndHumanEye } from "./dispersion-scattering/topic-8-dispersion-and-human-eye";
+import { topic9NumericalsAdvanced } from "./numericals-advanced/topic-9-numericals-advanced";
 import { topicFlashCards, topicMindMaps } from "./study-aids/study-aids";
 
 /* ── Helper: Attach study aids to a topic ── */
@@ -42,5 +43,6 @@ export const lightReflectionAndRefractionChapter: Chapter = {
     enrichTopic(topic6LensFormulaAndPower),
     enrichTopic(topic7TotalInternalReflection),
     enrichTopic(topic8DispersionAndHumanEye),
+    enrichTopic(topic9NumericalsAdvanced),
   ],
 };

@@ -19,8 +19,9 @@ export const topic2SphericalMirrors: Topic = {
     "light-concave-positions",
     "light-mirror-uses",
     "light-mirror-ray-tracer",
+    "adv-concave-mirror",
   ],
-  imageUrl: "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/light/topic2-spherical-mirrors.png",
   content: `
 ### What is a Spherical Mirror?
 

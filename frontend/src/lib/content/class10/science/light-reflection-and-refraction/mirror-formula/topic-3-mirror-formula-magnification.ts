@@ -17,7 +17,7 @@ export const topic3MirrorFormulaMagnification: Topic = {
     "light-magnification-demo",
     "light-mirror-ray-builder",
   ],
-  imageUrl: "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/light/topic3-mirror-formula.png",
   content: `
 ### New Cartesian Sign Convention
 

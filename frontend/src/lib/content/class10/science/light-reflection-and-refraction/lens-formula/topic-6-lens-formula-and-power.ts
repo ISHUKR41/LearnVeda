@@ -17,8 +17,9 @@ export const topic6LensFormulaAndPower: Topic = {
     "light-eye-defects",
     "light-prism-dispersion",
     "light-spectrum-prism",
+    "adv-prism-dispersion",
   ],
-  imageUrl: "https://images.unsplash.com/photo-1517594422361-5eeb8ae275a9?auto=format&fit=crop&q=80&w=1200",
+  imageUrl: "/images/light/topic6-lens-formula.png",
   content: `
 ### Sign Convention for Spherical Lenses
 

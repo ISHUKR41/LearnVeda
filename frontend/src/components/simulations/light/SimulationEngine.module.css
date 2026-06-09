@@ -1,0 +1,329 @@
+/**
+ * FILE: SimulationEngine.module.css
+ * LOCATION: frontend/src/components/simulations/light/SimulationEngine.module.css
+ * PURPOSE: Shared styles for all Light chapter simulation components.
+ *          Glassmorphic containers, responsive control panels, slider/button
+ *          styling, and info panel layouts.
+ *
+ * DESIGN SYSTEM:
+ *   - Background: deep navy (#0f172a) with subtle glass panels
+ *   - Accent: amber (#fbbf24) for light rays, blue (#60a5fa) for UI
+ *   - Font: Inter / system-ui for labels and controls
+ *   - Border radius: 12px for containers, 8px for controls
+ *
+ * USED BY: All simulation components in /simulations/light/
+ * LAST UPDATED: 2026-06-08
+ */
+
+/* ─── Simulation Card Wrapper ─── */
+.simCard {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.simCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(96, 165, 250, 0.08);
+}
+
+/* ─── Header with Title and Icon ─── */
+.simHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.6));
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.simIcon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(96, 165, 250, 0.15);
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.simTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+  letter-spacing: 0.01em;
+}
+
+.simBadge {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 500;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* ─── Canvas Container ─── */
+.canvasWrap {
+  position: relative;
+  width: 100%;
+  background: #0f172a;
+}
+
+/* ─── Control Panel (sliders, buttons, inputs) ─── */
+.controlPanel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(30, 41, 59, 0.5));
+  border-top: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.controlLabel {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.controlValue {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+/* ─── Range Slider Styling ─── */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(148, 163, 184, 0.2);
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.slider:hover {
+  background: rgba(148, 163, 184, 0.3);
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  cursor: grab;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+  transition: transform 0.15s ease;
+}
+
+.slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.2);
+}
+
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  cursor: grab;
+  border: none;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+}
+
+/* ─── Toggle Buttons ─── */
+.toggleGroup {
+  display: flex;
+  gap: 4px;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.toggleBtn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggleBtn:hover {
+  color: #e2e8f0;
+  background: rgba(148, 163, 184, 0.1);
+}
+
+.toggleBtnActive {
+  composes: toggleBtn;
+  color: #ffffff;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* ─── Info Panel (shows computed values) ─── */
+.infoPanel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 18px;
+  background: rgba(15, 23, 42, 0.5);
+  border-top: 1px solid rgba(148, 163, 184, 0.06);
+}
+
+.infoChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(96, 165, 250, 0.08);
+  border: 1px solid rgba(96, 165, 250, 0.15);
+  border-radius: 20px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.infoChipLabel {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.infoChipValue {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+/* ─── Instruction Text ─── */
+.instructionText {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  color: #64748b;
+  padding: 8px 18px;
+  text-align: center;
+  font-style: italic;
+  border-top: 1px solid rgba(148, 163, 184, 0.06);
+}
+
+/* ─── Reset Button ─── */
+.resetBtn {
+  padding: 6px 16px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+  background: rgba(15, 23, 42, 0.5);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetBtn:hover {
+  color: #e2e8f0;
+  border-color: rgba(148, 163, 184, 0.4);
+  background: rgba(30, 41, 59, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════
+ * RESPONSIVE BREAKPOINTS
+ * ═══════════════════════════════════════════════════ */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .controlPanel {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+
+  .controlGroup {
+    min-width: 120px;
+  }
+
+  .simHeader {
+    padding: 10px 14px;
+  }
+
+  .simTitle {
+    font-size: 13px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .simCard {
+    border-radius: 12px;
+  }
+
+  .controlPanel {
+    flex-direction: column;
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .controlGroup {
+    min-width: 100%;
+  }
+
+  .infoPanel {
+    flex-direction: column;
+    padding: 10px 12px;
+  }
+
+  .infoChip {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .simHeader {
+    padding: 10px 12px;
+  }
+
+  .simTitle {
+    font-size: 12px;
+  }
+
+  .simBadge {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+
+  .toggleGroup {
+    width: 100%;
+  }
+
+  .toggleBtn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 6px;
+  }
+}

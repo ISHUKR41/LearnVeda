@@ -645,3 +645,32 @@
     transform: translateY(0);
   }
 }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .actionRow {
+    flex-direction: column-reverse;
+    gap: var(--space-3);
+  }
+
+  .actionRow > button {
+    width: 100%;
+  }
+
+  .nextButton {
+    margin-left: 0;
+  }
+
+  .quizPanel {
+    padding: var(--space-4);
+  }
+
+  .summaryCard {
+    padding: var(--space-6) var(--space-4);
+  }
+}

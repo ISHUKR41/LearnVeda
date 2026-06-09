@@ -427,11 +427,105 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
     { id: "fc8-22", front: "CBSE Numerics: A hypermetropic person's near point is 1 m. Corrective lens power?",
       back: "Need convex lens to form virtual image of object at 25 cm at the person's near point 1 m. Using lens formula: 1/v − 1/u = 1/f → u = −0.25 m, v = −1.0 m. 1/f = 1/(−1) − 1/(−0.25) = −1 + 4 = +3. P = +3 D." },
   ],
+
+  /* ─────────────────────────────────────────────────────────────
+   * Topic 7: Total Internal Reflection & Optical Fibres (22 cards)
+   * ───────────────────────────────────────────────────────────── */
+  "total-internal-reflection": [
+    { id: "fc7-1",  front: "What is Total Internal Reflection (TIR)?",
+      back: "The complete reflection of light back into the denser medium when: (1) light travels from denser to rarer medium, AND (2) angle of incidence exceeds the critical angle. No refraction occurs — 100% of light is reflected." },
+    { id: "fc7-2",  front: "What is the Critical Angle (iᶜ)?",
+      back: "The angle of incidence in the denser medium for which the angle of refraction in the rarer medium equals exactly 90°. At this angle, the refracted ray grazes the surface. Beyond this → TIR occurs." },
+    { id: "fc7-3",  front: "Formula for Critical Angle?",
+      back: "sin(iᶜ) = 1/n (for medium-to-air). For medium 1 to medium 2: sin(iᶜ) = n₂/n₁. Derivation: Apply Snell's Law with refraction angle = 90°." },
+    { id: "fc7-4",  front: "Two conditions for TIR (BOTH must hold)?",
+      back: "1. Light must travel from OPTICALLY DENSER to OPTICALLY RARER medium. 2. Angle of incidence must be GREATER THAN the critical angle (∠i > iᶜ). If EITHER fails → no TIR." },
+    { id: "fc7-5",  front: "Critical angles: Water, Glass, Diamond?",
+      back: "Water (n=1.33): ~48.75°. Glass (n=1.50): ~41.8°. Diamond (n=2.42): ~24.4°. Rule: Higher refractive index → SMALLER critical angle." },
+    { id: "fc7-6",  front: "Why does diamond sparkle brilliantly?",
+      back: "Diamond has n=2.42 → small critical angle (~24.4°). Most light rays inside hit facets at angles > 24.4° → multiple TIR bounces inside → light concentrates and exits through top facets → brilliant sparkle. Glass (iᶜ≈42°) traps light less effectively." },
+    { id: "fc7-7",  front: "What is a Mirage? How does TIR cause it?",
+      back: "Optical illusion of water on hot ground. Hot air near ground is rarer → light from sky bends down through progressively rarer layers → critical angle exceeded → TIR → ray curves UP. Observer sees sky reflected from ground → looks like water pool." },
+    { id: "fc7-8",  front: "Structure of an Optical Fibre?",
+      back: "1. Core: High-refractive-index glass/plastic (n₁). 2. Cladding: Lower-refractive-index glass (n₂ < n₁). 3. Buffer: Outer protective plastic jacket. Light enters core and bounces via TIR at core-cladding boundary. Condition: angle > critical angle = arcsin(n₂/n₁)." },
+    { id: "fc7-9",  front: "Why is TIR 100% efficient, unlike mirror reflection?",
+      back: "Mirror (metallic reflection): absorbs ~5% of light per reflection. Over 1000 reflections: 0.95¹⁰⁰⁰ ≈ 0% light remains. TIR: When conditions met, 0% is refracted → 100% reflected. Millions of reflections in a fibre → signal stays strong over 100 km." },
+    { id: "fc7-10", front: "3 Applications of Optical Fibres?",
+      back: "1. Internet/Telecom: Light pulses carry terabits of data per second. 2. Medical endoscopes: Illumination + image fibre bundles. 3. Cable TV: Thousands of channels through one fibre. Also: industrial sensors, decorative lighting." },
+    { id: "fc7-11", front: "Prism Periscope: How does TIR help?",
+      back: "A right-angle (45°-90°-45°) prism: light hits hypotenuse at 45° > critical angle of glass (41.8°) → TIR turns ray 90°. Two prisms = periscope. Advantage: TIR is 100% efficient vs mirror's ~95%, giving a brighter image. No tarnishing either." },
+    { id: "fc7-12", front: "What is an endoscope? Dual fibre system?",
+      back: "Medical device to see inside hollow organs without surgery. Uses TWO fibre bundles: (1) Illumination bundle: carries light from external source INTO body. (2) Image bundle: carries reflected light from body BACK to camera. Both flexible → navigates curves via TIR." },
+    { id: "fc7-13", front: "Numerical: n = 1.5. Find critical angle.",
+      back: "sin(iᶜ) = 1/n = 1/1.5 = 0.667. iᶜ = arcsin(0.667) ≈ 41.8°. So for glass-air interface, critical angle ≈ 41.8°." },
+    { id: "fc7-14", front: "Numerical: iᶜ = 30°. Find refractive index.",
+      back: "sin(iᶜ) = 1/n → n = 1/sin(30°) = 1/0.5 = 2.0. The medium has refractive index 2.0." },
+    { id: "fc7-15", front: "Looming (Arctic Mirage) vs Desert Mirage?",
+      back: "Desert Mirage: Hot rarer air at bottom → light from sky curves UP → image appears BELOW actual object (water illusion). Arctic Looming: Cold denser air at bottom → light curves DOWN following earth curvature → ships visible beyond horizon, appear ABOVE actual position." },
+    { id: "fc7-16", front: "Why does an air bubble in glass appear shiny?",
+      back: "Air (n=1) is rarer than glass (n≈1.5). Light going from glass to air bubble hits the surface at angles often > critical angle (41.8°) → TIR. The bubble reflects all light back → appears silvery/shiny because no light passes through." },
+    { id: "fc7-17", front: "What happens when ∠i = iᶜ exactly?",
+      back: "The refracted ray travels ALONG the interface — angle of refraction = exactly 90°. This is the boundary between refraction (∠i < iᶜ) and TIR (∠i > iᶜ). A tiny increase in angle shifts to total internal reflection." },
+    { id: "fc7-18", front: "Numerical: Core n₁=1.55, cladding n₂=1.45. Critical angle?",
+      back: "sin(iᶜ) = n₂/n₁ = 1.45/1.55 = 0.935. iᶜ = arcsin(0.935) ≈ 69.3°. Light must hit boundary at > 69.3° for TIR to occur inside the fibre." },
+    { id: "fc7-19", front: "Why can optical fibres be bent but still work?",
+      back: "TIR depends on LOCAL angle at each reflection point, not the overall direction of the fibre. As long as each reflection point has ∠i > iᶜ (maintained by fibre design), TIR continues regardless of the fibre's curve. Flexibility is inherent to the physics." },
+    { id: "fc7-20", front: "Does wavelength (colour) affect TIR critical angle?",
+      back: "YES, slightly. Refractive index varies with wavelength (dispersion). Violet light (higher n) → smaller critical angle. Red light (lower n) → larger critical angle. This difference is small for glass-air but noticeable in diamond — contributes to fire (coloured flashes)." },
+    { id: "fc7-21", front: "Compare: TIR (denser→rarer) vs Refraction (rarer→denser)?",
+      back: "Denser → rarer: Ray bends AWAY from normal. If ∠i > iᶜ → TIR occurs. Rarer → denser: Ray bends TOWARD normal. TIR CANNOT occur (no critical angle from rarer side — Snell's Law always has a valid solution). TIR is one-directional." },
+    { id: "fc7-22", front: "Why is optical fibre preferred over copper for internet?",
+      back: "1. Bandwidth: Light frequency is 10¹⁴ Hz vs electricity 10⁶ Hz → vastly more data capacity. 2. Less attenuation: TIR means minimal signal loss over 100+ km. 3. No EM interference: Light unaffected by nearby magnetic fields. 4. Thinner, lighter cables." },
+  ],
+
+  /* ─────────────────────────────────────────────────────────────
+   * Topic 9: Numericals & Advanced Optical Concepts (20 cards)
+   * ───────────────────────────────────────────────────────────── */
+  "topic-9-numericals-advanced": [
+    { id: "fc9-1",  front: "New Cartesian Sign Convention — 7 Rules?",
+      back: "1. Pole/Optical Center at origin. 2. Object ALWAYS left → u ALWAYS negative. 3. Light travels left→right. 4. Distances right of pole: POSITIVE. 5. Distances left: NEGATIVE. 6. Heights above axis: POSITIVE. 7. Heights below: NEGATIVE." },
+    { id: "fc9-2",  front: "Mirror Formula?",
+      back: "1/v + 1/u = 1/f. Also: f = R/2. Where v = image distance, u = object distance, f = focal length. BOTH u and f for concave mirror are negative. Magnification m = -v/u." },
+    { id: "fc9-3",  front: "Lens Formula?",
+      back: "1/v - 1/u = 1/f. Note the MINUS sign (unlike mirror formula which has plus). Power P = 1/f (f in metres). For convex lens: f positive. For concave: f negative. Magnification m = v/u (no negative sign for lenses)." },
+    { id: "fc9-4",  front: "Sign of focal length: all 4 cases?",
+      back: "Concave mirror: f NEGATIVE (real focus, in front). Convex mirror: f POSITIVE (virtual focus, behind). Convex lens: f POSITIVE (real focus, on far side). Concave lens: f NEGATIVE (virtual focus, same side as object)." },
+    { id: "fc9-5",  front: "Numerical strategy: mirror problem setup?",
+      back: "Step 1: Identify mirror type (concave/convex). Step 2: Assign signs (u=negative, f=negative for concave). Step 3: Apply 1/v + 1/u = 1/f. Step 4: Solve for unknown. Step 5: m = -v/u, interpret sign (+ = virtual/erect, - = real/inverted)." },
+    { id: "fc9-6",  front: "Example: Concave mirror f=-10cm, object at u=-30cm. Find v?",
+      back: "1/v + 1/u = 1/f → 1/v + 1/(-30) = 1/(-10) → 1/v = -1/10 + 1/30 = -3/30 + 1/30 = -2/30 = -1/15. v = -15 cm. Real image, 15 cm in front of mirror." },
+    { id: "fc9-7",  front: "Example: Convex lens f=+20cm, object at u=-30cm. Find v?",
+      back: "1/v - 1/u = 1/f → 1/v - 1/(-30) = 1/20 → 1/v + 1/30 = 1/20 → 1/v = 1/20 - 1/30 = 3/60 - 2/60 = 1/60. v = +60 cm. Real image, 60 cm on far side of lens." },
+    { id: "fc9-8",  front: "Power of a lens formula and unit?",
+      back: "P = 1/f (where f is in METRES). Unit: Dioptre (D). 1D = 1 m⁻¹. Convex lens: P positive. Concave lens: P negative. f = 20 cm = 0.2 m → P = 1/0.2 = +5 D." },
+    { id: "fc9-9",  front: "Combination of lenses in contact: net power?",
+      back: "P_net = P₁ + P₂ + P₃ + ... (algebraic sum). Net focal length: 1/f_net = 1/f₁ + 1/f₂. This applies when lenses are in contact (touching). If not in contact, more complex formula needed." },
+    { id: "fc9-10", front: "Magnification sign interpretation (mirrors)?",
+      back: "m = -v/u. If m is POSITIVE: image is virtual and erect. If m is NEGATIVE: image is real and inverted. |m| > 1: magnified/enlarged. |m| < 1: diminished. |m| = 1: same size." },
+    { id: "fc9-11", front: "Magnification sign interpretation (lenses)?",
+      back: "m = v/u (NO negative sign for lenses!). If m is POSITIVE: image is virtual and erect (same side as object). If m is NEGATIVE: image is real and inverted. Sizes same as mirrors: |m| > 1 = magnified, etc." },
+    { id: "fc9-12", front: "Example: m = -2, u = -15 cm. Find v and f (concave mirror)?",
+      back: "m = -v/u → -2 = -v/(-15) → -2 = v/15 → v = -30 cm (real, inverted). 1/f = 1/v + 1/u = 1/(-30) + 1/(-15) = -1/30 - 2/30 = -3/30 = -1/10. f = -10 cm." },
+    { id: "fc9-13", front: "Fermat's Principle of Least Time?",
+      back: "Light travels from one point to another along the path that takes the LEAST time. This explains BOTH reflection (angle of incidence = angle of reflection gives shortest time) and refraction (Snell's law is the mathematical result of minimizing travel time)." },
+    { id: "fc9-14", front: "Object at C (=2f) of concave mirror → image location?",
+      back: "When u = -2f, image also forms at v = -2f (i.e., at C). Image is REAL, INVERTED, SAME SIZE (m = -1). This is used in rangefinders and is a symmetric configuration." },
+    { id: "fc9-15", front: "Object at F of concave mirror → image?",
+      back: "When u = -f, the mirror formula gives 1/v = 1/f - 1/u = -1/f - (-1/f) = 0 → v = ∞. Image forms at infinity. Rays emerge PARALLEL to principal axis. Used in torches, searchlights, car headlights." },
+    { id: "fc9-16", front: "Object between F and P of concave mirror → image?",
+      back: "When u is between 0 and -f: v comes out POSITIVE → image behind mirror. Virtual, erect, magnified. m > 1 (enlarged). This is how a shaving/makeup mirror works (use as a magnifier)." },
+    { id: "fc9-17", front: "Numerical: A man 1.8 m tall stands 3 m from concave mirror f=-2 m. Find image height.",
+      back: "1/v + 1/(-3) = 1/(-2) → 1/v = -1/2 + 1/3 = -1/6 → v = -6 m. m = -v/u = -(-6)/(-3) = -2. h' = m × h = -2 × 1.8 = -3.6 m (real, inverted, 3.6 m tall image)." },
+    { id: "fc9-18", front: "What is the New Cartesian convention for 'object always on left'?",
+      back: "By convention, the incident light always travels from left to right. The object is always placed on the left (in the path of incoming light). Therefore u (object distance from pole/optical center) is ALWAYS negative, in ALL problems." },
+    { id: "fc9-19", front: "Concave vs Convex mirror: which one in rear-view mirror? Why?",
+      back: "CONVEX mirror. Reason: (1) Always forms virtual, erect, diminished image → driver sees wider field of view. (2) Image is never inverted → no confusion. (3) Image is always in the focal region (behind mirror) regardless of object distance → useful for varying traffic distances." },
+    { id: "fc9-20", front: "Concave mirror uses (4 key ones)?",
+      back: "1. Shaving/makeup mirror: object between F and P → magnified, erect. 2. Doctor's headmirror/ENT mirror: concave → focuses light onto patient. 3. Solar furnace: parallel sun rays → converge at focus → extreme heat. 4. Torches/headlights: bulb at F → parallel beam emerges." },
+  ],
 };
 
-/* ══════════════════════════════════════════════════════════════════
- * MIND MAPS — Deep hierarchical concept trees for all 6 topics
- * ══════════════════════════════════════════════════════════════════ */
+
 
 export const topicMindMaps: Record<string, { id: string; label: string; children?: any[] }[]> = {
 
@@ -973,6 +1067,161 @@ export const topicMindMaps: Record<string, { id: string; label: string; children
           ]
         },
         { id: "mm8-6d", label: "Astigmatism: non-spherical cornea → cylindrical lens correction" },
+      ]
+    },
+  ],
+
+  /* ─────────────────────────────────────────────────────────────
+   * Topic 7: Total Internal Reflection & Optical Fibres
+   * ───────────────────────────────────────────────────────────── */
+  "total-internal-reflection": [
+    {
+      id: "mm7-1", label: "Total Internal Reflection (TIR)", children: [
+        { id: "mm7-1a", label: "Definition: Complete reflection into denser medium" },
+        { id: "mm7-1b", label: "Condition 1: Denser → Rarer medium" },
+        { id: "mm7-1c", label: "Condition 2: Angle of incidence > Critical angle" },
+        {
+          id: "mm7-1d", label: "Three cases at boundary", children: [
+            { id: "mm7-1d1", label: "∠i < iᶜ → Partial refraction + partial reflection" },
+            { id: "mm7-1d2", label: "∠i = iᶜ → Refracted ray grazes surface (∠r=90°)" },
+            { id: "mm7-1d3", label: "∠i > iᶜ → Total Internal Reflection (100%)" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm7-2", label: "Critical Angle", children: [
+        { id: "mm7-2a", label: "Definition: ∠i in denser for ∠r = 90° in rarer" },
+        { id: "mm7-2b", label: "Formula: sin(iᶜ) = 1/n (medium to air)" },
+        { id: "mm7-2c", label: "Formula (two media): sin(iᶜ) = n₂/n₁" },
+        {
+          id: "mm7-2d", label: "Critical Angles by Material", children: [
+            { id: "mm7-2d1", label: "Water: ~48.75° (n=1.33)" },
+            { id: "mm7-2d2", label: "Glass: ~41.8° (n=1.50)" },
+            { id: "mm7-2d3", label: "Diamond: ~24.4° (n=2.42)" },
+            { id: "mm7-2d4", label: "Rule: Higher n → Smaller critical angle" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm7-3", label: "Natural Phenomena (TIR)", children: [
+        {
+          id: "mm7-3a", label: "Desert Mirage", children: [
+            { id: "mm7-3a1", label: "Hot air near ground → rarer medium" },
+            { id: "mm7-3a2", label: "Light bends → TIR → curves upward" },
+            { id: "mm7-3a3", label: "Observer sees sky image on ground (looks like water)" },
+          ]
+        },
+        {
+          id: "mm7-3b", label: "Diamond Sparkle", children: [
+            { id: "mm7-3b1", label: "Small critical angle (24.4°)" },
+            { id: "mm7-3b2", label: "Multiple TIR inside gem" },
+            { id: "mm7-3b3", label: "Light channels upward through top facets" },
+          ]
+        },
+        { id: "mm7-3c", label: "Air bubble in glass: TIR → appears shiny/silvery" },
+        { id: "mm7-3d", label: "Arctic Looming: cold dense air → inverted mirage above horizon" },
+      ]
+    },
+    {
+      id: "mm7-4", label: "Optical Fibres", children: [
+        {
+          id: "mm7-4a", label: "Structure", children: [
+            { id: "mm7-4a1", label: "Core: high n (e.g., 1.55)" },
+            { id: "mm7-4a2", label: "Cladding: lower n (e.g., 1.45)" },
+            { id: "mm7-4a3", label: "Buffer: protective plastic jacket" },
+          ]
+        },
+        { id: "mm7-4b", label: "Working: TIR at core-cladding boundary" },
+        { id: "mm7-4c", label: "Efficiency: 100% (vs mirror's 95%)" },
+        {
+          id: "mm7-4d", label: "Applications", children: [
+            { id: "mm7-4d1", label: "Internet & Telecom (terabits/second)" },
+            { id: "mm7-4d2", label: "Medical endoscopes (dual bundle)" },
+            { id: "mm7-4d3", label: "Cable TV, industrial sensors" },
+          ]
+        },
+        {
+          id: "mm7-4e", label: "Advantages over Copper", children: [
+            { id: "mm7-4e1", label: "Higher bandwidth" },
+            { id: "mm7-4e2", label: "No EM interference" },
+            { id: "mm7-4e3", label: "Less signal loss (100+ km)" },
+            { id: "mm7-4e4", label: "Lighter, thinner" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm7-5", label: "Prism Periscope", children: [
+        { id: "mm7-5a", label: "Right-angle prism (45°-90°-45°)" },
+        { id: "mm7-5b", label: "Light hits hypotenuse at 45° > iᶜ (41.8°)" },
+        { id: "mm7-5c", label: "TIR turns ray exactly 90°" },
+        { id: "mm7-5d", label: "Brighter than plane mirror (100% vs 95%)" },
+      ]
+    },
+  ],
+
+  /* ─────────────────────────────────────────────────────────────
+   * Topic 9: Numericals & Advanced Optical Concepts
+   * ───────────────────────────────────────────────────────────── */
+  "topic-9-numericals-advanced": [
+    {
+      id: "mm9-1", label: "New Cartesian Sign Convention", children: [
+        { id: "mm9-1a", label: "Origin: Pole (mirror) / Optical Centre (lens)" },
+        { id: "mm9-1b", label: "Object ALWAYS on left → u ALWAYS negative" },
+        { id: "mm9-1c", label: "Positive: right of origin, above axis" },
+        { id: "mm9-1d", label: "Negative: left of origin, below axis" },
+        {
+          id: "mm9-1e", label: "Focal Length Signs", children: [
+            { id: "mm9-1e1", label: "Concave mirror: f < 0 (real focus, in front)" },
+            { id: "mm9-1e2", label: "Convex mirror: f > 0 (virtual focus, behind)" },
+            { id: "mm9-1e3", label: "Convex lens: f > 0 (real focus, far side)" },
+            { id: "mm9-1e4", label: "Concave lens: f < 0 (virtual focus, near side)" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm9-2", label: "Mirror Formula", children: [
+        { id: "mm9-2a", label: "1/v + 1/u = 1/f" },
+        { id: "mm9-2b", label: "f = R/2 (radius of curvature relationship)" },
+        { id: "mm9-2c", label: "Magnification: m = -v/u (negative sign)" },
+        {
+          id: "mm9-2d", label: "Interpreting m (mirrors)", children: [
+            { id: "mm9-2d1", label: "m > 0 → Virtual + Erect" },
+            { id: "mm9-2d2", label: "m < 0 → Real + Inverted" },
+            { id: "mm9-2d3", label: "|m| > 1 → Magnified" },
+            { id: "mm9-2d4", label: "|m| < 1 → Diminished" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm9-3", label: "Lens Formula", children: [
+        { id: "mm9-3a", label: "1/v - 1/u = 1/f (NOTE: minus sign)" },
+        { id: "mm9-3b", label: "Power: P = 1/f(m), unit = Dioptre (D)" },
+        { id: "mm9-3c", label: "Magnification: m = v/u (NO negative sign)" },
+        { id: "mm9-3d", label: "Net power: P₁ + P₂ + P₃ (lenses in contact)" },
+      ]
+    },
+    {
+      id: "mm9-4", label: "Key Object Positions (Concave Mirror)", children: [
+        { id: "mm9-4a", label: "At ∞ → Image at F: point, real, inverted" },
+        { id: "mm9-4b", label: "Beyond 2F → Between F & 2F: diminished, real" },
+        { id: "mm9-4c", label: "At 2F (=C) → At 2F: same size, real, inverted" },
+        { id: "mm9-4d", label: "Between F & 2F → Beyond 2F: magnified, real" },
+        { id: "mm9-4e", label: "At F → At ∞: parallel beam (torches!)" },
+        { id: "mm9-4f", label: "Between F & P → Behind: virtual, erect, magnified" },
+      ]
+    },
+    {
+      id: "mm9-5", label: "Applications & Fermat's Principle", children: [
+        { id: "mm9-5a", label: "Fermat: light takes path of LEAST time" },
+        { id: "mm9-5b", label: "Concave mirror: makeup mirror, solar furnace, torch" },
+        { id: "mm9-5c", label: "Convex mirror: rear-view (wide field), security mirror" },
+        { id: "mm9-5d", label: "Convex lens: camera, projector, magnifier" },
+        { id: "mm9-5e", label: "Concave lens: myopia correction" },
       ]
     },
   ],

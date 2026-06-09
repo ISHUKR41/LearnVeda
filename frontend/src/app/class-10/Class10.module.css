@@ -15,12 +15,16 @@
 .page {
   padding: var(--space-8) 0 var(--space-16);
   min-height: calc(100vh - var(--navbar-height));
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .inner {
   max-width: var(--max-content-width);
   margin: 0 auto;
   padding: 0 var(--space-4);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
