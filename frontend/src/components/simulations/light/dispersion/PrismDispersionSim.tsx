@@ -41,18 +41,43 @@ function snell(theta: number, n1: number, n2: number): number | null {
 }
 
 /* ── Helpers ── */
+/** Layered glow beam — 4 alpha/width layers for photorealistic light appearance */
 function drawRayLine(
   ctx: CanvasRenderingContext2D,
   a: { x: number; y: number }, b: { x: number; y: number },
   color: string, glow: string, w = 2.5
 ) {
-  ctx.save();
-  ctx.strokeStyle = color;
-  ctx.lineWidth = w;
-  ctx.shadowColor = glow;
-  ctx.shadowBlur = 12;
-  ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-  ctx.restore();
+  [{ w: w * 5, a: 0.06 }, { w: w * 2.5, a: 0.14 }, { w: w * 1.4, a: 0.45 }, { w, a: 1.0 }].forEach(layer => {
+    ctx.save();
+    ctx.strokeStyle = color; ctx.lineWidth = layer.w; ctx.globalAlpha = layer.a;
+    ctx.shadowColor = glow; ctx.shadowBlur = layer.w * 2.5; ctx.lineCap = "round";
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    ctx.restore();
+  });
+}
+
+/** Photon stream with comet trails on a segment (for colored exit rays) */
+function photonRay(
+  ctx: CanvasRenderingContext2D,
+  from: { x: number; y: number }, to: { x: number; y: number },
+  time: number, col: string, phaseOff = 0
+) {
+  const speed = 0.00020;
+  for (let i = 0; i < 2; i++) {
+    const base = ((time * speed + phaseOff + i / 2) % 1);
+    for (let t = 3; t >= 1; t--) {
+      const tp = Math.max(0, base - t * 0.045);
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(from.x + (to.x - from.x) * tp, from.y + (to.y - from.y) * tp, Math.max(1, 3 - t * 0.8), 0, Math.PI * 2);
+      ctx.fillStyle = col; ctx.globalAlpha = 0.35 - t * 0.08; ctx.fill(); ctx.restore();
+    }
+    const px = from.x + (to.x - from.x) * base, py = from.y + (to.y - from.y) * base;
+    ctx.save(); ctx.beginPath(); ctx.arc(px, py, 3.5, 0, Math.PI * 2);
+    const g = ctx.createRadialGradient(px, py, 0, px, py, 5);
+    g.addColorStop(0, "#ffffff"); g.addColorStop(0.5, col); g.addColorStop(1, "transparent");
+    ctx.fillStyle = g; ctx.shadowColor = col; ctx.shadowBlur = 12; ctx.fill(); ctx.restore();
+  }
 }
 
 /* ═══════════════════════════════════════════════════
@@ -301,6 +326,8 @@ const PrismDispersionSim: React.FC<{ id?: string; title?: string }> = ({
         };
 
         drawRayLine(ctx, rightHit, exitEnd, color.color + "e0", color.glow, 2.5);
+        /* Animated photon on each colored exit ray */
+        photonRay(ctx, rightHit, exitEnd, time, color.color, idx * 0.14);
         /* Arrowhead */
         const exitAng = Math.atan2(exitEnd.y - rightHit.y, exitEnd.x - rightHit.x);
         ctx.save();

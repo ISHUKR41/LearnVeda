@@ -34,6 +34,40 @@ function ln(ctx: CanvasRenderingContext2D, a: {x:number;y:number}, b: {x:number;
   ctx.setLineDash([]); ctx.restore();
 }
 
+/** Layered glow beam for light rays — more visually impressive than simple ln() */
+function glowLn(ctx: CanvasRenderingContext2D, a: {x:number;y:number}, b: {x:number;y:number}, col: string, w = 2) {
+  [{ w: w * 7, a: 0.05 }, { w: w * 3.5, a: 0.13 }, { w: w * 1.8, a: 0.45 }, { w, a: 1.0 }].forEach(layer => {
+    ctx.save();
+    ctx.strokeStyle = col; ctx.lineWidth = layer.w; ctx.globalAlpha = layer.a;
+    ctx.shadowColor = col; ctx.shadowBlur = layer.w * 2; ctx.lineCap = "round";
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    ctx.restore();
+  });
+}
+
+/** Photon stream with comet trails on a line segment (3 photons) */
+function photonLn(
+  ctx: CanvasRenderingContext2D,
+  from: {x:number;y:number}, to: {x:number;y:number},
+  time: number, col: string, phaseOff = 0, speed = 0.00022
+) {
+  for (let i = 0; i < 3; i++) {
+    const base = ((time * speed + phaseOff + i / 3) % 1);
+    for (let t = 4; t >= 1; t--) {
+      const tp = Math.max(0, base - t * 0.04);
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(from.x + (to.x - from.x) * tp, from.y + (to.y - from.y) * tp, Math.max(1, 3 - t * 0.5), 0, Math.PI * 2);
+      ctx.fillStyle = col; ctx.globalAlpha = 0.4 - t * 0.09; ctx.fill(); ctx.restore();
+    }
+    const px = from.x + (to.x - from.x) * base, py = from.y + (to.y - from.y) * base;
+    ctx.save(); ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI * 2);
+    const g = ctx.createRadialGradient(px, py, 0, px, py, 5);
+    g.addColorStop(0, "#ffffff"); g.addColorStop(0.4, col); g.addColorStop(1, "transparent");
+    ctx.fillStyle = g; ctx.shadowColor = col; ctx.shadowBlur = 14; ctx.fill(); ctx.restore();
+  }
+}
+
 function lbl(ctx: CanvasRenderingContext2D, t: string, x: number, y: number, col = "#e2e8f0", sz = 11, align: CanvasTextAlign = "center") {
   ctx.save(); ctx.font = `${sz}px Inter, sans-serif`;
   ctx.fillStyle = col; ctx.textAlign = align; ctx.textBaseline = "middle";
@@ -311,36 +345,23 @@ const HumanEyeSim: React.FC<{ id?: string; title?: string }> = ({
       rayOffsets.forEach((dy, ri) => {
         const entryX = pupilX + eRX * 0.12;
         const entryY = eCY + dy;
+        const focalY = eCY + dy * 0.05;
+        const col = rayColors[ri];
 
-        /* Ray from object to cornea entry */
-        ln(ctx, { x: objX, y: objY }, { x: entryX, y: entryY }, rayColors[ri], 1.5);
+        /* Ray from object to cornea entry — layered glow beam */
+        glowLn(ctx, { x: objX, y: objY }, { x: entryX, y: entryY }, col);
 
         /* Ray through eye to focus point */
-        const focalY = eCY + dy * 0.05; /* slightly converge at center */
-        ln(ctx, { x: entryX, y: entryY }, { x: focalX, y: focalY }, rayColors[ri], 1.5);
+        glowLn(ctx, { x: entryX, y: entryY }, { x: focalX, y: focalY }, col);
 
         /* If defective, show dotted extension to retina */
         if (eyeMode !== "normal" && !showCorrection) {
-          ln(ctx, { x: focalX, y: focalY }, { x: retinalX, y: focalY }, rayColors[ri], 1, true);
+          ln(ctx, { x: focalX, y: focalY }, { x: retinalX, y: focalY }, col, 1, true);
         }
 
-        /* Animated photon */
-        const t2 = ((time * 0.0005 + ri * 0.33) % 2);
-        let phX, phY;
-        if (t2 < 1) {
-          phX = objX + (entryX - objX) * t2;
-          phY = objY + (entryY - objY) * t2;
-        } else {
-          const tt = t2 - 1;
-          phX = entryX + (focalX - entryX) * tt;
-          phY = entryY + (focalY - entryY) * tt;
-        }
-        ctx.save();
-        ctx.beginPath(); ctx.arc(phX, phY, 3, 0, Math.PI * 2);
-        ctx.fillStyle = rayColors[ri];
-        ctx.shadowColor = rayColors[ri];
-        ctx.shadowBlur = 10;
-        ctx.fill(); ctx.restore();
+        /* Multi-photon streams — 3 photons with comet trails on each ray segment */
+        photonLn(ctx, { x: objX, y: objY }, { x: entryX, y: entryY }, time, col, ri * 0.33);
+        photonLn(ctx, { x: entryX, y: entryY }, { x: focalX, y: focalY }, time, col, ri * 0.33 + 0.5);
       });
 
       /* Focus point indicator */
