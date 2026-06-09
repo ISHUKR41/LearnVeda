@@ -133,7 +133,7 @@ export default function GlassSlabSim() {
 
       /* Physics */
       const iRad = toRad(iDeg);
-      const rRad = Math.asin(Math.clamp ? Math.sin(iRad) / n : Math.min(1, Math.sin(iRad) / n));
+      const rRad = Math.asin(Math.min(1, Math.sin(iRad) / n));
 
       /* Layout */
       const slabTop  = H * 0.27;

@@ -15,5 +15,8 @@ import { lightReflectionAndRefractionChapter } from "./light-reflection-and-refr
  * or chunking chapter data down the road if needed.
  */
 export const CLASS10_SCIENCE_CHAPTERS: Record<string, Chapter> = {
+  // Primary canonical slug (deep-link and direct navigation)
   "light-reflection-and-refraction": lightReflectionAndRefractionChapter,
+  // DB slug alias — eduquest_chapters table uses "light-reflection" so both URLs work
+  "light-reflection": lightReflectionAndRefractionChapter,
 };

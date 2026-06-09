@@ -164,7 +164,7 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
   /* ─────────────────────────────────────────────────────────────
    * Topic 3: Mirror Formula & Magnification (21 cards)
    * ───────────────────────────────────────────────────────────── */
-  "mirror-formula-and-magnification": [
+  "mirror-formula-magnification": [
     { id: "fc3-1",  front: "Write the Mirror Formula.",
       back: "1/v + 1/u = 1/f (or) 1/f = 1/v + 1/u. All three quantities (v, u, f) must be measured from the Pole and signed correctly per New Cartesian convention." },
     { id: "fc3-2",  front: "What is Magnification (m)?",
@@ -728,7 +728,7 @@ export const topicMindMaps: Record<string, { id: string; label: string; children
   /* ─────────────────────────────────────────────────────────────
    * Topic 3: Mirror Formula & Magnification
    * ───────────────────────────────────────────────────────────── */
-  "mirror-formula-and-magnification": [
+  "mirror-formula-magnification": [
     {
       id: "mm3-1", label: "New Cartesian Sign Convention", children: [
         { id: "mm3-1a", label: "ORIGIN = Pole P of mirror" },
