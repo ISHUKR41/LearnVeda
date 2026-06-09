@@ -1,0 +1,236 @@
+/**
+ * FILE: TopicDiagrams.module.css
+ * LOCATION: src/components/chapter/light/TopicDiagrams.module.css
+ *
+ * PURPOSE: Scoped styles for the TopicDiagrams SVG illustration components.
+ *          Provides the wrapper layout, title typography, and all
+ *          keyframe animation classes used inside the SVGs.
+ *
+ * ANIMATIONS:
+ *   animatedRay        — light beam drawing effect (strokeDashoffset trick)
+ *   animatedRayDelayed — same but starts 0.5s later (for reflected/refracted rays)
+ *   pulseDot           — gentle breathing glow on focal point / key-point dots
+ *   glowDot            — stronger pulsing glow on light source indicators
+ *   glowCard           — subtle border glow animation on formula cards
+ *   fiberRay           — bouncing light inside optical fiber animation
+ *
+ * USED BY: Every Diagram* component in TopicDiagrams.tsx
+ * LAST UPDATED: 2026-06-09
+ */
+
+/* ══════════════════════════════════════════════════════
+ * WRAPPER: outer container for each SVG diagram
+ * ══════════════════════════════════════════════════════ */
+
+.diagramWrapper {
+  /* Full-width block inside the Learn tab */
+  width: 100%;
+  margin: 32px 0;
+  padding: 0;
+  animation: fadeSlideIn 0.6s ease both;
+}
+
+/* ══════════════════════════════════════════════════════
+ * DIAGRAM TITLE: label shown above the SVG
+ * ══════════════════════════════════════════════════════ */
+
+.diagramTitle {
+  /* Small all-caps label with gradient underline */
+  font-size: 0.75rem;
+  font-family: "Inter", "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 12px;
+  padding-left: 4px;
+  position: relative;
+  display: inline-block;
+}
+
+.diagramTitle::after {
+  /* Glowing underline accent */
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: linear-gradient(90deg, #3b82f6, transparent);
+  border-radius: 1px;
+}
+
+/* ══════════════════════════════════════════════════════
+ * SVG: the main illustration element
+ * ══════════════════════════════════════════════════════ */
+
+.svg {
+  /* Responsive: scales to container width */
+  width: 100%;
+  height: auto;
+
+  /* Rounded container with glass-morphism border */
+  display: block;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  /* Subtle outer glow */
+  box-shadow:
+    0 0 0 1px rgba(59, 130, 246, 0.08),
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(59, 130, 246, 0.04);
+
+  /* Smooth entrance */
+  animation: svgEntrance 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.1s;
+
+  overflow: visible;
+}
+
+/* ══════════════════════════════════════════════════════
+ * ANIMATION: LIGHT RAY DRAWING
+ * Uses stroke-dashoffset to create the "ray shooting out" effect.
+ * The SVG element must have strokeDasharray="1000" or similar to work.
+ * Applied to: incident ray, reflected ray, refracted ray lines.
+ * ══════════════════════════════════════════════════════ */
+
+.animatedRay {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: drawRay 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+}
+
+.animatedRayDelayed {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: drawRay 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards;
+}
+
+/* ══════════════════════════════════════════════════════
+ * ANIMATION: PULSING DOT (focal points, key positions)
+ * Gentle scale + opacity pulse for dots at P, F, C positions.
+ * ══════════════════════════════════════════════════════ */
+
+.pulseDot {
+  animation: pulseDot 2.5s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* ══════════════════════════════════════════════════════
+ * ANIMATION: GLOW DOT (light source indicator)
+ * Stronger pulsing glow for the "light source" circle.
+ * ══════════════════════════════════════════════════════ */
+
+.glowDot {
+  animation: glowPulse 2s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* ══════════════════════════════════════════════════════
+ * ANIMATION: GLOW CARD (formula cards border glow)
+ * Subtle animated border for formula reference cards.
+ * ══════════════════════════════════════════════════════ */
+
+.glowCard {
+  animation: glowCard 3s ease-in-out infinite;
+}
+
+/* ══════════════════════════════════════════════════════
+ * ANIMATION: FIBER RAY (optical fiber bouncing light)
+ * Makes the diagonal lines inside the optical fiber
+ * appear to travel from left to right.
+ * ══════════════════════════════════════════════════════ */
+
+.fiberRay {
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  animation: fiberTravel 0.8s linear infinite;
+}
+
+/* Each fiber ray starts slightly later to create a "wave" effect */
+.fiberRay:nth-child(odd)  { animation-delay: 0s; }
+.fiberRay:nth-child(even) { animation-delay: 0.15s; }
+
+/* ══════════════════════════════════════════════════════
+ * KEYFRAMES
+ * ══════════════════════════════════════════════════════ */
+
+/* Light ray shooting animation */
+@keyframes drawRay {
+  from { stroke-dashoffset: 800; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* Gentle dot pulse (scale only) */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; r: 5px; }
+  50%       { opacity: 0.7; r: 7px; }
+}
+
+/* Stronger glow dot pulse */
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px currentColor);
+  }
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 12px currentColor);
+  }
+}
+
+/* Formula card border glow */
+@keyframes glowCard {
+  0%, 100% { filter: drop-shadow(0 0 0px rgba(99,102,241,0)); }
+  50%       { filter: drop-shadow(0 0 8px rgba(99,102,241,0.4)); }
+}
+
+/* Fiber ray travel animation */
+@keyframes fiberTravel {
+  from { stroke-dashoffset: 80; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* SVG container fade-in entrance */
+@keyframes svgEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Wrapper fade+slide */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+ * RESPONSIVE: Scale down on small screens
+ * ══════════════════════════════════════════════════════ */
+
+@media (max-width: 600px) {
+  .diagramWrapper {
+    margin: 20px 0;
+  }
+
+  .diagramTitle {
+    font-size: 0.7rem;
+  }
+
+  .svg {
+    border-radius: 10px;
+  }
+}

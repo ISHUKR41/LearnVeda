@@ -523,6 +523,24 @@
   letter-spacing: -0.01em;
 }
 
+/* ── DIAGRAM SECTION: animated SVG concept illustration ── */
+.diagramSection {
+  margin: 40px 0;
+  padding: 0;
+}
+
+.diagramHeading {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 /* CTA card */
 .learnCta {
   margin-top: 40px;

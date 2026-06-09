@@ -46,6 +46,7 @@ import { parseMarkdown } from "@/lib/utils/parseMarkdown";
 import FlashCards from "@/components/chapter/FlashCards";
 import MindMap from "@/components/chapter/MindMap";
 import SimulationRenderer from "@/components/simulations/SimulationRegistry";
+import { getDiagramForTopic } from "@/components/chapter/light/TopicDiagrams";
 
 /* ─────────────────────────────────────────────
  * Types for study tab system
@@ -420,26 +421,47 @@ export default function TopicStudyClient({
       <div ref={contentRef} className={styles.tabContent}>
 
         {/* LEARN */}
-        {activeTab === "learn" && (
-          <div className={styles.learnPanel}>
-            <div
-              className={styles.markdown}
-              dangerouslySetInnerHTML={{ __html: parseMarkdown(topic.content) }}
-            />
-            {topic.simulationIds && topic.simulationIds.length > 0 && (
-              <div className={styles.simSection}>
-                <div className={styles.simHeading}>🔬 Interactive Simulations</div>
-                <SimulationRenderer simulationIds={topic.simulationIds} />
+        {activeTab === "learn" && (() => {
+          /* Resolve animated SVG diagram for this specific topic */
+          const TopicDiagram = getDiagramForTopic(topic.id);
+          return (
+            <div className={styles.learnPanel}>
+              {/* Markdown notes content */}
+              <div
+                className={styles.markdown}
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(topic.content) }}
+              />
+
+              {/* ── CONCEPT DIAGRAM ──
+                  Professional animated SVG illustration specific to this topic.
+                  Rendered after notes so student can see it post-reading. */}
+              {TopicDiagram && (
+                <div className={styles.diagramSection}>
+                  <div className={styles.diagramHeading}>
+                    <span>📐</span> Concept Diagram
+                  </div>
+                  <TopicDiagram />
+                </div>
+              )}
+
+              {/* Interactive physics simulations */}
+              {topic.simulationIds && topic.simulationIds.length > 0 && (
+                <div className={styles.simSection}>
+                  <div className={styles.simHeading}>🔬 Interactive Simulations</div>
+                  <SimulationRenderer simulationIds={topic.simulationIds} />
+                </div>
+              )}
+
+              {/* CTA to go to practice */}
+              <div className={styles.learnCta}>
+                <p>Ready to test yourself?</p>
+                <button className={styles.learnCtaBtn} onClick={() => setActiveTab("practice")}>
+                  Start Practice Questions →
+                </button>
               </div>
-            )}
-            <div className={styles.learnCta}>
-              <p>Ready to test yourself?</p>
-              <button className={styles.learnCtaBtn} onClick={() => setActiveTab("practice")}>
-                Start Practice Questions →
-              </button>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* FLASH CARDS */}
         {activeTab === "flashcards" && (
