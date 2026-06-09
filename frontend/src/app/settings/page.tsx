@@ -35,7 +35,7 @@ import {
   EyeOff, CheckCircle2, Settings2, Info,
 } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
-import { useClerk } from "@clerk/nextjs";
+import { useClerk } from "@/lib/clerk-shim/client";
 import toast from "react-hot-toast";
 import styles from "./Settings.module.css";
 

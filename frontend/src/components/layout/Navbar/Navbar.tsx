@@ -12,7 +12,7 @@
 import { useState, useEffect, type FocusEvent } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useClerk, useAuth } from "@clerk/nextjs";
+import { useClerk, useAuth } from "@/lib/clerk-shim/client";
 import {
   Menu, X, Sun, Moon, BookOpen, ChevronDown, Zap,
   Search, Bell, Flame, Swords, User, Wallet, Settings

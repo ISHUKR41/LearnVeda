@@ -19,7 +19,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/lib/clerk-shim/client";
 import { useEffect, useRef, useState } from "react";
 import {
   AlertCircle,

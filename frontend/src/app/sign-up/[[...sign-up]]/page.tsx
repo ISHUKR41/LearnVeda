@@ -7,7 +7,7 @@
  * LAST UPDATED: 2026-06-01
  */
 
-import { SignUp } from "@clerk/nextjs";
+import { SignUp } from "@/lib/clerk-shim/client";
 import Link from "next/link";
 import { BookOpen, Brain, Star, Users } from "lucide-react";
 import styles from "../SignUp.module.css";

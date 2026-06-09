@@ -22,7 +22,7 @@ import type { NextRequest } from "next/server";
  * DO NOT change to dynamic imports (await import(...)). Dynamic imports in API
  * routes cause auth() to lose the request context, returning userId: null even
  * when the user has a valid Clerk session in the browser. */
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@/lib/clerk-shim/server";
 import { getSessionFromRequest } from "@/lib/server/auth/session";
 import { getPostgresPool } from "@/lib/server/database/postgres";
 import type { PublicUser, LearningTrack, UserRole } from "@/types/auth";
