@@ -489,6 +489,171 @@ A convex mirror **always** forms a virtual, erect, and diminished image, regardl
       correctAnswer: "Spherical Mirror Limitation (Spherical Aberration):\nFor a spherical mirror, rays parallel to the principal axis but far from it (marginal rays) do not converge to exactly the same focus as paraxial rays (close to the axis). This means a spherical mirror has a blurred focus — it doesn't form a perfect point image from parallel rays.\n\nParabolic Mirror Advantage:\nA paraboloid has the unique geometric property that ALL rays parallel to its axis — regardless of their distance from the axis — converge to one perfectly sharp focal point. This eliminates spherical aberration entirely.\n\nPractical Implication:\nFor large mirrors (like satellite dishes or radio telescopes), a spherical mirror wastes energy because not all radiation is focused precisely. A parabolic mirror concentrates ALL incoming energy to a single receiver. That's why all large reflector telescopes, satellite dishes, and flashlight reflectors are parabolic, not spherical.",
       explanation: "Spherical aberration is the key concept here. Parabolic mirrors eliminate it by exact geometry, but their manufacturing is more expensive.",
       points: 25
+    },
+
+    /* ── Additional Questions Set 3 (t2q36 to t2q50) ── */
+
+    /* MCQ Set 3 */
+    {
+      id: "t2q36",
+      type: "mcq",
+      question: "An object is placed at the center of curvature C of a concave mirror. The image formed is:",
+      options: [
+        "At F, real, inverted, diminished",
+        "At C, real, inverted, same size",
+        "Behind the mirror, virtual, erect, enlarged",
+        "At infinity, real, inverted, magnified"
+      ],
+      correctAnswer: "At C, real, inverted, same size",
+      explanation: "When object is at C (= 2f), using mirror formula: 1/v = 1/f − 1/u = 1/(−f) − 1/(−2f) = −1/f + 1/2f = −1/2f, so v = −2f = −C. Image forms at C: real, inverted, same size (m = −v/u = −(−2f)/(−2f) = −1).",
+      points: 10
+    },
+    {
+      id: "t2q37",
+      type: "mcq",
+      question: "For which type of mirror is the focal length always positive according to the New Cartesian Sign Convention?",
+      options: [
+        "Concave mirror",
+        "Convex mirror",
+        "Plane mirror",
+        "Both concave and convex"
+      ],
+      correctAnswer: "Convex mirror",
+      explanation: "A convex mirror's focus lies behind the mirror (on the right side, in the direction of incident light). Distances in the direction of incident light are positive. So the focal length of a convex mirror is always positive. Concave mirror's focus is in front (negative direction), making its focal length negative.",
+      points: 10
+    },
+    {
+      id: "t2q38",
+      type: "mcq",
+      question: "Large concave mirrors are used in solar furnaces because:",
+      options: [
+        "They produce a virtual image at the focus",
+        "Parallel rays from the sun converge to a point (focus), generating intense heat",
+        "They reflect all colors equally",
+        "They have a wide field of view"
+      ],
+      correctAnswer: "Parallel rays from the sun converge to a point (focus), generating intense heat",
+      explanation: "Sunlight comes from effectively infinity. A concave mirror focuses all parallel rays to one point — the principal focus. This concentration of solar energy at one tiny point creates extremely high temperatures (>1000°C), which can melt metals and generate steam for power generation.",
+      points: 10
+    },
+    {
+      id: "t2q39",
+      type: "mcq",
+      question: "A mirror has a focal length of −20 cm. What type of mirror is it and what is its radius of curvature?",
+      options: [
+        "Convex mirror, R = 40 cm",
+        "Concave mirror, R = 40 cm",
+        "Concave mirror, R = 20 cm",
+        "Plane mirror, R = ∞"
+      ],
+      correctAnswer: "Concave mirror, R = 40 cm",
+      explanation: "Negative focal length → concave mirror (focus is in front). |f| = 20 cm. R = 2|f| = 2 × 20 = 40 cm. The negative sign of f tells us it is concave; the magnitude gives us the actual distance.",
+      points: 10
+    },
+    {
+      id: "t2q40",
+      type: "mcq",
+      question: "In a kaleidoscope, how many images are formed when the angle between the mirrors is 60°?",
+      options: ["3", "5", "6", "12"],
+      correctAnswer: "5",
+      explanation: "Number of images = (360°/θ) − 1 = (360°/60°) − 1 = 6 − 1 = 5 images. A kaleidoscope at 60° creates 5 beautiful symmetric images, producing 6-fold symmetry when combined with the object itself. Decreasing the angle increases the number of images.",
+      points: 10
+    },
+
+    /* Short Answer Set 3 */
+    {
+      id: "t2q41",
+      type: "short",
+      question: "A candle is placed 25 cm from a concave mirror of focal length 20 cm. Find the image distance and state whether it is real or virtual.",
+      options: [],
+      correctAnswer: "u = −25 cm, f = −20 cm.\n1/v = 1/f − 1/u = 1/(−20) − 1/(−25) = −1/20 + 1/25 = (−5 + 4)/100 = −1/100.\nv = −100 cm.\nNegative v → image is in front of mirror → REAL image at 100 cm in front.",
+      explanation: "The candle is just slightly beyond F (25 cm vs f = 20 cm), so it falls between F and C. Image is beyond C, which explains the large v = 100 cm.",
+      points: 15
+    },
+    {
+      id: "t2q42",
+      type: "short",
+      question: "Explain why a concave mirror is used as a reflector in torches and headlights.",
+      options: [],
+      correctAnswer: "In a torch or headlight, the bulb is placed exactly at the principal focus (F) of the concave mirror. According to mirror optics, when an object is at F, the reflected rays emerge parallel to the principal axis (image at infinity). This creates a strong, parallel, focused beam of light that travels a long distance without spreading. The concave mirror concentrates all the light from the bulb into a directional beam.",
+      explanation: "The F → ∞ mirror rule is the physical basis for all directional light sources: headlights, torches, searchlights, and theatre spotlights.",
+      points: 15
+    },
+    {
+      id: "t2q43",
+      type: "short",
+      question: "Compare the images formed by a concave mirror and a convex mirror when an object is very close (just near the pole). Which gives a more useful magnified image?",
+      options: [],
+      correctAnswer: "Near the pole (between P and F for concave):\n• Concave mirror: Virtual, erect, MAGNIFIED image (m > 1) — very useful for makeup/shaving mirrors.\n• Convex mirror: Virtual, erect, DIMINISHED image (m < 1, always) — not useful for magnification.\n\nConcave mirror is far more useful for close-up magnification. It acts as a magnifying mirror when the object is inside the focal length.",
+      explanation: "This comparison highlights why concave mirrors are chosen for magnifying applications while convex mirrors are chosen for wide-field applications.",
+      points: 15
+    },
+    {
+      id: "t2q44",
+      type: "short",
+      question: "What is 'aperture' of a spherical mirror? How does a small aperture help in forming clearer images?",
+      options: [],
+      correctAnswer: "Aperture: The diameter of the circular reflecting surface of a spherical mirror.\n\nA small aperture (paraxial rays only, close to the principal axis) ensures that all reflected rays from parallel incident rays converge to essentially the same focal point. This prevents 'spherical aberration' — the blurring caused by marginal rays (far from axis) focusing at slightly different points. Small-aperture mirrors obey the mirror formula accurately and form sharp, clear images.",
+      explanation: "The mirror formula 1/v + 1/u = 1/f is exact only for paraxial rays. Large apertures cause spherical aberration — real optical systems use paraboloid mirrors to correct this.",
+      points: 15
+    },
+    {
+      id: "t2q45",
+      type: "short",
+      question: "An object placed 30 cm from a mirror gives a virtual, erect image 10 cm behind the mirror. Calculate the focal length and identify the type of mirror.",
+      options: [],
+      correctAnswer: "u = −30 cm, v = +10 cm (virtual image → behind mirror → positive).\nMirror formula: 1/f = 1/v + 1/u = 1/10 + 1/(−30) = 3/30 − 1/30 = 2/30 = 1/15.\nf = +15 cm.\nPositive focal length → CONVEX mirror.\nThe convex mirror with f = 15 cm placed an object 30 cm in front gives a virtual, erect image 10 cm behind itself.",
+      explanation: "A positive focal length (from the mirror formula) immediately tells you it's a convex mirror. Always verify: for convex mirrors, v is always positive and smaller than |u|.",
+      points: 15
+    },
+
+    /* Long Answer Set 3 */
+    {
+      id: "t2q46",
+      type: "long",
+      question: "With the help of ray diagrams, describe the image formed when an object is placed (a) at infinity, (b) at C, and (c) between F and P in a concave mirror. State position, size, and nature for each case.",
+      options: [],
+      correctAnswer: "(a) Object at Infinity:\n• Incident rays are parallel to principal axis.\n• After reflection, they converge at F.\n• Image: AT F, Real, Inverted, Highly diminished (point-sized).\n• Application: Satellite dishes, solar furnaces.\n\n(b) Object at C (= 2f):\n• Two rays: one parallel to axis (reflects through F), one through F (reflects parallel to axis).\n• Both converge at C on the same side.\n• Image: AT C, Real, Inverted, Same size (m = −1).\n• Application: Used in optical experiments needing same-size real images.\n\n(c) Object between F and P:\n• Reflected rays diverge; their extensions meet behind the mirror.\n• Image: BEHIND MIRROR (virtual), Erect, Magnified (m > 1).\n• Application: Shaving mirrors, makeup mirrors, dentist mirrors.\n\nKey insight: As object moves from ∞ towards P, the image starts at F (real, tiny), grows through C (same size), goes to ∞ (at F), then jumps to virtual behind mirror (when past F).",
+      explanation: "Knowing all 6 standard object positions for a concave mirror is absolutely essential for board exams. Memorize the table and understand the physics behind each case.",
+      points: 20
+    },
+    {
+      id: "t2q47",
+      type: "long",
+      question: "A 5 cm tall object is placed 40 cm in front of a convex mirror of focal length 25 cm. Find: (a) image position, (b) image height, (c) nature of image. Comment on whether this image can be projected on a screen.",
+      options: [],
+      correctAnswer: "Given: h = 5 cm, u = −40 cm, f = +25 cm (convex mirror: positive).\n\n(a) Mirror formula: 1/v = 1/f − 1/u = 1/25 − 1/(−40) = 1/25 + 1/40\n= 8/200 + 5/200 = 13/200\nv = 200/13 ≈ +15.38 cm\nImage is 15.38 cm BEHIND the mirror (positive = behind).\n\n(b) m = −v/u = −(15.38)/(−40) = +0.384\nh' = m × h = 0.384 × 5 = +1.92 cm\nImage height ≈ 1.92 cm (positive = erect).\n\n(c) Nature: Virtual (v positive = behind mirror), Erect (m positive), Diminished (|m| < 1).\n\nProjection: This image CANNOT be projected on a screen. Virtual images are formed by apparent intersection of reflected rays extended backwards behind the mirror. No actual light converges at this point, so a screen placed there would show nothing.",
+      explanation: "Convex mirrors always give these characteristics: v positive, m positive and < 1, image behind mirror, cannot be projected. These are universal for all object positions.",
+      points: 20
+    },
+
+    /* HOTS Set 3 */
+    {
+      id: "t2q48",
+      type: "thinking",
+      question: "A concave mirror of focal length 10 cm is held 30 cm from a lighted candle. (a) Where is the image? (b) The mirror is now moved 5 cm closer to the candle (now at u = −25 cm). Does the image move towards or away from the mirror? Calculate and explain.",
+      options: [],
+      correctAnswer: "(a) u = −30 cm, f = −10 cm.\n1/v = 1/(−10) − 1/(−30) = −3/30 + 1/30 = −2/30 = −1/15.\nv = −15 cm. Image at 15 cm in front.\n\n(b) u = −25 cm, f = −10 cm.\n1/v = 1/(−10) − 1/(−25) = −5/50 + 2/50 = −3/50.\nv = −50/3 = −16.67 cm.\nImage is now at 16.67 cm (moved AWAY from mirror from 15 to 16.67 cm).\n\nPhysical interpretation: Object moved closer to F (from 30 cm to 25 cm towards F at 10 cm). As object approaches F, image moves towards infinity. So moving from 30 cm to 25 cm (closer to F) pushes image farther from mirror. This is why movie projectors work: moving the film slightly in or out shifts the focused image dramatically on the screen.",
+      explanation: "The non-linear relationship between u and v in the mirror formula means image position responds dramatically as u approaches f. This sensitivity is exploited in optical instruments.",
+      points: 25
+    },
+    {
+      id: "t2q49",
+      type: "thinking",
+      question: "A driver uses a convex rear-view mirror of radius of curvature 3 m. A truck 2 m wide is 10 m behind. (a) Find the image width of the truck. (b) Why does the convex mirror make the truck appear farther away than it really is?",
+      options: [],
+      correctAnswer: "(a) f = R/2 = 3/2 = 1.5 m (positive, convex).\nAssuming u = −10 m for the centre of the truck:\n1/v = 1/1.5 − 1/(−10) = 2/3 + 1/10 = 20/30 + 3/30 = 23/30.\nv = 30/23 ≈ +1.30 m.\nm = −v/u = −(1.30)/(−10) = +0.13.\nImage width = |m| × 2 m = 0.13 × 2 = 0.26 m ≈ 26 cm.\n\n(b) Why trucks appear farther:\nThe convex mirror creates a diminished image (m ≈ 0.13). Our brain judges distance partly by the apparent size of known objects. A truck that appears 0.13 times its actual size is interpreted as being at a distance 1/0.13 ≈ 7.7× farther than it would appear in a flat mirror. So the driver perceives the truck as farther away (safer), but this is a visual illusion — the actual distance is only 10 m. This is why 'Objects in mirror are closer than they appear' warnings are legally required on convex rear-view mirrors!",
+      explanation: "This combines real optics calculation with human visual perception — the safety warning on convex mirrors directly comes from this magnification math.",
+      points: 25
+    },
+    {
+      id: "t2q50",
+      type: "thinking",
+      question: "A concave mirror forms a virtual image of an object placed between P and F. If you gradually move the object from just inside F towards P (making u smaller and smaller), what happens to the image position and magnification? Support with two numerical examples.",
+      options: [],
+      correctAnswer: "General analysis (f = −15 cm):\nAs object moves from near-F towards P (u decreases from near −15 to near 0):\n\nExample 1: u = −12 cm (just inside F)\n1/v = 1/(−15) − 1/(−12) = −4/60 + 5/60 = 1/60.\nv = +60 cm. m = −60/(−12) = +5. Image: 60 cm BEHIND, m = +5 (magnified).\n\nExample 2: u = −5 cm (very close to P)\n1/v = 1/(−15) − 1/(−5) = −1/15 + 1/5 = −1/15 + 3/15 = 2/15.\nv = +7.5 cm. m = −7.5/(−5) = +1.5. Image: 7.5 cm behind, m = +1.5.\n\nConclusion:\n• As u → 0 (object approaches P): v → 0 (image also approaches P), m → +1.\n• As u → −f (object approaches F from inside): v → +∞, m → +∞.\n\nSo moving from P towards F: image moves from P (behind) outward to infinity behind the mirror, with magnification growing from 1 to infinity. This is why a concave mirror is such a powerful magnifier — even small movements near the focus cause dramatic magnification changes.",
+      explanation: "This continuity analysis reveals the full behaviour of virtual image formation in concave mirrors — the magnification grows unboundedly as the object approaches the focal point from inside.",
+      points: 25
     }
   ]
 };

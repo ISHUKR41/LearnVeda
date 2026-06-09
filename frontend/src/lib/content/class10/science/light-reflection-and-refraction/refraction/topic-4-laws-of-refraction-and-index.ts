@@ -480,6 +480,166 @@ $$n_{21} = \\frac{v_1}{v_2} = \\frac{n_2}{n_1} \\quad \\text{(Relative — mediu
       correctAnswer: "Dispersion and Refractive Index:\nWhite light (sunlight) contains all wavelengths (colours) of the visible spectrum. The refractive index of any material VARIES with wavelength (colour) — this is called dispersion.\n\nViolet light has a HIGHER refractive index than red light in glass/water. (General rule: shorter wavelength = higher n). This means violet bends MORE than red when entering a prism or water droplet.\n\nRainbow Formation:\n1. Sunlight enters millions of tiny water droplets in the sky.\n2. Inside the droplet, light undergoes refraction + internal reflection + refraction again.\n3. The different colours exit the droplet at slightly different angles due to their different refractive indices.\n4. Violet light exits at a smaller angle (~40°) to the sun-observer line.\n5. Red light exits at a larger angle (~42°).\n6. Since violet exits at a smaller angle to the sun direction, it comes from droplets lower in the sky (inner arc). Red comes from droplets higher up (outer arc).\n\nConclusion: Violet has a higher refractive index in water/glass than red light.",
       explanation: "Understanding the rainbow requires combining wavelength-dependent refractive index with the geometry of spherical water droplets — a beautiful application of optics.",
       points: 25
+    },
+
+    /* ── Additional Questions Set 3 (t4q36 to t4q50) ── */
+
+    /* MCQ Set 3 */
+    {
+      id: "t4q36",
+      type: "mcq",
+      question: "A ray of light travels from air (n = 1) into glass (n = 1.5). If the angle of incidence is 30°, the angle of refraction is approximately:",
+      options: ["30°", "45°", "19.47°", "48.59°"],
+      correctAnswer: "19.47°",
+      explanation: "Snell's law: n₁ sin θ₁ = n₂ sin θ₂ → 1 × sin 30° = 1.5 × sin θ₂ → sin θ₂ = 0.5/1.5 = 0.333. θ₂ = sin⁻¹(0.333) ≈ 19.47°. The ray bends TOWARDS the normal when entering a denser medium — angle decreases from 30° to 19.47°.",
+      points: 10
+    },
+    {
+      id: "t4q37",
+      type: "mcq",
+      question: "The refractive index of diamond is 2.42. The speed of light in diamond is approximately:",
+      options: [
+        "7.3 × 10⁷ m/s",
+        "1.24 × 10⁸ m/s",
+        "2.42 × 10⁸ m/s",
+        "3 × 10⁸ m/s"
+      ],
+      correctAnswer: "1.24 × 10⁸ m/s",
+      explanation: "n = c/v → v = c/n = (3 × 10⁸)/2.42 ≈ 1.24 × 10⁸ m/s. Diamond has an extremely high refractive index (2.42), meaning light travels at only 41% of its vacuum speed inside diamond. This extremely slow speed inside diamond, combined with its critical angle of only 24.4°, causes total internal reflection inside the gem — making diamonds sparkle.",
+      points: 10
+    },
+    {
+      id: "t4q38",
+      type: "mcq",
+      question: "A glass slab of thickness 5 cm and refractive index 1.5 is placed in the path of a light ray. The lateral shift of the emergent ray compared to the incident ray is:",
+      options: [
+        "Zero — it shifts only in angle",
+        "Greater than 5 cm",
+        "A non-zero value less than 5 cm",
+        "Exactly 5 cm"
+      ],
+      correctAnswer: "A non-zero value less than 5 cm",
+      explanation: "A glass slab produces lateral displacement (shift) of a ray without changing its direction. The emergent ray is parallel to the incident ray but shifted sideways. The shift depends on thickness, refractive index, and angle of incidence. It is always less than the thickness of the slab and greater than zero (for non-zero angle of incidence). This is why objects appear shifted when seen through a glass slab.",
+      points: 10
+    },
+    {
+      id: "t4q39",
+      type: "mcq",
+      question: "Which of the following correctly states Snell's Law?",
+      options: [
+        "n₁ cos θ₁ = n₂ cos θ₂",
+        "sin θ₁ / sin θ₂ = n₁ / n₂",
+        "n₁ sin θ₁ = n₂ sin θ₂",
+        "n₂ sin θ₁ = n₁ sin θ₂"
+      ],
+      correctAnswer: "n₁ sin θ₁ = n₂ sin θ₂",
+      explanation: "Snell's Law: n₁ sin θ₁ = n₂ sin θ₂. This can be rearranged as sin θ₁/sin θ₂ = n₂/n₁. Note: the refractive index is on the OPPOSITE side from the angle. When going into a denser medium (n₂ > n₁), sin θ₂ < sin θ₁, so θ₂ < θ₁ — the ray bends toward the normal.",
+      points: 10
+    },
+    {
+      id: "t4q40",
+      type: "mcq",
+      question: "The apparent depth of a fish in water (n = 1.33) is 60 cm from the surface as seen by a person above. The actual depth of the fish is:",
+      options: ["45 cm", "60 cm", "79.8 cm", "80 cm"],
+      correctAnswer: "79.8 cm",
+      explanation: "Apparent Depth = Real Depth / n → Real Depth = Apparent Depth × n = 60 × 1.33 = 79.8 cm. Fish appears shallower than it actually is because light bends away from the normal when exiting water into air. The fish is actually at 79.8 cm, but appears to be at only 60 cm — important for spearfishing: aim deeper than the apparent position!",
+      points: 10
+    },
+
+    /* Short Answer Set 3 */
+    {
+      id: "t4q41",
+      type: "short",
+      question: "Define refractive index. Give its formula and state two factors that affect it.",
+      options: [],
+      correctAnswer: "Refractive Index (n): The ratio of the speed of light in vacuum (c) to its speed in the given medium (v).\nFormula: n = c/v = sin(angle of incidence) / sin(angle of refraction)\n\nFactors affecting refractive index:\n1. Nature of the medium (optical density): Denser media (glass, diamond) have higher n because they slow light more.\n2. Wavelength of light: Shorter wavelengths (violet) are refracted more than longer wavelengths (red) — this causes dispersion. n is slightly different for each color.",
+      explanation: "Refractive index has no unit (it is a ratio). It is always ≥ 1 for real media (since light is always slower in matter than in vacuum). It depends on the medium AND the wavelength of light.",
+      points: 15
+    },
+    {
+      id: "t4q42",
+      type: "short",
+      question: "State the two laws of refraction of light.",
+      options: [],
+      correctAnswer: "First Law of Refraction:\nThe incident ray, the refracted ray, and the normal to the interface at the point of incidence — all three lie in the same plane.\n\nSecond Law of Refraction (Snell's Law):\nThe ratio of the sine of the angle of incidence to the sine of the angle of refraction is a constant for a given pair of media and for a given colour of light:\nsin(i) / sin(r) = n₂₁ (a constant called the refractive index of medium 2 with respect to medium 1).\nOr equivalently: n₁ sin θ₁ = n₂ sin θ₂.",
+      explanation: "Both laws must be stated for full marks. The first law is about geometry (coplanarity), the second law gives the mathematical relationship (Snell's Law).",
+      points: 15
+    },
+    {
+      id: "t4q43",
+      type: "short",
+      question: "A ray of light travels from water (n = 1.33) into glass (n = 1.5). Does it bend towards or away from the normal? Calculate the refraction angle if the angle of incidence in water is 45°.",
+      options: [],
+      correctAnswer: "Glass (n = 1.5) is denser than water (n = 1.33), so the ray enters a denser medium → it bends TOWARDS the normal (angle decreases).\n\nSnell's law: n₁ sin θ₁ = n₂ sin θ₂\n1.33 × sin 45° = 1.5 × sin θ₂\n1.33 × 0.7071 = 1.5 × sin θ₂\n0.9404 = 1.5 × sin θ₂\nsin θ₂ = 0.9404 / 1.5 = 0.627\nθ₂ = sin⁻¹(0.627) ≈ 38.8°\nRefraction angle ≈ 38.8° (less than 45°, confirming bending towards normal).",
+      explanation: "When going from less dense to more dense (both n > 1), the ray bends towards normal. The key comparison is n₁ vs n₂, not the medium names.",
+      points: 15
+    },
+    {
+      id: "t4q44",
+      type: "short",
+      question: "Why does a pencil appear bent when placed in a glass of water at an angle? Explain using refraction.",
+      options: [],
+      correctAnswer: "The pencil appears bent (broken) because of refraction at the water-air interface.\n\nExplanation:\nLight rays from the submerged part of the pencil travel from water (denser, n = 1.33) into air (rarer, n = 1). When entering a less dense medium, light bends AWAY from the normal. So the rays from the underwater part emerge at different angles than their actual path.\n\nWhen the observer's eye traces these refracted rays backwards in a straight line, they appear to come from a higher position than the actual pencil tip. This makes the pencil appear to bend upward at the water surface.\n\nThe bending is more pronounced at greater angles of incidence — this is why the pencil appears more bent when more tilted.",
+      explanation: "The bent pencil is one of the most classic demonstrations of refraction. Understanding it requires tracing the actual light path and the apparent path separately.",
+      points: 15
+    },
+    {
+      id: "t4q45",
+      type: "short",
+      question: "The refractive index of glass with respect to air is 3/2, and of water with respect to air is 4/3. Find the refractive index of glass with respect to water.",
+      options: [],
+      correctAnswer: "Given: ₐnᵍ = 3/2 (glass w.r.t. air), ₐnʷ = 4/3 (water w.r.t. air).\n\nUsing the chain rule for refractive indices:\nₙᵍ (glass w.r.t. water) = ₐnᵍ / ₐnʷ = (3/2) ÷ (4/3) = (3/2) × (3/4) = 9/8 = 1.125.\n\nThe refractive index of glass with respect to water is 9/8 = 1.125.\nSince 1.125 > 1, glass is optically denser than water — light slows down when going from water into glass.",
+      explanation: "The chain rule: n(A w.r.t. C) = n(A w.r.t. B) × n(B w.r.t. C). This is frequently asked in boards and entrances.",
+      points: 15
+    },
+
+    /* Long Answer Set 3 */
+    {
+      id: "t4q46",
+      type: "long",
+      question: "Explain the phenomenon of refraction of light through a glass slab. What is lateral displacement? How does it depend on (a) angle of incidence, (b) thickness of slab, (c) refractive index?",
+      options: [],
+      correctAnswer: "Refraction through Glass Slab:\nWhen a ray hits a glass slab:\n1. At first surface (air→glass): Ray bends TOWARDS normal (enters denser medium).\n2. Travels through glass (straight line).\n3. At second surface (glass→air): Ray bends AWAY from normal (enters rarer medium).\n\nSince both surfaces are parallel, the emergent ray is parallel to the incident ray but shifted sideways. This shift is called LATERAL DISPLACEMENT.\n\nFormula: d = t × sin(i − r) / cos(r)\nwhere d = lateral displacement, t = thickness, i = angle of incidence, r = angle of refraction.\n\n(a) Effect of angle of incidence (i):\nHigher angle of incidence → more lateral displacement. At i = 0° (normal incidence), lateral displacement = 0. At larger angles, displacement increases.\n\n(b) Effect of thickness (t):\nMore thickness → more lateral displacement (direct proportionality).\n\n(c) Effect of refractive index (n):\nHigher n → smaller r (more bending at first surface) → (i − r) increases → more lateral displacement.\n\nConclusion: A glass slab changes the position of a ray (lateral shift) but NOT its direction — the emergent ray remains parallel to the incident ray.",
+      explanation: "The glass slab result — unchanged direction, lateral shift — is important for many optical instruments and explains why glass windows don't distort our view of the outside world.",
+      points: 20
+    },
+    {
+      id: "t4q47",
+      type: "long",
+      question: "Compare and contrast refraction at a plane surface and refraction by a glass slab. A student says 'a glass slab acts like two opposite prisms.' Is this correct? Explain.",
+      options: [],
+      correctAnswer: "Refraction at a Plane Surface:\n• Single interface (one medium to another).\n• Ray changes direction (bends) permanently.\n• Emergent ray is NOT parallel to incident ray (unless normal incidence).\n• Example: Pencil appearing bent in water.\n\nRefraction through a Glass Slab:\n• Two interfaces (air→glass→air), both parallel.\n• First interface bends ray one way; second interface bends it back equally.\n• Net direction change = ZERO — emergent ray is parallel to incident ray.\n• Only lateral displacement occurs.\n• Example: Viewing through window glass — direction unchanged.\n\nIs 'Two opposite prisms' correct? PARTIALLY YES:\n• A glass slab CAN be thought of as two prisms placed base-to-base (or apex-to-apex). The first prism deviates the ray one way; the second reverses it.\n• This analogy explains why the direction is restored but lateral shift remains.\n• However, prisms have non-parallel surfaces and cause net deviation. A slab has parallel surfaces ensuring zero net deviation.\n\nConclusion: The analogy is helpful but not perfectly accurate — prisms deviate, slabs don't.",
+      explanation: "This comparison reveals the fundamental geometry that determines optical behaviour: parallel surfaces = zero net deviation; non-parallel surfaces = deviation.",
+      points: 20
+    },
+
+    /* HOTS Set 3 */
+    {
+      id: "t4q48",
+      type: "thinking",
+      question: "A swimming pool appears to be 1.5 m deep when viewed from outside. The refractive index of water is 1.33. (a) Find the actual depth. (b) A swimmer at the bottom looks up at a person standing at the edge — does the person appear to be at a greater or lesser height? Calculate the apparent height if the person is 1.8 m tall and the person's feet are at the water surface.",
+      options: [],
+      correctAnswer: "(a) Actual depth:\nApparent depth = Real depth / n → Real depth = 1.5 × 1.33 = 1.995 ≈ 2 m.\nActual pool depth ≈ 2 m.\n\n(b) Swimmer looking up:\nNow the observer is in water (n = 1.33) looking into air (n = 1.0).\nRefractive index of air w.r.t. water = 1/1.33 ≈ 0.75.\nApparent depth formula: Apparent distance = Real distance × (n_observer / n_object medium).\nHere: Apparent height = Real height × (n_water / n_air) = 1.8 × 1.33 = 2.394 m.\n\nThe person appears TALLER to the swimmer (2.39 m instead of 1.8 m), because now the observer is in the denser medium looking into the rarer medium — the effect is reversed. Objects in air appear farther/taller to an observer in water.\n\nThis is why divers wearing goggles (which trap air) see objects their normal size, but without goggles, the water directly on the eye makes objects appear larger.",
+      explanation: "Refraction effects are asymmetric: from air into water, objects appear closer/shallower. From water into air, objects appear farther/taller. The key is identifying which medium the observer is in.",
+      points: 25
+    },
+    {
+      id: "t4q49",
+      type: "thinking",
+      question: "Snell's Law can be derived from Fermat's Principle of Least Time, which states that light takes the path that minimizes travel time. Using this principle (without calculus), explain qualitatively why light bends towards the normal when entering a denser medium.",
+      options: [],
+      correctAnswer: "Fermat's Principle: Light takes the path that minimizes total travel time.\n\nSetup: Light travels from point A in air (fast medium) to point B in glass (slow medium).\n\nCase 1 — Straight line (no bending):\nLight goes straight through. It spends equal amounts of path in each medium. Total time = distance_air/c + distance_glass/v_glass.\n\nCase 2 — Bending towards normal:\nBy bending towards normal at the interface, the ray spends a bit more distance in air (fast) and a bit less distance in glass (slow). Since glass is slower, reducing the distance in glass saves significant time. The extra air distance costs relatively little time (since speed is high in air).\n\nOptimal path:\nFermat's principle predicts the exact path that minimizes total time — this turns out to be exactly the path predicted by Snell's Law (n₁ sin θ₁ = n₂ sin θ₂).\n\nIntuitive analogy: A lifeguard running on sand (fast) to save a swimmer in water (slow) should run farther along the beach before entering the water — spending more time in the fast medium and less in the slow medium. This exactly parallels how light refracts!",
+      explanation: "Fermat's Principle provides a beautiful physical motivation for Snell's Law without equations. The lifeguard analogy makes the physics intuitive and memorable.",
+      points: 25
+    },
+    {
+      id: "t4q50",
+      type: "thinking",
+      question: "Optical fibres carry data as light pulses. A single fibre has a core (n = 1.62) and cladding (n = 1.52). (a) Calculate the critical angle. (b) For total internal reflection in 1 km of fibre, how many reflections occur if the fibre has diameter 0.1 mm and the ray travels at 30° to the axis?",
+      options: [],
+      correctAnswer: "(a) Critical angle:\nsin C = n₂/n₁ = 1.52/1.62 = 0.938.\nC = sin⁻¹(0.938) ≈ 69.6°.\nFor TIR, angle of incidence at the core-cladding boundary must exceed 69.6°.\n\n(b) Number of reflections:\nIf the ray travels at 30° to the axis, it makes an angle of 90° − 30° = 60° with the normal to the fibre wall. But 60° < 69.6° (critical angle) — this ray would NOT undergo TIR and would leak out! \n\nFor a valid calculation, let's say the ray travels at 10° to the axis:\nAngle with normal = 90° − 10° = 80° > 69.6° ✓ (TIR occurs).\nFor each reflection, the ray travels across the diameter (0.1 mm) at 10° to axis.\nHorizontal distance per reflection = d/tan(10°) = 0.1mm / 0.176 = 0.568 mm.\nIn 1 km = 10⁶ mm: reflections = 10⁶ / 0.568 ≈ 1.76 million reflections per kilometre!\n\nDespite 1.76 million reflections per km, modern optical fibres lose <0.2 dB per km — nearly perfect TIR for broadband data transmission.",
+      explanation: "This problem combines critical angle calculation with the practical geometry of optical fibre design — showing why TIR-based fibres can carry terabits of data per second.",
+      points: 25
     }
   ]
 };

@@ -485,6 +485,166 @@ A concave lens **always** forms a virtual, erect, and diminished image, regardle
       correctAnswer: "Phase 1 — Object between O and F (lens close to page):\n• Object distance < focal length\n• Lens formula gives $v < 0$ → virtual, erect, magnified image\n• Student sees magnified text clearly (the magnifying glass function)\n\nTransition — Object at exactly F:\n• Object distance = focal length\n• $1/v = 0$ → $v = \\infty$ → no image formed\n• Student sees a bright blur (parallel rays)\n\nPhase 2 — Object beyond F (lens lifted higher than f from page):\n• Object distance > focal length\n• Lens formula gives $v > 0$ → real, inverted, image on other side\n• The real image forms somewhere in space above the lens\n• The student's eye, which is looking down at the page through the lens, now sees the inverted real image floating above the lens — text appears flipped\n\nConclusion: The critical transition point is when the object is at the focal length. Beyond it, the lens acts as a projector, not a magnifier.",
       explanation: "This beautifully demonstrates the complete behaviour of a convex lens in a single real scenario. The flip corresponds exactly to the object crossing the focal plane.",
       points: 25
+    },
+
+    /* ── Additional Questions Set 3 (t5q36 to t5q50) ── */
+
+    /* MCQ Set 3 */
+    {
+      id: "t5q36",
+      type: "mcq",
+      question: "An object is placed at the focus of a convex lens (u = −f). The image is formed at:",
+      options: ["At 2f on other side", "At f on same side", "At infinity", "At the optical center"],
+      correctAnswer: "At infinity",
+      explanation: "Lens formula: 1/v = 1/f + 1/u = 1/f + 1/(−f) = 0. So v = infinity. When the object is at the focus of a convex lens, the refracted rays emerge parallel (never converge). This is used in projectors and cameras to get collimated (parallel) light beams.",
+      points: 10
+    },
+    {
+      id: "t5q37",
+      type: "mcq",
+      question: "Which type of lens always produces a virtual, erect, and diminished image, regardless of object position?",
+      options: [
+        "Convex lens",
+        "Concave lens",
+        "Biconvex lens",
+        "Plano-convex lens"
+      ],
+      correctAnswer: "Concave lens",
+      explanation: "A concave lens is a diverging lens. Its focus is on the same side as the object (virtual focus). This means it can NEVER form a real image. For ALL object positions, it always gives a virtual (v negative), erect (m positive), diminished (|m| < 1) image on the same side as the object.",
+      points: 10
+    },
+    {
+      id: "t5q38",
+      type: "mcq",
+      question: "Object 30 cm from convex lens (f = 10 cm). Magnification m =",
+      options: ["+0.5", "−0.5", "+3", "−3"],
+      correctAnswer: "−0.5",
+      explanation: "u = −30, f = +10. 1/v = 1/10 + 1/(−30) = 3/30 − 1/30 = 2/30. v = +15. m = v/u = 15/(−30) = −0.5. Negative m → real, inverted. |m| < 1 → diminished. Object beyond 2f → image between f and 2f, real, inverted, smaller.",
+      points: 10
+    },
+    {
+      id: "t5q39",
+      type: "mcq",
+      question: "For a convex lens, a real magnified image is formed when the object is placed:",
+      options: [
+        "Beyond 2f",
+        "At 2f",
+        "Between f and 2f",
+        "Between f and the lens"
+      ],
+      correctAnswer: "Between f and 2f",
+      explanation: "When object is between f and 2f of a convex lens: Image forms beyond 2f on the other side (real, inverted, magnified). This is the position used in projectors — the film is between f and 2f, creating a large real image on the screen beyond 2f. Object at 2f → same size image at 2f. Object beyond 2f → diminished image between f and 2f.",
+      points: 10
+    },
+    {
+      id: "t5q40",
+      type: "mcq",
+      question: "A lens forms a virtual, erect image 3 times the size of the object placed 5 cm from the lens. What type of lens is it and what is its focal length?",
+      options: [
+        "Convex lens, f = 7.5 cm",
+        "Convex lens, f = 2.5 cm",
+        "Concave lens, f = 7.5 cm",
+        "Concave lens, f = 2.5 cm"
+      ],
+      correctAnswer: "Convex lens, f = 7.5 cm",
+      explanation: "Virtual, erect, magnified (3×) image → object inside focal length of CONVEX lens. m = +3 (virtual erect). m = v/u → 3 = v/(−5) → v = −15 cm (virtual, same side as object). Lens formula: 1/f = 1/v − 1/u = 1/(−15) − 1/(−5) = −1/15 + 3/15 = 2/15. f = 7.5 cm (positive → convex lens). Magnifying glasses use exactly this configuration.",
+      points: 10
+    },
+
+    /* Short Answer Set 3 */
+    {
+      id: "t5q41",
+      type: "short",
+      question: "Object 8 cm tall at u = −60 cm from convex lens f = 20 cm. Find (a) image distance, (b) image height, (c) nature of image.",
+      options: [],
+      correctAnswer: "u = −60 cm, f = +20 cm, h = 8 cm.\n\n(a) 1/v − 1/u = 1/f → 1/v = 1/20 + 1/(−60) = 3/60 − 1/60 = 2/60 = 1/30.\nv = +30 cm (real, other side of lens).\n\n(b) m = v/u = 30/(−60) = −0.5.\nh' = m × h = −0.5 × 8 = −4 cm.\nImage height = 4 cm (negative = inverted).\n\n(c) Nature: Real (v positive), Inverted (m negative), Diminished (|m| = 0.5 < 1).\nObject is beyond 2f (60 > 40), so image is between f and 2f, real, inverted, smaller — exactly like a camera!",
+      explanation: "This is exactly how a camera captures images: object far away (beyond 2f), lens creates real, inverted, diminished image on sensor. The negative image height means the image is upside down.",
+      points: 15
+    },
+    {
+      id: "t5q42",
+      type: "short",
+      question: "State the rules used to draw ray diagrams for a convex lens. How do you find the image position using two of these rules?",
+      options: [],
+      correctAnswer: "Three Standard Rules for Convex Lens Ray Diagrams:\n\n1. Ray parallel to principal axis → after refraction, passes through the second focal point F₂ (on the other side).\n2. Ray passing through the optical centre → passes straight through without any deviation.\n3. Ray passing through the first focal point F₁ → after refraction, becomes parallel to the principal axis.\n\nFinding image position:\nDraw any TWO of these three rays from the top of the object. Where the refracted rays actually intersect (for real image) or where their extensions backwards intersect (for virtual image) is the image position.\n\nFor a concave lens, rule 1 reverses: parallel ray diverges away from F₂ (virtual focus), and the apparent source direction determines the image.",
+      explanation: "These three ray rules are the complete toolkit for lens ray diagrams. Mastering them allows you to construct any lens diagram without using the formula.",
+      points: 15
+    },
+    {
+      id: "t5q43",
+      type: "short",
+      question: "A concave lens of focal length 15 cm forms an image at 10 cm on the same side as the object. Where is the object?",
+      options: [],
+      correctAnswer: "f = −15 cm (concave lens, negative). v = −10 cm (image on same side as object = negative for lens).\n\nLens formula: 1/u = 1/v − 1/f = 1/(−10) − 1/(−15) = −1/10 + 1/15\n= −3/30 + 2/30 = −1/30.\nu = −30 cm.\n\nThe object is 30 cm in front of the lens (on the same side).\n\nVerification: m = v/u = (−10)/(−30) = +1/3 (virtual, erect, diminished — correct for concave lens ✓).",
+      explanation: "For concave lenses, both u and v are negative (object and virtual image on the same side). This is the consistent result — concave lenses can never form real images.",
+      points: 15
+    },
+    {
+      id: "t5q44",
+      type: "short",
+      question: "Explain the use of a convex lens as a simple microscope (magnifying glass). What is the condition on object placement?",
+      options: [],
+      correctAnswer: "Use as Magnifying Glass:\nFor a convex lens to work as a magnifying glass, the object must be placed between the optical centre (O) and the first focal point (F₁) — i.e., object distance u < f.\n\nIn this position:\n• Refracted rays diverge on the same side as the object.\n• Virtual image forms on the same side as the object.\n• Image is erect, magnified, and virtual.\n• Magnification m = 1 + D/f, where D = 25 cm (least distance of distinct vision).\n\nPractical use:\nThe observer places the object just inside F (u slightly less than f). The lens creates a virtual, enlarged image at or beyond 25 cm — comfortable for the eye to focus on. Watchmakers, jewellers, and stamp collectors use convex magnifying lenses this way.",
+      explanation: "The magnification formula for a simple microscope m = 1 + D/f is used in entrance exams. The key condition is object inside the focal length.",
+      points: 15
+    },
+    {
+      id: "t5q45",
+      type: "short",
+      question: "Differentiate between real images and virtual images formed by a convex lens.",
+      options: [],
+      correctAnswer: "Real Image (Convex Lens):\n• Formed when object is beyond the focal point F.\n• Refracted rays actually converge on the other side of the lens.\n• Can be projected on a screen.\n• Image is inverted (m is negative).\n• v is positive (other side of lens from object).\n• Size depends on position: diminished (beyond 2f), same (at 2f), magnified (between f and 2f).\n• Examples: Camera, projector, retina of eye.\n\nVirtual Image (Convex Lens):\n• Formed only when object is between O and F₁.\n• Refracted rays diverge; their extensions backwards appear to converge.\n• Cannot be projected on screen — only seen through the lens.\n• Image is erect (m is positive, > 1).\n• v is negative (same side as object).\n• Always magnified.\n• Example: Magnifying glass (loupe), reading glasses for hypermetropia.",
+      explanation: "The convex lens is remarkable: it forms real images (like a camera) for most positions, but virtual images (like a magnifier) when object is inside f. No other optical element has this dual capability.",
+      points: 15
+    },
+
+    /* Long Answer Set 3 */
+    {
+      id: "t5q46",
+      type: "long",
+      question: "Complete image formation table for a convex lens (f = 10 cm) for object at: u = −∞, −30, −20, −15, −10, −5 cm. State position, nature, and size for each.",
+      options: [],
+      correctAnswer: "f = +10 cm for all:\n\nu = −∞ (object at infinity):\n1/v = 1/10 → v = +10 cm = F. Image AT F, Real, Inverted, Highly diminished.\n\nu = −30 cm (beyond 2f):\n1/v = 1/10 + 1/(−30) = 2/30 = 1/15. v = +15 cm. Between f and 2f.\nReal, Inverted, Diminished (m = −0.5).\n\nu = −20 cm (at 2f):\n1/v = 1/10 − 1/20 = 1/20. v = +20 cm = 2f.\nReal, Inverted, Same size (m = −1).\n\nu = −15 cm (between f and 2f):\n1/v = 1/10 − 1/15 = 1/30. v = +30 cm (beyond 2f).\nReal, Inverted, Magnified (m = −2).\n\nu = −10 cm (at f):\n1/v = 1/10 − 1/10 = 0. v = ∞.\nImage at infinity — no image formed (rays emerge parallel).\n\nu = −5 cm (between O and f):\n1/v = 1/10 + 1/(−5) = −1/10. v = −10 cm.\nVirtual (v negative), Erect (m = +2), Magnified → MAGNIFYING GLASS mode!",
+      explanation: "This complete table is the most comprehensive study aid for convex lens image formation. Memorise the six positions and their images — this table forms the basis of cameras, telescopes, microscopes, and the human eye.",
+      points: 20
+    },
+    {
+      id: "t5q47",
+      type: "long",
+      question: "Explain the working of a compound microscope with a ray diagram. Why does it give higher magnification than a simple microscope?",
+      options: [],
+      correctAnswer: "Compound Microscope Construction:\n• Objective lens: Short focal length (f_obj ≈ 1-5 mm), small lens near the object.\n• Eyepiece lens: Longer focal length (f_eye ≈ 20-25 mm), lens near the eye.\n• Object placed just beyond F of objective.\n\nStage 1 — Objective lens:\n• Object (very close, just beyond f_obj) → real, inverted, magnified image (I₁).\n• This intermediate image is formed between the eyepiece and its F.\n\nStage 2 — Eyepiece lens:\n• I₁ acts as object for eyepiece, placed inside f_eye.\n• Eyepiece acts as magnifying glass → virtual, erect (relative to I₁), further magnified image (I₂).\n• Final image I₂ is at infinity or at near point — highly magnified.\n\nTotal Magnification:\nm_total = m_objective × m_eyepiece.\nEach stage multiplies magnification → compound effect.\n\nWhy higher than simple microscope:\nSimple microscope: m_max = 1 + D/f ≈ 10× for f = 2.5 cm.\nCompound: m = (L/f_obj) × (D/f_eye) where L = tube length.\nWith L = 15 cm, f_obj = 0.5 cm, f_eye = 2.5 cm:\nm = (15/0.5) × (25/2.5) = 30 × 10 = 300×\nCompound microscopes routinely achieve 100-1000× magnification.",
+      explanation: "The two-stage multiplication is the key insight: each lens multiplies the other's magnification. This is why compound microscopes can reveal structures invisible to simple magnifiers.",
+      points: 20
+    },
+
+    /* HOTS Set 3 */
+    {
+      id: "t5q48",
+      type: "thinking",
+      question: "A screen is placed 90 cm from an object. A convex lens is placed between them and moved until a sharp image appears on the screen. This occurs at two positions of the lens, 30 cm apart. Find the focal length of the lens.",
+      options: [],
+      correctAnswer: "This is the classic 'two-position' method for finding focal length.\n\nSetup: Object to screen distance D = 90 cm.\nThe lens positions give sharp images at two points, 30 cm apart.\nLet the two lens positions be u₁ and u₂ from the object.\n\nFor both positions, u₁ + v₁ = 90 and u₂ + v₂ = 90.\nAt position 1: u₁ and v₁ = 90 − u₁.\nAt position 2: by symmetry, u₂ = v₁ and v₂ = u₁ (the lens and image positions swap).\n\nSo the two positions differ by: d = |u₂ − u₁| = 30 cm.\n\nAlso: D = u₁ + v₁ = 90 cm.\nFrom symmetry: u₁ + u₂ = D = 90, and u₂ − u₁ = d = 30.\nSolving: u₁ = 30 cm, u₂ = 60 cm.\n\nUsing lens formula for position 1: u = −30, v = +60.\n1/f = 1/60 − 1/(−30) = 1/60 + 1/30 = 1/60 + 2/60 = 3/60 = 1/20.\nf = +20 cm.\n\nThis elegant method (displacement method) measures f precisely without knowing u or v individually — used in optics labs worldwide.",
+      explanation: "The displacement method is a beautiful application of the symmetry of the lens formula. It's used in optical laboratories to measure focal lengths experimentally.",
+      points: 25
+    },
+    {
+      id: "t5q49",
+      type: "thinking",
+      question: "A converging lens of focal length 20 cm is cut in half horizontally (along the principal axis). If the object is placed 30 cm in front, will both halves still form complete images? If yes, where? Will the images be at the same position? What happens to brightness?",
+      options: [],
+      correctAnswer: "Yes, BOTH halves still form complete images.\n\nReasoning:\nEvery small part of a lens can form a complete image of the entire object (analogous to the mirror case). Cutting a lens in half does not prevent either half from forming a complete image — it only reduces the amount of light collected.\n\nImage position:\nBoth halves have the same focal length (f = 20 cm) and follow the same lens formula:\nu = −30 cm, f = +20 cm.\n1/v = 1/20 + 1/(−30) = 3/60 − 2/60 = 1/60. v = +60 cm.\nBoth halves give image at the SAME POSITION: +60 cm.\n\nHowever — slight displacement!\nThe two halves are displaced vertically from the principal axis. Each half refracts light at a slightly different angle. This causes the two images to be SLIGHTLY displaced vertically from each other. With careful alignment, they can be superimposed.\n\nBrightness:\nEach half collects only half the light → each image is HALF as bright as the full lens image. If both images are superimposed, total brightness equals original.",
+      explanation: "This reveals the distributed nature of lens image formation — every part of the lens contributes to the complete image. The same principle explains why a smudge on a lens reduces brightness but doesn't block part of the image.",
+      points: 25
+    },
+    {
+      id: "t5q50",
+      type: "thinking",
+      question: "The human eye's crystalline lens (f ≈ 20 mm) must focus objects from 25 cm to infinity on the retina (v ≈ 20 mm). Calculate the range of power needed and the accommodation range of the lens. What happens in presbyopia?",
+      options: [],
+      correctAnswer: "Retina distance: v = +20 mm = +0.02 m (fixed).\n\nCase 1: Object at infinity (u → −∞):\n1/f = 1/v − 1/u = 1/0.02 − 0 = 50 D.\nf = 20 mm. Lens at minimum power (relaxed state).\n\nCase 2: Object at near point 25 cm (u = −0.25 m):\n1/f = 1/v − 1/u = 1/0.02 − 1/(−0.25) = 50 + 4 = 54 D.\nf = 1/54 ≈ 18.5 mm.\n\nPower range: 50 D to 54 D (change of 4 D).\nFocal length range: 20 mm to 18.5 mm.\nAccommodation range = 4 Dioptres.\n\nThe ciliary muscles change the lens curvature to achieve this 4D range:\n• Looking at infinity: ciliary muscles relaxed, lens flattest (f = 20 mm, P = 50 D).\n• Looking at near object: ciliary muscles contract, lens bulges (f = 18.5 mm, P = 54 D).\n\nPresbyopia (age-related):\nWith age, the crystalline lens hardens (loses elasticity) and ciliary muscles weaken. The accommodation range reduces from 4D to near 0D. The person cannot adjust power — loses ability to focus on close objects. Solution: bifocal glasses (convex for near, plane/weak for far).",
+      explanation: "This complete eye optics calculation is a premium exam topic. The accommodation of 4D and the ciliary muscle mechanism directly explains presbyopia and why older people need reading glasses.",
+      points: 25
     }
   ]
 };

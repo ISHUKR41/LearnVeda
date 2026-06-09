@@ -2039,6 +2039,79 @@
   }
 }
 
+/* ─── Mobile table overflow fix ─── */
+@media (max-width: 900px) {
+  /* Wrap tables so they scroll horizontally instead of breaking layout */
+  .markdownBody table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  /* Allow table content to break lines after scroll container */
+  .markdownBody td,
+  .markdownBody th {
+    white-space: normal;
+    min-width: 120px;
+  }
+
+  /* KaTeX display math: allow horizontal scroll on mobile */
+  .markdownBody .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 12px 14px;
+    max-width: 100%;
+  }
+
+  /* Inline code blocks - don't overflow */
+  .markdownBody code {
+    word-break: break-all;
+    overflow-wrap: break-word;
+  }
+
+  /* Pre code blocks */
+  .markdownBody pre {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hero stats chips - wrap on very small screens */
+  .heroStats {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
+
+/* ─── Touch improvements ─── */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch targets for mobile users */
+  .optionBtn {
+    min-height: 48px;
+    padding: 12px 16px;
+  }
+
+  .tab {
+    min-height: 44px;
+  }
+
+  .heroNavBtn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Remove hover effects that don't make sense on touch */
+  .simulationCard:hover {
+    transform: none;
+  }
+
+  .questionCard:hover {
+    transform: none;
+  }
+}
+
 /* ─── Landscape mobile (≤ 768px height) ─── */
 @media (max-height: 600px) and (orientation: landscape) {
   .topicHero {

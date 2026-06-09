@@ -1029,7 +1029,16 @@
   .panelPad { padding: 20px 16px; }
 
   .examTips { grid-template-columns: 1fr; }
-  .tabs { padding: 0 16px; top: 108px; }
-  .tab  { padding: 12px 14px; }
+  .tabs { padding: 0 16px; top: 108px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab  { padding: 12px 14px; flex-shrink: 0; white-space: nowrap; }
   .qTypeRow { flex-direction: column; align-items: flex-start; }
+
+  /* Table horizontal scroll on mobile */
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+  td, th { min-width: 100px; white-space: normal; }
+
+  /* Touch target improvements */
+  button { min-height: 44px; }
+  a      { min-height: 44px; display: inline-flex; align-items: center; }
 }

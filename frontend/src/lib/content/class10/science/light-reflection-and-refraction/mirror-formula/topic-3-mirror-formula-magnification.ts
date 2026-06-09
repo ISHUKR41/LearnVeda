@@ -473,6 +473,161 @@ $$m = \\frac{h'}{h} = -\\frac{v}{u} \\quad \\text{(Magnification)}$$
       correctAnswer: "Mirror A ($f = -10$ cm, $u = -30$ cm):\n$1/v_A = -1/10 + 1/30 = -3/30 + 1/30 = -2/30 \\implies v_A = -15$ cm.\n$m_A = -(-15)/(-30) = -0.5$. Image: real, inverted, at 15 cm, half the object size.\n\nMirror B ($f = -20$ cm, $u = -30$ cm):\n$1/v_B = -1/20 + 1/30 = -3/60 + 2/60 = -1/60 \\implies v_B = -60$ cm.\n$m_B = -(-60)/(-30) = -2$. Image: real, inverted, at 60 cm, twice the object size.\n\nConclusion: A longer focal length (Mirror B) places the image farther away and magnifies more for the same object distance. A shorter focal length (Mirror A) gives a closer, less magnified image. This is why cameras need different focal length lenses for telephoto vs wide-angle shots.",
       explanation: "Comparing two mirrors reveals the fundamental trade-off: longer focal length = more magnification + farther image = telephoto behavior.",
       points: 25
+    },
+
+    /* ── Additional Questions Set 3 (t3q36 to t3q50) ── */
+
+    /* MCQ Set 3 */
+    {
+      id: "t3q36",
+      type: "mcq",
+      question: "An object is placed at u = −10 cm from a concave mirror of f = −15 cm. The image is:",
+      options: [
+        "Real, inverted at 30 cm in front",
+        "Virtual, erect at 30 cm behind the mirror",
+        "At infinity",
+        "Real, inverted at 6 cm in front"
+      ],
+      correctAnswer: "Virtual, erect at 30 cm behind the mirror",
+      explanation: "Object between P and F (u < f). 1/v = 1/(−15) − 1/(−10) = −2/30 + 3/30 = 1/30. v = +30 cm (positive → behind mirror = virtual). m = −30/(−10) = +3 (positive = erect, |m| > 1 = magnified). Virtual, erect, 3× magnified at 30 cm behind mirror.",
+      points: 10
+    },
+    {
+      id: "t3q37",
+      type: "mcq",
+      question: "If the magnification produced by a spherical mirror is +1, the image is:",
+      options: [
+        "Real, inverted, same size",
+        "Virtual, erect, same size — mirror must be plane",
+        "Virtual, erect, at the pole",
+        "Real, inverted, at the pole"
+      ],
+      correctAnswer: "Virtual, erect, same size — mirror must be plane",
+      explanation: "m = +1 means image is erect (positive) and same size (|m| = 1). For a spherical concave mirror, m = −1 (real, inverted, same size at C). m = +1 for a spherical mirror only occurs conceptually at u = 0, which is trivial. In practice, m = +1 consistently describes a PLANE mirror image: virtual, erect, same size for all object distances.",
+      points: 10
+    },
+    {
+      id: "t3q38",
+      type: "mcq",
+      question: "A concave mirror produces a real image 5 times magnified. Magnification m =",
+      options: ["+5", "−5", "+1/5", "−1/5"],
+      correctAnswer: "−5",
+      explanation: "A real image in a mirror always has NEGATIVE magnification (m < 0). The image is 5 times larger, so |m| = 5. Therefore m = −5. If m were +5, it would indicate a virtual, erect image, which would be formed only if the object is between P and F of a concave mirror.",
+      points: 10
+    },
+    {
+      id: "t3q39",
+      type: "mcq",
+      question: "For a concave mirror, when the object is at 2f, the image distance v equals:",
+      options: ["f", "2f", "3f", "∞"],
+      correctAnswer: "2f",
+      explanation: "Object at 2f means u = −2f. Mirror formula: 1/v = 1/f − 1/(−2f) = 1/f + 1/2f — Wait: 1/v + 1/u = 1/f → 1/v = 1/f − 1/u = 1/(−f) − 1/(−2f) = −1/f + 1/(2f) = −1/(2f). So v = −2f. Image is at 2f in front (same as u = 2f). Real, inverted, same size.",
+      points: 10
+    },
+    {
+      id: "t3q40",
+      type: "mcq",
+      question: "A person's face is 25 cm from a concave shaving mirror. The mirror produces a virtual image behind the mirror. If m = +3, how far is the image behind the mirror?",
+      options: ["75 cm", "25 cm", "8.3 cm", "50 cm"],
+      correctAnswer: "75 cm",
+      explanation: "m = −v/u → +3 = −v/(−25) → 3 = v/25 → v = +75 cm. The image is 75 cm behind the mirror (positive v = behind mirror = virtual). This large virtual magnified image makes shaving mirrors so effective.",
+      points: 10
+    },
+
+    /* Short Answer Set 3 */
+    {
+      id: "t3q41",
+      type: "short",
+      question: "A concave mirror has radius of curvature 30 cm. An object is placed 45 cm in front. Find (a) image distance (b) magnification.",
+      options: [],
+      correctAnswer: "R = 30 cm → f = R/2 = 15 cm → f = −15 cm (concave).\nu = −45 cm.\n\n(a) 1/v = 1/(−15) − 1/(−45) = −3/45 + 1/45 = −2/45.\nv = −22.5 cm. Image is 22.5 cm in front of mirror (real).\n\n(b) m = −v/u = −(−22.5)/(−45) = −0.5.\nImage is real, inverted, and half the size of the object.",
+      explanation: "R = 2f is the key relationship. With the negative sign applied correctly, the formula gives a negative v (real image) and negative m (inverted) automatically.",
+      points: 15
+    },
+    {
+      id: "t3q42",
+      type: "short",
+      question: "In what way does the sign of the image distance (v) tell you whether the image in a mirror is real or virtual?",
+      options: [],
+      correctAnswer: "For MIRRORS (unlike lenses):\n• Negative v: Image is in FRONT of the mirror (same side as object) → image is REAL. Real light rays actually converge here — the image can be projected on a screen.\n• Positive v: Image is BEHIND the mirror (opposite side from object) → image is VIRTUAL. No real light passes through this point; the image exists only as an apparent intersection of extended rays.\n\nKey rule: Real image in mirror → v negative. Virtual image in mirror → v positive.",
+      explanation: "This sign interpretation for mirrors is critical and must be memorized. Note: for lenses, the convention is reversed (positive v = real image).",
+      points: 15
+    },
+    {
+      id: "t3q43",
+      type: "short",
+      question: "A convex mirror of focal length 20 cm gives an image that is 1/4 the size of the object. How far is the object from the mirror?",
+      options: [],
+      correctAnswer: "f = +20 cm (convex). Convex always gives virtual erect image → m = +1/4.\nm = −v/u → +1/4 = −v/u → v = −u/4.\n(v is positive for convex mirror, so: v = +|u|/4, meaning u/4 in magnitude).\n\nLet u = −d (negative, object in front).\nm = −v/u → 1/4 = −v/(−d) → v = +d/4.\n\nMirror formula: 1/v + 1/u = 1/f\n1/(d/4) + 1/(−d) = 1/20\n4/d − 1/d = 1/20\n3/d = 1/20\nd = 60 cm.\nObject is 60 cm in front of the mirror.",
+      explanation: "Convex mirror magnification is always positive (0 < m < 1). Setting up m = v/(-u) relation and substituting into mirror formula gives the object distance.",
+      points: 15
+    },
+    {
+      id: "t3q44",
+      type: "short",
+      question: "Explain with a formula why the focal length of a spherical mirror equals half its radius of curvature (R = 2f).",
+      options: [],
+      correctAnswer: "Geometric derivation:\nConsider a ray parallel to principal axis hitting a concave mirror at point A on the surface. The radius CA (C = center of curvature) is normal to the mirror at A.\n\nBy law of reflection, the ray reflects through F. Triangle CAF has:\n• Angle at A (angle of incidence = angle CA makes with the axis) = θ\n• Since CA is normal, angle of incidence = angle of reflection = θ\n• CF = FA (isoceles triangle, since the angles at A are equal)\n\nFor small angles (paraxial approximation): FA ≈ FP (since A is close to P).\nSo CF ≈ CP/2, meaning PF = PC/2.\nTherefore: f = R/2, or R = 2f.\n\nThis relation holds for small aperture mirrors (paraxial rays only).",
+      explanation: "This geometric proof using the law of reflection and the isoceles triangle property is the foundation of mirror optics. It only holds for paraxial rays.",
+      points: 15
+    },
+    {
+      id: "t3q45",
+      type: "short",
+      question: "Object 4 cm tall at u = −20 cm. Concave mirror f = −10 cm. Find image height and state whether image is erect.",
+      options: [],
+      correctAnswer: "u = −20 cm, f = −10 cm, h = 4 cm.\n1/v = 1/(−10) − 1/(−20) = −2/20 + 1/20 = −1/20. v = −20 cm.\nm = −v/u = −(−20)/(−20) = −1.\nh' = m × h = −1 × 4 = −4 cm.\nImage height = 4 cm (same size). Negative sign → INVERTED (not erect).\nObject is at C, image forms at C: real, inverted, same size.",
+      explanation: "The negative image height confirms the image is inverted (below the principal axis). At C, |m| = 1 confirms same size. This is the center-of-curvature special case.",
+      points: 15
+    },
+
+    /* Long Answer Set 3 */
+    {
+      id: "t3q46",
+      type: "long",
+      question: "Explain the New Cartesian Sign Convention for mirrors and use it to solve: An object of height 3 cm is placed 30 cm from a concave mirror of focal length 15 cm. Find image position, height, and nature.",
+      options: [],
+      correctAnswer: "New Cartesian Sign Convention for Mirrors:\n1. All distances measured from pole P.\n2. In direction of incident light (to the right of mirror) = POSITIVE.\n3. Against direction of incident light (to the left, in front of mirror) = NEGATIVE.\n4. u (object distance) is ALWAYS NEGATIVE for real objects.\n5. Concave mirror: f is NEGATIVE (focus in front). Convex: f is POSITIVE (focus behind).\n6. Heights above axis: POSITIVE. Below axis: NEGATIVE.\n\nSolution:\nGiven: h = +3 cm, u = −30 cm, f = −15 cm.\n\nMirror formula: 1/v + 1/u = 1/f\n1/v = 1/f − 1/u = 1/(−15) − 1/(−30) = −2/30 + 1/30 = −1/30.\nv = −30 cm.\nImage is 30 cm in front of mirror (real).\n\nMagnification: m = −v/u = −(−30)/(−30) = −1.\nh' = m × h = −1 × 3 = −3 cm.\n\nImage height = 3 cm. Negative → inverted.\nNature: Real (v negative), Inverted (m negative), Same size (|m| = 1) at C.",
+      explanation: "This is a complete worked example demonstrating sign convention application from start to finish. The object at 2f produces image at 2f with m = −1.",
+      points: 20
+    },
+    {
+      id: "t3q47",
+      type: "long",
+      question: "A student places an object at various distances from a concave mirror (f = 10 cm) and records the image distances. Fill in this table and draw conclusions:\nu = −∞, −30, −20, −15, −12, −5 cm.",
+      options: [],
+      correctAnswer: "f = −10 cm for all:\n\nu = −∞: 1/v = 1/(−10) → v = −10 cm = F. Image at F, real, inverted, point-sized.\nu = −30 cm: 1/v = −1/10 + 1/30 = −2/30 = −1/15. v = −15 cm. Between F and C.\nu = −20 cm (= 2f): 1/v = −1/10 + 1/20 = −1/20. v = −20 cm. At C, m = −1.\nu = −15 cm (between C and F): 1/v = −1/10 + 1/15 = −1/30. v = −30 cm. Beyond C, m = −2.\nu = −12 cm (close to F): 1/v = −1/10 + 1/12 = −1/60. v = −60 cm. Far beyond C, m = −5.\nu = −5 cm (between P and F): 1/v = −1/10 + 1/5 = 1/10. v = +10 cm. BEHIND mirror, m = +2.\n\nConclusions:\n1. As object moves FROM ∞ TO F: image moves from F to ∞ (real, getting larger).\n2. At F: image at infinity (parallel reflected beam — no image formed).\n3. Object between F and P: image virtual, erect, magnified behind mirror.\n4. Object at C: same-size real image at C.\n5. Only case giving virtual image: object between P and F.",
+      explanation: "This systematic table is the ultimate study aid for concave mirror image positions. It reveals the continuous variation of v and m as u changes.",
+      points: 20
+    },
+
+    /* HOTS Set 3 */
+    {
+      id: "t3q48",
+      type: "thinking",
+      question: "Prove mathematically that for a concave mirror, as the object distance u approaches the focal length f from beyond (u slightly greater than f), the image distance v approaches negative infinity. What does this mean physically?",
+      options: [],
+      correctAnswer: "Proof:\nLet u = f + ε where ε is a very small positive number (object just slightly beyond F).\nu = −(f + ε) [applying sign convention, f is positive magnitude].\n\nMirror formula: 1/v = 1/(−f) − 1/(−(f+ε)) = −1/f + 1/(f+ε)\n= [−(f+ε) + f] / [f(f+ε)]\n= −ε / [f(f+ε)]\n\nAs ε → 0:\n1/v = −ε / [f(f+ε)] → 0⁻ (approaches zero from negative side)\nTherefore v → −∞.\n\nPhysical meaning:\nWhen the object is at F, all reflected rays are parallel — they never converge (they meet at infinity). The image forms infinitely far in front of the mirror. This is why a light source at F of a concave mirror produces a perfectly parallel beam (used in headlights, searchlights, lighthouses). The beam 'focuses' at infinity — light travels parallel to the axis without converging.",
+      explanation: "This mathematical proof shows the singular behaviour of the mirror formula at u = f. The physical interpretation — parallel beam from source at focus — is one of the most important applications of concave mirrors.",
+      points: 25
+    },
+    {
+      id: "t3q49",
+      type: "thinking",
+      question: "A clever engineer wants to read text on a page that is 5 cm from a concave mirror (mirror's f = 20 cm). Will this set up create a useful magnified image? Calculate the magnification and explain why this is better than a conventional magnifying lens.",
+      options: [],
+      correctAnswer: "u = −5 cm, f = −20 cm (concave, f negative).\n1/v = 1/(−20) − 1/(−5) = −1/20 + 1/5 = −1/20 + 4/20 = 3/20.\nv = +20/3 = +6.67 cm (positive → BEHIND mirror → virtual image).\n\nm = −v/u = −(6.67)/(−5) = +1.33.\n\nImage is virtual, erect, 1.33× magnified at 6.67 cm behind the mirror.\n\nComparison with magnifying lens (also works when object inside f):\n• Mirror advantage: No chromatic aberration (mirrors reflect all wavelengths equally; lenses refract different wavelengths at different angles, causing colour fringing).\n• Mirror advantage: Works in any wavelength — UV, IR, visible.\n• Mirror disadvantage: User must look into mirror from same side as the object, which can be awkward.\n\nIn electron microscopes and telescope systems, mirrors are preferred over lenses for exactly this reason — no chromatic aberration.",
+      explanation: "Mirrors have an inherent advantage over lenses for precision optics because reflection obeys the same law for all wavelengths, eliminating chromatic aberration.",
+      points: 25
+    },
+    {
+      id: "t3q50",
+      type: "thinking",
+      question: "A manufacturer claims their 'new' spherical mirror has focal length f = −30 cm and that placing an object at u = −30 cm gives image at u = −30 cm (i.e., at the object itself). Verify or refute this claim using the mirror formula.",
+      options: [],
+      correctAnswer: "If u = −30 cm and f = −30 cm, let's use the mirror formula:\n1/v = 1/f − 1/u = 1/(−30) − 1/(−30) = −1/30 + 1/30 = 0.\nv = 1/0 = INFINITY.\n\nThis means when u = f (object at focus), the image forms at infinity — NOT at the object position. The manufacturer's claim is WRONG.\n\nFor image to form at the object (v = u):\n1/v + 1/u = 1/f → 1/u + 1/u = 1/f → 2/u = 1/f → u = 2f.\nWith f = −30 cm: u = −60 cm (the object must be at C = 2f, not at F).\n\nConclusion: The manufacturer has confused F (focus) with C (center of curvature). The image forms at the object only when the object is at C = 2f = 60 cm, not at f = 30 cm. At f, the image is at infinity (parallel beam). The claim is factually incorrect.",
+      explanation: "This 'verification' problem teaches critical thinking: always test claims with the actual formula. The confusion of F and C is a common misconception.",
+      points: 25
     }
   ]
 };

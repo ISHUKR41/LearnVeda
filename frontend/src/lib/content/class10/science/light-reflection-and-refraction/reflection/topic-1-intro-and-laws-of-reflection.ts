@@ -483,6 +483,166 @@ A plane mirror is a flat glass surface with a thin layer of silver (the reflecti
       correctAnswer: "When the mirror rotates by $15^\\circ$, the normal also rotates by $15^\\circ$. This changes the angle of incidence by $15^\\circ$, making the angle of reflection also change by $15^\\circ$. The total change in direction of the reflected ray = $2 \\times 15^\\circ = 30^\\circ$.\n\nDistance the spot moves on the wall:\nThe reflected ray rotates by $30^\\circ$. If the wall is 3 m from the mirror:\nArc length = $r \\times \\theta$ (in radians) = $3 \\times (30^\\circ \\times \\pi / 180^\\circ) = 3 \\times 0.524 \\approx 1.57$ m.\n\nThis principle (reflected ray rotates twice as fast as the mirror) is used in optical galvanometers to measure small currents.",
       explanation: "The $2\\theta$ rotation rule for mirrors has practical applications in precision measurement instruments.",
       points: 25
+    },
+
+    /* ── Additional Questions Set 3 (t1q36 to t1q50) ── */
+
+    /* MCQ Set 3 */
+    {
+      id: "t1q36",
+      type: "mcq",
+      question: "A periscope uses two plane mirrors placed parallel to each other at an angle of 45° to the tube. If an observer sees a ship 3 km away, the image formed is:",
+      options: [
+        "Real, inverted, magnified",
+        "Virtual, erect, same size",
+        "Real, erect, diminished",
+        "Virtual, inverted, same size"
+      ],
+      correctAnswer: "Virtual, erect, same size",
+      explanation: "Each plane mirror produces a virtual, erect, same-size image. The periscope has two plane mirrors at 45°, so there are two reflections total. Each reflection inverts once; two reflections cancel out — the final image is virtual, erect (same orientation as object), and same size. This is why periscopes don't flip the view.",
+      points: 10
+    },
+    {
+      id: "t1q37",
+      type: "mcq",
+      question: "The angle between the incident ray and the reflected ray is 70°. The angle of incidence is:",
+      options: ["70°", "35°", "140°", "20°"],
+      correctAnswer: "35°",
+      explanation: "The angle between the incident ray and reflected ray = 2 × angle of incidence (since angle of incidence = angle of reflection, and the incident and reflected rays are symmetrical about the normal). So: 2 × angle of incidence = 70° → angle of incidence = 35°. Note: This is NOT the angle between the ray and the mirror surface — the question asks for the angle of incidence (measured from the normal).",
+      points: 10
+    },
+    {
+      id: "t1q38",
+      type: "mcq",
+      question: "A ray of light strikes a plane mirror at 90° (i.e., along the normal). After reflection, the ray will:",
+      options: [
+        "Reflect at 90° to the original direction",
+        "Retrace its original path (reflect back along itself)",
+        "Reflect at 45° to the mirror surface",
+        "Absorb into the mirror"
+      ],
+      correctAnswer: "Retrace its original path (reflect back along itself)",
+      explanation: "If the angle of incidence = 0° (ray hits mirror along its normal — perpendicularly), then by the law of reflection, angle of reflection = 0°. The reflected ray goes back exactly the way it came. This is called normal incidence, and the ray retraces its own path. This principle is used in reflectors and laser cavities.",
+      points: 10
+    },
+    {
+      id: "t1q39",
+      type: "mcq",
+      question: "How many images are formed when two plane mirrors are placed at 60° to each other?",
+      options: ["2", "3", "5", "6"],
+      correctAnswer: "5",
+      explanation: "Number of images = (360°/θ) − 1 = (360°/60°) − 1 = 6 − 1 = 5. This formula applies when 360°/θ is a whole number. At 60°, you get 5 images arranged symmetrically. This is the principle behind a kaleidoscope — with two mirrors at 60°, an object creates a beautiful 6-fold symmetric pattern (5 images + 1 object).",
+      points: 10
+    },
+    {
+      id: "t1q40",
+      type: "mcq",
+      question: "Which of the following is an example of regular (specular) reflection?",
+      options: [
+        "A book page reflecting light to your eyes",
+        "A white wall illuminating a room",
+        "Your reflection in a still lake",
+        "Fog making car headlights visible from the side"
+      ],
+      correctAnswer: "Your reflection in a still lake",
+      explanation: "A still lake has an extremely smooth water surface — parallel incident light rays reflect as parallel rays in one direction, forming a clear image (regular reflection). A book page, white wall, and fog all involve rough/irregular surfaces or particles that scatter light in all directions (diffuse reflection). Still water vs rippled water is a good test: smooth → regular, rippled → diffuse.",
+      points: 10
+    },
+
+    /* Short Answer Set 3 */
+    {
+      id: "t1q41",
+      type: "short",
+      question: "A person stands 1.5 m in front of a plane mirror. How far is the image from the person? If the person walks 0.5 m towards the mirror, what is the new distance between the person and their image?",
+      options: [],
+      correctAnswer: "Initial situation:\nImage in plane mirror forms behind mirror at same distance = 1.5 m.\nDistance from person to image = 1.5 m (person in front) + 1.5 m (image behind) = 3.0 m.\n\nAfter walking 0.5 m closer:\nNew distance from mirror = 1.5 − 0.5 = 1.0 m.\nImage is now 1.0 m behind mirror.\nNew person-to-image distance = 1.0 + 1.0 = 2.0 m.\n\nWhen the person moved 0.5 m closer to the mirror, the image moved 0.5 m closer to the mirror from the other side. Total gap reduced by 1.0 m (0.5 m from person + 0.5 m from image).",
+      explanation: "This is a standard problem. Key insight: both person and image move toward the mirror simultaneously — the total distance decreases twice as fast as the individual approach speed.",
+      points: 15
+    },
+    {
+      id: "t1q42",
+      type: "short",
+      question: "State the two laws of reflection. Which law tells you the direction of the reflected ray, and which tells you the magnitude of the angles?",
+      options: [],
+      correctAnswer: "Laws of Reflection:\n\n1. First Law: The incident ray, the reflected ray, and the normal to the reflecting surface at the point of incidence — all three lie in the same plane.\n→ This law tells you the DIRECTION — the reflected ray stays in the same geometric plane as the incident ray. It cannot jump out of the plane.\n\n2. Second Law: The angle of incidence (i) equals the angle of reflection (r). [∠i = ∠r]\n→ This law gives the MAGNITUDE — the angular measure of reflection equals the angular measure of incidence.\n\nBoth angles are always measured from the NORMAL (not from the mirror surface).",
+      explanation: "The two laws work together: the first constrains the plane, the second constrains the angle. Both are needed to completely determine the reflected ray's path.",
+      points: 15
+    },
+    {
+      id: "t1q43",
+      type: "short",
+      question: "What are the four main characteristics of the image formed by a plane mirror? State each property briefly.",
+      options: [],
+      correctAnswer: "Four Characteristics of Plane Mirror Image:\n\n1. Virtual: The image is formed behind the mirror where no actual light rays converge. It cannot be projected on a screen.\n\n2. Erect (Upright): The image is right-side up — same orientation as the object vertically.\n\n3. Same size: The image has the same height and width as the object (magnification = +1).\n\n4. Laterally inverted: The image is left-right reversed. Your right hand appears as your left hand in the mirror. (Also known as 'mirror image' or 'lateral inversion').\n\nBonus property: Image distance = Object distance (image is as far behind mirror as object is in front).",
+      explanation: "Lateral inversion is one of the most interesting and frequently confused properties of plane mirrors. Vertical is preserved, horizontal is reversed — not up-down.",
+      points: 15
+    },
+    {
+      id: "t1q44",
+      type: "short",
+      question: "What is lateral inversion? Explain with the example of a word written on a plane mirror.",
+      options: [],
+      correctAnswer: "Lateral Inversion: The apparent reversal of left and right (not up and down) in the image formed by a plane mirror. The right side of the object appears as the left side of the image, and vice versa.\n\nExample — Word in mirror:\nWhen you write 'AMBULANCE' on a vehicle, the plane mirror image reads it correctly when drivers see it in their rear-view mirror. The original word is deliberately written in mirror script (laterally inverted) so that when reflected, it reads normally.\n\nAnother example: Hold up the word 'MOM' in front of a mirror. The letters M and M look similar, but 'O' stays recognizable. Now hold up 'BOOK' — it appears as 'XOOD' (approximately), showing clear left-right flip.\n\nKey point: Lateral inversion flips LEFT ↔ RIGHT only. TOP ↔ BOTTOM is NOT inverted in a vertical plane mirror.",
+      explanation: "Lateral inversion is why writing on ambulances is in mirror script. The concept of which axis is inverted (left-right, not up-down) is a common source of confusion and exam questions.",
+      points: 15
+    },
+    {
+      id: "t1q45",
+      type: "short",
+      question: "Calculate the number of images formed when two plane mirrors are placed (a) at 90°, (b) at 72°, (c) at 45° to each other.",
+      options: [],
+      correctAnswer: "Formula: Number of images = (360°/θ) − 1 (when 360°/θ is an integer)\n\n(a) θ = 90°: n = (360/90) − 1 = 4 − 1 = 3 images.\n\n(b) θ = 72°: n = (360/72) − 1 = 5 − 1 = 4 images.\n\n(c) θ = 45°: n = (360/45) − 1 = 8 − 1 = 7 images.\n\nPattern: As the angle between mirrors decreases, the number of images increases. At 0° (parallel mirrors), theoretically infinite images form (but they get dimmer with each reflection). This is used in dressing rooms and infinite mirror installations.",
+      explanation: "This formula is important for board exams. Always check that 360/θ is a whole number for the formula to apply cleanly. If 360/θ is not an integer, the calculation is more complex.",
+      points: 15
+    },
+
+    /* Long Answer Set 3 */
+    {
+      id: "t1q46",
+      type: "long",
+      question: "Light is incident on a plane mirror at an angle of incidence of 40°. The mirror is then rotated by 20° (while the incident ray remains fixed). By how much does the reflected ray rotate? Derive the principle and apply it.",
+      options: [],
+      correctAnswer: "Principle: Law of Mirror Rotation\nWhen a plane mirror is rotated by an angle θ (while the incident ray is fixed), the reflected ray rotates by 2θ in the same direction.\n\nDerivation:\nInitial state:\n• Angle of incidence = 40°.\n• Angle of reflection = 40°.\n• The reflected ray makes 40° with the normal (= 50° with mirror surface).\n\nAfter mirror rotates 20°:\n• The normal rotates 20° (normal is always perpendicular to mirror).\n• New angle of incidence = 40° − 20° = 20° (since the incident ray is fixed but normal rotated).\n\nWait — more carefully:\nIf the incident ray is fixed and mirror rotates by α = 20°, the angle of incidence changes by 20°.\nNew angle of incidence = 40° − 20° = 20° (if rotating toward the ray).\nNew angle of reflection = 20°.\nThe reflected ray is now at 20° on the other side of new normal.\n\nChange in reflected ray angle from initial position:\nOriginal reflected ray: 40° on right of original normal.\nNew reflected ray: 20° on right of new normal (which is 20° from old).\nTotal shift of reflected ray = 20° + 20° = 40° = 2 × 20° = 2α.\n\nResult: Reflected ray rotates by 2 × 20° = 40°.\n\nApplication: Used in galvanometers and spectrometers to measure tiny angle changes with doubled sensitivity.",
+      explanation: "The 2θ law is a fundamental property of mirror rotation. Galvanometers use this to convert tiny current-induced coil rotations into large deflections of a light spot.",
+      points: 20
+    },
+    {
+      id: "t1q47",
+      type: "long",
+      question: "Explain the concept of 'echo' and 'reverberation' in sound and draw a parallel with light reflection. How does architectural design use knowledge of reflection (of both light and sound) in concert halls?",
+      options: [],
+      correctAnswer: "Reflection Parallels — Light and Sound:\n\nSound Reflection:\n• Echo: Reflected sound heard distinctly after a delay (sound must travel at least 34 m round trip — 17 m to reflector and back — for the echo to be perceptible separately from original).\n• Reverberation: Multiple reflections in an enclosed space cause sound to persist. Good reverberation: 1-2 seconds for music. Too much reverberation makes speech unintelligible.\n\nLight Reflection:\n• Multiple reflections in a room from walls, ceiling, floor create ambient light (indirect illumination).\n• Specular surfaces (mirrors) create visible reflections; diffuse surfaces (walls) create even ambient light.\n\nArchitectural Design Parallels:\n\nConcert Hall Design:\n1. Sound: Walls are curved (concave sections) at specific points to focus reflected sound towards audience seating — same principle as concave mirror focusing light. Curved ceiling panels reflect and distribute sound evenly.\n2. Sound: Absorptive materials (fabric seats, carpets) prevent excessive reverberation that muddles music — analogous to black (non-reflective) surfaces in optics.\n3. Light: Skylights and reflective panels direct natural light without glare — using reflection and diffusion principles from optics.\n4. Both: The architect considers the 'ray' paths of both sound and light to achieve clarity (sharp focus) without overwhelming reverberation/glare.",
+      explanation: "This cross-disciplinary answer demonstrates that reflection laws are universal — applying to light, sound, water waves. Architects and acoustic engineers routinely apply these principles.",
+      points: 20
+    },
+
+    /* HOTS Set 3 */
+    {
+      id: "t1q48",
+      type: "thinking",
+      question: "A plane mirror is fixed on the ceiling of a room, horizontal. A person stands directly below it and looks up. (a) What does the person see in the mirror? (b) A ball is thrown vertically upward at 5 m/s. Describe the motion of the ball's image in the ceiling mirror. (c) At what speed does the image approach the mirror just before the ball reaches its highest point?",
+      options: [],
+      correctAnswer: "(a) What the person sees:\nLooking up at a horizontal ceiling mirror, the person sees an image of themselves (and the entire room) directly below the mirror — but the image is inverted top-to-bottom (head at bottom, feet at top as seen from below). The horizontal mirror flips vertical orientation instead of horizontal.\n\nNote: A horizontal mirror on the ceiling inverts UP-DOWN rather than LEFT-RIGHT. This is because 'up-down' is now the axis perpendicular to the mirror surface.\n\n(b) Ball's image motion:\nFor a horizontal ceiling mirror:\n• As the ball rises at 5 m/s, the image (behind the mirror — above the ceiling) descends at 5 m/s towards the mirror surface (from the other side).\n• Both ball and image approach the mirror at the same speed.\n• The distance from ball to mirror decreases; image distance behind mirror = real distance in front → image also rises toward the mirror (from behind).\n• Ball and image approach each other at 5 + 5 = 10 m/s relative to each other.\n\n(c) Speed just before highest point:\nJust before the ball reaches its highest point, its velocity → 0 (decelerating under gravity). So the ball's image also slows to 0 m/s simultaneously — both ball and image stop momentarily at the closest point (ball's maximum height). Then both fall/rise together in reverse.",
+      explanation: "Ceiling mirrors are a delightful twist on standard mirror problems. The key insight is that the mirror normal is now vertical — so up-down is what gets inverted, not left-right.",
+      points: 25
+    },
+    {
+      id: "t1q49",
+      type: "thinking",
+      question: "Light takes approximately 8 minutes 20 seconds to travel from the Sun to Earth. A giant plane mirror the size of a planet is placed at the midpoint between Sun and Earth. (a) If you look in this mirror from Earth, what would you see and how old would the image be? (b) What does this tell us about the nature of mirrors and time?",
+      options: [],
+      correctAnswer: "(a) What you see and the age of the image:\nSun-to-Earth distance = 8 min 20 s × speed of light = 8.33 minutes × c.\nMirror is at the midpoint = 4.17 minutes from Earth.\n\nLight from the Sun travels: 4.17 min to mirror, reflects, then 4.17 min back to Earth.\nTotal travel time = 8.33 minutes + 8.33 minutes = 16 min 40 sec from sun to mirror to Earth.\n\nBut the actual Sun → Earth direct light takes 8.33 minutes.\n\nSo looking in the mirror, you see the Sun as it was 16 min 40 sec ago (8.33 min for light to reach mirror + 8.33 min to return to you).\nYou'd see the Sun's image that is 8 min 20 seconds OLDER than the direct view of the Sun.\n\n(b) What this tells us:\nMirrors don't show 'the present' — they show the past. The image is always from the moment light LEFT the object, not the moment you see it. For nearby objects (fraction of a millimetre from the mirror), the delay is unmeasurably small (~10⁻¹² seconds). But for cosmic distances, mirrors reveal the ancient past.\n\nPhilosophically: you never see 'real-time' reflections — only historical ones. The universe you see (in mirrors or directly) is always a reconstruction of the past based on light that was emitted before it reached your eyes.",
+      explanation: "This question reveals the deep connection between the finite speed of light and perception. All vision is time-delayed — mirrors just make this explicit when distances are large.",
+      points: 25
+    },
+    {
+      id: "t1q50",
+      type: "thinking",
+      question: "A laser beam hits a plane mirror at angle of incidence 30°. The laser then hits a second plane mirror. The two mirrors are arranged so the final beam exits parallel to the original beam but 20 cm shifted sideways. Design the geometry: (a) What angle does the second mirror make with the first? (b) Verify that the exit beam is indeed parallel to the entry beam.",
+      options: [],
+      correctAnswer: "(a) Geometry Design:\nFor the exit beam to be parallel to the entry beam with a lateral shift:\n\nThe two-mirror system must be configured as a retroreflector-style geometry.\n\nLet first mirror be horizontal. Laser hits at angle of incidence i₁ = 30°.\nReflected ray from mirror 1 makes 60° with the mirror surface (30° from normal = 60° from surface).\n\nFor exit beam parallel to entry:\nThe second mirror must be perpendicular to the first mirror's reflected ray such that after reflection from mirror 2, the exit ray is parallel to the original.\n\nIf the angle between the two mirrors is φ:\nBy geometry, for exit beam to be antiparallel (parallel but opposite direction) to entry:\nφ = 90°. This gives the retroreflector (light returns exactly backward).\n\nFor exit beam to be PARALLEL (same direction, laterally shifted):\nThis requires more thought. Two reflections each rotate the beam. For zero total angular change:\nEach mirror must turn the beam by opposite equal amounts.\n\nFor i₁ = 30° on mirror 1:\nAfter reflection: beam deflects by 2×30° = 60° from original direction.\nSecond mirror must deflect by 60° back → mirror 2 is tilted at 60° to horizontal (or 30° to the reflected beam from mirror 1).\n\nThe two mirrors form a V-shape with the opening angle = 180° − 60° = 120° between their surfaces.\n\n(b) Verification:\nEntry beam angle to horizontal: say 30° below. Mirror 1 reflects it 30° above horizontal (total rotation 60°). Mirror 2 (tilted at 60° from horizontal) presents a normal at 30° from the incoming ray. Reflects it 30° back → exits parallel to original entry direction ✓.\nThe 20 cm lateral shift is determined by the distance between the two mirror surfaces.",
+      explanation: "Multi-mirror systems that preserve beam direction with lateral shifts are used in optical instruments like interferometers and retroreflectors. The geometry follows directly from repeated application of the law of reflection.",
+      points: 25
     }
   ]
 };

@@ -651,6 +651,114 @@ $$\\sin(i_c) = \\frac{1}{n} \\implies n = \\frac{1}{\\sin(30^\\circ)} = \\frac{1
       correctAnswer: "Evanescent Waves — Beyond Classical TIR:\n\nClassical TIR explanation: No light penetrates into the rarer medium; all light is reflected.\n\nQuantum/Wave optics explanation:\nWhile the propagating wave (light that would travel through the rarer medium) does not exist during TIR, an evanescent wave does. An evanescent wave is an exponentially decaying oscillating electromagnetic field that exists just inside the rarer medium (within ~100-500 nm of the boundary). It is not a propagating wave — it does not carry energy away from the boundary. Its amplitude decays as $E \\sim E_0 e^{-z/d_p}$ where $d_p$ is the penetration depth (typically $\\lambda/4$ to $\\lambda$).\n\nKey: Despite TIR, some electric field energy momentarily exists in the rarer medium. If another high-n medium is brought within the penetration depth, the evanescent wave can couple into it — a phenomenon called 'frustrated TIR.'\n\nPractical Device: Frustrated TIR Touchscreen (used in some fingerprint scanners and early tablets):\n1. A glass surface (n=1.5) is illuminated from below at angle > critical angle.\n2. In air: TIR occurs, no light transmission through glass surface.\n3. When a finger touches the surface: skin (n~1.45) enters the evanescent zone.\n4. The evanescent wave couples into the finger, disrupting TIR where touched.\n5. Where touched: light is NOT totally internally reflected → appears as bright spot from below.\n6. Camera underneath captures this pattern → reveals fingerprint ridges precisely.\n\nAlso used in: TIRF microscopy (Total Internal Reflection Fluorescence) for imaging single molecules at cell membranes.",
       explanation: "Evanescent waves are a beautiful quantum-classical bridge. They're why TIR-based fingerprint scanners work, and why TIRF microscopy can image individual molecules on cell membranes.",
       points: 25
+    },
+
+    /* ── Additional Questions Set 3 (t7q41 to t7q50) ── */
+
+    {
+      id: "t7q41",
+      type: "mcq",
+      question: "The critical angle for diamond (n = 2.42) in air is approximately:",
+      options: ["41.8°", "24.4°", "65°", "32.1°"],
+      correctAnswer: "24.4°",
+      explanation: "sin C = 1/n = 1/2.42 = 0.413. C = sin⁻¹(0.413) ≈ 24.4°. Diamond's critical angle is extremely small — only 24.4°! This means light hitting any face at more than 24.4° undergoes TIR. Inside a well-cut diamond, light bounces repeatedly via TIR before exiting — creating the brilliant sparkle. Cubic zirconia (n ≈ 2.17, C ≈ 27.5°) sparkles less than diamond for this reason.",
+      points: 10
+    },
+    {
+      id: "t7q42",
+      type: "mcq",
+      question: "For total internal reflection to occur, light must travel from:",
+      options: [
+        "A rarer medium to a denser medium at any angle",
+        "A denser medium to a rarer medium, at or beyond the critical angle",
+        "A denser medium to a rarer medium, at less than the critical angle",
+        "Any medium to any other medium at 90°"
+      ],
+      correctAnswer: "A denser medium to a rarer medium, at or beyond the critical angle",
+      explanation: "TWO conditions for TIR: (1) Light must travel from DENSER to RARER medium (e.g., glass to air, water to air). (2) The angle of incidence must be GREATER THAN OR EQUAL TO the critical angle. If either condition is violated, TIR does not occur — partial refraction and partial reflection happen instead.",
+      points: 10
+    },
+    {
+      id: "t7q43",
+      type: "mcq",
+      question: "An optical fibre uses TIR with core n = 1.50 and cladding n = 1.45. What is the critical angle?",
+      options: ["74.9°", "75.2°", "65.4°", "80°"],
+      correctAnswer: "75.2°",
+      explanation: "sin C = n_cladding/n_core = 1.45/1.50 = 0.9667. C = sin⁻¹(0.9667) ≈ 75.2°. This very large critical angle means light must enter the fibre at a very specific narrow range of angles (within 14.8° of the axis) to undergo TIR. This is the acceptance angle of the fibre, defining its 'numerical aperture'.",
+      points: 10
+    },
+    {
+      id: "t7q44",
+      type: "mcq",
+      question: "In a hot desert, you sometimes see what appears to be water on the road ahead. This is a mirage caused by:",
+      options: [
+        "Reflection from the flat road surface",
+        "TIR of light in a layer of very hot air near the ground",
+        "Actual water evaporation from the road",
+        "Diffraction of sunlight"
+      ],
+      correctAnswer: "TIR of light in a layer of very hot air near the ground",
+      explanation: "In a mirage: The road heats the air directly above it to a very high temperature. Very hot air has a lower refractive index than cooler air above. Light from the sky travels downward (denser to rarer — from cool to hot air layers). When the angle of incidence exceeds the critical angle, TIR occurs. The reflected sky-light reaches the observer's eye, appearing to come from the ground — it looks like water reflecting the sky!",
+      points: 10
+    },
+    {
+      id: "t7q45",
+      type: "mcq",
+      question: "Why is the critical angle concept not applicable when light travels from a rarer to a denser medium?",
+      options: [
+        "Light speeds up in denser media",
+        "Snell's law doesn't apply for rarer to denser",
+        "Light bends toward the normal when entering denser media — refraction always occurs, never TIR",
+        "TIR requires the angle to be 90°"
+      ],
+      correctAnswer: "Light bends toward the normal when entering denser media — refraction always occurs, never TIR",
+      explanation: "When light goes from rarer (n₁) to denser (n₂) medium (n₂ > n₁), Snell's law: n₁ sin θ₁ = n₂ sin θ₂ → sin θ₂ = (n₁/n₂) sin θ₁ < sin θ₁ → θ₂ < θ₁. The refracted ray always exists — it bends toward the normal. sin θ₂ can never exceed 1, so refraction always occurs. TIR is only possible when going from denser to rarer medium.",
+      points: 10
+    },
+    {
+      id: "t7q46",
+      type: "short",
+      question: "What is meant by 'critical angle'? State the formula for it and give its value for glass (n = 1.5).",
+      options: [],
+      correctAnswer: "Critical Angle: The angle of incidence in the denser medium at which the refracted ray just grazes along the interface (angle of refraction = 90°). For angles of incidence greater than the critical angle, total internal reflection occurs.\n\nFormula: sin C = n₂/n₁ (where light goes from medium of n₁ to medium of n₂, with n₁ > n₂).\nFor glass to air: sin C = n_air/n_glass = 1/1.5 = 0.667.\nC = sin⁻¹(0.667) ≈ 41.8°.\n\nMeaning: Any ray in glass hitting the glass-air boundary at more than 41.8° will undergo total internal reflection.",
+      explanation: "Critical angle is the key threshold for TIR. Below C → refraction occurs. Above C → TIR occurs. At exactly C → refracted ray grazes the surface (90°).",
+      points: 15
+    },
+    {
+      id: "t7q47",
+      type: "short",
+      question: "Describe three practical applications of total internal reflection.",
+      options: [],
+      correctAnswer: "1. Optical Fibres (Telecommunications and Medical):\nLight signals are transmitted through thin glass fibres by repeated TIR. The core (denser glass) is surrounded by cladding (rarer glass), so light bounces along the fibre with essentially 100% efficiency. Used in internet cables, endoscopes (to see inside the human body), and surgical instruments.\n\n2. Prism Periscopes (Submarine and Military):\nTotal reflecting prisms (glass prisms with 45°-90°-45° geometry) reflect light at 90° via TIR, more efficiently than silvered mirrors (which absorb some light). Used in periscopes, binoculars, and rangefinders.\n\n3. Brilliant Cut Diamonds:\nDiamond's very small critical angle (24.4°) ensures that light entering the top of a well-cut diamond undergoes multiple TIR reflections inside before exiting from the top faces. This traps light inside the gem and returns it through the crown — creating the brilliant sparkle (brilliance) that makes diamonds so visually striking.",
+      explanation: "These three applications demonstrate TIR in three completely different domains: communications technology, precision optics, and gemology.",
+      points: 15
+    },
+    {
+      id: "t7q48",
+      type: "short",
+      question: "Light travels from water (n = 1.33) into air. At what angle of incidence will TIR first occur? If the angle is increased by 10°, what happens?",
+      options: [],
+      correctAnswer: "Critical angle: sin C = n_air/n_water = 1/1.33 = 0.752. C = sin⁻¹(0.752) ≈ 48.8°.\n\nAt exactly 48.8°: The refracted ray grazes along the water-air interface (angle of refraction = 90°). This is the onset of TIR.\n\nAt 48.8° + 10° = 58.8° (increased by 10°):\nThe angle exceeds the critical angle → Total Internal Reflection occurs. The light ray is COMPLETELY reflected back into the water according to the law of reflection (angle of reflection = 58.8°). No refracted ray exists in air. The interface acts as a perfect mirror from inside the water.",
+      explanation: "The critical angle marks the precise boundary. Below it: partial refraction + partial reflection. At it: grazing refraction. Above it: TIR (100% reflection).",
+      points: 15
+    },
+    {
+      id: "t7q49",
+      type: "long",
+      question: "Explain how optical fibres work using the principle of TIR. Draw the cross-section and describe: (a) core and cladding, (b) how light propagates, (c) why it doesn't leak even when the fibre bends. Give two applications.",
+      options: [],
+      correctAnswer: "Optical Fibre Structure:\n• Core: Central, denser glass/silica (n₁ ≈ 1.50). Light travels here.\n• Cladding: Outer coating of slightly less dense glass (n₂ ≈ 1.45). Surrounds core.\n• Buffer coating: Protective plastic layer outside cladding.\n\n(a) Core and Cladding function:\nThe core-cladding interface creates the TIR boundary. Since n_core > n_cladding, light in the core hitting this boundary at angles > critical angle undergoes TIR and stays confined to the core.\nCritical angle: sin C = 1.45/1.50 ≈ 75.2°.\n\n(b) Light Propagation:\nLight is launched into the fibre end at an angle within the acceptance cone. It travels in a zigzag path: hitting the core-cladding interface at angles > 75.2° → TIR → bounce → TIR → bounce, repeatedly along the entire fibre length. Each TIR is 100% efficient (theoretically no light lost). Light travels at v = c/n₁ ≈ 2×10⁸ m/s inside the core.\n\n(c) Bending behaviour:\nEven when the fibre bends, the light still hits the core-cladding boundary at angles well above the critical angle (for gradual bends). TIR continues as long as the bend radius is not too sharp. Tight bends can cause light to hit below critical angle → light leaks (called bending loss). This is why optical fibres must not be bent too sharply.\n\nApplications:\n1. Telecommunications: Optical fibres carry internet data as light pulses across continents. A single hair-thin fibre can carry terabits of data per second using multiple wavelengths (WDM).\n2. Endoscopy: Flexible fibre bundles guide white light into the body and return the image to a camera — used in gastroscopy, colonoscopy, laparoscopy, for minimally invasive examination and surgery.",
+      explanation: "Optical fibres are the backbone of global internet infrastructure. This complete answer covers structure, mechanism, bending physics, and real applications.",
+      points: 20
+    },
+    {
+      id: "t7q50",
+      type: "thinking",
+      question: "A glass prism (n = 1.5) has a 45°-90°-45° cross-section. A ray enters one of the 45° faces normally (perpendicularly). Show by calculation that TIR occurs at the hypotenuse face, and explain why prisms are preferred over silvered mirrors in periscopes.",
+      options: [],
+      correctAnswer: "Calculation:\nCritical angle for glass-air: sin C = 1/1.5 = 0.667 → C ≈ 41.8°.\n\nRay path:\n• Ray enters the vertical 45° face perpendicularly (angle of incidence = 0°) → passes through without bending (no refraction at normal incidence).\n• Travels horizontally inside the prism.\n• Hits the hypotenuse (the 90° angle face) at an angle of incidence of 45° (since the prism geometry dictates this by basic trigonometry: the hypotenuse face is at 45° to the horizontal ray).\n\nCheck: 45° > 41.8° (critical angle) ✓ → TIR OCCURS at the hypotenuse.\n\n• The ray reflects at 45° (TIR, law of reflection).\n• The reflected ray now travels vertically downward (or upward), having turned 90°.\n• The ray exits through the horizontal face perpendicularly → no refraction.\n\nWhy prisms beat silvered mirrors:\n1. TIR is 100% efficient (no absorption). Silvered mirrors absorb 5-10% of light at each reflection.\n2. Silver tarnishes over time — mirrors degrade. Glass prisms don't corrode.\n3. Prisms are more rugged and maintain their geometry precisely.\n4. In a periscope (two reflections), a prism periscope loses near 0% light; a mirror periscope loses ~10-20% — significant for military or night vision use.",
+      explanation: "This calculation precisely demonstrates why the 45°-90°-45° prism is the standard for optical instruments. The TIR efficiency advantage over mirrors is why all quality binoculars, periscopes, and rangefinders use prisms.",
+      points: 25
     }
   ]
 };

@@ -760,6 +760,119 @@ The ability of the crystalline lens to adjust its focal length to focus objects 
       correctAnswer: "The Blind Spot:\nThe optic nerve exits the retina at a specific point called the optic disc (blind spot). Here, there are zero photoreceptors (no rods, no cones). Any image formed at this exact spot produces NO visual signal. Yet we are completely unaware of it in normal vision.\n\nWhy We Don't Notice the Blind Spot:\n1. Filling-in by the Brain: The visual cortex automatically 'fills in' the gap at the blind spot with the surrounding pattern/colour/texture. This is a neurological process, not optical.\n2. Both eyes compensate: The blind spot in each eye covers a different part of the visual field. The two visual fields overlap significantly. When one eye's blind spot creates a gap, the other eye sees that region → no gap is perceived.\n3. Eye movements: Our eyes are constantly making tiny, rapid movements (saccades). The blind spot continuously sweeps across different parts of the scene → no single point is permanently missing.\n\nExperiment to Find Your Blind Spot:\n1. Draw a small '+' sign on the left and a small dot '•' on the right of a white paper, about 10 cm apart.\n2. Close your RIGHT eye. Hold the paper at arm's length.\n3. Fix your LEFT eye on the '+' sign (without looking at the dot).\n4. Slowly bring the paper closer to your face.\n5. At a certain distance (~25 cm from your eye), the dot on the right DISAPPEARS — it has fallen on your left eye's blind spot.\n6. Move the paper slightly closer or farther → the dot reappears.\n7. Repeat with left eye closed and right eye on the dot to find the right eye's blind spot.\n\nMathematics: The blind spot in each eye is located about 15–17° to the left/right of the fovea (on the nasal side). It subtends about 5° of visual angle horizontally and 7° vertically.",
       explanation: "The blind spot is one of the most fascinating examples of how our brain constructs vision — it actively conceals a real gap in our sensory input. The filling-in phenomenon demonstrates neural visual processing beyond optics.",
       points: 25
+    },
+
+    /* ── Additional Questions Set 3 (t8q41 to t8q50) ── */
+
+    {
+      id: "t8q41",
+      type: "mcq",
+      question: "Which colour of light travels slowest through glass, and which travels fastest?",
+      options: [
+        "Violet slowest; Red fastest",
+        "Red slowest; Violet fastest",
+        "All colours travel at the same speed in glass",
+        "Green slowest; Yellow fastest"
+      ],
+      correctAnswer: "Violet slowest; Red fastest",
+      explanation: "In glass (or any dispersive medium), shorter wavelengths have higher refractive indices. Violet has the shortest wavelength in visible light → highest n → slowest speed (v = c/n). Red has the longest wavelength → lowest n → fastest speed. This wavelength-dependent speed causes dispersion — white light separates into VIBGYOR when passing through a prism.",
+      points: 10
+    },
+    {
+      id: "t8q42",
+      type: "mcq",
+      question: "Tyndall effect explains why the sky is blue. Which statement correctly describes this effect?",
+      options: [
+        "Large gas molecules reflect blue light more than red",
+        "Small particles scatter shorter wavelengths (blue/violet) much more strongly than longer wavelengths (red)",
+        "Ozone in the atmosphere absorbs red light, leaving blue",
+        "Sunlight refracts through atmospheric water to show blue"
+      ],
+      correctAnswer: "Small particles scatter shorter wavelengths (blue/violet) much more strongly than longer wavelengths (red)",
+      explanation: "Tyndall/Rayleigh scattering: When light hits particles much smaller than its wavelength (like N₂ and O₂ molecules in air), scattering intensity ∝ 1/λ⁴. Blue light (λ ≈ 450 nm) is scattered approximately 5.5 times more than red light (λ ≈ 700 nm). So the sky looks blue because scattered blue light comes from all directions. Red, being scattered less, reaches our eyes when we look directly at the sun — making sunsets orange-red.",
+      points: 10
+    },
+    {
+      id: "t8q43",
+      type: "mcq",
+      question: "A rainbow is seen in the sky. Which colour appears at the outermost (top) arc?",
+      options: ["Violet", "Blue", "Green", "Red"],
+      correctAnswer: "Red",
+      explanation: "In a primary rainbow (single internal reflection in water droplets): Red appears at the OUTER arc, Violet at the INNER arc — ROYGBIV from outside to inside. Reason: Red has the smallest deviation angle (~42°) and comes from droplets higher in the sky. Violet has the largest deviation angle (~40°) and comes from lower droplets. Remember: 'Real rainbows → Red outside, Violet inside.'",
+      points: 10
+    },
+    {
+      id: "t8q44",
+      type: "mcq",
+      question: "After a cataract surgery, a person's natural lens is replaced with an artificial plastic lens. The person will NOT be able to:",
+      options: [
+        "See distant objects",
+        "See any colours",
+        "Accommodate (change focus from near to far)",
+        "See with both eyes"
+      ],
+      correctAnswer: "Accommodate (change focus from near to far)",
+      explanation: "The natural crystalline lens can change its curvature (and thus focal length) via ciliary muscles — this is called accommodation. An artificial intraocular lens (IOL) is rigid — it cannot change shape. The person cannot accommodate and needs reading glasses for near vision. Modern premium IOLs (multi-focal or accommodating IOLs) partially mitigate this, but standard IOLs fix the person's focus at one distance.",
+      points: 10
+    },
+    {
+      id: "t8q45",
+      type: "mcq",
+      question: "White light passes through a glass prism and disperses into VIBGYOR. If the emergent dispersed light then passes through an identical inverted prism, the result is:",
+      options: [
+        "Further dispersion into more colours",
+        "Only red light emerges",
+        "White light reforms (recombination)",
+        "Black light is produced"
+      ],
+      correctAnswer: "White light reforms (recombination)",
+      explanation: "Newton first proved this with two prisms. The first prism disperses white light into VIBGYOR — proving it is a mixture. The inverted second prism (acting in the opposite sense) recombines the dispersed rays. Each colour is refracted back at the same angle in reverse, and all colours reunite to form white light again. This proves: (1) White = mix of colours, (2) Prism doesn't add colours — it separates them.",
+      points: 10
+    },
+    {
+      id: "t8q46",
+      type: "short",
+      question: "Explain why the sun appears red during sunrise and sunset but white/yellow at midday.",
+      options: [],
+      correctAnswer: "At Sunrise/Sunset (Red appearance):\nSunlight travels through a much longer path of atmosphere (oblique path — horizon direction). Over this long path, the Tyndall effect (Rayleigh scattering) scatters MOST of the shorter wavelengths (blue, violet, green) away in all directions. Only the longest wavelengths — red and orange — remain in the direct sunlight beam reaching your eye. Hence the sun appears reddish-orange.\n\nAt Midday (White/Yellow appearance):\nSunlight travels the shortest path through the atmosphere (straight down). Much less scattering occurs. Most wavelengths (all colours) still reach your eye. The combined effect appears yellow-white (the slight yellowness is because some blue is still scattered, reducing blue intensity slightly).\n\nThe longer the atmospheric path → more scattering of blue → more red remaining → redder sun.",
+      explanation: "This is one of the most beautiful applications of Tyndall scattering. The same physics explains why the sky is blue (scattered blue reaches your eyes from all directions) and the sun is red at sunset (blue is scattered away from the direct beam).",
+      points: 15
+    },
+    {
+      id: "t8q47",
+      type: "short",
+      question: "List the components of the human eye and their optical functions.",
+      options: [],
+      correctAnswer: "Human Eye — Optical Components:\n\n1. Cornea (n ≈ 1.38): Transparent curved front surface. Does most of the focusing (~70% of total eye's optical power, about +43 D). Fixed curvature — does not change.\n\n2. Aqueous Humour (n ≈ 1.34): Fluid between cornea and lens. Maintains eye pressure, provides nutrients to cornea. Minor optical role.\n\n3. Iris/Pupil: Controls the amount of light entering. Pupil dilates in dim light (more light), constricts in bright light (less light, sharper image — like camera aperture).\n\n4. Crystalline Lens (n ≈ 1.40, variable curvature): Flexible biconvex lens. Adjusts curvature via ciliary muscles to focus at different distances (accommodation). Power: ~20 D (far) to ~24 D (near).\n\n5. Vitreous Humour (n ≈ 1.34): Gel filling most of the eye. Maintains spherical shape.\n\n6. Retina: Contains photoreceptors (rods for dim/B&W, cones for colour/detail). The 'film' of the eye — receives the real, inverted image.\n\n7. Fovea: Central spot of retina. Highest density of cones → sharpest vision.\n\n8. Optic Nerve: Transmits electrical signals from retina to brain.",
+      explanation: "The human eye is a complete optical system. Understanding each component's role helps connect optics theory to biology.",
+      points: 15
+    },
+    {
+      id: "t8q48",
+      type: "short",
+      question: "What is dispersion of light? Define angle of deviation and angle of dispersion for a prism.",
+      options: [],
+      correctAnswer: "Dispersion: The splitting of white (polychromatic) light into its constituent colours (wavelengths) when it passes through a prism or other dispersive medium, because different wavelengths travel at different speeds in the medium (different refractive indices).\n\nAngle of Deviation (δ): The angle between the incident ray and the emergent ray. Each colour has a different angle of deviation (δᵥ > δᵣ, since violet bends more). Depends on prism angle, refractive index, and angle of incidence.\n\nAngle of Dispersion (φ): The angle between the extreme violet and red rays in the dispersed beam:\nφ = δᵥ − δᵣ (deviation of violet minus deviation of red).\nLarger dispersion → colours are spread further apart → wider spectrum.\n\nNote: Angle of dispersion (φ) is always less than angle of deviation (δ) for any individual colour.",
+      explanation: "Angle of deviation and angle of dispersion are distinct concepts. Deviation is per colour; dispersion is the spread between extreme colours. Both depend on the prism material and geometry.",
+      points: 15
+    },
+    {
+      id: "t8q49",
+      type: "long",
+      question: "Explain the formation of a rainbow in the sky. Include (a) the role of raindrops, (b) why only specific colours appear, (c) why it forms an arc, (d) the difference between a primary and secondary rainbow.",
+      options: [],
+      correctAnswer: "Rainbow Formation:\n\n(a) Role of Raindrops:\nEach tiny spherical water droplet acts as both a prism (for dispersion) and a mirror (for reflection). When sunlight enters a droplet:\n1. Refraction at entry: White light disperses into VIBGYOR (different n for each colour).\n2. Internal reflection: Light reflects off the back inner surface of the droplet.\n3. Refraction at exit: Further dispersion as light exits.\nThe combined refraction-reflection-refraction separates colours, sending each colour to the observer's eye at a specific angle.\n\n(b) Why specific colours:\nEach colour exits the droplet at a specific angle due to its unique refractive index:\n• Red: exits at ~42° to the incident sunlight direction.\n• Violet: exits at ~40° to the incident sunlight direction.\nOnly droplets at these exact angles send their respective colours to your eye → only specific colours visible.\n\n(c) Why it forms an arc:\nAll droplets at the SAME ANGLE from your line of sight to the sun send the SAME COLOUR to your eye. The locus of all points at 42° from the anti-solar point (directly opposite the sun) forms a circle — an arc if the horizon cuts it off. You always see a rainbow as a circular arc centred on the antisolar point.\n\n(d) Primary vs Secondary Rainbow:\nPrimary (inner, brighter): One internal reflection inside the droplet. Red outer, Violet inner. Angles 40°-42°.\nSecondary (outer, fainter): TWO internal reflections. Colours REVERSED — Violet outer, Red inner. Angles 51°-53°. Much dimmer (more light lost at each reflection). The dark band between primary and secondary is called Alexander's dark band.",
+      explanation: "Rainbow formation is one of the most beautiful complete applications of optics. This comprehensive answer covers all the required physics and goes beyond to include secondary rainbows and Alexander's band.",
+      points: 20
+    },
+    {
+      id: "t8q50",
+      type: "thinking",
+      question: "Stars twinkle but planets do not. Explain this phenomenon completely using the concepts of light scattering, atmospheric refraction, and the apparent sizes of celestial objects.",
+      options: [],
+      correctAnswer: "Star Twinkling (Scintillation):\n\n1. Angular size:\n• Stars are extremely far away — they appear as POINT SOURCES (essentially zero angular diameter) even through the most powerful telescopes. Even the nearest star (Proxima Centauri, 4.2 light years) has an angular diameter of ~0.001 milliarcseconds.\n• Planets are in our solar system — much closer. A telescope shows them as DISCS (finite angular diameter: Mars ≈ 3-25 arcseconds, Jupiter ≈ 30-50 arcseconds).\n\n2. Atmospheric turbulence:\n• Earth's atmosphere has pockets of air at different temperatures, densities, and refractive indices, constantly mixing.\n• These pockets randomly refract light, causing the apparent direction of a star to shift rapidly and randomly.\n• For a POINT SOURCE (star): The entire image moves — the point shifts, blinks in and out of your line of sight → appears to twinkle (scintillate).\n\n3. Why planets don't twinkle:\n• A planet is a disc source — it is the sum of millions of point sources spread across its angular diameter.\n• While each individual point source twinkles, the random shifts of millions of points AVERAGE OUT over the disc.\n• The net effect is a steady, stable image — planets appear to shine steadily.\n\n4. Additional factor: Scattering\n• Starlight passes through more atmosphere (often at lower angles than planets visible at same altitude — not a primary factor but adds to atmospheric effects).\n\nConclusion: Twinkling = point source + atmospheric turbulence. No twinkling = disc source (spatial averaging cancels turbulence effects).",
+      explanation: "This beautiful question connects apparent angular size (optics), atmospheric turbulence (fluid physics), and averaging of random processes (statistics) to explain a familiar phenomenon.",
+      points: 25
     }
   ]
 };

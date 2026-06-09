@@ -495,6 +495,161 @@ A person requires a lens of power $-2.5$ D. Find focal length and identify lens 
       correctAnswer: "(a) Objective lens: $u = -0.5$ cm, $f = +0.4$ cm.\n$1/v = 1/f + 1/u = 1/0.4 + 1/(-0.5) = 2.5 - 2 = 0.5$.\n$v = 2$ cm from objective lens.\nThe intermediate image is 2 cm from the objective on the other side.\n\n(b) Power of objective: $P = 1/f = 1/0.004$ m $= 250$ D. (Very high power — extremely curved short-focal-length lens).\n\n(c) Why two lenses:\nA single lens of equivalent magnification would have an extremely short focal length (fraction of mm) and an extremely tiny aperture, making it physically impractical. Instead:\n• Objective (short f): creates a magnified REAL intermediate image.\n• Eyepiece (longer f): acts as a magnifying glass to view that intermediate image.\n• Combined magnification = (magnification by objective) × (angular magnification by eyepiece).\nThis two-stage design achieves very high magnifications (100× to 1000×) with practical-sized lenses.",
       explanation: "Compound microscope design = objective (creates real magnified image) × eyepiece (magnifies that image). Two-stage amplification is why it's so powerful.",
       points: 25
+    },
+
+    /* ── Additional Questions Set 3 (t6q36 to t6q50) ── */
+
+    /* MCQ Set 3 */
+    {
+      id: "t6q36",
+      type: "mcq",
+      question: "A person has a far point at 2 m. Which lens should they use, and what should its power be?",
+      options: [
+        "Convex lens, +0.5 D",
+        "Concave lens, −0.5 D",
+        "Concave lens, −2 D",
+        "Convex lens, +2 D"
+      ],
+      correctAnswer: "Concave lens, −0.5 D",
+      explanation: "Far point at 2 m means the person is short-sighted (myopia). They can only see clearly up to 2 m. The corrective lens must form a virtual image of an object at infinity at 2 m (the far point). f = −2 m (image at −2 m, virtual, concave lens). P = 1/f = 1/(−2) = −0.5 D. A concave lens of −0.5 D corrects the vision.",
+      points: 10
+    },
+    {
+      id: "t6q37",
+      type: "mcq",
+      question: "The power of a lens is +4 D. What is its focal length?",
+      options: ["4 m", "0.25 m", "−0.25 m", "−4 m"],
+      correctAnswer: "0.25 m",
+      explanation: "P = 1/f → f = 1/P = 1/4 = 0.25 m = 25 cm. The positive power (+4 D) confirms it is a convex (converging) lens with focal length 25 cm. Always work in SI units: P in dioptres, f in metres.",
+      points: 10
+    },
+    {
+      id: "t6q38",
+      type: "mcq",
+      question: "Two thin lenses of focal lengths +30 cm and −20 cm are placed in contact. The combined focal length is:",
+      options: ["+60 cm", "−60 cm", "+10 cm", "+50 cm"],
+      correctAnswer: "−60 cm",
+      explanation: "P₁ = 1/f₁ = 1/0.30 = +3.33 D. P₂ = 1/f₂ = 1/(−0.20) = −5 D. P_total = 3.33 − 5 = −1.67 D. f = 1/P = 1/(−1.67) = −0.60 m = −60 cm. Negative → diverging system (concave lens dominates).",
+      points: 10
+    },
+    {
+      id: "t6q39",
+      type: "mcq",
+      question: "A hypermetropic person's near point is at 1 m. What power lens corrects this to the normal 25 cm near point?",
+      options: ["+3 D", "+4 D", "+1 D", "+0.25 D"],
+      correctAnswer: "+3 D",
+      explanation: "The corrective lens must form a virtual image of an object at 25 cm at 1 m (the person's near point). u = −0.25 m, v = −1 m (virtual image, same side). 1/f = 1/v − 1/u = 1/(−1) − 1/(−0.25) = −1 + 4 = +3. P = +3 D. A convex lens of +3 D allows the hypermetropic eye to read from 25 cm.",
+      points: 10
+    },
+    {
+      id: "t6q40",
+      type: "mcq",
+      question: "For a thin lens in air, if the focal length is halved (say from 20 cm to 10 cm), the power:",
+      options: [
+        "Doubles",
+        "Halves",
+        "Remains the same",
+        "Quadruples"
+      ],
+      correctAnswer: "Doubles",
+      explanation: "P = 1/f. If f halves (from 0.20 m to 0.10 m), P = 1/0.10 = 10 D (was 1/0.20 = 5 D). Power doubles when focal length halves. This is a direct inverse relationship: P ∝ 1/f. A lens with shorter focal length is more powerful (converges or diverges light more sharply).",
+      points: 10
+    },
+
+    /* Short Answer Set 3 */
+    {
+      id: "t6q41",
+      type: "short",
+      question: "Explain the defect of vision called myopia (short-sightedness) and its correction using a lens.",
+      options: [],
+      correctAnswer: "Myopia (Short-sightedness):\n• Defect: Person can see nearby objects clearly but cannot see distant objects.\n• Cause: The eyeball is too long (elongated) OR the crystalline lens is too curved. Light from distant objects converges in FRONT of the retina instead of ON it.\n• Far point: Closer than infinity (e.g., 2 m, 3 m).\n\nCorrection:\n• A concave (diverging) lens is used.\n• The concave lens diverges the incoming parallel rays (from distant objects) so they appear to come from the far point of the myopic eye.\n• The eye can then focus these diverged rays on the retina.\n• Power of corrective lens: P = 1/f = −1/d_far (where d_far is the far point in metres, negative for concave).\n\nExample: Far point 2 m → P = −1/2 = −0.5 D.",
+      explanation: "Myopia is the most common visual defect worldwide. Understanding its optical basis (image forms in front of retina) and correction (concave lens brings it back) is essential for board exams.",
+      points: 15
+    },
+    {
+      id: "t6q42",
+      type: "short",
+      question: "Differentiate between myopia and hypermetropia in terms of (a) the image position on retina, (b) the corrective lens used, (c) the power of the corrective lens.",
+      options: [],
+      correctAnswer: "Myopia (Short-sight) vs Hypermetropia (Long-sight):\n\n(a) Image position:\n• Myopia: Image forms IN FRONT of retina (eye too long or lens too curved).\n• Hypermetropia: Image forms BEHIND retina (eye too short or lens too flat).\n\n(b) Corrective lens:\n• Myopia: Concave (diverging) lens — diverges rays before entering eye.\n• Hypermetropia: Convex (converging) lens — converges rays before entering eye.\n\n(c) Power of corrective lens:\n• Myopia: NEGATIVE power (−P). P = −1/d_far_point.\n• Hypermetropia: POSITIVE power (+P). P = 1/d_near_point − 4 (approx. +1 to +4 D usually).",
+      explanation: "This comparison is a guaranteed board exam question. Remember: Myo = nearby only (concave correction), Hyper = far preferred (convex correction).",
+      points: 15
+    },
+    {
+      id: "t6q43",
+      type: "short",
+      question: "A convex lens of power +5 D and a concave lens of power −3 D are placed in contact. Find (a) combined power (b) combined focal length (c) nature of the combination.",
+      options: [],
+      correctAnswer: "(a) P_total = P₁ + P₂ = +5 + (−3) = +2 D.\n\n(b) f = 1/P = 1/2 D = 0.5 m = 50 cm.\n\n(c) Nature: Positive combined power → the combination acts as a CONVERGING (convex) lens of focal length 50 cm. The stronger convex lens (+5 D) dominates over the weaker concave lens (−3 D).",
+      explanation: "Combined lenses in contact: powers simply add. This is the principle behind camera zoom lenses — different lens elements are combined to achieve specific combined powers.",
+      points: 15
+    },
+    {
+      id: "t6q44",
+      type: "short",
+      question: "State the relationship between power of a lens and its ability to converge/diverge light.",
+      options: [],
+      correctAnswer: "Higher positive power (+P) → lens converges light more strongly (shorter focal length, more curved lens).\nHigher negative power (−P) → lens diverges light more strongly (shorter focal length of divergence, more curved concave lens).\nZero power → plane glass (infinite focal length) — no convergence or divergence.\n\nQuantitatively:\nP = 1/f (f in metres). SI unit: Dioptre (D) = m⁻¹.\n\nPractical scale:\n+1 D = very weak converging (f = 1 m, near-flat lens)\n+20 D = very strong converging (f = 5 cm, very curved lens)\nHuman eye's crystalline lens: +50 to +54 D (extremely powerful!)",
+      explanation: "Power is the most practically useful lens parameter — opticians prescribe in dioptres because it directly tells you the strength of the lens needed.",
+      points: 15
+    },
+    {
+      id: "t6q45",
+      type: "short",
+      question: "Object 6 cm tall at u = −40 cm from convex lens f = 20 cm. Find image height using the lens formula and magnification.",
+      options: [],
+      correctAnswer: "u = −40 cm, f = +20 cm, h = 6 cm.\n\n1/v − 1/u = 1/f → 1/v = 1/20 + 1/(−40) = 2/40 − 1/40 = 1/40.\nv = +40 cm.\n\nm = v/u = 40/(−40) = −1.\nh' = m × h = −1 × 6 = −6 cm.\n\nImage height = 6 cm (same as object, since |m| = 1 at u = 2f). Negative sign confirms INVERTED image. Nature: real, inverted, same size — object is exactly at 2f from convex lens.",
+      explanation: "Object at 2f of a convex lens → image at 2f other side, same size, real, inverted. This is the same-size position, analogous to object at C for a concave mirror.",
+      points: 15
+    },
+
+    /* Long Answer Set 3 */
+    {
+      id: "t6q46",
+      type: "long",
+      question: "Explain how the eye defects myopia, hypermetropia, and presbyopia arise and how each is corrected. Why does presbyopia require bifocal lenses?",
+      options: [],
+      correctAnswer: "1. MYOPIA (Short-sightedness):\nCause: Eyeball too elongated OR ciliary muscles cannot relax fully → lens too curved → image forms in front of retina for distant objects.\nSymptom: Cannot see distant objects clearly. Near objects visible normally.\nFar point: Closer than infinity (e.g., 2−4 m).\nCorrection: CONCAVE lens (diverges light, moving image backward onto retina). Power = −1/d_far.\n\n2. HYPERMETROPIA (Long-sightedness / Farsightedness):\nCause: Eyeball too short OR lens too flat → image forms behind retina for nearby objects.\nSymptom: Cannot see nearby objects clearly. Distant objects may be visible.\nNear point: Beyond normal 25 cm (e.g., 50 cm, 1 m).\nCorrection: CONVEX lens (converges light, moving image forward onto retina). Power = 1/f.\n\n3. PRESBYOPIA (Age-related):\nCause: With age, crystalline lens hardens (loses elasticity) and ciliary muscles weaken. The lens cannot change shape to focus at different distances.\nSymptom: Difficulty focusing at BOTH near AND far — effectively both myopic and hypermetropic.\nCorrection: BIFOCAL lenses — different zones for different distances:\n• Upper zone: Concave correction for distance vision.\n• Lower zone: Convex correction for near vision (reading).\n\nWhy bifocals? A single lens can only have one focal length — one power. Presbyopia requires two different powers. Bifocal lenses have two optically distinct zones. Modern 'progressive' lenses have a gradual power change from top to bottom, eliminating the visible line between zones.",
+      explanation: "This comprehensive answer covers all three defects with causes, symptoms, and corrections — a guaranteed 5-mark board question.",
+      points: 20
+    },
+    {
+      id: "t6q47",
+      type: "long",
+      question: "A student has both myopia and astigmatism. Their optician prescribes −2.5 D (spherical) with −1.0 D cylinder at 90°. Explain what each part of this prescription means in terms of lens optics.",
+      options: [],
+      correctAnswer: "Prescription Analysis:\n\n1. −2.5 D (Spherical component):\n• This is the correction for myopia (short-sightedness).\n• A concave spherical lens of power −2.5 D corrects the uniform focusing error.\n• f = 1/(−2.5) = −0.4 m = −40 cm.\n• The lens creates a virtual image of distant objects at the student's far point (40 cm).\n• A spherical lens has the SAME curvature in all meridians (all directions).\n\n2. −1.0 D Cylinder at 90° (Astigmatism correction):\n• Astigmatism: The cornea or lens is not perfectly spherical — it has different curvatures in different directions (like a rugby ball vs football).\n• This means vertical and horizontal lines focus at different distances on the retina → blurry vision.\n• A cylindrical lens corrects this by adding extra power in ONE specific meridian only.\n• '−1.0 D at 90°' means an additional −1 D power is added in the 90° meridian (vertical).\n• The combined lens is a toric lens (sphere + cylinder) that has different powers in different directions.\n\n3. Combined effective powers:\n• Along 90°: −2.5 + (−1.0) = −3.5 D\n• Along 0° (180°): −2.5 + 0 = −2.5 D\nThe toric lens corrects both the spherical myopia and the directional astigmatism simultaneously.",
+      explanation: "Real-world spectacle prescriptions combine spherical, cylindrical, and axis parameters. This question connects classroom lens optics to the actual prescriptions millions of people receive.",
+      points: 20
+    },
+
+    /* HOTS Set 3 */
+    {
+      id: "t6q48",
+      type: "thinking",
+      question: "A physicist proposes using a single convex water lens (water enclosed between two concave glass surfaces) as a focusing element for infrared light. (a) Will this work? (b) What is the advantage over a glass lens for infrared? (c) Calculate the power if the lens has f = 15 cm.",
+      options: [],
+      correctAnswer: "(a) Will it work?\nYes. A water lens can work as a converging lens. The lens geometry (convex outer surface) matters for convergence — but a water lens between concave glass surfaces would form a biconcave water volume, acting as a DIVERGING lens (since water inside is denser than air outside, but the shape is biconcave... wait: let me reconsider.\n\nCorrected analysis: If water is enclosed between two concave glass plates (lens shape: thinner at center = biconcave water shape), then n_water > n_air but the geometry is concave → still diverging.\n\nFor a CONVERGING water lens: need biconvex water shape. This can be made by water between two convex glass plates. n_water = 1.33, which is less than glass (1.5) but more than air (1.0). A biconvex water lens in air is a CONVERGING lens.\n\n(b) Advantage for infrared:\nGlass absorbs certain infrared wavelengths (especially beyond 2.5 μm). Water is transparent to near-IR (0.7−1.5 μm) though absorbs mid-IR. For some IR wavelengths where glass absorbs more than water, a water lens has lower absorption losses. Silicon or germanium lenses are actually better for IR — this is a conceptual question about thinking through alternatives.\n\n(c) Power:\nf = 15 cm = 0.15 m (positive, converging lens).\nP = 1/f = 1/0.15 ≈ +6.67 D.",
+      explanation: "Water lenses are real! Programmable water lenses with variable focal length (tunable by pumping more/less water) are used in some adaptive optical systems and camera prototypes.",
+      points: 25
+    },
+    {
+      id: "t6q49",
+      type: "thinking",
+      question: "A doctor examines a patient and determines they need +3.5 D lenses for reading. Later, that same patient is found to have also developed myopia with far point at 4 m. Design a bifocal prescription for them.",
+      options: [],
+      correctAnswer: "Step 1: Hypermetropia correction (near vision, +3.5 D already given).\nThis corrects reading. The convex lens of +3.5 D forms a virtual image of near objects at the patient's near point.\n\nStep 2: Myopia correction (far vision).\nFar point = 4 m. A myopic eye cannot see objects beyond 4 m clearly.\nThe corrective concave lens must form a virtual image of objects at infinity at 4 m.\nu = −∞ (object at infinity), v = −4 m (virtual image at far point, negative for lens).\n1/f = 1/v − 1/u = 1/(−4) − 0 = −0.25 D.\nPower for distance: −0.25 D.\n\nBifocal Prescription:\n• Upper zone (distance): −0.25 D concave correction.\n• Lower zone (reading): +3.5 D convex correction.\n\nNote: In practice, the optician writes the final lens powers:\n• Distance portion: −0.25 D sphere.\n• Near add: +3.75 D (the difference: +3.5 − (−0.25) = +3.75 D addition for near).\n\nThe bifocal 'add' power is the difference between the near and distance corrections, always positive.",
+      explanation: "Bifocal lens design is pure applied optics. The calculation for each zone uses the lens formula with the patient's specific near and far points.",
+      points: 25
+    },
+    {
+      id: "t6q50",
+      type: "thinking",
+      question: "Prove using the lens formula that a concave lens can NEVER form a real image of a real object, regardless of object position.",
+      options: [],
+      correctAnswer: "Proof:\nFor a concave lens, focal length f < 0 (let f = −F where F > 0).\nFor a real object, u < 0 (let u = −U where U > 0).\n\nLens formula: 1/v = 1/f + 1/u = 1/(−F) + 1/(−U) = −1/F − 1/U.\n\nSince F > 0 and U > 0:\n1/v = −(1/F + 1/U) < 0.\n\nTherefore v < 0 always.\n\nA negative v means the image is on the SAME SIDE as the object (since for a lens, negative v = same side = virtual image). There is NO combination of F and U (both positive) that makes 1/v positive.\n\nConclusion: For a concave lens with any real object:\n• v is ALWAYS negative → image is ALWAYS virtual.\n• m = v/u = (negative)/(negative) = POSITIVE → image is always erect.\n• |v| < |u| always (can show: |1/v| = 1/F + 1/U > 1/U, so |v| < U = |u|) → image is always diminished.\n\nTherefore a concave lens ALWAYS forms a virtual, erect, diminished image — no exceptions, as proven algebraically.",
+      explanation: "This algebraic proof is elegant and definitive. It shows why the concave lens is the 'always virtual' lens — the mathematics enforces it universally.",
+      points: 25
     }
   ]
 };
