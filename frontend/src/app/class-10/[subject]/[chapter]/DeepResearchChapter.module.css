@@ -1008,24 +1008,57 @@
   font-size: 1.25rem;
 }
 
-/* ── DIAGRAM SECTION: wraps the animated SVG concept diagram ── */
+/* ── DIAGRAM SECTION: wraps the animated SVG concept diagram ──
+ * Glass-morphic container with a glowing top border accent. */
 .diagramSection {
-  margin: 40px 0;
-  padding: 0;
+  margin: 40px 0 32px;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(10, 18, 35, 0.8), rgba(15, 23, 50, 0.6));
+  border: 1px solid rgba(129, 140, 248, 0.15);
+  border-top: 2px solid #818cf8;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle ambient glow behind the diagram */
+.diagramSection::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 80px;
+  background: radial-gradient(ellipse, rgba(129,140,248,0.12) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 /* CTA to move to Practice tab */
 .learnCta {
   margin-top: 40px;
-  padding: 24px;
-  background: linear-gradient(135deg, rgba(129,140,248,0.08), rgba(52,211,153,0.05));
-  border: 1px solid rgba(129, 140, 248, 0.15);
-  border-radius: 12px;
+  padding: 20px 28px;
+  background: linear-gradient(135deg, rgba(129,140,248,0.1), rgba(52,211,153,0.06));
+  border: 1px solid rgba(129, 140, 248, 0.2);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.learnCta::after {
+  content: "";
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(129,140,248,0.12) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .learnCtaText {
@@ -1472,6 +1505,78 @@
 }
 
 /* ═══════════════════════════════════════════════════
+ * 15b. FORMULA CARDS (Exam Prep → Key Formulas section)
+ * Visual grid of formula quick-reference chips.
+ * ═══════════════════════════════════════════════════ */
+
+.formulaCardsSection {
+  margin-bottom: 24px;
+}
+
+.formulaCardsSectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 14px;
+}
+
+.formulaCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: rgba(129, 140, 248, 0.15);
+  color: #818cf8;
+  font-size: 0.625rem;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+.formulaCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.formulaCard {
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(129, 140, 248, 0.15);
+  background: rgba(129, 140, 248, 0.05);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 56px;
+}
+
+.formulaCard:hover {
+  border-color: rgba(129, 140, 248, 0.3);
+  background: rgba(129, 140, 248, 0.08);
+  transform: translateY(-2px);
+}
+
+.formulaCardBody {
+  font-size: 1.05rem;
+  color: #e2e8f0;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.formulaCardBody .katex {
+  color: #fbbf24;
+  font-size: 1.1rem;
+}
+
+/* ═══════════════════════════════════════════════════
  * 16. EXAM PREP PANEL
  * Color-coded key-point cards + exam tips.
  * ═══════════════════════════════════════════════════ */
@@ -1706,28 +1811,40 @@
 
 /* ═══════════════════════════════════════════════════
  * SIMULATION SECTION PREMIUM STYLES
- * Glass-morphic simulation showcase cards
+ * Glass-morphic simulation showcase with Live badge
  * ═══════════════════════════════════════════════════ */
 
 .simulationsSection {
   margin: 40px 0 32px;
+  padding: 0;
 }
 
-.sectionHeading {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.0625rem;
-  font-weight: 700;
-  color: #e2e8f0;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(129, 140, 248, 0.15);
-  letter-spacing: -0.01em;
+/* Simulation section container: outer glass frame */
+.simulationsSection > .sectionHeading {
+  /* Live badge after the heading text */
+  position: relative;
 }
 
-.sectionHeadingIcon {
-  font-size: 1.35rem;
+/* Live indicator added via CSS sibling */
+.simulationsSection > .sectionHeading::after {
+  content: "LIVE";
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: #34d399;
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-left: 6px;
+  vertical-align: middle;
+  animation: liveBlink 2.5s ease-in-out infinite;
+}
+
+@keyframes liveBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 .simulationCardsGrid {
@@ -1832,11 +1949,18 @@
   }
 
   .heroTopicTitle {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
+    letter-spacing: -0.015em;
   }
 
   .topicHero {
     height: 200px;
+  }
+
+  /* Hero content: remove right margin so it uses full width on tablet */
+  .heroContent {
+    right: 0;
+    padding: 20px 24px;
   }
 
   .tabs {
@@ -1845,16 +1969,17 @@
   }
 
   .tab {
-    padding: 12px 12px;
+    padding: 10px 10px;
     font-size: 0.75rem;
   }
 
   .tabLabel {
-    display: none; /* Icon-only on very small screens */
+    font-size: 0.68rem; /* Smaller but still readable — labels stay visible at tablet */
+    letter-spacing: 0.01em;
   }
 
   .tabIcon {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .learnPanel,
@@ -1926,15 +2051,16 @@
   }
 
   .tab {
-    padding: 10px 10px;
+    padding: 10px 8px;
     font-size: 0.7rem;
     min-width: 48px;
     flex-shrink: 0;
   }
 
   .tabLabel {
-    display: block; /* Show text for clarity but smaller */
-    font-size: 0.65rem;
+    display: block;
+    font-size: 0.62rem;
+    letter-spacing: 0.005em;
   }
 
   .examTipGrid {
@@ -2007,6 +2133,27 @@
   .bottomNavBtn {
     font-size: 0.8125rem;
     padding: 8px 14px;
+  }
+
+  /* Formula cards: 2 columns on mobile */
+  .formulaCardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .formulaCard {
+    padding: 12px 10px;
+    min-height: 48px;
+  }
+
+  .formulaCardBody {
+    font-size: 0.9rem;
+  }
+
+  /* Diagram section: smaller padding */
+  .diagramSection {
+    padding: 16px;
+    margin: 24px 0;
   }
 }
 

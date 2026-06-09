@@ -11,7 +11,7 @@
  *   - 20+ fully solved numerical examples with step-by-step working
  *   - Real-life applications of optics formulas
  *   - Exam strategies and common mistake prevention
- *   - 35 practice questions (MCQ, short, long, HOTS, numerical)
+ *   - 50 practice questions (20 MCQ, 10 Short, 10 Long, 10 HOTS — all with full worked solutions)
  *   - 20 flash cards
  *   - Mind map of all optical formulas
  *
@@ -812,6 +812,172 @@ $$h' = m \\times h = \\left(-\\frac{v}{u}\\right) \\times h$$
       options: [],
       correctAnswer: "Given: v = +2 cm = +0.02 m (sensor position, fixed)\nObject at u₁ = −2 m (nearest) and u₂ = −50 m (farthest)\n\nUsing Lens Formula: 1/v − 1/u = 1/f\n\nFor nearest object (u = −2 m):\n1/f = 1/0.02 − 1/(−2) = 50 + 0.5 = 50.5\nf = 1/50.5 = 0.01980 m = 1.980 cm\n\nFor farthest object (u = −50 m):\n1/f = 1/0.02 − 1/(−50) = 50 + 0.02 = 50.02\nf = 1/50.02 = 0.01999 m = 1.999 cm\n\nRequired focal length range: 1.980 cm to 1.999 cm\nThis is an extremely small change (only 0.019 cm = 0.19 mm!)\n\nAutofocus Mechanism:\nModern cameras don't change focal length — they change the LENS POSITION (distance between lens and sensor = v). A tiny motor shifts the lens by fractions of a millimetre. The formula 1/v − 1/u = 1/f is computed electronically in real-time. This is exactly the mathematics behind every smartphone autofocus system!\n\nFor very long zoom (telephoto), f is increased by using multiple lens elements — changing the effective combined focal length while the physical sensor stays fixed.",
       explanation: "Real-world camera design is pure applied optics. The negligible change in f explains why fixed-focus 'pancake lenses' work for most distances, while autofocus fine-tunes the position rather than the focal length.",
+      points: 25
+    },
+
+    /* ───────────── Additional MCQ Numericals (5 Questions — total 20 MCQ) ───────────── */
+    {
+      id: "q9-36",
+      type: "mcq",
+      question: "A concave mirror has a radius of curvature 30 cm. An object is placed 45 cm in front of it. The image distance is:",
+      options: [
+        "−22.5 cm",
+        "+22.5 cm",
+        "−45 cm",
+        "+45 cm"
+      ],
+      correctAnswer: "−22.5 cm",
+      explanation: "R = 30 cm → f = R/2 = 15 cm. With sign convention, f = −15 cm, u = −45 cm.\n1/v = 1/f − 1/u = 1/(−15) − 1/(−45) = −1/15 + 1/45 = (−3+1)/45 = −2/45. v = −45/2 = −22.5 cm.\nNegative v confirms real image in front of mirror.",
+      points: 10
+    },
+    {
+      id: "q9-37",
+      type: "mcq",
+      question: "A convex mirror has focal length 20 cm. Where is the image of an object placed 60 cm in front of the mirror?",
+      options: [
+        "+15 cm behind the mirror",
+        "−15 cm in front of the mirror",
+        "+30 cm behind the mirror",
+        "−30 cm in front of the mirror"
+      ],
+      correctAnswer: "+15 cm behind the mirror",
+      explanation: "Convex mirror: f = +20 cm, u = −60 cm.\n1/v = 1/f − 1/u = 1/20 − 1/(−60) = 1/20 + 1/60 = 3/60 + 1/60 = 4/60 = 1/15.\nv = +15 cm. Positive v means image is behind the mirror — virtual image. This confirms the convex mirror always gives a virtual, erect image.",
+      points: 10
+    },
+    {
+      id: "q9-38",
+      type: "mcq",
+      question: "The magnification produced by a convex lens of focal length 10 cm for an object at 40 cm is:",
+      options: [
+        "−1/3",
+        "+1/3",
+        "−3",
+        "+3"
+      ],
+      correctAnswer: "−1/3",
+      explanation: "f = +10 cm, u = −40 cm.\n1/v = 1/f + 1/u = 1/10 + 1/(−40) = 4/40 − 1/40 = 3/40. v = +40/3 cm.\nm = v/u = (40/3)/(−40) = −1/3.\nNegative m confirms real, inverted image. |m| = 1/3 < 1 confirms diminished image.",
+      points: 10
+    },
+    {
+      id: "q9-39",
+      type: "mcq",
+      question: "Two thin lenses of focal lengths +15 cm and −15 cm are placed in contact. The equivalent focal length is:",
+      options: [
+        "Infinity (∞)",
+        "30 cm",
+        "7.5 cm",
+        "0 cm"
+      ],
+      correctAnswer: "Infinity (∞)",
+      explanation: "For lenses in contact: 1/f = 1/f₁ + 1/f₂ = 1/15 + 1/(−15) = 1/15 − 1/15 = 0. When 1/f = 0, f = ∞. The combination acts like a plane glass slab — no converging or diverging effect. This is equivalent to zero power (P = 0 D).",
+      points: 10
+    },
+    {
+      id: "q9-40",
+      type: "mcq",
+      question: "An object is placed 30 cm from a concave mirror of focal length 20 cm. The magnification of the image is:",
+      options: [
+        "+1",
+        "−1",
+        "+2",
+        "−2"
+      ],
+      correctAnswer: "−2",
+      explanation: "f = −20 cm, u = −30 cm.\n1/v = 1/f − 1/u = 1/(−20) − 1/(−30) = −1/20 + 1/30 = (−3+2)/60 = −1/60. v = −60 cm.\nm = −v/u = −(−60)/(−30) = −60/30 = −2.\nMagnification = −2: image is real (negative), inverted (negative), magnified twice (|m| = 2).",
+      points: 10
+    },
+
+    /* ───────────── Additional Long Answer Numericals (5 Questions — total 10 Long) ───────────── */
+    {
+      id: "q9-41",
+      type: "long",
+      question: "A concave mirror produces a three-times magnified real image of an object placed 10 cm in front of it. Find (a) the image distance, (b) the focal length, and (c) the radius of curvature.",
+      options: [],
+      correctAnswer: "Given: Real image so m is negative → m = −3. u = −10 cm.\n\n(a) Image Distance:\nm = −v/u → −3 = −v/(−10) → −3 = v/10 → v = −30 cm\n(Negative confirms real image in front of mirror)\n\n(b) Focal Length:\nUsing mirror formula: 1/f = 1/v + 1/u\n1/f = 1/(−30) + 1/(−10) = −1/30 − 1/10 = −1/30 − 3/30 = −4/30 = −2/15\nf = −15/2 = −7.5 cm\n\n(c) Radius of Curvature:\nR = 2f = 2 × (−7.5) = −15 cm\n|R| = 15 cm\n\nVerification: Object at u = −10 cm is between F and P (since |f| = 7.5 cm). Wait — object should be beyond F for real image. Indeed −10 cm > −7.5 cm (numerically beyond F). ✓",
+      explanation: "This problem works backwards from magnification to find focal length — a common CBSE board question type. The key insight is that real image → m is negative for concave mirrors.",
+      points: 20
+    },
+    {
+      id: "q9-42",
+      type: "long",
+      question: "A convex lens of focal length 15 cm is used as a magnifying glass. Find the magnifying power when (a) the image is at the near point (25 cm), (b) the image is at infinity. Explain which position is more comfortable for prolonged viewing.",
+      options: [],
+      correctAnswer: "Magnifying power (angular magnification) of a simple microscope:\n\n(a) Image at near point (D = 25 cm):\nM = 1 + D/f = 1 + 25/15 = 1 + 5/3 = 8/3 ≈ 2.67×\n\nVerification using lens formula:\nImage at v = −25 cm (virtual, same side), f = +15 cm.\n1/u = 1/v − 1/f = 1/(−25) − 1/15 = −3/75 − 5/75 = −8/75.\nu = −75/8 = −9.375 cm. (Object inside focal length ✓)\nm = v/u = (−25)/(−9.375) = 2.67 ✓\n\n(b) Image at infinity:\nM = D/f = 25/15 = 5/3 ≈ 1.67×\n(Object placed exactly at focal point)\n\nComfort Analysis:\n• At infinity: Eye muscles are fully relaxed (no accommodation needed). Best for prolonged viewing.\n• At near point: Eye muscles must strain to focus at 25 cm. Causes eye fatigue.\n\nConclusion: Image at infinity gives lower magnification but is far more comfortable. This is why telescopes and microscopes are usually adjusted for final image at infinity.",
+      explanation: "Magnifying glass formula derivation shows how D/f gives the comparison with unaided eye viewing at the near point. The accommodation-free setting at infinity is the preferred working mode for all optical instruments.",
+      points: 20
+    },
+    {
+      id: "q9-43",
+      type: "long",
+      question: "A glass slab 6 cm thick has refractive index 1.5. A mark is made on a paper and placed under the slab. By how much does the mark appear to be shifted upwards? Show the full calculation and draw the ray diagram.",
+      options: [],
+      correctAnswer: "This uses the lateral (normal) shift in apparent position:\n\nGiven: Real thickness (t) = 6 cm, n = 1.5\n\nApparent Depth Concept:\nWhen light goes from glass (n = 1.5) to air (n = 1.0):\nApparent depth = Real depth / Refractive index\nApparent position of mark = 6 / 1.5 = 4 cm (from top of slab)\n\nShift in position:\nNormal shift = Real thickness − Apparent thickness\n= 6 − 4 = 2 cm\n\nThe mark appears to be 2 cm closer (shifted upward by 2 cm).\n\nRay Diagram:\n[Mark at bottom of slab → rays bend away from normal at glass-air interface → appear to come from virtual position 4 cm down, not 6 cm down]\n\nGeneral Formula:\nShift = t × (1 − 1/n) = 6 × (1 − 1/1.5) = 6 × (1 − 2/3) = 6 × 1/3 = 2 cm ✓\n\nApplications:\n• Why swimming pools appear shallower than they are\n• Why pencils look bent in water at an angle\n• Calculation of apparent depth of fish in aquariums",
+      explanation: "The apparent depth formula and the lateral shift formula are both derived from Snell's law under paraxial (small angle) approximation. The shift formula t(1-1/n) is worth memorizing for numericals.",
+      points: 20
+    },
+    {
+      id: "q9-44",
+      type: "long",
+      question: "An object 4 cm tall is placed 20 cm in front of a concave mirror of radius of curvature 30 cm. Find the image position, magnification, image size, and nature. Verify with the object position rule.",
+      options: [],
+      correctAnswer: "Given: h = 4 cm, u = −20 cm, R = 30 cm → f = R/2 = 15 cm → f = −15 cm\n\n(a) Image Position (Mirror Formula):\n1/v = 1/f − 1/u = 1/(−15) − 1/(−20) = −1/15 + 1/20 = (−4+3)/60 = −1/60\nv = −60 cm\n\n(b) Magnification:\nm = −v/u = −(−60)/(−20) = −60/20 = −3\n\n(c) Image Size:\nh' = m × h = −3 × 4 = −12 cm\nImage height = 12 cm (inverted, so below axis)\n\n(d) Nature of Image:\n• v = −60 cm (negative) → Real image (in front of mirror) ✓\n• m = −3 (negative) → Inverted ✓\n• |m| = 3 > 1 → Magnified (enlarged) ✓\n• Image is real, inverted, magnified, 12 cm tall\n\nVerification using object position rule:\nf = 15 cm. Object at u = −20 cm is between F and C (since F = 15 cm, C = 30 cm, and 15 < 20 < 30).\nRule: Object between F and C → Image is beyond C, real, inverted, magnified. ✓\nOur answer: v = −60 cm > −30 cm (beyond C). Consistent!",
+      explanation: "This complete worked example shows every step systematically. The object-position verification cross-check is essential exam technique — it catches calculation errors and shows understanding.",
+      points: 20
+    },
+    {
+      id: "q9-45",
+      type: "long",
+      question: "A person cannot see objects beyond 2 m (myopia). What type of lens and power of spectacle lens corrects this? Also calculate the focal length. If after wearing specs the person can see the eye chart (6 m away) clearly, verify your answer.",
+      options: [],
+      correctAnswer: "Diagnosis: Myopia (Short-sightedness). Far point = 2 m.\n\nCorrection Needed:\nThe corrective lens must form a virtual image of a distant object (at infinity) at the person's far point (2 m).\n\nSo: u = −∞, v = −2 m (virtual image at far point, same side as object)\n\nUsing Lens Formula:\n1/f = 1/v − 1/u = 1/(−2) − 1/(−∞) = −1/2 − 0 = −1/2\nf = −2 m = −200 cm\n\nType of Lens: Concave (diverging) — negative focal length ✓\n\nPower of Lens:\nP = 1/f = 1/(−2) = −0.5 D\n\nThe person needs −0.5 D concave lens.\n\nVerification for 6 m object:\nu = −6 m, f = −2 m\n1/v = 1/f + 1/u = 1/(−2) + 1/(−6) = −3/6 − 1/6 = −4/6 = −2/3\nv = −3/2 = −1.5 m\n\nVirtual image at 1.5 m — within the person's range (< 2 m). Person can see the 6 m chart through the lens. ✓\n\nNote: This confirms the lens prescription works not just for infinity but for all far objects.",
+      explanation: "This is the classic myopia correction problem combining eye defects with lens formula. The key insight is that the corrective lens must bring the image to the person's far point, not make it appear at 6 m.",
+      points: 20
+    },
+
+    /* ───────────── Additional HOTS (5 Questions — total 10 HOTS) ───────────── */
+    {
+      id: "q9-46",
+      type: "thinking",
+      question: "When you look at a road on a hot summer day, you see what appears to be water puddles that disappear as you approach. Explain this mirage phenomenon using total internal reflection concepts and the mathematical conditions needed.",
+      options: [],
+      correctAnswer: "Mirage Formation (Hot Road Mirage):\n\nOn a hot day, air near the road surface is very hot and less dense (lower refractive index). As altitude increases, air cools and refractive index gradually increases.\n\nLight from the sky travels downward through layers of air with gradually decreasing refractive index. At each interface, the angle of incidence increases. Eventually it reaches the critical angle → total internal reflection occurs.\n\nThe reflected sky light travels upward and reaches our eyes. Our brain interprets it as light coming from the ground — appearing as water (sky reflection on water looks identical).\n\nMathematical Condition:\nFor TIR: sin(i) ≥ sin(C) where sin(C) = n₂/n₁\nFor air layers: n₁ (hot air, near road) < n₂ (cool air, above)\nThis is unusual — normally TIR requires going from denser to rarer medium.\n\nIn mirages, the continuous gradation of refractive index creates a 'curved' light path. The condition is approximately: when the angle of incidence with the (curved) wavefront exceeds the critical angle for the air-layer gradient.\n\nWhy puddles disappear: As you approach, the angle geometry changes and TIR no longer occurs from your new viewing angle — the mirage dissolves.\n\nDesert mirage works identically — oasis appearances are sky reflections, not actual water.",
+      explanation: "Mirages are TIR in a medium with a gradient (continuously varying) refractive index rather than a sharp interface. This is an advanced application covered in higher studies, but the qualitative explanation tests HOTS at Class 10 level.",
+      points: 25
+    },
+    {
+      id: "q9-47",
+      type: "thinking",
+      question: "A goldfish is swimming 15 cm below the surface of water (n = 4/3). A person looking from above sees the fish at an apparent depth of 11.25 cm. If the person is 30 cm above the water surface, what is the total apparent distance from the person's eye to the fish? Compare with the actual total distance.",
+      options: [],
+      correctAnswer: "Actual total distance (eye to fish):\n= height of person above water + real depth of fish\n= 30 + 15 = 45 cm\n\nApparent depth of fish (from water surface):\nApparent depth = Real depth / n = 15 / (4/3) = 15 × 3/4 = 11.25 cm ✓ (confirmed)\n\nApparent total distance (eye to fish):\n= height of person above water + apparent depth of fish\n= 30 + 11.25 = 41.25 cm\n\nComparison:\n• Actual distance: 45 cm\n• Apparent distance: 41.25 cm\n• The fish appears 3.75 cm closer than it actually is\n• The illusion reduces distance by: (45 − 41.25)/45 × 100 = 8.33%\n\nPractical Implication for Fishing:\nA person trying to spear a fish must aim BELOW where the fish appears to be. The fish appears higher (closer to surface) due to refraction. This explains why fishing with a spear is much harder than it appears — the target is not where it seems!\n\nNote: The refraction only affects the path through water (15 cm). The path through air (30 cm) is unchanged because there's no bending in a uniform medium.",
+      explanation: "This multi-step problem combines apparent depth with real-world distance measurement. The fishing analogy beautifully illustrates why hunters need to compensate for refraction when spear fishing.",
+      points: 25
+    },
+    {
+      id: "q9-48",
+      type: "thinking",
+      question: "A concave mirror and a convex lens both have focal length 20 cm. If both are used to view the same distant object (very far away), compare the image sizes, positions, and natures. Under what conditions can the two devices produce identical results?",
+      options: [],
+      correctAnswer: "For a very distant object (u → ∞):\n\nCONCAVE MIRROR (f = −20 cm):\n1/v = 1/f − 1/u = 1/(−20) − 0 = −1/20 → v = −20 cm\nImage at focal point, in front of mirror.\nNature: Real, inverted, highly diminished (point image for point object)\nm = −v/u = −(−20)/(−∞) → m → 0 (very small)\n\nCONVEX LENS (f = +20 cm):\n1/v = 1/f + 1/u = 1/20 + 0 = 1/20 → v = +20 cm\nImage at focal point, on opposite side of lens.\nNature: Real, inverted, highly diminished (point image for point object)\nm = v/u = 20/(−∞) → m → 0 (very small)\n\nComparison:\n| Feature | Concave Mirror | Convex Lens |\n|---------|---------------|-------------|\n| Image position | 20 cm in front | 20 cm behind |\n| Image nature | Real, inverted | Real, inverted |\n| Image size | Point (m → 0) | Point (m → 0) |\n| Side of device | Same side as object | Opposite side |\n\nCondition for Identical Results:\nFor a nearby object at distance u, both give identical image CHARACTERISTICS (real, inverted) but at different positions. They give numerically identical |m| when:\n|−v_mirror/u| = |v_lens/u|\nThis happens when v_mirror = v_lens, which requires the same u and same |f|.\n\nIn photography, a concave mirror (used in reflecting telescopes) and a convex lens (in refracting telescopes) achieve the same goal by different optical paths.",
+      explanation: "This comparison problem reveals the deep symmetry between concave mirrors and convex lenses — both converging devices with similar image-forming capabilities but different physical mechanisms.",
+      points: 25
+    },
+    {
+      id: "q9-49",
+      type: "thinking",
+      question: "Why does the power of a lens system increase when lenses are in contact versus separated? If a +5 D and +3 D lens are first placed in contact and then separated by 10 cm, calculate and compare the effective power in each case. (Use: P = P₁ + P₂ − d·P₁·P₂ for separated lenses)",
+      options: [],
+      correctAnswer: "CASE 1: Lenses in Contact (d = 0):\nP = P₁ + P₂ = 5 + 3 = +8 D\nf = 1/8 = 0.125 m = 12.5 cm\n\nCASE 2: Lenses Separated by d = 10 cm = 0.1 m:\nP = P₁ + P₂ − d·P₁·P₂\n= 5 + 3 − (0.1)(5)(3)\n= 8 − 1.5 = +6.5 D\nf = 1/6.5 = 0.1538 m = 15.38 cm\n\nComparison:\n• In contact: P = +8 D, f = 12.5 cm\n• Separated (10 cm): P = +6.5 D, f = 15.38 cm\n• Power DECREASED by 1.5 D when separated\n• Focal length INCREASED by 2.88 cm when separated\n\nPhysical Explanation:\nWhen lenses are in contact, light bends at both surfaces immediately. When separated, light has already started to converge (from lens 1) before hitting lens 2. The effective bending point shifts, reducing the net convergence.\n\nOptical Instrument Design:\n• Eyepieces use separated lenses to REDUCE spherical aberration while REDUCING power\n• Telephoto lenses use this principle: +ve lens + −ve lens separated = longer effective focal length in a shorter tube\n• The d·P₁·P₂ correction term is always positive for same-sign lenses → always reduces power",
+      explanation: "The separated lens formula is beyond CBSE syllabus but tests genuine optical reasoning. Understanding WHY separation reduces power builds intuition for optical instrument design.",
+      points: 25
+    },
+    {
+      id: "q9-50",
+      type: "thinking",
+      question: "A student claims: 'A plane mirror can be considered a special case of a spherical mirror with radius of curvature = ∞.' Using the mirror formula, verify this claim by showing what happens to image formation when R → ∞, and confirm that plane mirror behavior emerges as a mathematical limiting case.",
+      options: [],
+      correctAnswer: "Claim: Plane mirror = Spherical mirror with R → ∞ (f → ∞)\n\nMathematical Verification:\nAs R → ∞, f = R/2 → ∞, so 1/f → 0.\n\nMirror Formula: 1/v + 1/u = 1/f = 0\nTherefore: 1/v + 1/u = 0 → 1/v = −1/u → v = −u\n\nResult: v = −u\nIf u = −20 cm (object 20 cm in front), v = +20 cm.\nPositive v → image is 20 cm BEHIND the mirror. ✓\nThis is exactly how a plane mirror works!\n\nMagnification Check:\nm = −v/u = −(+20)/(−20) = +1\nPositive m → virtual, erect. |m| = 1 → same size. ✓\nThis matches: plane mirror gives virtual, erect, same-size image. ✓\n\nGeneral Proof:\nFor ANY object distance u with R → ∞:\nv = −u (image always at same distance behind mirror)\nm = −v/u = −(−u)/u = +1 (always same size, erect) ✓\n\nConclusion: The claim is mathematically proven. A plane mirror IS the limiting case of a spherical mirror as R → ∞. This is why we can use a single unified mirror formula for all types of mirrors — plane, concave, and convex — simply by substituting the appropriate value of f (or ∞ for plane).",
+      explanation: "This HOTS question bridges geometry and algebra beautifully. Taking limits in physics formulas often reveals deep connections between apparently different phenomena — here unifying all mirrors under one formula.",
       points: 25
     }
   ],

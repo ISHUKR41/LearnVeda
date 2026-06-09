@@ -25,9 +25,19 @@
 .diagramWrapper {
   /* Full-width block inside the Learn tab */
   width: 100%;
-  margin: 32px 0;
+  margin: 24px 0 8px;
   padding: 0;
   animation: fadeSlideIn 0.6s ease both;
+}
+
+/* Caption row below the diagram */
+.diagramCaption {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #475569;
+  margin-top: 10px;
+  font-style: italic;
+  font-family: "Inter", sans-serif;
 }
 
 /* ══════════════════════════════════════════════════════
@@ -36,16 +46,26 @@
 
 .diagramTitle {
   /* Small all-caps label with gradient underline */
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-family: "Inter", "Plus Jakarta Sans", system-ui, sans-serif;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #64748b;
-  margin-bottom: 12px;
-  padding-left: 4px;
+  color: #818cf8;
+  margin-bottom: 14px;
+  padding: 4px 10px 4px 4px;
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Dot icon before the title */
+.diagramTitle::before {
+  content: "◆";
+  font-size: 0.5rem;
+  color: #6366f1;
+  opacity: 0.8;
 }
 
 .diagramTitle::after {
@@ -56,7 +76,7 @@
   left: 0;
   width: 100%;
   height: 1.5px;
-  background: linear-gradient(90deg, #3b82f6, transparent);
+  background: linear-gradient(90deg, #6366f1, #818cf8, transparent);
   border-radius: 1px;
 }
 

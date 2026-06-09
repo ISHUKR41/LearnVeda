@@ -770,9 +770,10 @@ export default function DeepResearchChapterClient({
                       {/* Physics simulations (if any defined for this topic) */}
                       {activeTopic.simulationIds && activeTopic.simulationIds.length > 0 && (
                         <div className={styles.simulationsSection}>
+                          {/* Section heading shows live simulation count */}
                           <div className={styles.sectionHeading}>
                             <span className={styles.sectionHeadingIcon}>🔬</span>
-                            Interactive Simulations
+                            {activeTopic.simulationIds.length} Interactive Simulation{activeTopic.simulationIds.length !== 1 ? "s" : ""}
                           </div>
                           <SmartSimulationRenderer simulationIds={activeTopic.simulationIds} />
                         </div>
@@ -1184,6 +1185,33 @@ function ExamSummaryPanel({ topic, chapterData }: { topic: Topic; chapterData: C
           </p>
         </div>
       </div>
+
+      {/* ── FORMULA QUICK-REFERENCE CARDS ──
+          Extract all display formulas ($$ ... $$) from the content and show
+          them as visual flash chips for quick revision before exams. */}
+      {keyFormulas.length > 0 && (
+        <div className={styles.formulaCardsSection}>
+          <div className={styles.formulaCardsSectionHeader} style={{ color: accent }}>
+            <span>🧮</span>
+            <span>Key Formulas & Laws</span>
+            <span className={styles.formulaCount}>{keyFormulas.length}</span>
+          </div>
+          <div className={styles.formulaCardsGrid}>
+            {keyFormulas.slice(0, 8).map((formula, idx) => (
+              <div
+                key={idx}
+                className={styles.formulaCard}
+                style={{ borderColor: `${accent}25`, background: `${accent}06` }}
+              >
+                <div
+                  className={styles.formulaCardBody}
+                  dangerouslySetInnerHTML={{ __html: parseMarkdown(formula.replace(/^>\s*/, "")) }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Exam summary content from markdown */}
       <div className={styles.examSummaryCard} style={{ borderColor: `${accent}20` }}>
