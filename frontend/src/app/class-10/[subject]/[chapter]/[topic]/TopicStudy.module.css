@@ -1035,10 +1035,9 @@
   .qTypeRow { flex-direction: column; align-items: flex-start; }
 
   /* Table horizontal scroll on mobile */
-  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
-  td, th { min-width: 100px; white-space: normal; }
+  .learnPanel table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+  .learnPanel td, .learnPanel th { min-width: 100px; white-space: normal; }
 
   /* Touch target improvements */
-  button { min-height: 44px; }
-  a      { min-height: 44px; display: inline-flex; align-items: center; }
+  .tab, .optionBtn, .heroNavBtn { min-height: 44px; }
 }

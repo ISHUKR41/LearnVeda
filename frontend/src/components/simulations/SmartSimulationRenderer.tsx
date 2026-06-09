@@ -136,12 +136,12 @@ function LazySimCard({ id, resolved, index }: LazySimCardProps) {
       id={`smart-sim-${id}`}
       ref={wrapRef}
       style={{
-        /* Card container */
-        borderRadius: "16px",
-        border: `1px solid ${colors.border}`,
-        background: "rgba(11, 17, 32, 0.8)",
+        /* Wrapper provides category-tinted glow border + entrance animation.
+         * The simulation component itself renders the full card (header, canvas,
+         * controls, info panel) — no duplicate header here. */
+        borderRadius: "18px",
+        boxShadow: `0 0 0 1px ${colors.border}, 0 8px 40px rgba(0,0,0,0.45)`,
         overflow: "hidden",
-        boxShadow: `0 4px 32px rgba(0,0,0,0.4), 0 0 0 1px ${colors.border}`,
         /* Staggered entrance animation */
         animationName: "simCardIn",
         animationDuration: "0.5s",
@@ -150,124 +150,44 @@ function LazySimCard({ id, resolved, index }: LazySimCardProps) {
         animationDelay: `${index * 0.08}s`,
       }}
     >
-      {/* ── Card Header ── */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "12px",
-          padding: "16px 20px",
-          background: colors.bg,
-          borderBottom: `1px solid ${colors.border}`,
-        }}
-      >
-        {/* Icon badge */}
+      {mounted ? (
+        <Comp id={id} title={resolved.title} />
+      ) : (
+        /* Loading skeleton — shown until card scrolls into view */
         <div
           style={{
-            width: "40px",
-            height: "40px",
-            borderRadius: "10px",
-            background: colors.bg,
-            border: `1px solid ${colors.border}`,
+            height: "380px",
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "20px",
-            flexShrink: 0,
-          }}
-          aria-hidden="true"
-        >
-          {resolved.icon}
-        </div>
-
-        {/* Title + description */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div
-            style={{
-              fontSize: "0.9375rem",
-              fontWeight: 700,
-              color: "#e2e8f0",
-              fontFamily: "Inter, system-ui, sans-serif",
-              marginBottom: "2px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {resolved.title}
-          </div>
-          <div
-            style={{
-              fontSize: "0.8rem",
-              color: "#64748b",
-              fontFamily: "Inter, system-ui, sans-serif",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {resolved.description}
-          </div>
-        </div>
-
-        {/* Category badge */}
-        <div
-          style={{
-            fontSize: "0.7rem",
-            fontWeight: 700,
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
-            color: "#94a3b8",
-            background: "rgba(30,41,59,0.8)",
-            border: "1px solid rgba(255,255,255,0.06)",
-            borderRadius: "6px",
-            padding: "3px 8px",
-            flexShrink: 0,
+            gap: "16px",
+            background: "rgba(8,14,26,0.95)",
+            borderRadius: "18px",
           }}
         >
-          {CATEGORY_COLORS[resolved.category]?.label ?? "Sim"}
-        </div>
-      </div>
-
-      {/* ── Simulation Canvas Area ── */}
-      <div style={{ padding: "0" }}>
-        {mounted ? (
-          <Comp id={id} title={resolved.title} />
-        ) : (
-          /* Skeleton while waiting for intersection */
-          <div
-            style={{
-              height: "360px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "12px",
-              background: "rgba(8,14,26,0.6)",
-            }}
-          >
-            <div
-              style={{
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
-                border: `3px solid ${colors.border}`,
-                borderTopColor: "transparent",
-                animation: "spinSim 0.8s linear infinite",
-              }}
-            />
-            <div
-              style={{
-                fontSize: "13px",
-                color: "#475569",
-                fontFamily: "Inter, system-ui, sans-serif",
-              }}
-            >
-              Loading interactive simulation…
-            </div>
+          {/* Category icon */}
+          <div style={{
+            fontSize: "36px",
+            lineHeight: 1,
+            filter: "drop-shadow(0 0 12px rgba(255,255,255,0.15))",
+          }}>{resolved.icon}</div>
+          {/* Spinner */}
+          <div style={{
+            width: "36px", height: "36px",
+            borderRadius: "50%",
+            border: `2.5px solid ${colors.border}`,
+            borderTopColor: "transparent",
+            animation: "spinSim 0.8s linear infinite",
+          }} />
+          <div style={{
+            fontSize: "12px", color: "#475569",
+            fontFamily: "Inter, system-ui, sans-serif",
+          }}>
+            Loading {resolved.title}…
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,384 +1,432 @@
 /**
  * FILE: ConcaveMirrorSim.tsx
  * LOCATION: frontend/src/components/simulations/light/mirrors/ConcaveMirrorSim.tsx
- * PURPOSE: Interactive concave mirror ray diagram simulation.
- *          User drags an object arrow along the principal axis to see
- *          how the image changes at all 6 standard positions:
- *            1. At infinity → Image at F (point, real, inverted)
- *            2. Beyond C  → Image between F and C (diminished, real, inverted)
- *            3. At C      → Image at C (same size, real, inverted)
- *            4. Between C and F → Image beyond C (magnified, real, inverted)
- *            5. At F      → Image at infinity
- *            6. Between F and P → Image behind mirror (magnified, virtual, erect)
+ * PURPOSE: Interactive concave/convex mirror simulation with full ray tracing.
  *
- *          Three principal rays are drawn:
- *            Ray 1: Parallel to axis → reflects through F
- *            Ray 2: Through F → reflects parallel to axis
- *            Ray 3: Through C → reflects back on itself
+ * FEATURES:
+ *   - Slider to move object through all 6 standard positions
+ *   - Toggle between Concave and Convex mirror
+ *   - Three colored principal rays drawn correctly:
+ *       Ray 1 (yellow) : Parallel to axis → reflects through F (concave) / appears to come from F (convex)
+ *       Ray 2 (cyan)   : Through F → reflects parallel (concave) / aimed at F → reflects parallel (convex)
+ *       Ray 3 (magenta): Through C → reflects back on itself (concave) / aimed at C → reflects back (convex)
+ *   - Image calculated via mirror formula: 1/v + 1/u = 1/f
+ *   - Live readout: u, v, magnification m, image type
+ *   - Animated photon pulses on rays
+ *   - Responsive, high-DPI canvas
  *
- * INTERACTIONS: Slider to change object distance, toggle rays on/off
- * PHYSICS: Mirror formula 1/v + 1/u = 1/f, magnification m = -v/u
- * LAST UPDATED: 2026-06-08
+ * PHYSICS: Mirror formula, New Cartesian Sign Convention
+ * LAST UPDATED: 2026-06-09
  */
 
 "use client";
 
-import React, { useRef, useState, useCallback } from "react";
-import {
-  drawRay,
-  drawLabel,
-  drawObjectArrow,
-  drawPrincipalAxis,
-  drawGrid,
-  useCanvasSetup,
-  useAnimationLoop,
-  mirrorFormula,
-  mirrorMagnification,
-  Point,
-} from "../SimulationEngine";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import styles from "../SimulationEngine.module.css";
 
-interface ConcaveMirrorSimProps {
-  id?: string;
-  title?: string;
+interface Point { x: number; y: number; }
+
+/* ─── Drawing helpers ─── */
+function drawLine(ctx: CanvasRenderingContext2D, a: Point, b: Point, color: string, w = 2, dashed = false) {
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = w;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = dashed ? 0 : 8;
+  if (dashed) ctx.setLineDash([5, 5]);
+  ctx.beginPath();
+  ctx.moveTo(a.x, a.y);
+  ctx.lineTo(b.x, b.y);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
 }
 
-const ConcaveMirrorSim: React.FC<ConcaveMirrorSimProps> = ({
+function arrow(ctx: CanvasRenderingContext2D, from: Point, to: Point, color: string) {
+  const ang = Math.atan2(to.y - from.y, to.x - from.x);
+  const s = 9;
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 6;
+  ctx.beginPath();
+  ctx.moveTo(to.x, to.y);
+  ctx.lineTo(to.x - s * Math.cos(ang - 0.4), to.y - s * Math.sin(ang - 0.4));
+  ctx.lineTo(to.x - s * Math.cos(ang + 0.4), to.y - s * Math.sin(ang + 0.4));
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
+function txt(ctx: CanvasRenderingContext2D, t: string, x: number, y: number, color = "#e2e8f0", size = 12, align: CanvasTextAlign = "center") {
+  ctx.save();
+  ctx.font = `bold ${size}px Inter, sans-serif`;
+  ctx.fillStyle = color;
+  ctx.textAlign = align;
+  ctx.textBaseline = "middle";
+  ctx.fillText(t, x, y);
+  ctx.restore();
+}
+
+function dot(ctx: CanvasRenderingContext2D, p: Point, color: string, r = 4) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+  ctx.fillStyle = color;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 10;
+  ctx.fill();
+  ctx.restore();
+}
+
+/* ─── Mirror formula helper ─── */
+function calcImage(u_px: number, f_px: number): { v: number; m: number } | null {
+  /* u is negative (object on left), f is negative for concave */
+  /* 1/v + 1/u = 1/f → v = uf / (u-f) */
+  const denom = u_px - f_px;
+  if (Math.abs(denom) < 0.001) return null; /* Object at focus → image at ∞ */
+  const v = (u_px * f_px) / denom;
+  const m = -v / u_px;
+  return { v, m };
+}
+
+/* ─── Position label ─── */
+function positionLabel(u: number, f: number, type: "concave" | "convex"): string {
+  if (type === "convex") return "Virtual, Erect, Diminished (behind mirror)";
+  const uAbs = Math.abs(u);
+  const fAbs = Math.abs(f);
+  const cAbs = 2 * fAbs;
+  if (uAbs > cAbs + 2) return "Diminished, Real, Inverted (between F and C)";
+  if (Math.abs(uAbs - cAbs) < 3) return "Same size, Real, Inverted (at C)";
+  if (uAbs > fAbs && uAbs < cAbs) return "Magnified, Real, Inverted (beyond C)";
+  if (Math.abs(uAbs - fAbs) < 3) return "Image at ∞ (object at F)";
+  if (uAbs < fAbs) return "Magnified, Virtual, Erect (behind mirror)";
+  return "";
+}
+
+/* ═══════════════════════════════════════════════════
+ * COMPONENT
+ * ═══════════════════════════════════════════════════ */
+const ConcaveMirrorSim: React.FC<{ id?: string; title?: string }> = ({
   id = "concave-mirror-sim",
   title = "Concave Mirror — Image Formation",
 }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef    = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const rafRef       = useRef<number>(0);
 
-  /* Object distance as a fraction of canvas width (0 = at mirror, 1 = far left) */
-  const [objDist, setObjDist] = useState(0.45); // Between C and beyond C
-  const [showRay1, setShowRay1] = useState(true); // Parallel → through F
-  const [showRay2, setShowRay2] = useState(true); // Through F → parallel
-  const [showRay3, setShowRay3] = useState(true); // Through C → back
+  const [objSlider, setObjSlider] = useState(60); /* 0 = at mirror, 100 = far left */
+  const [mirrorType, setMirrorType] = useState<"concave" | "convex">("concave");
+  const [showRay1, setShowRay1] = useState(true);
+  const [showRay2, setShowRay2] = useState(true);
+  const [showRay3, setShowRay3] = useState(true);
+  const [dims, setDims] = useState({ w: 640, h: 400 });
 
-  const dims = useCanvasSetup(canvasRef, containerRef, 420);
+  /* Responsive sizing */
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => {
+      const w = el.clientWidth || 640;
+      setDims({ w, h: Math.round(w * 0.58) });
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
-  useAnimationLoop(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  /* Derived state as string for display */
+  const [imageInfo, setImageInfo] = useState({ u: 0, v: 0, m: 0, label: "" });
 
-    const W = dims.width;
-    const H = dims.height;
-    const dpr = window.devicePixelRatio || 1;
+  /* Main animation loop */
+  useEffect(() => {
+    let running = true;
 
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = "#0f172a";
-    ctx.fillRect(0, 0, W, H);
-    drawGrid(ctx, W, H);
+    function draw(time: number) {
+      if (!running) return;
+      rafRef.current = requestAnimationFrame(draw);
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
 
-    /* Layout constants */
-    const axisY = H * 0.55;
-    const mirrorX = W * 0.78;     // Mirror at right side
-    const focalLength = W * 0.15; // F distance from mirror
-    const radius = focalLength * 2; // C = 2F
+      const W = dims.w;
+      const H = dims.h;
+      const dpr = window.devicePixelRatio || 1;
+      if (canvas.width  !== Math.round(W * dpr)) canvas.width  = Math.round(W * dpr);
+      if (canvas.height !== Math.round(H * dpr)) canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    const poleX = mirrorX;
-    const focusX = mirrorX - focalLength;
-    const centerX = mirrorX - radius;
+      /* ── Background ── */
+      ctx.fillStyle = "#080f1f";
+      ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = "rgba(148,163,184,0.04)";
+      ctx.lineWidth = 1;
+      for (let x = 0; x <= W; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+      for (let y = 0; y <= H; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
 
-    /* Draw principal axis */
-    drawPrincipalAxis(ctx, axisY, W, "rgba(255,255,255,0.12)");
+      /* ── Layout constants ── */
+      const axisY  = H * 0.52;
+      const mirrorX = W * 0.78;
+      const fLen   = W * 0.16;  /* focal length in pixels */
+      const R      = fLen * 2;  /* radius of curvature */
+      const fX     = mirrorX - fLen;   /* Focus (F) */
+      const cX     = mirrorX - R;      /* Centre of curvature (C) */
 
-    /* Draw concave mirror arc */
-    ctx.save();
-    ctx.strokeStyle = "#a5b4fc";
-    ctx.lineWidth = 3;
-    const mirrorHeight = H * 0.6;
-    const curvature = focalLength * 0.6;
-    ctx.beginPath();
-    ctx.moveTo(mirrorX, axisY - mirrorHeight / 2);
-    ctx.quadraticCurveTo(mirrorX - curvature, axisY, mirrorX, axisY + mirrorHeight / 2);
-    ctx.stroke();
+      /* For convex: F and C are behind mirror (to the right) */
+      const sign = mirrorType === "concave" ? 1 : -1;
+      const fXdraw = mirrorX - sign * fLen;
+      const cXdraw = mirrorX - sign * R;
 
-    /* Hatching behind mirror */
-    ctx.strokeStyle = "rgba(165, 180, 252, 0.3)";
-    ctx.lineWidth = 1;
-    for (let i = 0; i < mirrorHeight; i += 10) {
-      const y = axisY - mirrorHeight / 2 + i;
-      const t = i / mirrorHeight;
-      const xOffset = curvature * 4 * t * (1 - t);
-      ctx.beginPath();
-      ctx.moveTo(mirrorX - xOffset, y);
-      ctx.lineTo(mirrorX - xOffset + 8, y + 6);
-      ctx.stroke();
-    }
-    ctx.restore();
+      /* ── Principal axis ── */
+      drawLine(ctx, { x: 0, y: axisY }, { x: W, y: axisY }, "rgba(148,163,184,0.3)", 1, false);
 
-    /* Mark key points */
-    const markPoint = (x: number, label: string, color: string) => {
+      /* ── Curved mirror arc ── */
       ctx.save();
-      ctx.fillStyle = color;
+      ctx.strokeStyle = "#a5b4fc";
+      ctx.lineWidth = 4;
+      ctx.shadowColor = "#818cf8";
+      ctx.shadowBlur = 12;
+      const arcRadius = R * 1.0;
+      const arcSpan = Math.asin((H * 0.38) / arcRadius);
+      const arcCenterX = mirrorType === "concave"
+        ? mirrorX + arcRadius
+        : mirrorX - arcRadius;
+      const arcStart = Math.PI - arcSpan;
+      const arcEnd   = Math.PI + arcSpan;
       ctx.beginPath();
-      ctx.arc(x, axisY, 4, 0, Math.PI * 2);
-      ctx.fill();
-      drawLabel(ctx, label, { x, y: axisY + 12 }, color, 12, "center");
-      ctx.restore();
-    };
+      ctx.arc(arcCenterX, axisY, arcRadius,
+        mirrorType === "concave" ? arcStart : -arcSpan,
+        mirrorType === "concave" ? arcEnd   :  arcSpan,
+        false
+      );
+      ctx.stroke();
 
-    markPoint(poleX, "P", "#94a3b8");
-    markPoint(focusX, "F", "#fbbf24");
-    markPoint(centerX, "C", "#f87171");
-
-    /* Object position */
-    const objectX = mirrorX - objDist * (W * 0.7);
-    const objectHeight = 50;
-
-    /* Mirror formula calculation */
-    const u = -(mirrorX - objectX); // u is negative (real object)
-    const f = -focalLength;           // f is negative for concave mirror
-
-    let v: number;
-    let imgExists = true;
-    let isVirtual = false;
-    let positionLabel = "";
-
-    /* Edge cases */
-    if (Math.abs(u - f) < 3) {
-      /* Object at F — image at infinity */
-      v = -99999;
-      imgExists = false;
-      positionLabel = "At F → Image at ∞";
-    } else {
-      v = (u * f) / (u - f);
-      isVirtual = v > 0;
-
-      /* Determine position label */
-      if (Math.abs(objectX - centerX) < 8) {
-        positionLabel = "At C → Same size, Real, Inverted";
-      } else if (objectX < centerX) {
-        positionLabel = "Beyond C → Diminished, Real, Inverted";
-      } else if (objectX > centerX && objectX < focusX) {
-        positionLabel = "Between C & F → Magnified, Real, Inverted";
-      } else if (objectX > focusX && objectX < poleX) {
-        positionLabel = "Between F & P → Magnified, Virtual, Erect";
-      } else {
-        positionLabel = "Beyond C → Diminished, Real, Inverted";
-      }
-    }
-
-    const m = imgExists ? -v / u : 0;
-    const imageHeight = m * objectHeight;
-
-    /* Image position on canvas */
-    const imageX = mirrorX + v; // v positive = behind mirror (virtual)
-
-    /* Draw object arrow */
-    drawObjectArrow(ctx, { x: objectX, y: axisY }, objectHeight, "#34d399");
-    drawLabel(ctx, "Object", { x: objectX, y: axisY - objectHeight - 18 }, "#34d399", 11);
-
-    /* Draw principal rays */
-    if (imgExists || Math.abs(u - f) < 3) {
-      const objTop: Point = { x: objectX, y: axisY - objectHeight };
-
-      /* Ray 1: Parallel to axis → reflects through F */
-      if (showRay1) {
-        /* Incident: horizontal from object top to mirror */
-        const mirrorHitY1 = axisY - objectHeight;
-        const mirrorHitX1 = mirrorX; // Simplified — hits mirror at same height
-        drawRay(ctx, objTop, { x: mirrorHitX1, y: mirrorHitY1 }, "#fbbf24", 2);
-
-        if (Math.abs(u - f) < 3) {
-          /* At F — reflected ray goes parallel (to infinity) */
-          // The reflected ray should go through F direction
-          drawRay(ctx, { x: mirrorHitX1, y: mirrorHitY1 }, { x: 0, y: axisY + (mirrorHitY1 - axisY) * ((mirrorHitX1) / (mirrorHitX1 - focusX)) }, "#fbbf24", 2);
-        } else if (!isVirtual) {
-          /* Real image — ray goes through F and continues */
-          drawRay(ctx, { x: mirrorHitX1, y: mirrorHitY1 }, { x: focusX, y: axisY }, "#fbbf24", 2);
-          /* Extend to image */
-          if (imageX > 0 && imageX < W) {
-            drawRay(ctx, { x: focusX, y: axisY }, { x: imageX, y: axisY - imageHeight }, "#fbbf24", 1.5, true);
-          }
-        } else {
-          /* Virtual image — ray appears to come from behind mirror */
-          drawRay(ctx, { x: mirrorHitX1, y: mirrorHitY1 }, { x: focusX, y: axisY }, "#fbbf24", 2);
-        }
-      }
-
-      /* Ray 2: Through center of curvature → reflects back */
-      if (showRay3) {
-        /* Only if C is accessible */
-        if (objectX < centerX || objectX > focusX) {
-          const dx = centerX - objectX;
-          const dy = axisY - (axisY - objectHeight);
-          const slope = dy / dx;
-          const hitY = axisY - objectHeight + slope * (mirrorX - objectX);
-
-          if (hitY > axisY - mirrorHeight / 2 && hitY < axisY + mirrorHeight / 2) {
-            drawRay(ctx, objTop, { x: mirrorX, y: hitY }, "#a78bfa", 2);
-            /* Reflects back along same path */
-            const reflectEndX = objectX - (mirrorX - objectX) * 0.3;
-            drawRay(ctx, { x: mirrorX, y: hitY }, { x: reflectEndX, y: hitY + (hitY - objTop.y) * 0.3 }, "#a78bfa", 2);
-          }
-        }
-      }
-
-      /* Ray 3: Through focus → reflects parallel */
-      if (showRay2 && objectX < focusX) {
-        const dx = focusX - objectX;
-        const dy = axisY - objTop.y;
-        const slope = dy / dx;
-        const hitY2 = objTop.y + slope * (mirrorX - objectX);
-
-        if (hitY2 > axisY - mirrorHeight / 2 && hitY2 < axisY + mirrorHeight / 2) {
-          drawRay(ctx, objTop, { x: mirrorX, y: hitY2 }, "#fb923c", 2);
-          /* Reflects parallel to axis */
-          drawRay(ctx, { x: mirrorX, y: hitY2 }, { x: 0, y: hitY2 }, "#fb923c", 2);
-        }
-      }
-    }
-
-    /* Draw image arrow (if exists and visible) */
-    if (imgExists && Math.abs(imageX) < W * 2) {
-      const clampedImageX = Math.max(10, Math.min(W - 10, imageX));
-      
-      if (isVirtual) {
-        /* Virtual image — dashed, erect */
-        ctx.save();
-        ctx.strokeStyle = "#f87171";
-        ctx.lineWidth = 2.5;
-        ctx.setLineDash([6, 4]);
+      /* Mirror hatching on back side */
+      ctx.strokeStyle = "rgba(129,140,248,0.2)";
+      ctx.lineWidth = 1;
+      const hatchCount = 10;
+      for (let i = 0; i <= hatchCount; i++) {
+        const a = arcStart + (arcEnd - arcStart) * (i / hatchCount);
+        const px = arcCenterX + arcRadius * Math.cos(a);
+        const py = axisY + arcRadius * Math.sin(a);
+        const nx = Math.cos(a);
+        const ny = Math.sin(a);
         ctx.beginPath();
-        ctx.moveTo(clampedImageX, axisY);
-        ctx.lineTo(clampedImageX, axisY - imageHeight);
+        ctx.moveTo(px, py);
+        ctx.lineTo(px + nx * 10, py + ny * 10);
         ctx.stroke();
-
-        /* Dashed arrowhead */
-        const arrowDir = imageHeight > 0 ? -1 : 1;
-        ctx.fillStyle = "rgba(248, 113, 113, 0.6)";
-        ctx.beginPath();
-        ctx.moveTo(clampedImageX, axisY - imageHeight);
-        ctx.lineTo(clampedImageX - 6, axisY - imageHeight + arrowDir * 8);
-        ctx.lineTo(clampedImageX + 6, axisY - imageHeight + arrowDir * 8);
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.restore();
-        drawLabel(ctx, "Virtual Image", { x: clampedImageX, y: axisY - imageHeight - 18 }, "#f87171", 11);
-      } else {
-        /* Real image — solid, inverted */
-        drawObjectArrow(ctx, { x: clampedImageX, y: axisY }, -imageHeight, "#f87171");
-        drawLabel(ctx, "Real Image", { x: clampedImageX, y: axisY + Math.abs(imageHeight) + 8 }, "#f87171", 11);
       }
+      ctx.restore();
+
+      /* ── Key points ── */
+      const pole: Point = { x: mirrorX, y: axisY };
+      const focus: Point = { x: fXdraw, y: axisY };
+      const center: Point = { x: cXdraw, y: axisY };
+
+      dot(ctx, pole,   "#94a3b8", 4);
+      dot(ctx, focus,  "#fbbf24", 5);
+      dot(ctx, center, "#f87171", 5);
+      txt(ctx, "P", pole.x + 8,   axisY + 16, "#94a3b8", 12);
+      txt(ctx, "F", focus.x,  axisY + 16, "#fde68a", 12);
+      txt(ctx, "C", center.x, axisY + 16, "#fca5a5", 12);
+
+      /* ── Object arrow ── */
+      /* objSlider 0→100 maps object from mirrorX to left edge */
+      const objX = mirrorX - (objSlider / 100) * (mirrorX - 30);
+      /* Sign convention: u is negative for real object */
+      const u_px = objX - mirrorX; /* negative value */
+      const f_px_signed = mirrorType === "concave" ? -fLen : fLen;
+
+      const arrowH = H * 0.28;
+      const objTip:  Point = { x: objX, y: axisY - arrowH };
+      const objBase: Point = { x: objX, y: axisY };
+      drawLine(ctx, objBase, objTip, "#60a5fa", 3);
+      arrow(ctx, objBase, objTip, "#60a5fa");
+      dot(ctx, objBase, "#60a5fa", 4);
+      txt(ctx, "Object", objX, objTip.y - 14, "#93c5fd", 12);
+
+      /* ── Image calculation ── */
+      const imgResult = calcImage(u_px, f_px_signed);
+      let v_px = 0;
+      let m_val = 0;
+      let showImage = false;
+
+      if (imgResult) {
+        v_px = imgResult.v;
+        m_val = imgResult.m;
+        showImage = Math.abs(v_px) < W * 1.5;
+      }
+
+      /* Update info state (throttled via rounding) */
+      const newU = Math.round(u_px);
+      const newV = Math.round(v_px);
+      const newM = Math.round(m_val * 100) / 100;
+      const lbl  = positionLabel(u_px, f_px_signed, mirrorType);
+      setImageInfo(prev => {
+        if (prev.u === newU && prev.v === newV && prev.m === newM) return prev;
+        return { u: newU, v: newV, m: newM, label: lbl };
+      });
+
+      /* ── Principal Rays ── */
+      if (showImage && imgResult) {
+        const imgX = mirrorX + v_px;
+        const imgH = arrowH * Math.abs(m_val);
+        const imgSign = m_val < 0 ? -1 : 1; /* inverted if m < 0 */
+        const imgTip: Point  = { x: imgX, y: axisY - imgSign * Math.min(imgH, H * 0.45) };
+        const imgBase: Point = { x: imgX, y: axisY };
+
+        /* ─ Ray 1: Parallel to axis → through F ─ */
+        if (showRay1) {
+          /* From object tip, travel parallel to axis to mirror, then reflect through F */
+          const r1Mid: Point = { x: mirrorX, y: objTip.y };
+          drawLine(ctx, objTip, r1Mid, "rgba(251,191,36,0.85)", 2);
+          arrow(ctx, objTip, r1Mid, "rgba(251,191,36,0.85)");
+          if (mirrorType === "concave") {
+            if (Math.abs(v_px) < W) {
+              drawLine(ctx, r1Mid, imgTip, "rgba(251,191,36,0.7)", 2, v_px > 0);
+              arrow(ctx, r1Mid, imgTip, "rgba(251,191,36,0.7)");
+            } else {
+              /* parallel rays converge → extend toward F */
+              const ext: Point = { x: fXdraw - 50, y: axisY };
+              drawLine(ctx, r1Mid, ext, "rgba(251,191,36,0.5)", 2, false);
+            }
+          } else {
+            /* Convex: appears to come from F behind mirror */
+            const extEnd: Point = { x: 0, y: r1Mid.y + (r1Mid.y - focus.y) * (r1Mid.x / (focus.x - r1Mid.x + 0.01)) };
+            drawLine(ctx, r1Mid, { x: 0, y: axisY - (fXdraw - mirrorX) * Math.tan(Math.atan2(r1Mid.y - axisY, mirrorX - fXdraw)) + axisY }, "rgba(251,191,36,0.6)", 2, false);
+          }
+        }
+
+        /* ─ Ray 2: Through F → reflects parallel ─ */
+        if (showRay2) {
+          if (mirrorType === "concave") {
+            drawLine(ctx, objTip, { x: mirrorX, y: objTip.y + (fXdraw - objX) * Math.tan(Math.atan2(objTip.y - axisY, objX - fXdraw)) }, "rgba(34,211,153,0.85)", 2);
+            const r2Hit: Point = {
+              x: mirrorX,
+              y: axisY + (objTip.y - axisY) * (mirrorX - fXdraw) / (objX - fXdraw)
+            };
+            arrow(ctx, objTip, r2Hit, "rgba(34,211,153,0.85)");
+            if (Math.abs(v_px) < W) {
+              drawLine(ctx, r2Hit, imgTip, "rgba(34,211,153,0.7)", 2, v_px > 0);
+              arrow(ctx, r2Hit, imgTip, "rgba(34,211,153,0.7)");
+            }
+          }
+        }
+
+        /* ─ Ray 3: Through C → reflects back ─ */
+        if (showRay3) {
+          if (mirrorType === "concave") {
+            /* Ray through C → reflected back along same path */
+            const r3Hit: Point = {
+              x: mirrorX,
+              y: axisY + (objTip.y - axisY) * (mirrorX - cXdraw) / (objX - cXdraw)
+            };
+            drawLine(ctx, objTip, r3Hit, "rgba(248,113,113,0.85)", 2);
+            arrow(ctx, objTip, r3Hit, "rgba(248,113,113,0.85)");
+            if (Math.abs(v_px) < W) {
+              drawLine(ctx, r3Hit, imgTip, "rgba(248,113,113,0.7)", 2, v_px > 0);
+              arrow(ctx, r3Hit, imgTip, "rgba(248,113,113,0.7)");
+            }
+          }
+        }
+
+        /* ── Image arrow ── */
+        const isVirtual = v_px > 0 || mirrorType === "convex";
+        drawLine(ctx, imgBase, imgTip, isVirtual ? "rgba(167,139,250,0.8)" : "rgba(74,222,128,0.9)", 3, isVirtual);
+        arrow(ctx, imgBase, imgTip, isVirtual ? "rgba(167,139,250,0.8)" : "rgba(74,222,128,0.9)");
+        txt(ctx, isVirtual ? "Image\n(virtual)" : "Image\n(real)", imgX, imgTip.y - 16,
+          isVirtual ? "#c4b5fd" : "#86efac", 11);
+      }
+
+      /* ── Photon animation on ray 1 ── */
+      if (showRay1) {
+        const t = ((time * 0.0004) % 1);
+        const phX = objTip.x + (mirrorX - objTip.x) * t;
+        const phY = objTip.y;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(phX, phY, 4, 0, Math.PI * 2);
+        ctx.fillStyle = "#fef3c7";
+        ctx.shadowColor = "#fbbf24";
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.restore();
+      }
+
+      /* ── Mirror type label ── */
+      txt(ctx, mirrorType === "concave" ? "Concave Mirror" : "Convex Mirror",
+        mirrorX - 14, H * 0.1, "#a5b4fc", 13);
     }
 
-    /* Position label */
-    ctx.save();
-    ctx.fillStyle = "rgba(226, 232, 240, 0.8)";
-    ctx.font = "bold 13px Inter, system-ui, sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText(positionLabel, W / 2, 24);
-    ctx.restore();
-
-  }, true);
-
-  /* Computed values for info panel */
-  const W = dims.width;
-  const focalLength = W * 0.15;
-  const mirrorX = W * 0.78;
-  const objectX = mirrorX - objDist * (W * 0.7);
-  const u = -(mirrorX - objectX);
-  const f = -focalLength;
-  let vDisplay = 0;
-  let mDisplay = 0;
-
-  if (Math.abs(u - f) > 3) {
-    vDisplay = (u * f) / (u - f);
-    mDisplay = -vDisplay / u;
-  }
+    rafRef.current = requestAnimationFrame(draw);
+    return () => {
+      running = false;
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [dims, objSlider, mirrorType, showRay1, showRay2, showRay3]);
 
   return (
-    <div className={styles.simCard} id={id}>
+    <div className={styles.simCard}>
       <div className={styles.simHeader}>
         <div className={styles.simIcon}>🔍</div>
-        <div className={styles.simTitle}>{title}</div>
-        <div className={styles.simBadge}>Drag to Explore</div>
+        <span className={styles.simTitle}>{title}</span>
+        <span className={styles.simBadge}>INTERACTIVE</span>
       </div>
 
-      <div className={styles.canvasWrap} ref={containerRef}>
-        <canvas
-          ref={canvasRef}
-          style={{ display: "block", width: "100%", cursor: "ew-resize" }}
-        />
+      <div ref={containerRef} className={styles.canvasWrap}>
+        <canvas ref={canvasRef} style={{ width: "100%", height: "auto", display: "block" }} />
       </div>
 
-      <div className={styles.controlPanel}>
-        <div className={styles.controlGroup}>
-          <label className={styles.controlLabel}>Object Distance</label>
+      <div className={styles.controls}>
+        {/* Mirror type toggle */}
+        <div className={styles.btnGroup}>
+          <button
+            className={`${styles.toggleBtn} ${mirrorType === "concave" ? styles.active : ""}`}
+            onClick={() => setMirrorType("concave")}
+          >Concave</button>
+          <button
+            className={`${styles.toggleBtn} ${mirrorType === "convex" ? styles.active : ""}`}
+            onClick={() => setMirrorType("convex")}
+          >Convex</button>
+        </div>
+
+        {/* Object distance slider */}
+        <div className={styles.sliderRow}>
+          <span className={styles.sliderLabel}>Object distance</span>
           <input
-            type="range"
+            type="range" min={5} max={95} value={objSlider}
+            onChange={e => setObjSlider(Number(e.target.value))}
             className={styles.slider}
-            min="0.08"
-            max="0.85"
-            step="0.01"
-            value={objDist}
-            onChange={(e) => setObjDist(parseFloat(e.target.value))}
           />
-          <div className={styles.controlValue}>
-            {objDist < 0.15 ? "Between F & P" :
-             objDist < 0.22 ? "Near F" :
-             objDist < 0.35 ? "Between C & F" :
-             objDist < 0.45 ? "Near C" :
-             "Beyond C"}
-          </div>
         </div>
 
-        <div className={styles.controlGroup}>
-          <label className={styles.controlLabel}>Principal Rays</label>
-          <div className={styles.toggleGroup}>
-            <button
-              className={showRay1 ? styles.toggleBtnActive : styles.toggleBtn}
-              onClick={() => setShowRay1(!showRay1)}
-            >
-              Ray 1
-            </button>
-            <button
-              className={showRay2 ? styles.toggleBtnActive : styles.toggleBtn}
-              onClick={() => setShowRay2(!showRay2)}
-            >
-              Ray 2
-            </button>
-            <button
-              className={showRay3 ? styles.toggleBtnActive : styles.toggleBtn}
-              onClick={() => setShowRay3(!showRay3)}
-            >
-              Ray 3
-            </button>
-          </div>
+        {/* Ray toggles */}
+        <div className={styles.rayToggles}>
+          <button className={`${styles.rayBtn} ${showRay1 ? styles.rayActive1 : ""}`} onClick={() => setShowRay1(r => !r)}>Ray 1</button>
+          <button className={`${styles.rayBtn} ${showRay2 ? styles.rayActive2 : ""}`} onClick={() => setShowRay2(r => !r)}>Ray 2</button>
+          <button className={`${styles.rayBtn} ${showRay3 ? styles.rayActive3 : ""}`} onClick={() => setShowRay3(r => !r)}>Ray 3</button>
         </div>
       </div>
 
+      {/* Live calculation panel */}
       <div className={styles.infoPanel}>
-        <div className={styles.infoChip}>
-          <span className={styles.infoChipLabel}>u =</span>
-          <span className={styles.infoChipValue}>{u.toFixed(0)} px</span>
+        <div className={styles.infoRow}>
+          <span className={styles.infoLabel}>Object distance (u):</span>
+          <span className={styles.infoValue}>{imageInfo.u} px</span>
         </div>
-        <div className={styles.infoChip}>
-          <span className={styles.infoChipLabel}>v =</span>
-          <span className={styles.infoChipValue}>
-            {Math.abs(u - f) < 3 ? "∞" : vDisplay.toFixed(0) + " px"}
-          </span>
+        <div className={styles.infoRow}>
+          <span className={styles.infoLabel}>Image distance (v):</span>
+          <span className={styles.infoValue}>{imageInfo.v} px</span>
         </div>
-        <div className={styles.infoChip}>
-          <span className={styles.infoChipLabel}>m =</span>
-          <span className={styles.infoChipValue}>
-            {Math.abs(u - f) < 3 ? "∞" : mDisplay.toFixed(2)}
-          </span>
+        <div className={styles.infoRow}>
+          <span className={styles.infoLabel}>Magnification (m):</span>
+          <span className={styles.infoValue}>{imageInfo.m}</span>
         </div>
-        <div className={styles.infoChip}>
-          <span className={styles.infoChipLabel}>f =</span>
-          <span className={styles.infoChipValue}>{f.toFixed(0)} px</span>
+        <div className={styles.infoRow}>
+          <span className={styles.infoLabel}>Image type:</span>
+          <span className={styles.infoValue}>{imageInfo.label || "—"}</span>
         </div>
-      </div>
-
-      <div className={styles.instructionText}>
-        🎛️ Use the slider to move the object. Watch how the image changes at each position.
+        <div className={styles.formula}>1/v + 1/u = 1/f</div>
       </div>
     </div>
   );

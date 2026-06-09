@@ -255,6 +255,228 @@
 }
 
 /* ═══════════════════════════════════════════════════
+ * NEW CONTROL STYLES (used in rebuilt simulations)
+ * ═══════════════════════════════════════════════════ */
+
+/* ─── Controls Container ─── */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(30, 41, 59, 0.5));
+  border-top: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+/* ─── Slider Row ─── */
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 160px;
+}
+
+.sliderLabel {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  white-space: nowrap;
+  min-width: 80px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Info Panel Row layout ─── */
+/* .infoPanel already defined above — add row / label / value */
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.05);
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+}
+
+.infoLabel {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  min-width: 130px;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.infoValue {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  color: #cbd5e1;
+  flex: 1;
+}
+
+/* ─── Formula display ─── */
+.formula {
+  width: 100%;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #818cf8;
+  text-align: center;
+  padding: 6px 0 2px;
+  letter-spacing: 0.02em;
+  background: rgba(129, 140, 248, 0.06);
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+.formulaValues {
+  width: 100%;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 11px;
+  color: #60a5fa;
+  text-align: center;
+  padding: 2px 0 4px;
+  opacity: 0.8;
+}
+
+/* ─── Button Group ─── */
+.btnGroup {
+  display: flex;
+  gap: 4px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+/* ─── Toggle button active states ─── */
+/* Base .toggleBtn already defined above, add active variants */
+.toggleBtn {
+  padding: 5px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggleBtn:hover {
+  color: #e2e8f0;
+  background: rgba(148, 163, 184, 0.1);
+}
+
+.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+  border-color: rgba(59, 130, 246, 0.4) !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.activeRed {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.activeAmber {
+  color: #000000 !important;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+  border-color: rgba(251, 191, 36, 0.4) !important;
+  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
+}
+
+/* ─── Ray Toggle Buttons ─── */
+.rayToggles {
+  display: flex;
+  gap: 4px;
+}
+
+.rayBtn {
+  padding: 4px 10px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 6px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  background: rgba(15, 23, 42, 0.4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rayBtn:hover {
+  color: #e2e8f0;
+  background: rgba(148, 163, 184, 0.1);
+}
+
+/* Ray 1 = yellow (incident/parallel) */
+.rayActive1 {
+  color: #fbbf24 !important;
+  border-color: rgba(251, 191, 36, 0.4) !important;
+  background: rgba(251, 191, 36, 0.1) !important;
+}
+
+/* Ray 2 = cyan (through center / normal) */
+.rayActive2 {
+  color: #34d399 !important;
+  border-color: rgba(52, 211, 153, 0.4) !important;
+  background: rgba(52, 211, 153, 0.1) !important;
+}
+
+/* Ray 3 = red/magenta (through focus) */
+.rayActive3 {
+  color: #f87171 !important;
+  border-color: rgba(248, 113, 113, 0.4) !important;
+  background: rgba(248, 113, 113, 0.1) !important;
+}
+
+/* ─── Color Buttons (for prism spectrum) ─── */
+.colorBtns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* ─── Select Dropdown ─── */
+.select {
+  padding: 6px 10px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 8px;
+  color: #cbd5e1;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+  flex: 1;
+  min-width: 0;
+}
+
+.select:focus,
+.select:hover {
+  border-color: rgba(96, 165, 250, 0.4);
+}
+
+.select option {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+/* ═══════════════════════════════════════════════════
  * RESPONSIVE BREAKPOINTS
  * ═══════════════════════════════════════════════════ */
 
