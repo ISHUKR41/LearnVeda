@@ -94,10 +94,10 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
   },
   "light-two-mirrors": {
     title: "Two Mirrors at an Angle",
-    description: "Adjust angle between mirrors and count images formed",
+    description: "Adjust angle between mirrors and count images: n = 360°/θ − 1",
     category: "reflection",
     icon: "🔱",
-    component: lazyLoad(() => import("./reflection/PlaneMirrorSim")),
+    component: lazyLoad(() => import("./reflection/TwoMirrorsSim")),
   },
 
   /* ─── Spherical Mirrors ─── */
@@ -133,10 +133,10 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
   },
   "glass-slab-sim": {
     title: "Glass Slab — Lateral Displacement",
-    description: "Light through parallel glass surfaces with lateral shift",
+    description: "Light through parallel glass surfaces — emergent ray displaced but parallel",
     category: "refraction",
     icon: "🔲",
-    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+    component: lazyLoad(() => import("./refraction/GlassSlabSim")),
   },
   "tir-sim": {
     title: "Total Internal Reflection",
@@ -186,10 +186,10 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
   },
   "rainbow-formation-sim": {
     title: "Rainbow Formation",
-    description: "Refraction + TIR + dispersion in water droplets",
+    description: "Refraction + TIR + dispersion inside water droplets — VIBGYOR at 40°–42°",
     category: "dispersion",
     icon: "🌦️",
-    component: lazyLoad(() => import("./dispersion/PrismDispersionSim")),
+    component: lazyLoad(() => import("./dispersion/RainbowFormationSim")),
   },
   "scattering-sim": {
     title: "Scattering of Light",
@@ -283,7 +283,7 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     description: "Trace a ray through a glass slab and measure the lateral shift",
     category: "refraction",
     icon: "🔲",
-    component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+    component: lazyLoad(() => import("./refraction/GlassSlabSim")),
   },
 
   /* ─────────────────────────────────────────────────────────────────

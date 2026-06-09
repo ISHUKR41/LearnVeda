@@ -129,6 +129,43 @@ A convex mirror **always** forms a virtual, erect, and diminished image, regardl
 1. Ray parallel to principal axis → reflects through $F$ (concave) or appears to come from $F$ (convex).
 2. Ray through $F$ → reflects parallel to principal axis.
 3. Ray through $C$ → reflects back along the same path.
+
+---
+
+### Real-life Applications & Engineering Context
+
+#### 🚗 Convex Mirrors: Safety Through Wide Field of View
+
+A convex mirror always gives a **virtual, erect, diminished** image regardless of object position. The key advantage: it covers a **much wider field of view** than a flat mirror of the same size. This is why:
+*   **Rear-view side mirrors** on vehicles are convex — drivers can see a broader sweep of lanes and following traffic.
+*   **Shop security mirrors** (the large convex mirrors at supermarket corners) allow one mirror to cover an entire aisle.
+*   **ATM anti-theft mirrors** give tellers and users a wide view of the surroundings.
+
+**Trade-off:** The diminished image makes objects appear farther away than they actually are. This is why many countries legally require the text **"Objects in mirror are closer than they appear"** on convex side mirrors.
+
+#### 🔦 Concave Mirrors: Power of Convergence
+
+The concave mirror's converging property creates two distinct modes of use:
+
+| Mode | Object Position | Image | Use Case |
+|---|---|---|---|
+| Parallel beam (torch) | Object at $F$ | Image at $\\infty$ | Headlights, searchlights |
+| Magnifier | Object between $P$ and $F$ | Virtual, magnified | Shaving/makeup mirrors, dentist's mirror |
+| Same-size copy | Object at $C = 2f$ | Real, same-size at $C$ | Optical copying systems |
+
+*   **Solar Energy Collectors:** Large concave parabolic dishes focus sunlight to a boiler at the focal point. Concentrated Solar Power (CSP) plants use fields of curved mirrors (heliostats) to generate electricity from solar heat.
+*   **Ophthalmoscope:** A concave mirror with a small central hole lets doctors shine focused light into the eye while observing the reflected image of the retina through the hole.
+*   **Reflecting Telescopes (Newton/Cassegrain):** Concave primary mirrors can be made far larger and lighter than equivalent lenses, with no chromatic aberration. The 30-metre Telescope (TMT) under construction will use a 30 m diameter concave segmented mirror.
+
+#### 📐 Spherical vs. Parabolic Mirrors: Spherical Aberration
+
+The mirror formula $\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$ applies only for **paraxial rays** (rays making very small angles with the principal axis, close to the pole). For large-aperture spherical mirrors, **marginal rays** (rays that strike far from the pole) focus at a slightly different point than paraxial rays — this blurring is called **spherical aberration**.
+
+**Solution:** Use a **parabolic mirror** instead. A paraboloid focuses ALL parallel rays at exactly one point, regardless of where they hit the mirror. This is why:
+*   Car headlight reflectors are parabolic.
+*   Satellite dish antennas are parabolic.
+*   Astronomical telescope primary mirrors are parabolic.
+*   The Hubble Space Telescope's primary mirror was famously ground to the wrong parabolic shape (by 1.3 µm), causing serious spherical aberration — corrected by installing corrective optics (COSTAR) in 1993.
 `,
   questions: [
     // --- MCQ ---

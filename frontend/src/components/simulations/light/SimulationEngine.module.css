@@ -72,10 +72,24 @@
 }
 
 /* ─── Canvas Container ─── */
+/*
+ * Contains the HTML5 canvas.  overflow:hidden + max-width:100% are
+ * critical so the canvas never causes horizontal page scrolling on
+ * any device (mobile, tablet, desktop).
+ */
 .canvasWrap {
   position: relative;
   width: 100%;
+  max-width: 100%;         /* never exceed parent width */
+  overflow: hidden;        /* clip canvas if ResizeObserver hasn't fired yet */
   background: #0f172a;
+}
+
+/* Ensure the canvas element itself is always constrained */
+.canvasWrap canvas {
+  display: block;
+  max-width: 100%;
+  touch-action: none;      /* allow pointer events, prevent browser scroll hijacking */
 }
 
 /* ─── Control Panel (sliders, buttons, inputs) ─── */
@@ -289,61 +303,105 @@
   letter-spacing: 0.04em;
 }
 
-/* ─── Info Panel Row layout ─── */
-/* .infoPanel already defined above — add row / label / value */
+/* ─── Info Row — flex-wrap container of info cards ─── */
+/*
+ * Used as an outer "stats bar" that wraps multiple .infoItem cards.
+ * Each card shows one computed physics value (label + value stacked).
+ */
 .infoRow {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  width: 100%;
-  padding: 3px 0;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.05);
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 16px;
+  background: rgba(15, 23, 42, 0.45);
+  border-top: 1px solid rgba(148, 163, 184, 0.06);
 }
 
-.infoRow:last-child {
-  border-bottom: none;
+/* Individual stat card inside infoRow */
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 7px 12px;
+  background: rgba(96, 165, 250, 0.06);
+  border: 1px solid rgba(96, 165, 250, 0.1);
+  border-radius: 10px;
+  flex: 1;
+  min-width: 70px;
 }
 
+/* Label inside an infoItem card (overrides the min-width from list-style usage) */
+.infoItem .infoLabel {
+  min-width: 0;
+  flex-shrink: 1;
+  text-align: center;
+}
+
+/* Label for standalone horizontal rows (original usage) */
 .infoLabel {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   color: #64748b;
-  min-width: 130px;
-  flex-shrink: 0;
-  padding-top: 1px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
+/* Value text inside an infoItem card */
 .infoValue {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 12px;
-  color: #cbd5e1;
-  flex: 1;
+  font-size: 13px;
+  font-weight: 700;
+  color: #e2e8f0;
+  text-align: center;
 }
 
-/* ─── Formula display ─── */
+/* ─── Formula display bar ─── */
+/*
+ * Sits below the info row or controls.
+ * Shows the physics formula + computed result in a highlighted bar.
+ */
 .formula {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 16px;
+  background: rgba(129, 140, 248, 0.06);
+  border-top: 1px solid rgba(129, 140, 248, 0.12);
+}
+
+/* "Formula:" caption */
+.formulaLabel {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* The equation string, e.g. "1/v − 1/u = 1/f" */
+.formulaExpr {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 13px;
   font-weight: 600;
   color: #818cf8;
   text-align: center;
-  padding: 6px 0 2px;
-  letter-spacing: 0.02em;
-  background: rgba(129, 140, 248, 0.06);
-  border-radius: 6px;
-  margin-top: 4px;
+  letter-spacing: 0.01em;
 }
 
+/* Substituted values + result */
 .formulaValues {
-  width: 100%;
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 11px;
   color: #60a5fa;
   text-align: center;
-  padding: 2px 0 4px;
-  opacity: 0.8;
+  opacity: 0.85;
+  max-width: 100%;
+  word-break: break-word;
 }
 
 /* ─── Button Group ─── */
@@ -500,10 +558,11 @@
   }
 }
 
-/* Mobile */
+/* Mobile (≤ 480px) */
 @media (max-width: 480px) {
   .simCard {
     border-radius: 12px;
+    overflow: hidden;      /* clip anything that escapes rounded corners */
   }
 
   .controlPanel {
@@ -528,15 +587,67 @@
 
   .simHeader {
     padding: 10px 12px;
+    flex-wrap: wrap;
+    gap: 6px;
   }
 
   .simTitle {
     font-size: 12px;
+    flex: 1;
+    min-width: 0;
   }
 
   .simBadge {
     font-size: 10px;
     padding: 2px 8px;
+  }
+
+  /* Controls panel on mobile: stack sliders vertically */
+  .controls {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .sliderRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 100%;
+  }
+
+  .sliderLabel {
+    white-space: normal;   /* allow wrapping on small screens */
+  }
+
+  /* Info row: wrap tightly on tiny phones */
+  .infoRow {
+    gap: 4px;
+    padding: 8px 10px;
+  }
+
+  .infoItem {
+    min-width: 60px;
+    padding: 5px 8px;
+  }
+
+  .infoValue {
+    font-size: 12px;
+  }
+
+  /* Formula bar: smaller font to avoid overflow */
+  .formula {
+    padding: 8px 12px;
+  }
+
+  .formulaExpr {
+    font-size: 11px;
+    word-break: break-word;
+  }
+
+  .formulaValues {
+    font-size: 9px;
+    word-break: break-all;
   }
 
   .toggleGroup {
@@ -546,6 +657,33 @@
   .toggleBtn {
     flex: 1;
     text-align: center;
-    padding: 8px 6px;
+    padding: 8px 4px;
+    font-size: 11px;
+  }
+
+  /* Button group wraps on very small screens */
+  .btnGroup {
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+}
+
+/* Extra-small phones (≤ 360px) */
+@media (max-width: 360px) {
+  .simTitle {
+    font-size: 11px;
+  }
+
+  .simBadge {
+    display: none;         /* hide badge label on tiny screens, icon is enough */
+  }
+
+  .infoItem {
+    min-width: 50px;
+    padding: 4px 6px;
+  }
+
+  .formulaExpr {
+    font-size: 10px;
   }
 }

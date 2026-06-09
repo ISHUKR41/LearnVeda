@@ -1761,6 +1761,18 @@
   box-shadow: 0 8px 32px rgba(129, 140, 248, 0.1);
 }
 
+/* Ensure simulation canvas wrappers never overflow on any device */
+.simulationCard canvas,
+.simulationCard > * {
+  max-width: 100%;
+}
+
+/* Inner sim engine cards need overflow hidden to avoid canvas bleed */
+.simulationCard > div {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
 /* ═══════════════════════════════════════════════════
  * 19. RESPONSIVE OVERRIDES
  * ═══════════════════════════════════════════════════ */

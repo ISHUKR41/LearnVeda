@@ -113,6 +113,57 @@ $$m = \\frac{h'}{h} = -\\frac{v}{u} \\quad \\text{(Magnification)}$$
 2. Apply $1/f = 1/v + 1/u$; substitute and solve for unknown.
 3. Calculate $m = -v/u$; interpret sign for nature of image.
 4. State whether image is real/virtual, erect/inverted, enlarged/diminished.
+
+---
+
+### Worked NCERT Examples (Board Exam Must-Practice)
+
+#### Example 1 — Concave Mirror: Object Near F
+**Given:** 4.5 cm needle, $u = -12$ cm, concave mirror $f = -15$ cm. Find $v$, image height, nature.
+
+**Solution:**
+$$\\frac{1}{v} = \\frac{1}{f} - \\frac{1}{u} = \\frac{1}{-15} - \\frac{1}{-12} = -\\frac{4}{60} + \\frac{5}{60} = \\frac{1}{60}$$
+$v = +60$ cm (positive → virtual, behind mirror).
+
+Magnification: $m = -\\dfrac{v}{u} = -\\dfrac{60}{-12} = +5$ (positive → erect, virtual ✓).
+
+Image height $= m \\times h = 5 \\times 4.5 = +22.5$ cm.
+
+**Result:** Virtual, erect, 5× enlarged, 60 cm behind mirror.
+
+---
+
+#### Example 2 — Convex Mirror: Verify Nature
+**Given:** 2.5 cm object, $u = -27$ cm, convex mirror $f = +36$ cm.
+
+**Solution:**
+$$\\frac{1}{v} = \\frac{1}{36} - \\frac{1}{-27} = \\frac{1}{36} + \\frac{1}{27} = \\frac{3+4}{108} = \\frac{7}{108}$$
+$v = +\\dfrac{108}{7} \\approx +15.4$ cm (positive → behind mirror, virtual ✓).
+
+$m = -\\dfrac{15.4}{-27} \\approx +0.57$ → erect, diminished. Image height $= 0.57 \\times 2.5 \\approx 1.4$ cm.
+
+**Result:** Virtual, erect, diminished — the characteristic result for ALL convex mirrors.
+
+---
+
+### Quick Reference Card: Sign Convention Summary
+
+| Quantity | Concave Mirror | Convex Mirror | Plane Mirror |
+|---|---|---|---|
+| Focal length $f$ | **Negative** | **Positive** | $\\infty$ |
+| Object distance $u$ | Always **negative** | Always **negative** | Always **negative** |
+| Real image: $v$ | **Negative** | Never formed | Never formed |
+| Virtual image: $v$ | **Positive** | Always **positive** | **Positive** |
+| Real/inverted $m$ | **Negative** | Never | Never |
+| Virtual/erect $m$ | **Positive** | Always **positive** | **+1** |
+
+> 🔑 **Board Exam Trick:** Getting a **positive $f$** from the mirror formula with a "concave" problem = sign error. Getting a **positive $v$** for a concave mirror means the image is virtual (object was between $P$ and $F$). Always sanity-check both.
+
+#### 🌍 Real-world Relevance of Magnification
+*   **Side mirrors on cars** ($m \\approx +0.5$): Objects appear half the real size → driver perceives them as twice as far.
+*   **Shaving/makeup mirrors** ($m \\approx +3$ to $+5$): Object placed inside focal length → virtual, magnified, erect image.
+*   **Dentist's concave mirror** ($m \\approx +4$): Placed $\\sim$2 cm from tooth (inside $f \\approx 8$ cm) → greatly magnified image of enamel surface.
+*   **Astronomical mirrors** ($m$ can be $10^4$ or more with secondary optics): A 30-metre primary mirror can collect enough light to image objects $10^{10}$ times fainter than the naked eye can see.
 `,
   questions: [
     // --- MCQ ---

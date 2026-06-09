@@ -122,6 +122,31 @@ A plane mirror is a flat glass surface with a thin layer of silver (the reflecti
 *   Speed of light in vacuum: $c = 3 \\times 10^8 \\text{ m/s}$
 *   For full image in plane mirror: minimum mirror height = **half your height** (independent of distance).
 *   When mirror rotates by $\\theta$, reflected ray rotates by $2\\theta$.
+*   Images in two mirrors at angle $\\theta$: $n = \\dfrac{360°}{\\theta} - 1$ (when $360°/\\theta$ is a whole number).
+
+---
+
+### Real-life Applications of Reflection
+
+#### 🔦 Regular (Specular) Reflection in Everyday Life
+
+*   **Periscopes in Submarines:** Two plane mirrors (or 45°-90°-45° prisms) at 45° to the horizontal redirect light around corners. Allows operators to see above water while the submarine is submerged. Prism periscopes use TIR for 100% reflection efficiency vs silver mirrors (~95%).
+*   **Kaleidoscopes:** Three plane mirrors at 60° to each other form $360°/60° - 1 = 5$ images plus the object = 6-fold symmetry. Rotating the mirrors creates mesmerising patterns used in art, architecture, and entertainment.
+*   **Solar Cookers:** A large concave mirror (or a plane mirror array angled to collect sunlight) focuses parallel solar rays. Box-type solar cookers using plane reflector panels can reach 120–140°C — enough to cook rice, pulses, and vegetables with zero fuel cost.
+*   **Searchlights and Torches:** The light bulb is placed at the principal focus of a concave parabolic reflector. Rays from focus reflect parallel to the axis → concentrated parallel beam that travels long distances without spreading.
+
+#### 🌧️ Diffuse (Irregular) Reflection in Everyday Life
+
+*   **Reading a Book:** Paper has microscopic rough fibres that scatter light in all directions (diffuse). This means you can read from any angle without glare — contrast with a shiny mirror, which would show a blinding hotspot.
+*   **Cinema/Projector Screens:** Made of fine-grain matt white material. Regular (specular) screens would create a bright hot-spot only in one direction; diffuse screens distribute light evenly to all seats.
+*   **Road Visibility:** Road surface paint uses diffuse reflection to be visible from all angles. Cats-eye road studs (glass bead retroreflectors) return headlight beams directly to the driver's eyes using two curved mirror faces — very small critical angle geometry.
+*   **Photography Lighting:** Photographers bounce flash off white ceilings/walls to convert specular harsh light into soft diffuse illumination, eliminating harsh shadows.
+
+#### 🏥 Medical & Scientific Applications
+
+*   **Dental/ENT Mirrors:** A small concave mirror held inside the focal length gives a magnified, virtual, erect image of teeth or the tympanic membrane. The same principle applies to the ophthalmoscope (examining the retina).
+*   **Hubble Space Telescope:** Uses a 2.4 m diameter concave parabolic primary mirror. Mirrors are preferred over lenses for large telescopes because: (a) no chromatic aberration, (b) can be supported from behind (lenses sag under gravity at large diameters), (c) can be ground to extremely precise parabolic shapes.
+*   **Solar Furnaces:** The Odeillo Solar Furnace (France) uses 63 flat sun-tracking mirrors directing light to one large 1830 m² parabolic concave mirror, achieving temperatures over 3500°C — used for testing materials that must survive extreme heat (spacecraft re-entry tiles, nuclear reactor components).
 `,
   questions: [
     // --- MCQ (5 Questions) ---

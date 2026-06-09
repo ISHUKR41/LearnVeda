@@ -6,20 +6,21 @@
  *          Used for quick revision, exam preparation, and deep concept retention.
  *
  * STRUCTURE:
- *   - topicFlashCards: Record<topicId, FlashCard[]> — 20–25 cards per topic
+ *   - topicFlashCards: Record<topicId, FlashCard[]> — 30 cards per topic
  *   - topicMindMaps:   Record<topicId, MindMapNode[]> — hierarchical concept trees
  *
  * TOPICS COVERED:
- *   1. intro-and-laws-of-reflection     (22 cards)
- *   2. concave-convex-mirrors            (23 cards)
- *   3. mirror-formula-magnification      (22 cards)
- *   4. laws-of-refraction-and-index      (22 cards)
- *   5. image-formation-by-lenses         (22 cards)
- *   6. lens-formula-and-power            (22 cards)
- *   7. total-internal-reflection         (22 cards) ← NEW
- *   8. dispersion-and-human-eye          (22 cards) ← NEW
+ *   1. intro-and-laws-of-reflection     (30 cards)
+ *   2. concave-convex-mirrors            (30 cards)
+ *   3. mirror-formula-magnification      (30 cards)
+ *   4. laws-of-refraction-and-index      (30 cards)
+ *   5. image-formation-by-lenses         (30 cards)
+ *   6. lens-formula-and-power            (30 cards)
+ *   7. total-internal-reflection         (30 cards)
+ *   8. dispersion-and-human-eye          (30 cards)
+ *   9. topic-9-numericals-advanced       (20 cards)
  *
- * LAST UPDATED: 2026-06-08
+ * LAST UPDATED: 2026-06-09
  */
 
 /* ══════════════════════════════════════════════════════════════════
@@ -76,6 +77,22 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
       back: "In a glass slab, the emergent ray is parallel to the incident ray but DISPLACED sideways. The lateral shift is called lateral displacement. The direction is unchanged." },
     { id: "fc1-22", front: "Why does a mirror reflect more clearly than a white wall?",
       back: "Mirror → regular (specular) reflection → parallel reflected rays → forms clear image. White wall → diffuse reflection → scattered rays in all directions → no image formed." },
+    { id: "fc1-23", front: "What is a Periscope and how does it use plane mirrors?",
+      back: "A periscope uses two plane mirrors at 45° to the vertical, one at the top and one at the bottom of a vertical tube. Light hits the top mirror → reflects 90° down the tube → hits bottom mirror → reflects 90° to the eye. Used in submarines and to see over crowds." },
+    { id: "fc1-24", front: "Why does the printed word 'AMBULANCE' appear correct in a rear-view mirror?",
+      back: "Because plane mirrors cause lateral (left-right) inversion. 'AMBULANCE' is written in reverse (mirror-image) on the vehicle front. A driver's rear-view mirror re-inverts it, so the driver reads it correctly as 'AMBULANCE'." },
+    { id: "fc1-25", front: "Two mirrors at 90° — how many images are formed?",
+      back: "n = (360°/θ) − 1 = (360°/90°) − 1 = 4 − 1 = 3 images. This is used in corner reflectors on roads — any light entering a 90° corner reflects straight back to the source regardless of direction." },
+    { id: "fc1-26", front: "How does a Kaleidoscope work?",
+      back: "Three plane mirrors placed at 60° to each other form a triangular tube. Objects inside create n = 360°/60° − 1 = 5 images. Coloured beads placed at one end appear as beautiful, symmetric 6-fold patterns due to multiple reflections." },
+    { id: "fc1-27", front: "What is the speed of light in different media? (Key values)",
+      back: "Vacuum: 3 × 10⁸ m/s = 3 × 10⁵ km/s. Air: ≈ 3 × 10⁸ m/s (same as vacuum, practically). Water: ≈ 2.25 × 10⁸ m/s. Glass: ≈ 2 × 10⁸ m/s. Diamond: ≈ 1.24 × 10⁸ m/s." },
+    { id: "fc1-28", front: "What is a Silver Nitrate coating on a mirror?",
+      back: "Mirrors are made by depositing a thin layer of silver (from silver nitrate solution) on the back of a glass pane, then protecting it with a layer of paint. The silver layer creates a highly reflective surface (95%+ reflectivity)." },
+    { id: "fc1-29", front: "If you walk 2 m/s toward a plane mirror, how fast does your image approach?",
+      back: "Your image moves at 2 m/s toward the mirror (same speed). But the rate of approach BETWEEN you and your image = 2 + 2 = 4 m/s (your speed + image speed). So you and your image close at 4 m/s." },
+    { id: "fc1-30", front: "Explain: 'A shadow proves rectilinear propagation of light.'",
+      back: "A shadow forms because light travels in straight lines and cannot bend around opaque objects. The sharp outline of a shadow (with a point source) proves light travels in straight lines. A diffuse source creates a penumbra (partial shadow) and umbra (full shadow)." },
   ],
 
   /* ─────────────────────────────────────────────────────────────
@@ -128,6 +145,20 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
       back: "Only rays close to the principal axis (paraxial rays) satisfy the simple mirror formula. Rays far from axis (marginal rays) create spherical aberration and don't meet exactly at F." },
     { id: "fc2-23", front: "What is the Principal Axis?",
       back: "The straight line passing through the Pole (P) and the Centre of Curvature (C). It is the axis of symmetry of the spherical mirror." },
+    { id: "fc2-24", front: "Why is a concave mirror used as a shaving mirror?",
+      back: "When your face is between P and F, the concave mirror forms a virtual, erect, ENLARGED image — making it easy to see details while shaving or applying makeup. The image is larger than actual and upright." },
+    { id: "fc2-25", front: "Why is a concave mirror used in a solar furnace?",
+      back: "A large concave mirror (parabolic dish) converges all incoming parallel sunrays to its Focus F. The temperature at F can reach thousands of degrees Celsius. Solar furnaces use this to melt metals or generate electricity." },
+    { id: "fc2-26", front: "Why is a concave mirror used in torch/headlights?",
+      back: "The bulb is placed at Focus F of a concave mirror. Since a ray from F reflects parallel to the axis, the mirror produces a powerful, parallel beam of light (not diverging), giving directional illumination." },
+    { id: "fc2-27", front: "What is Spherical Aberration?",
+      back: "Marginal rays (far from the axis) reflect to a slightly different focus than paraxial rays in a spherical mirror. This blurs the image — called spherical aberration. Solution: use a PARABOLIC mirror (no spherical aberration)." },
+    { id: "fc2-28", front: "How many images does a concave mirror form as the object moves from ∞ to P?",
+      back: "∞ → F: real, inverted, diminished. As object moves closer, image moves away from F. At 2F: same size. Between F and 2F: magnified, real. At F: image at ∞. Between P and F: virtual, erect, magnified behind mirror." },
+    { id: "fc2-29", front: "What is a Dentist's mirror, and why is it concave?",
+      back: "A dentist holds the small mirror behind teeth (object very close, inside focal length). The concave mirror forms a VIRTUAL, ERECT, ENLARGED image of the tooth — much easier to see cavities and details." },
+    { id: "fc2-30", front: "Convex mirror — object at ∞ → image location?",
+      back: "Image forms at the Principal Focus F, which is BEHIND the convex mirror (virtual focus). The image is virtual, erect, and point-sized. Convex mirrors ALWAYS form images between P and F, regardless of object distance." },
   ],
 
   /* ─────────────────────────────────────────────────────────────
@@ -176,6 +207,22 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
       back: "m = −3 (negative because it's real and inverted, magnitude 3 because 3× enlarged). This happens with a concave mirror when object is between F and 2F." },
     { id: "fc3-21", front: "What is the power of a spherical mirror of focal length 20 cm?",
       back: "P = 1/f (in metres) = 1/(−0.20) = −5 D (concave mirror). For a convex mirror of f = +20 cm: P = +5 D. Note: power of a mirror = 2/R." },
+    { id: "fc3-22", front: "CBSE Board Question: Object is at C of concave mirror. State image properties.",
+      back: "Object at C (= 2f from pole). Image: At C, Real, Inverted, Same Size (m = −1). Using mirror formula: 1/v + 1/u = 1/f. u = −2f, f = −f. 1/v = 1/(−f) − 1/(−2f) = −1/f + 1/2f = −1/2f. v = −2f = same as object. m = −v/u = −(−2f)/(−2f) = −1." },
+    { id: "fc3-23", front: "Object 40 cm in front of concave mirror (f = 15 cm). Find v and m.",
+      back: "u = −40 cm, f = −15 cm. 1/v = 1/f − 1/u = 1/(−15) − 1/(−40) = −8/120 + 3/120 = −5/120. v = −24 cm. Image is real, 24 cm in front. m = −v/u = −(−24)/(−40) = −0.6. Real, inverted, diminished." },
+    { id: "fc3-24", front: "How do you find the focal length of a concave mirror using a distant object?",
+      back: "Point the concave mirror at a very distant object (tree, building). The image forms very close to F. Hold a screen and adjust until you get the sharpest, smallest image. Measure the distance from pole to screen = focal length f." },
+    { id: "fc3-25", front: "A concave mirror forms a real image 3 times the size of the object. Where is the object?",
+      back: "m = −3 (real and inverted). m = −v/u → −3 = −v/u → v = 3u. Using 1/v + 1/u = 1/f: 1/3u + 1/u = 1/f. (1 + 3)/3u = 1/f → 4/3u = 1/f → u = 4f/3. Object is at 4f/3 from the mirror (between F and C)." },
+    { id: "fc3-26", front: "What is the difference between Linear, Transverse, and Axial magnification?",
+      back: "Linear/Transverse magnification (m): ratio of image height to object height (perpendicular to axis). m = h'/h = −v/u. Axial magnification: ratio of image length to object length along the axis = m² (square of linear magnification)." },
+    { id: "fc3-27", front: "If a concave mirror has R = 30 cm, what is f and the mirror formula?",
+      back: "f = R/2 = 30/2 = 15 cm. Since it's concave, f = −15 cm (sign convention). Mirror formula: 1/v + 1/u = 1/(−15) → 1/v + 1/u = −1/15." },
+    { id: "fc3-28", front: "Can a convex mirror EVER form a real image?",
+      back: "No. A convex mirror ALWAYS forms a virtual image. The reflected rays always diverge and never actually meet in front of the mirror. Only a concave mirror can form real images (when object is beyond F)." },
+    { id: "fc3-29", front: "HOTS: A dentist mirror is 3 cm from a tooth and shows the image 5 times larger. Find the focal length.",
+      back: "Object inside F (virtual, erect, enlarged). u = −3 cm, m = +5 (virtual & erect). m = −v/u → 5 = −v/(−3) → v = +15 cm. 1/f = 1/v + 1/u = 1/15 + 1/(−3) = 1/15 − 5/15 = −4/15. f = −3.75 cm. Focal length = 3.75 cm." },
   ],
 
   /* ─────────────────────────────────────────────────────────────
@@ -226,6 +273,22 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
       back: "Splitting of white light into its constituent colours (VIBGYOR) due to different refractive indices for different wavelengths. Violet has highest n (bends most), Red has lowest n (bends least)." },
     { id: "fc4-22", front: "Conditions for Total Internal Reflection?",
       back: "1. Light must travel from DENSER to RARER medium. 2. Angle of incidence must be GREATER THAN or EQUAL TO the critical angle. Both conditions must be met simultaneously." },
+    { id: "fc4-23", front: "Why does light bend when going from air to glass?",
+      back: "Glass is optically denser (n=1.5) than air (n=1). The speed of light DECREASES in glass. By Snell's Law (n₁ sin i = n₂ sin r), when speed decreases and n increases, sin r < sin i, so the refracted ray bends TOWARD the normal." },
+    { id: "fc4-24", front: "What is apparent depth? Give formula.",
+      back: "When viewed from above, an object in water appears closer than it actually is. Apparent depth = Real depth / n. For water (n=1.33): a pool 4 m deep appears only 4/1.33 ≈ 3 m deep. This is why reaching into water is deceptive." },
+    { id: "fc4-25", front: "NCERT Numerical: Light from air hits glass (n=1.5) at 30°. Find angle of refraction.",
+      back: "Snell's Law: n₁ sin i = n₂ sin r. 1 × sin 30° = 1.5 × sin r. sin r = 0.5/1.5 = 0.333. r = sin⁻¹(0.333) ≈ 19.47°. The ray bends toward the normal as expected (denser medium)." },
+    { id: "fc4-26", front: "What is the formula for lateral displacement in a glass slab?",
+      back: "d = t × sin(i − r) / cos(r), where t = thickness of slab, i = angle of incidence, r = angle of refraction (inside glass). Key insight: when i = 0°, r = 0° → d = 0 (no lateral shift for normal incidence)." },
+    { id: "fc4-27", front: "Why does a straw in a glass of water appear broken at the surface?",
+      back: "Light from the submerged part refracts when exiting from water (denser) to air (rarer), bending away from the normal. Our eyes/brain assumes straight-line propagation → perceives the straw part in water at a different (elevated) position → appears 'broken' at the surface." },
+    { id: "fc4-28", front: "What is meant by 'optically rarer' and 'optically denser'?",
+      back: "Optically denser medium: higher refractive index (n), SLOWER speed of light. Optically rarer medium: lower n, FASTER speed of light. Important: optically denser ≠ physically/mechanically denser. Water is physically denser than oil, but oil (n=1.46) is optically denser than water (n=1.33)." },
+    { id: "fc4-29", front: "Prove that angle of incidence = angle of emergence for a glass slab.",
+      back: "Entry: n_air sin i = n_glass sin r (Snell's Law, surface 1). Exit: n_glass sin r = n_air sin e (Snell's Law, surface 2, parallel surfaces so same r). Comparing both: sin i = sin e → i = e. ∴ Emergent ray is parallel to incident ray." },
+    { id: "fc4-30", front: "HOTS: Why do swimming pools look shallower and what is the consequence?",
+      back: "Apparent depth = Real depth/n. For water n=1.33, apparent depth ≈ 0.75 × real depth. A pool that is 2 m deep looks only 1.5 m deep. This is dangerous for non-swimmers who underestimate depth. Also causes a coin at the bottom to appear raised by about 25% of actual depth." },
   ],
 
   /* ─────────────────────────────────────────────────────────────
@@ -276,6 +339,22 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
       back: "1. Magnifying glasses 2. Camera lenses 3. Microscope objective and eyepiece 4. Telescope objective lens 5. Human eye lens (converging) 6. Spectacles for hyperopia (+ve power)." },
     { id: "fc5-22", front: "Applications of concave lenses (list 3)?",
       back: "1. Spectacles for myopia (short-sightedness) — negative power. 2. Spy holes in doors. 3. Galilean telescope eyepiece. A concave lens as spectacle diverges light so the myopic eye can focus it." },
+    { id: "fc5-23", front: "CBSE Board: Object 60 cm from convex lens (f = 20 cm). Find v and m.",
+      back: "u = −60, f = +20. 1/v = 1/20 + 1/(−60) = 3/60 − 1/60 = 2/60. v = +30 cm. m = v/u = 30/(−60) = −0.5. Real, inverted, diminished (half the size). Image at 30 cm on the other side of lens." },
+    { id: "fc5-24", front: "Convex lens: Object at 2F₁. Verify with lens formula.",
+      back: "u = −2f, f = +f. 1/v = 1/f + 1/(−2f) = 1/f − 1/2f = 1/2f. v = +2f = same distance on other side. m = v/u = 2f/(−2f) = −1. Same size, real, inverted. Image at 2F₂." },
+    { id: "fc5-25", front: "How is a camera analogous to the human eye?",
+      back: "Camera: convex lens (eye lens), film/sensor (retina), aperture (pupil), shutter (eyelid). In both: far object → small image near lens; near object → larger image farther from lens. Camera adjusts lens position; eye adjusts lens curvature (accommodation)." },
+    { id: "fc5-26", front: "HOTS: If you double the focal length of a convex lens, what happens to the image of an object at 2F₁?",
+      back: "Original: object at 2f → image at 2f (same size). New f = 2f: object is now at 2f = 1×(new f) = F₁. Object at F₁ → image at ∞. The image goes to infinity! This dramatically demonstrates the sensitivity of image position to f near 2F." },
+    { id: "fc5-27", front: "What is an erect image vs inverted image in terms of sign of magnification (lens)?",
+      back: "For a lens: m = v/u. Object is always on left: u < 0. If virtual image: v < 0 → m = v/u = (−)/(−) = +ve → erect. If real image: v > 0 → m = v/u = (+)/(−) = −ve → inverted. Convex lens (object beyond F) → real, inverted. Between O and F → virtual, erect." },
+    { id: "fc5-28", front: "Why is a convex lens called a 'converging lens'?",
+      back: "A beam of parallel rays, after passing through a convex lens, all converge to a single point — the principal focus F₂. The lens bends (refracts) each ray toward the optical axis, bringing them together. Counterpart: concave lens diverges parallel rays — called 'diverging lens'." },
+    { id: "fc5-29", front: "What are biconvex, plano-convex and concavo-convex lenses?",
+      back: "Biconvex: both surfaces bulge outward (most converging). Plano-convex: one flat surface, one convex — still converging. Concavo-convex (meniscus): one convex, one concave surface — can converge or diverge depending on curvatures. Camera zoom lenses use combinations of these." },
+    { id: "fc5-30", front: "In a simple microscope (magnifying glass), what is the maximum magnification?",
+      back: "m = 1 + D/f, where D = 25 cm (near point), f = focal length in cm. For f = 5 cm: m = 1 + 25/5 = 6×. For f = 2.5 cm: m = 1 + 25/2.5 = 11×. Shorter focal length → higher magnification, but very small lens needed." },
   ],
 
   /* ─────────────────────────────────────────────────────────────
@@ -326,6 +405,22 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
       back: "1/F = 1/f₁ + 1/f₂. Or equivalently P = P₁ + P₂. This is derived by applying the lens formula sequentially, where the image of the first lens acts as the virtual object for the second." },
     { id: "fc6-22", front: "If a convex lens (f = 30 cm) and concave lens (f = −60 cm) are combined, effective f?",
       back: "1/F = 1/30 + 1/(−60) = 2/60 − 1/60 = 1/60. F = +60 cm. P = 1/0.6 ≈ +1.67 D. The combination is still converging but weaker than the convex lens alone." },
+    { id: "fc6-23", front: "What is the power of the human eye lens? Does it change?",
+      back: "At rest (far vision): P ≈ 59 D total (cornea ≈ 43D + lens ≈ 16D). For near vision (25 cm): total P increases to ≈ 70D by accommodation (lens thickening). The ability to change power (about 11D range) is called accommodation." },
+    { id: "fc6-24", front: "A myopic person can see up to 1.5 m. What power lens corrects this?",
+      back: "Need virtual image of ∞ at far point (1.5 m). f = −1.5 m. P = 1/(−1.5) = −0.67 D ≈ −0.7 D. The concave lens diverges the incoming parallel rays so they appear to come from 1.5 m — within the eye's range." },
+    { id: "fc6-25", front: "A hypermetropic person's near point is 80 cm. Corrective lens power?",
+      back: "Need virtual image of 25 cm object at 80 cm. u = −0.25 m, v = −0.80 m. 1/f = 1/v − 1/u = 1/(−0.80) − 1/(−0.25) = −1.25 + 4 = +2.75. P = +2.75 D (convex lens)." },
+    { id: "fc6-26", front: "How do bifocal lenses work?",
+      back: "Bifocal = two lens zones in one spectacle. Upper portion: concave (−ve power) for seeing distant objects. Lower portion: convex (+ve power) for reading/near vision. Used by people with presbyopia (both far and near vision defects)." },
+    { id: "fc6-27", front: "HOTS: Why is it harder to see underwater without goggles?",
+      back: "The eye's cornea provides most focusing power (43D) because air-cornea interface has a large n difference. Underwater, water-cornea interface has almost no n difference (both ≈ 1.33) → cornea contributes ~0D! The eye cannot compensate fully → blurry vision. Goggles restore the air-cornea interface." },
+    { id: "fc6-28", front: "Why does a convex lens have positive power and a concave lens negative power?",
+      back: "Power P = 1/f. Convex lens: f > 0 → P > 0 (converges light, brings focus closer). Concave lens: f < 0 → P < 0 (diverges light, pushes focus farther away). The sign tells you whether the lens adds (+) or removes (−) converging ability." },
+    { id: "fc6-29", front: "CBSE 2024: A lens produces an image on the SAME side as the object. What type of lens?",
+      back: "The lens forms a virtual image on the same side as the object. This can be: (a) Concave (diverging) lens — always forms virtual image on same side. (b) Convex lens with object BETWEEN O and F₁ — also forms virtual image on the same side. If no other info: most likely concave lens." },
+    { id: "fc6-30", front: "NCERT Numerical: Two lenses of P₁ = +6D and P₂ = −4D. Combined focal length?",
+      back: "P = P₁ + P₂ = 6 + (−4) = +2 D. f = 1/P = 1/2 = 0.5 m = 50 cm. The combination is converging (positive power) with f = 50 cm. If P₁ = P₂ = −3D: combined P = −6D, f = −1/6 m = −16.7 cm (diverging)." },
   ],
 
   /* ─────────────────────────────────────────────────────────────
@@ -376,6 +471,22 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
       back: "sin(iₒ) = 1/n = 1/√2 = 0.707. iₒ = sin⁻¹(0.707) = 45°. So the critical angle is exactly 45° for a medium of refractive index √2 (≈ 1.414)." },
     { id: "fc7-22", front: "Applications of TIR — list at least 5.",
       back: "1. Optical fibres (internet, telecom, medical). 2. Prism periscopes (submarines, binoculars). 3. Diamond cutting (gem sparkle). 4. Road reflectors/cat's eyes. 5. Endoscopes. 6. LASIK eye surgery guides. 7. Rear reflectors on vehicles. 8. Mirage (natural phenomenon)." },
+    { id: "fc7-23", front: "How do cat's eyes on roads use TIR?",
+      back: "Road cat's-eye reflectors contain two small glass prisms (45°-90°-45°). Light from headlights enters the prism and hits the hypotenuse at 45° > critical angle (~41.8°) → TIR → reflects straight back to the driver. More efficient than silvered mirrors and self-cleaning (rain washes them)." },
+    { id: "fc7-24", front: "Why is TIR used in binoculars and not flat mirrors?",
+      back: "Binoculars use two 45°-90°-45° Porro prisms instead of flat mirrors. Benefits: 100% light transmission (TIR vs ~95% from silvered mirrors), more compact design (prisms fold the light path, shortening the instrument), no tarnishing, image is erect. Also shortens the tube length significantly." },
+    { id: "fc7-25", front: "CBSE: Does TIR occur for sound waves also?",
+      back: "Yes! Acoustic TIR occurs when sound travels from a denser medium to a rarer one at a high angle. Example: sound from deep ocean water traveling toward the warmer surface layer can undergo TIR and stay within the deep ocean SOFAR channel, enabling communication over thousands of km by whales and submarines." },
+    { id: "fc7-26", front: "Numerical: A medium has n = 1.732. Calculate its critical angle.",
+      back: "sin(iᶜ) = 1/n = 1/1.732 = 0.577. iᶜ = sin⁻¹(0.577) ≈ 35.26°. Note: 1.732 ≈ √3, and sin 30° = 0.5, sin 35° ≈ 0.574. So critical angle ≈ 35.3°. Any ray hitting at >35.3° will undergo TIR." },
+    { id: "fc7-27", front: "Explain Looming (Arctic Mirage) using TIR.",
+      back: "In polar regions, cold air near the surface is denser. Warm air above is less dense. Light from distant ships bends gradually through increasing rarer layers → eventually TIR occurs → observer sees the ship floating above the horizon (looming) or inverted in the sky. Opposite of desert mirage." },
+    { id: "fc7-28", front: "Why don't optical fibres need to be straight to transmit light?",
+      back: "TIR occurs at EVERY point where light hits the core-cladding boundary, regardless of the fiber's local curvature — as long as the angle of incidence exceeds the critical angle at each point. Light 'zigzags' along the fiber, following its bends. Only very sharp bends (< minimum bend radius) can break TIR." },
+    { id: "fc7-29", front: "What is numerical aperture (NA) of an optical fiber?",
+      back: "NA = sin(θ_max) = √(n₁² − n₂²), where θ_max is the maximum angle at which light enters the fibre and still undergoes TIR (the acceptance cone). Higher NA → accepts light from a wider cone → easier to couple light in but more signal dispersion. Single-mode fibres have low NA." },
+    { id: "fc7-30", front: "HOTS: If critical angle of glass is 41.8°, can a glass cube TOTALLY reflect a ray hitting its face at 45°?",
+      back: "Yes. If the ray hits the glass-air interface at 45° > critical angle (41.8°), TIR occurs. This is exactly how right-angle prisms work in cameras, binoculars, and periscopes. The 45° geometry guarantees TIR for any glass with n ≥ 1/sin(45°) = √2 ≈ 1.414, which most optical glass satisfies." },
   ],
 
   /* ─────────────────────────────────────────────────────────────
@@ -426,56 +537,22 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
       back: "Need concave lens to form virtual image of ∞ at 2 m. f = −2 m. P = 1/f = 1/(−2) = −0.5 D. Prescribe −0.5 D concave lens." },
     { id: "fc8-22", front: "CBSE Numerics: A hypermetropic person's near point is 1 m. Corrective lens power?",
       back: "Need convex lens to form virtual image of object at 25 cm at the person's near point 1 m. Using lens formula: 1/v − 1/u = 1/f → u = −0.25 m, v = −1.0 m. 1/f = 1/(−1) − 1/(−0.25) = −1 + 4 = +3. P = +3 D." },
-  ],
-
-  /* ─────────────────────────────────────────────────────────────
-   * Topic 7: Total Internal Reflection & Optical Fibres (22 cards)
-   * ───────────────────────────────────────────────────────────── */
-  "total-internal-reflection": [
-    { id: "fc7-1",  front: "What is Total Internal Reflection (TIR)?",
-      back: "The complete reflection of light back into the denser medium when: (1) light travels from denser to rarer medium, AND (2) angle of incidence exceeds the critical angle. No refraction occurs — 100% of light is reflected." },
-    { id: "fc7-2",  front: "What is the Critical Angle (iᶜ)?",
-      back: "The angle of incidence in the denser medium for which the angle of refraction in the rarer medium equals exactly 90°. At this angle, the refracted ray grazes the surface. Beyond this → TIR occurs." },
-    { id: "fc7-3",  front: "Formula for Critical Angle?",
-      back: "sin(iᶜ) = 1/n (for medium-to-air). For medium 1 to medium 2: sin(iᶜ) = n₂/n₁. Derivation: Apply Snell's Law with refraction angle = 90°." },
-    { id: "fc7-4",  front: "Two conditions for TIR (BOTH must hold)?",
-      back: "1. Light must travel from OPTICALLY DENSER to OPTICALLY RARER medium. 2. Angle of incidence must be GREATER THAN the critical angle (∠i > iᶜ). If EITHER fails → no TIR." },
-    { id: "fc7-5",  front: "Critical angles: Water, Glass, Diamond?",
-      back: "Water (n=1.33): ~48.75°. Glass (n=1.50): ~41.8°. Diamond (n=2.42): ~24.4°. Rule: Higher refractive index → SMALLER critical angle." },
-    { id: "fc7-6",  front: "Why does diamond sparkle brilliantly?",
-      back: "Diamond has n=2.42 → small critical angle (~24.4°). Most light rays inside hit facets at angles > 24.4° → multiple TIR bounces inside → light concentrates and exits through top facets → brilliant sparkle. Glass (iᶜ≈42°) traps light less effectively." },
-    { id: "fc7-7",  front: "What is a Mirage? How does TIR cause it?",
-      back: "Optical illusion of water on hot ground. Hot air near ground is rarer → light from sky bends down through progressively rarer layers → critical angle exceeded → TIR → ray curves UP. Observer sees sky reflected from ground → looks like water pool." },
-    { id: "fc7-8",  front: "Structure of an Optical Fibre?",
-      back: "1. Core: High-refractive-index glass/plastic (n₁). 2. Cladding: Lower-refractive-index glass (n₂ < n₁). 3. Buffer: Outer protective plastic jacket. Light enters core and bounces via TIR at core-cladding boundary. Condition: angle > critical angle = arcsin(n₂/n₁)." },
-    { id: "fc7-9",  front: "Why is TIR 100% efficient, unlike mirror reflection?",
-      back: "Mirror (metallic reflection): absorbs ~5% of light per reflection. Over 1000 reflections: 0.95¹⁰⁰⁰ ≈ 0% light remains. TIR: When conditions met, 0% is refracted → 100% reflected. Millions of reflections in a fibre → signal stays strong over 100 km." },
-    { id: "fc7-10", front: "3 Applications of Optical Fibres?",
-      back: "1. Internet/Telecom: Light pulses carry terabits of data per second. 2. Medical endoscopes: Illumination + image fibre bundles. 3. Cable TV: Thousands of channels through one fibre. Also: industrial sensors, decorative lighting." },
-    { id: "fc7-11", front: "Prism Periscope: How does TIR help?",
-      back: "A right-angle (45°-90°-45°) prism: light hits hypotenuse at 45° > critical angle of glass (41.8°) → TIR turns ray 90°. Two prisms = periscope. Advantage: TIR is 100% efficient vs mirror's ~95%, giving a brighter image. No tarnishing either." },
-    { id: "fc7-12", front: "What is an endoscope? Dual fibre system?",
-      back: "Medical device to see inside hollow organs without surgery. Uses TWO fibre bundles: (1) Illumination bundle: carries light from external source INTO body. (2) Image bundle: carries reflected light from body BACK to camera. Both flexible → navigates curves via TIR." },
-    { id: "fc7-13", front: "Numerical: n = 1.5. Find critical angle.",
-      back: "sin(iᶜ) = 1/n = 1/1.5 = 0.667. iᶜ = arcsin(0.667) ≈ 41.8°. So for glass-air interface, critical angle ≈ 41.8°." },
-    { id: "fc7-14", front: "Numerical: iᶜ = 30°. Find refractive index.",
-      back: "sin(iᶜ) = 1/n → n = 1/sin(30°) = 1/0.5 = 2.0. The medium has refractive index 2.0." },
-    { id: "fc7-15", front: "Looming (Arctic Mirage) vs Desert Mirage?",
-      back: "Desert Mirage: Hot rarer air at bottom → light from sky curves UP → image appears BELOW actual object (water illusion). Arctic Looming: Cold denser air at bottom → light curves DOWN following earth curvature → ships visible beyond horizon, appear ABOVE actual position." },
-    { id: "fc7-16", front: "Why does an air bubble in glass appear shiny?",
-      back: "Air (n=1) is rarer than glass (n≈1.5). Light going from glass to air bubble hits the surface at angles often > critical angle (41.8°) → TIR. The bubble reflects all light back → appears silvery/shiny because no light passes through." },
-    { id: "fc7-17", front: "What happens when ∠i = iᶜ exactly?",
-      back: "The refracted ray travels ALONG the interface — angle of refraction = exactly 90°. This is the boundary between refraction (∠i < iᶜ) and TIR (∠i > iᶜ). A tiny increase in angle shifts to total internal reflection." },
-    { id: "fc7-18", front: "Numerical: Core n₁=1.55, cladding n₂=1.45. Critical angle?",
-      back: "sin(iᶜ) = n₂/n₁ = 1.45/1.55 = 0.935. iᶜ = arcsin(0.935) ≈ 69.3°. Light must hit boundary at > 69.3° for TIR to occur inside the fibre." },
-    { id: "fc7-19", front: "Why can optical fibres be bent but still work?",
-      back: "TIR depends on LOCAL angle at each reflection point, not the overall direction of the fibre. As long as each reflection point has ∠i > iᶜ (maintained by fibre design), TIR continues regardless of the fibre's curve. Flexibility is inherent to the physics." },
-    { id: "fc7-20", front: "Does wavelength (colour) affect TIR critical angle?",
-      back: "YES, slightly. Refractive index varies with wavelength (dispersion). Violet light (higher n) → smaller critical angle. Red light (lower n) → larger critical angle. This difference is small for glass-air but noticeable in diamond — contributes to fire (coloured flashes)." },
-    { id: "fc7-21", front: "Compare: TIR (denser→rarer) vs Refraction (rarer→denser)?",
-      back: "Denser → rarer: Ray bends AWAY from normal. If ∠i > iᶜ → TIR occurs. Rarer → denser: Ray bends TOWARD normal. TIR CANNOT occur (no critical angle from rarer side — Snell's Law always has a valid solution). TIR is one-directional." },
-    { id: "fc7-22", front: "Why is optical fibre preferred over copper for internet?",
-      back: "1. Bandwidth: Light frequency is 10¹⁴ Hz vs electricity 10⁶ Hz → vastly more data capacity. 2. Less attenuation: TIR means minimal signal loss over 100+ km. 3. No EM interference: Light unaffected by nearby magnetic fields. 4. Thinner, lighter cables." },
+    { id: "fc8-23", front: "Why is the sky on the moon black even during 'day'?",
+      back: "The moon has no atmosphere. Without air molecules, there is no Rayleigh scattering. Blue light cannot be scattered in all directions to fill the 'sky'. So even with the sun up, the sky appears black. Stars are visible during the day on the moon for the same reason." },
+    { id: "fc8-24", front: "What is Newton's colour disc and what does it demonstrate?",
+      back: "A disc divided into 7 sectors coloured VIBGYOR in the ratio of their wavelengths. When spun rapidly, due to persistence of vision, the sectors blend together and the disc appears WHITE (or light grey). Demonstrates that white light is a mixture of all spectral colours — Newton's synthesis experiment." },
+    { id: "fc8-25", front: "Why does smoke from a chimney appear blue in sunlight but white against the sky?",
+      back: "Smoke contains tiny particles (~100 nm) → Rayleigh-like scattering. Against dark background: scattered (blue) light is seen → smoke appears bluish. Against bright sky: transmitted (red-orange) light is seen → smoke appears whitish/reddish. Same Tyndall effect as milk in water." },
+    { id: "fc8-26", front: "What is Alexander's Dark Band in a rainbow?",
+      back: "Between the primary rainbow (42°) and secondary rainbow (51°), the sky appears noticeably darker — this is Alexander's Dark Band. Inside primary: sky brighter (light scattered toward observer). Outside secondary: also brighter. Between: no light reaches the observer from these angles → dark band." },
+    { id: "fc8-27", front: "Why does the setting sun appear LARGER than when overhead?",
+      back: "At the horizon, the sun appears oval/larger due to differential atmospheric refraction. The bottom of the sun is refracted more than the top (longer path through atmosphere). This vertical compression makes it appear oval. The angular diameter is actually the SAME; it's an illusion enhanced by foreground objects at the horizon." },
+    { id: "fc8-28", front: "What is Astigmatism? How is it corrected?",
+      back: "Astigmatism: the cornea or lens has different curvatures in different planes (not perfectly spherical). This means horizontal and vertical lines focus at different distances → images appear distorted/blurry in specific orientations. Correction: cylindrical lens (curved in only one direction) to compensate for the unequal curvatures." },
+    { id: "fc8-29", front: "HOTS: Why do deep-sea fish eyes glow in photographs?",
+      back: "Fish have a tapetum lucidum — a reflective layer behind the retina. Light passes through the retina, hits the tapetum, reflects back through the retina (double exposure → better night vision). Camera flash illuminates this reflective layer, which reflects light directly back into the camera lens → glowing 'eye shine'. Same principle: cat, dog eye shine at night." },
+    { id: "fc8-30", front: "Explain why the Hubble Space Telescope is better than ground-based telescopes.",
+      back: "Hubble orbits above Earth's atmosphere, so: 1. No atmospheric refraction blurring. 2. No twinkling (scintillation). 3. No absorption of UV/IR by atmosphere. 4. No light pollution. It can observe wavelengths (UV, near-IR) that the atmosphere blocks. Resolution is diffraction-limited only, not atmosphere-limited." },
   ],
 
   /* ─────────────────────────────────────────────────────────────
@@ -885,85 +962,6 @@ export const topicMindMaps: Record<string, { id: string; label: string; children
         { id: "mm6-4c", label: "Violet: highest n, bends MOST" },
         { id: "mm6-4d", label: "Red: lowest n, bends LEAST" },
         { id: "mm6-4e", label: "Rainbow = dispersion by water droplets" },
-      ]
-    },
-  ],
-
-  /* ─────────────────────────────────────────────────────────────
-   * Topic 7: Total Internal Reflection & Optical Fibres (mind map)
-   * ───────────────────────────────────────────────────────────── */
-  "total-internal-reflection": [
-    {
-      id: "mm7-1", label: "Total Internal Reflection (TIR)", children: [
-        { id: "mm7-1a", label: "Definition: 100% reflection back into denser medium" },
-        {
-          id: "mm7-1b", label: "Two Conditions (BOTH required)", children: [
-            { id: "mm7-1b1", label: "1. Light travels from DENSER to RARER medium" },
-            { id: "mm7-1b2", label: "2. Angle of incidence > Critical Angle (i > iₒ)" },
-          ]
-        },
-        {
-          id: "mm7-1c", label: "Three Cases at Glass-Air Boundary", children: [
-            { id: "mm7-1c1", label: "i < iₒ → Partial refraction + partial reflection" },
-            { id: "mm7-1c2", label: "i = iₒ → Refracted ray grazes surface (r = 90°)" },
-            { id: "mm7-1c3", label: "i > iₒ → TOTAL internal reflection (no refraction)" },
-          ]
-        },
-      ]
-    },
-    {
-      id: "mm7-2", label: "Critical Angle", children: [
-        { id: "mm7-2a", label: "Formula: sin(iₒ) = 1/n  (denser medium vs air)" },
-        { id: "mm7-2b", label: "General: sin(iₒ) = n₂/n₁  (n₁ > n₂)" },
-        { id: "mm7-2c", label: "Derivation: Apply Snell's Law with r = 90°" },
-        {
-          id: "mm7-2d", label: "Critical Angles for Common Materials", children: [
-            { id: "mm7-2d1", label: "Water (n=1.33): iₒ ≈ 48.75°" },
-            { id: "mm7-2d2", label: "Glass (n=1.50): iₒ ≈ 41.8°" },
-            { id: "mm7-2d3", label: "Diamond (n=2.42): iₒ ≈ 24.4° (SMALLEST → most sparkle)" },
-          ]
-        },
-      ]
-    },
-    {
-      id: "mm7-3", label: "Natural Phenomena Due to TIR", children: [
-        {
-          id: "mm7-3a", label: "Mirage (Desert)", children: [
-            { id: "mm7-3a1", label: "Hot ground heats air → hot rarer air below" },
-            { id: "mm7-3a2", label: "Skylight curves downward then TIR curves it up" },
-            { id: "mm7-3a3", label: "Observer sees sky image on ground → 'water' illusion" },
-          ]
-        },
-        { id: "mm7-3b", label: "Diamond sparkle: small iₒ → many TIR bounces inside" },
-        { id: "mm7-3c", label: "Air bubble in glass: looks shiny/silvery due to TIR" },
-        { id: "mm7-3d", label: "Snell's window: entire above-water world compressed into 97.5° cone" },
-      ]
-    },
-    {
-      id: "mm7-4", label: "Optical Fibres", children: [
-        {
-          id: "mm7-4a", label: "Structure", children: [
-            { id: "mm7-4a1", label: "Core: high n₁ (glass/plastic, ~1.5–1.62)" },
-            { id: "mm7-4a2", label: "Cladding: lower n₂ (n₁ > n₂) → ensures TIR" },
-            { id: "mm7-4a3", label: "Buffer jacket: protective outer plastic" },
-          ]
-        },
-        { id: "mm7-4b", label: "Working: TIR at core-cladding boundary; 100% efficient" },
-        { id: "mm7-4c", label: "vs Copper: Higher bandwidth, less loss, immune to EMI" },
-        {
-          id: "mm7-4d", label: "Applications", children: [
-            { id: "mm7-4d1", label: "Internet/telecom: terabits per second" },
-            { id: "mm7-4d2", label: "Medical endoscopes: illumination + imaging bundles" },
-            { id: "mm7-4d3", label: "Cable TV: thousands of channels per fibre" },
-          ]
-        },
-      ]
-    },
-    {
-      id: "mm7-5", label: "Prism Periscope (TIR vs Mirrors)", children: [
-        { id: "mm7-5a", label: "45°-90°-45° prism: light hits hypotenuse at 45° > iₒ of glass" },
-        { id: "mm7-5b", label: "TIR: 100% efficiency vs silver mirror ~95%" },
-        { id: "mm7-5c", label: "Used in: submarines, binoculars (Porro prism design)" },
       ]
     },
   ],
