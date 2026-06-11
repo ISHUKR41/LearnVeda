@@ -31,6 +31,8 @@ export const topic3MirrorFormulaMagnification: Topic = {
   content: `
 ### New Cartesian Sign Convention
 
+![New Cartesian Sign Convention](/images/light/light_sign_convention_nano_banana_1781204233503.png)
+
 ![Sign Convention](/images/light/light_sign_convention_nano_banana_1781204233503.png)
 
 To deal with the numerical problems related to spherical mirrors, we use a set of rules known as the **New Cartesian Sign Convention**. In this convention, the pole ($P$) of the mirror is taken as the origin, and the principal axis is taken as the x-axis of the coordinate system.
@@ -51,6 +53,8 @@ To deal with the numerical problems related to spherical mirrors, we use a set o
 ---
 
 ### Mirror Formula
+
+![Mirror Formula](/images/light/light_lens_magnification_nano_banana_1781204503146.png)
 
 ![Mirror Formula](/images/light/light_mirror_formula_nano_banana_1781204199040.png)
 

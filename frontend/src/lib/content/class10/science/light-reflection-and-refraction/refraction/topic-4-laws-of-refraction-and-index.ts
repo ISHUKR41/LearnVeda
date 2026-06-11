@@ -39,6 +39,8 @@ export const topic4LawsOfRefraction: Topic = {
   content: `
 ### What is Refraction of Light?
 
+![What is Refraction of Light](/images/light/light_convex_lens_numerical_nano_banana_1781204470042.png)
+
 ![Refraction of Light](/images/light/light_refraction_nano_banana_1781202861976.png)
 
 When light travels from one transparent medium to another, its speed changes. This change in speed causes the ray of light to bend at the boundary separating the two media.

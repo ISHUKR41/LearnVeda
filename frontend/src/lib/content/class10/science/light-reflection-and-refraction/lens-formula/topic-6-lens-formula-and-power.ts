@@ -34,6 +34,8 @@ export const topic6LensFormulaAndPower: Topic = {
   content: `
 ### Sign Convention for Spherical Lenses
 
+![Sign Convention for Spherical Lenses](/images/light/light_absolute_refractive_nano_banana_1781204408083.png)
+
 For lenses, we follow sign conventions similar to the one used for spherical mirrors. We apply the rules for signs of distances, except that all measurements are taken from the **optical center ($O$)** of the lens instead of the pole.
 
 *   **Object distance ($u$):** Always negative.

@@ -60,303 +60,227 @@ export function Diagram1LawsOfReflection() {
       >
         {/* ── Definitions: gradients and glow filters ── */}
         <defs>
-          {/* Mirror gradient — silver look */}
-          <linearGradient id="mirrorGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"   stopColor="#1e3a5f" />
-            <stop offset="50%"  stopColor="#4fc3f7" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#1e3a5f" />
+          {/* Mirror gradient — high-end silver/glass look */}
+          <linearGradient id="mirrorGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#4fc3f7" stopOpacity="0.9" />
+            <stop offset="20%" stopColor="#e0f2fe" stopOpacity="0.8" />
+            <stop offset="50%" stopColor="#1e3a5f" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#0f172a" stopOpacity="1" />
           </linearGradient>
           {/* Ray glow filter */}
-          <filter id="rayGlow1">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <filter id="rayGlow1" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
             <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
-          {/* Angle arc fill */}
-          <radialGradient id="arcGrad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#fbbf24" stopOpacity="0" />
-          </radialGradient>
         </defs>
 
-        {/* ── Background: dark physics lab feel ── */}
-        <rect width="600" height="360" fill="#070d1a" rx="16" />
-
-        {/* ── Grid lines (faint, like graph paper) ── */}
-        {[60,120,180,240,300,360,420,480,540].map(x => (
-          <line key={`gx${x}`} x1={x} y1="0" x2={x} y2="360" stroke="#0f2040" strokeWidth="1" />
-        ))}
-        {[60,120,180,240,300].map(y => (
-          <line key={`gy${y}`} x1="0" y1={y} x2="600" y2={y} stroke="#0f2040" strokeWidth="1" />
-        ))}
+        {/* ── Grid lines (faint, high-tech lab feel) ── */}
+        <g opacity="0.15">
+          {[60,120,180,240,300,360,420,480,540].map(x => (
+            <line key={`gx${x}`} x1={x} y1="0" x2={x} y2="360" stroke="#38bdf8" strokeWidth="1" />
+          ))}
+          {[60,120,180,240,300].map(y => (
+            <line key={`gy${y}`} x1="0" y1={y} x2="600" y2={y} stroke="#38bdf8" strokeWidth="1" />
+          ))}
+        </g>
 
         {/* ── PLANE MIRROR — horizontal bar at y=240 ── */}
-        <rect x="80" y="238" width="440" height="10" fill="url(#mirrorGrad1)" rx="3" />
-        {/* Mirror hatching (traditional physics style) */}
+        <rect x="80" y="238" width="440" height="12" fill="url(#mirrorGrad1)" rx="4" className={styles.glassEffect} />
+        <rect x="80" y="238" width="440" height="2" fill="rgba(255,255,255,0.6)" rx="1" />
+        
+        {/* Mirror hatching (traditional physics style, but modern) */}
         {Array.from({length: 22}).map((_, i) => (
           <line
             key={`hatch${i}`}
-            x1={90 + i*20} y1="248"
-            x2={82 + i*20} y2="268"
-            stroke="#1e3a5f" strokeWidth="2"
+            x1={90 + i*20} y1="250"
+            x2={82 + i*20} y2="265"
+            stroke="rgba(56, 189, 248, 0.4)" strokeWidth="2"
           />
         ))}
-        <text x="300" y="282" textAnchor="middle" fill="#94a3b8" fontSize="12" fontFamily="Inter, sans-serif">
+        <text x="300" y="282" textAnchor="middle" fill="#94a3b8" fontSize="12" fontFamily="Inter, sans-serif" fontWeight="600" letterSpacing="0.05em">
           Plane Mirror (Reflecting Surface)
         </text>
 
         {/* ── NORMAL LINE — dashed vertical at x=300, y=140 to y=240 ── */}
         <line
-          x1="300" y1="110" x2="300" y2="238"
+          x1="300" y1="90" x2="300" y2="238"
           stroke="#38bdf8" strokeWidth="1.5"
           strokeDasharray="6,4"
-          opacity="0.9"
+          opacity="0.8"
         />
-        {/* Normal label */}
-        <text x="312" y="130" fill="#38bdf8" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="600">
+        <text x="312" y="110" fill="#38bdf8" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="600">
           Normal
         </text>
 
-        {/* ── INCIDENT RAY — animated light beam from top-left ── */}
-        {/* Static ray path */}
-        <line
-          x1="110" y1="110"
-          x2="300" y2="238"
-          stroke="#fbbf24"
-          strokeWidth="2.5"
-          filter="url(#rayGlow1)"
-          className={styles.animatedRay}
-          strokeLinecap="round"
-        />
-        {/* Arrow at end (point of incidence) */}
-        <polygon
-          points="296,232 304,244 292,246"
-          fill="#fbbf24"
-          opacity="0.9"
-        />
-        <text x="140" y="135" fill="#fbbf24" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="600">
+        {/* ── INCIDENT RAY ── */}
+        {/* Base Glow Ray */}
+        <line x1="110" y1="110" x2="300" y2="238" stroke="#fbbf24" strokeWidth="3" filter="url(#rayGlow1)" className={styles.animatedRay} strokeLinecap="round" />
+        {/* White core for realism */}
+        <line x1="110" y1="110" x2="300" y2="238" stroke="#ffffff" strokeWidth="1.5" className={styles.animatedRay} strokeLinecap="round" />
+        {/* Energy Flow particles */}
+        <line x1="110" y1="110" x2="300" y2="238" stroke="#ffffff" strokeWidth="3" className={styles.energyFlow} strokeLinecap="round" />
+        
+        {/* Arrow at end */}
+        <polygon points="296,232 304,244 292,246" fill="#fbbf24" filter="url(#rayGlow1)" />
+        <text x="140" y="135" fill="#fbbf24" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.8))">
           Incident Ray
         </text>
-        {/* Arrowhead along incident ray */}
         <text x="185" y="168" fill="#fbbf24" fontSize="16">→</text>
 
-        {/* ── REFLECTED RAY — animated, from mirror to top-right ── */}
-        <line
-          x1="300" y1="238"
-          x2="490" y2="110"
-          stroke="#4ade80"
-          strokeWidth="2.5"
-          filter="url(#rayGlow1)"
-          className={styles.animatedRayDelayed}
-          strokeLinecap="round"
-        />
-        <text x="410" y="135" fill="#4ade80" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="600">
+        {/* ── REFLECTED RAY ── */}
+        <line x1="300" y1="238" x2="490" y2="110" stroke="#4ade80" strokeWidth="3" filter="url(#rayGlow1)" className={styles.animatedRayDelayed} strokeLinecap="round" />
+        <line x1="300" y1="238" x2="490" y2="110" stroke="#ffffff" strokeWidth="1.5" className={styles.animatedRayDelayed} strokeLinecap="round" />
+        <line x1="300" y1="238" x2="490" y2="110" stroke="#ffffff" strokeWidth="3" className={styles.energyFlowDelayed} strokeLinecap="round" />
+
+        <text x="410" y="135" fill="#4ade80" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.8))">
           Reflected Ray
         </text>
         <text x="390" y="168" fill="#4ade80" fontSize="16">→</text>
 
         {/* ── ANGLE OF INCIDENCE arc ── */}
-        <path
-          d="M 270,215 A 35,35 0 0,1 300,200"
-          fill="none"
-          stroke="#fbbf24"
-          strokeWidth="2"
-          strokeDasharray="4,2"
-          opacity="0.8"
-        />
-        <text x="242" y="210" fill="#fbbf24" fontSize="13" fontFamily="Inter, sans-serif" fontStyle="italic">
-          ∠i
-        </text>
+        <path d="M 270,215 A 35,35 0 0,1 300,200" fill="none" stroke="#fbbf24" strokeWidth="2" strokeDasharray="4,2" opacity="0.9" />
+        <text x="242" y="210" fill="#fbbf24" fontSize="14" fontFamily="Inter, sans-serif" fontStyle="italic" fontWeight="600">∠i</text>
 
         {/* ── ANGLE OF REFLECTION arc ── */}
-        <path
-          d="M 300,200 A 35,35 0 0,1 330,215"
-          fill="none"
-          stroke="#4ade80"
-          strokeWidth="2"
-          strokeDasharray="4,2"
-          opacity="0.8"
-        />
-        <text x="334" y="210" fill="#4ade80" fontSize="13" fontFamily="Inter, sans-serif" fontStyle="italic">
-          ∠r
-        </text>
+        <path d="M 300,200 A 35,35 0 0,1 330,215" fill="none" stroke="#4ade80" strokeWidth="2" strokeDasharray="4,2" opacity="0.9" />
+        <text x="334" y="210" fill="#4ade80" fontSize="14" fontFamily="Inter, sans-serif" fontStyle="italic" fontWeight="600">∠r</text>
 
         {/* ── POINT OF INCIDENCE dot ── */}
-        <circle cx="300" cy="238" r="5" fill="#f8fafc" className={styles.pulseDot} />
-        <text x="308" y="236" fill="#f8fafc" fontSize="12" fontFamily="Inter, sans-serif">
-          Point of Incidence
-        </text>
+        <circle cx="300" cy="238" r="6" fill="#ffffff" className={styles.pulseDot} />
+        <circle cx="300" cy="238" r="3" fill="#38bdf8" />
+        <text x="312" y="248" fill="#f8fafc" fontSize="11" fontFamily="Inter, sans-serif" fontWeight="600">Point of Incidence</text>
 
         {/* ── KEY LAW: ∠i = ∠r banner ── */}
-        <rect x="195" y="305" width="210" height="36" fill="rgba(251,191,36,0.1)" rx="8"
-          stroke="rgba(251,191,36,0.3)" strokeWidth="1" />
-        <text x="300" y="328" textAnchor="middle" fill="#fbbf24" fontSize="16" fontFamily="Inter, sans-serif" fontWeight="700">
-          ∠i = ∠r  (First Law of Reflection)
+        <rect x="180" y="305" width="240" height="40" fill="rgba(251,191,36,0.15)" rx="8" stroke="rgba(251,191,36,0.4)" strokeWidth="1.5" className={styles.glowCard} />
+        <text x="300" y="330" textAnchor="middle" fill="#fbbf24" fontSize="15" fontFamily="Inter, sans-serif" fontWeight="800">
+          ∠i = ∠r (First Law)
         </text>
 
         {/* ── Glowing light source dot (top-left) ── */}
-        <circle cx="110" cy="110" r="8" fill="#fbbf24" className={styles.glowDot} />
-        <text x="122" y="106" fill="#fbbf24" fontSize="11" fontFamily="Inter, sans-serif">Light Source</text>
+        <circle cx="110" cy="110" r="10" fill="#ffffff" className={styles.glowDot} />
+        <circle cx="110" cy="110" r="6" fill="#fbbf24" />
+        <text x="126" y="106" fill="#fbbf24" fontSize="12" fontFamily="Inter, sans-serif" fontWeight="600">Laser Source</text>
       </svg>
     </div>
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════
- * DIAGRAM 2: Spherical Mirrors — Concave & Convex
- * Shows: Both mirror types side by side with P, C, F labels
- *        and principal axis. Animated converging/diverging rays.
- * ═══════════════════════════════════════════════════════════════ */
 export function Diagram2SphericalMirrors() {
   return (
     <div className={styles.diagramWrapper} aria-label="Spherical Mirrors diagram">
-      <div className={styles.diagramTitle}>Concave vs Convex Mirror — Key Parts</div>
+      <div className={styles.diagramTitle}>Concave vs Convex Mirror — Realistic Rays</div>
       <svg viewBox="0 0 600 380" className={styles.svg} xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <filter id="glow2">
+          <filter id="glow2" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
             <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
-          <linearGradient id="concaveMirrorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1e40af" />
-            <stop offset="100%" stopColor="#3b82f6" />
-          </linearGradient>
-          <linearGradient id="convexMirrorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#7e22ce" />
-            <stop offset="100%" stopColor="#a855f7" />
-          </linearGradient>
         </defs>
 
-        {/* Background */}
-        <rect width="600" height="380" fill="#070d1a" rx="16" />
+        {/* ── Grid lines (faint, high-tech lab feel) ── */}
+        <g opacity="0.15">
+          {[60,120,180,240,300,360,420,480,540].map(x => (
+            <line key={`g2x${x}`} x1={x} y1="0" x2={x} y2="380" stroke="#818cf8" strokeWidth="1" />
+          ))}
+          {[60,120,180,240,300,360].map(y => (
+            <line key={`g2y${y}`} x1="0" y1={y} x2="600" y2={y} stroke="#818cf8" strokeWidth="1" />
+          ))}
+        </g>
 
         {/* ── DIVIDER LINE ── */}
-        <line x1="300" y1="20" x2="300" y2="360" stroke="#1e2d4a" strokeWidth="1.5" strokeDasharray="6,4" />
+        <line x1="300" y1="20" x2="300" y2="360" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="6,4" />
 
         {/* ──────────── LEFT SIDE: CONCAVE MIRROR ──────────── */}
-        <text x="150" y="35" textAnchor="middle" fill="#60a5fa" fontSize="14" fontFamily="Inter, sans-serif" fontWeight="700">
-          CONCAVE MIRROR
-        </text>
-        <text x="150" y="52" textAnchor="middle" fill="#60a5fa" fontSize="11" fontFamily="Inter, sans-serif">
-          (Converging Mirror)
+        <rect x="70" y="20" width="160" height="34" fill="rgba(59,130,246,0.15)" rx="6" stroke="rgba(59,130,246,0.3)" />
+        <text x="150" y="42" textAnchor="middle" fill="#60a5fa" fontSize="14" fontFamily="Inter, sans-serif" fontWeight="800" letterSpacing="0.05em">
+          CONCAVE
         </text>
 
-        {/* Concave mirror curve — arc curving inward toward right */}
-        <path
-          d="M 60,100 Q 130,190 60,280"
-          fill="none"
-          stroke="#3b82f6"
-          strokeWidth="5"
-          strokeLinecap="round"
-        />
-        {/* Mirror backing hatching */}
+        {/* Concave mirror curve */}
+        <path d="M 60,100 Q 130,190 60,280" fill="none" stroke="#3b82f6" strokeWidth="6" strokeLinecap="round" className={styles.glassEffect} />
+        <path d="M 60,100 Q 130,190 60,280" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="2" strokeLinecap="round" />
+        
+        {/* Mirror hatching */}
         {[110,130,150,170,190,210,230,250,270].map((y,i) => (
-          <line key={`ch${i}`} x1="60" y1={y} x2="45" y2={y+15} stroke="#1e3a8a" strokeWidth="2" />
+          <line key={`ch${i}`} x1="60" y1={y} x2="45" y2={y+15} stroke="rgba(59,130,246,0.5)" strokeWidth="2" />
         ))}
 
-        {/* Principal axis — horizontal line */}
-        <line x1="60" y1="190" x2="290" y2="190" stroke="#64748b" strokeWidth="1" strokeDasharray="5,3" />
-        <text x="292" y="194" fill="#64748b" fontSize="10" fontFamily="Inter, sans-serif">axis</text>
+        {/* Principal axis */}
+        <line x1="40" y1="190" x2="290" y2="190" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="5,3" />
 
-        {/* P — Pole */}
-        <circle cx="60" cy="190" r="4" fill="#f8fafc" />
-        <text x="55" y="210" fill="#f8fafc" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">P</text>
+        {/* P, F, C points */}
+        <circle cx="62" cy="190" r="4" fill="#f8fafc" />
+        <text x="50" y="210" fill="#f8fafc" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">P</text>
 
-        {/* F — Focal point at ~130 */}
-        <circle cx="130" cy="190" r="5" fill="#fbbf24" className={styles.pulseDot} />
-        <text x="127" y="210" fill="#fbbf24" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">F</text>
-        <line x1="130" y1="190" x2="130" y2="180" stroke="#fbbf24" strokeWidth="1" strokeDasharray="3,2" />
+        <circle cx="130" cy="190" r="6" fill="#fbbf24" className={styles.pulseDot} />
+        <text x="127" y="215" fill="#fbbf24" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">F</text>
+        <circle cx="200" cy="190" r="6" fill="#a855f7" className={styles.pulseDot} />
+        <text x="197" y="215" fill="#a855f7" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">C</text>
 
-        {/* C — Centre of curvature at ~200 */}
-        <circle cx="200" cy="190" r="5" fill="#a855f7" className={styles.pulseDot} />
-        <text x="197" y="210" fill="#a855f7" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">C</text>
-        <line x1="200" y1="190" x2="200" y2="180" stroke="#a855f7" strokeWidth="1" strokeDasharray="3,2" />
-
-        {/* Converging rays — 3 parallel rays hitting concave mirror */}
+        {/* Converging rays */}
         {[130,150,170].map((yStart, i) => {
-          const yHit = 110 + i * 40; // where ray hits the mirror curve
-          const xHit = 62 + (yHit - 100) * (yHit - 280 < 0 ? 0.3 : -0.3); // approximate curve
           return (
             <g key={`cr${i}`}>
-              <line x1="240" y1={yStart} x2="70" y2={yStart} stroke="#60a5fa" strokeWidth="1.5"
-                strokeDasharray={i === 1 ? "none" : "none"}
-                className={styles.animatedRay} />
-              <line x1="70" y1={yStart} x2="130" y2="190" stroke="#60a5fa" strokeWidth="1.5"
-                className={styles.animatedRayDelayed} opacity="0.8" />
+              <line x1="280" y1={yStart} x2="70" y2={yStart} stroke="#60a5fa" strokeWidth="2" filter="url(#glow2)" className={styles.animatedRay} />
+              <line x1="280" y1={yStart} x2="70" y2={yStart} stroke="#fff" strokeWidth="3" className={styles.energyFlow} />
+              <line x1="70" y1={yStart} x2="130" y2="190" stroke="#38bdf8" strokeWidth="2" filter="url(#glow2)" className={styles.animatedRayDelayed} />
+              <line x1="70" y1={yStart} x2="130" y2="190" stroke="#fff" strokeWidth="3" className={styles.energyFlowDelayed} />
             </g>
           );
         })}
 
-        {/* f and R labels */}
-        <line x1="60" y1="230" x2="130" y2="230" stroke="#fbbf24" strokeWidth="1.5" markerEnd="url(#arr)" />
-        <text x="90" y="245" textAnchor="middle" fill="#fbbf24" fontSize="11" fontFamily="Inter, sans-serif">f</text>
-        <line x1="60" y1="250" x2="200" y2="250" stroke="#a855f7" strokeWidth="1.5" />
-        <text x="130" y="265" textAnchor="middle" fill="#a855f7" fontSize="11" fontFamily="Inter, sans-serif">R = 2f</text>
-
         {/* Uses label */}
-        <rect x="65" y="290" width="200" height="48" fill="rgba(59,130,246,0.08)" rx="6" stroke="rgba(59,130,246,0.2)" strokeWidth="1" />
-        <text x="165" y="308" textAnchor="middle" fill="#93c5fd" fontSize="11" fontFamily="Inter, sans-serif" fontWeight="600">Uses: Torch, Shaving mirror,</text>
-        <text x="165" y="324" textAnchor="middle" fill="#93c5fd" fontSize="11" fontFamily="Inter, sans-serif">Headlights, Solar cooker</text>
-        <text x="165" y="340" textAnchor="middle" fill="#60a5fa" fontSize="10" fontFamily="Inter, sans-serif" fontStyle="italic">⚡ Converging (Real focus)</text>
+        <rect x="50" y="300" width="200" height="48" fill="rgba(59,130,246,0.15)" rx="6" stroke="rgba(59,130,246,0.3)" className={styles.glowCard} />
+        <text x="150" y="318" textAnchor="middle" fill="#93c5fd" fontSize="11" fontFamily="Inter, sans-serif" fontWeight="700">Uses: Torch, Shaving mirror,</text>
+        <text x="150" y="334" textAnchor="middle" fill="#93c5fd" fontSize="11" fontFamily="Inter, sans-serif">Headlights, Solar cooker</text>
 
         {/* ──────────── RIGHT SIDE: CONVEX MIRROR ──────────── */}
-        <text x="450" y="35" textAnchor="middle" fill="#c084fc" fontSize="14" fontFamily="Inter, sans-serif" fontWeight="700">
-          CONVEX MIRROR
-        </text>
-        <text x="450" y="52" textAnchor="middle" fill="#c084fc" fontSize="11" fontFamily="Inter, sans-serif">
-          (Diverging Mirror)
+        <rect x="370" y="20" width="160" height="34" fill="rgba(168,85,247,0.15)" rx="6" stroke="rgba(168,85,247,0.3)" />
+        <text x="450" y="42" textAnchor="middle" fill="#c084fc" fontSize="14" fontFamily="Inter, sans-serif" fontWeight="800" letterSpacing="0.05em">
+          CONVEX
         </text>
 
-        {/* Convex mirror curve — arc curving outward toward left */}
-        <path
-          d="M 540,100 Q 470,190 540,280"
-          fill="none"
-          stroke="#a855f7"
-          strokeWidth="5"
-          strokeLinecap="round"
-        />
+        {/* Convex mirror curve */}
+        <path d="M 540,100 Q 470,190 540,280" fill="none" stroke="#a855f7" strokeWidth="6" strokeLinecap="round" className={styles.glassEffect} />
+        <path d="M 540,100 Q 470,190 540,280" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="2" strokeLinecap="round" />
+        
         {/* Mirror backing */}
         {[110,130,150,170,190,210,230,250,270].map((y,i) => (
-          <line key={`vh${i}`} x1="540" y1={y} x2="555" y2={y+15} stroke="#5b21b6" strokeWidth="2" />
+          <line key={`vh${i}`} x1="540" y1={y} x2="555" y2={y+15} stroke="rgba(168,85,247,0.5)" strokeWidth="2" />
         ))}
 
         {/* Principal axis */}
-        <line x1="310" y1="190" x2="540" y2="190" stroke="#64748b" strokeWidth="1" strokeDasharray="5,3" />
+        <line x1="310" y1="190" x2="560" y2="190" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="5,3" />
 
-        {/* P — Pole */}
-        <circle cx="540" cy="190" r="4" fill="#f8fafc" />
-        <text x="545" y="210" fill="#f8fafc" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">P</text>
-
-        {/* F — Virtual focal point BEHIND mirror at ~470 */}
-        <circle cx="470" cy="190" r="5" fill="#fbbf24" className={styles.pulseDot} />
-        <text x="467" y="210" fill="#fbbf24" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">F</text>
-        <line x1="470" y1="190" x2="470" y2="180" stroke="#fbbf24" strokeWidth="1" strokeDasharray="3,2" />
-
-        {/* C — Behind mirror */}
-        <circle cx="400" cy="190" r="5" fill="#a855f7" className={styles.pulseDot} />
-        <text x="397" y="210" fill="#a855f7" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">C</text>
+        {/* P, F, C */}
+        <circle cx="538" cy="190" r="4" fill="#f8fafc" />
+        <text x="548" y="210" fill="#f8fafc" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">P</text>
+        
+        <circle cx="470" cy="190" r="6" fill="#fbbf24" className={styles.pulseDot} />
+        <text x="467" y="215" fill="#fbbf24" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">F</text>
+        
+        <circle cx="400" cy="190" r="6" fill="#a855f7" className={styles.pulseDot} />
+        <text x="397" y="215" fill="#a855f7" fontSize="13" fontFamily="Inter, sans-serif" fontWeight="700">C</text>
 
         {/* Diverging reflected rays */}
         {[130,150,170].map((yStart, i) => (
           <g key={`vr${i}`}>
-            <line x1="360" y1={yStart} x2="536" y2={yStart} stroke="#c084fc" strokeWidth="1.5"
-              className={styles.animatedRay} />
+            <line x1="320" y1={yStart} x2="536" y2={yStart} stroke="#c084fc" strokeWidth="2" filter="url(#glow2)" className={styles.animatedRay} />
+            <line x1="320" y1={yStart} x2="536" y2={yStart} stroke="#fff" strokeWidth="3" className={styles.energyFlow} />
+            
             {/* Diverging after reflection */}
-            <line x1="536" y1={yStart} x2="380" y2={yStart + (yStart===150?0: yStart<150?-35:35)}
-              stroke="#c084fc" strokeWidth="1.5" className={styles.animatedRayDelayed} opacity="0.6" />
+            <line x1="536" y1={yStart} x2="360" y2={yStart + (yStart===150?0: yStart<150?-35:35)} stroke="#d8b4fe" strokeWidth="2" filter="url(#glow2)" className={styles.animatedRayDelayed} />
+            <line x1="536" y1={yStart} x2="360" y2={yStart + (yStart===150?0: yStart<150?-35:35)} stroke="#fff" strokeWidth="3" className={styles.energyFlowDelayed} />
+            
+            {/* Virtual dashed rays meeting at F */}
+            <line x1="536" y1={yStart} x2="470" y2="190" stroke="#fbbf24" strokeWidth="1.5" strokeDasharray="4,3" opacity="0.6" className={styles.animatedRayDelayed} />
           </g>
-        ))}
-        {/* Virtual dashed rays meeting at F */}
-        {[130,150,170].map((yStart, i) => (
-          <line key={`vd${i}`} x1="536" y1={yStart} x2="470" y2="190"
-            stroke="#fbbf24" strokeWidth="1" strokeDasharray="4,3" opacity="0.5"
-            className={styles.animatedRayDelayed} />
         ))}
 
         {/* Uses label */}
-        <rect x="335" y="290" width="200" height="48" fill="rgba(168,85,247,0.08)" rx="6" stroke="rgba(168,85,247,0.2)" strokeWidth="1" />
-        <text x="435" y="308" textAnchor="middle" fill="#d8b4fe" fontSize="11" fontFamily="Inter, sans-serif" fontWeight="600">Uses: Rear-view mirrors,</text>
-        <text x="435" y="324" textAnchor="middle" fill="#d8b4fe" fontSize="11" fontFamily="Inter, sans-serif">security mirrors, street lights</text>
-        <text x="435" y="340" textAnchor="middle" fill="#c084fc" fontSize="10" fontFamily="Inter, sans-serif" fontStyle="italic">⚡ Diverging (Virtual focus)</text>
+        <rect x="350" y="300" width="200" height="48" fill="rgba(168,85,247,0.15)" rx="6" stroke="rgba(168,85,247,0.3)" className={styles.glowCard} />
+        <text x="450" y="318" textAnchor="middle" fill="#d8b4fe" fontSize="11" fontFamily="Inter, sans-serif" fontWeight="700">Uses: Rear-view mirrors,</text>
+        <text x="450" y="334" textAnchor="middle" fill="#d8b4fe" fontSize="11" fontFamily="Inter, sans-serif">security mirrors, street lights</text>
       </svg>
     </div>
   );

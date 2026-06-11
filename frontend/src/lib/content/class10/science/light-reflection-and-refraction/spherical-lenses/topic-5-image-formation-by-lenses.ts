@@ -31,6 +31,8 @@ export const topic5ImageFormationByLenses: Topic = {
   content: `
 ### What is a Spherical Lens?
 
+![What is a Spherical Lens](/images/light/light_snells_law_1781203083554.png)
+
 ![Spherical Lenses](/images/light/light_lenses_nano_banana_1781202878730.png)
 
 A transparent material bound by two surfaces, of which one or both surfaces are spherical, forms a lens.
@@ -41,6 +43,8 @@ A transparent material bound by two surfaces, of which one or both surfaces are 
 ---
 
 ### Key Terminology for Lenses
+
+![Key Terminology for Lenses](/images/light/light_magnification_formula_nano_banana_1781204215500.png)
 
 Because a lens has two spherical surfaces, it has two centers of curvature and two principal foci.
 
@@ -57,6 +61,8 @@ Because a lens has two spherical surfaces, it has two centers of curvature and t
 ---
 
 ### Rules for Drawing Ray Diagrams for Lenses
+
+![Rules for Drawing Ray Diagrams for Lenses](/images/light/light_refraction_nano_banana_1781202861976.png)
 
 To locate the image formed by lenses, we use the following standard incident rays:
 
@@ -75,6 +81,8 @@ To locate the image formed by lenses, we use the following standard incident ray
 ---
 
 ### Image Formation by a Convex Lens
+
+![Image Formation by a Convex Lens](/images/light/light_lens_power_1781203118675.png)
 
 A convex lens can form both real and virtual images, similar to a concave mirror.
 

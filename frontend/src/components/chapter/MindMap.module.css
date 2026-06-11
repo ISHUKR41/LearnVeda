@@ -10,9 +10,12 @@
 .container {
   margin: 40px 0;
   padding: 32px;
-  background: linear-gradient(135deg, #0f766e08, #14532d08);
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
-  border: 1px solid rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .header {
@@ -30,7 +33,7 @@
   gap: 10px;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-text-primary, #1a1a2e);
+  color: #f1f5f9;
   margin: 0;
 }
 
@@ -41,7 +44,8 @@
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: linear-gradient(135deg, #00f2fe, #4facfe);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
   color: white;
 }
 
@@ -51,9 +55,9 @@
   gap: 6px;
   padding: 8px 16px;
   border-radius: 10px;
-  border: 1px solid rgba(16, 185, 129, 0.2);
-  background: white;
-  color: #059669;
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  background: rgba(129, 140, 248, 0.1);
+  color: #818cf8;
   cursor: pointer;
   font-size: 0.85rem;
   font-weight: 600;
@@ -61,7 +65,7 @@
 }
 
 .expandAllBtn:hover {
-  background: rgba(16, 185, 129, 0.06);
+  background: rgba(129, 140, 248, 0.2);
   transform: scale(1.02);
 }
 
@@ -83,20 +87,23 @@
   gap: 8px;
   padding: 10px 14px;
   border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  background: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(10px);
   cursor: pointer;
   transition: all 0.2s ease;
   width: 100%;
   text-align: left;
-  font-family: inherit;
-  font-size: 0.95rem;
-  color: var(--color-text-primary, #1e293b);
+  font-family: 'Geist', 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: #ffffff;
+  font-weight: 500;
 }
 
 .nodeHeader:hover {
-  background: #f8fafc;
-  border-color: rgba(16, 185, 129, 0.2);
+  background: rgba(40, 40, 40, 0.9);
+  border-color: rgba(0, 242, 254, 0.5);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
   transform: translateX(4px);
 }
 
@@ -107,8 +114,8 @@
   width: 22px;
   height: 22px;
   border-radius: 6px;
-  background: rgba(16, 185, 129, 0.1);
-  color: #059669;
+  background: rgba(0, 242, 254, 0.15);
+  color: #00f2fe;
   transition: transform 0.3s ease;
   flex-shrink: 0;
 }
@@ -130,9 +137,10 @@
 }
 
 .childCount {
-  font-size: 0.75rem;
-  color: var(--color-text-tertiary, #94a3b8);
-  background: #f1f5f9;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #00f2fe;
+  background: rgba(0, 242, 254, 0.1);
   padding: 2px 8px;
   border-radius: 10px;
 }
@@ -141,7 +149,7 @@
 .children {
   padding-left: 28px;
   margin-top: 4px;
-  border-left: 2px solid rgba(16, 185, 129, 0.15);
+  border-left: 2px solid rgba(0, 242, 254, 0.3);
   margin-left: 20px;
   list-style: none;
   overflow: hidden;
@@ -169,31 +177,32 @@
   padding: 8px 14px;
   margin-bottom: 4px;
   border-radius: 10px;
-  background: #fafafa;
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   font-size: 0.9rem;
   line-height: 1.5;
-  color: var(--color-text-secondary, #475569);
+  color: #cbd5e1;
   transition: all 0.2s ease;
 }
 
 .leafNode:hover {
-  background: #f0fdf4;
-  border-color: rgba(16, 185, 129, 0.15);
+  background: rgba(0, 242, 254, 0.1);
+  border-color: rgba(0, 242, 254, 0.3);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.1);
 }
 
 .leafIcon {
-  color: #10b981;
+  color: #818cf8;
   flex-shrink: 0;
   margin-top: 2px;
 }
 
 /* ── Color levels for branches ── */
-.level0 .nodeDot { background: #6366f1; }
-.level1 .nodeDot { background: #10b981; }
-.level2 .nodeDot { background: #f59e0b; }
-.level3 .nodeDot { background: #ef4444; }
-.level4 .nodeDot { background: #8b5cf6; }
+.level0 .nodeDot { background: #00f2fe; box-shadow: 0 0 8px #00f2fe; }
+.level1 .nodeDot { background: #4facfe; box-shadow: 0 0 8px #4facfe; }
+.level2 .nodeDot { background: #f093fb; box-shadow: 0 0 8px #f093fb; }
+.level3 .nodeDot { background: #f5576c; box-shadow: 0 0 8px #f5576c; }
+.level4 .nodeDot { background: #a18cd1; box-shadow: 0 0 8px #a18cd1; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {

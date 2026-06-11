@@ -31,6 +31,8 @@ export const topic2SphericalMirrors: Topic = {
   content: `
 ### What is a Spherical Mirror?
 
+![What is a Spherical Mirror](/images/light/light_convex_lens_numerical_nano_banana_1781204470042.png)
+
 ![Convex and Concave Mirrors](/images/light/light_convex_concave_1781203107265.png)
 
 A spherical mirror is a mirror whose reflecting surface is a part of a hollow sphere of glass. 
@@ -42,6 +44,8 @@ Depending on which side of the spherical surface is silvered, there are two type
 ---
 
 ### Key Terminology
+
+![Key Terminology](/images/light/light_convex_concave_1781203107265.png)
 
 ![Spherical Mirrors Terminology](/images/light/light_spherical_mirrors_1781203071616.png)
 
@@ -61,6 +65,8 @@ To understand image formation, we must define the following terms related to sph
 ---
 
 ### Rules for Drawing Ray Diagrams
+
+![Rules for Drawing Ray Diagrams](/images/light/light_snells_law_1781203083554.png)
 
 To construct ray diagrams to find the position, size, and nature of images, we use any two of the following standard incident rays:
 

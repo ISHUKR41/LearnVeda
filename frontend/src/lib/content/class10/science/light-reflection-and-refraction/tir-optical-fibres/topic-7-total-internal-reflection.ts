@@ -74,6 +74,8 @@ Imagine you are underwater in a swimming pool, looking up at the surface at a st
 
 No light escapes into the rarer medium — 100% of the incident light is reflected. This is why it is called *total*.
 
+![Total Internal Reflection](/images/light/topic7-total-internal-reflection.png)
+
 ---
 
 ### How Does TIR Happen? — Step by Step
@@ -88,6 +90,8 @@ The refracted ray grazes along the boundary surface — its angle of refraction 
 
 **Case 3: Angle greater than critical angle ($i > i_c$)**
 No refraction at all. All the light is reflected back into the denser medium following the normal laws of reflection. This is Total Internal Reflection.
+
+![Total Internal Reflection Boundary](/images/light/light_refraction_nano_banana_1781202861976.png)
 
 ---
 
@@ -143,6 +147,8 @@ TIR occurs ONLY when both conditions are simultaneously satisfied:
 
 If either condition fails, TIR does not occur and some light is refracted.
 
+![Critical Angle Diagram](/images/light/light_absolute_refractive_nano_banana_1781204408083.png)
+
 ---
 
 ### Real-Life Phenomena Due to TIR
@@ -162,6 +168,8 @@ An air bubble in water acts as a small rarer-medium pocket. Light hitting the bu
 
 #### 4. Optical Illusion of Looming (Arctic)
 In polar regions, cold air near the ocean surface is denser than warmer air above. A ray of light curves upward, bends back down, creating mirages of ships or islands that appear to float above the horizon.
+
+![TIR Phenomena Examples](/images/light/light_glass_slab_nano_banana_1781204391585.png)
 
 ---
 
@@ -185,6 +193,8 @@ $$\\text{Condition: } \\angle i > i_c = \\arcsin\\left(\\frac{n_2}{n_1}\\right)$
 *   TIR reflects $100\\%$ of the light (when $i > i_c$). No energy is lost to refraction.
 *   Result: Light can travel thousands of kilometres with minimal signal loss.
 
+![Optical Fibre](/images/light/topic7-tir-optical-fibre.png)
+
 **Applications of Optical Fibres:**
 
 | Application | How It Works |
@@ -207,6 +217,8 @@ $$\\text{Condition: } \\angle i > i_c = \\arcsin\\left(\\frac{n_2}{n_1}\\right)$
 ### Prism Periscope Using TIR
 
 A traditional periscope uses two plane mirrors at $45^\\circ$. A better design uses two right-angle glass prisms. When light hits the hypotenuse face of the prism at $45^\\circ$ (greater than the critical angle of glass ≈ $41.8^\\circ$), TIR occurs. The image is much brighter than with silvered mirrors (which absorb some light). This is used in submarine periscopes and binoculars.
+
+![Prism Periscope TIR](/images/light/light_convex_concave_1781203107265.png)
 
 ---
 
