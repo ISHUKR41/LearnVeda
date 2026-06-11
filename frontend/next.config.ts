@@ -16,21 +16,6 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  turbopack: {
-    resolveAlias: {
-      "@clerk/nextjs": path.join(__dirname, "src/lib/clerk-shim/client.tsx"),
-      "@clerk/nextjs/server": path.join(__dirname, "src/lib/clerk-shim/server.ts"),
-    },
-  },
-
-  webpack(config) {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "@clerk/nextjs": path.join(__dirname, "src/lib/clerk-shim/client.tsx"),
-      "@clerk/nextjs/server": path.join(__dirname, "src/lib/clerk-shim/server.ts"),
-    };
-    return config;
-  },
 
   allowedDevOrigins: replitDevDomain
     ? [replitDevDomain, `*.${replitDevDomain}`]
