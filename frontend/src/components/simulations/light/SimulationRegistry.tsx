@@ -719,6 +719,128 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     icon: "👓",
     component: lazyLoad(() => import("./eye/EyeDefectsRayDiagramSim")),
   },
+
+  /* ═══════════════════════════════════════════════════
+   * NEW SIMULATIONS BATCH 2 — skills.sh inspired design
+   * Ultra-engaging, modern, production-level simulations
+   * ═══════════════════════════════════════════════════ */
+
+  /* ── Additive Colour Mixing — RGB spotlight lab ── */
+  "color-mixing-light-sim": {
+    title: "Additive Colour Mixing — RGB Light Lab",
+    description: "Three RGB spotlights · drag intensity sliders · watch Yellow/Cyan/Magenta/White form live · hex colour code display · TV pixel analogy",
+    category: "dispersion",
+    icon: "🎨",
+    component: lazyLoad(() => import("./reflection/ColorMixingLightSim")),
+  },
+
+  /* ── Periscope — two plane mirrors at 45° ── */
+  "periscope-sim": {
+    title: "Periscope Simulator — Two Mirror Reflections",
+    description: "Adjust mirror angle (20–70°) · animated photon bouncing between mirrors · shows why 45° gives straight-up view · applications: submarine, tank",
+    category: "reflection",
+    icon: "🔭",
+    component: lazyLoad(() => import("./reflection/PeriscopeSim")),
+  },
+
+  /* ── Pinhole Camera — rectilinear propagation ── */
+  "pinhole-camera-sim": {
+    title: "Pinhole Camera (Camera Obscura)",
+    description: "Drag object distance & hole size · see inverted real image form on screen · live magnification = v/u · larger hole = blurry vs sharp",
+    category: "reflection",
+    icon: "📷",
+    component: lazyLoad(() => import("./reflection/PinholeCameraSim")),
+  },
+
+  /* ── Huygens Wavefront Refraction ── */
+  "wavefront-refraction-sim": {
+    title: "Huygens Wavefront — Why Light Bends",
+    description: "Animated wavefronts cross a medium boundary · slows down in denser medium → tilts → Snell's Law derived geometrically · n₁sinθ₁=n₂sinθ₂ live",
+    category: "refraction",
+    icon: "🌊",
+    component: lazyLoad(() => import("./refraction/WavefrontRefractionSim")),
+  },
+
+  /* ── Mirror Applications Gallery ── */
+  "mirror-applications-sim": {
+    title: "Mirror Applications — Real World Gallery",
+    description: "6 interactive scenes: torch, solar furnace, makeup mirror, rear-view, telescope, security camera · click to see ray diagram + why it works",
+    category: "mirrors",
+    icon: "🪞",
+    component: lazyLoad(() => import("./mirrors/MirrorApplicationsSim")),
+  },
+
+  /* ── Speed of Light in Different Media ── */
+  "speed-in-medium-sim": {
+    title: "Speed of Light in Different Media",
+    description: "Select vacuum/air/ice/water/glass/diamond · animated photon at correct speed · wavefront compression · n=c/v live formula · comparison bar chart",
+    category: "refraction",
+    icon: "⚡",
+    component: lazyLoad(() => import("./lenses/SpeedInMediumSim")),
+  },
+
+  /* ── Kaleidoscope — multiple plane mirror reflections ── */
+  "kaleidoscope-sim": {
+    title: "Kaleidoscope — Multiple Mirror Reflections",
+    description: "Adjust 3–12 mirrors · animated seed pattern · n mirrors → n-fold symmetry · formula: images = 360°/θ − 1 · Islamic art, toy kaleidoscopes, domes",
+    category: "reflection",
+    icon: "🔮",
+    component: lazyLoad(() => import("./dispersion/KaleidoscopeSim")),
+  },
+
+  /* ── Human Eye Interactive Biology Lab ── */
+  "light-biology-sim": {
+    title: "Human Eye — Interactive Biology Lab",
+    description: "Light level → pupil dilation live · object distance → lens accommodation · Normal/Myopia/Hypermetropia mode · corrective lens appears · retina image inverted",
+    category: "eye",
+    icon: "👁",
+    component: lazyLoad(() => import("./eye/LightBiologySim")),
+  },
+
+  /* ── Virtual Optics Bench — Lens Ray Tracer ── */
+  "lens-ray-tracer-sim": {
+    title: "Virtual Optics Bench — Lens Ray Tracer",
+    description: "Drag object · convex/concave toggle · change f · all 3 principal rays live · 1/v−1/u=1/f auto-computed · real/virtual/magnified detection",
+    category: "lenses",
+    icon: "🔬",
+    component: lazyLoad(() => import("./lenses/LensRayTracerSim")),
+  },
+
+  /* ── Raindrop Rainbow Physics ── */
+  "rainbow-droplet-sim": {
+    title: "Raindrop Rainbow Physics — VIBGYOR Dispersion",
+    description: "Impact parameter slider · traces all 7 colours through drop · Snell's law applied · rainbow angles 40°–42° shown · filter by colour",
+    category: "dispersion",
+    icon: "🌈",
+    component: lazyLoad(() => import("./dispersion/RainbowDropletSim")),
+  },
+
+  /* ── Glass Slab Lateral Displacement Lab ── */
+  "glass-slab-lateral-shift-sim": {
+    title: "Glass Slab — Lateral Displacement Lab",
+    description: "Angle/thickness/n sliders · emergent ray parallel to incident · d=t·sin(i−r)/cos r live · pen-in-water real-world connection · TIR detection",
+    category: "refraction",
+    icon: "🪟",
+    component: lazyLoad(() => import("./refraction/GlassSlabLateralShiftSim")),
+  },
+
+  /* ── Shadow Formation & Eclipses Lab ── */
+  "shadow-formation-sim": {
+    title: "Shadow Formation & Eclipses Lab",
+    description: "Umbra + penumbra · point vs extended source · solar/lunar eclipse modes · adjust source size, object & screen position · rectilinear propagation",
+    category: "reflection",
+    icon: "🔦",
+    component: lazyLoad(() => import("./reflection/ShadowFormationSim")),
+  },
+
+  /* ── Apparent Depth — Why Pools Look Shallower ── */
+  "apparent-depth-vis-sim": {
+    title: "Apparent Depth — Why Pools Look Shallower",
+    description: "Real depth slider · Water/Glass/Diamond/Oil/Ice media · observer angle · refracted rays · d'=d/n live · % reduction · fun facts per medium",
+    category: "refraction",
+    icon: "🏊",
+    component: lazyLoad(() => import("./refraction/ApparentDepthSim")),
+  },
 };
 
 /* ═══════════════════════════════════════════════════

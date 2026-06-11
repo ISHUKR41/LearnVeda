@@ -12,6 +12,14 @@ export const topic4LawsOfRefraction: Topic = {
   title: "4. Refraction of Light and Refractive Index",
   estimatedMinutes: 55,
   simulationIds: [
+    /* NEW 2026: Speed of light in 6 different media with animated photon */
+    "speed-in-medium-sim",       /* vacuum/air/ice/water/glass/diamond · n=c/v live · comparison chart */
+    /* NEW 2026: Glass slab lateral displacement — d=t·sin(i−r)/cos(r) live */
+    "glass-slab-lateral-shift-sim", /* angle/thickness/n sliders · pen-in-water analogy */
+    /* NEW 2026: Huygens wavefront construction — WHY light bends */
+    "wavefront-refraction-sim",  /* animated wavefronts slow in dense medium → bend toward normal */
+    /* NEW 2026: Apparent depth visual — d'=d/n live, 5 media, rays traced */
+    "apparent-depth-vis-sim",    /* pool/glass/diamond/oil/ice · % reduction · observer angle */
     /* NEW: Animated apparent depth illusion with n = Real/Apparent formula */
     "apparent-depth-sim",
     "light-refraction-demo",

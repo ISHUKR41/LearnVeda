@@ -13,6 +13,8 @@ export const topic2SphericalMirrors: Topic = {
   title: "2. Spherical Mirrors: Concave and Convex",
   estimatedMinutes: 60,
   simulationIds: [
+    /* NEW 2026: Real-world mirror applications gallery */
+    "mirror-applications-sim",   /* 6 scenes: torch, furnace, makeup, rear-view, telescope, security */
     /* All-6-positions interactive object-image lab — NEW */
     "mirror-object-image-sim",
     "mirror-terms-diagram",

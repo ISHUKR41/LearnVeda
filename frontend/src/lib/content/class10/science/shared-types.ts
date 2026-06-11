@@ -30,8 +30,8 @@ export interface Question {
   options?: string[];
   /** The correct answer text — for MCQ must exactly match one option string */
   correctAnswer: string;
-  /** Explanation shown after the answer is revealed */
-  explanation: string;
+  /** Explanation shown after the answer is revealed (optional for long/short/thinking types) */
+  explanation?: string;
   /** Points awarded for correct answer (MCQ=10, short=15, long=20, HOTS=25) */
   points: number;
 }

@@ -14,6 +14,16 @@ export const topic1IntroAndLawsOfReflection: Topic = {
   title: "1. Introduction to Light and Laws of Reflection",
   estimatedMinutes: 45,
   simulationIds: [
+    /* NEW 2026: Shadow formation — umbra/penumbra/eclipses */
+    "shadow-formation-sim",      /* point vs extended source · solar/lunar eclipse modes */
+    /* NEW 2026: Additive RGB colour mixing lab */
+    "color-mixing-light-sim",    /* three spotlights · R+G+B=White · hex code display */
+    /* NEW 2026: Periscope — two plane mirrors at 45° */
+    "periscope-sim",             /* animated photon · adjust mirror angle · submarine demo */
+    /* NEW 2026: Kaleidoscope — multiple mirror reflections */
+    "kaleidoscope-sim",          /* 3–12 mirrors · n-fold symmetry · formula: 360/θ−1 images */
+    /* NEW 2026: Pinhole camera — rectilinear propagation proof */
+    "pinhole-camera-sim",        /* inverted image · magnification = v/u · adjust hole size */
     /* NEW: Wave nature of light — EM wave animation with c=fλ */
     "wave-nature-light-sim",
     /* Fully draggable live reflection lab */

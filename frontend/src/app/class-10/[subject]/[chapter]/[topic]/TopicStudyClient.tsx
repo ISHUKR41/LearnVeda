@@ -723,7 +723,7 @@ function QuestionCard({
           </div>
           <div className={styles.explanBox}>
             <div className={styles.explanLabel}>📖 Explanation</div>
-            <div dangerouslySetInnerHTML={{ __html: parseMarkdown(question.explanation) }} className={styles.explanTxt} />
+            <div dangerouslySetInnerHTML={{ __html: parseMarkdown(question.explanation ?? "") }} className={styles.explanTxt} />
           </div>
         </div>
       )}

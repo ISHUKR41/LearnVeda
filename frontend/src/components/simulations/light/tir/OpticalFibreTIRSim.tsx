@@ -336,13 +336,13 @@ export default function OpticalFibreTIRSim() {
   };
   const label: React.CSSProperties = { display: "block", fontSize: "11px", color: "#64748b", marginBottom: "4px", textTransform: "uppercase", letterSpacing: "0.06em" };
   const val: React.CSSProperties = { fontSize: "18px", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2 };
-  const btn: React.CSSProperties = (active: boolean) => ({
+  const btn = (active: boolean): React.CSSProperties => ({
     padding: "6px 14px", borderRadius: "8px", border: "1px solid",
     borderColor: active ? material.color : "rgba(255,255,255,0.1)",
     background: active ? `${material.color}22` : "transparent",
     color: active ? material.color : "#64748b",
     cursor: "pointer", fontSize: "12px", fontWeight: 600, transition: "all 0.2s",
-  }) as React.CSSProperties;
+  });
 
   return (
     <div style={panel}>

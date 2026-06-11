@@ -45,6 +45,7 @@ export const topic10OpticalPhenomena: Topic = {
 
   simulationIds: [
     /* NEW 2026 dedicated simulations */
+    "rainbow-droplet-sim",           /* NEW: Real Snell's law through 1 droplet → VIBGYOR */
     "scattering-blue-sky-sim",       /* Time-of-day → blue sky / red sunset */
     "optical-fibre-tir-sim",         /* Animated photon inside bent fibre */
     "eye-defects-ray-diagram-sim",   /* Canvas eye defects with correction toggle */
@@ -280,7 +281,7 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-mcq-1",
       type: "mcq",
       points: 10,
-      text: "The sky appears blue during the day because of:",
+      question: "The sky appears blue during the day because of:",
       options: [
         "A. Reflection of blue light from the ocean",
         "B. Rayleigh scattering — blue light is scattered more than red (I ∝ 1/λ⁴)",
@@ -294,7 +295,7 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-mcq-2",
       type: "mcq",
       points: 10,
-      text: "During sunset, the sky near the horizon appears orange-red because:",
+      question: "During sunset, the sky near the horizon appears orange-red because:",
       options: [
         "A. Red light slows down near the horizon",
         "B. Sunlight travels a much longer path through the atmosphere — all blue is scattered away",
@@ -308,7 +309,7 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-mcq-3",
       type: "mcq",
       points: 10,
-      text: "A rainbow is formed due to:",
+      question: "A rainbow is formed due to:",
       options: [
         "A. Only reflection inside water droplets",
         "B. Only dispersion through water droplets",
@@ -322,7 +323,7 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-mcq-4",
       type: "mcq",
       points: 10,
-      text: "Stars twinkle but planets appear steady because:",
+      question: "Stars twinkle but planets appear steady because:",
       options: [
         "A. Planets are luminous objects and stars are not",
         "B. Stars emit coloured light; planets emit white light",
@@ -336,7 +337,7 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-mcq-5",
       type: "mcq",
       points: 10,
-      text: "Diamond sparkles brilliantly because:",
+      question: "Diamond sparkles brilliantly because:",
       options: [
         "A. Its refractive index is 2.42 — giving a critical angle of only ≈ 24.4°, maximising TIR bounces",
         "B. Its flat surfaces reflect all colours equally",
@@ -350,7 +351,7 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-mcq-6",
       type: "mcq",
       points: 10,
-      text: "An optical fibre works by:",
+      question: "An optical fibre works by:",
       options: [
         "A. Regular reflection from a silvered surface",
         "B. Total Internal Reflection — light is trapped inside the core because n_core > n_cladding",
@@ -364,7 +365,7 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-mcq-7",
       type: "mcq",
       points: 10,
-      text: "Clouds appear white (not blue) because:",
+      question: "Clouds appear white (not blue) because:",
       options: [
         "A. Water vapour reflects all colours equally",
         "B. Mie scattering — large water droplets scatter ALL wavelengths almost equally",
@@ -378,7 +379,7 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-mcq-8",
       type: "mcq",
       points: 10,
-      text: "Due to atmospheric refraction, sunrise is seen:",
+      question: "Due to atmospheric refraction, sunrise is seen:",
       options: [
         "A. About 2 minutes LATER than actual rise time",
         "B. At exactly the time the Sun crosses the horizon",
@@ -392,7 +393,7 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-mcq-9",
       type: "mcq",
       points: 10,
-      text: "In a primary rainbow, the colour order from top (outer) to bottom (inner) is:",
+      question: "In a primary rainbow, the colour order from top (outer) to bottom (inner) is:",
       options: [
         "A. Violet, Indigo, Blue, Green, Yellow, Orange, Red",
         "B. Red, Orange, Yellow, Green, Blue, Indigo, Violet",
@@ -406,7 +407,7 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-mcq-10",
       type: "mcq",
       points: 10,
-      text: "A desert mirage (inferior mirage) is formed by:",
+      question: "A desert mirage (inferior mirage) is formed by:",
       options: [
         "A. Reflection of sky from actual pools of water on the desert",
         "B. Total Internal Reflection in hot air layers near the ground — light bends upward, simulating water",
@@ -422,71 +423,71 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-sa-1",
       type: "short",
       points: 15,
-      text: "State Rayleigh's scattering law and explain in ONE sentence why the sky is blue.",
-      modelAnswer: "Rayleigh's law: scattered intensity I ∝ 1/λ⁴ (inversely proportional to the fourth power of wavelength). Blue light (short λ) is scattered much more than red (long λ) by atmospheric molecules — the scattered blue light comes to our eyes from all directions, making the sky appear blue.",
+      question: "State Rayleigh's scattering law and explain in ONE sentence why the sky is blue.",
+      correctAnswer: "Rayleigh's law: scattered intensity I ∝ 1/λ⁴ (inversely proportional to the fourth power of wavelength). Blue light (short λ) is scattered much more than red (long λ) by atmospheric molecules — the scattered blue light comes to our eyes from all directions, making the sky appear blue.",
     },
     {
       id: "t10-sa-2",
       type: "short",
       points: 15,
-      text: "Explain why danger signals on roads, trains, and fire engines are RED in colour.",
-      modelAnswer: "Red light has the longest wavelength in visible spectrum (≈ 700 nm). By Rayleigh's law (I ∝ 1/λ⁴), red light is scattered the LEAST by dust, fog, and raindrops. It therefore travels the farthest and is visible even in poor weather conditions — making it ideal for danger signals.",
+      question: "Explain why danger signals on roads, trains, and fire engines are RED in colour.",
+      correctAnswer: "Red light has the longest wavelength in visible spectrum (≈ 700 nm). By Rayleigh's law (I ∝ 1/λ⁴), red light is scattered the LEAST by dust, fog, and raindrops. It therefore travels the farthest and is visible even in poor weather conditions — making it ideal for danger signals.",
     },
     {
       id: "t10-sa-3",
       type: "short",
       points: 15,
-      text: "What three optical phenomena combine to form a rainbow? In what order do they occur?",
-      modelAnswer: "1. Refraction (at entry): white light enters water droplet and disperses (different λ → different n → different bending). 2. Total Internal Reflection: at the back inner surface of the droplet (angle > critical angle ≈ 48.6° for water). 3. Refraction (at exit): colours further separate. The result: different colours exit at slightly different angles → VIBGYOR spread over 40°–42°.",
+      question: "What three optical phenomena combine to form a rainbow? In what order do they occur?",
+      correctAnswer: "1. Refraction (at entry): white light enters water droplet and disperses (different λ → different n → different bending). 2. Total Internal Reflection: at the back inner surface of the droplet (angle > critical angle ≈ 48.6° for water). 3. Refraction (at exit): colours further separate. The result: different colours exit at slightly different angles → VIBGYOR spread over 40°–42°.",
     },
     {
       id: "t10-sa-4",
       type: "short",
       points: 15,
-      text: "Why do stars twinkle but planets do not?",
-      modelAnswer: "Stars are so distant they appear as POINT SOURCES. Atmospheric turbulence (varying refractive index) causes the apparent position to fluctuate rapidly → twinkling. Planets appear as tiny DISCS (extended sources). Light from different parts of the disc averages out the fluctuations → steady appearance.",
+      question: "Why do stars twinkle but planets do not?",
+      correctAnswer: "Stars are so distant they appear as POINT SOURCES. Atmospheric turbulence (varying refractive index) causes the apparent position to fluctuate rapidly → twinkling. Planets appear as tiny DISCS (extended sources). Light from different parts of the disc averages out the fluctuations → steady appearance.",
     },
     {
       id: "t10-sa-5",
       type: "short",
       points: 15,
-      text: "What is the critical angle for diamond (n = 2.42) and how does it explain diamond's brilliance?",
-      modelAnswer: "θ_c = arcsin(n₂/n₁) = arcsin(1.00/2.42) ≈ 24.4°. This very small critical angle means light entering a cut diamond hits most facets at angles GREATER than 24.4° → Total Internal Reflection occurs at nearly every internal surface → light bounces many times before exiting → maximum brilliance and sparkle.",
+      question: "What is the critical angle for diamond (n = 2.42) and how does it explain diamond's brilliance?",
+      correctAnswer: "θ_c = arcsin(n₂/n₁) = arcsin(1.00/2.42) ≈ 24.4°. This very small critical angle means light entering a cut diamond hits most facets at angles GREATER than 24.4° → Total Internal Reflection occurs at nearly every internal surface → light bounces many times before exiting → maximum brilliance and sparkle.",
     },
     {
       id: "t10-sa-6",
       type: "short",
       points: 15,
-      text: "Why does the Sun appear oval (flattened) near the horizon?",
-      modelAnswer: "Near the horizon, sunlight must pass through a much thicker layer of atmosphere. The lower edge of the Sun is refracted MORE than the upper edge (atmospheric refraction increases as ray travels through more atmosphere). This unequal refraction compresses the Sun's vertical dimension → it appears oval/flattened, not circular.",
+      question: "Why does the Sun appear oval (flattened) near the horizon?",
+      correctAnswer: "Near the horizon, sunlight must pass through a much thicker layer of atmosphere. The lower edge of the Sun is refracted MORE than the upper edge (atmospheric refraction increases as ray travels through more atmosphere). This unequal refraction compresses the Sun's vertical dimension → it appears oval/flattened, not circular.",
     },
     {
       id: "t10-sa-7",
       type: "short",
       points: 15,
-      text: "Give two applications of optical fibres and explain the physics principle used in each.",
-      modelAnswer: "1. Internet/Telecom: Data encoded as light pulses travels via TIR through glass core (n_core > n_cladding) for thousands of kilometres with minimal loss. 2. Medical endoscope: A bundle of fibres carries light to illuminate internal organs and returns the image to the doctor — all via TIR — without any surgery needed.",
+      question: "Give two applications of optical fibres and explain the physics principle used in each.",
+      correctAnswer: "1. Internet/Telecom: Data encoded as light pulses travels via TIR through glass core (n_core > n_cladding) for thousands of kilometres with minimal loss. 2. Medical endoscope: A bundle of fibres carries light to illuminate internal organs and returns the image to the doctor — all via TIR — without any surgery needed.",
     },
     {
       id: "t10-sa-8",
       type: "short",
       points: 15,
-      text: "What is the Tyndall effect? Give a real-life example.",
-      modelAnswer: "The Tyndall effect is the scattering of a beam of light by colloidal particles (intermediate sized particles) in a solution. When light passes through a colloidal solution, the path of the beam becomes visible from the side because particles scatter the light. Examples: (1) Blue colour of sea water (scattering of blue by colloidal particles). (2) Visible beam of car headlights in fog. (3) Blue colour of cigarette smoke.",
+      question: "What is the Tyndall effect? Give a real-life example.",
+      correctAnswer: "The Tyndall effect is the scattering of a beam of light by colloidal particles (intermediate sized particles) in a solution. When light passes through a colloidal solution, the path of the beam becomes visible from the side because particles scatter the light. Examples: (1) Blue colour of sea water (scattering of blue by colloidal particles). (2) Visible beam of car headlights in fog. (3) Blue colour of cigarette smoke.",
     },
     {
       id: "t10-sa-9",
       type: "short",
       points: 15,
-      text: "How does a secondary rainbow differ from a primary rainbow? Give TWO differences.",
-      modelAnswer: "1. Colour order: Primary — Red outside, Violet inside (ROYGBIV top to bottom). Secondary — Violet outside, Red inside (order REVERSED due to second internal reflection). 2. Brightness: Primary is brighter (one internal reflection); secondary is dimmer (two internal reflections — each reflection loses some intensity).",
+      question: "How does a secondary rainbow differ from a primary rainbow? Give TWO differences.",
+      correctAnswer: "1. Colour order: Primary — Red outside, Violet inside (ROYGBIV top to bottom). Secondary — Violet outside, Red inside (order REVERSED due to second internal reflection). 2. Brightness: Primary is brighter (one internal reflection); secondary is dimmer (two internal reflections — each reflection loses some intensity).",
     },
     {
       id: "t10-sa-10",
       type: "short",
       points: 15,
-      text: "Explain why the sky near the horizon is a lighter blue than directly overhead.",
-      modelAnswer: "When you look directly overhead, sunlight has passed through the minimum thickness of atmosphere — maximum blue scattering (deep blue). Near the horizon, sunlight has traveled through MUCH more atmosphere — more blue has been scattered away, and some orange/yellow light mixes in → lighter, paler blue near the horizon.",
+      question: "Explain why the sky near the horizon is a lighter blue than directly overhead.",
+      correctAnswer: "When you look directly overhead, sunlight has passed through the minimum thickness of atmosphere — maximum blue scattering (deep blue). Near the horizon, sunlight has traveled through MUCH more atmosphere — more blue has been scattered away, and some orange/yellow light mixes in → lighter, paler blue near the horizon.",
     },
 
     /* ─── Long Answer (8 questions) ─── */
@@ -494,8 +495,8 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
       id: "t10-la-1",
       type: "long",
       points: 20,
-      text: "Describe in detail how a rainbow is formed. Your answer should mention the role of refraction, total internal reflection, and dispersion. Also explain the difference between a primary and secondary rainbow.",
-      modelAnswer: `**Rainbow Formation:**
+      question: "Describe in detail how a rainbow is formed. Your answer should mention the role of refraction, total internal reflection, and dispersion. Also explain the difference between a primary and secondary rainbow.",
+      correctAnswer: `**Rainbow Formation:**
 
 A rainbow forms when sunlight interacts with millions of water droplets suspended in the atmosphere. Three optical processes work together inside each droplet:
 
@@ -522,8 +523,8 @@ The observer on the ground sees red light from droplets at 42° from the anti-so
       id: "t10-la-2",
       type: "long",
       points: 20,
-      text: "Explain in detail how Total Internal Reflection is responsible for (a) optical fibre communication and (b) formation of mirages.",
-      modelAnswer: `**Optical Fibre Communication:**
+      question: "Explain in detail how Total Internal Reflection is responsible for (a) optical fibre communication and (b) formation of mirages.",
+      correctAnswer: `**Optical Fibre Communication:**
 An optical fibre consists of a glass core (high n) surrounded by cladding (lower n). When light enters the core at less than the acceptance angle, it hits the core-cladding boundary at an angle GREATER than the critical angle → TIR occurs → light bounces back into the core. This repeats for the entire length of the fibre — even if bent — with near-zero energy loss. Modern fibres lose < 0.2 dB/km. A single fibre carries 200 Tbps of data as light pulses. Used for internet, telephone, medical endoscopes.
 
 **Mirage Formation:**
@@ -537,8 +538,8 @@ A ray of light from the sky traveling downward enters progressively rarer (less 
       id: "t10-la-3",
       type: "long",
       points: 20,
-      text: "What is atmospheric refraction? Explain with TWO distinct phenomena caused by it, including the advance of sunrise.",
-      modelAnswer: `**Atmospheric Refraction:** The Earth's atmosphere is not uniform — it has layers of varying density (higher density near the ground, lower at altitude). Since n is higher for denser air, the atmosphere acts as a medium of gradually varying refractive index. Light passing through it bends gradually (atmospheric refraction) rather than at a sharp boundary.
+      question: "What is atmospheric refraction? Explain with TWO distinct phenomena caused by it, including the advance of sunrise.",
+      correctAnswer: `**Atmospheric Refraction:** The Earth's atmosphere is not uniform — it has layers of varying density (higher density near the ground, lower at altitude). Since n is higher for denser air, the atmosphere acts as a medium of gradually varying refractive index. Light passing through it bends gradually (atmospheric refraction) rather than at a sharp boundary.
 
 **Phenomenon 1 — Advance of Sunrise / Delay of Sunset:**
 When the Sun is just below the horizon, light from it enters the atmosphere obliquely. The increasing density toward the ground causes the ray to curve downward progressively. The observer sees the Sun even before it geometrically rises above the horizon — about 2 minutes early. Similarly, at sunset, the Sun appears 2 minutes after it has actually gone below the horizon. This extends the visible day by about 4 minutes. The Sun also appears flattened/oval near the horizon because the lower edge is refracted more than the upper.
@@ -550,8 +551,8 @@ Stars are extremely distant — they are essentially point sources. Their light 
       id: "t10-la-4",
       type: "long",
       points: 20,
-      text: "Describe the defects of vision Myopia, Hypermetropia, and Presbyopia. For each: state the cause, how the image forms, and how it is corrected with a lens. Include the power calculation for Myopia correction where far point = 2 m.",
-      modelAnswer: `**Myopia (Short-sightedness):**
+      question: "Describe the defects of vision Myopia, Hypermetropia, and Presbyopia. For each: state the cause, how the image forms, and how it is corrected with a lens. Include the power calculation for Myopia correction where far point = 2 m.",
+      correctAnswer: `**Myopia (Short-sightedness):**
 Cause: Eyeball too long OR eye lens too converging. Image of distant objects forms IN FRONT of the retina, not on it. The person can see near objects clearly but cannot see distant objects.
 Correction: Concave lens (negative power). It diverges the incoming parallel rays (from infinity) so that the eye perceives them as coming from the far point.
 Power calculation: If far point = 2 m, the corrective lens must form a virtual image at −2 m from the eye when object is at infinity.
@@ -570,8 +571,8 @@ Correction: Bifocal lenses — the upper half is concave (for distance) and the 
       id: "t10-la-5",
       type: "long",
       points: 20,
-      text: "Write a detailed note on optical fibres: their structure, working principle (with formula), types, and applications in medicine and telecommunications.",
-      modelAnswer: `**Structure of an Optical Fibre:**
+      question: "Write a detailed note on optical fibres: their structure, working principle (with formula), types, and applications in medicine and telecommunications.",
+      correctAnswer: `**Structure of an Optical Fibre:**
 An optical fibre has three layers:
 1. Core: thin glass/silica with refractive index n₁ (higher)
 2. Cladding: surrounding glass with refractive index n₂ < n₁
@@ -596,8 +597,8 @@ TIR bounces the light back into the core — this repeats for thousands of kilom
       id: "t10-la-6",
       type: "long",
       points: 20,
-      text: "Explain Rayleigh Scattering in detail and use it to explain: (a) blue sky, (b) red sunset, (c) white clouds, and (d) why the Sun appears pale yellow at noon instead of pure white.",
-      modelAnswer: `**Rayleigh Scattering:**
+      question: "Explain Rayleigh Scattering in detail and use it to explain: (a) blue sky, (b) red sunset, (c) white clouds, and (d) why the Sun appears pale yellow at noon instead of pure white.",
+      correctAnswer: `**Rayleigh Scattering:**
 When electromagnetic waves encounter particles much smaller than their wavelength, they scatter in all directions. The intensity of scattering follows:
 I ∝ (1/λ⁴)
 This means shorter wavelengths (blue, violet) scatter approximately 9.4× more than red (700/450)⁴ ≈ 9.4.
@@ -614,8 +615,8 @@ This means shorter wavelengths (blue, violet) scatter approximately 9.4× more t
       id: "t10-la-7",
       type: "long",
       points: 20,
-      text: "The refractive index of diamond is 2.42 and that of glass is 1.50. (a) Calculate the critical angle for each. (b) Explain how diamond is cut to maximize brilliance using TIR. (c) Why is it harder to achieve TIR in glass than in diamond?",
-      modelAnswer: `**(a) Critical Angles:**
+      question: "The refractive index of diamond is 2.42 and that of glass is 1.50. (a) Calculate the critical angle for each. (b) Explain how diamond is cut to maximize brilliance using TIR. (c) Why is it harder to achieve TIR in glass than in diamond?",
+      correctAnswer: `**(a) Critical Angles:**
 Critical angle θ_c = arcsin(n_air / n_material) = arcsin(1/n)
 
 For Diamond: θ_c = arcsin(1/2.42) = arcsin(0.4132) ≈ **24.4°**
@@ -637,8 +638,8 @@ Glass has θ_c ≈ 41.8° — much larger than diamond's 24.4°. This means rays
       id: "t10-la-8",
       type: "long",
       points: 20,
-      text: "Describe the structure and function of the human eye as an optical instrument. Include: (a) role of each part, (b) the process of accommodation, (c) range of power of the eye, and (d) why the blind spot is called so.",
-      modelAnswer: `**Human Eye as an Optical Instrument:**
+      question: "Describe the structure and function of the human eye as an optical instrument. Include: (a) role of each part, (b) the process of accommodation, (c) range of power of the eye, and (d) why the blind spot is called so.",
+      correctAnswer: `**Human Eye as an Optical Instrument:**
 
 The human eye is an incredibly sophisticated camera-like device with a variable-focus lens and an adjustable aperture.
 
@@ -672,50 +673,50 @@ The point where the optic nerve exits the eye (onto the retina) has NO photorece
       id: "t10-hots-1",
       type: "thinking",
       points: 25,
-      text: "If the atmosphere had no gas molecules at all (no scattering), what would the daytime sky look like? What colour would the Sun appear? Justify your answer using physics.",
-      modelAnswer: "Without any scattering molecules, the sky would appear COMPLETELY BLACK even during the day — just as astronauts see on the Moon. Scattering is what makes the sky bright away from the direct solar disc. The Sun itself would appear PURE WHITE (its actual colour — all wavelengths present) or blindingly bright. On Earth, the blue sky is entirely due to Rayleigh scattering by N₂, O₂ molecules. No molecules → no scattering → no sky brightness away from Sun → black sky.",
+      question: "If the atmosphere had no gas molecules at all (no scattering), what would the daytime sky look like? What colour would the Sun appear? Justify your answer using physics.",
+      correctAnswer: "Without any scattering molecules, the sky would appear COMPLETELY BLACK even during the day — just as astronauts see on the Moon. Scattering is what makes the sky bright away from the direct solar disc. The Sun itself would appear PURE WHITE (its actual colour — all wavelengths present) or blindingly bright. On Earth, the blue sky is entirely due to Rayleigh scattering by N₂, O₂ molecules. No molecules → no scattering → no sky brightness away from Sun → black sky.",
     },
     {
       id: "t10-hots-2",
       type: "thinking",
       points: 25,
-      text: "Why does the secondary rainbow have its colours in the REVERSE order compared to the primary rainbow? Use a step-by-step ray diagram in words to justify.",
-      modelAnswer: "The secondary rainbow is formed by light that undergoes TWO Total Internal Reflections inside the water droplet (vs one for primary). Each additional TIR 'flips' the light path. After the first TIR, red exits at the bottom of the first arc. After the second TIR, the path is inverted again — red now ends up on the INSIDE of the secondary arc (at ≈51°) and violet on the OUTSIDE (at ≈53°). The two reversals (once from refraction+TIR, once from the second TIR) cause the colour sequence to be fully reversed. The secondary rainbow is also dimmer because each TIR loses some intensity.",
+      question: "Why does the secondary rainbow have its colours in the REVERSE order compared to the primary rainbow? Use a step-by-step ray diagram in words to justify.",
+      correctAnswer: "The secondary rainbow is formed by light that undergoes TWO Total Internal Reflections inside the water droplet (vs one for primary). Each additional TIR 'flips' the light path. After the first TIR, red exits at the bottom of the first arc. After the second TIR, the path is inverted again — red now ends up on the INSIDE of the secondary arc (at ≈51°) and violet on the OUTSIDE (at ≈53°). The two reversals (once from refraction+TIR, once from the second TIR) cause the colour sequence to be fully reversed. The secondary rainbow is also dimmer because each TIR loses some intensity.",
     },
     {
       id: "t10-hots-3",
       type: "thinking",
       points: 25,
-      text: "You are inside a swimming pool looking upward. What phenomenon would you observe at the water surface? At what angle range would you see the outside world, and what would you see beyond that angle? Calculate the relevant angle for water (n = 1.33).",
-      modelAnswer: "From inside water looking upward at the surface: the outside world (above water) is only visible within a cone (sometimes called Snell's window or Snell's cone). The half-angle of this cone equals the critical angle. For water: θ_c = arcsin(1/1.33) = arcsin(0.752) ≈ 48.6°. So: within ±48.6° of the vertical (directly upward), you see the entire outside world compressed into a bright circular 'window'. Outside this 48.6° cone (i.e., at steeper angles toward the horizontal), TIR occurs — you see only reflections of the pool bottom and sides — the water surface acts as a perfect mirror. The entire 180° of the outside world is compressed into a 48.6° half-angle cone — approximately a 97° solid angle.",
+      question: "You are inside a swimming pool looking upward. What phenomenon would you observe at the water surface? At what angle range would you see the outside world, and what would you see beyond that angle? Calculate the relevant angle for water (n = 1.33).",
+      correctAnswer: "From inside water looking upward at the surface: the outside world (above water) is only visible within a cone (sometimes called Snell's window or Snell's cone). The half-angle of this cone equals the critical angle. For water: θ_c = arcsin(1/1.33) = arcsin(0.752) ≈ 48.6°. So: within ±48.6° of the vertical (directly upward), you see the entire outside world compressed into a bright circular 'window'. Outside this 48.6° cone (i.e., at steeper angles toward the horizontal), TIR occurs — you see only reflections of the pool bottom and sides — the water surface acts as a perfect mirror. The entire 180° of the outside world is compressed into a 48.6° half-angle cone — approximately a 97° solid angle.",
     },
     {
       id: "t10-hots-4",
       type: "thinking",
       points: 25,
-      text: "Why is it impossible to see a rainbow at noon when the Sun is directly overhead? What is the best time to see a rainbow and where should you look?",
-      modelAnswer: "A rainbow is always centred at the 'anti-solar point' — the point directly opposite the Sun from the observer (the observer's shadow points there). For a primary rainbow, the bow is at 42° from the anti-solar point. When the Sun is directly overhead (90° above horizon), the anti-solar point is directly below the observer (90° below horizon). The rainbow arc would be 42° from 90° below horizon = 48° below the horizon — completely underground and invisible. Best time for rainbow: when Sun is LOW in the sky (morning or late afternoon, less than 42° altitude). At sunrise/sunset with a rainbow, the bow is nearly a full semicircle. Look toward the part of the sky OPPOSITE the Sun — toward your shadow.",
+      question: "Why is it impossible to see a rainbow at noon when the Sun is directly overhead? What is the best time to see a rainbow and where should you look?",
+      correctAnswer: "A rainbow is always centred at the 'anti-solar point' — the point directly opposite the Sun from the observer (the observer's shadow points there). For a primary rainbow, the bow is at 42° from the anti-solar point. When the Sun is directly overhead (90° above horizon), the anti-solar point is directly below the observer (90° below horizon). The rainbow arc would be 42° from 90° below horizon = 48° below the horizon — completely underground and invisible. Best time for rainbow: when Sun is LOW in the sky (morning or late afternoon, less than 42° altitude). At sunrise/sunset with a rainbow, the bow is nearly a full semicircle. Look toward the part of the sky OPPOSITE the Sun — toward your shadow.",
     },
     {
       id: "t10-hots-5",
       type: "thinking",
       points: 25,
-      text: "An astronaut on the Moon (no atmosphere) looks at Earth. Would they see: (a) the Earth's sky to be blue, (b) twinkling stars, (c) early sunrise over Earth? Give physics reasons for each.",
-      modelAnswer: "(a) Earth's sky FROM the Moon: The Moon has no atmosphere, so the astronaut is in space. They would see Earth as a beautiful blue marble — blue because Earth's atmosphere scatters blue light (which can be seen from outside). But standing on the Moon looking at the horizon there is no sky — just black space. (b) Twinkling: NO twinkling! Stars twinkle because of Earth's atmospheric turbulence. On the airless Moon, stars appear as steady bright points — no atmosphere to cause fluctuations. (c) Advance of sunrise over Earth: Not applicable from the Moon. Atmospheric refraction is an Earth-specific effect. The Moon has no atmosphere — moonrise and moonset follow strict geometric calculations with no advance/delay.",
+      question: "An astronaut on the Moon (no atmosphere) looks at Earth. Would they see: (a) the Earth's sky to be blue, (b) twinkling stars, (c) early sunrise over Earth? Give physics reasons for each.",
+      correctAnswer: "(a) Earth's sky FROM the Moon: The Moon has no atmosphere, so the astronaut is in space. They would see Earth as a beautiful blue marble — blue because Earth's atmosphere scatters blue light (which can be seen from outside). But standing on the Moon looking at the horizon there is no sky — just black space. (b) Twinkling: NO twinkling! Stars twinkle because of Earth's atmospheric turbulence. On the airless Moon, stars appear as steady bright points — no atmosphere to cause fluctuations. (c) Advance of sunrise over Earth: Not applicable from the Moon. Atmospheric refraction is an Earth-specific effect. The Moon has no atmosphere — moonrise and moonset follow strict geometric calculations with no advance/delay.",
     },
     {
       id: "t10-hots-6",
       type: "thinking",
       points: 25,
-      text: "Why does a swimming pool appear shallower than it actually is? If a pool has a real depth of 3.2 m and water has n = 1.33, calculate the apparent depth. If a swimmer at the bottom drops a coin, where exactly does it appear to an observer on the pool deck?",
-      modelAnswer: "Apparent depth phenomenon occurs because light from the coin at the bottom refracts as it exits the water surface. By Snell's Law for near-normal incidence: Apparent Depth = Real Depth / n. Calculation: Apparent depth = 3.2 / 1.33 = 2.41 m. The coin appears to be only 2.41 m below the surface — 0.79 m shallower than actual. The observer at the pool deck sees the coin at 2.41 m depth, directly below its real position. This is why swimmers always seem closer to the bottom than they are when viewed from outside, and why people misjudge pool depths — important safety consideration.",
+      question: "Why does a swimming pool appear shallower than it actually is? If a pool has a real depth of 3.2 m and water has n = 1.33, calculate the apparent depth. If a swimmer at the bottom drops a coin, where exactly does it appear to an observer on the pool deck?",
+      correctAnswer: "Apparent depth phenomenon occurs because light from the coin at the bottom refracts as it exits the water surface. By Snell's Law for near-normal incidence: Apparent Depth = Real Depth / n. Calculation: Apparent depth = 3.2 / 1.33 = 2.41 m. The coin appears to be only 2.41 m below the surface — 0.79 m shallower than actual. The observer at the pool deck sees the coin at 2.41 m depth, directly below its real position. This is why swimmers always seem closer to the bottom than they are when viewed from outside, and why people misjudge pool depths — important safety consideration.",
     },
     {
       id: "t10-hots-7",
       type: "thinking",
       points: 25,
-      text: "Why does a thick piece of glass appear less thick than it really is? A glass block 6 cm thick (n = 1.5) is placed over a coin. Where does the coin appear to be, and by how much is it shifted upward? Compare this to the same experiment done underwater (n = 1.33).",
-      modelAnswer: "A glass block 6 cm thick (n = 1.5) makes the coin appear at: Apparent thickness = Real thickness / n = 6 / 1.5 = 4 cm. The coin appears to be 4 cm below the top of the glass (shifted UP by 6 − 4 = 2 cm). For water (n = 1.33): Apparent thickness = 6 / 1.33 = 4.51 cm. Shift upward = 6 − 4.51 = 1.49 cm. Comparison: Glass (n=1.5) shifts the coin MORE (2 cm) than water (n=1.33) because glass has a higher refractive index → greater apparent depth reduction → more apparent upward shift. The formula for the upward apparent shift is: shift = real depth × (1 − 1/n).",
+      question: "Why does a thick piece of glass appear less thick than it really is? A glass block 6 cm thick (n = 1.5) is placed over a coin. Where does the coin appear to be, and by how much is it shifted upward? Compare this to the same experiment done underwater (n = 1.33).",
+      correctAnswer: "A glass block 6 cm thick (n = 1.5) makes the coin appear at: Apparent thickness = Real thickness / n = 6 / 1.5 = 4 cm. The coin appears to be 4 cm below the top of the glass (shifted UP by 6 − 4 = 2 cm). For water (n = 1.33): Apparent thickness = 6 / 1.33 = 4.51 cm. Shift upward = 6 − 4.51 = 1.49 cm. Comparison: Glass (n=1.5) shifts the coin MORE (2 cm) than water (n=1.33) because glass has a higher refractive index → greater apparent depth reduction → more apparent upward shift. The formula for the upward apparent shift is: shift = real depth × (1 − 1/n).",
     },
   ],
 };

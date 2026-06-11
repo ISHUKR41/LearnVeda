@@ -25,6 +25,9 @@ export const topic9NumericalsAdvanced: Topic = {
   title: "9. Numericals, Formulas & Advanced Optics",
   estimatedMinutes: 75,
   simulationIds: [
+    /* NEW 2026: Full virtual optics bench for mirror/lens revision */
+    "mirror-formula-lab-sim",        /* 3 principal rays live · concave/convex · f slider */
+    "lens-ray-tracer-sim",           /* 3 rays · 1/v−1/u=1/f · image nature auto-detected */
     "light-mirror-formula-calc",
     "light-sign-convention",
     "light-lens-formula-calc",

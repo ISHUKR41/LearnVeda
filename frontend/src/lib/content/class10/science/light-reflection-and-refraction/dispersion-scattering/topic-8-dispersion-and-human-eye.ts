@@ -34,12 +34,16 @@ export const topic8DispersionAndHumanEye: Topic = {
   title: "8. Dispersion, Scattering, Atmosphere & the Human Eye",
   estimatedMinutes: 70,
   simulationIds: [
+    /* NEW 2026: Interactive human eye anatomy — pupil dilation, accommodation, defects */
+    "light-biology-sim",             /* light level → pupil · obj distance → lens · Normal/Myopia/Hypermetropia */
     /* NEW 2026: Dedicated Rayleigh scattering sky sim */
     "scattering-blue-sky-sim",       /* time-of-day slider → blue sky / red sunset live */
     /* NEW 2026: Canvas-based eye defects ray diagram */
     "eye-defects-ray-diagram-sim",   /* Normal/Myopia/Hypermetropia with corrective lens toggle */
     /* Existing: Fully interactive human eye anatomy with clickable parts */
     "eye-anatomy-detailed-sim",
+    /* NEW 2026: Single raindrop → VIBGYOR with real Snell's law tracing */
+    "rainbow-droplet-sim",           /* impact param slider · 7 colour rays · 40°–42° angles */
     /* NEW: Ultra-detailed VIBGYOR prism with Cauchy equation per colour */
     "prism-advanced-sim",
     /* NEW: Interactive prism colour lab with apex/n/incidence sliders */

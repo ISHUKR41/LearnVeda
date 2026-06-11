@@ -1206,7 +1206,7 @@ function QuestionCard({
             </div>
             <div
               className={styles.explanationText}
-              dangerouslySetInnerHTML={{ __html: parseMarkdown(question.explanation) }}
+              dangerouslySetInnerHTML={{ __html: parseMarkdown(question.explanation ?? "") }}
             />
           </div>
         </div>
