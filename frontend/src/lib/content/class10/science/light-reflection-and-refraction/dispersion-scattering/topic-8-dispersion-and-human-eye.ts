@@ -34,6 +34,8 @@ export const topic8DispersionAndHumanEye: Topic = {
   title: "8. Dispersion, Scattering, Atmosphere & the Human Eye",
   estimatedMinutes: 70,
   simulationIds: [
+    /* NEW: Interactive prism colour lab with apex/n/incidence sliders */
+    "prism-color-lab-sim",
     /* New dedicated Topic 8 simulations */
     "light-prism-dispersion-adv",   /* drag apex angle → VIBGYOR fans out */
     "light-rainbow-droplet",         /* animated water droplet rainbow */
@@ -78,6 +80,10 @@ The seven constituent colours of white light, arranged from least refracted to m
 | **Y**ellow | Y | ~1.519 | 570–590 nm |
 | **O**range | O | ~1.517 | 590–620 nm |
 | **R**ed | R | ~1.515 | 620–750 nm |
+
+:::tip 💡 VIBGYOR Memory Trick|"Violet Is Beautiful, Go Yellow Or Red" — Violet bends MOST (highest n), Red bends LEAST (lowest n). Remember: V → highest deviation, R → lowest deviation. This is the reverse of wavelength order!:::
+
+:::keypoint 🔑 Exam Must-Know — Dispersion|Violet has highest refractive index (bends most). Red has lowest refractive index (bends least). The order from most bent to least bent: V I B G Y O R. Both the sequence AND reason are frequently asked!:::
 
 Mnemonic: **"VIBGYOR"** or **"Richard Of York Gave Battle In Vain"** (reversed as ROYGBIV)
 

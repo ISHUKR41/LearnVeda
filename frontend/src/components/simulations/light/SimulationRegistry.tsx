@@ -71,6 +71,14 @@ const lazyLoad = (
 
 const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
   /* ─── Reflection ─── */
+  /* NEW: Fully interactive draggable reflection lab */
+  "reflection-interactive-sim": {
+    title: "Laws of Reflection — Live Ray Lab",
+    description: "Drag light source anywhere · live ∠i = ∠r · wavefront mode · colour picker · virtual image line",
+    category: "reflection",
+    icon: "🪞",
+    component: lazyLoad(() => import("./reflection/ReflectionInteractiveSim")),
+  },
   "light-plane-mirror": {
     title: "Plane Mirror — Laws of Reflection",
     description: "Drag light source to explore angle of incidence = angle of reflection",
@@ -121,6 +129,14 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     category: "mirrors",
     icon: "🧮",
     component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+  /* NEW: Full object-image relationship for all 6 positions */
+  "mirror-object-image-sim": {
+    title: "Mirror Object-Image Lab — All 6 Positions",
+    description: "Slide object distance · mirror formula 1/v+1/u=1/f · concave & convex · image property cards",
+    category: "mirrors",
+    icon: "🔮",
+    component: lazyLoad(() => import("./mirrors/MirrorObjectImageSim")),
   },
   /* NEW: Spherical mirror terminology interactive diagram */
   "mirror-terms-diagram": {
@@ -191,6 +207,14 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     icon: "💪",
     component: lazyLoad(() => import("./lenses/ConvexLensSim")),
   },
+  /* NEW: Full ray diagram with 3 principal rays, all positions, convex/concave toggle */
+  "lens-ray-diagram-sim": {
+    title: "Lens Ray Diagram — 3 Principal Rays",
+    description: "Slide object along axis · 3 principal rays drawn live · 1/v−1/u=1/f · convex & concave lenses",
+    category: "lenses",
+    icon: "🔭",
+    component: lazyLoad(() => import("./lenses/LensRayDiagramSim")),
+  },
   /* NEW: Dedicated Power of Lens simulation with combination lenses */
   "power-dioptre-sim": {
     title: "Power of Lens — P = 1/f (Dioptres)",
@@ -200,6 +224,14 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     component: lazyLoad(() => import("./lenses/PowerOfLensSim")),
   },
 
+  /* NEW: Interactive prism colour lab with VIBGYOR + rainbow mode */
+  "prism-color-lab-sim": {
+    title: "Prism Dispersion — Interactive Colour Lab",
+    description: "Adjust apex angle, refractive index, incidence angle · VIBGYOR splitting · rainbow mode",
+    category: "dispersion",
+    icon: "🌈",
+    component: lazyLoad(() => import("./dispersion/PrismColorLabSim")),
+  },
   /* ─── Dispersion ─── */
   "prism-dispersion-sim": {
     title: "Prism Dispersion — VIBGYOR",

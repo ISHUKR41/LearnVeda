@@ -38,6 +38,10 @@ The lens formula gives the relationship between the object distance ($u$), image
 It is expressed as:
 $$ \\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f} $$
 
+:::formula 📐 Lens Formula vs Mirror Formula|Lens: 1/v − 1/u = 1/f (MINUS sign). Mirror: 1/v + 1/u = 1/f (PLUS sign). This single difference trips up thousands of students every year!:::
+
+:::warning ⚠️ Critical Difference|LENS magnification: m = v/u (NO negative sign). MIRROR magnification: m = −v/u (WITH negative sign). Memorise this distinction — it's tested every year!:::
+
 *Note:* This formula differs from the mirror formula by a minus sign. It is general and valid in all situations for any spherical lens, provided proper sign conventions are used.
 
 ---
@@ -68,6 +72,10 @@ The degree of convergence or divergence of light rays achieved by a lens is expr
 The power of a lens is defined as the reciprocal of its focal length.
 $$ P = \\frac{1}{f} $$
 *Where $f$ must be measured in meters (m).*
+
+:::formula 📐 Power of a Lens|P = 1/f (f in metres). Unit: Dioptre (D). Convex lens → positive power. Concave lens → negative power. Combined lenses: P_total = P₁ + P₂ + P₃ + …:::
+
+:::reallife 👓 Reading an Eye Prescription|The numbers on your spectacle prescription like +2.5 D or −1.75 D are the powers of your corrective lenses. Positive = convex (for hypermetropia). Negative = concave (for myopia).:::
 
 **Unit of Power:**
 The SI unit of power of a lens is **diopter (D)**.

@@ -14,6 +14,8 @@ export const topic1IntroAndLawsOfReflection: Topic = {
   title: "1. Introduction to Light and Laws of Reflection",
   estimatedMinutes: 45,
   simulationIds: [
+    /* Fully draggable live reflection lab — NEW */
+    "reflection-interactive-sim",
     "light-plane-mirror",
     "light-regular-diffuse",
     "light-lateral-inversion",
@@ -73,7 +75,11 @@ The reflection of light by any surface (plane or curved) obeys the following two
 **Second Law of Reflection:**
 > The incident ray, the reflected ray, and the normal at the point of incidence, all lie in the same plane.
 
-*Note:* These laws are universally applicable to all types of reflecting surfaces, including spherical surfaces (concave and convex mirrors).
+:::formula 📐 The Golden Rule of Reflection|∠i = ∠r — The angle of incidence ALWAYS equals the angle of reflection. This holds true for ALL surfaces — plane mirrors, concave, and convex.:::
+
+:::warning ⚠️ Common Mistake|Students often measure the angle of incidence from the mirror surface itself. ALWAYS measure from the Normal (the perpendicular line), never from the surface!:::
+
+:::keypoint 🔑 Exam Must-Know|Both laws of reflection apply universally to ALL reflecting surfaces — plane mirrors AND spherical mirrors (concave/convex). No exceptions!:::
 
 ---
 

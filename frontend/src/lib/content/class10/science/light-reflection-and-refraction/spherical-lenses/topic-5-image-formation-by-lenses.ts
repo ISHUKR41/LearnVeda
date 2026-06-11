@@ -12,6 +12,8 @@ export const topic5ImageFormationByLenses: Topic = {
   title: "5. Spherical Lenses and Image Formation",
   estimatedMinutes: 60,
   simulationIds: [
+    /* Full 3-principal-ray diagram with convex/concave toggle — NEW */
+    "lens-ray-diagram-sim",
     "light-convex-lens",
     "light-concave-lens",
     "light-lens-positions",
@@ -58,6 +60,10 @@ To locate the image formed by lenses, we use the following standard incident ray
     *   *Concave Lens:* A ray appearing to meet at $F_2$ becomes parallel to the principal axis after refraction.
 3.  **Ray passing through the Optical Center ($O$):** Passes through the lens without any deviation.
 
+:::tip 💡 Ray Diagram Shortcut|Only 2 of the 3 standard rays are needed to locate an image. Where any 2 refracted rays meet (or appear to meet when produced backwards) — that is where the image forms!:::
+
+:::keypoint 🔑 Concave Lens Never Forms Real Images|A concave lens ALWAYS forms virtual, erect, and diminished images — regardless of where the object is placed. This is a guaranteed exam question!:::
+
 ---
 
 ### Image Formation by a Convex Lens
@@ -72,6 +78,8 @@ A convex lens can form both real and virtual images, similar to a concave mirror
 | **Between $F_1$ and $2F_1$** | Beyond $2F_2$ | Enlarged | Real and inverted |
 | **At $F_1$** | At Infinity | Highly enlarged | Real and inverted |
 | **Between $O$ and $F_1$** | On the same side as object | Enlarged | **Virtual and erect** |
+
+:::reallife 🔬 Applications of Convex Lens|Magnifying glass, camera lens, microscope objective, telescope eyepiece, and corrective lenses for hypermetropia (far-sightedness). The convex lens converges light to form a real, enlarged image on the retina.:::
 
 *Application:* Convex lenses are used in magnifying glasses, microscopes, telescopes, and to correct hypermetropia (far-sightedness).
 

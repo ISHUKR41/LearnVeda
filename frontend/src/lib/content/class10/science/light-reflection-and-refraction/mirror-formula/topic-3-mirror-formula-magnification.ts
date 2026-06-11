@@ -50,6 +50,10 @@ Where:
 *   $u =$ distance of the object from the pole
 *   $f =$ focal length of the mirror
 
+:::formula 📐 Mirror Formula|1/v + 1/u = 1/f — where f = R/2 (focal length = half the radius of curvature). All distances measured from the Pole (P).:::
+
+:::warning ⚠️ Sign Convention Alert|u is ALWAYS negative (object is always in front of the mirror). For concave mirror f is negative; for convex mirror f is positive. Never substitute without signs!:::
+
 This formula is valid in all situations for all spherical mirrors, provided the sign convention is applied correctly to the values substituted into the formula.
 
 ---
@@ -66,6 +70,10 @@ $$ m = - \\frac{v}{u} $$
 
 Combining the two:
 $$ m = \\frac{h'}{h} = - \\frac{v}{u} $$
+
+:::formula 📐 Magnification Formula|m = h'/h = −v/u. If m is negative → real & inverted image. If m is positive → virtual & erect image. |m| > 1 means enlarged; |m| < 1 means diminished.:::
+
+:::tip 💡 Quick Memory Trick|"Negative m = Real image" — Real images are always inverted (upside-down), so m is negative. Virtual images are always erect (right side up), so m is positive.:::
 
 **Interpreting Magnification:**
 *   If $m$ is **negative**, the image is **real and inverted**.

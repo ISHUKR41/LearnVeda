@@ -486,8 +486,68 @@ export function parseMarkdown(text: string): string {
       flushLists(); out.push('<hr class="md-hr" />'); continue;
     }
 
-    /* h4 / h3 / h2 */
+    /* ── Callout blocks: :::type icon Title|Body text::: ──
+     * Syntax: :::formula 📐 Title|Body text:::
+     * Types: formula, tip, warning, reallife, definition, keypoint
+     * Examples:
+     *   :::formula 📐 Key Formula|1/v + 1/u = 1/f  (Mirror Formula):::
+     *   :::tip 💡 Remember|Both laws apply to plane and curved mirrors.:::
+     *   :::reallife 🚗 Real Life|Convex mirrors are used as rear-view mirrors in vehicles.:::
+     */
     let m: RegExpMatchArray | null;
+    if ((m = line.match(/^:::(\w+)\s+(\S+)\s+([^|]*)\|(.+):::$/))) {
+      flushLists();
+      const [, callType, icon, label, body] = m;
+      const calloutMap: Record<string, string> = {
+        formula:    "md-callout-formula",
+        tip:        "md-callout-tip",
+        warning:    "md-callout-warning",
+        reallife:   "md-callout-reallife",
+        definition: "md-callout-definition",
+        keypoint:   "md-callout-keypoint",
+      };
+      const cls = calloutMap[callType] || "md-callout-tip";
+      out.push(
+        `<div class="md-callout ${cls}">` +
+        `<span class="md-callout-icon">${icon}</span>` +
+        `<div class="md-callout-body">` +
+        `<div class="md-callout-label">${label.trim()}</div>` +
+        `<div class="md-callout-text">${body.trim()}</div>` +
+        `</div></div>`
+      );
+      continue;
+    }
+
+    /* Shortened callout: :::type|text::: (no icon, uses default) */
+    if ((m = line.match(/^:::(\w+)\|(.+):::$/))) {
+      flushLists();
+      const [, callType, body] = m;
+      const iconMap: Record<string, string> = {
+        formula: "📐", tip: "💡", warning: "⚠️", reallife: "🌍", definition: "📖", keypoint: "🔑",
+      };
+      const calloutMap: Record<string, string> = {
+        formula:    "md-callout-formula",
+        tip:        "md-callout-tip",
+        warning:    "md-callout-warning",
+        reallife:   "md-callout-reallife",
+        definition: "md-callout-definition",
+        keypoint:   "md-callout-keypoint",
+      };
+      const cls  = calloutMap[callType] || "md-callout-tip";
+      const icon = iconMap[callType]    || "💡";
+      const label = callType.charAt(0).toUpperCase() + callType.slice(1);
+      out.push(
+        `<div class="md-callout ${cls}">` +
+        `<span class="md-callout-icon">${icon}</span>` +
+        `<div class="md-callout-body">` +
+        `<div class="md-callout-label">${label}</div>` +
+        `<div class="md-callout-text">${body.trim()}</div>` +
+        `</div></div>`
+      );
+      continue;
+    }
+
+    /* h4 / h3 / h2 */
     if ((m = line.match(/^#### (.+)$/))) { flushLists(); out.push(`<h4 class="md-h4">${m[1]}</h4>`); continue; }
     if ((m = line.match(/^### (.+)$/)))  { flushLists(); out.push(`<h3 class="md-h3">${m[1]}</h3>`); continue; }
     if ((m = line.match(/^## (.+)$/)))   { flushLists(); out.push(`<h2 class="md-h2">${m[1]}</h2>`); continue; }

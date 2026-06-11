@@ -97,6 +97,12 @@ $$\\boxed{\\sin(i_c) = \\frac{1}{n}}$$
 
 where $n$ is the absolute refractive index of the denser medium.
 
+:::formula 📐 Critical Angle Formula|sin(iₒ) = 1/n — where n is the refractive index of the denser medium and iₒ is the critical angle. Higher n → smaller critical angle → TIR occurs more easily!:::
+
+:::definition 📖 Two Conditions for TIR|1. Light must travel from a DENSER medium to a RARER medium (e.g., glass→air, not air→glass). 2. The angle of incidence must EXCEED the critical angle (i > iₒ). Both conditions must be met simultaneously!:::
+
+:::reallife 💎 Why Diamonds Sparkle|Diamond has n = 2.42, giving a tiny critical angle of only 24.4°. Light entering a well-cut diamond undergoes multiple total internal reflections before escaping — creating that dazzling brilliance!:::
+
 This means: **Higher the refractive index, smaller the critical angle.**
 
 ---

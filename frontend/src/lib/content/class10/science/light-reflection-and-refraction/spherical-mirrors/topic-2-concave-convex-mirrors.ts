@@ -13,6 +13,8 @@ export const topic2SphericalMirrors: Topic = {
   title: "2. Spherical Mirrors: Concave and Convex",
   estimatedMinutes: 60,
   simulationIds: [
+    /* All-6-positions interactive object-image lab — NEW */
+    "mirror-object-image-sim",
     "mirror-terms-diagram",
     "light-concave-rays",
     "light-convex-rays",

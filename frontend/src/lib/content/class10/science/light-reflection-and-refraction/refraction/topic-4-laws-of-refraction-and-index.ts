@@ -62,6 +62,10 @@ Refraction of light obeys the following two laws:
 
 $$ \\frac{\\sin i}{\\sin r} = \\text{constant} $$
 
+:::formula 📐 Snell's Law|sin i / sin r = n₂₁ = n₂/n₁ = v₁/v₂. The ratio is constant for a given pair of media. This constant is the Refractive Index of medium 2 w.r.t. medium 1.:::
+
+:::reallife 🌊 Why a Swimming Pool Looks Shallower|Water (n=1.33) is denser than air (n=1.0). Light bends away from normal as it exits water → your brain traces it back in a straight line → pool floor appears closer than it really is!:::
+
 This constant value is called the **Refractive Index** of the second medium with respect to the first.
 
 ---
