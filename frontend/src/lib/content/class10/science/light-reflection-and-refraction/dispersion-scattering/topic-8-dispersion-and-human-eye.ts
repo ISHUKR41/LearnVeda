@@ -34,18 +34,22 @@ export const topic8DispersionAndHumanEye: Topic = {
   title: "8. Dispersion, Scattering, Atmosphere & the Human Eye",
   estimatedMinutes: 70,
   simulationIds: [
-    /* NEW: Fully interactive human eye anatomy with clickable parts */
+    /* NEW 2026: Dedicated Rayleigh scattering sky sim */
+    "scattering-blue-sky-sim",       /* time-of-day slider → blue sky / red sunset live */
+    /* NEW 2026: Canvas-based eye defects ray diagram */
+    "eye-defects-ray-diagram-sim",   /* Normal/Myopia/Hypermetropia with corrective lens toggle */
+    /* Existing: Fully interactive human eye anatomy with clickable parts */
     "eye-anatomy-detailed-sim",
     /* NEW: Ultra-detailed VIBGYOR prism with Cauchy equation per colour */
     "prism-advanced-sim",
     /* NEW: Interactive prism colour lab with apex/n/incidence sliders */
     "prism-color-lab-sim",
     /* New dedicated Topic 8 simulations */
-    "light-prism-dispersion-adv",   /* drag apex angle → VIBGYOR fans out */
-    "light-rainbow-droplet",         /* animated water droplet rainbow */
-    "light-rayleigh-sky",            /* drag sun → sky colour changes */
-    "light-eye-anatomy",             /* interactive human eye cross-section */
-    "light-vision-defect-fix",       /* myopia / hyperopia correction */
+    "light-prism-dispersion-adv",    /* drag apex angle → VIBGYOR fans out */
+    "light-rainbow-droplet",          /* animated water droplet rainbow */
+    "light-rayleigh-sky",             /* drag sun → sky colour changes */
+    "light-eye-anatomy",              /* interactive human eye cross-section */
+    "light-vision-defect-fix",        /* myopia / hyperopia correction */
     /* Shared simulations from other topics */
     "light-prism-dispersion",
     "light-spectrum-prism",

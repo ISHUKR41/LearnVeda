@@ -12,6 +12,8 @@ export const topic6LensFormulaAndPower: Topic = {
   title: "6. Lens Formula and Power of a Lens",
   estimatedMinutes: 50,
   simulationIds: [
+    /* NEW 2026: Dedicated Lens Formula Interactive Lab */
+    "lens-formula-lab-sim",         /* 3 principal rays, convex/concave toggle, image nature cards */
     /* NEW: Mirror formula lab adapted for lenses — shows 1/v−1/u=1/f live */
     "lens-ray-diagram-sim",
     /* NEW: Power of lens — combined P = P₁ + P₂ */

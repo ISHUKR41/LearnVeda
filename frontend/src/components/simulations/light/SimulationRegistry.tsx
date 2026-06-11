@@ -678,6 +678,47 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     icon: "🌈",
     component: lazyLoad(() => import("./dispersion/PrismAdvancedSim")),
   },
+
+  /* ═══════════════════════════════════════════════════
+   * NEW SIMULATIONS — June 2026 Mega-Enhancement
+   * All-new components, not reusing existing ones
+   * ═══════════════════════════════════════════════════ */
+
+  /* ── Optical Fibre TIR — dedicated animated component ── */
+  "optical-fibre-tir-sim": {
+    title: "Optical Fibre — Animated TIR Simulation",
+    description: "Photons bounce inside a bent fibre via TIR · bend angle slider · Glass/Plastic/Diamond fibre · critical angle live display",
+    category: "refraction",
+    icon: "🔆",
+    component: lazyLoad(() => import("./tir/OpticalFibreTIRSim")),
+  },
+
+  /* ── Rayleigh Scattering — Blue Sky & Red Sunset ── */
+  "scattering-blue-sky-sim": {
+    title: "Rayleigh Scattering — Blue Sky & Red Sunset",
+    description: "Time-of-day slider · scatter particles · blue vs red transmission bars · path length visualiser · sky colour perception badge",
+    category: "dispersion",
+    icon: "🌅",
+    component: lazyLoad(() => import("./dispersion/ScatteringBlueSkySimNew")),
+  },
+
+  /* ── Lens Formula Interactive Lab ── */
+  "lens-formula-lab-sim": {
+    title: "Lens Formula Lab — Live Ray Diagram",
+    description: "Slide u & f · 1/v−1/u=1/f computed instantly · 3 principal rays drawn · convex/concave toggle · image nature cards",
+    category: "lenses",
+    icon: "🔭",
+    component: lazyLoad(() => import("./lenses/LensFormulaLabSim")),
+  },
+
+  /* ── Eye Defects Ray Diagram — canvas-based ── */
+  "eye-defects-ray-diagram-sim": {
+    title: "Eye Defects — Ray Diagram Simulation",
+    description: "Normal / Myopia / Hypermetropia / Presbyopia · canvas ray diagram · toggle corrective lens · corrective power shown",
+    category: "eye",
+    icon: "👓",
+    component: lazyLoad(() => import("./eye/EyeDefectsRayDiagramSim")),
+  },
 };
 
 /* ═══════════════════════════════════════════════════

@@ -600,6 +600,68 @@ export const topicFlashCards: Record<string, { id: string; front: string; back: 
     { id: "fc9-20", front: "Concave mirror uses (4 key ones)?",
       back: "1. Shaving/makeup mirror: object between F and P → magnified, erect. 2. Doctor's headmirror/ENT mirror: concave → focuses light onto patient. 3. Solar furnace: parallel sun rays → converge at focus → extreme heat. 4. Torches/headlights: bulb at F → parallel beam emerges." },
   ],
+
+  /* ─────────────────────────────────────────────────────────────
+   * Topic 10: Optical Phenomena in Nature and Technology
+   * 22 flash cards covering all key phenomena and applications
+   * ───────────────────────────────────────────────────────────── */
+  "optical-phenomena-in-nature": [
+    /* ── Rayleigh Scattering ── */
+    { id: "fc10-1", front: "State Rayleigh's Scattering Law.",
+      back: "Intensity of scattered light I ∝ 1/λ⁴ (inversely proportional to the fourth power of wavelength). Shorter λ = much more scattering. Blue (450 nm) is scattered ~9.4× more than red (700 nm)." },
+    { id: "fc10-2", front: "Why is the sky blue?",
+      back: "Sunlight hits N₂/O₂ molecules → Rayleigh scattering (I ∝ 1/λ⁴) → blue light (short λ) scattered in ALL directions → reaches eyes from every part of sky → sky appears blue." },
+    { id: "fc10-3", front: "Why are sunsets red/orange?",
+      back: "At sunset, sunlight travels 10–40× longer path through atmosphere → ALL blue/violet is scattered sideways → only long-wavelength red and orange survive the journey → sky near horizon is red-orange." },
+    { id: "fc10-4", front: "Why are danger signals RED?",
+      back: "Red has the longest wavelength (≈700 nm). By I ∝ 1/λ⁴, red light is scattered the LEAST by dust/fog/rain → travels farthest and remains visible even in poor weather → maximum safety." },
+    { id: "fc10-5", front: "Why are clouds WHITE?",
+      back: "Cloud water droplets (1–100 μm) are much larger than gas molecules → Mie scattering (not Rayleigh) → ALL wavelengths scattered equally → all colours mix → white appearance." },
+
+    /* ── Rainbow ── */
+    { id: "fc10-6", front: "What THREE processes form a rainbow?",
+      back: "1. Refraction (entry) — white light disperses entering water droplet. 2. Total Internal Reflection at back of droplet (θ > θc ≈ 48.6° for water). 3. Refraction (exit) — colours further separated. Different λ exit at different angles." },
+    { id: "fc10-7", front: "Primary rainbow: colour order and angles?",
+      back: "Red OUTSIDE at 42° from anti-solar point. Violet INSIDE at 40°. Top-to-bottom: Red-Orange-Yellow-Green-Blue-Indigo-Violet (ROYGBIV). Formed by 1 internal TIR." },
+    { id: "fc10-8", front: "How does a secondary rainbow differ?",
+      back: "Secondary rainbow: 2 internal TIRs → colours REVERSED (Violet outside at 51°, Red inside at 53°) → dimmer than primary. Dark region between them = Alexander's Dark Band." },
+    { id: "fc10-9", front: "Why can't you see a rainbow at noon?",
+      back: "Rainbow centred at anti-solar point (opposite Sun). At noon, Sun is ~90° overhead → anti-solar point is 90° below horizon → rainbow arc is underground. Need Sun below 42° altitude (morning/evening)." },
+
+    /* ── Atmospheric Refraction ── */
+    { id: "fc10-10", front: "Why does sunrise appear ~2 minutes early?",
+      back: "Atmospheric refraction: density increases toward ground → n increases → Sun's rays bend downward as they enter atmosphere → observer sees Sun before it geometrically rises. Sunset similarly delayed by ~2 min → day extended ~4 min." },
+    { id: "fc10-11", front: "Why do stars twinkle?",
+      back: "Stars are POINT SOURCES. Atmospheric layers (varying temperature/density/n) constantly move → apparent position and brightness of star fluctuate rapidly → twinkling (scintillation)." },
+    { id: "fc10-12", front: "Why don't planets twinkle?",
+      back: "Planets are close enough to appear as EXTENDED DISCS (not point sources). Light from different parts of the disc averages out atmospheric fluctuations → steady appearance." },
+    { id: "fc10-13", front: "Why does the Sun look flattened/oval near the horizon?",
+      back: "Lower edge of Sun is refracted MORE than upper edge (more atmosphere below → stronger refraction). Unequal refraction compresses vertical diameter → oval/flattened shape." },
+
+    /* ── TIR Phenomena ── */
+    { id: "fc10-14", front: "How does a desert mirage (inferior mirage) form?",
+      back: "Hot air near road = less dense = lower n. Light from sky travels downward through progressively rarer (less n) air → bends away from normal → angle eventually > θc → TIR → ray curves back up → observer sees 'water' (image of sky on road)." },
+    { id: "fc10-15", front: "Critical angle of diamond (n = 2.42) and why it sparkles?",
+      back: "θc = arcsin(1/2.42) ≈ 24.4°. This tiny θc means most rays inside a cut diamond hit facets at angles > 24.4° → multiple TIR bounces before exiting through top → brilliant coloured flashes. Glass θc ≈ 41.8° so far less TIR → less sparkle." },
+    { id: "fc10-16", front: "What is Snell's window? Critical angle formula for water?",
+      back: "Snell's window: from inside water looking up, the ENTIRE outside world is compressed into a cone of half-angle θc. For water (n=1.33): θc = arcsin(1/1.33) ≈ 48.6°. Outside this cone → perfect TIR mirror reflection." },
+
+    /* ── Optical Fibres ── */
+    { id: "fc10-17", front: "State the working principle of optical fibres.",
+      back: "Core (n₁) > Cladding (n₂) → light entering core at less than acceptance angle hits core-cladding boundary at θ > θc → TIR → light trapped inside core → travels for km with < 0.2 dB/km loss." },
+    { id: "fc10-18", front: "Give 3 applications of optical fibres.",
+      back: "1. Internet/Telecom: data as light pulses, 200+ Tbps capacity. 2. Medical endoscope: illuminate inside body + transmit image without surgery. 3. Sensors: fibre properties (n) change with pressure/temperature → sensing applications." },
+
+    /* ── Human Eye ── */
+    { id: "fc10-19", front: "Myopia — cause, image location, and correction.",
+      back: "Cause: eyeball too long OR lens too converging. Image forms IN FRONT of retina. Person cannot see distant objects. Correction: Concave lens (negative power = 1/f_far). Example: far point 2m → P = −0.5 D." },
+    { id: "fc10-20", front: "Hypermetropia — cause, image location, and correction.",
+      back: "Cause: eyeball too short OR lens too weak. Image of near objects forms BEHIND retina. Person cannot see nearby objects. Correction: Convex lens (positive power). Power = 1/v − 1/u where v = near point, u = −25 cm." },
+    { id: "fc10-21", front: "Presbyopia and Astigmatism — what are they?",
+      back: "Presbyopia: age-related — ciliary muscles weaken → lens rigid → cannot accommodate → BOTH near and far vision blurry. Fix: bifocal lenses. Astigmatism: irregular cornea → different foci in different planes. Fix: cylindrical lens." },
+    { id: "fc10-22", front: "What is the apparent depth formula and shift?",
+      back: "Apparent Depth = Real Depth / n. Apparent shift upward = Real Depth × (1 − 1/n). Example: pool 3.2 m deep, n=1.33 → apparent depth = 3.2/1.33 = 2.41 m → appears 0.79 m shallower." },
+  ],
 };
 
 
@@ -1220,6 +1282,134 @@ export const topicMindMaps: Record<string, { id: string; label: string; children
         { id: "mm9-5c", label: "Convex mirror: rear-view (wide field), security mirror" },
         { id: "mm9-5d", label: "Convex lens: camera, projector, magnifier" },
         { id: "mm9-5e", label: "Concave lens: myopia correction" },
+      ]
+    },
+  ],
+
+  /* ─────────────────────────────────────────────────────────────
+   * Topic 10: Optical Phenomena in Nature and Technology
+   * ───────────────────────────────────────────────────────────── */
+  "optical-phenomena-in-nature": [
+    {
+      id: "mm10-1", label: "Rayleigh Scattering (I ∝ 1/λ⁴)", children: [
+        { id: "mm10-1a", label: "Blue sky: short λ scattered most → blue from all directions" },
+        { id: "mm10-1b", label: "Red sunset: long path → all blue gone → red/orange survives" },
+        { id: "mm10-1c", label: "Danger signals red: scattered LEAST → maximum range" },
+        {
+          id: "mm10-1d", label: "Clouds white: Mie scattering (large droplets)", children: [
+            { id: "mm10-1d1", label: "All λ scattered equally → white" },
+            { id: "mm10-1d2", label: "Thick clouds → grey (less light through)" },
+          ]
+        },
+        { id: "mm10-1e", label: "Tyndall effect: scattering by colloidal particles (sea blue, smoke)" },
+      ]
+    },
+    {
+      id: "mm10-2", label: "Rainbow Formation", children: [
+        {
+          id: "mm10-2a", label: "3 Steps in each droplet", children: [
+            { id: "mm10-2a1", label: "1. Refraction at entry → dispersion" },
+            { id: "mm10-2a2", label: "2. TIR at back (θc water ≈ 48.6°)" },
+            { id: "mm10-2a3", label: "3. Refraction at exit → further spread" },
+          ]
+        },
+        {
+          id: "mm10-2b", label: "Primary rainbow (1 TIR)", children: [
+            { id: "mm10-2b1", label: "Red outside at 42°, Violet inside at 40°" },
+            { id: "mm10-2b2", label: "Observer angle from anti-solar point" },
+          ]
+        },
+        {
+          id: "mm10-2c", label: "Secondary rainbow (2 TIR)", children: [
+            { id: "mm10-2c1", label: "Reversed colours: Violet outside 51°, Red inside 53°" },
+            { id: "mm10-2c2", label: "Dimmer — Alexander's Dark Band between them" },
+          ]
+        },
+        { id: "mm10-2d", label: "No rainbow at noon: Sun > 42° → arc below horizon" },
+      ]
+    },
+    {
+      id: "mm10-3", label: "Atmospheric Refraction", children: [
+        { id: "mm10-3a", label: "n increases toward ground (denser air near surface)" },
+        {
+          id: "mm10-3b", label: "Advance of Sunrise / Delay of Sunset", children: [
+            { id: "mm10-3b1", label: "Sun seen ~2 min early at sunrise, ~2 min late at sunset" },
+            { id: "mm10-3b2", label: "Day extended by ~4 minutes total" },
+            { id: "mm10-3b3", label: "Sun appears oval/flattened near horizon" },
+          ]
+        },
+        {
+          id: "mm10-3c", label: "Twinkling of Stars vs Steady Planets", children: [
+            { id: "mm10-3c1", label: "Stars = point sources → fluctuations visible → twinkle" },
+            { id: "mm10-3c2", label: "Planets = discs → fluctuations average out → steady" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm10-4", label: "TIR Natural Phenomena", children: [
+        {
+          id: "mm10-4a", label: "Desert Mirage (Inferior)", children: [
+            { id: "mm10-4a1", label: "Hot air near ground → lower n" },
+            { id: "mm10-4a2", label: "Ray bends upward → TIR in hot air layers" },
+            { id: "mm10-4a3", label: "Observer sees sky image on road (looks like water)" },
+          ]
+        },
+        {
+          id: "mm10-4b", label: "Diamond Sparkle", children: [
+            { id: "mm10-4b1", label: "n = 2.42 → θc = 24.4° (very small!)" },
+            { id: "mm10-4b2", label: "Multiple TIR bounces inside cut gem → brilliance" },
+            { id: "mm10-4b3", label: "Glass θc = 41.8° → far less TIR → less sparkle" },
+          ]
+        },
+        {
+          id: "mm10-4c", label: "Snell's Window (from inside water)", children: [
+            { id: "mm10-4c1", label: "Entire outside world seen in ±48.6° cone" },
+            { id: "mm10-4c2", label: "Outside cone → perfect TIR mirror" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm10-5", label: "Optical Fibres", children: [
+        {
+          id: "mm10-5a", label: "Structure", children: [
+            { id: "mm10-5a1", label: "Core: high n glass/silica" },
+            { id: "mm10-5a2", label: "Cladding: lower n → TIR interface" },
+            { id: "mm10-5a3", label: "Protective plastic jacket" },
+          ]
+        },
+        { id: "mm10-5b", label: "Working: TIR at core-cladding boundary (θ > θc)" },
+        { id: "mm10-5c", label: "Loss < 0.2 dB/km (vs copper 5–10 dB/km)" },
+        {
+          id: "mm10-5d", label: "Applications", children: [
+            { id: "mm10-5d1", label: "Internet: 200+ Tbps as light pulses" },
+            { id: "mm10-5d2", label: "Medical endoscope: see inside body without surgery" },
+            { id: "mm10-5d3", label: "Sensors: pressure/temperature via n change" },
+          ]
+        },
+      ]
+    },
+    {
+      id: "mm10-6", label: "Human Eye & Vision Defects", children: [
+        {
+          id: "mm10-6a", label: "Eye Structure", children: [
+            { id: "mm10-6a1", label: "Cornea: 70% power (~43 D), fixed" },
+            { id: "mm10-6a2", label: "Iris/pupil: aperture control (2–8 mm)" },
+            { id: "mm10-6a3", label: "Crystalline lens: variable power via ciliary muscles" },
+            { id: "mm10-6a4", label: "Retina: rods (dim light) + cones (colour)" },
+            { id: "mm10-6a5", label: "Blind spot: optic nerve exit → no photoreceptors" },
+          ]
+        },
+        {
+          id: "mm10-6b", label: "Vision Defects", children: [
+            { id: "mm10-6b1", label: "Myopia: image in front of retina → concave lens correction" },
+            { id: "mm10-6b2", label: "Hypermetropia: image behind retina → convex lens" },
+            { id: "mm10-6b3", label: "Presbyopia: age → rigid lens → bifocal lenses" },
+            { id: "mm10-6b4", label: "Astigmatism: irregular cornea → cylindrical lens" },
+          ]
+        },
+        { id: "mm10-6c", label: "Range of accommodation: ~4–6 D (58 D to 64 D total)" },
       ]
     },
   ],

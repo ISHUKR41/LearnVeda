@@ -17,6 +17,7 @@ import { topic6LensFormulaAndPower } from "./lens-formula/topic-6-lens-formula-a
 import { topic7TotalInternalReflection } from "./tir-optical-fibres/topic-7-total-internal-reflection";
 import { topic8DispersionAndHumanEye } from "./dispersion-scattering/topic-8-dispersion-and-human-eye";
 import { topic9NumericalsAdvanced } from "./numericals-advanced/topic-9-numericals-advanced";
+import { topic10OpticalPhenomena } from "./optical-phenomena/topic-10-optical-phenomena-in-nature";
 import { topicFlashCards, topicMindMaps } from "./study-aids/study-aids";
 
 /* ── Helper: Attach study aids to a topic ── */
@@ -44,5 +45,6 @@ export const lightReflectionAndRefractionChapter: Chapter = {
     enrichTopic(topic7TotalInternalReflection),
     enrichTopic(topic8DispersionAndHumanEye),
     enrichTopic(topic9NumericalsAdvanced),
+    enrichTopic(topic10OpticalPhenomena),
   ],
 };

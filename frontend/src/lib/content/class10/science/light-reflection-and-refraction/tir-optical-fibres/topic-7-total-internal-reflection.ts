@@ -38,6 +38,8 @@ export const topic7TotalInternalReflection: Topic = {
   title: "7. Total Internal Reflection and Optical Fibres",
   estimatedMinutes: 55,
   simulationIds: [
+    /* NEW 2026: Dedicated animated optical-fibre TIR component */
+    "optical-fibre-tir-sim",      /* photons bounce inside bent fibre — bend slider + material selector */
     /* NEW: Apparent depth + refraction illusion (connects n to TIR) */
     "apparent-depth-sim",
     /* Dedicated critical angle interactive lab */
