@@ -41,7 +41,7 @@ import React, {
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import styles from "./TopicStudy.module.css";
-import type { Topic, Chapter, Question } from "@/lib/content/class10/science/shared-types";
+import type { Topic, Chapter, Question, WorkedExample } from "@/lib/content/class10/science/shared-types";
 import { parseMarkdown } from "@/lib/utils/parseMarkdown";
 import FlashCards from "@/components/chapter/FlashCards";
 import MindMap from "@/components/chapter/MindMap";
@@ -85,6 +85,125 @@ const CATEGORY_CONFIG: Record<string, { color: string; bg: string; border: strin
   dispersion:  { color: "#fb923c", bg: "rgba(251,146,60,0.1)",   border: "rgba(251,146,60,0.2)",   label: "Dispersion"  },
   eye:         { color: "#f472b6", bg: "rgba(244,114,182,0.1)",  border: "rgba(244,114,182,0.2)",  label: "Human Eye"   },
 };
+
+/* ═══════════════════════════════════════════════════════════════
+ * WORKED EXAMPLES SECTION — skills.sh-inspired step-by-step numericals
+ * Renders 4-5 fully worked examples per topic with Given/Find/Solution
+ * ═══════════════════════════════════════════════════════════════ */
+function WorkedExamplesSection({ examples }: { examples: WorkedExample[] }) {
+  /* Track which cards are expanded — default: first card open */
+  const [openIds, setOpenIds] = React.useState<Set<string>>(() => new Set([examples[0]?.id ?? ""]));
+
+  const toggle = (id: string) => {
+    setOpenIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
+  return (
+    <div className={styles.workedExamplesSection}>
+      {/* Section header */}
+      <div className={styles.workedExamplesHeader}>
+        <div className={styles.workedExamplesIcon}>🧮</div>
+        <div>
+          <div className={styles.workedExamplesTitle}>Worked Examples</div>
+          <div className={styles.workedExamplesSubtitle}>
+            {examples.length} step-by-step numericals · Given → Find → Solution → Answer
+          </div>
+        </div>
+      </div>
+
+      {/* Example cards */}
+      {examples.map((ex, idx) => {
+        const isOpen = openIds.has(ex.id);
+        return (
+          <div key={ex.id} className={styles.exampleCard} data-difficulty={ex.difficulty}>
+            {/* Collapsible header */}
+            <div className={styles.exampleCardHead} onClick={() => toggle(ex.id)}>
+              <div className={styles.exampleCardHeadLeft}>
+                <div className={styles.exampleNum}>{idx + 1}</div>
+                <div>
+                  <div className={styles.exampleTitleText}>{ex.title}</div>
+                  <div className={styles.exampleTopicTag}>{ex.topic}</div>
+                </div>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <span className={styles.exampleDiffBadge} data-diff={ex.difficulty}>
+                  {ex.difficulty}
+                </span>
+                <svg
+                  className={`${styles.exampleChevron} ${isOpen ? styles.open : ""}`}
+                  width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2.5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Collapsible body */}
+            {isOpen && (
+              <div className={styles.exampleCardBody}>
+                {/* Given / Find grid */}
+                <div className={styles.givenFindGrid}>
+                  <div className={`${styles.givenFindBox} ${styles.given}`}>
+                    <div className={styles.givenFindLabel}>📋 Given</div>
+                    <div className={styles.givenFindChips}>
+                      {ex.given.map((g, i) => (
+                        <span key={i} className={styles.givenFindChip}>{g}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className={`${styles.givenFindBox} ${styles.find}`}>
+                    <div className={styles.givenFindLabel}>🎯 To Find</div>
+                    <div className={styles.givenFindChips}>
+                      {ex.find.map((f, i) => (
+                        <span key={i} className={styles.givenFindChip}>{f}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step-by-step solution */}
+                <div className={styles.solutionSteps}>
+                  {ex.steps.map((step) => (
+                    <div key={step.step} className={styles.solutionStep}>
+                      <div className={styles.stepNum}>{step.step}</div>
+                      <div className={styles.stepContent}>
+                        <div className={styles.stepTitle}>{step.title}</div>
+                        <div className={styles.stepWork}>{step.work}</div>
+                        {step.note && <div className={styles.stepNote}>💡 {step.note}</div>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Final answer */}
+                <div className={styles.exampleAnswer}>
+                  <span className={styles.exampleAnswerIcon}>✅</span>
+                  <div className={styles.exampleAnswerContent}>
+                    <div className={styles.exampleAnswerLabel}>Answer</div>
+                    <div className={styles.exampleAnswerText}>{ex.answer}</div>
+                  </div>
+                </div>
+
+                {/* Real-life connection */}
+                {ex.realLifeConnect && (
+                  <div className={styles.exampleRealLife}>
+                    <span className={styles.exampleRealLifeIcon}>🌍</span>
+                    <span>{ex.realLifeConnect}</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 /* ─────────────────────────────────────────────
  * Component props
@@ -470,6 +589,13 @@ export default function TopicStudyClient({
                   <div className={styles.simHeading}>🔬 Interactive Simulations</div>
                   <SmartSimulationRenderer simulationIds={topic.simulationIds} />
                 </div>
+              )}
+
+              {/* ── WORKED EXAMPLES ──
+                  Step-by-step numericals with Given/Find/Solution format.
+                  Shown in Learn tab so students see examples right after notes. */}
+              {topic.workedExamples && topic.workedExamples.length > 0 && (
+                <WorkedExamplesSection examples={topic.workedExamples} />
               )}
 
               {/* CTA to go to practice */}

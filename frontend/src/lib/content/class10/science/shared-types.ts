@@ -37,6 +37,47 @@ export interface Question {
 }
 
 /**
+ * A single step in a worked numerical example.
+ * Each step shows the formula used, the substitution, and the computed result.
+ */
+export interface WorkedExampleStep {
+  /** Step number — displayed as a badge */
+  step: number;
+  /** Short title for this step (e.g. "Apply Mirror Formula") */
+  title: string;
+  /** The actual working — formula, substitution, arithmetic (markdown supported) */
+  work: string;
+  /** Optional hint or "remember this" note for the student */
+  note?: string;
+}
+
+/**
+ * A fully worked numerical example with Given / Find / Solution structure.
+ * Inspired by NCERT solved examples — each example builds intuition for
+ * how to approach the class of problem in exams.
+ */
+export interface WorkedExample {
+  /** Unique ID scoped to the topic (e.g. "ex1", "ex3") */
+  id: string;
+  /** Title describing the type of problem (e.g. "Mirror Rotation Problem") */
+  title: string;
+  /** Difficulty level — shown as a colored badge */
+  difficulty: "easy" | "medium" | "hard";
+  /** Sub-topic category (e.g. "Mirror Formula", "Snell's Law") */
+  topic: string;
+  /** List of given quantities — shown as chips (e.g. ["u = −30 cm", "f = −20 cm"]) */
+  given: string[];
+  /** What to find — shown as chips (e.g. ["Image position v", "Nature of image"]) */
+  find: string[];
+  /** Step-by-step solution — rendered as numbered cards */
+  steps: WorkedExampleStep[];
+  /** The final highlighted answer (e.g. "v = −60 cm (real, inverted image)") */
+  answer: string;
+  /** Optional real-life connection — shown as an insight callout at the bottom */
+  realLifeConnect?: string;
+}
+
+/**
  * A single subtopic within a chapter.
  * Each topic has:
  *  – Rich markdown content (explanation, examples, diagrams-as-text)
@@ -65,6 +106,12 @@ export interface Topic {
   flashCards?: { id: string; front: string; back: string }[];
   /** Mind map tree data for concept visualization */
   mindMap?: { id: string; label: string; children?: any[] }[];
+  /**
+   * Fully worked numerical examples — 4 to 5 per topic.
+   * Each follows Given → Find → Step-by-step Solution → Answer structure,
+   * modelled on NCERT solved examples so students can learn problem-solving technique.
+   */
+  workedExamples?: WorkedExample[];
 }
 
 /**

@@ -724,5 +724,144 @@ The point where the optic nerve exits the eye (onto the retina) has NO photorece
       question: "Why does a thick piece of glass appear less thick than it really is? A glass block 6 cm thick (n = 1.5) is placed over a coin. Where does the coin appear to be, and by how much is it shifted upward? Compare this to the same experiment done underwater (n = 1.33).",
       correctAnswer: "A glass block 6 cm thick (n = 1.5) makes the coin appear at: Apparent thickness = Real thickness / n = 6 / 1.5 = 4 cm. The coin appears to be 4 cm below the top of the glass (shifted UP by 6 − 4 = 2 cm). For water (n = 1.33): Apparent thickness = 6 / 1.33 = 4.51 cm. Shift upward = 6 − 4.51 = 1.49 cm. Comparison: Glass (n=1.5) shifts the coin MORE (2 cm) than water (n=1.33) because glass has a higher refractive index → greater apparent depth reduction → more apparent upward shift. The formula for the upward apparent shift is: shift = real depth × (1 − 1/n).",
     },
-  ],
+  ],,
+
+  workedExamples: [
+    {
+      id: "ex1",
+      title: "Rainbow Geometry — Angle of 42°",
+      difficulty: "hard",
+      topic: "Rainbow Formation",
+      given: ["n(water) for red = 1.330", "Light enters raindrop at angle of incidence = 59.6°", "One internal reflection inside drop"],
+      find: ["Angle of refraction r inside drop", "Total deviation of red ray"],
+      steps: [
+        {
+          step: 1,
+          title: "Refraction at entry",
+          work: "1.0 × sin(59.6°) = 1.330 × sin(r)\nsin(59.6°) = 0.862\nsin(r) = 0.862/1.330 = 0.648\nr = sin⁻¹(0.648) = 40.4°"
+        },
+        {
+          step: 2,
+          title: "Deviation at each surface",
+          work: "Entry refraction: D1 = 59.6 - 40.4 = 19.2°\nInternal reflection: D2 = 180 - 2 × 40.4 = 99.2°\nExit refraction: D3 = 59.6 - 40.4 = 19.2°\nTotal deviation = D1 + D2 + D3 = 19.2 + 99.2 + 19.2 = 137.6°"
+        },
+        {
+          step: 3,
+          title: "Rainbow angle",
+          work: "Deviation = 137.6° means ray exits at 180 - 137.6 = 42.4° to the incoming sunlight direction.\n\nFor violet (n = 1.343): similar calculation gives ~40°.\nThis is why rainbow spans from 40° (violet, inner) to 42° (red, outer)."
+        }
+      ],
+      answer: "r = 40.4°. Total deviation = 137.6°. Red exits at 42.4° → rainbow is seen at ~42° from the anti-solar point.",
+      realLifeConnect: "The rainbow is always at 42° from your anti-solar point (the shadow of your head). It is a full circle — but the horizon blocks the bottom half. From an airplane, you can see the complete circular rainbow below you!"
+    },
+    {
+      id: "ex2",
+      title: "Twinkling Stars — Atmospheric Refraction",
+      difficulty: "medium",
+      topic: "Atmospheric Refraction",
+      given: ["Stars: angular size < 0.0001 arcseconds", "Planets: Jupiter ≈ 50 arcseconds, Mars ≈ 25 arcseconds", "Atmospheric turbulence scale ≈ 1 arcsecond"],
+      find: ["Explain why stars twinkle but planets don't"],
+      steps: [
+        {
+          step: 1,
+          title: "Effect of atmospheric turbulence",
+          work: "Atmosphere = thousands of cells, each with slightly different n.\nEach cell deflects light by ≈ ±0.5-1 arcsecond randomly."
+        },
+        {
+          step: 2,
+          title: "Stars: point sources",
+          work: "Stars have angular size << 1 arcsecond (effectively zero).\nThe single beam from a star is deflected randomly by atmospheric cells.\nEach deflection changes apparent brightness → we see intensity flickering = TWINKLING."
+        },
+        {
+          step: 3,
+          title: "Planets: extended discs",
+          work: "Planets have angular size of 10-60 arcseconds (much larger than 1 arcsecond turbulence scale).\nMany independent beams from different parts of the disc arrive via different paths.\nTheir random fluctuations AVERAGE OUT → steady, non-twinkling light."
+        }
+      ],
+      answer: "Stars twinkle because their point-source light is fully deflected by each atmospheric cell. Planets don't twinkle because their disc (10-60 arcsec) averages out random deflections (~1 arcsec).",
+      realLifeConnect: "Astronomical telescopes are built at high altitudes (Mauna Kea 4200 m, Atacama 5000 m) to reduce atmospheric turbulence. The Hubble Space Telescope in orbit has zero atmospheric twinkling — this is why it can image 0.05 arcsecond details impossible from the ground."
+    },
+    {
+      id: "ex3",
+      title: "Atmospheric Refraction — Earlier Sunrise",
+      difficulty: "medium",
+      topic: "Atmospheric Refraction",
+      given: ["Atmospheric refraction at horizon ≈ 0.5°", "Sun's actual position = 0.5° below geometric horizon at apparent sunrise", "Earth rotates 0.25° per minute"],
+      find: ["How many minutes earlier does the Sun appear to rise?", "Total extra daily daylight"],
+      steps: [
+        {
+          step: 1,
+          title: "Geometry of atmospheric bending",
+          work: "When Sun is 0.5° below geometric horizon:\nAtmospheric refraction bends sunlight upward by 0.5°.\nMakes Sun appear at the horizon — even though not yet risen geometrically."
+        },
+        {
+          step: 2,
+          title: "Time equivalent of 0.5°",
+          work: "Earth rotates 360° in 24 × 60 = 1440 minutes.\nAngular speed = 360/1440 = 0.25° per minute.\nTime for 0.5° = 0.5/0.25 = 2 minutes."
+        },
+        {
+          step: 3,
+          title: "Total extra daylight",
+          work: "Sunrise is 2 minutes early.\nSunset is 2 minutes late (same effect at other horizon).\nTotal extra daylight from refraction = 2 + 2 = 4 minutes per day."
+        }
+      ],
+      answer: "Sunrise appears 2 minutes early. Sunset 2 minutes late. Total extra daylight = 4 minutes from atmospheric refraction alone.",
+      realLifeConnect: "In polar regions near the March equinox, atmospheric refraction keeps the Sun visible even at the exact 12-hour day boundary. Explorers like Roald Amundsen relied on this effect — the Sun was technically below the horizon during their polar marches but was still visible due to refraction."
+    },
+    {
+      id: "ex4",
+      title: "Diamond Critical Angle vs Glass — Sparkle Comparison",
+      difficulty: "medium",
+      topic: "TIR in Nature",
+      given: ["n(diamond) = 2.42", "n(glass) = 1.5", "White light enters both at 30°"],
+      find: ["Critical angles for both", "Explain why diamond sparkles more than glass"],
+      steps: [
+        {
+          step: 1,
+          title: "Critical angles",
+          work: "Glass: sin C = 1/1.5 = 0.667 → C = 41.8°\nDiamond: sin C = 1/2.42 = 0.413 → C = 24.4°"
+        },
+        {
+          step: 2,
+          title: "Range of TIR angles",
+          work: "Glass TIR: angles 41.8° to 90° (range = 48.2°)\nDiamond TIR: angles 24.4° to 90° (range = 65.6°)\n\nDiamond traps a much wider range of angles inside."
+        },
+        {
+          step: 3,
+          title: "Effect on brilliance",
+          work: "A Brilliant-cut diamond has 58 facets at specific angles.\nFor diamond (C = 24.4°): nearly all light entering from the top undergoes multiple TIR — exits only upward (toward observer) → MAXIMUM BRILLIANCE.\n\nFor glass (C = 41.8°): many rays leak out the sides and bottom → LESS brilliant."
+        }
+      ],
+      answer: "C(glass) = 41.8°, C(diamond) = 24.4°. Diamond traps 65.6° of angle range vs glass's 48.2° — plus diamond disperses colours more (higher n) → unmatched brilliance.",
+      realLifeConnect: "Cubic zirconia (fake diamond, n = 2.17) has C = 27.5°, closer to diamond than glass. It sparkles better than glass but less than diamond. This is why synthetic diamond simulants have high refractive indices — they're engineered to maximize TIR."
+    },
+    {
+      id: "ex5",
+      title: "Optical Fibre — Telecom Wavelength Choice",
+      difficulty: "hard",
+      topic: "Optical Fibre Applications",
+      given: ["Silica glass optical fibre", "Attenuation at 850 nm = 2.0 dB/km", "Attenuation at 1550 nm = 0.2 dB/km", "Rayleigh scattering: I ∝ 1/λ⁴", "Fibre length = 100 km"],
+      find: ["Ratio of scattering at 850 nm vs 1550 nm", "Why 1550 nm is standard for long-haul telecoms"],
+      steps: [
+        {
+          step: 1,
+          title: "Calculate scattering ratio",
+          work: "I_850/I_1550 = (λ_1550/λ_850)⁴ = (1550/850)⁴ = (1.824)⁴\n= (1.824²)² = (3.327)² = 11.07 ≈ 11x"
+        },
+        {
+          step: 2,
+          title: "Total loss at each wavelength",
+          work: "At 850 nm over 100 km: 2.0 × 100 = 200 dB → signal reduced by 10^(200/10) = 10²⁰ times (completely gone!)\nAt 1550 nm over 100 km: 0.2 × 100 = 20 dB → signal reduced by 100x (manageable with amplifiers)"
+        },
+        {
+          step: 3,
+          title: "Engineering consequence",
+          work: "At 850 nm: amplifier every 1-2 km required\nAt 1550 nm: amplifier every 80-100 km (EDFA optical amplifiers)\n→ 1550 nm makes transoceanic cables economically feasible."
+        }
+      ],
+      answer: "Scattering at 850 nm is 11x more than at 1550 nm. Total loss at 850 nm is 200 dB/100 km vs 20 dB/100 km at 1550 nm. 1550 nm is used because it falls at the minimum absorption + scattering window of silica glass.",
+      realLifeConnect: "The undersea cable carrying your internet traffic uses 1550 nm light in silica fibres. Without this wavelength choice, the trans-Atlantic cable (6000 km) would need 3000+ amplifiers (one every 2 km) instead of 60. Rayleigh scattering physics directly determines the economics of global internet infrastructure."
+    }
+  ]
+
 };
