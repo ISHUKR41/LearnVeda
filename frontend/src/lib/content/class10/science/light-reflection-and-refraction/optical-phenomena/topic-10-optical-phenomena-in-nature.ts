@@ -44,6 +44,8 @@ export const topic10OpticalPhenomena: Topic = {
   imageUrl: "/images/light/topic10-optical-phenomena.png",
 
   simulationIds: [
+    /* NEW 2026: Atmospheric refraction — twinkling stars · early sunrise · mirage */
+    "ultra-atmospheric-refraction-sim",  /* 3 modes: stars vs planets · apparent sun +2 min · road mirage TIR */
     /* ULTRA 2026: Prism + rainbow mode */
     "ultra-prism-sim",               /* VIBGYOR with Cauchy eq · rainbow droplet formation */
     /* ULTRA 2026: TIR + fibre + diamond */

@@ -928,6 +928,51 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     icon: "🪞",
     component: lazyLoad(() => import("./reflection/UltraReflectionLab")),
   },
+
+  /* ── NEW 2026: Ultra Glass Slab Laboratory ── */
+  "ultra-glass-slab-lab-sim": {
+    title: "Ultra Glass Slab Lab — Lateral Shift & Snell's Law",
+    description: "Click/drag incident ray · adjustable n & thickness · animated photon · wavefront lines inside glass · live d=t·sin(i-r)/cos(r) & Snell's Law readout",
+    category: "refraction",
+    icon: "🔬",
+    component: lazyLoad(() => import("./refraction/UltraGlassSlabLabSim")),
+  },
+
+  /* ── NEW 2026: Ultra All Lens Positions ── */
+  "ultra-all-lens-positions-sim": {
+    title: "Ultra Convex Lens — All 6 Object Positions",
+    description: "Select any of 6 object positions · 3 animated principal rays with glow · image arrow shows real/virtual/erect/inverted · live 1/v-1/u=1/f with magnification",
+    category: "lenses",
+    icon: "🔭",
+    component: lazyLoad(() => import("./lenses/UltraAllLensPositionsSim")),
+  },
+
+  /* ── NEW 2026: Ultra Optical Fibre TIR Simulation ── */
+  "ultra-optical-fibre-sim": {
+    title: "Ultra Optical Fibre — TIR & Critical Angle Lab",
+    description: "Animated light pulse in glass core · critical angle slider · TIR vs refraction mode · data pulse mode · n_core > n_cladding · θ_c = sin⁻¹(n₂/n₁) live",
+    category: "refraction",
+    icon: "💡",
+    component: lazyLoad(() => import("./tir/UltraOpticalFibreSim")),
+  },
+
+  /* ── NEW 2026: Ultra Rainbow Droplet & Rayleigh Scattering ── */
+  "ultra-rainbow-droplet-sim": {
+    title: "Ultra Rainbow & Sky Colour — Dispersion + Rayleigh",
+    description: "Interactive water droplet · ROYGBIV with real n values · animated photons on each colour · rainbow angle annotation · Rayleigh scattering sky panel with 1/λ⁴ explanation",
+    category: "dispersion",
+    icon: "🌈",
+    component: lazyLoad(() => import("./dispersion/UltraRainbowDropletSim")),
+  },
+
+  /* ── NEW 2026: Atmospheric Refraction — 3-mode animated canvas ── */
+  "ultra-atmospheric-refraction-sim": {
+    title: "Atmospheric Refraction Lab — Stars, Sunrise & Mirage",
+    description: "3 modes: Twinkling Stars vs Steady Planets (turbulence cells) · Early Sunrise (apparent vs real sun position, +2 min) · Mirage on road (TIR in hot air near road surface) — all with real-time animation and physics annotations",
+    category: "dispersion",
+    icon: "🌌",
+    component: lazyLoad(() => import("./dispersion/UltraAtmosphericRefractionSim")),
+  },
 };
 
 /* ═══════════════════════════════════════════════════

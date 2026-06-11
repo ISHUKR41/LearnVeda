@@ -34,6 +34,8 @@ export const topic8DispersionAndHumanEye: Topic = {
   title: "8. Dispersion, Scattering, Atmosphere & the Human Eye",
   estimatedMinutes: 70,
   simulationIds: [
+    /* NEW 2026: Ultra Rainbow Droplet — full ROYGBIV + Rayleigh scattering */
+    "ultra-rainbow-droplet-sim",     /* water droplet · 7-colour ray tracing · Rayleigh sky mode · λ labels */
     /* ULTRA 2026: Prism with real Cauchy dispersion + rainbow mode */
     "ultra-prism-sim",               /* VIBGYOR with real n values · apex slider · rainbow droplet mode */
     /* ULTRA 2026: Human eye with animated anatomy + defect correction */

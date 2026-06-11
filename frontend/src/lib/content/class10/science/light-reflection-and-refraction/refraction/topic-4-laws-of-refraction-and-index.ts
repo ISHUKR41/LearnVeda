@@ -12,6 +12,8 @@ export const topic4LawsOfRefraction: Topic = {
   title: "4. Refraction of Light and Refractive Index",
   estimatedMinutes: 55,
   simulationIds: [
+    /* NEW 2026: Ultra Glass Slab Laboratory — most detailed refraction demo */
+    "ultra-glass-slab-lab-sim",   /* Click/drag angle · adjustable n & thickness · photon · lateral shift live */
     /* ULTRA 2026: Snell's Law with material selector + TIR detection + wavefronts */
     "ultra-snells-law-sim",       /* Air/Water/Glass/Diamond · angle slider · TIR flash · n₁sinθ₁=n₂sinθ₂ */
     /* NEW 2026: Speed of light in 6 different media with animated photon */

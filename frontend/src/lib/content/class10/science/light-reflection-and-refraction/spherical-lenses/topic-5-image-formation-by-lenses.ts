@@ -12,6 +12,8 @@ export const topic5ImageFormationByLenses: Topic = {
   title: "5. Spherical Lenses and Image Formation",
   estimatedMinutes: 60,
   simulationIds: [
+    /* NEW 2026: All 6 positions with 3 animated principal rays + image characteristics */
+    "ultra-all-lens-positions-sim", /* position buttons · glow rays · image arrow · 1/v-1/u=1/f live */
     /* ULTRA 2026: Drag object · convex/concave · 3 glow principal rays · image nature */
     "ultra-lens-ray-sim",           /* all 6 positions labelled · 1/v−1/u=1/f · Power display */
     /* NEW 2026: Full virtual optics bench — drag object, see all 3 rays, live formula */

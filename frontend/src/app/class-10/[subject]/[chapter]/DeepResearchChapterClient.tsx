@@ -87,6 +87,91 @@ const TABS: { id: StudyTab; label: string; icon: string; description: string }[]
   { id: "exam",        label: "Exam Prep",   icon: "📋", description: "Key exam points" },
 ];
 
+/* ═══════════════════════════════════════════════════
+ * CONCEPT HIGHLIGHTS DATA MAP
+ * Per-topic key formulas, fun facts, and exam tips
+ * displayed as engaging cards in the Learn tab.
+ * ═══════════════════════════════════════════════════ */
+interface ConceptCard {
+  type: "formula" | "funfact" | "examtip" | "reallife";
+  icon: string;
+  title: string;
+  body: string;
+}
+
+const TOPIC_HIGHLIGHTS: Record<string, ConceptCard[]> = {
+  "intro-and-laws-of-reflection": [
+    { type: "formula",  icon: "📐", title: "Law of Reflection",       body: "∠i = ∠r  (angle of incidence = angle of reflection, measured from the normal)" },
+    { type: "formula",  icon: "🔢", title: "Image in Plane Mirror",   body: "Object distance = Image distance (behind mirror). Image is virtual, erect, laterally inverted, same size." },
+    { type: "funfact",  icon: "🚑", title: "Why AMBULANCE is Reversed?", body: "Drivers see mirror images. 'AMBULANCE' is written reversed so it reads correctly in a car's rear-view mirror — lateral inversion in action!" },
+    { type: "examtip",  icon: "⚠️", title: "Exam Tip: Normal Line",   body: "The normal is PERPENDICULAR to the mirror at the point of incidence. Always measure ∠i and ∠r from the normal, NOT from the mirror surface." },
+    { type: "reallife", icon: "🌍", title: "Real-Life: Periscope",    body: "Submarines use two plane mirrors at 45° to see above the water — a direct application of the laws of reflection." },
+  ],
+  "concave-convex-mirrors": [
+    { type: "formula",  icon: "📐", title: "Mirror Radius & Focal Length", body: "f = R/2  →  The focal length is exactly half the radius of curvature. For a concave mirror: f is negative (real focus)." },
+    { type: "formula",  icon: "🔢", title: "6 Object Positions (Concave Mirror)", body: "∞ → at F | beyond C → between F & C | at C → at C | between F & C → beyond C | at F → ∞ | within F → virtual, erect, enlarged" },
+    { type: "funfact",  icon: "🌟", title: "Headlights & Concave Mirrors", body: "A bulb placed at the focus of a concave mirror produces a powerful parallel beam — used in car headlights, spotlights, and solar cookers!" },
+    { type: "examtip",  icon: "⚠️", title: "Exam Tip: Sign Convention", body: "Incident light travels left-to-right. Distances measured in the direction of incident light = positive. Against incident light = negative. All distances measured from the pole." },
+    { type: "reallife", icon: "🌍", title: "Real-Life: Shaving/Makeup Mirror", body: "Concave mirror (object within f) gives a virtual, erect, magnified image — perfect for magnifying your face for shaving or applying makeup." },
+  ],
+  "mirror-formula-magnification": [
+    { type: "formula",  icon: "📐", title: "Mirror Formula",          body: "1/v + 1/u = 1/f  where v = image distance, u = object distance, f = focal length (all with sign convention)" },
+    { type: "formula",  icon: "🔢", title: "Magnification (Mirror)",  body: "m = −v/u = h′/h  →  If m is negative → real, inverted image. If m is positive → virtual, erect image." },
+    { type: "funfact",  icon: "🌟", title: "Negative m = Real Image!", body: "A negative magnification doesn't mean 'smaller' — it means the image is INVERTED. m = −2 means real, inverted, and twice the size!" },
+    { type: "examtip",  icon: "⚠️", title: "Exam Trick: Quick Check", body: "If 1/f = 1/v + 1/u gives v > 0 → image is virtual (same side as object). If v < 0 → image is real (opposite side). For mirrors, real images are in front of the mirror." },
+    { type: "reallife", icon: "🌍", title: "Real-Life: Dentist's Mirror", body: "The dentist uses a small concave mirror. When your tooth is within the focal length, you see a magnified virtual image — making tiny cavities clearly visible." },
+  ],
+  "laws-of-refraction-and-index": [
+    { type: "formula",  icon: "📐", title: "Snell's Law",             body: "n₁ sin θ₁ = n₂ sin θ₂  →  The ratio n₁/n₂ = sin θ₂/sin θ₁. Light bends TOWARD normal when entering a denser medium." },
+    { type: "formula",  icon: "🔢", title: "Refractive Index (n)",    body: "n = c/v = sin i / sin r = Real Depth / Apparent Depth  →  n > 1 always (since v < c in any medium)" },
+    { type: "funfact",  icon: "🌟", title: "Diamond Sparkles Because of n!", body: "Diamond has n = 2.42 — one of the highest known. This means its critical angle is only 24.4°, causing almost all internal light to undergo TIR, making it sparkle brilliantly." },
+    { type: "examtip",  icon: "⚠️", title: "Exam Tip: Lateral Shift", body: "A glass slab shifts the emergent ray PARALLEL to the incident ray but displaced sideways. Formula: d = t sin(i−r)/cos(r). A slab does NOT change the direction, only shifts it." },
+    { type: "reallife", icon: "🌍", title: "Real-Life: Pool Looks Shallower", body: "n_water = 1.33, so Apparent Depth = Real Depth / 1.33. A 4 m deep pool looks only 3 m deep. This is why pools look shallower and you can misjudge the depth." },
+  ],
+  "image-formation-by-lenses": [
+    { type: "formula",  icon: "📐", title: "Lens Formula",            body: "1/v − 1/u = 1/f  →  Note: u is always negative (object on left). For convex lens: f > 0. For concave lens: f < 0." },
+    { type: "formula",  icon: "🔢", title: "Magnification (Lens)",    body: "m = v/u = h′/h  →  m positive → virtual, erect. m negative → real, inverted. |m| > 1 → magnified. |m| < 1 → diminished." },
+    { type: "funfact",  icon: "🌟", title: "Magnifying Glass Secret!", body: "When you hold an object WITHIN the focal length of a convex lens, the image is virtual, erect, and magnified. This is the ONLY case where a convex lens makes you see bigger!" },
+    { type: "examtip",  icon: "⚠️", title: "3 Principal Rays to Draw", body: "Ray 1: Parallel to axis → bends through F. Ray 2: Through optical centre → goes straight. Ray 3: Through F → emerges parallel. Where any 2 rays meet = image position." },
+    { type: "reallife", icon: "🌍", title: "Real-Life: Camera Lens",  body: "In a camera, the object is far beyond 2f. The image is between f and 2f — real, inverted, and diminished. That tiny inverted image is what hits the sensor!" },
+  ],
+  "lens-formula-and-power": [
+    { type: "formula",  icon: "📐", title: "Power of a Lens",         body: "P = 1/f(metres)  →  Unit: Dioptre (D). Convex lens → P > 0. Concave lens → P < 0. Two lenses together: P = P₁ + P₂." },
+    { type: "formula",  icon: "🔢", title: "Lens Maker's Connection", body: "n = 1/f in metres. A doctor's prescription says +2D → f = +50 cm (convex). A −3D prescription → f = −33.3 cm (concave, for myopia)." },
+    { type: "funfact",  icon: "🌟", title: "Your Eye Has ~60 Dioptre Power!", body: "The human eye's total optical power is about +59 Dioptres, made up of the cornea (~43D) and the flexible lens (~16D). When you focus on nearby objects, your lens changes to +70D!" },
+    { type: "examtip",  icon: "⚠️", title: "Exam Tip: Focal Length Sign", body: "When combining lenses: P_total = P₁ + P₂ (just add with signs). But for mirror + lens: be careful — powers don't simply add since the sign convention differs." },
+    { type: "reallife", icon: "🌍", title: "Real-Life: Reading Glasses", body: "A +2D reading glass has f = 50 cm. When you hold a book 25 cm from your eye, the lens brings the image to 50 cm — within your comfortable reading range." },
+  ],
+  "total-internal-reflection": [
+    { type: "formula",  icon: "📐", title: "Critical Angle Formula",  body: "sin θ_c = n₂/n₁  →  θ_c = sin⁻¹(n₂/n₁). TIR occurs ONLY when: (1) light goes from denser to rarer AND (2) θ_incidence > θ_c." },
+    { type: "formula",  icon: "🔢", title: "Critical Angles (Common)", body: "Glass (n=1.5) → θ_c = 41.8° | Water (n=1.33) → θ_c = 48.6° | Diamond (n=2.42) → θ_c = 24.4° | Optical Fibre → ~82°" },
+    { type: "funfact",  icon: "🌟", title: "Internet Runs on TIR!",   body: "Optical fibre cables carry your internet data at the speed of light using TIR. Light pulses bounce inside the glass fibre (n=1.5) with near-zero energy loss over thousands of km!" },
+    { type: "examtip",  icon: "⚠️", title: "Two Conditions for TIR",  body: "BOTH conditions must be satisfied: (1) Light must travel from DENSER to RARER medium. (2) Angle of incidence must be GREATER than or EQUAL to the critical angle. One condition alone is not enough!" },
+    { type: "reallife", icon: "🌍", title: "Real-Life: Mirage on Roads", body: "On a hot day, air near the road is much hotter (rarer) than air above. Light from the sky undergoes TIR at this layer, creating the illusion of water — a mirage!" },
+  ],
+  "dispersion-and-human-eye": [
+    { type: "formula",  icon: "📐", title: "Rayleigh Scattering Law",  body: "Scattering ∝ 1/λ⁴  →  Blue light (λ ≈ 450 nm) scatters about (700/450)⁴ ≈ 9.4× more than red (λ ≈ 700 nm). This is WHY the sky is blue!" },
+    { type: "formula",  icon: "🔢", title: "Defect Corrections",       body: "Myopia (short-sight): Corrected by CONCAVE lens (P < 0). Hypermetropia (long-sight): Corrected by CONVEX lens (P > 0). Presbyopia: Bifocal lenses." },
+    { type: "funfact",  icon: "🌟", title: "Rainbow Needs 3 Steps!",   body: "White light → (1) Refraction into spectrum on entering droplet → (2) TIR at back of droplet → (3) Second refraction on exit, spreading colours at 40°–42°." },
+    { type: "examtip",  icon: "⚠️", title: "VIBGYOR vs ROYGBIV",      body: "In a prism: VIOLET deviates most (highest n), RED deviates least (lowest n). In a rainbow: RED is on top (42°), VIOLET is at the bottom (40°) — exactly the reverse! Know both." },
+    { type: "reallife", icon: "🌍", title: "Real-Life: Blue Sky & Red Sunset", body: "At sunrise/sunset, sunlight travels through more atmosphere. Blue light scatters away — only RED reaches your eyes, giving the beautiful orange-red colours of sunset." },
+  ],
+  "numericals-advanced": [
+    { type: "formula",  icon: "📐", title: "Combined System: Lens + Mirror", body: "P_equivalent = P₁ + P_mirror + P₂  (mirror power = 2/R). For a mirror silvered on back of lens: treat as lens + mirror + lens system." },
+    { type: "formula",  icon: "🔢", title: "Sequential Image Method",  body: "Step 1: Find image I₁ formed by first surface. Step 2: I₁ becomes object for second surface. Step 3: Find final image I₂. Track sign convention at EACH step." },
+    { type: "funfact",  icon: "🌟", title: "Virtual Object is Real Physics!", body: "A 'virtual object' occurs when converging rays are intercepted by a mirror/lens before reaching their focus. The object is on the wrong side — but the math still works perfectly with sign convention." },
+    { type: "examtip",  icon: "⚠️", title: "Board Exam Strategy",     body: "In 5-mark numerical problems: Always write (1) Given data, (2) Formula, (3) Substitution with sign convention, (4) Calculation, (5) Result with unit and nature of image. Missing steps = lost marks!" },
+    { type: "reallife", icon: "🌍", title: "Real-Life: Telescope System", body: "A telescope uses two lenses in sequence — exactly the multi-surface problem you practice here. The objective lens forms a real image that becomes the object for the eyepiece lens." },
+  ],
+  "optical-phenomena-in-nature": [
+    { type: "formula",  icon: "📐", title: "Atmospheric Refraction",   body: "Sunrise seen ~2 minutes BEFORE actual sunrise. Sunset seen ~2 minutes AFTER. Total extra day length: ~4 minutes because Earth's atmosphere bends light from below the horizon." },
+    { type: "formula",  icon: "🔢", title: "Twinkling of Stars",       body: "Stars twinkle because Earth's turbulent atmosphere has varying density layers. Different air cells constantly refract light differently → star appears to shift and flicker." },
+    { type: "funfact",  icon: "🌟", title: "Planets Don't Twinkle!",   body: "Planets are extended sources (tiny discs, not points). Different parts of the planet scintillate differently and AVERAGE OUT — so planets appear steady while stars twinkle." },
+    { type: "examtip",  icon: "⚠️", title: "Why Sun Looks Oval at Horizon", body: "Near the horizon, the bottom of the Sun's disc is refracted more than the top (denser atmosphere near ground). This differential refraction flattens the Sun into an oval shape at sunrise/sunset." },
+    { type: "reallife", icon: "🌍", title: "Real-Life: The Green Flash", body: "At the exact moment of sunset at sea, a brief green flash is sometimes visible. Green light refracts more than red, briefly creating a green rim above the setting Sun — total internal refraction!" },
+  ],
+};
+
 /* ─────────────────────────────────────────────
  * COMPONENT PROPS
  * ───────────────────────────────────────────── */
@@ -760,6 +845,88 @@ export default function DeepResearchChapterClient({
                           __html: parseMarkdown(activeTopic.content),
                         }}
                       />
+
+                      {/* ── CONCEPT HIGHLIGHT CARDS ──
+                          Per-topic key formulas, fun facts, real-life examples,
+                          and exam tips shown as vivid cards to make learning engaging. */}
+                      {TOPIC_HIGHLIGHTS[activeTopic.id] && TOPIC_HIGHLIGHTS[activeTopic.id].length > 0 && (
+                        <div style={{ marginTop: "2.5rem" }}>
+                          {/* Section heading */}
+                          <div className={styles.sectionHeading}>
+                            <span className={styles.sectionHeadingIcon}>💡</span>
+                            Concept Highlights — Key Formulas, Facts & Exam Tips
+                          </div>
+
+                          {/* 2-column grid of cards */}
+                          <div style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                            gap: "14px",
+                            marginTop: "1rem",
+                          }}>
+                            {TOPIC_HIGHLIGHTS[activeTopic.id].map((card, ci) => {
+                              /* Card accent colours by type */
+                              const palette = {
+                                formula:  { bg: "rgba(99,102,241,0.07)",  border: "rgba(99,102,241,0.22)",  accent: "#818cf8", label: "Formula" },
+                                funfact:  { bg: "rgba(245,158,11,0.07)", border: "rgba(245,158,11,0.22)", accent: "#fbbf24", label: "Fun Fact" },
+                                examtip:  { bg: "rgba(248,113,113,0.07)", border: "rgba(248,113,113,0.22)", accent: "#f87171", label: "Exam Tip" },
+                                reallife: { bg: "rgba(16,185,129,0.07)",  border: "rgba(16,185,129,0.22)",  accent: "#34d399", label: "Real Life" },
+                              }[card.type];
+
+                              return (
+                                <div
+                                  key={ci}
+                                  style={{
+                                    background: palette.bg,
+                                    border: `1px solid ${palette.border}`,
+                                    borderLeft: `4px solid ${palette.accent}`,
+                                    borderRadius: "12px",
+                                    padding: "16px 18px",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "8px",
+                                  }}
+                                >
+                                  {/* Card type badge + icon */}
+                                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                    <span style={{ fontSize: "1.2rem" }}>{card.icon}</span>
+                                    <span style={{
+                                      fontSize: "0.66rem",
+                                      fontWeight: 800,
+                                      color: palette.accent,
+                                      letterSpacing: "0.08em",
+                                      textTransform: "uppercase",
+                                      background: `${palette.accent}18`,
+                                      padding: "2px 8px",
+                                      borderRadius: "999px",
+                                    }}>
+                                      {palette.label}
+                                    </span>
+                                  </div>
+                                  {/* Card title */}
+                                  <div style={{
+                                    fontSize: "0.88rem",
+                                    fontWeight: 700,
+                                    color: "#e2e8f0",
+                                    lineHeight: 1.3,
+                                  }}>
+                                    {card.title}
+                                  </div>
+                                  {/* Card body */}
+                                  <div style={{
+                                    fontSize: "0.82rem",
+                                    color: "#94a3b8",
+                                    lineHeight: 1.65,
+                                    fontFamily: card.type === "formula" ? "'JetBrains Mono', monospace" : "inherit",
+                                  }}>
+                                    {card.body}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
 
                       {/* ── TOPIC DIAGRAM ILLUSTRATION ──
                           Each topic has a professional animated SVG diagram.
