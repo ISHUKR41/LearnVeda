@@ -30,7 +30,7 @@ export const topic6LensFormulaAndPower: Topic = {
     "light-prism-dispersion",
     "adv-prism-dispersion",
   ],
-  imageUrl: "/images/light/topic6-lens-formula.png",
+  imageUrl: "/images/light/light_lens_magnification_nano_banana_1781204503146.png",
   content: `
 ### Sign Convention for Spherical Lenses
 
@@ -59,6 +59,8 @@ $$ \\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f} $$
 
 ### Magnification for Lenses ($m$)
 
+![Magnification for Lenses](/images/light/light_lens_magnification_nano_banana_1781204503146.png)
+
 Magnification produced by a lens is defined as the ratio of the height of the image ($h'$) to the height of the object ($h$).
 $$ m = \\frac{h'}{h} $$
 
@@ -77,6 +79,8 @@ $$ m = \\frac{h'}{h} = \\frac{v}{u} $$
 ---
 
 ### Power of a Lens ($P$)
+
+![Power of a Lens](/images/light/light_lens_power_1781203118675.png)
 
 The degree of convergence or divergence of light rays achieved by a lens is expressed in terms of its power. A lens of short focal length bends the light rays more, meaning it has more power.
 
@@ -114,6 +118,9 @@ The use of powers instead of focal lengths simplifies the calculations for lens 
 ### 📝 Solved Numericals
 
 **Example 1: Finding Image Position and Nature**
+
+![Convex Lens Numerical](/images/light/light_convex_lens_numerical_nano_banana_1781204470042.png)
+
 **Question:** A 2.0 cm tall object is placed perpendicular to the principal axis of a convex lens of focal length 10 cm. The distance of the object from the lens is 15 cm. Find the nature, position and size of the image. Also find its magnification.
 **Solution:**
 1. Given: Height of object ($h$) = +2.0 cm, Focal length ($f$) = +10 cm (convex lens), Object distance ($u$) = -15 cm.
@@ -126,6 +133,9 @@ The use of powers instead of focal lengths simplifies the calculations for lens 
 8. The image is **real, inverted, 4.0 cm tall, and formed 30 cm away** on the opposite side of the lens.
 
 **Example 2: Focal Length of a Concave Lens**
+
+![Concave Lens Numerical](/images/light/light_concave_lens_numerical_nano_banana_1781204487446.png)
+
 **Question:** A concave lens has a focal length of 15 cm. At what distance should the object from the lens be placed so that it forms an image at 10 cm from the lens? Also, find the magnification produced by the lens.
 **Solution:**
 1. A concave lens always forms a virtual, erect image on the same side as the object. So, image distance ($v$) = -10 cm.

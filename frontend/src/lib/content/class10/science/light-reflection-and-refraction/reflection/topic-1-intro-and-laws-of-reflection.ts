@@ -42,6 +42,9 @@ export const topic1IntroAndLawsOfReflection: Topic = {
   content: `
 ### What is Light?
 
+![What is Light - Dual Nature](/images/light/topic1-reflection-laws.png)
+![Light propagation](/images/light/media__1781201710451.png)
+
 Light is a form of energy that enables us to see the world around us. Although light itself is invisible, it makes objects visible when it bounces off them and enters our eyes.
 
 Light exhibits dual nature: it acts both as a wave (electromagnetic wave) and as a particle (photon). However, for the scope of Class 10, we primarily treat light as a **ray** that travels in a straight line.
@@ -56,6 +59,9 @@ Light exhibits dual nature: it acts both as a wave (electromagnetic wave) and as
 
 ### Reflection of Light
 
+![Reflection of light](/images/light/light_reflection_nano_banana_1781202845384.png)
+![Specular vs diffuse reflection](/images/light/media__1781206235525.png)
+
 When light falls on the surface of an object, some of it bounces back into the same medium. This bouncing back of light rays is called **Reflection of Light**.
 
 Highly polished surfaces, such as mirrors, reflect most of the light falling on them.
@@ -68,6 +74,8 @@ Highly polished surfaces, such as mirrors, reflect most of the light falling on 
 
 ### Terminology Related to Reflection
 
+![Reflection terminology](/images/light/topic2-spherical-mirrors.png)
+
 Before understanding the laws of reflection, let's define the key terms:
 *   **Incident Ray:** The ray of light that falls on the reflecting surface.
 *   **Reflected Ray:** The ray of light that bounces back from the reflecting surface.
@@ -79,6 +87,9 @@ Before understanding the laws of reflection, let's define the key terms:
 ---
 
 ### The Laws of Reflection
+
+![Laws of Reflection](/images/light/light_laws_reflection_1781203058464.png)
+![Laws of Reflection 3D](/images/light/media__1781206240893.png)
 
 The reflection of light by any surface (plane or curved) obeys the following two laws of reflection:
 
@@ -98,6 +109,8 @@ The reflection of light by any surface (plane or curved) obeys the following two
 ---
 
 ### Image Formation by a Plane Mirror
+
+![Plane mirror lateral inversion](/images/light/topic10-optical-phenomena.png)
 
 A plane mirror is a flat glass surface with a thin layer of silver (the reflecting layer) on the back, protected by a coat of paint.
 

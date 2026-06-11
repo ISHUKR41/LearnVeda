@@ -27,9 +27,11 @@ export const topic2SphericalMirrors: Topic = {
     "light-mirror-ray-tracer",
     "adv-concave-mirror",
   ],
-  imageUrl: "/images/light/topic2-spherical-mirrors.png",
+  imageUrl: "/images/light/light_spherical_mirrors_1781203071616.png",
   content: `
 ### What is a Spherical Mirror?
+
+![Convex and Concave Mirrors](/images/light/light_convex_concave_1781203107265.png)
 
 A spherical mirror is a mirror whose reflecting surface is a part of a hollow sphere of glass. 
 
@@ -40,6 +42,8 @@ Depending on which side of the spherical surface is silvered, there are two type
 ---
 
 ### Key Terminology
+
+![Spherical Mirrors Terminology](/images/light/light_spherical_mirrors_1781203071616.png)
 
 To understand image formation, we must define the following terms related to spherical mirrors:
 

@@ -27,9 +27,11 @@ export const topic5ImageFormationByLenses: Topic = {
     "light-lens-ray-tracer",
     "adv-convex-lens",
   ],
-  imageUrl: "/images/light/topic5-spherical-lenses.png",
+  imageUrl: "/images/light/light_lenses_nano_banana_1781202878730.png",
   content: `
 ### What is a Spherical Lens?
+
+![Spherical Lenses](/images/light/light_lenses_nano_banana_1781202878730.png)
 
 A transparent material bound by two surfaces, of which one or both surfaces are spherical, forms a lens.
 

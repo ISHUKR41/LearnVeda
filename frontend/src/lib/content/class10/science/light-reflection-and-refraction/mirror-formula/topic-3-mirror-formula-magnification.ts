@@ -27,9 +27,11 @@ export const topic3MirrorFormulaMagnification: Topic = {
     /* Advanced concave mirror ray diagram */
     "adv-concave-mirror",
   ],
-  imageUrl: "/images/light/topic3-mirror-formula.png",
+  imageUrl: "/images/light/light_mirror_formula_nano_banana_1781204199040.png",
   content: `
 ### New Cartesian Sign Convention
+
+![Sign Convention](/images/light/light_sign_convention_nano_banana_1781204233503.png)
 
 To deal with the numerical problems related to spherical mirrors, we use a set of rules known as the **New Cartesian Sign Convention**. In this convention, the pole ($P$) of the mirror is taken as the origin, and the principal axis is taken as the x-axis of the coordinate system.
 
@@ -50,6 +52,8 @@ To deal with the numerical problems related to spherical mirrors, we use a set o
 
 ### Mirror Formula
 
+![Mirror Formula](/images/light/light_mirror_formula_nano_banana_1781204199040.png)
+
 The mirror formula is a mathematical relationship connecting object distance ($u$), image distance ($v$), and focal length ($f$) of a spherical mirror.
 
 It is expressed as:
@@ -69,6 +73,8 @@ This formula is valid in all situations for all spherical mirrors, provided the 
 ---
 
 ### Magnification ($m$)
+
+![Magnification Formula](/images/light/light_magnification_formula_nano_banana_1781204215500.png)
 
 Magnification produced by a spherical mirror gives the relative extent to which the image of an object is magnified with respect to the object size. It is defined as the ratio of the height of the image ($h'$) to the height of the object ($h$).
 

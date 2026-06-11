@@ -35,9 +35,11 @@ export const topic4LawsOfRefraction: Topic = {
     "light-tir-explorer",
     "adv-snells-law",
   ],
-  imageUrl: "/images/light/topic4-refraction.png",
+  imageUrl: "/images/light/light_refraction_nano_banana_1781202861976.png",
   content: `
 ### What is Refraction of Light?
+
+![Refraction of Light](/images/light/light_refraction_nano_banana_1781202861976.png)
 
 When light travels from one transparent medium to another, its speed changes. This change in speed causes the ray of light to bend at the boundary separating the two media.
 
@@ -56,6 +58,8 @@ The phenomenon of the change in the direction of light when it passes obliquely 
 
 ### Refraction through a Rectangular Glass Slab
 
+![Glass Slab Refraction](/images/light/light_glass_slab_nano_banana_1781204391585.png)
+
 When a ray of light passes through a rectangular glass slab, refraction occurs twice:
 1.  First at the air-glass interface (bends towards the normal).
 2.  Second at the glass-air interface (bends away from the normal).
@@ -65,6 +69,8 @@ Due to the parallel faces of the slab, the emergent ray is parallel to the incid
 ---
 
 ### The Laws of Refraction
+
+![Snell's Law](/images/light/light_snells_law_1781203083554.png)
 
 Refraction of light obeys the following two laws:
 
@@ -85,6 +91,8 @@ This constant value is called the **Refractive Index** of the second medium with
 ---
 
 ### Refractive Index ($n$)
+
+![Refractive Index](/images/light/light_refractive_index_1781203095581.png)
 
 The extent of the change in direction that takes place in a given pair of media is expressed in terms of the refractive index. It is fundamentally linked to the relative speed of light in different media.
 
