@@ -113,7 +113,7 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     description: "See why convex mirrors always form virtual, erect, diminished images",
     category: "mirrors",
     icon: "🚗",
-    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")), // Can be extended
+    component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
   },
   "mirror-formula-calc": {
     title: "Mirror Formula Calculator",
@@ -121,6 +121,14 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     category: "mirrors",
     icon: "🧮",
     component: lazyLoad(() => import("./mirrors/ConcaveMirrorSim")),
+  },
+  /* NEW: Spherical mirror terminology interactive diagram */
+  "mirror-terms-diagram": {
+    title: "Spherical Mirror — Terminology Diagram",
+    description: "Click P, C, F, R, f, Aperture to see definitions and formulas — interactive glossary",
+    category: "mirrors",
+    icon: "📐",
+    component: lazyLoad(() => import("./mirrors/SphericalMirrorTermsSim")),
   },
 
   /* ─── Refraction ─── */
@@ -144,6 +152,14 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     category: "refraction",
     icon: "⚡",
     component: lazyLoad(() => import("./refraction/SnellsLawSim")),
+  },
+  /* NEW: Dedicated Critical Angle / TIR simulation */
+  "critical-angle-sim": {
+    title: "Critical Angle — TIR Explorer",
+    description: "Drag θ past the critical angle to trigger TIR · Glass, Water, Diamond, Optical Fibre",
+    category: "refraction",
+    icon: "⚡",
+    component: lazyLoad(() => import("./refraction/CriticalAngleSim")),
   },
 
   /* ─── Lenses ─── */
@@ -174,6 +190,14 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     category: "lenses",
     icon: "💪",
     component: lazyLoad(() => import("./lenses/ConvexLensSim")),
+  },
+  /* NEW: Dedicated Power of Lens simulation with combination lenses */
+  "power-dioptre-sim": {
+    title: "Power of Lens — P = 1/f (Dioptres)",
+    description: "Adjust f₁ and f₂, see combined power · reading glasses, myopia specs · P = P₁ + P₂",
+    category: "lenses",
+    icon: "💪",
+    component: lazyLoad(() => import("./lenses/PowerOfLensSim")),
   },
 
   /* ─── Dispersion ─── */

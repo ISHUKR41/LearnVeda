@@ -38,6 +38,8 @@ export const topic7TotalInternalReflection: Topic = {
   title: "7. Total Internal Reflection and Optical Fibres",
   estimatedMinutes: 55,
   simulationIds: [
+    /* Dedicated critical angle interactive lab */
+    "critical-angle-sim",         /* drag θ past θc → TIR snaps on — Glass/Water/Diamond/Fibre */
     /* New dedicated Topic 7 simulations */
     "light-tir-critical-angle",   /* drag angle → watch TIR snap on/off */
     "light-fiber-optic-path",     /* animated photon bouncing through bent fibre */

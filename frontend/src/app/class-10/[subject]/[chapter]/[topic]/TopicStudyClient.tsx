@@ -50,8 +50,9 @@ import { getDiagramForTopic } from "@/components/chapter/light/TopicDiagrams";
 
 /* ─────────────────────────────────────────────
  * Types for study tab system
+ * 6 tabs: Learn, Simulations, Flash Cards, Mind Map, Practice, Exam Prep
  * ───────────────────────────────────────────── */
-type StudyTab = "learn" | "flashcards" | "mindmap" | "practice" | "exam";
+type StudyTab = "learn" | "simulations" | "flashcards" | "mindmap" | "practice" | "exam";
 
 /* ─────────────────────────────────────────────
  * Question type config — colors and labels
@@ -64,11 +65,12 @@ const QUESTION_CONFIG = {
 } as const;
 
 const TABS: { id: StudyTab; label: string; icon: string }[] = [
-  { id: "learn",      label: "Learn",       icon: "📖" },
-  { id: "flashcards", label: "Flash Cards", icon: "🃏" },
-  { id: "mindmap",    label: "Mind Map",    icon: "🗺️" },
-  { id: "practice",   label: "Practice",   icon: "❓" },
-  { id: "exam",       label: "Exam Prep",  icon: "📋" },
+  { id: "learn",       label: "Learn",        icon: "📖" },
+  { id: "simulations", label: "Simulations",  icon: "🔬" },
+  { id: "flashcards",  label: "Flash Cards",  icon: "🃏" },
+  { id: "mindmap",     label: "Mind Map",     icon: "🗺️" },
+  { id: "practice",    label: "Practice",    icon: "❓" },
+  { id: "exam",        label: "Exam Prep",   icon: "📋" },
 ];
 
 /* ─────────────────────────────────────────────
@@ -407,6 +409,11 @@ export default function TopicStudyClient({
           >
             <span className={styles.tabIcon}>{tab.icon}</span>
             <span className={styles.tabLabel}>{tab.label}</span>
+            {/* Simulation count badge on Simulations tab */}
+            {tab.id === "simulations" && topic.simulationIds && topic.simulationIds.length > 0 && (
+              <span className={styles.tabBadge}>{topic.simulationIds.length}</span>
+            )}
+            {/* Question count badge on Practice tab */}
             {tab.id === "practice" && (
               <span className={styles.tabBadge}>{topic.questions.length}</span>
             )}
@@ -462,6 +469,53 @@ export default function TopicStudyClient({
             </div>
           );
         })()}
+
+        {/* SIMULATIONS — dedicated interactive physics lab panel */}
+        {activeTab === "simulations" && (
+          <div style={{ padding: "24px 0 32px 0" }}>
+            {topic.simulationIds && topic.simulationIds.length > 0 ? (
+              <>
+                {/* Intro banner */}
+                <div style={{
+                  background: "linear-gradient(135deg, rgba(129,140,248,0.08) 0%, rgba(16,185,129,0.05) 100%)",
+                  border: "1px solid rgba(129,140,248,0.18)",
+                  borderRadius: "14px",
+                  padding: "18px 22px",
+                  marginBottom: "24px",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "14px",
+                }}>
+                  <div style={{
+                    width: "40px", height: "40px", borderRadius: "10px",
+                    background: "rgba(129,140,248,0.15)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: "18px", flexShrink: 0,
+                  }}>🔬</div>
+                  <div>
+                    <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "#c7d2fe", marginBottom: "4px" }}>
+                      {topic.simulationIds.length} Interactive Simulation{topic.simulationIds.length !== 1 ? "s" : ""}
+                    </div>
+                    <div style={{ fontSize: "0.8rem", color: "#94a3b8", lineHeight: 1.5 }}>
+                      Drag sliders, move objects, and watch the physics happen in real time. Each simulation is based on real CBSE formulas.
+                    </div>
+                  </div>
+                </div>
+                {/* Render all simulations in expanded mode (with metadata headers) */}
+                <SmartSimulationRenderer
+                  simulationIds={topic.simulationIds}
+                  expandedMode={true}
+                />
+              </>
+            ) : (
+              <EmptyState
+                icon="🔬"
+                title="No Simulations for This Topic"
+                description="Interactive simulations will be added for this topic soon."
+              />
+            )}
+          </div>
+        )}
 
         {/* FLASH CARDS */}
         {activeTab === "flashcards" && (

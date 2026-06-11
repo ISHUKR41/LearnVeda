@@ -3,30 +3,28 @@
  * LOCATION: src/components/simulations/SmartSimulationRenderer.tsx
  *
  * PURPOSE: Unified simulation renderer that works for BOTH the Light chapter
- *          (using light/SimulationRegistry) AND the Force/Motion chapter
- *          (using the main SimulationRegistry). It tries the light registry
- *          first; if an ID is not found there, it falls back to the force
- *          registry. This ensures every simulation ID defined in any topic
- *          content file will render correctly, regardless of which chapter
- *          the student is currently studying.
+ *          (using light/SimulationRegistry) AND the Force/Motion chapter.
+ *          Supports two display modes:
+ *            - Default mode: compact cards stacked vertically in the Learn tab
+ *            - expandedMode: large, prominent cards in the dedicated Simulations tab
  *
  * KEY FEATURES:
  *   - IntersectionObserver lazy mounting (simulations mount only when they
  *     scroll into view, preventing dozens of RAF loops running at once)
  *   - Professional loading skeleton while the canvas boots
  *   - Category-colour coded cards (mirrors = blue, lenses = purple, etc.)
+ *   - expandedMode shows metadata header above the canvas for better UX
  *   - Fully responsive — canvas components scale to container width
  *   - Zero-warning: unknown IDs are silently skipped (logged in dev)
  *
  * USED BY:
- *   • DeepResearchChapterClient.tsx  (chapter view — normal mode)
+ *   • DeepResearchChapterClient.tsx  (chapter view — normal + simulations tab)
  *   • TopicStudyClient.tsx           (focus/topic mode)
  *
  * DEPENDENCIES:
  *   • light/SimulationRegistry.tsx   — getSimulationInfo(), getSimulationComponent()
- *   • SimulationRegistry.tsx (main)  — SIMULATION_REGISTRY (force chapter sims)
  *
- * LAST UPDATED: 2026-06-09
+ * LAST UPDATED: 2026-06-11
  */
 
 "use client";
@@ -35,8 +33,6 @@ import React, { useRef, useEffect, useState, ComponentType } from "react";
 
 /* ─────────────────────────────────────────────────────────────────────────────
  * LAZY IMPORTS — import both registries at module level.
- * next/dynamic handles these at the component level; here we need plain
- * dynamic imports to pull component references from the registry maps.
  * ─────────────────────────────────────────────────────────────────────────── */
 import { getSimulationInfo } from "./light/SimulationRegistry";
 
@@ -45,21 +41,20 @@ import { getSimulationInfo } from "./light/SimulationRegistry";
  * Each simulation category gets a distinct accent colour for its card border
  * and icon background, creating a clear visual taxonomy for students.
  * ─────────────────────────────────────────────────────────────────────────── */
-const CATEGORY_COLORS: Record<string, { border: string; bg: string; label: string }> = {
-  reflection: { border: "rgba(59,130,246,0.35)",  bg: "rgba(59,130,246,0.08)",  label: "Reflection"  },
-  mirrors:    { border: "rgba(168,85,247,0.35)",  bg: "rgba(168,85,247,0.08)",  label: "Mirrors"     },
-  refraction: { border: "rgba(16,185,129,0.35)",  bg: "rgba(16,185,129,0.08)",  label: "Refraction"  },
-  lenses:     { border: "rgba(245,158,11,0.35)",  bg: "rgba(245,158,11,0.08)",  label: "Lenses"      },
-  dispersion: { border: "rgba(236,72,153,0.35)",  bg: "rgba(236,72,153,0.08)",  label: "Dispersion"  },
-  eye:        { border: "rgba(239,68,68,0.35)",   bg: "rgba(239,68,68,0.08)",   label: "Human Eye"   },
-  default:    { border: "rgba(99,102,241,0.35)",  bg: "rgba(99,102,241,0.08)",  label: "Simulation"  },
+const CATEGORY_COLORS: Record<string, { border: string; bg: string; label: string; glow: string }> = {
+  reflection: { border: "rgba(59,130,246,0.4)",  bg: "rgba(59,130,246,0.10)",  label: "Reflection",  glow: "rgba(59,130,246,0.15)"  },
+  mirrors:    { border: "rgba(168,85,247,0.4)",  bg: "rgba(168,85,247,0.10)",  label: "Mirrors",     glow: "rgba(168,85,247,0.15)"  },
+  refraction: { border: "rgba(16,185,129,0.4)",  bg: "rgba(16,185,129,0.10)",  label: "Refraction",  glow: "rgba(16,185,129,0.15)"  },
+  lenses:     { border: "rgba(245,158,11,0.4)",  bg: "rgba(245,158,11,0.10)",  label: "Lenses",      glow: "rgba(245,158,11,0.15)"  },
+  dispersion: { border: "rgba(236,72,153,0.4)",  bg: "rgba(236,72,153,0.10)",  label: "Dispersion",  glow: "rgba(236,72,153,0.15)"  },
+  eye:        { border: "rgba(239,68,68,0.4)",   bg: "rgba(239,68,68,0.10)",   label: "Human Eye",   glow: "rgba(239,68,68,0.15)"   },
+  default:    { border: "rgba(99,102,241,0.4)",  bg: "rgba(99,102,241,0.10)",  label: "Simulation",  glow: "rgba(99,102,241,0.15)"  },
 };
 
 /* ─────────────────────────────────────────────────────────────────────────────
  * RESOLVE SIMULATION
- * Given an ID string, returns the component and metadata by checking:
- *   1. Light registry (primary — for Light chapter simulations)
- *   2. Falls back gracefully if not found
+ * Given an ID string, returns the component and metadata by checking the
+ * light simulation registry. Returns null if the ID is unregistered.
  * ─────────────────────────────────────────────────────────────────────────── */
 interface ResolvedSim {
   Comp: ComponentType<any>;
@@ -70,7 +65,7 @@ interface ResolvedSim {
 }
 
 function resolveSim(id: string): ResolvedSim | null {
-  /* Try light registry first */
+  /* Try light registry */
   const lightInfo = getSimulationInfo(id);
   if (lightInfo) {
     return {
@@ -91,22 +86,25 @@ function resolveSim(id: string): ResolvedSim | null {
 
 /* ─────────────────────────────────────────────────────────────────────────────
  * LAZY SIMULATION CARD
- * Each simulation is wrapped in a card with metadata (title, description,
- * category badge, icon). The canvas component only MOUNTS when the card
- * scrolls into the viewport (IntersectionObserver with 400px lead).
- * This prevents dozens of requestAnimationFrame loops running simultaneously.
+ * Each simulation is wrapped in a card with optional metadata header.
+ * The canvas component only MOUNTS when the card scrolls into the viewport
+ * (IntersectionObserver with 400px lead) to prevent performance issues.
  * ─────────────────────────────────────────────────────────────────────────── */
 interface LazySimCardProps {
   id: string;
   resolved: ResolvedSim;
   index: number;
+  /** When true, shows a prominent metadata header above the simulation canvas */
+  expandedMode?: boolean;
 }
 
-function LazySimCard({ id, resolved, index }: LazySimCardProps) {
+function LazySimCard({ id, resolved, index, expandedMode = false }: LazySimCardProps) {
   const wrapRef   = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
-  /* Mount the canvas component only when it scrolls near viewport */
+  /* Mount the canvas component only when it scrolls near viewport.
+   * The 400px rootMargin gives a generous lead so the simulation is
+   * already running by the time the student scrolls to it. */
   useEffect(() => {
     const el = wrapRef.current;
     if (!el) return;
@@ -136,12 +134,10 @@ function LazySimCard({ id, resolved, index }: LazySimCardProps) {
       id={`smart-sim-${id}`}
       ref={wrapRef}
       style={{
-        /* Wrapper provides category-tinted glow border + entrance animation.
-         * The simulation component itself renders the full card (header, canvas,
-         * controls, info panel) — no duplicate header here. */
         borderRadius: "18px",
         boxShadow: `0 0 0 1px ${colors.border}, 0 8px 40px rgba(0,0,0,0.45)`,
         overflow: "hidden",
+        background: "rgba(8,14,26,0.95)",
         /* Staggered entrance animation */
         animationName: "simCardIn",
         animationDuration: "0.5s",
@@ -150,29 +146,80 @@ function LazySimCard({ id, resolved, index }: LazySimCardProps) {
         animationDelay: `${index * 0.08}s`,
       }}
     >
+      {/* ── Metadata header (only shown in expandedMode) ──
+          Gives the simulation context: what it is, what category, description */}
+      {expandedMode && (
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "14px",
+          padding: "16px 20px",
+          background: `linear-gradient(135deg, ${colors.glow} 0%, rgba(0,0,0,0) 100%)`,
+          borderBottom: `1px solid ${colors.border}`,
+        }}>
+          {/* Category icon bubble */}
+          <div style={{
+            width: "42px", height: "42px", borderRadius: "10px",
+            background: colors.bg,
+            border: `1px solid ${colors.border}`,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: "20px", flexShrink: 0,
+          }}>
+            {resolved.icon}
+          </div>
+
+          {/* Title + description */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{
+              fontWeight: 700, fontSize: "0.9rem", color: "#e2e8f0",
+              marginBottom: "3px", fontFamily: "Inter, system-ui, sans-serif",
+            }}>
+              {resolved.title}
+            </div>
+            <div style={{
+              fontSize: "0.78rem", color: "#64748b", lineHeight: 1.4,
+              fontFamily: "Inter, system-ui, sans-serif",
+            }}>
+              {resolved.description}
+            </div>
+          </div>
+
+          {/* Category label pill */}
+          <div style={{
+            padding: "4px 10px", borderRadius: "6px",
+            background: colors.bg, border: `1px solid ${colors.border}`,
+            fontSize: "0.7rem", fontWeight: 600, color: "#94a3b8",
+            flexShrink: 0, fontFamily: "Inter, system-ui, sans-serif",
+            letterSpacing: "0.03em",
+          }}>
+            {colors.label}
+          </div>
+        </div>
+      )}
+
+      {/* ── Simulation canvas or loading skeleton ── */}
       {mounted ? (
         <Comp id={id} title={resolved.title} />
       ) : (
         /* Loading skeleton — shown until card scrolls into view */
         <div
           style={{
-            height: "380px",
+            height: expandedMode ? "420px" : "320px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             gap: "16px",
             background: "rgba(8,14,26,0.95)",
-            borderRadius: "18px",
           }}
         >
-          {/* Category icon */}
+          {/* Category icon with glow */}
           <div style={{
-            fontSize: "36px",
-            lineHeight: 1,
+            fontSize: "36px", lineHeight: 1,
             filter: "drop-shadow(0 0 12px rgba(255,255,255,0.15))",
           }}>{resolved.icon}</div>
-          {/* Spinner */}
+
+          {/* Loading spinner */}
           <div style={{
             width: "36px", height: "36px",
             borderRadius: "50%",
@@ -180,6 +227,7 @@ function LazySimCard({ id, resolved, index }: LazySimCardProps) {
             borderTopColor: "transparent",
             animation: "spinSim 0.8s linear infinite",
           }} />
+
           <div style={{
             fontSize: "12px", color: "#475569",
             fontFamily: "Inter, system-ui, sans-serif",
@@ -196,14 +244,25 @@ function LazySimCard({ id, resolved, index }: LazySimCardProps) {
  * SMART SIMULATION RENDERER — the main export
  * Accepts an array of simulation ID strings, resolves each one, and renders
  * a vertical stack of LazySimCard components.
+ *
+ * Props:
+ *   simulationIds — array of simulation ID strings from topic content files
+ *   expandedMode  — if true, shows metadata header above each simulation canvas
  * ─────────────────────────────────────────────────────────────────────────── */
 interface SmartSimulationRendererProps {
   /** Array of simulation ID strings from topic content files */
   simulationIds: string[];
+  /**
+   * If true, shows a metadata header (title, description, category badge)
+   * above each simulation canvas. Use this in the dedicated Simulations tab.
+   * Default: false (compact mode for the Learn tab).
+   */
+  expandedMode?: boolean;
 }
 
 export default function SmartSimulationRenderer({
   simulationIds,
+  expandedMode = false,
 }: SmartSimulationRendererProps) {
   /* Nothing to render */
   if (!simulationIds || simulationIds.length === 0) return null;
@@ -229,17 +288,23 @@ export default function SmartSimulationRenderer({
         }
       `}</style>
 
-      {/* Simulation cards grid */}
+      {/* Simulation cards — stacked vertically with a gap */}
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "24px",
-          margin: "32px 0",
+          gap: expandedMode ? "32px" : "24px",
+          margin: expandedMode ? "0" : "32px 0",
         }}
       >
         {resolved.map(({ id, sim }, index) => (
-          <LazySimCard key={id} id={id} resolved={sim} index={index} />
+          <LazySimCard
+            key={id}
+            id={id}
+            resolved={sim}
+            index={index}
+            expandedMode={expandedMode}
+          />
         ))}
       </div>
     </>

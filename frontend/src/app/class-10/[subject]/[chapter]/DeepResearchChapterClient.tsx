@@ -58,9 +58,10 @@ import { toast } from "react-hot-toast";
 
 /* ─────────────────────────────────────────────
  * TYPE: Study tab names
- * Each topic has 5 study modes the student can switch between.
+ * Each topic has 6 study modes the student can switch between.
+ * "simulations" is the dedicated interactive physics lab tab.
  * ───────────────────────────────────────────── */
-type StudyTab = "learn" | "flashcards" | "mindmap" | "practice" | "exam";
+type StudyTab = "learn" | "simulations" | "flashcards" | "mindmap" | "practice" | "exam";
 
 /* ─────────────────────────────────────────────
  * CONSTANTS: Question type configuration
@@ -75,13 +76,15 @@ const QUESTION_CONFIG = {
 
 /* ─────────────────────────────────────────────
  * CONSTANTS: Tab configuration with icons + labels
+ * 6 tabs — Learn, Simulations, Flash Cards, Mind Map, Practice, Exam Prep
  * ───────────────────────────────────────────── */
 const TABS: { id: StudyTab; label: string; icon: string; description: string }[] = [
-  { id: "learn",      label: "Learn",       icon: "📖", description: "Read detailed notes" },
-  { id: "flashcards", label: "Flash Cards", icon: "🃏", description: "Quick revision cards" },
-  { id: "mindmap",    label: "Mind Map",    icon: "🗺️", description: "Visual concept map" },
-  { id: "practice",   label: "Practice",   icon: "❓", description: "Answer questions" },
-  { id: "exam",       label: "Exam Prep",  icon: "📋", description: "Key exam points" },
+  { id: "learn",       label: "Learn",        icon: "📖", description: "Read detailed notes" },
+  { id: "simulations", label: "Simulations",  icon: "🔬", description: "Interactive physics lab" },
+  { id: "flashcards",  label: "Flash Cards",  icon: "🃏", description: "Quick revision cards" },
+  { id: "mindmap",     label: "Mind Map",     icon: "🗺️", description: "Visual concept map" },
+  { id: "practice",    label: "Practice",    icon: "❓", description: "Answer questions" },
+  { id: "exam",        label: "Exam Prep",   icon: "📋", description: "Key exam points" },
 ];
 
 /* ─────────────────────────────────────────────
@@ -725,6 +728,10 @@ export default function DeepResearchChapterClient({
                   >
                     <span className={styles.tabIcon}>{tab.icon}</span>
                     <span className={styles.tabLabel}>{tab.label}</span>
+                    {/* Simulation count badge on Simulations tab */}
+                    {tab.id === "simulations" && activeTopic.simulationIds && activeTopic.simulationIds.length > 0 && (
+                      <span className={styles.tabBadge}>{activeTopic.simulationIds.length}</span>
+                    )}
                     {/* Question count badge on Practice tab */}
                     {tab.id === "practice" && (
                       <span className={styles.tabBadge}>{activeTopic.questions.length}</span>
@@ -794,6 +801,73 @@ export default function DeepResearchChapterClient({
                     </div>
                   );
                 })()}
+
+                {/* ────────── TAB: SIMULATIONS ────────── */}
+                {/* Dedicated full-width interactive physics lab panel.
+                    Each simulation gets a large, fully rendered card.
+                    Uses IntersectionObserver lazy-mounting via SmartSimulationRenderer. */}
+                {activeTab === "simulations" && (
+                  <div role="tabpanel" aria-label="Simulations" style={{ padding: "0 0 2rem 0" }}>
+                    {activeTopic.simulationIds && activeTopic.simulationIds.length > 0 ? (
+                      <>
+                        {/* Section intro */}
+                        <div style={{
+                          background: "linear-gradient(135deg, rgba(129,140,248,0.08) 0%, rgba(16,185,129,0.05) 100%)",
+                          border: "1px solid rgba(129,140,248,0.15)",
+                          borderRadius: "16px",
+                          padding: "20px 24px",
+                          marginBottom: "24px",
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: "16px",
+                        }}>
+                          <div style={{
+                            width: "44px", height: "44px", borderRadius: "12px",
+                            background: "rgba(129,140,248,0.15)",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            fontSize: "20px", flexShrink: 0,
+                          }}>🔬</div>
+                          <div>
+                            <div style={{ fontWeight: 700, fontSize: "1rem", color: "#c7d2fe", marginBottom: "4px" }}>
+                              {activeTopic.simulationIds.length} Interactive Simulation{activeTopic.simulationIds.length !== 1 ? "s" : ""} — {activeTopic.title.replace(/^\d+\.\s*/, "")}
+                            </div>
+                            <div style={{ fontSize: "0.84rem", color: "#94a3b8", lineHeight: 1.5 }}>
+                              Drag, interact, and explore the physics concepts. Each simulation uses real-time calculations to visualise what your textbook describes.
+                            </div>
+                          </div>
+                        </div>
+                        {/* All simulations rendered full-width */}
+                        <SmartSimulationRenderer
+                          simulationIds={activeTopic.simulationIds}
+                          expandedMode={true}
+                        />
+                        {/* Link to focus mode for distraction-free studying */}
+                        <div style={{ textAlign: "center", marginTop: "32px", padding: "20px" }}>
+                          <p style={{ color: "#64748b", fontSize: "0.85rem", marginBottom: "12px" }}>
+                            Want a distraction-free full-screen experience?
+                          </p>
+                          <Link
+                            href={`${backUrl}/${chapterData.id}/${activeTopic.id}`}
+                            style={{
+                              display: "inline-flex", alignItems: "center", gap: "8px",
+                              background: "linear-gradient(135deg, #4f46e5, #818cf8)",
+                              color: "#fff", padding: "10px 22px", borderRadius: "10px",
+                              fontWeight: 600, fontSize: "0.875rem", textDecoration: "none",
+                            }}
+                          >
+                            🎯 Open Focus Mode
+                          </Link>
+                        </div>
+                      </>
+                    ) : (
+                      <EmptyState
+                        icon="🔬"
+                        title="No Simulations for This Topic"
+                        description="Interactive simulations will be added for this topic soon."
+                      />
+                    )}
+                  </div>
+                )}
 
                 {/* ────────── TAB: FLASH CARDS ────────── */}
                 {activeTab === "flashcards" && (

@@ -13,9 +13,9 @@ export const topic2SphericalMirrors: Topic = {
   title: "2. Spherical Mirrors: Concave and Convex",
   estimatedMinutes: 60,
   simulationIds: [
+    "mirror-terms-diagram",
     "light-concave-rays",
     "light-convex-rays",
-    "light-mirror-terms",
     "light-concave-positions",
     "light-mirror-uses",
     "light-mirror-ray-tracer",
