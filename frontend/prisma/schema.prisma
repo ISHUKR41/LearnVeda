@@ -3,10 +3,7 @@ generator client {
 }
 
 datasource db {
-  // Currently set to sqlite for out-of-the-box local testing.
-  // For your 10k+ concurrent users production requirement, 
-  // simply change this provider to "postgresql"
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
