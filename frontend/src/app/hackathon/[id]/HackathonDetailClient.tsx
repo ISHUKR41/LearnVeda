@@ -109,6 +109,8 @@ export default function HackathonDetailClient({ id }: HackathonDetailClientProps
   // Live countdown timer state
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
+
   // Load hackathon details & standings
   const loadHackathonData = async () => {
     try {
@@ -116,7 +118,7 @@ export default function HackathonDetailClient({ id }: HackathonDetailClientProps
       setErrorMsg("");
 
       // 1. Fetch details
-      const detailRes = await fetch(`http://localhost:4000/api/hackathons/${id}`);
+      const detailRes = await fetch(`${BACKEND_URL}/api/hackathons/${id}`);
       if (!detailRes.ok) {
         throw new Error("Hackathon details could not be found.");
       }
@@ -124,7 +126,7 @@ export default function HackathonDetailClient({ id }: HackathonDetailClientProps
       setHackathon(detailPayload?.data?.hackathon || null);
 
       // 2. Fetch standings
-      const standingsRes = await fetch(`http://localhost:4000/api/hackathons/${id}/submissions`);
+      const standingsRes = await fetch(`${BACKEND_URL}/api/hackathons/${id}/submissions`);
       if (standingsRes.ok) {
         const standingsPayload = await standingsRes.json();
         setStandings(standingsPayload?.data?.submissions || []);
@@ -188,7 +190,7 @@ export default function HackathonDetailClient({ id }: HackathonDetailClientProps
     setFormNotice("");
 
     try {
-      const res = await fetch(`http://localhost:4000/api/hackathons/${id}/register`, {
+      const res = await fetch(`${BACKEND_URL}/api/hackathons/${id}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -252,7 +254,7 @@ export default function HackathonDetailClient({ id }: HackathonDetailClientProps
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`http://localhost:4000/api/hackathons/${id}/submit`, {
+      const response = await fetch(`${BACKEND_URL}/api/hackathons/${id}/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -285,7 +287,7 @@ export default function HackathonDetailClient({ id }: HackathonDetailClientProps
       setDemoUrl("");
 
       // Reload standings
-      const standingsRes = await fetch(`http://localhost:4000/api/hackathons/${id}/submissions`);
+      const standingsRes = await fetch(`${BACKEND_URL}/api/hackathons/${id}/submissions`);
       if (standingsRes.ok) {
         const standingsPayload = await standingsRes.json();
         setStandings(standingsPayload?.data?.submissions || []);

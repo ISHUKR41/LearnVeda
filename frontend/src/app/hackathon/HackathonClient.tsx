@@ -149,10 +149,12 @@ export default function HackathonClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
+
   // Fetch real submissions for leaderboard standings from backend
   const loadStandings = async () => {
     try {
-      const res = await fetch("http://localhost:4000/api/events/inter-college-hackathon/submissions");
+      const res = await fetch(`${BACKEND_URL}/api/events/inter-college-hackathon/submissions`);
       if (res.ok) {
         const payload = await res.json();
         setStandings(payload.data?.submissions || []);
@@ -225,7 +227,7 @@ export default function HackathonClient() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`http://localhost:4000/api/events/${hackathonId}/submit`, {
+      const response = await fetch(`${BACKEND_URL}/api/events/${hackathonId}/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

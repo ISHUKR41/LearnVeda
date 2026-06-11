@@ -30,7 +30,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { id } = resolvedParams;
 
   try {
-    const res = await fetch(`http://localhost:4000/api/hackathons/${id}`, {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
+    const res = await fetch(`${backendUrl}/api/hackathons/${id}`, {
       next: { revalidate: 300 } // Cache metadata for 5 minutes
     });
 

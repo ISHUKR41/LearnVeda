@@ -1,0 +1,242 @@
+20:53:21.499 Running build in Washington, D.C., USA (East) – iad1
+20:53:21.500 Build machine configuration: 2 cores, 8 GB
+20:53:22.055 Cloning github.com/ISHUKR41/eduquest (Branch: main, Commit: 3f2734e)
+20:53:27.241 Cloning completed: 5.184s
+20:53:27.501 Restored build cache from previous deployment (4u1hKBKwoRBZc11DbtuYPM6UVK2a)
+20:53:27.720 Running "vercel build"
+20:53:27.743 Vercel CLI 54.11.1
+20:53:28.104 Installing dependencies...
+20:53:28.710 npm warn Unknown project config "auto-install-peers". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+20:53:28.711 npm warn Unknown project config "strict-peer-dependencies". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+20:54:00.766 
+20:54:00.768 > postinstall
+20:54:00.768 > prisma generate
+20:54:00.768 
+20:54:01.639 Loaded Prisma config from prisma.config.ts.
+20:54:01.640 
+20:54:01.824 Prisma schema loaded from prisma/schema.prisma.
+20:54:02.485 
+20:54:02.486 ✔ Generated Prisma Client (v7.8.0) to ./node_modules/@prisma/client in 435ms
+20:54:02.486 
+20:54:02.486 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+20:54:02.487 
+20:54:02.487 
+20:54:02.524 
+20:54:02.525 added 5 packages, and changed 570 packages in 34s
+20:54:02.525 
+20:54:02.526 175 packages are looking for funding
+20:54:02.527   run `npm fund` for details
+20:54:02.575 Detected Next.js version: 16.2.6
+20:54:02.615 Running "npm run build"
+20:54:02.720 npm warn Unknown project config "auto-install-peers". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+20:54:02.720 npm warn Unknown project config "strict-peer-dependencies". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+20:54:02.734 
+20:54:02.734 > build
+20:54:02.735 > next build
+20:54:02.735 
+20:54:03.248 ⚠ Both `outputFileTracingRoot` and `turbopack.root` are set, but they must have the same value.
+20:54:03.248 Using `outputFileTracingRoot` value: /vercel/path0.
+20:54:03.434   Applying modifyConfig from Vercel
+20:54:03.440 Warning: Custom Cache-Control headers detected for the following routes:
+20:54:03.440   - /_next/static/(.*)
+20:54:03.440 
+20:54:03.440 Setting a custom Cache-Control header can break Next.js development behavior.
+20:54:03.451 ▲ Next.js 16.2.6 (Turbopack)
+20:54:03.452 - Experiments (use with caution):
+20:54:03.452   · optimizePackageImports
+20:54:03.452 
+20:54:03.506   Creating an optimized production build ...
+20:54:03.725 ⚠ Both `outputFileTracingRoot` and `turbopack.root` are set, but they must have the same value.
+20:54:03.726 Using `outputFileTracingRoot` value: /vercel/path0.
+20:54:27.366 Turbopack build encountered 1 warnings:
+20:54:27.367 ./frontend/src/lib/server/auth/session.ts:12:1
+20:54:27.367 A Node.js module is loaded ('node:crypto' at line 12) which is not supported in the Edge Runtime.
+20:54:27.367     Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime
+20:54:27.368   10 |  */
+20:54:27.368   11 |
+20:54:27.368 > 12 | import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
+20:54:27.368      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+20:54:27.369   13 | import type { NextRequest, NextResponse } from "next/server";
+20:54:27.369   14 | import { getSessionSecret } from "@/lib/server/env";
+20:54:27.369   15 | import type { PublicUser, SessionPayload } from "@/types/auth";
+20:54:27.369 
+20:54:27.370 Ecmascript file had an error
+20:54:27.370 
+20:54:27.370 Import traces:
+20:54:27.370   App Route:
+20:54:27.370     ./frontend/src/lib/server/auth/session.ts
+20:54:27.371     ./frontend/src/app/api/auth/sign-in/route.ts
+20:54:27.371 
+20:54:27.371   Edge Middleware:
+20:54:27.371     ./frontend/src/lib/server/auth/session.ts
+20:54:27.378     ./frontend/middleware.ts
+20:54:27.378 
+20:54:27.378   Server Component:
+20:54:27.379     ./frontend/src/lib/server/auth/session.ts
+20:54:27.379     ./frontend/src/lib/server/auth/current-user.ts
+20:54:27.379     ./frontend/src/app/admin/host-applications/page.tsx
+20:54:27.379 
+20:54:27.379 
+20:54:27.443 ✓ Compiled successfully in 23.6s
+20:54:27.453   Running TypeScript ...
+20:54:54.721   Finished TypeScript in 27.3s ...
+20:54:54.734   Collecting page data using 1 worker ...
+20:54:55.860   Generating static pages using 1 worker (0/178) ...
+20:54:56.648 (node:577) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+20:54:56.648 (Use `node --trace-deprecation ...` to show where the warning was created)
+20:54:57.931   Generating static pages using 1 worker (44/178) 
+20:54:58.852   Generating static pages using 1 worker (88/178) 
+20:54:59.614   Generating static pages using 1 worker (133/178) 
+20:55:00.179 ✓ Generating static pages using 1 worker (178/178) in 4.3s
+20:55:00.191   Finalizing page optimization ...
+20:55:00.356   Running onBuildComplete from Vercel
+20:55:01.314 
+20:55:01.319 Route (app)                                                                         Revalidate  Expire
+20:55:01.319 ┌ ○ /                                                                                      10m      1y
+20:55:01.319 ├ ○ /_not-found
+20:55:01.319 ├ ○ /about                                                                                  1h      1y
+20:55:01.319 ├ ○ /admin/host-applications
+20:55:01.320 ├ ƒ /api/achievements
+20:55:01.320 ├ ƒ /api/activity
+20:55:01.320 ├ ƒ /api/admin/host-applications
+20:55:01.320 ├ ƒ /api/admin/host-applications/[id]
+20:55:01.320 ├ ƒ /api/auth/change-password
+20:55:01.320 ├ ƒ /api/auth/me
+20:55:01.320 ├ ƒ /api/auth/sign-in
+20:55:01.320 ├ ƒ /api/auth/sign-out
+20:55:01.320 ├ ƒ /api/auth/sign-up
+20:55:01.320 ├ ƒ /api/battle/history
+20:55:01.320 ├ ƒ /api/battle/matchmaking
+20:55:01.320 ├ ƒ /api/battles
+20:55:01.320 ├ ƒ /api/classes
+20:55:01.321 ├ ƒ /api/community
+20:55:01.321 ├ ƒ /api/community/posts
+20:55:01.321 ├ ƒ /api/community/posts/[id]
+20:55:01.321 ├ ƒ /api/contact
+20:55:01.322 ├ ƒ /api/content/subjects
+20:55:01.322 ├ ƒ /api/dashboard
+20:55:01.322 ├ ƒ /api/events
+20:55:01.322 ├ ƒ /api/events/host-application
+20:55:01.322 ├ ƒ /api/events/register
+20:55:01.322 ├ ƒ /api/health
+20:55:01.322 ├ ƒ /api/leaderboard
+20:55:01.323 ├ ƒ /api/levels
+20:55:01.323 ├ ƒ /api/notifications
+20:55:01.323 ├ ƒ /api/platform-stats
+20:55:01.323 ├ ƒ /api/profile
+20:55:01.323 ├ ƒ /api/progress
+20:55:01.323 ├ ƒ /api/progress/answers
+20:55:01.323 ├ ƒ /api/progress/chapters/[chapterId]
+20:55:01.323 ├ ƒ /api/questions
+20:55:01.323 ├ ƒ /api/readiness
+20:55:01.323 ├ ƒ /api/search
+20:55:01.324 ├ ƒ /api/subjects
+20:55:01.324 ├ ƒ /api/subjects/[slug]/chapters
+20:55:01.324 ├ ƒ /api/users
+20:55:01.324 ├ ƒ /api/users/me
+20:55:01.324 ├ ƒ /api/wallet
+20:55:01.324 ├ ○ /battle                                                                                 5m      1y
+20:55:01.324 ├ ƒ /battle/[matchId]
+20:55:01.324 ├ ○ /battle/matchmaking
+20:55:01.324 ├ ○ /class-10                                                                               1h      1y
+20:55:01.324 ├ ● /class-10/[subject]
+20:55:01.325 │ ├ /class-10/mathematics-standard
+20:55:01.325 │ ├ /class-10/mathematics-basic
+20:55:01.325 │ ├ /class-10/science
+20:55:01.325 │ └ [+3 more paths]
+20:55:01.325 ├ ƒ /class-10/[subject]/[chapter]
+20:55:01.325 ├ ● /class-10/[subject]/[chapter]/[topic]
+20:55:01.325 │ ├ /class-10/science/light-reflection-and-refraction/intro-and-laws-of-reflection
+20:55:01.325 │ ├ /class-10/science/light-reflection-and-refraction/concave-convex-mirrors
+20:55:01.325 │ ├ /class-10/science/light-reflection-and-refraction/mirror-formula-magnification
+20:55:01.325 │ └ [+17 more paths]
+20:55:01.325 ├ ○ /class-11                                                                               1h      1y
+20:55:01.326 ├ ● /class-11/[stream]/[subject]
+20:55:01.326 │ ├ /class-11/science/physics
+20:55:01.326 │ ├ /class-11/science/chemistry
+20:55:01.326 │ ├ /class-11/science/mathematics
+20:55:01.326 │ └ [+14 more paths]
+20:55:01.326 ├ ƒ /class-11/[stream]/[subject]/[chapter]
+20:55:01.326 ├ ○ /class-12                                                                               1h      1y
+20:55:01.327 ├ ● /class-12/[stream]/[subject]
+20:55:01.327 │ ├ /class-12/science/physics
+20:55:01.327 │ ├ /class-12/science/chemistry
+20:55:01.327 │ ├ /class-12/science/mathematics
+20:55:01.327 │ └ [+14 more paths]
+20:55:01.327 ├ ƒ /class-12/[stream]/[subject]/[chapter]
+20:55:01.327 ├ ○ /class-9                                                                                1h      1y
+20:55:01.327 ├ ● /class-9/[subject]
+20:55:01.327 │ ├ /class-9/mathematics
+20:55:01.327 │ ├ /class-9/science
+20:55:01.327 │ ├ /class-9/social-science
+20:55:01.327 │ └ [+10 more paths]
+20:55:01.327 ├ ƒ /class-9/[subject]/[chapter]
+20:55:01.327 ├ ƒ /class-9/[subject]/[chapter]/[topicSlug]
+20:55:01.327 ├ ƒ /class-9/[subject]/[chapter]/study
+20:55:01.327 ├ ○ /community                                                                              2m      1y
+20:55:01.327 ├ ƒ /community/post/[id]
+20:55:01.327 ├ ○ /contact                                                                                1d      1y
+20:55:01.327 ├ ○ /dashboard
+20:55:01.328 ├ ○ /engineering                                                                            1h      1y
+20:55:01.328 ├ ● /engineering/[slug]
+20:55:01.328 │ ├ /engineering/c-language
+20:55:01.328 │ ├ /engineering/cpp
+20:55:01.328 │ ├ /engineering/java
+20:55:01.328 │ └ [+18 more paths]
+20:55:01.328 ├ ○ /events                                                                                 5m      1y
+20:55:01.328 ├ ○ /events/host
+20:55:01.328 ├ ○ /faq
+20:55:01.328 ├ ○ /features                                                                              12h      1y
+20:55:01.328 ├ ○ /forgot-password
+20:55:01.328 ├ ○ /hackathon
+20:55:01.328 ├ ƒ /hackathon/[id]
+20:55:01.328 ├ ○ /hackathons
+20:55:01.328 ├ ƒ /hackathons/[id]
+20:55:01.328 ├ ○ /interviews
+20:55:01.328 ├ ● /interviews/[slug]
+20:55:01.328 │ ├ /interviews/cpp-oop-concepts
+20:55:01.328 │ ├ /interviews/dbms-interview-questions
+20:55:01.328 │ └ /interviews/os-interview-questions
+20:55:01.328 ├ ○ /leaderboard                                                                            5m      1y
+20:55:01.328 ├ ○ /mcqs
+20:55:01.328 ├ ● /mcqs/[slug]
+20:55:01.335 │ ├ /mcqs/cpp-mcq-for-semester-1
+20:55:01.335 │ ├ /mcqs/dbms-mcq-for-semester-3
+20:55:01.335 │ ├ /mcqs/os-mcq-for-semester-3
+20:55:01.335 │ └ [+2 more paths]
+20:55:01.335 ├ ○ /notes
+20:55:01.336 ├ ● /notes/[slug]
+20:55:01.336 │ ├ /notes/cpp-notes-for-beginners
+20:55:01.336 │ ├ /notes/dbms-notes-pdf
+20:55:01.336 │ ├ /notes/os-notes-pdf
+20:55:01.336 │ └ [+2 more paths]
+20:55:01.336 ├ ○ /notifications
+20:55:01.336 ├ ○ /pricing                                                                                1d      1y
+20:55:01.336 ├ ○ /privacy
+20:55:01.337 ├ ○ /profile
+20:55:01.337 ├ ○ /robots.txt
+20:55:01.337 ├ ○ /search
+20:55:01.337 ├ ○ /semester
+20:55:01.337 ├ ● /semester/[slug]
+20:55:01.337 │ ├ /semester/cpp-semester-prep
+20:55:01.337 │ ├ /semester/dbms-semester-prep
+20:55:01.337 │ └ /semester/os-semester-prep
+20:55:01.338 ├ ○ /settings
+20:55:01.338 ├ ƒ /sign-in/[[...sign-in]]
+20:55:01.338 ├ ƒ /sign-up/[[...sign-up]]
+20:55:01.338 ├ ○ /sitemap.xml
+20:55:01.338 ├ ○ /terms
+20:55:01.338 ├ ○ /test                                                                                  30m      1y
+20:55:01.338 └ ○ /wallet
+20:55:01.338 
+20:55:01.338 
+20:55:01.339 ƒ Proxy (Middleware)
+20:55:01.341 
+20:55:01.341 ○  (Static)   prerendered as static content
+20:55:01.341 ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+20:55:01.341 ƒ  (Dynamic)  server-rendered on demand
+20:55:01.341 
+20:55:02.951 Build Completed in /vercel/output [2m]
+20:55:04.168 Deploying outputs...
+20:55:06.400 The Edge Function "_middleware" is referencing unsupported modules:
+20:55:06.400 	- __vc__ns__/0/frontend/index.js: node:crypto

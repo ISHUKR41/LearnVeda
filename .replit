@@ -24,7 +24,7 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd frontend && ./node_modules/.bin/cross-env NODE_OPTIONS=--max-old-space-size=6144 ./node_modules/.bin/next dev --webpack --port 5000"
+args = "cd frontend && NODE_OPTIONS=--max-old-space-size=4096 ./node_modules/.bin/next dev --webpack --port 5000"
 waitForPort = 5000
 
 [[ports]]
@@ -47,6 +47,8 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL = "/dashboard"
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL = "/dashboard"
 NEXT_TEST_WASM = "1"
 EDUQUEST_SESSION_SECRET = "eduquest-replit-session-secret-2024-change-in-prod"
+NEXT_PUBLIC_BACKEND_URL = ""
+NEXT_PUBLIC_SOCKET_URL = ""
 
 [nix]
 channel = "stable-25_05"
