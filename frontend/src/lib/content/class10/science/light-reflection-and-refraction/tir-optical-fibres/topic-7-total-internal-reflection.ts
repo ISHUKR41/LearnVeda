@@ -222,20 +222,37 @@ A traditional periscope uses two plane mirrors at $45^\\circ$. A better design u
 
 ---
 
-### Numericals — Worked Examples
+### 📝 Solved Numericals
 
-**Example 1:**
-The refractive index of glass is 1.5. Find the critical angle for the glass-air interface.
+**Example 1: Finding Critical Angle**
+**Question:** The refractive index of glass is 1.5. Find the critical angle for the glass-air interface.
+**Solution:**
+1. The formula for the critical angle is $\\sin(i_c) = \\frac{1}{n}$.
+2. Substituting $n = 1.5$: $\\sin(i_c) = \\frac{1}{1.5} = 0.6667$.
+3. Therefore, $i_c = \\arcsin(0.6667) \\approx 41.8^\\circ$.
 
-*Solution:*
-$$\\sin(i_c) = \\frac{1}{n} = \\frac{1}{1.5} = 0.6667$$
-$$i_c = \\arcsin(0.6667) \\approx 41.8^\\circ$$
+**Example 2: Finding Refractive Index**
+**Question:** The critical angle for a certain transparent medium to air is $30^\\circ$. Find the refractive index of the medium.
+**Solution:**
+1. Given $i_c = 30^\\circ$. We know that $\\sin(i_c) = \\frac{1}{n}$.
+2. Rearranging for $n$: $n = \\frac{1}{\\sin(i_c)}$.
+3. $n = \\frac{1}{\\sin(30^\\circ)} = \\frac{1}{0.5} = 2.0$.
 
-**Example 2:**
-The critical angle for a certain transparent medium to air is $30^\\circ$. Find the refractive index of the medium.
+**Example 3: TIR between Two Media**
+**Question:** Light goes from medium A (refractive index 1.6) to medium B (refractive index 1.2). Find the critical angle at the A-B boundary.
+**Solution:**
+1. When light travels from a denser medium ($n_1$) to a rarer medium ($n_2$), the critical angle is $\\sin(i_c) = \\frac{n_2}{n_1}$.
+2. Here, $n_1 = 1.6$ and $n_2 = 1.2$.
+3. $\\sin(i_c) = \\frac{1.2}{1.6} = 0.75$.
+4. $i_c = \\arcsin(0.75) \\approx 48.6^\\circ$.
 
-*Solution:*
-$$\\sin(i_c) = \\frac{1}{n} \\implies n = \\frac{1}{\\sin(30^\\circ)} = \\frac{1}{0.5} = 2.0$$
+**Example 4: Ray Path and TIR Condition**
+**Question:** A ray of light is travelling from water ($n = 1.33$) to air. If the angle of incidence is $50^\\circ$, will the ray undergo total internal reflection?
+**Solution:**
+1. First, find the critical angle for water-air interface: $\\sin(i_c) = \\frac{1}{1.33} = 0.751$.
+2. $i_c = \\arcsin(0.751) \\approx 48.75^\\circ$.
+3. The angle of incidence ($50^\\circ$) is greater than the critical angle ($48.75^\\circ$).
+4. Yes, the ray will undergo total internal reflection since the condition $\\angle i > i_c$ is satisfied.
 
 ---
 

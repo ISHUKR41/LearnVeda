@@ -146,56 +146,72 @@ function LazySimCard({ id, resolved, index, expandedMode = false }: LazySimCardP
         animationDelay: `${index * 0.08}s`,
       }}
     >
-      {/* ── Metadata header (only shown in expandedMode) ──
-          Gives the simulation context: what it is, what category, description */}
-      {expandedMode && (
+      {/* ── METADATA HEADER — ALWAYS VISIBLE ──
+          Every simulation shows its title, description, and category badge
+          so every detail is clearly visible to the student.
+          In expandedMode: taller header with more padding.
+          In compact mode: slimmer header but still fully visible. */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        gap: expandedMode ? "14px" : "10px",
+        padding: expandedMode ? "16px 20px" : "10px 16px",
+        background: `linear-gradient(135deg, ${colors.glow} 0%, rgba(0,0,0,0) 100%)`,
+        borderBottom: `1px solid ${colors.border}`,
+      }}>
+        {/* Category icon bubble */}
         <div style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "14px",
-          padding: "16px 20px",
-          background: `linear-gradient(135deg, ${colors.glow} 0%, rgba(0,0,0,0) 100%)`,
-          borderBottom: `1px solid ${colors.border}`,
+          width: expandedMode ? "42px" : "34px",
+          height: expandedMode ? "42px" : "34px",
+          borderRadius: "10px",
+          background: colors.bg,
+          border: `1px solid ${colors.border}`,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          fontSize: expandedMode ? "20px" : "16px",
+          flexShrink: 0,
         }}>
-          {/* Category icon bubble */}
-          <div style={{
-            width: "42px", height: "42px", borderRadius: "10px",
-            background: colors.bg,
-            border: `1px solid ${colors.border}`,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: "20px", flexShrink: 0,
-          }}>
-            {resolved.icon}
-          </div>
+          {resolved.icon}
+        </div>
 
-          {/* Title + description */}
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{
-              fontWeight: 700, fontSize: "0.9rem", color: "#e2e8f0",
-              marginBottom: "3px", fontFamily: "Inter, system-ui, sans-serif",
-            }}>
-              {resolved.title}
-            </div>
-            <div style={{
-              fontSize: "0.78rem", color: "#64748b", lineHeight: 1.4,
-              fontFamily: "Inter, system-ui, sans-serif",
-            }}>
-              {resolved.description}
-            </div>
-          </div>
-
-          {/* Category label pill */}
+        {/* Title + description — always shown for maximum detail */}
+        <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{
-            padding: "4px 10px", borderRadius: "6px",
-            background: colors.bg, border: `1px solid ${colors.border}`,
-            fontSize: "0.7rem", fontWeight: 600, color: "#94a3b8",
-            flexShrink: 0, fontFamily: "Inter, system-ui, sans-serif",
-            letterSpacing: "0.03em",
+            fontWeight: 700,
+            fontSize: expandedMode ? "0.9rem" : "0.82rem",
+            color: "#e2e8f0",
+            marginBottom: expandedMode ? "3px" : "1px",
+            fontFamily: "Inter, system-ui, sans-serif",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           }}>
-            {colors.label}
+            {resolved.title}
+          </div>
+          <div style={{
+            fontSize: expandedMode ? "0.78rem" : "0.72rem",
+            color: "#64748b",
+            lineHeight: 1.4,
+            fontFamily: "Inter, system-ui, sans-serif",
+            display: "-webkit-box",
+            WebkitLineClamp: expandedMode ? 3 : 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}>
+            {resolved.description}
           </div>
         </div>
-      )}
+
+        {/* Category label pill */}
+        <div style={{
+          padding: "4px 10px", borderRadius: "6px",
+          background: colors.bg, border: `1px solid ${colors.border}`,
+          fontSize: "0.7rem", fontWeight: 600, color: "#94a3b8",
+          flexShrink: 0, fontFamily: "Inter, system-ui, sans-serif",
+          letterSpacing: "0.03em",
+        }}>
+          {colors.label}
+        </div>
+      </div>
 
       {/* ── Simulation canvas or loading skeleton ── */}
       {mounted ? (

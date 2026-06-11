@@ -19,6 +19,7 @@ import {
   TrendingUp,
   Shield,
   ChevronRight,
+  Lightbulb,
 } from "lucide-react";
 import { getTrackSubjects } from "@/lib/server/data/subject-plans";
 import { resolveCurriculumIcon } from "@/lib/ui/lucide-icon-map";
@@ -153,6 +154,46 @@ export default async function Class10Page() {
                 <span className={styles.statValue}>60 Days</span>
                 <span className={styles.statLabel}>Revision Plan</span>
               </div>
+
+              {/* Light: Reflection and Refraction */}
+              <Link 
+                href="/class-10/light-reflection-and-refraction"
+                className={styles.chapterCard}
+                style={{ textDecoration: 'none' }}
+              >
+                <div className={styles.chapterContent}>
+                  <div className={styles.chapterHeader}>
+                    <div className={styles.chapterIconWrapper} style={{ backgroundColor: 'rgba(0, 255, 204, 0.1)', color: '#00ffcc' }}>
+                      <Lightbulb size={24} />
+                    </div>
+                    <div className={styles.chapterMeta}>
+                      <span className={styles.chapterLabel}>Chapter 10</span>
+                      <span className={styles.chapterTime}>Estimated: 4h</span>
+                    </div>
+                  </div>
+                  <h3 className={styles.chapterTitle}>Light - Reflection and Refraction</h3>
+                  <p className={styles.chapterDesc}>
+                    Master spherical mirrors, lenses, Snell's law, and interactive ray tracing.
+                  </p>
+                  
+                  <div className={styles.progressSection}>
+                    <div className={styles.progressHeader}>
+                      <span className={styles.progressText}>Mastery Level</span>
+                      <span className={styles.progressPercent}>0%</span>
+                    </div>
+                    <div className={styles.progressBar}>
+                      <div 
+                        className={styles.progressFill} 
+                        style={{ width: '0%', backgroundColor: '#00ffcc' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div 
+                  className={styles.chapterHoverEffect} 
+                  style={{ background: 'linear-gradient(45deg, transparent, rgba(0, 255, 204, 0.1), transparent)' }}
+                />
+              </Link>
             </div>
           </div>
         </div>

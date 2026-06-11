@@ -4,7 +4,7 @@ import { verifySessionToken } from "@/lib/server/auth/session";
 async function getSession() {
   const cookieStore = await cookies();
   const token = cookieStore.get("eduquest_session")?.value;
-  return verifySessionToken(token);
+  return await verifySessionToken(token);
 }
 
 export async function auth() {

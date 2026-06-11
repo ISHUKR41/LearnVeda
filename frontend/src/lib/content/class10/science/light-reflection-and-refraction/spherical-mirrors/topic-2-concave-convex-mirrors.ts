@@ -138,6 +138,51 @@ A convex mirror **always** forms a virtual, erect, and diminished image, regardl
 
 ---
 
+### 📝 Solved Numericals
+
+**Example 1: Focal Length and Radius of Curvature**
+**Question:** The radius of curvature of a spherical mirror is 20 cm. What is its focal length?
+**Solution:**
+1. Radius of curvature ($R$) = 20 cm.
+2. The focal length ($f$) is half of the radius of curvature.
+3. Formula: $f = R / 2$
+4. $f = 20 / 2$ = 10 cm.
+5. Therefore, the focal length is **10 cm**.
+
+**Example 2: Image Formation by Concave Mirror**
+**Question:** An object is placed at a distance of 10 cm from a concave mirror of focal length 15 cm. Find the position and nature of the image.
+**Solution:**
+1. Object distance ($u$) = -10 cm (using sign convention, object is always in front).
+2. Focal length ($f$) = -15 cm (concave mirror focus is in front).
+3. Using the mirror formula: $\frac{1}{f} = \frac{1}{v} + \frac{1}{u}$
+4. $\frac{1}{v} = \frac{1}{f} - \frac{1}{u} = \frac{1}{-15} - \frac{1}{-10} = \frac{-2 + 3}{30} = \frac{1}{30}$
+5. Image distance ($v$) = +30 cm.
+6. Since $v$ is positive, the image is formed behind the mirror.
+7. Nature: **Virtual, erect, and magnified**.
+
+**Example 3: Magnification of a Convex Mirror**
+**Question:** A convex mirror used for rear-view on an automobile has a radius of curvature of 3.00 m. If a bus is located at 5.00 m from this mirror, find the position, nature, and magnification of the image.
+**Solution:**
+1. Radius of curvature ($R$) = +3.00 m (convex mirror).
+2. Focal length ($f$) = $R/2$ = +1.50 m.
+3. Object distance ($u$) = -5.00 m.
+4. $\frac{1}{v} = \frac{1}{f} - \frac{1}{u} = \frac{1}{1.50} - \frac{1}{-5.00} = \frac{1}{1.50} + \frac{1}{5.00} = \frac{5 + 1.5}{7.5} = \frac{6.5}{7.5}$
+5. $v = \frac{7.5}{6.5}$ = +1.15 m.
+6. Magnification ($m$) = $-\frac{v}{u} = -\frac{1.15}{-5.00}$ = +0.23.
+7. The image is 1.15 m at the back of the mirror. Nature: **Virtual, erect, and diminished by a factor of 0.23**.
+
+**Example 4: Real Image Magnification**
+**Question:** A concave mirror produces three times magnified (enlarged) real image of an object placed at 10 cm in front of it. Where is the image located?
+**Solution:**
+1. Magnification ($m$) = -3 (real image is inverted).
+2. Object distance ($u$) = -10 cm.
+3. Formula: $m = -\frac{v}{u}$
+4. $-3 = -\frac{v}{-10} \implies -3 = \frac{v}{10}$
+5. $v = -30$ cm.
+6. The image is located **30 cm in front of the mirror**.
+
+---
+
 ### Real-life Applications & Engineering Context
 
 #### 🚗 Convex Mirrors: Safety Through Wide Field of View

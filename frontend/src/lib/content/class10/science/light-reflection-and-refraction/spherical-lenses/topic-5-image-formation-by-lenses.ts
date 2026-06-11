@@ -103,6 +103,38 @@ A concave lens **always** forms a virtual, erect, and diminished image, regardle
 *Application:* Concave lenses are used in peepholes of doors and to correct myopia (near-sightedness).
 
 ---
+
+### 📝 Solved Numericals
+
+**Example 1: Identifying the Lens from the Image Nature**
+**Question:** A student uses a lens to form a virtual, erect, and magnified image of an object. What type of lens is she using, and where is the object placed with respect to the lens?
+**Solution:**
+1. Only a **convex lens** can form a virtual, erect, and magnified image. A concave lens always forms a diminished image.
+2. Therefore, the lens used is a convex lens.
+3. For a convex lens to form a virtual, erect, and magnified image, the object must be placed **between the optical centre ($O$) and the principal focus ($F_1$)**.
+
+**Example 2: Position of Image for a Concave Lens**
+**Question:** If an object is placed 20 cm in front of a concave lens of focal length 15 cm, what will be the nature of the image formed?
+**Solution:**
+1. A concave lens always forms a virtual, erect, and diminished image, regardless of the object's position.
+2. The image will always be formed between the optical centre ($O$) and the principal focus ($F_1$) on the same side as the object.
+3. Therefore, the nature of the image is **virtual, erect, and diminished**.
+
+**Example 3: Producing a Same-Sized Image**
+**Question:** Where should an object be placed in front of a convex lens to get a real image of the size of the object?
+**Solution:**
+1. To obtain a real image of the same size as the object, the magnification must be -1.
+2. This occurs when the object is placed at twice the focal length from the optical centre.
+3. Therefore, the object should be placed at **$2F_1$** (which is at a distance of $2f$ from the optical centre). The image will be formed at **$2F_2$** on the other side.
+
+**Example 4: Image of a Distant Object**
+**Question:** A convex lens focuses the light from the Sun onto a piece of paper. The paper catches fire after some time. What is the distance between the lens and the paper called, and why does the paper catch fire?
+**Solution:**
+1. The Sun is at infinity, so the parallel rays of sunlight falling on the convex lens converge at its **principal focus ($F_2$)**.
+2. Therefore, the distance between the optical centre of the lens and the paper is the **focal length ($f$)**.
+3. The paper catches fire because the convex lens concentrates all the heat and light energy from the Sun into a small, highly intense point at the focus.
+
+---
 ### Exam Summary
 
 #### 📌 Key Terminology for Lenses

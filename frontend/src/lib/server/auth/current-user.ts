@@ -186,7 +186,7 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Public
   }
 
   try {
-    const session = getSessionFromRequest(request);
+    const session = await getSessionFromRequest(request);
     if (!session) return null;
 
     const pool   = getPostgresPool();
@@ -212,7 +212,7 @@ export async function getAuthenticatedUserFromToken(
   if (!token) return null;
   try {
     const { verifySessionToken } = await import("@/lib/server/auth/session");
-    const session = verifySessionToken(token);
+    const session = await verifySessionToken(token);
     if (!session) return null;
     const pool   = getPostgresPool();
     const result = await pool.query<EduQuestUserRow>(

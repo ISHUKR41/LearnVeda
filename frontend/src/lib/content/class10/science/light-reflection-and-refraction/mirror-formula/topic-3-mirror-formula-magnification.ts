@@ -132,35 +132,49 @@ $$m = \\frac{h'}{h} = -\\frac{v}{u} \\quad \\text{(Magnification)}$$
 3. Calculate $m = -v/u$; interpret sign for nature of image.
 4. State whether image is real/virtual, erect/inverted, enlarged/diminished.
 
----
+### 📝 Solved Numericals
 
-### Worked NCERT Examples (Board Exam Must-Practice)
-
-#### Example 1 — Concave Mirror: Object Near F
-**Given:** 4.5 cm needle, $u = -12$ cm, concave mirror $f = -15$ cm. Find $v$, image height, nature.
-
+**Example 1: Concave Mirror - Real Image**
+**Question:** An object 4.0 cm in size is placed at 25.0 cm in front of a concave mirror of focal length 15.0 cm. At what distance from the mirror should a screen be placed in order to obtain a sharp image? Find the nature and the size of the image.
 **Solution:**
-$$\\frac{1}{v} = \\frac{1}{f} - \\frac{1}{u} = \\frac{1}{-15} - \\frac{1}{-12} = -\\frac{4}{60} + \\frac{5}{60} = \\frac{1}{60}$$
-$v = +60$ cm (positive → virtual, behind mirror).
+1. Object distance ($u$) = -25.0 cm.
+2. Focal length ($f$) = -15.0 cm.
+3. Using mirror formula: $\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$
+4. $\\frac{1}{v} = \\frac{1}{-15.0} - \\frac{1}{-25.0} = \\frac{-5 + 3}{75} = \\frac{-2}{75}$
+5. $v = -37.5$ cm. The screen should be placed **37.5 cm in front of the mirror**.
+6. Magnification ($m$) = $-\\frac{v}{u} = -\\frac{-37.5}{-25.0} = -1.5$.
+7. Image size ($h'$) = $m \\times h = -1.5 \\times 4.0 = -6.0$ cm.
+8. Nature: **Real, inverted, and magnified**.
 
-Magnification: $m = -\\dfrac{v}{u} = -\\dfrac{60}{-12} = +5$ (positive → erect, virtual ✓).
-
-Image height $= m \\times h = 5 \\times 4.5 = +22.5$ cm.
-
-**Result:** Virtual, erect, 5× enlarged, 60 cm behind mirror.
-
----
-
-#### Example 2 — Convex Mirror: Verify Nature
-**Given:** 2.5 cm object, $u = -27$ cm, convex mirror $f = +36$ cm.
-
+**Example 2: Convex Mirror - Virtual Image**
+**Question:** An object 5.0 cm in length is placed at a distance of 20 cm in front of a convex mirror of radius of curvature 30 cm. Find the position of the image, its nature and size.
 **Solution:**
-$$\\frac{1}{v} = \\frac{1}{36} - \\frac{1}{-27} = \\frac{1}{36} + \\frac{1}{27} = \\frac{3+4}{108} = \\frac{7}{108}$$
-$v = +\\dfrac{108}{7} \\approx +15.4$ cm (positive → behind mirror, virtual ✓).
+1. Radius of curvature ($R$) = +30 cm. Focal length ($f$) = $R/2$ = +15 cm.
+2. Object distance ($u$) = -20 cm. Object height ($h$) = 5.0 cm.
+3. $\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f} \\implies \\frac{1}{v} = \\frac{1}{15} - \\frac{1}{-20} = \\frac{1}{15} + \\frac{1}{20} = \\frac{4+3}{60} = \\frac{7}{60}$
+4. $v = \\frac{60}{7} \\approx +8.57$ cm. Position: **8.57 cm behind the mirror**.
+5. $m = -\\frac{v}{u} = -\\frac{60/7}{-20} = \\frac{3}{7}$.
+6. $h' = m \\times h = \\frac{3}{7} \\times 5.0 \\approx +2.14$ cm.
+7. Nature: **Virtual, erect, and diminished**.
 
-$m = -\\dfrac{15.4}{-27} \\approx +0.57$ → erect, diminished. Image height $= 0.57 \\times 2.5 \\approx 1.4$ cm.
+**Example 3: Magnification of a Concave Mirror**
+**Question:** A concave mirror produces three times magnified (enlarged) real image of an object placed at 10 cm in front of it. Where is the image located?
+**Solution:**
+1. Real image means magnification ($m$) is negative: $m = -3$.
+2. Object distance ($u$) = -10 cm.
+3. $m = -\\frac{v}{u} \\implies -3 = -\\frac{v}{-10} \\implies -3 = \\frac{v}{10}$
+4. $v = -30$ cm.
+5. The image is located **30 cm in front of the mirror**.
 
-**Result:** Virtual, erect, diminished — the characteristic result for ALL convex mirrors.
+**Example 4: Calculating Focal Length**
+**Question:** A convex mirror used for rear-view on an automobile has a radius of curvature of 3.00 m. If a bus is located at 5.00 m from this mirror, find the position, nature and magnification of the image.
+**Solution:**
+1. Radius of curvature ($R$) = +3.00 m, so $f$ = +1.50 m.
+2. Object distance ($u$) = -5.00 m.
+3. $\\frac{1}{v} = \\frac{1}{f} - \\frac{1}{u} = \\frac{1}{1.50} - \\frac{1}{-5.00} = \\frac{1}{1.50} + \\frac{1}{5.00} = \\frac{5 + 1.5}{7.5} = \\frac{6.5}{7.5}$
+4. $v = \\frac{7.5}{6.5} \\approx +1.15$ m.
+5. $m = -\\frac{v}{u} = -\\frac{1.15}{-5.00} = +0.23$.
+6. The image is **1.15 m behind the mirror. Nature: Virtual, erect, and diminished by a factor of 0.23**.
 
 ---
 

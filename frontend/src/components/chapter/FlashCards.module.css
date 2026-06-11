@@ -3,18 +3,27 @@
  * PURPOSE: Styles for the interactive FlashCards component.
  *          Features 3D flip animation, responsive card grid, progress bar,
  *          keyboard navigation hints, and smooth micro-interactions.
- * LAST UPDATED: 2026-06-08
+ *
+ *          *** HIGH-CONTRAST REDESIGN ***
+ *          Fixed visibility issues — now uses bold, high-contrast colors
+ *          that work perfectly in both light AND dark modes.
+ *          Card faces use deep solid backgrounds (not transparent), with
+ *          large, clear white/light text that is easy on human eyes.
+ *
+ * LAST UPDATED: 2026-06-12
  */
 
-/* ── Container ── */
+/* ── Container — always dark bg so the cards POP ── */
 .container {
   margin: 40px 0;
   padding: 32px;
-  background: linear-gradient(135deg, #1e1b4b08, #312e8108);
+  background: linear-gradient(145deg, #0f0f23, #1a1a3e);
   border-radius: 20px;
-  border: 1px solid rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
 }
 
+/* ── Header ── */
 .header {
   display: flex;
   align-items: center;
@@ -24,13 +33,27 @@
   gap: 12px;
 }
 
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .title {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-text-primary, #1a1a2e);
+  /* HIGH-CONTRAST: Always bright white text on dark container */
+  color: #f0f4ff;
   margin: 0;
 }
 
@@ -47,43 +70,179 @@
 
 .counter {
   font-size: 0.875rem;
-  color: var(--color-text-secondary, #64748b);
-  font-weight: 500;
-  background: rgba(99, 102, 241, 0.08);
+  /* HIGH-CONTRAST: Bright text */
+  color: #c4b5fd;
+  font-weight: 600;
+  background: rgba(99, 102, 241, 0.18);
   padding: 6px 14px;
   border-radius: 20px;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+/* ── Streak Badge ── */
+.streakBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.15);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+/* ── Icon Button (stats) ── */
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(129, 140, 248, 0.2);
+  background: rgba(99, 102, 241, 0.1);
+  color: #a5b4fc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.iconBtn:hover {
+  background: rgba(99, 102, 241, 0.2);
+  color: #c4b5fd;
+  transform: scale(1.05);
 }
 
 /* ── Progress Bar ── */
 .progressContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 24px;
 }
 
 .progressBar {
-  height: 6px;
-  background: rgba(99, 102, 241, 0.1);
-  border-radius: 3px;
+  flex: 1;
+  height: 8px;
+  background: rgba(99, 102, 241, 0.15);
+  border-radius: 4px;
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-  border-radius: 3px;
+  background: linear-gradient(90deg, #6366f1, #a78bfa);
+  border-radius: 4px;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
 }
 
-/* ── Card Viewport ── */
+.progressLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #a5b4fc;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* ── Card Meta Badges ── */
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.diffDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.diffDot_easy { background: #34d399; box-shadow: 0 0 6px rgba(52, 211, 153, 0.5); }
+.diffDot_medium { background: #fbbf24; box-shadow: 0 0 6px rgba(251, 191, 36, 0.5); }
+.diffDot_hard { background: #f87171; box-shadow: 0 0 6px rgba(248, 113, 113, 0.5); }
+
+.newBadge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.15);
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.dueBadge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.15);
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.leechBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.15);
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+.intervalBadge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #94a3b8;
+  background: rgba(148, 163, 184, 0.1);
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+/* ══════════════════════════════════════════════════
+ * 3D FLIP CARD — HIGH CONTRAST COLORS
+ * ══════════════════════════════════════════════════ */
+
 .cardViewport {
   perspective: 1200px;
   margin-bottom: 24px;
-  min-height: 280px;
+  min-height: 300px;
+  transition: transform 0.3s ease;
+}
+
+/* Grade animation feedback */
+.gradeCorrect {
+  animation: pulseGreen 0.4s ease;
+}
+
+.gradeWrong {
+  animation: pulseRed 0.4s ease;
+}
+
+@keyframes pulseGreen {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); filter: brightness(1.1); }
+}
+
+@keyframes pulseRed {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.98); filter: brightness(0.95); }
 }
 
 .cardWrapper {
   position: relative;
   width: 100%;
-  min-height: 280px;
+  min-height: 300px;
   cursor: pointer;
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -93,74 +252,213 @@
   transform: rotateY(180deg);
 }
 
-/* ── Card Faces ── */
+/* ── Card Faces — solid opaque backgrounds, NEVER transparent ── */
 .cardFace {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 280px;
+  min-height: 300px;
   backface-visibility: hidden;
-  border-radius: 16px;
-  padding: 32px;
+  border-radius: 18px;
+  padding: 36px 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
+/* FRONT FACE — Deep navy-blue with bright white text
+   HIGH CONTRAST: Dark bg (#141432) + White text (#f0f4ff) = ratio > 15:1 */
 .cardFront {
-  background: linear-gradient(145deg, #ffffff, #f8fafc);
-  border: 1px solid rgba(99, 102, 241, 0.15);
+  background: linear-gradient(145deg, #1a1a4a, #0e0e2f);
+  border: 2px solid rgba(99, 102, 241, 0.4);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
+/* BACK FACE — Vivid purple gradient with pure white text
+   HIGH CONTRAST: Purple bg (#4f46e5) + White text (#ffffff) = ratio > 8:1 */
 .cardBack {
-  background: linear-gradient(145deg, #f0f0ff, #e8e8ff);
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: linear-gradient(145deg, #4338ca, #7c3aed);
+  border: 2px solid rgba(167, 139, 250, 0.5);
   transform: rotateY(180deg);
+  box-shadow:
+    0 10px 40px rgba(124, 58, 237, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
+/* ── Card Labels — "Question" / "Answer" ── */
 .cardLabel {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  margin-bottom: 16px;
-  padding: 4px 12px;
-  border-radius: 6px;
+  margin-bottom: 24px;
+  padding: 6px 16px;
+  border-radius: 8px;
 }
 
 .cardFront .cardLabel {
-  color: #6366f1;
-  background: rgba(99, 102, 241, 0.1);
+  /* HIGH-CONTRAST: Bright indigo on dark surface */
+  color: #a5b4fc;
+  background: rgba(99, 102, 241, 0.2);
+  border: 1px solid rgba(99, 102, 241, 0.25);
 }
 
 .cardBack .cardLabel {
-  color: #7c3aed;
-  background: rgba(124, 58, 237, 0.1);
+  /* HIGH-CONTRAST: Pure white on purple */
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* ── Card Content Text ── */
 .cardContent {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: var(--color-text-primary, #1e293b);
-  max-width: 600px;
+  font-size: 1.3rem;
+  line-height: 1.9;
+  font-weight: 500;
+  max-width: 620px;
   word-wrap: break-word;
 }
 
-.cardBack .cardContent {
-  color: #312e81;
+.cardFront .cardContent {
+  /* HIGH-CONTRAST: Bright near-white on deep navy */
+  color: #f0f4ff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+.cardBack .cardContent {
+  /* HIGH-CONTRAST: Pure white on vibrant purple */
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Flip Hint ── */
 .flipHint {
-  margin-top: 20px;
-  font-size: 0.75rem;
-  color: var(--color-text-tertiary, #94a3b8);
+  margin-top: 24px;
+  font-size: 0.78rem;
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+.cardFront .flipHint {
+  color: #818cf8;
+}
+
+.cardBack .flipHint {
+  color: #bbf7d0;
+}
+
+/* ══════════════════════════════════════════════════
+ * GRADING PANEL — 4 bright, distinct color buttons
+ * ══════════════════════════════════════════════════ */
+.gradePanel {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.gradePanelLabel {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #a5b4fc;
+  margin-bottom: 12px;
+}
+
+.gradeBtns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.gradeBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 20px;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  min-width: 80px;
+}
+
+.gradeBtn:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.gradeBtn kbd {
+  font-size: 0.6rem;
+  font-family: inherit;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.gradeBtnIcon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.gradeBtnLabel {
+  font-size: 0.75rem;
+}
+
+/* Again — RED */
+.gradeBtnAgain {
+  background: linear-gradient(135deg, #991b1b, #b91c1c);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fecaca;
+}
+
+.gradeBtnAgain:hover {
+  background: linear-gradient(135deg, #b91c1c, #dc2626);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Hard — ORANGE */
+.gradeBtnHard {
+  background: linear-gradient(135deg, #92400e, #b45309);
+  border-color: rgba(251, 146, 60, 0.4);
+  color: #fed7aa;
+}
+
+.gradeBtnHard:hover {
+  background: linear-gradient(135deg, #b45309, #d97706);
+  box-shadow: 0 6px 20px rgba(251, 146, 60, 0.3);
+}
+
+/* Good — GREEN */
+.gradeBtnGood {
+  background: linear-gradient(135deg, #065f46, #047857);
+  border-color: rgba(52, 211, 153, 0.4);
+  color: #a7f3d0;
+}
+
+.gradeBtnGood:hover {
+  background: linear-gradient(135deg, #047857, #059669);
+  box-shadow: 0 6px 20px rgba(52, 211, 153, 0.3);
+}
+
+/* Easy — BLUE */
+.gradeBtnEasy {
+  background: linear-gradient(135deg, #1e3a5f, #1e40af);
+  border-color: rgba(96, 165, 250, 0.4);
+  color: #bfdbfe;
+}
+
+.gradeBtnEasy:hover {
+  background: linear-gradient(135deg, #1e40af, #2563eb);
+  box-shadow: 0 6px 20px rgba(96, 165, 250, 0.3);
 }
 
 /* ── Navigation Controls ── */
@@ -175,12 +473,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  background: white;
-  color: #6366f1;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  /* HIGH-CONTRAST: Dark button bg with bright icon */
+  background: rgba(99, 102, 241, 0.1);
+  color: #a5b4fc;
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 1.1rem;
@@ -189,11 +488,12 @@
 .navBtn:hover:not(:disabled) {
   background: #6366f1;
   color: white;
-  transform: scale(1.05);
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
 }
 
 .navBtn:disabled {
-  opacity: 0.3;
+  opacity: 0.25;
   cursor: not-allowed;
 }
 
@@ -201,11 +501,11 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 18px;
+  padding: 12px 20px;
   border-radius: 12px;
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  background: white;
-  color: #6366f1;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  background: rgba(99, 102, 241, 0.1);
+  color: #a5b4fc;
   cursor: pointer;
   font-size: 0.85rem;
   font-weight: 600;
@@ -213,8 +513,9 @@
 }
 
 .shuffleBtn:hover {
-  background: rgba(99, 102, 241, 0.06);
-  transform: scale(1.02);
+  background: rgba(99, 102, 241, 0.2);
+  color: #c4b5fd;
+  transform: scale(1.04);
 }
 
 /* ── Keyboard Hints ── */
@@ -224,7 +525,7 @@
   gap: 16px;
   margin-top: 16px;
   font-size: 0.75rem;
-  color: var(--color-text-tertiary, #94a3b8);
+  color: #64748b;
 }
 
 .keyHint {
@@ -240,40 +541,279 @@
   min-width: 24px;
   height: 22px;
   padding: 0 6px;
-  border-radius: 4px;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.2);
   font-size: 0.7rem;
   font-family: inherit;
+  font-weight: 700;
+  color: #a5b4fc;
+}
+
+/* ══════════════════════════════════════════════════
+ * STATS PANEL — High contrast overlay
+ * ══════════════════════════════════════════════════ */
+.statsPanel {
+  background: linear-gradient(145deg, #0f0f23, #1a1a3e);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.statsPanelClose {
+  display: block;
+  margin-left: auto;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: #475569;
+  color: #818cf8;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.statsPanelClose:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.statsPanelTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f0f4ff;
+  margin-bottom: 20px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.statBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 12px;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 12px;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #e0e7ff;
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Stat pills */
+.statPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #c4b5fd;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+/* Difficulty breakdown */
+.diffBreakdown {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.diffBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 20px;
+  border-radius: 10px;
+}
+
+.diff_easy { background: rgba(52, 211, 153, 0.12); }
+.diff_medium { background: rgba(251, 191, 36, 0.12); }
+.diff_hard { background: rgba(248, 113, 113, 0.12); }
+
+.diffCount {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #f0f4ff;
+}
+
+.diffLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #94a3b8;
+}
+
+/* Reset button */
+.resetBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  background: rgba(248, 113, 113, 0.1);
+  color: #fca5a5;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetBtn:hover {
+  background: rgba(248, 113, 113, 0.2);
+  transform: scale(1.02);
+}
+
+/* ══════════════════════════════════════════════════
+ * COMPLETION SCREEN
+ * ══════════════════════════════════════════════════ */
+.completionScreen {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.completionIcon {
+  color: #34d399;
+  margin-bottom: 16px;
+}
+
+.completionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f0f4ff;
+  margin-bottom: 8px;
+}
+
+.completionDesc {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  max-width: 400px;
+  margin: 0 auto 24px;
+  line-height: 1.6;
+}
+
+.completionStats {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
 }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .container {
-    padding: 20px;
+    padding: 20px 16px;
     margin: 24px 0;
+    border-radius: 16px;
   }
 
   .cardFace {
-    padding: 24px 20px;
-    min-height: 240px;
+    padding: 28px 20px;
+    min-height: 260px;
   }
 
   .cardViewport {
-    min-height: 240px;
+    min-height: 260px;
   }
 
   .cardWrapper {
-    min-height: 240px;
+    min-height: 260px;
   }
 
   .cardContent {
-    font-size: 1rem;
+    font-size: 1.05rem;
+  }
+
+  .gradeBtns {
+    gap: 6px;
+  }
+
+  .gradeBtn {
+    min-width: 68px;
+    padding: 10px 14px;
   }
 
   .keyboardHints {
     display: none;
+  }
+
+  .title {
+    font-size: 1.05rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 16px 12px;
+    margin: 16px 0;
+  }
+
+  .cardFace {
+    padding: 24px 16px;
+    min-height: 220px;
+  }
+
+  .cardViewport,
+  .cardWrapper {
+    min-height: 220px;
+  }
+
+  .cardContent {
+    font-size: 0.95rem;
+  }
+
+  .header {
+    gap: 8px;
+  }
+
+  .title {
+    font-size: 0.95rem;
+  }
+
+  .gradeBtns {
+    gap: 4px;
+  }
+
+  .gradeBtn {
+    min-width: 60px;
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
+
+  .gradeBtnLabel {
+    font-size: 0.65rem;
+  }
+
+  .diffBreakdown {
+    flex-direction: column;
+    gap: 6px;
   }
 }

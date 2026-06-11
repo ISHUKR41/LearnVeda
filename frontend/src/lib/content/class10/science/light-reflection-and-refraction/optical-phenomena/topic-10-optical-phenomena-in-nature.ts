@@ -265,8 +265,41 @@ The eye can change its focal length. Total power ranges from about **+58 D** (fa
 - Myopia: lens power = 1/f_far  (negative value, e.g., −2.0 D for f = −50 cm)
 - Hypermetropia: P = 1/v − 1/u (where v = near point distance, u = −25 cm)
 
----
+### 📝 Solved Numericals
 
+**Example 1: Atmospheric Refraction and Day Length**
+**Question:** If the Earth had no atmosphere, by how much would the duration of the day change?
+**Solution:**
+1. Due to atmospheric refraction, the sun appears to rise 2 minutes before the actual sunrise and set 2 minutes after the actual sunset.
+2. Therefore, the day is longer by $2 + 2 = 4$ minutes due to the atmosphere.
+3. If there were no atmosphere, the duration of the day would decrease by **4 minutes**.
+
+**Example 2: Refractive Index and Critical Angle**
+**Question:** The critical angle for a diamond-air interface is approximately $24.4^\\circ$. What is the refractive index of diamond? (Given $\\sin(24.4^\\circ) = 0.413$).
+**Solution:**
+1. The formula relating critical angle and refractive index is $\\sin(i_c) = \\frac{1}{n}$.
+2. Rearranging for $n$, we get $n = \\frac{1}{\\sin(i_c)}$.
+3. $n = \\frac{1}{\\sin(24.4^\\circ)} = \\frac{1}{0.413} \\approx 2.42$.
+4. The refractive index of diamond is approximately **2.42**.
+
+**Example 3: Accommodation Power**
+**Question:** A person with normal vision has a near point of 25 cm and a far point at infinity. Calculate the change in the optical power of the eye lens when shifting focus from infinity to the near point. (Assume the distance from the lens to the retina is 2 cm).
+**Solution:**
+1. Let the distance to the retina be $v = +2$ cm = $+0.02$ m.
+2. For far vision (infinity), $u = -\\infty$. Power $P_{far} = \\frac{1}{v} - \\frac{1}{u} = \\frac{1}{0.02} - 0 = +50$ D.
+3. For near vision (25 cm), $u = -25$ cm = $-0.25$ m. Power $P_{near} = \\frac{1}{v} - \\frac{1}{u} = \\frac{1}{0.02} - \\frac{1}{-0.25} = 50 + 4 = +54$ D.
+4. The change in optical power (amplitude of accommodation) is $P_{near} - P_{far} = 54 - 50 = \\mathbf{4 \\text{ D}}$.
+
+**Example 4: Scattering and Wavelength**
+**Question:** The wavelength of red light is roughly 1.5 times that of blue light. Compare the intensity of Rayleigh scattering for blue light with that for red light.
+**Solution:**
+1. According to Rayleigh's law of scattering, the intensity of scattered light $I \\propto \\frac{1}{\\lambda^4}$.
+2. Let $\\lambda_b$ be the wavelength of blue light and $\\lambda_r$ be the wavelength of red light. We are given $\\lambda_r = 1.5 \\lambda_b$.
+3. The ratio of scattering intensities is $\\frac{I_b}{I_r} = \\frac{\\lambda_r^4}{\\lambda_b^4} = (\\frac{\\lambda_r}{\\lambda_b})^4$.
+4. $\\frac{I_b}{I_r} = (1.5)^4 = (\\frac{3}{2})^4 = \\frac{81}{16} \\approx 5.06$.
+5. Therefore, blue light is scattered roughly **5 times more** than red light.
+
+---
 ## Key Exam Summary
 
 | Phenomenon | Physics Behind It |

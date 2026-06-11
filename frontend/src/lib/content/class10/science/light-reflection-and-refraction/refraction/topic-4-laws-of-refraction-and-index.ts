@@ -101,6 +101,48 @@ $$ n_m = \\frac{\\text{Speed of light in air/vacuum } (c)}{\\text{Speed of light
 *Fact:* Since $c$ is always greater than $v$ in any material medium, the absolute refractive index is always greater than 1 ($n > 1$). Water has $n = 1.33$, and diamond has a very high $n = 2.42$.
 
 ---
+
+### 📝 Solved Numericals
+
+**Example 1: Absolute Refractive Index**
+**Question:** The speed of light in a certain glass is $2 \\times 10^8 \\text{ m/s}$. The speed of light in vacuum is $3 \\times 10^8 \\text{ m/s}$. Find the absolute refractive index of the glass.
+**Solution:**
+1. Speed of light in vacuum ($c$) = $3 \\times 10^8 \\text{ m/s}$.
+2. Speed of light in glass ($v$) = $2 \\times 10^8 \\text{ m/s}$.
+3. Refractive index ($n_m$) = $\\frac{c}{v}$.
+4. $n_m = \\frac{3 \\times 10^8}{2 \\times 10^8} = 1.5$.
+5. The absolute refractive index of the glass is **1.5**.
+
+**Example 2: Relative Refractive Index**
+**Question:** The refractive index of water is $\\frac{4}{3}$ and that of glass is $\\frac{3}{2}$ with respect to air. What is the refractive index of glass with respect to water?
+**Solution:**
+1. Refractive index of water w.r.t air ($n_{wa}$) = $\\frac{4}{3}$.
+2. Refractive index of glass w.r.t air ($n_{ga}$) = $\\frac{3}{2}$.
+3. Refractive index of glass w.r.t water ($n_{gw}$) = $\\frac{n_{ga}}{n_{wa}}$.
+4. $n_{gw} = \\frac{3/2}{4/3} = \\frac{3}{2} \\times \\frac{3}{4} = \\frac{9}{8}$.
+5. The refractive index of glass with respect to water is **1.125** or **9/8**.
+
+**Example 3: Application of Snell's Law**
+**Question:** A light ray enters from air into a medium at an angle of incidence of $45^\\circ$. The angle of refraction is $30^\\circ$. Find the refractive index of the medium.
+**Solution:**
+1. Angle of incidence ($i$) = $45^\\circ$.
+2. Angle of refraction ($r$) = $30^\\circ$.
+3. By Snell's Law: $n = \\frac{\\sin i}{\\sin r}$.
+4. $n = \\frac{\\sin(45^\\circ)}{\\sin(30^\\circ)}$.
+5. Since $\\sin(45^\\circ) = \\frac{1}{\\sqrt{2}}$ and $\\sin(30^\\circ) = \\frac{1}{2}$,
+6. $n = \\frac{1/\\sqrt{2}}{1/2} = \\frac{2}{\\sqrt{2}} = \\sqrt{2}$.
+7. The refractive index is **$\\approx 1.414$**.
+
+**Example 4: Speed of light from Refractive Index**
+**Question:** Light enters from air to diamond with refractive index 2.42. What is the speed of light in diamond? (Speed of light in air = $3 \\times 10^8 \\text{ m/s}$)
+**Solution:**
+1. Refractive index of diamond ($n$) = 2.42.
+2. Speed of light in air ($c$) = $3 \\times 10^8 \\text{ m/s}$.
+3. We know $n = \\frac{c}{v} \\implies v = \\frac{c}{n}$.
+4. $v = \\frac{3 \\times 10^8}{2.42} = 1.24 \\times 10^8 \\text{ m/s}$.
+5. The speed of light in diamond is **$1.24 \\times 10^8 \\text{ m/s}$**.
+
+---
 ### Exam Summary
 
 #### 📌 Must-Know Definitions

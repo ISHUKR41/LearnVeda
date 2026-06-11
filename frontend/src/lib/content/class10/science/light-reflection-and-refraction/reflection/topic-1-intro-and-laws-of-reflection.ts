@@ -146,6 +146,44 @@ A plane mirror is a flat glass surface with a thin layer of silver (the reflecti
 
 ---
 
+### 📝 Solved Numericals
+
+**Example 1: Law of Reflection**
+**Question:** A ray of light strikes a plane mirror such that the angle between the incident ray and the mirror surface is 35°. What is the angle of reflection?
+**Solution:**
+1. The angle between the incident ray and the mirror surface = 35°.
+2. The normal is perpendicular to the mirror surface (90°).
+3. Angle of incidence ($\\angle i$) = 90° - 35° = 55°.
+4. According to the first law of reflection, Angle of incidence = Angle of reflection ($\\angle i = \\angle r$).
+5. Therefore, the angle of reflection ($\\angle r$) = **55°**.
+
+**Example 2: Distance in a Plane Mirror**
+**Question:** An object is placed 15 cm in front of a plane mirror. If the object is moved 5 cm towards the mirror, what will be the distance between the object and its image?
+**Solution:**
+1. Initial distance of object from mirror = 15 cm.
+2. New distance of object from mirror = 15 cm - 5 cm = 10 cm.
+3. In a plane mirror, the image is formed at the same distance behind the mirror as the object is in front of it.
+4. Image distance = 10 cm behind the mirror.
+5. Total distance between object and image = Object distance + Image distance = 10 cm + 10 cm = **20 cm**.
+
+**Example 3: Lateral Inversion**
+**Question:** If the word "PHYSICS" is held in front of a plane mirror, which letters will appear unchanged in their reflected image?
+**Solution:**
+1. Plane mirrors cause lateral inversion (left appears right and vice versa).
+2. Letters that have a vertical axis of symmetry remain unchanged.
+3. Checking each letter: P (changes), H (unchanged), Y (unchanged), S (changes), I (unchanged), C (changes).
+4. Therefore, the letters **H, Y, and I** will appear unchanged.
+
+**Example 4: Rotating Mirror**
+**Question:** A light ray is incident on a plane mirror at an angle of 30°. If the mirror is rotated by 10° keeping the incident ray fixed, what is the new angle of reflection?
+**Solution:**
+1. Initial angle of incidence ($\\angle i$) = 30°.
+2. When the mirror rotates by $\\theta$, the normal also rotates by $\\theta$.
+3. The new angle of incidence becomes $\\angle i' = 30^\\circ + 10^\\circ = 40^\\circ$.
+4. By the law of reflection, the new angle of reflection $\\angle r'$ = **40°**.
+
+---
+
 ### Real-life Applications of Reflection
 
 #### 🔦 Regular (Specular) Reflection in Everyday Life

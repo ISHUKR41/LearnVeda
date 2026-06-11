@@ -346,8 +346,42 @@ The ability of the crystalline lens to adjust its focal length to focus objects 
 | Presbyopia | Loss of accommodation (aging) | Behind retina for near objects | Convex lens for reading |
 | Astigmatism | Non-spherical cornea | Multiple focal points | Cylindrical lens |
 
----
+### 📝 Solved Numericals
 
+**Example 1: Defect of Vision**
+**Question:** A person cannot see objects clearly beyond a distance of 1.2 m. Name the defect of vision and calculate the power of the lens required to correct this defect.
+**Solution:**
+1. The person cannot see distant objects (far point is 1.2 m instead of infinity), which indicates **Myopia** (near-sightedness).
+2. To correct myopia, a concave lens is used. The lens must form an image of an object at infinity at the person's far point.
+3. Focal length $f = -\text{far point} = -1.2$ m.
+4. Power $P = \frac{1}{f} = \frac{1}{-1.2} = -0.83$ D.
+
+**Example 2: Hypermetropia Correction**
+**Question:** The near point of a hypermetropic eye is 1 m. What is the power of the lens required to correct this defect? Assume that the near point of the normal eye is 25 cm.
+**Solution:**
+1. The defect is Hypermetropia, so a convex lens is needed.
+2. The object is at the normal near point $u = -25 \text{ cm} = -0.25 \text{ m}$. The virtual image must form at the person's defective near point $v = -1 \text{ m}$.
+3. Using the lens formula: $\frac{1}{f} = \frac{1}{v} - \frac{1}{u}$
+4. $\frac{1}{f} = \frac{1}{-1} - \frac{1}{-0.25} = -1 + 4 = 3 \text{ m}^{-1}$.
+5. Power $P = \frac{1}{f} = +3$ D.
+
+**Example 3: Prism Refractive Index**
+**Question:** A ray of light passes through an equilateral glass prism such that the angle of incidence is equal to the angle of emergence. If the angle of emergence is $\frac{3}{4}$ times the angle of the prism, calculate the refractive index of the glass prism.
+**Solution:**
+1. For an equilateral prism, angle of prism $A = 60^\circ$.
+2. Given angle of incidence $i = e = \frac{3}{4}A = \frac{3}{4} \times 60^\circ = 45^\circ$.
+3. When $i = e$, the prism is in the position of minimum deviation.
+4. From $A + \delta_{min} = i + e$, we get $60^\circ + \delta_{min} = 45^\circ + 45^\circ = 90^\circ \implies \delta_{min} = 30^\circ$.
+5. Refractive index $n = \frac{\sin(\frac{A+\delta_{min}}{2})}{\sin(\frac{A}{2})} = \frac{\sin(\frac{60+30}{2})}{\sin(\frac{60}{2})} = \frac{\sin(45^\circ)}{\sin(30^\circ)} = \frac{1/\sqrt{2}}{1/2} = \sqrt{2} \approx 1.414$.
+
+**Example 4: Accommodation**
+**Question:** A student uses a lens of focal length -50 cm to read a book clearly. What type of lens is this and what is the student's defect of vision?
+**Solution:**
+1. The focal length is negative ($f = -50$ cm), so it is a **concave lens**.
+2. A concave lens is used to correct **myopia** (short-sightedness).
+3. The student's far point is 50 cm. (Since $f = -\text{far point}$).
+
+---
 ### Exam Summary
 
 #### 📌 Dispersion Key Points

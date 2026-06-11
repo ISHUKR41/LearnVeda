@@ -21,9 +21,9 @@ function isAuthPage(pathname: string): boolean {
   return AUTH_PAGES.some(r => pathname === r || pathname.startsWith(r + "/"));
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const token = request.cookies.get("eduquest_session")?.value;
-  const session = verifySessionToken(token);
+  const session = await verifySessionToken(token);
   const isLoggedIn = session !== null;
   const { pathname } = request.nextUrl;
 

@@ -110,6 +110,53 @@ $$ P = P_1 + P_2 + P_3 + \\dots $$
 The use of powers instead of focal lengths simplifies the calculations for lens combinations in optical instruments like microscopes and cameras.
 
 ---
+
+### 📝 Solved Numericals
+
+**Example 1: Finding Image Position and Nature**
+**Question:** A 2.0 cm tall object is placed perpendicular to the principal axis of a convex lens of focal length 10 cm. The distance of the object from the lens is 15 cm. Find the nature, position and size of the image. Also find its magnification.
+**Solution:**
+1. Given: Height of object ($h$) = +2.0 cm, Focal length ($f$) = +10 cm (convex lens), Object distance ($u$) = -15 cm.
+2. Using the lens formula: $\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$
+3. $\\frac{1}{v} - \\frac{1}{-15} = \\frac{1}{10} \\implies \\frac{1}{v} + \\frac{1}{15} = \\frac{1}{10}$
+4. $\\frac{1}{v} = \\frac{1}{10} - \\frac{1}{15} = \\frac{3 - 2}{30} = \\frac{1}{30}$
+5. Therefore, $v = +30 \\text{ cm}$. The positive sign indicates that the image is formed at a distance of 30 cm on the other side of the optical centre. The image is real and inverted.
+6. Magnification ($m$) = $\\frac{v}{u} = \\frac{30}{-15} = -2$.
+7. Height of image ($h'$) = $m \\times h = -2 \\times 2.0 \\text{ cm} = -4.0 \\text{ cm}$.
+8. The image is **real, inverted, 4.0 cm tall, and formed 30 cm away** on the opposite side of the lens.
+
+**Example 2: Focal Length of a Concave Lens**
+**Question:** A concave lens has a focal length of 15 cm. At what distance should the object from the lens be placed so that it forms an image at 10 cm from the lens? Also, find the magnification produced by the lens.
+**Solution:**
+1. A concave lens always forms a virtual, erect image on the same side as the object. So, image distance ($v$) = -10 cm.
+2. Focal length ($f$) = -15 cm.
+3. Using the lens formula: $\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$
+4. $\\frac{1}{-10} - \\frac{1}{u} = \\frac{1}{-15} \\implies -\\frac{1}{u} = -\\frac{1}{15} + \\frac{1}{10} = \\frac{-2 + 3}{30} = \\frac{1}{30}$
+5. Therefore, $u = -30 \\text{ cm}$. The object should be placed **30 cm** in front of the lens.
+6. Magnification ($m$) = $\\frac{v}{u} = \\frac{-10}{-30} = +\\frac{1}{3}$.
+7. The positive sign shows that the image is **virtual and erect**, and it is one-third the size of the object.
+
+**Example 3: Power of a Lens**
+**Question:** Find the focal length of a lens of power -2.0 D. What type of lens is this?
+**Solution:**
+1. Power ($P$) = -2.0 D.
+2. We know that $P = \\frac{1}{f} \\text{ (in metres)}$.
+3. Therefore, $f = \\frac{1}{P} = \\frac{1}{-2.0} = -0.5 \\text{ m}$.
+4. The focal length is **-0.5 m (or -50 cm)**.
+5. Since the power (and focal length) is negative, the lens is a **concave (diverging) lens**.
+
+**Example 4: Combination of Thin Lenses**
+**Question:** Two thin lenses of focal lengths +10 cm and -5 cm are kept in contact. What is the focal length and power of the combination?
+**Solution:**
+1. Focal length of the first lens, $f_1 = +10 \\text{ cm} = +0.1 \\text{ m}$.
+2. Power of the first lens, $P_1 = \\frac{1}{f_1} = \\frac{1}{0.1} = +10 \\text{ D}$.
+3. Focal length of the second lens, $f_2 = -5 \\text{ cm} = -0.05 \\text{ m}$.
+4. Power of the second lens, $P_2 = \\frac{1}{f_2} = \\frac{1}{-0.05} = -20 \\text{ D}$.
+5. Power of the combination, $P = P_1 + P_2 = +10 \\text{ D} + (-20 \\text{ D}) = -10 \\text{ D}$.
+6. Focal length of the combination, $F = \\frac{1}{P} = \\frac{1}{-10} = -0.1 \\text{ m} = -10 \\text{ cm}$.
+7. The combination has a **power of -10 D** and a **focal length of -10 cm**, thus behaving like a **concave lens**.
+
+---
 ### Exam Summary
 
 #### 📐 The Two Key Formulas for Lenses

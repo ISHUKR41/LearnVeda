@@ -583,19 +583,19 @@ export default function TopicStudyClient({
                 </div>
               )}
 
-              {/* Interactive physics simulations */}
+              {/* ── WORKED EXAMPLES ──
+                  Step-by-step numericals with Given/Find/Solution format.
+                  Shown ABOVE simulations so students learn technique first. */}
+              {topic.workedExamples && topic.workedExamples.length > 0 && (
+                <WorkedExamplesSection examples={topic.workedExamples} />
+              )}
+
+              {/* Interactive physics simulations — shown AFTER worked examples */}
               {topic.simulationIds && topic.simulationIds.length > 0 && (
                 <div className={styles.simSection}>
                   <div className={styles.simHeading}>🔬 Interactive Simulations</div>
                   <SmartSimulationRenderer simulationIds={topic.simulationIds} />
                 </div>
-              )}
-
-              {/* ── WORKED EXAMPLES ──
-                  Step-by-step numericals with Given/Find/Solution format.
-                  Shown in Learn tab so students see examples right after notes. */}
-              {topic.workedExamples && topic.workedExamples.length > 0 && (
-                <WorkedExamplesSection examples={topic.workedExamples} />
               )}
 
               {/* CTA to go to practice */}

@@ -9,7 +9,6 @@
  * LAST UPDATED: 2026-05-11
  */
 
-import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
 import type { NextRequest, NextResponse } from "next/server";
 import { getSessionSecret } from "@/lib/server/env";
 import type { PublicUser, SessionPayload } from "@/types/auth";
@@ -43,21 +42,40 @@ function fromBase64Url(value: string): string {
   return Buffer.from(value, "base64url").toString("utf8");
 }
 
-/** Signs the token body with HMAC SHA-256 using the backend session secret. */
-function signTokenBody(body: string): string {
-  return createHmac("sha256", getSessionSecret()).update(body).digest("base64url");
+const encoder = new TextEncoder();
+
+async function getCryptoKey() {
+  const secret = getSessionSecret();
+  return crypto.subtle.importKey(
+    "raw",
+    encoder.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign", "verify"]
+  );
 }
 
-/** Constant-time comparison protects against timing attacks on token signatures. */
-function safeEqual(a: string, b: string): boolean {
-  const left = Buffer.from(a);
-  const right = Buffer.from(b);
+/** Signs the token body with HMAC SHA-256 using the backend session secret. */
+async function signTokenBody(body: string): Promise<string> {
+  const key = await getCryptoKey();
+  const signature = await crypto.subtle.sign("HMAC", key, encoder.encode(body));
+  return Buffer.from(signature).toString("base64url");
+}
 
-  if (left.length !== right.length) {
+/** Verifies the token body signature using Web Crypto API. */
+async function verifySignature(body: string, signatureBase64url: string): Promise<boolean> {
+  try {
+    const key = await getCryptoKey();
+    const signatureBuffer = Buffer.from(signatureBase64url, "base64url");
+    return await crypto.subtle.verify(
+      "HMAC",
+      key,
+      signatureBuffer,
+      encoder.encode(body)
+    );
+  } catch {
     return false;
   }
-
-  return timingSafeEqual(left, right);
 }
 
 /** Runtime guard for parsed cookie payloads before trusting their fields. */
@@ -79,8 +97,8 @@ function isSessionPayload(value: unknown): value is SessionPayload {
 }
 
 /** Creates a signed session token for a public user. */
-export function createSessionToken(user: PublicUser): CreatedSessionToken {
-  const tokenId = randomUUID();
+export async function createSessionToken(user: PublicUser): Promise<CreatedSessionToken> {
+  const tokenId = crypto.randomUUID();
   const nowSeconds = Math.floor(Date.now() / 1000);
   const expiresAtSeconds = nowSeconds + SESSION_TTL_SECONDS;
   const payload: SessionPayload = {
@@ -93,7 +111,7 @@ export function createSessionToken(user: PublicUser): CreatedSessionToken {
     exp: expiresAtSeconds,
   };
   const body = toBase64Url(JSON.stringify(payload));
-  const signature = signTokenBody(body);
+  const signature = await signTokenBody(body);
   return {
     token: `${body}.${signature}`,
     tokenId,
@@ -102,14 +120,19 @@ export function createSessionToken(user: PublicUser): CreatedSessionToken {
 }
 
 /** Verifies and decodes a session token, returning null when invalid or expired. */
-export function verifySessionToken(token: string | undefined): SessionPayload | null {
+export async function verifySessionToken(token: string | undefined): Promise<SessionPayload | null> {
   if (!token) {
     return null;
   }
 
   const [body, signature] = token.split(".");
 
-  if (!body || !signature || !safeEqual(signature, signTokenBody(body))) {
+  if (!body || !signature) {
+    return null;
+  }
+  
+  const isValid = await verifySignature(body, signature);
+  if (!isValid) {
     return null;
   }
 
@@ -127,7 +150,7 @@ export function verifySessionToken(token: string | undefined): SessionPayload | 
 }
 
 /** Reads the session payload from a Next.js request cookie. */
-export function getSessionFromRequest(request: NextRequest): SessionPayload | null {
+export async function getSessionFromRequest(request: NextRequest): Promise<SessionPayload | null> {
   return verifySessionToken(request.cookies.get(SESSION_COOKIE_NAME)?.value);
 }
 
