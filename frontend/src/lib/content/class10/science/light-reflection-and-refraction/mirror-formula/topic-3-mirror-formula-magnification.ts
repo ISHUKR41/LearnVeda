@@ -12,10 +12,16 @@ export const topic3MirrorFormulaMagnification: Topic = {
   title: "3. Sign Convention, Mirror Formula, and Magnification",
   estimatedMinutes: 50,
   simulationIds: [
+    /* NEW: Purpose-built mirror formula interactive lab */
+    "mirror-formula-lab-sim",
+    /* NEW: Object-image lab — all 6 positions */
+    "mirror-object-image-sim",
     "light-sign-convention",
     "light-mirror-formula-calc",
     "light-magnification-demo",
     "light-mirror-ray-builder",
+    /* Advanced concave mirror ray diagram */
+    "adv-concave-mirror",
   ],
   imageUrl: "/images/light/topic3-mirror-formula.png",
   content: `

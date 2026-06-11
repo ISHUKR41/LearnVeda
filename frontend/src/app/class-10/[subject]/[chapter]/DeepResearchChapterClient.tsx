@@ -774,7 +774,9 @@ export default function DeepResearchChapterClient({
                         </div>
                       )}
 
-                      {/* Physics simulations (if any defined for this topic) */}
+                      {/* Physics simulations (if any defined for this topic)
+                          expandedMode=true shows metadata header above each canvas,
+                          matching the dedicated Simulations tab experience. */}
                       {activeTopic.simulationIds && activeTopic.simulationIds.length > 0 && (
                         <div className={styles.simulationsSection}>
                           {/* Section heading shows live simulation count */}
@@ -782,7 +784,10 @@ export default function DeepResearchChapterClient({
                             <span className={styles.sectionHeadingIcon}>🔬</span>
                             {activeTopic.simulationIds.length} Interactive Simulation{activeTopic.simulationIds.length !== 1 ? "s" : ""}
                           </div>
-                          <SmartSimulationRenderer simulationIds={activeTopic.simulationIds} />
+                          <SmartSimulationRenderer
+                            simulationIds={activeTopic.simulationIds}
+                            expandedMode={true}
+                          />
                         </div>
                       )}
 

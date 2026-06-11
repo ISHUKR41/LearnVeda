@@ -628,6 +628,56 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     icon: "🤓",
     component: lazyLoad(() => import("./eye/HumanEyeSim")),
   },
+
+  /* ═══════════════════════════════════════════════════
+   * BRAND-NEW PURPOSE-BUILT SIMULATIONS (2026-06-11)
+   * Ultra-detailed, fully interactive, original designs
+   * ═══════════════════════════════════════════════════ */
+
+  /* ── Wave Nature of Light ── */
+  "wave-nature-light-sim": {
+    title: "Wave Nature of Light — E & B Field Animation",
+    description: "Drag frequency slider to see wavelength change · E-field & B-field oscillate · c = fλ live formula · colour shifts across VIBGYOR spectrum",
+    category: "reflection",
+    icon: "🌊",
+    component: lazyLoad(() => import("./reflection/WaveNatureLightSim")),
+  },
+
+  /* ── Mirror Formula Interactive Lab ── */
+  "mirror-formula-lab-sim": {
+    title: "Mirror Formula Lab — Live Ray Diagram",
+    description: "Slide u and f · 1/v + 1/u = 1/f solved instantly · real ray diagram drawn · concave & convex toggle · image nature panel",
+    category: "mirrors",
+    icon: "🧮",
+    component: lazyLoad(() => import("./mirrors/MirrorFormulaLabSim")),
+  },
+
+  /* ── Human Eye Anatomy (Detailed) ── */
+  "eye-anatomy-detailed-sim": {
+    title: "Human Eye — Interactive Anatomy",
+    description: "Click cornea, iris, lens, retina, fovea, blind spot, optic nerve · exam notes per part · Normal / Myopia / Hypermetropia vision modes",
+    category: "eye",
+    icon: "👁️",
+    component: lazyLoad(() => import("./eye/EyeAnatomyDetailedSim")),
+  },
+
+  /* ── Apparent Depth / Refraction Illusion ── */
+  "apparent-depth-sim": {
+    title: "Apparent Depth — Refraction Illusion",
+    description: "Coin at bottom of water appears shallower · n = Real/Apparent Depth · drag observer · switch Water/Glass/Diamond/Ice",
+    category: "refraction",
+    icon: "🏊",
+    component: lazyLoad(() => import("./refraction/ApparentDepthSim")),
+  },
+
+  /* ── Advanced Prism Dispersion with Cauchy equation ── */
+  "prism-advanced-sim": {
+    title: "Prism Dispersion — VIBGYOR with Cauchy Equation",
+    description: "Adjust apex angle & incidence · all 7 VIBGYOR rays with real n values · deviation δ per colour · Crown/Flint/Dense glass types",
+    category: "dispersion",
+    icon: "🌈",
+    component: lazyLoad(() => import("./dispersion/PrismAdvancedSim")),
+  },
 };
 
 /* ═══════════════════════════════════════════════════

@@ -14,7 +14,9 @@ export const topic1IntroAndLawsOfReflection: Topic = {
   title: "1. Introduction to Light and Laws of Reflection",
   estimatedMinutes: 45,
   simulationIds: [
-    /* Fully draggable live reflection lab — NEW */
+    /* NEW: Wave nature of light — EM wave animation with c=fλ */
+    "wave-nature-light-sim",
+    /* Fully draggable live reflection lab */
     "reflection-interactive-sim",
     "light-plane-mirror",
     "light-regular-diffuse",

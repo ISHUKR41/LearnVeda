@@ -12,6 +12,8 @@ export const topic4LawsOfRefraction: Topic = {
   title: "4. Refraction of Light and Refractive Index",
   estimatedMinutes: 55,
   simulationIds: [
+    /* NEW: Animated apparent depth illusion with n = Real/Apparent formula */
+    "apparent-depth-sim",
     "light-refraction-demo",
     "light-snells-law",
     "light-tir",

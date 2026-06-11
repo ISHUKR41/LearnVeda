@@ -34,6 +34,10 @@ export const topic8DispersionAndHumanEye: Topic = {
   title: "8. Dispersion, Scattering, Atmosphere & the Human Eye",
   estimatedMinutes: 70,
   simulationIds: [
+    /* NEW: Fully interactive human eye anatomy with clickable parts */
+    "eye-anatomy-detailed-sim",
+    /* NEW: Ultra-detailed VIBGYOR prism with Cauchy equation per colour */
+    "prism-advanced-sim",
     /* NEW: Interactive prism colour lab with apex/n/incidence sliders */
     "prism-color-lab-sim",
     /* New dedicated Topic 8 simulations */
