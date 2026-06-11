@@ -17,18 +17,17 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   turbopack: {
-    root: process.cwd(),
     resolveAlias: {
-      "@clerk/nextjs": path.resolve("./src/lib/clerk-shim/client.tsx"),
-      "@clerk/nextjs/server": path.resolve("./src/lib/clerk-shim/server.ts"),
+      "@clerk/nextjs": path.join(__dirname, "src/lib/clerk-shim/client.tsx"),
+      "@clerk/nextjs/server": path.join(__dirname, "src/lib/clerk-shim/server.ts"),
     },
   },
 
   webpack(config) {
     config.resolve.alias = {
       ...config.resolve.alias,
-      "@clerk/nextjs": path.resolve("./src/lib/clerk-shim/client.tsx"),
-      "@clerk/nextjs/server": path.resolve("./src/lib/clerk-shim/server.ts"),
+      "@clerk/nextjs": path.join(__dirname, "src/lib/clerk-shim/client.tsx"),
+      "@clerk/nextjs/server": path.join(__dirname, "src/lib/clerk-shim/server.ts"),
     };
     return config;
   },
