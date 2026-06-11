@@ -698,5 +698,192 @@ $m = -\\dfrac{15.4}{-27} \\approx +0.57$ → erect, diminished. Image height $= 
       explanation: "This 'verification' problem teaches critical thinking: always test claims with the actual formula. The confusion of F and C is a common misconception.",
       points: 25
     }
-  ]
+  ],
+
+  /* ══════════════════════════════════════════════════════
+   * WORKED EXAMPLES — 5 step-by-step numericals
+   * Mirror Formula, Sign Convention, Magnification
+   * ══════════════════════════════════════════════════════ */
+  workedExamples: [
+    {
+      id: "ex1-t3",
+      title: "Standard Mirror Formula — Find Image Distance",
+      difficulty: "easy",
+      topic: "Mirror Formula: 1/v + 1/u = 1/f",
+      given: [
+        "Object distance u = −30 cm (in front of concave mirror)",
+        "Focal length f = −20 cm (concave mirror)",
+      ],
+      find: ["Image distance (v)", "Nature of image"],
+      steps: [
+        {
+          step: 1,
+          title: "Write the mirror formula",
+          work: "1/v + 1/u = 1/f",
+          note: "All distances measured from the Pole. Distances in front of mirror = negative; behind = positive.",
+        },
+        {
+          step: 2,
+          title: "Substitute known values",
+          work: "1/v + 1/(−30) = 1/(−20)\n1/v = −1/20 + 1/30",
+        },
+        {
+          step: 3,
+          title: "Find LCM and simplify",
+          work: "LCM(20, 30) = 60\n1/v = (−3 + 2)/60 = −1/60\nv = −60 cm",
+        },
+        {
+          step: 4,
+          title: "Interpret the result",
+          work: "v = −60 cm → negative → image is in FRONT of mirror (real image)\n|v| = 60 cm > |u| = 30 cm → image is enlarged\nObject is between F (20 cm) and C (40 cm), so image is beyond C ✓",
+        },
+      ],
+      answer: "v = −60 cm. Image is real, inverted, and enlarged — formed beyond C.",
+      realLifeConnect: "A projector works on this principle: the film/slide (object) is placed between f and 2f of a convex lens/concave mirror, and the enlarged real image falls on a distant screen.",
+    },
+    {
+      id: "ex2-t3",
+      title: "Magnification — Find Image Height",
+      difficulty: "easy",
+      topic: "Linear Magnification: m = −v/u = h'/h",
+      given: [
+        "Object distance u = −10 cm",
+        "Image distance v = −40 cm",
+        "Object height h = 3 cm",
+      ],
+      find: ["Magnification (m)", "Image height (h')", "Nature of image"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply magnification formula",
+          work: "m = −v/u = −(−40)/(−10) = −40/10 = −4",
+          note: "Negative m → image is inverted (real image). |m| = 4 → image is 4 times larger.",
+        },
+        {
+          step: 2,
+          title: "Find image height",
+          work: "m = h'/h\nh' = m × h = (−4) × 3 = −12 cm",
+          note: "Negative h' confirms image is inverted (below principal axis).",
+        },
+        {
+          step: 3,
+          title: "Interpret results",
+          work: "Image is 12 cm tall (inverted) — 4 times the object height.\nSince m = −4 (real, inverted, enlarged), the object must be between F and C of a concave mirror.",
+        },
+      ],
+      answer: "m = −4, Image height = 12 cm (inverted). Image is real, inverted, 4× enlarged.",
+      realLifeConnect: "An ophthalmoscope (retinal camera) uses a concave mirror with m ≈ −4 to project a magnified image of the back of the eye onto a viewing screen, helping detect retinal detachment and glaucoma.",
+    },
+    {
+      id: "ex3-t3",
+      title: "Find Object Distance Given Focal Length and Magnification",
+      difficulty: "medium",
+      topic: "Mirror Formula — Reverse Problem",
+      given: [
+        "Magnification m = −3 (real, inverted, 3× enlarged)",
+        "Focal length f = −15 cm (concave mirror)",
+      ],
+      find: ["Object distance (u)", "Image distance (v)"],
+      steps: [
+        {
+          step: 1,
+          title: "Express v in terms of u using magnification",
+          work: "m = −v/u\n−3 = −v/u\nv = 3u",
+          note: "Since m = −3 (negative), the image is real and inverted. u is negative, so v = 3u is also negative.",
+        },
+        {
+          step: 2,
+          title: "Substitute into mirror formula",
+          work: "1/v + 1/u = 1/f\n1/(3u) + 1/u = 1/(−15)",
+        },
+        {
+          step: 3,
+          title: "Solve for u",
+          work: "LCM: (1 + 3)/(3u) = −1/15\n4/(3u) = −1/15\n3u × (−1) = 4 × 15\n3u = −60\nu = −20 cm",
+        },
+        {
+          step: 4,
+          title: "Find v",
+          work: "v = 3u = 3 × (−20) = −60 cm",
+          note: "Check: 1/(−60) + 1/(−20) = −1/60 − 3/60 = −4/60 = −1/15 ✓",
+        },
+      ],
+      answer: "u = −20 cm, v = −60 cm. Object is between F and C, image is beyond C.",
+      realLifeConnect: "Film projectors are precisely calibrated using this reverse calculation — the engineer knows the desired magnification (screen-to-slide ratio) and focal length, then calculates the exact projector-to-screen distance.",
+    },
+    {
+      id: "ex4-t3",
+      title: "Virtual Image with Concave Mirror (Object Inside F)",
+      difficulty: "medium",
+      topic: "Virtual Image — Concave Mirror within Focal Length",
+      given: [
+        "Object distance u = −8 cm",
+        "Focal length f = −12 cm (concave mirror)",
+      ],
+      find: ["Image distance (v)", "Magnification (m)", "Nature of image"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply mirror formula",
+          work: "1/v + 1/(−8) = 1/(−12)\n1/v = −1/12 + 1/8",
+        },
+        {
+          step: 2,
+          title: "Calculate",
+          work: "LCM(12, 8) = 24\n1/v = −2/24 + 3/24 = 1/24\nv = +24 cm",
+          note: "Positive v → image is BEHIND the mirror → VIRTUAL image!",
+        },
+        {
+          step: 3,
+          title: "Find magnification",
+          work: "m = −v/u = −(+24)/(−8) = +3\nPositive m → image is ERECT. |m| = 3 → image is 3× enlarged.",
+        },
+        {
+          step: 4,
+          title: "Summarise nature",
+          work: "v = +24 cm (behind mirror, virtual)\nm = +3 (erect, magnified)\nNature: Virtual, Erect, 3× Enlarged",
+        },
+      ],
+      answer: "v = +24 cm (behind mirror), m = +3. Image is VIRTUAL, ERECT, and 3× ENLARGED.",
+      realLifeConnect: "A makeup/shaving mirror works exactly like this. The face is held inside the focal length (~15 cm), giving a magnified, erect, virtual image — much easier to see while applying makeup or shaving.",
+    },
+    {
+      id: "ex5-t3",
+      title: "Convex Mirror — Speed Camera Application",
+      difficulty: "hard",
+      topic: "Convex Mirror — Complete Numerical",
+      given: [
+        "Focal length f = +25 cm (convex mirror, positive)",
+        "Image distance v = +10 cm (behind mirror)",
+        "Image height h' = 1.5 cm",
+      ],
+      find: ["Object distance (u)", "Object height (h)", "Magnification (m)"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply mirror formula to find u",
+          work: "1/v + 1/u = 1/f\n1/(+10) + 1/u = 1/(+25)\n1/u = 1/25 − 1/10",
+        },
+        {
+          step: 2,
+          title: "Solve for u",
+          work: "LCM(25, 10) = 50\n1/u = 2/50 − 5/50 = −3/50\nu = −50/3 ≈ −16.7 cm",
+          note: "u is negative ✓ — object is in front of the mirror (real object).",
+        },
+        {
+          step: 3,
+          title: "Find magnification",
+          work: "m = −v/u = −(+10)/(−50/3) = −10 × (−3/50) = 30/50 = +0.6",
+          note: "Positive m (+0.6) → image is ERECT. |m| = 0.6 < 1 → image is DIMINISHED.",
+        },
+        {
+          step: 4,
+          title: "Find object height",
+          work: "m = h'/h → h = h'/m = 1.5/0.6 = 2.5 cm",
+        },
+      ],
+      answer: "u ≈ −16.7 cm, h = 2.5 cm, m = +0.6. Image is virtual, erect, and diminished.",
+      realLifeConnect: "Convex mirrors in shopping malls and traffic intersections always produce virtual, erect, diminished images — providing a wide field of view. Security cameras use convex lenses on the same principle.",
+    },
+  ],
 };

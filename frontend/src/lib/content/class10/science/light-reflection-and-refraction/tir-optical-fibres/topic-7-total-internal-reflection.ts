@@ -776,5 +776,169 @@ $$\\sin(i_c) = \\frac{1}{n} \\implies n = \\frac{1}{\\sin(30^\\circ)} = \\frac{1
       explanation: "This calculation precisely demonstrates why the 45°-90°-45° prism is the standard for optical instruments. The TIR efficiency advantage over mirrors is why all quality binoculars, periscopes, and rangefinders use prisms.",
       points: 25
     }
-  ]
+  ],
+
+  /* ══════════════════════════════════════════════════════
+   * WORKED EXAMPLES — 5 step-by-step numericals
+   * TIR, Critical Angle, Optical Fibre, Diamond
+   * ══════════════════════════════════════════════════════ */
+  workedExamples: [
+    {
+      id: "ex1-t7",
+      title: "Critical Angle for Glass-Air Interface",
+      difficulty: "easy",
+      topic: "Critical Angle: sin θ_c = n₂/n₁ = 1/n_glass",
+      given: [
+        "Refractive index of glass (n_glass) = 1.5",
+        "Interface: glass to air (n_air = 1.0)",
+      ],
+      find: ["Critical angle (θ_c)"],
+      steps: [
+        {
+          step: 1,
+          title: "Write the critical angle formula",
+          work: "At critical angle θ_c, the refracted ray grazes the surface (θ_refracted = 90°).\nSnell's Law: n₁ sin θ_c = n₂ sin 90°\nn_glass × sin θ_c = n_air × 1\nsin θ_c = n_air / n_glass = 1/n_glass",
+        },
+        {
+          step: 2,
+          title: "Substitute and calculate",
+          work: "sin θ_c = 1/1.5 = 2/3 = 0.6667\nθ_c = sin⁻¹(0.6667) ≈ 41.8°",
+        },
+        {
+          step: 3,
+          title: "Interpret the result",
+          work: "At exactly 41.8°: refracted ray grazes the surface.\nFor θ > 41.8° (angle of incidence greater than θ_c): Total Internal Reflection occurs — no light escapes into air.\nFor θ < 41.8°: light refracts normally into air.",
+          note: "TIR happens ONLY when light goes from denser → rarer medium (glass → air, water → air, diamond → air).",
+        },
+      ],
+      answer: "Critical angle θ_c ≈ 41.8° for glass (n=1.5) to air interface.",
+      realLifeConnect: "Fibre optic cables use silica glass (n ≈ 1.5), and light inside is always aimed at angles greater than 41.8° to the glass-air interface — ensuring 100% TIR with no light loss over thousands of kilometres.",
+    },
+    {
+      id: "ex2-t7",
+      title: "Does TIR Occur? — Decision Problem",
+      difficulty: "medium",
+      topic: "TIR Condition Check",
+      given: [
+        "Light travels from water (n = 1.33) to air",
+        "Angle of incidence θ = 52°",
+      ],
+      find: ["Critical angle for water-air", "Whether TIR occurs"],
+      steps: [
+        {
+          step: 1,
+          title: "Find critical angle for water",
+          work: "sin θ_c = 1/n_water = 1/1.33 = 0.7519\nθ_c = sin⁻¹(0.7519) ≈ 48.75°",
+        },
+        {
+          step: 2,
+          title: "Compare angles",
+          work: "Angle of incidence = 52°\nCritical angle = 48.75°\nSince 52° > 48.75° → TIR OCCURS ✓",
+          note: "TIR rule: if θ_incidence > θ_critical, TIR occurs and ALL light is reflected back into water.",
+        },
+        {
+          step: 3,
+          title: "Describe what happens",
+          work: "Light is completely reflected back into water. No refracted ray exists in air.\nAngle of TIR reflection = 52° (angle of reflection = angle of incidence).",
+        },
+      ],
+      answer: "θ_c (water-air) ≈ 48.75°. Since 52° > 48.75°, TIR OCCURS — all light reflects back into water.",
+      realLifeConnect: "Swimming pool lighting uses this principle — special lights are placed at angles exceeding the critical angle so underwater light stays underwater (no glare outside), creating the beautiful luminous pool-water effect seen at night.",
+    },
+    {
+      id: "ex3-t7",
+      title: "Diamond — Critical Angle and Brilliance",
+      difficulty: "medium",
+      topic: "Diamond Brilliance — High n, Low θ_c",
+      given: ["Refractive index of diamond (n) = 2.42"],
+      find: [
+        "Critical angle for diamond",
+        "Why diamond sparkles more than glass",
+      ],
+      steps: [
+        {
+          step: 1,
+          title: "Calculate critical angle",
+          work: "sin θ_c = 1/n = 1/2.42 = 0.4132\nθ_c = sin⁻¹(0.4132) ≈ 24.4°",
+        },
+        {
+          step: 2,
+          title: "Compare with glass",
+          work: "Glass (n = 1.5): θ_c ≈ 41.8°\nDiamond (n = 2.42): θ_c ≈ 24.4°\nDiamond's critical angle is much SMALLER.",
+          note: "Smaller critical angle → TIR happens at even shallow angles → more light undergoes TIR inside diamond.",
+        },
+        {
+          step: 3,
+          title: "Explain the brilliance",
+          work: "A ray entering diamond easily hits facet walls at angles > 24.4° → TIR at almost every facet → light bounces multiple times inside → ALL light eventually exits from the TOP → concentrated brilliance.\nIn glass (θ_c = 41.8°), much of the light leaks out the sides → less sparkle.",
+        },
+      ],
+      answer: "θ_c (diamond) ≈ 24.4°. Diamond's low θ_c causes almost all light to undergo repeated TIR, producing extreme brilliance.",
+      realLifeConnect: "Diamond cutters ('brilliant cut' with 58 facets) are mathematically designed so that the facet angles ensure every ray of light undergoes TIR from the bottom facets and exits from the top table — this geometry maximises sparkle and is patented.",
+    },
+    {
+      id: "ex4-t7",
+      title: "Optical Fibre — Maximum Acceptance Angle",
+      difficulty: "hard",
+      topic: "Optical Fibre Numerical Aperture",
+      given: [
+        "Refractive index of fibre core (n_core) = 1.62",
+        "Refractive index of cladding (n_clad) = 1.52",
+      ],
+      find: ["Critical angle at core-cladding interface", "Maximum acceptance angle from outside (in air)"],
+      steps: [
+        {
+          step: 1,
+          title: "Find critical angle at core-cladding interface",
+          work: "sin θ_c = n_clad / n_core = 1.52 / 1.62 = 0.9383\nθ_c = sin⁻¹(0.9383) ≈ 69.6°",
+        },
+        {
+          step: 2,
+          title: "Find the acceptance cone angle",
+          work: "At the fibre entry face (air to core), light must enter at angle α such that it hits core-cladding interface at ≥ θ_c.\nUsing geometry: sin α_max = n_core × sin(90° − θ_c) = n_core × cos θ_c",
+        },
+        {
+          step: 3,
+          title: "Calculate",
+          work: "cos θ_c = cos(69.6°) ≈ 0.3469\nsin α_max = n_core × cos θ_c = 1.62 × 0.3469 ≈ 0.562\nα_max = sin⁻¹(0.562) ≈ 34.2°",
+          note: "This value (sin α_max = 0.562) is the Numerical Aperture (NA) of the fibre. Higher NA = more light collected.",
+        },
+      ],
+      answer: "θ_c (core-clad) ≈ 69.6°. Maximum acceptance angle from outside air ≈ 34.2°. NA = 0.562.",
+      realLifeConnect: "Fibre optic endoscopes (used by surgeons to see inside the body without cutting) are designed with specific acceptance angles to collect maximum light from tiny LEDs at the tip, illuminating the surgical site.",
+    },
+    {
+      id: "ex5-t7",
+      title: "Periscope Prism vs Silver Mirror — TIR Loss Comparison",
+      difficulty: "hard",
+      topic: "TIR vs Conventional Reflection — Efficiency",
+      given: [
+        "Silver mirror reflection efficiency: 90% per reflection (10% absorbed)",
+        "Glass prism (n=1.5) TIR efficiency: 100% per reflection (no absorption at angles > θ_c = 41.8°)",
+        "Periscope requires 2 reflections",
+        "Initial light intensity I₀ = 1000 units",
+      ],
+      find: ["Final intensity with silver mirrors vs glass TIR prisms"],
+      steps: [
+        {
+          step: 1,
+          title: "Calculate intensity loss with silver mirrors",
+          work: "After reflection 1: I₁ = 1000 × 0.90 = 900 units\nAfter reflection 2: I₂ = 900 × 0.90 = 810 units\nLoss = 190 units (19% total loss)",
+        },
+        {
+          step: 2,
+          title: "Calculate intensity with TIR prisms",
+          work: "TIR reflection efficiency = 100% (no absorption, no transmission)\nAfter reflection 1: I₁ = 1000 × 1.00 = 1000 units\nAfter reflection 2: I₂ = 1000 × 1.00 = 1000 units\nLoss = 0 units (0% loss)",
+        },
+        {
+          step: 3,
+          title: "Compare and conclude",
+          work: "Silver mirrors: 810 units remaining (81% efficiency over 2 reflections)\nTIR prisms: 1000 units (100% efficiency)\nDifference: 190 units — 23.5% more light reaches the eye with prisms!",
+          note: "For a submarine periscope with 10 reflections, silver would transmit 0.9¹⁰ = 35% vs prism 100%. The difference in real visibility is enormous.",
+        },
+      ],
+      answer: "Silver mirrors: 810 units (81%). TIR prisms: 1000 units (100%). Prisms are 23.5% more efficient for 2 reflections.",
+      realLifeConnect: "This is exactly why modern binoculars and rangefinders use Porro prisms (45°-90°-45° glass triangles) instead of mirrors — 100% TIR efficiency means brighter, clearer images in low-light conditions. Roof prism binoculars extend the same principle into a more compact form.",
+    },
+  ],
 };

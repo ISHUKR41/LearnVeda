@@ -657,5 +657,179 @@ $$n_{21} = \\frac{v_1}{v_2} = \\frac{n_2}{n_1} \\quad \\text{(Relative — mediu
       explanation: "This problem combines critical angle calculation with the practical geometry of optical fibre design — showing why TIR-based fibres can carry terabits of data per second.",
       points: 25
     }
-  ]
+  ],
+
+  /* ══════════════════════════════════════════════════════
+   * WORKED EXAMPLES — 5 step-by-step numericals
+   * Snell's Law, Refractive Index, Apparent Depth
+   * ══════════════════════════════════════════════════════ */
+  workedExamples: [
+    {
+      id: "ex1-t4",
+      title: "Snell's Law — Find Refracted Angle",
+      difficulty: "easy",
+      topic: "Snell's Law: n₁ sin θ₁ = n₂ sin θ₂",
+      given: [
+        "Angle of incidence (θ₁) = 45° (in air, n₁ = 1.0)",
+        "Refractive index of glass (n₂) = 1.5",
+      ],
+      find: ["Angle of refraction (θ₂)"],
+      steps: [
+        {
+          step: 1,
+          title: "Write Snell's Law",
+          work: "n₁ sin θ₁ = n₂ sin θ₂",
+          note: "When light enters a denser medium (n₂ > n₁), it bends TOWARD the normal (θ₂ < θ₁).",
+        },
+        {
+          step: 2,
+          title: "Substitute values",
+          work: "1.0 × sin 45° = 1.5 × sin θ₂\nsin θ₂ = sin 45° / 1.5 = (1/√2) / 1.5 = 0.7071 / 1.5 = 0.4714",
+        },
+        {
+          step: 3,
+          title: "Find θ₂",
+          work: "θ₂ = sin⁻¹(0.4714) ≈ 28.1°",
+          note: "θ₂ = 28.1° < θ₁ = 45° ✓ — light bends toward the normal when entering a denser medium.",
+        },
+      ],
+      answer: "Angle of refraction θ₂ ≈ 28.1°. Light bends toward the normal on entering glass.",
+      realLifeConnect: "Architects designing swimming pools use Snell's Law to calculate where pool-floor tiles will appear when viewed from outside the water — critical for aesthetic tiling patterns that look right from the pool deck.",
+    },
+    {
+      id: "ex2-t4",
+      title: "Refractive Index from Speed of Light",
+      difficulty: "easy",
+      topic: "Refractive Index: n = c/v",
+      given: [
+        "Speed of light in vacuum: c = 3 × 10⁸ m/s",
+        "Speed of light in diamond: v = 1.24 × 10⁸ m/s",
+      ],
+      find: ["Refractive index of diamond (n)"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply the formula",
+          work: "n = c / v = Speed of light in vacuum / Speed of light in medium",
+        },
+        {
+          step: 2,
+          title: "Substitute",
+          work: "n = (3 × 10⁸) / (1.24 × 10⁸) = 3 / 1.24 ≈ 2.42",
+        },
+        {
+          step: 3,
+          title: "Interpret",
+          work: "Diamond has n = 2.42 — one of the highest refractive indices of any transparent material.\nThis means light slows down to 41% of its vacuum speed inside diamond.",
+          note: "Higher n → slower light → more bending at the surface.",
+        },
+      ],
+      answer: "Refractive index of diamond n = 2.42 — among the highest of any transparent solid.",
+      realLifeConnect: "Diamond's extremely high n (2.42) is the reason it sparkles so brilliantly — most of the light entering undergoes Total Internal Reflection multiple times inside before exiting, concentrating light in specific directions (fire and brilliance).",
+    },
+    {
+      id: "ex3-t4",
+      title: "Apparent Depth — Pool Looks Shallower",
+      difficulty: "medium",
+      topic: "Apparent Depth: n = Real Depth / Apparent Depth",
+      given: [
+        "Real depth of pool (d) = 2.4 m",
+        "Refractive index of water (n_water) = 4/3 ≈ 1.33",
+        "Observer is in air (n_air = 1.0)",
+      ],
+      find: ["Apparent depth (d')", "How much shallower does the pool appear?"],
+      steps: [
+        {
+          step: 1,
+          title: "Write the formula",
+          work: "n = Real Depth / Apparent Depth\nApparent Depth = Real Depth / n",
+        },
+        {
+          step: 2,
+          title: "Substitute values",
+          work: "Apparent Depth = 2.4 / (4/3) = 2.4 × (3/4) = 1.8 m",
+        },
+        {
+          step: 3,
+          title: "Calculate reduction",
+          work: "Reduction = Real Depth − Apparent Depth = 2.4 − 1.8 = 0.6 m\nPool appears 0.6 m shallower than it actually is.",
+          note: "The formula n = Real/Apparent applies when viewing from air directly above (perpendicular/normal viewing).",
+        },
+      ],
+      answer: "Apparent depth = 1.8 m. The pool appears 0.6 m shallower than its actual depth of 2.4 m.",
+      realLifeConnect: "This is why you must NEVER dive into an unfamiliar pool headfirst — the bottom appears much closer than it actually is! Many diving injuries occur due to this optical illusion.",
+    },
+    {
+      id: "ex4-t4",
+      title: "Lateral Displacement by a Glass Slab",
+      difficulty: "medium",
+      topic: "Glass Slab: Lateral Displacement Formula",
+      given: [
+        "Thickness of glass slab (t) = 10 cm",
+        "Angle of incidence (i) = 45°",
+        "Refractive index of glass (n) = 1.5",
+      ],
+      find: ["Angle of refraction (r)", "Lateral displacement (d)"],
+      steps: [
+        {
+          step: 1,
+          title: "Find angle of refraction using Snell's Law",
+          work: "sin r = sin i / n = sin 45° / 1.5 = 0.7071 / 1.5 = 0.4714\nr = sin⁻¹(0.4714) ≈ 28.1°",
+        },
+        {
+          step: 2,
+          title: "Apply the lateral displacement formula",
+          work: "d = t × sin(i − r) / cos r\nd = 10 × sin(45° − 28.1°) / cos 28.1°\nd = 10 × sin(16.9°) / cos(28.1°)",
+        },
+        {
+          step: 3,
+          title: "Calculate numerically",
+          work: "sin(16.9°) ≈ 0.2907\ncos(28.1°) ≈ 0.8829\nd = 10 × 0.2907 / 0.8829 ≈ 3.29 cm",
+          note: "The emergent ray is parallel to the incident ray (same direction) but shifted 3.29 cm sideways.",
+        },
+      ],
+      answer: "Angle of refraction r ≈ 28.1°, Lateral displacement d ≈ 3.29 cm.",
+      realLifeConnect: "Optical gyroscopes in aircraft navigation systems use glass blocks precisely machined to specific lateral displacements — calibrated to nanometer precision for drift-free heading measurement.",
+    },
+    {
+      id: "ex5-t4",
+      title: "Refractive Index from Critical Angle (Snell's Law Inverse)",
+      difficulty: "hard",
+      topic: "Critical Angle: sin θ_c = 1/n",
+      given: [
+        "Critical angle for total internal reflection (θ_c) = 41.8°",
+        "Medium: glass to air",
+      ],
+      find: [
+        "Refractive index of glass (n)",
+        "Speed of light in glass",
+        "Verify using Snell's Law",
+      ],
+      steps: [
+        {
+          step: 1,
+          title: "Apply the critical angle formula",
+          work: "At critical angle, the refracted ray grazes the surface (θ_r = 90°).\nSnell's Law: n × sin θ_c = 1 × sin 90° = 1\nsin θ_c = 1/n → n = 1/sin θ_c",
+        },
+        {
+          step: 2,
+          title: "Substitute and calculate",
+          work: "n = 1 / sin(41.8°) = 1 / 0.6665 ≈ 1.50",
+          note: "This is typical crown glass (n = 1.50), used in camera lenses, spectacles, and telescopes.",
+        },
+        {
+          step: 3,
+          title: "Calculate speed of light in glass",
+          work: "n = c / v → v = c / n = (3 × 10⁸) / 1.5 = 2 × 10⁸ m/s\nLight slows to 2/3 of its vacuum speed in this glass.",
+        },
+        {
+          step: 4,
+          title: "Verify with Snell's Law",
+          work: "At θ_c = 41.8°: n₁ sin θ_c = n₂ sin 90°\n1.5 × sin(41.8°) = 1.0 × 1.0\n1.5 × 0.6665 = 1.0 ✓",
+        },
+      ],
+      answer: "n = 1.50 (standard crown glass). Speed of light in glass = 2 × 10⁸ m/s.",
+      realLifeConnect: "Gemologists identify gem types by measuring their critical angle using a refractometer — diamonds (θ_c = 24.4°, n = 2.42) versus zirconia (θ_c = 26.5°, n = 2.24) have very different critical angles, instantly distinguishing real from fake diamonds.",
+    },
+  ],
 };

@@ -689,5 +689,164 @@ A plane mirror is a flat glass surface with a thin layer of silver (the reflecti
       explanation: "Multi-mirror systems that preserve beam direction with lateral shifts are used in optical instruments like interferometers and retroreflectors. The geometry follows directly from repeated application of the law of reflection.",
       points: 25
     }
-  ]
+  ],
+
+  /* ══════════════════════════════════════════════════════
+   * WORKED EXAMPLES — 5 step-by-step numericals
+   * Each follows: Given → Find → Steps → Answer → Real-life
+   * ══════════════════════════════════════════════════════ */
+  workedExamples: [
+    {
+      id: "ex1-t1",
+      title: "Angle of Reflection Calculation",
+      difficulty: "easy",
+      topic: "Laws of Reflection",
+      given: ["Angle between incident ray and mirror surface = 30°"],
+      find: ["Angle of incidence (∠i)", "Angle of reflection (∠r)"],
+      steps: [
+        {
+          step: 1,
+          title: "Understand the given angle",
+          work: "The angle between the ray and the SURFACE of the mirror is 30°. This is called the glancing angle.",
+          note: "⚠️ The angle of incidence is ALWAYS measured from the Normal, NOT from the surface!",
+        },
+        {
+          step: 2,
+          title: "Find the angle of incidence",
+          work: "Since the Normal is perpendicular (90°) to the mirror surface:\n∠i = 90° − Glancing angle\n∠i = 90° − 30° = 60°",
+        },
+        {
+          step: 3,
+          title: "Apply the First Law of Reflection",
+          work: "By the First Law of Reflection: ∠i = ∠r\n∴ ∠r = 60°",
+        },
+      ],
+      answer: "Angle of incidence = Angle of reflection = 60°",
+      realLifeConnect: "This exact geometry is used in laser rangefinders — the reflected laser beam angle must be calculated precisely to measure distances to distant objects.",
+    },
+    {
+      id: "ex2-t1",
+      title: "Object-Image Distance in Plane Mirror",
+      difficulty: "easy",
+      topic: "Plane Mirror Image Properties",
+      given: [
+        "Object distance from mirror (u) = 15 cm",
+        "Object height (h) = 4 cm",
+      ],
+      find: [
+        "Image distance from mirror (v)",
+        "Height of image (h')",
+        "Total object-to-image distance",
+      ],
+      steps: [
+        {
+          step: 1,
+          title: "Apply the equal-distance property",
+          work: "For a plane mirror: Image distance = Object distance\nv = u = 15 cm (behind the mirror)",
+          note: "The image is always formed as far BEHIND the mirror as the object is in FRONT of it.",
+        },
+        {
+          step: 2,
+          title: "Find image height using magnification",
+          work: "For a plane mirror, magnification m = 1 (always)\nSince m = h'/h → h' = m × h = 1 × 4 = 4 cm",
+        },
+        {
+          step: 3,
+          title: "Calculate total object-to-image distance",
+          work: "Total distance = Object distance + Image distance\n= 15 cm + 15 cm = 30 cm",
+          note: "The object is in FRONT of the mirror and the image is BEHIND it — they are on opposite sides.",
+        },
+      ],
+      answer: "Image is 15 cm behind the mirror, height = 4 cm, total object-to-image distance = 30 cm",
+      realLifeConnect: "Tailors use this property — if you stand 1.5 m from a fitting mirror, your image is 1.5 m behind the mirror (3 m total separation), showing the full outfit with correct proportions.",
+    },
+    {
+      id: "ex3-t1",
+      title: "Number of Images Between Two Mirrors",
+      difficulty: "medium",
+      topic: "Multiple Mirror Reflections",
+      given: ["Angle between two plane mirrors (θ) = 60°"],
+      find: ["Number of images formed (n)"],
+      steps: [
+        {
+          step: 1,
+          title: "Check the condition for the formula",
+          work: "Formula: n = (360° / θ) − 1\nThis formula applies when 360°/θ is an even integer.\n360° / 60° = 6 (even integer ✓ — formula applies)",
+        },
+        {
+          step: 2,
+          title: "Apply the formula",
+          work: "n = (360° / θ) − 1\nn = (360° / 60°) − 1\nn = 6 − 1 = 5",
+        },
+        {
+          step: 3,
+          title: "Verify with a different angle",
+          work: "At θ = 90°: n = (360/90) − 1 = 4 − 1 = 3 images ✓ (classic result)\nAt θ = 45°: n = (360/45) − 1 = 8 − 1 = 7 images\nAt θ = 120°: n = (360/120) − 1 = 3 − 1 = 2 images",
+          note: "As θ decreases toward 0° (parallel mirrors), n approaches ∞.",
+        },
+      ],
+      answer: "5 images are formed when two mirrors are placed at 60° to each other",
+      realLifeConnect: "A kaleidoscope uses 3 mirrors at 60° to each other, creating 5 images of the coloured beads — forming the beautiful 6-fold symmetrical pattern.",
+    },
+    {
+      id: "ex4-t1",
+      title: "Minimum Mirror Length for Full Body Image",
+      difficulty: "medium",
+      topic: "Plane Mirror — Minimum Mirror Size",
+      given: ["Height of person (H) = 1.6 m", "Eye level from floor = 1.5 m"],
+      find: ["Minimum length of mirror required to see full body"],
+      steps: [
+        {
+          step: 1,
+          title: "Establish the geometry",
+          work: "To see the top of the head (0.1 m above eyes), the ray from the top of the head must reflect to the eyes.\nThe mirror point needed = midpoint between top of head and eyes = (0 + 0.1)/2 = 0.05 m above eye level.",
+          note: "The mirror point is always at the MIDPOINT between the object point and the eye.",
+        },
+        {
+          step: 2,
+          title: "Find the mirror point for feet",
+          work: "Eye level = 1.5 m from floor. Feet = 0 m from floor.\nMirror point for feet = midpoint between eyes and feet = (1.5 + 0)/2 = 0.75 m from floor",
+        },
+        {
+          step: 3,
+          title: "Calculate mirror length",
+          work: "Top of mirror = 1.5 m + 0.05 m = 1.55 m from floor\nBottom of mirror = 0.75 m from floor\nMinimum mirror length = 1.55 − 0.75 = 0.80 m = H/2",
+          note: "Minimum length = H/2 = 1.6/2 = 0.8 m. This result is INDEPENDENT of the person's distance from the mirror!",
+        },
+      ],
+      answer: "Minimum mirror length = 0.8 m (exactly half the person's height of 1.6 m)",
+      realLifeConnect: "Fashion boutiques install mirrors exactly half the customer's average height (80 cm) to ensure full-body views while saving wall space and mirror cost.",
+    },
+    {
+      id: "ex5-t1",
+      title: "Mirror Rotation — Reflected Ray Angle",
+      difficulty: "hard",
+      topic: "Mirror Rotation Theorem (2θ Rule)",
+      given: [
+        "Initial angle of incidence = 40°",
+        "Mirror is rotated by θ = 20° (incident ray stays fixed)",
+      ],
+      find: ["New angle of reflection", "Total rotation of reflected ray"],
+      steps: [
+        {
+          step: 1,
+          title: "State the Mirror Rotation Theorem",
+          work: "When a mirror rotates by angle θ (while the incident ray is fixed), the reflected ray rotates by 2θ.",
+          note: "This is because rotating the mirror by θ rotates the Normal by θ, changing both ∠i and ∠r by θ — total effect on reflected ray = 2θ.",
+        },
+        {
+          step: 2,
+          title: "Calculate initial and final angles",
+          work: "Initial: ∠i = 40°, ∠r = 40°\nAfter mirror rotates 20°:\nNew ∠i = 40° − 20° = 20° (Normal moves toward the ray)\nNew ∠r = 20° (by law of reflection)",
+        },
+        {
+          step: 3,
+          title: "Find total rotation of reflected ray",
+          work: "Original reflected ray: 40° from the (original) normal\nNew reflected ray: 20° from the new normal (which is 20° from the old)\nTotal rotation of reflected ray = 20° + 20° = 40° = 2 × θ = 2 × 20° ✓",
+        },
+      ],
+      answer: "Reflected ray rotates by 40° (= 2 × 20°). This confirms the 2θ theorem.",
+      realLifeConnect: "Galvanometers (current-measuring instruments) use this principle: a tiny coil rotates by angle θ when current flows, rotating a mirror which deflects a light beam by 2θ — doubling the sensitivity of the instrument.",
+    },
+  ],
 };

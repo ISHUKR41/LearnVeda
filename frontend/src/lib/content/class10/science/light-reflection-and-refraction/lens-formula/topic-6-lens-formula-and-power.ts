@@ -670,5 +670,187 @@ A person requires a lens of power $-2.5$ D. Find focal length and identify lens 
       explanation: "This algebraic proof is elegant and definitive. It shows why the concave lens is the 'always virtual' lens — the mathematics enforces it universally.",
       points: 25
     }
-  ]
+  ],
+
+  /* ══════════════════════════════════════════════════════
+   * WORKED EXAMPLES — 5 step-by-step numericals
+   * Lens Formula, Power, Combination of Lenses
+   * ══════════════════════════════════════════════════════ */
+  workedExamples: [
+    {
+      id: "ex1-t6",
+      title: "Power of a Lens from Focal Length",
+      difficulty: "easy",
+      topic: "Power: P = 1/f (in metres)",
+      given: [
+        "Focal length of convex lens f = +25 cm = +0.25 m",
+      ],
+      find: ["Power of the lens (P)"],
+      steps: [
+        {
+          step: 1,
+          title: "Convert focal length to metres",
+          work: "f = +25 cm = +25/100 m = +0.25 m",
+          note: "ALWAYS convert focal length to metres before calculating power. Power is always in Dioptres (D).",
+        },
+        {
+          step: 2,
+          title: "Apply Power formula",
+          work: "P = 1/f (in metres)\nP = 1/0.25 = +4 D",
+        },
+        {
+          step: 3,
+          title: "Interpret sign",
+          work: "P = +4 D (positive) → CONVEX lens → converging.\nA convex lens bends light inward; concave lens gives negative power.",
+          note: "Convex lens: P > 0 (converging). Concave lens: P < 0 (diverging).",
+        },
+      ],
+      answer: "Power P = +4 Dioptres (D). Positive sign confirms this is a converging (convex) lens.",
+      realLifeConnect: "Optometrists prescribe spectacles in Dioptres. A '+4D' prescription means a convex lens with 25 cm focal length — prescribed to hypermetropic patients who cannot see near objects clearly.",
+    },
+    {
+      id: "ex2-t6",
+      title: "Combination of Lenses — Net Power and Focal Length",
+      difficulty: "medium",
+      topic: "Combined Lenses: P = P₁ + P₂",
+      given: [
+        "Power of lens 1 (P₁) = +5 D (convex)",
+        "Power of lens 2 (P₂) = −2 D (concave)",
+        "Lenses are in contact",
+      ],
+      find: ["Net power (P)", "Equivalent focal length (f_eq)"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply the combination rule",
+          work: "For lenses in contact:\nP = P₁ + P₂ = +5 + (−2) = +3 D",
+          note: "This simple addition only works when lenses are thin and in contact. For separated lenses, use a more complex formula.",
+        },
+        {
+          step: 2,
+          title: "Find equivalent focal length",
+          work: "P = 1/f_eq\nf_eq = 1/P = 1/3 m ≈ 0.333 m = 33.3 cm",
+        },
+        {
+          step: 3,
+          title: "Determine type",
+          work: "P = +3 D (positive) → equivalent system is CONVERGING (convex).\nEven though one lens is diverging, the net system converges because the converging lens dominates.",
+        },
+      ],
+      answer: "Net P = +3 D, Equivalent focal length = 33.3 cm. System is converging (convex equivalent).",
+      realLifeConnect: "Compound microscopes and telescopes use multiple lens combinations. The eyepiece and objective are chosen so their combined power delivers the required total magnification. Optometrists also combine prismatic corrections with spherical power in bifocal lenses.",
+    },
+    {
+      id: "ex3-t6",
+      title: "Spectacle Lens Power for Myopic Eye",
+      difficulty: "medium",
+      topic: "Lens Formula Applied to Vision Correction",
+      given: [
+        "A myopic (short-sighted) person can see clearly only up to 1.5 m",
+        "They want to see objects at infinity clearly",
+      ],
+      find: [
+        "Required focal length of corrective lens",
+        "Power of the lens",
+        "Type of lens",
+      ],
+      steps: [
+        {
+          step: 1,
+          title: "Understand the problem",
+          work: "Myopic eye: cannot focus on objects beyond 1.5 m (far point = 1.5 m).\nCorrection needed: a lens that makes parallel rays from infinity appear to come from 1.5 m (the far point).",
+          note: "The corrective lens must form a VIRTUAL image at the far point (1.5 m) from an object at infinity.",
+        },
+        {
+          step: 2,
+          title: "Apply Lens Formula",
+          work: "u = −∞ (object at infinity)\nv = −1.5 m = −150 cm (virtual image at far point, same side as object)\n1/v − 1/u = 1/f\n1/(−1.5) − 1/(−∞) = 1/f\n−1/1.5 − 0 = 1/f\n1/f = −2/3\nf = −1.5 m = −150 cm",
+        },
+        {
+          step: 3,
+          title: "Calculate Power",
+          work: "P = 1/f = 1/(−1.5) = −0.667 D ≈ −0.67 D",
+        },
+        {
+          step: 4,
+          title: "Identify lens type",
+          work: "f = −1.5 m (negative) → CONCAVE lens\nP = −0.67 D (negative) → Diverging lens\nThis confirms: myopia is corrected with a CONCAVE (diverging) lens.",
+        },
+      ],
+      answer: "f = −1.5 m, P = −0.67 D. A concave lens of power −0.67 D corrects the myopia.",
+      realLifeConnect: "Over 2 billion people worldwide wear spectacles for myopia. Each negative-power prescription directly corresponds to this calculation — your '−0.5' lens has f = −200 cm, bending light just enough to hit your retina correctly.",
+    },
+    {
+      id: "ex4-t6",
+      title: "Lens Formula — Find Object Distance from Image",
+      difficulty: "medium",
+      topic: "Lens Formula Reverse: Finding u",
+      given: [
+        "Convex lens, f = +20 cm",
+        "Real image formed at v = +60 cm",
+      ],
+      find: ["Object distance (u)", "Magnification (m)"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply Lens Formula",
+          work: "1/v − 1/u = 1/f\n1/60 − 1/u = 1/20\n1/u = 1/60 − 1/20",
+        },
+        {
+          step: 2,
+          title: "Solve for u",
+          work: "LCM(60, 20) = 60\n1/u = 1/60 − 3/60 = −2/60 = −1/30\nu = −30 cm",
+          note: "u = −30 cm (negative) ✓ → real object on the left of lens.",
+        },
+        {
+          step: 3,
+          title: "Find magnification",
+          work: "m = v/u = 60/(−30) = −2\nNegative → INVERTED. |m| = 2 → 2× ENLARGED.",
+        },
+        {
+          step: 4,
+          title: "Position check",
+          work: "|u| = 30 cm = between f (20 cm) and 2f (40 cm) ✓\nFor object between f and 2f: image beyond 2f (v = 60 cm > 2×20 = 40 cm) ✓",
+        },
+      ],
+      answer: "u = −30 cm (between f and 2f). m = −2 (real, inverted, 2× enlarged image at v = +60 cm).",
+      realLifeConnect: "A theater overhead projector is set up exactly like this — the lens technician measures where the image lands (v = screen distance), looks up the focal length of the projection lens, then calculates the exact stage-to-lens distance (u).",
+    },
+    {
+      id: "ex5-t6",
+      title: "Correcting Hypermetropia — Convex Spectacle Lens",
+      difficulty: "hard",
+      topic: "Vision Correction: Hypermetropia (Long-sight)",
+      given: [
+        "Hypermetropic person's near point = 50 cm (cannot see clearly within 50 cm)",
+        "Normal near point = 25 cm (wants to read at 25 cm)",
+      ],
+      find: ["Focal length of corrective lens", "Power of lens"],
+      steps: [
+        {
+          step: 1,
+          title: "Set up the problem",
+          work: "Object: book at u = −25 cm (desired reading distance)\nImage: lens must form a virtual image at −50 cm (eye's near point)\nThis virtual image will then be within range for the eye to focus on.",
+          note: "Hypermetropia: near point is farther than normal. Concave lens won't help; CONVEX lens is needed.",
+        },
+        {
+          step: 2,
+          title: "Apply Lens Formula",
+          work: "1/v − 1/u = 1/f\n1/(−50) − 1/(−25) = 1/f\n−1/50 + 1/25 = 1/f\n1/f = −1/50 + 2/50 = 1/50\nf = +50 cm = +0.5 m",
+        },
+        {
+          step: 3,
+          title: "Calculate Power",
+          work: "P = 1/f = 1/(+0.5) = +2 D",
+        },
+        {
+          step: 4,
+          title: "Verify",
+          work: "f = +50 cm (positive) → CONVEX lens ✓ (correct for hypermetropia)\nP = +2 D (positive) → converging ✓\nThe convex lens forms a virtual image at 50 cm from a book at 25 cm, so the eye can read clearly.",
+        },
+      ],
+      answer: "f = +50 cm = +0.5 m, P = +2 D. A convex (converging) lens of +2 D corrects the hypermetropia.",
+      realLifeConnect: "Reading glasses for presbyopia (age-related long-sightedness) work identically. A '+2D' reading glass prescription means your lenses have f = 50 cm, giving the ageing eye's ciliary muscles the assist they need to focus on a book at 25–30 cm.",
+    },
+  ],
 };

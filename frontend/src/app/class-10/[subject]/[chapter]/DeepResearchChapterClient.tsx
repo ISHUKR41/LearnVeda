@@ -791,6 +791,329 @@ export default function DeepResearchChapterClient({
                         </div>
                       )}
 
+                      {/* ── WORKED NUMERICAL EXAMPLES ──
+                          Shown in the Learn tab after simulations.
+                          Renders the Given / Find / Steps / Answer structure
+                          for each worked example in the topic. */}
+                      {activeTopic.workedExamples && activeTopic.workedExamples.length > 0 && (
+                        <div style={{ marginTop: "2.5rem" }}>
+                          {/* Section heading */}
+                          <div className={styles.sectionHeading}>
+                            <span className={styles.sectionHeadingIcon}>📐</span>
+                            Worked Numerical Examples ({activeTopic.workedExamples.length})
+                          </div>
+
+                          {/* One card per example */}
+                          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", marginTop: "1rem" }}>
+                            {activeTopic.workedExamples.map((ex, exIdx) => {
+                              /* Difficulty colour mapping */
+                              const diffColor =
+                                ex.difficulty === "easy"   ? "#10b981" :
+                                ex.difficulty === "medium" ? "#f59e0b" :
+                                                             "#f87171";
+                              const diffBg =
+                                ex.difficulty === "easy"   ? "rgba(16,185,129,0.08)" :
+                                ex.difficulty === "medium" ? "rgba(245,158,11,0.08)" :
+                                                             "rgba(248,113,113,0.08)";
+
+                              return (
+                                <div
+                                  key={ex.id}
+                                  style={{
+                                    background: "rgba(15,23,42,0.6)",
+                                    border: "1px solid rgba(99,102,241,0.2)",
+                                    borderRadius: "16px",
+                                    overflow: "hidden",
+                                    backdropFilter: "blur(8px)",
+                                  }}
+                                >
+                                  {/* Card header */}
+                                  <div style={{
+                                    background: "linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(16,185,129,0.06) 100%)",
+                                    borderBottom: "1px solid rgba(99,102,241,0.12)",
+                                    padding: "16px 20px",
+                                    display: "flex",
+                                    alignItems: "flex-start",
+                                    justifyContent: "space-between",
+                                    gap: "12px",
+                                    flexWrap: "wrap",
+                                  }}>
+                                    <div style={{ flex: 1, minWidth: 0 }}>
+                                      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px", flexWrap: "wrap" }}>
+                                        {/* Example number badge */}
+                                        <span style={{
+                                          background: "rgba(99,102,241,0.2)",
+                                          color: "#818cf8",
+                                          fontSize: "0.72rem",
+                                          fontWeight: 700,
+                                          padding: "2px 8px",
+                                          borderRadius: "999px",
+                                          letterSpacing: "0.04em",
+                                          textTransform: "uppercase",
+                                        }}>
+                                          Example {exIdx + 1}
+                                        </span>
+                                        {/* Difficulty badge */}
+                                        <span style={{
+                                          background: diffBg,
+                                          color: diffColor,
+                                          fontSize: "0.72rem",
+                                          fontWeight: 700,
+                                          padding: "2px 8px",
+                                          borderRadius: "999px",
+                                          letterSpacing: "0.04em",
+                                          textTransform: "uppercase",
+                                          border: `1px solid ${diffColor}33`,
+                                        }}>
+                                          {ex.difficulty}
+                                        </span>
+                                      </div>
+                                      {/* Title */}
+                                      <h4 style={{
+                                        fontSize: "1rem",
+                                        fontWeight: 700,
+                                        color: "#e2e8f0",
+                                        margin: 0,
+                                        lineHeight: 1.3,
+                                      }}>
+                                        {ex.title}
+                                      </h4>
+                                      {/* Topic tag */}
+                                      <div style={{ fontSize: "0.78rem", color: "#64748b", marginTop: "4px" }}>
+                                        {ex.topic}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div style={{ padding: "20px" }}>
+                                    {/* GIVEN + FIND row */}
+                                    <div style={{
+                                      display: "grid",
+                                      gridTemplateColumns: "1fr 1fr",
+                                      gap: "12px",
+                                      marginBottom: "20px",
+                                    }}>
+                                      {/* Given */}
+                                      <div style={{
+                                        background: "rgba(16,185,129,0.05)",
+                                        border: "1px solid rgba(16,185,129,0.15)",
+                                        borderRadius: "10px",
+                                        padding: "12px 14px",
+                                      }}>
+                                        <div style={{
+                                          fontSize: "0.7rem",
+                                          fontWeight: 800,
+                                          color: "#10b981",
+                                          letterSpacing: "0.08em",
+                                          textTransform: "uppercase",
+                                          marginBottom: "8px",
+                                        }}>
+                                          Given
+                                        </div>
+                                        {ex.given.map((g, gi) => (
+                                          <div key={gi} style={{
+                                            fontSize: "0.82rem",
+                                            color: "#94a3b8",
+                                            lineHeight: 1.6,
+                                            display: "flex",
+                                            alignItems: "flex-start",
+                                            gap: "6px",
+                                          }}>
+                                            <span style={{ color: "#10b981", marginTop: "2px", flexShrink: 0 }}>•</span>
+                                            <span>{g}</span>
+                                          </div>
+                                        ))}
+                                      </div>
+
+                                      {/* Find */}
+                                      <div style={{
+                                        background: "rgba(245,158,11,0.05)",
+                                        border: "1px solid rgba(245,158,11,0.15)",
+                                        borderRadius: "10px",
+                                        padding: "12px 14px",
+                                      }}>
+                                        <div style={{
+                                          fontSize: "0.7rem",
+                                          fontWeight: 800,
+                                          color: "#f59e0b",
+                                          letterSpacing: "0.08em",
+                                          textTransform: "uppercase",
+                                          marginBottom: "8px",
+                                        }}>
+                                          Find
+                                        </div>
+                                        {ex.find.map((f, fi) => (
+                                          <div key={fi} style={{
+                                            fontSize: "0.82rem",
+                                            color: "#94a3b8",
+                                            lineHeight: 1.6,
+                                            display: "flex",
+                                            alignItems: "flex-start",
+                                            gap: "6px",
+                                          }}>
+                                            <span style={{ color: "#f59e0b", marginTop: "2px", flexShrink: 0 }}>?</span>
+                                            <span>{f}</span>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+
+                                    {/* SOLUTION STEPS */}
+                                    <div style={{ marginBottom: "16px" }}>
+                                      <div style={{
+                                        fontSize: "0.7rem",
+                                        fontWeight: 800,
+                                        color: "#818cf8",
+                                        letterSpacing: "0.08em",
+                                        textTransform: "uppercase",
+                                        marginBottom: "10px",
+                                      }}>
+                                        Solution
+                                      </div>
+                                      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                                        {ex.steps.map((step) => (
+                                          <div
+                                            key={step.step}
+                                            style={{
+                                              display: "flex",
+                                              gap: "12px",
+                                              alignItems: "flex-start",
+                                            }}
+                                          >
+                                            {/* Step number circle */}
+                                            <div style={{
+                                              width: "28px",
+                                              height: "28px",
+                                              borderRadius: "50%",
+                                              background: "rgba(99,102,241,0.15)",
+                                              border: "1px solid rgba(99,102,241,0.3)",
+                                              display: "flex",
+                                              alignItems: "center",
+                                              justifyContent: "center",
+                                              fontSize: "0.75rem",
+                                              fontWeight: 800,
+                                              color: "#818cf8",
+                                              flexShrink: 0,
+                                              marginTop: "2px",
+                                            }}>
+                                              {step.step}
+                                            </div>
+                                            <div style={{ flex: 1, minWidth: 0 }}>
+                                              {/* Step title */}
+                                              <div style={{
+                                                fontSize: "0.83rem",
+                                                fontWeight: 700,
+                                                color: "#c7d2fe",
+                                                marginBottom: "4px",
+                                              }}>
+                                                {step.title}
+                                              </div>
+                                              {/* Step working — monospace for math */}
+                                              <div style={{
+                                                background: "rgba(0,0,0,0.3)",
+                                                borderRadius: "8px",
+                                                padding: "10px 12px",
+                                                fontFamily: "'JetBrains Mono', monospace",
+                                                fontSize: "0.8rem",
+                                                color: "#e2e8f0",
+                                                lineHeight: 1.7,
+                                                whiteSpace: "pre-wrap",
+                                                overflowX: "auto",
+                                              }}>
+                                                {step.work}
+                                              </div>
+                                              {/* Optional note */}
+                                              {step.note && (
+                                                <div style={{
+                                                  marginTop: "6px",
+                                                  background: "rgba(245,158,11,0.06)",
+                                                  border: "1px solid rgba(245,158,11,0.2)",
+                                                  borderLeft: "3px solid #f59e0b",
+                                                  borderRadius: "0 6px 6px 0",
+                                                  padding: "6px 10px",
+                                                  fontSize: "0.78rem",
+                                                  color: "#fbbf24",
+                                                  lineHeight: 1.5,
+                                                }}>
+                                                  💡 {step.note}
+                                                </div>
+                                              )}
+                                            </div>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+
+                                    {/* ANSWER BOX */}
+                                    <div style={{
+                                      background: "linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(99,102,241,0.06) 100%)",
+                                      border: "1px solid rgba(16,185,129,0.25)",
+                                      borderRadius: "10px",
+                                      padding: "12px 16px",
+                                      marginBottom: ex.realLifeConnect ? "12px" : "0",
+                                    }}>
+                                      <div style={{
+                                        fontSize: "0.7rem",
+                                        fontWeight: 800,
+                                        color: "#10b981",
+                                        letterSpacing: "0.08em",
+                                        textTransform: "uppercase",
+                                        marginBottom: "6px",
+                                      }}>
+                                        ✓ Answer
+                                      </div>
+                                      <div style={{
+                                        fontSize: "0.875rem",
+                                        color: "#d1fae5",
+                                        fontWeight: 600,
+                                        lineHeight: 1.6,
+                                      }}>
+                                        {ex.answer}
+                                      </div>
+                                    </div>
+
+                                    {/* REAL-LIFE CONNECTION */}
+                                    {ex.realLifeConnect && (
+                                      <div style={{
+                                        background: "rgba(99,102,241,0.06)",
+                                        border: "1px solid rgba(99,102,241,0.15)",
+                                        borderLeft: "3px solid #818cf8",
+                                        borderRadius: "0 10px 10px 0",
+                                        padding: "10px 14px",
+                                        display: "flex",
+                                        gap: "8px",
+                                        alignItems: "flex-start",
+                                      }}>
+                                        <span style={{ fontSize: "1rem", flexShrink: 0 }}>🌍</span>
+                                        <div>
+                                          <div style={{
+                                            fontSize: "0.68rem",
+                                            fontWeight: 800,
+                                            color: "#818cf8",
+                                            letterSpacing: "0.06em",
+                                            textTransform: "uppercase",
+                                            marginBottom: "3px",
+                                          }}>
+                                            Real-life connection
+                                          </div>
+                                          <div style={{
+                                            fontSize: "0.8rem",
+                                            color: "#94a3b8",
+                                            lineHeight: 1.6,
+                                          }}>
+                                            {ex.realLifeConnect}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+
                       {/* CTA to move to practice */}
                       <div className={styles.learnCta}>
                         <p className={styles.learnCtaText}>

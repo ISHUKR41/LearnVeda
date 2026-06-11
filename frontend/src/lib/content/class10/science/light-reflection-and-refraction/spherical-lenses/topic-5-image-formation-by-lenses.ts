@@ -658,5 +658,179 @@ A concave lens **always** forms a virtual, erect, and diminished image, regardle
       explanation: "This complete eye optics calculation is a premium exam topic. The accommodation of 4D and the ciliary muscle mechanism directly explains presbyopia and why older people need reading glasses.",
       points: 25
     }
-  ]
+  ],
+
+  /* ══════════════════════════════════════════════════════
+   * WORKED EXAMPLES — 5 step-by-step numericals
+   * Lens: image formation, nature determination
+   * ══════════════════════════════════════════════════════ */
+  workedExamples: [
+    {
+      id: "ex1-t5",
+      title: "Convex Lens — Object Beyond 2f (Real Image)",
+      difficulty: "easy",
+      topic: "Lens Formula: 1/v − 1/u = 1/f",
+      given: [
+        "Object distance u = −30 cm (convex lens, real object)",
+        "Focal length f = +10 cm (convex lens)",
+      ],
+      find: ["Image distance (v)", "Magnification (m)", "Nature of image"],
+      steps: [
+        {
+          step: 1,
+          title: "Write the Lens Formula",
+          work: "1/v − 1/u = 1/f\nNote: Lens formula uses a MINUS sign (unlike mirror formula which uses plus).",
+          note: "New Cartesian Sign Convention: distances measured from optical centre. Object on left → u is negative.",
+        },
+        {
+          step: 2,
+          title: "Substitute values",
+          work: "1/v − 1/(−30) = 1/(+10)\n1/v + 1/30 = 1/10\n1/v = 1/10 − 1/30",
+        },
+        {
+          step: 3,
+          title: "Solve for v",
+          work: "LCM(10, 30) = 30\n1/v = 3/30 − 1/30 = 2/30 = 1/15\nv = +15 cm",
+          note: "v is positive → image is on the OTHER side of the lens (right side) → REAL image.",
+        },
+        {
+          step: 4,
+          title: "Find magnification",
+          work: "m = v/u = (+15)/(−30) = −0.5\nNegative → INVERTED. |m| = 0.5 < 1 → DIMINISHED.",
+        },
+      ],
+      answer: "v = +15 cm (real side). m = −0.5. Image is Real, Inverted, Diminished.",
+      realLifeConnect: "A camera uses a convex lens to form a real, inverted, diminished image of a distant scene onto the film/sensor — the object (scene) is always beyond 2f, so a small real image forms on the sensor.",
+    },
+    {
+      id: "ex2-t5",
+      title: "Concave Lens — Always Virtual, Erect, Diminished",
+      difficulty: "easy",
+      topic: "Concave Lens — Image Formation",
+      given: [
+        "Object distance u = −20 cm",
+        "Focal length f = −10 cm (concave lens, negative f)",
+      ],
+      find: ["Image distance (v)", "Magnification (m)", "Nature of image"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply Lens Formula",
+          work: "1/v − 1/u = 1/f\n1/v − 1/(−20) = 1/(−10)\n1/v + 1/20 = −1/10",
+        },
+        {
+          step: 2,
+          title: "Solve for v",
+          work: "1/v = −1/10 − 1/20\nLCM(10, 20) = 20\n1/v = −2/20 − 1/20 = −3/20\nv = −20/3 ≈ −6.67 cm",
+          note: "v is NEGATIVE → image is on the SAME side as the object (left side) → VIRTUAL image.",
+        },
+        {
+          step: 3,
+          title: "Find magnification",
+          work: "m = v/u = (−20/3)/(−20) = 1/3 ≈ +0.33\nPositive → ERECT. |m| = 0.33 < 1 → DIMINISHED.",
+        },
+        {
+          step: 4,
+          title: "Key property confirmation",
+          work: "Concave lens ALWAYS forms a virtual, erect, diminished image regardless of object position.\nThis is provable algebraically: with f < 0 and u < 0, v is always negative and |v| < |u|.",
+        },
+      ],
+      answer: "v = −6.67 cm (virtual, same side as object). m = +0.33. Virtual, Erect, Diminished.",
+      realLifeConnect: "Spectacles for short-sightedness (myopia) use concave lenses — they form a virtual, closer image of distant objects, bringing them within the eye's near point range.",
+    },
+    {
+      id: "ex3-t5",
+      title: "Convex Lens — Object Between f and 2f (Projector)",
+      difficulty: "medium",
+      topic: "Convex Lens — Object at Different Positions",
+      given: [
+        "Object distance u = −15 cm (between f and 2f)",
+        "Focal length f = +10 cm",
+      ],
+      find: ["Image distance (v)", "Magnification (m)"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply lens formula",
+          work: "1/v − 1/(−15) = 1/10\n1/v + 1/15 = 1/10\n1/v = 1/10 − 1/15",
+        },
+        {
+          step: 2,
+          title: "Solve",
+          work: "LCM(10, 15) = 30\n1/v = 3/30 − 2/30 = 1/30\nv = +30 cm",
+          note: "Object between f (10 cm) and 2f (20 cm) → image forms beyond 2f (30 cm) ✓",
+        },
+        {
+          step: 3,
+          title: "Magnification",
+          work: "m = v/u = (+30)/(−15) = −2\nNegative → INVERTED. |m| = 2 → 2× ENLARGED.",
+        },
+      ],
+      answer: "v = +30 cm (beyond 2f). m = −2. Image is Real, Inverted, and 2× Enlarged.",
+      realLifeConnect: "A slide projector works on this exact principle — the slide (object) is placed between f and 2f of the projection lens, and the screen (beyond 2f) receives a real, inverted, enlarged image. The slide is loaded upside-down so the projected image appears right-side-up!",
+    },
+    {
+      id: "ex4-t5",
+      title: "Virtual Magnified Image — Reading Glass",
+      difficulty: "medium",
+      topic: "Convex Lens — Object Inside Focal Length",
+      given: ["Object distance u = −5 cm", "Focal length f = +10 cm"],
+      find: ["Image distance (v)", "Magnification (m)", "Is it a magnifying glass?"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply lens formula",
+          work: "1/v − 1/(−5) = 1/10\n1/v + 1/5 = 1/10\n1/v = 1/10 − 1/5 = 1/10 − 2/10 = −1/10\nv = −10 cm",
+          note: "v is NEGATIVE → image is on the same side as object (left side) → VIRTUAL.",
+        },
+        {
+          step: 2,
+          title: "Magnification",
+          work: "m = v/u = (−10)/(−5) = +2\nPositive → ERECT. |m| = 2 → 2× MAGNIFIED.",
+        },
+        {
+          step: 3,
+          title: "Confirm magnifying glass action",
+          work: "Object inside f → virtual, erect, magnified image → this IS magnifying glass action!\nThe image at −10 cm is on the same side as the object, 10 cm from the lens → eye must be on the right of the lens.",
+        },
+      ],
+      answer: "v = −10 cm (virtual). m = +2. This is a magnifying glass — image is Virtual, Erect, 2× Enlarged.",
+      realLifeConnect: "A simple magnifying glass (loupe) uses exactly this setup. Watchmakers hold the glass close to the watch with the tiny spring inside the focal length (~25 mm), giving a clear enlarged view of the mechanism.",
+    },
+    {
+      id: "ex5-t5",
+      title: "Find Object Position from Image Properties",
+      difficulty: "hard",
+      topic: "Lens Formula — Reverse Calculation",
+      given: [
+        "Convex lens, f = +12 cm",
+        "Magnification m = −3 (real, inverted, 3× enlarged)",
+      ],
+      find: ["Object distance (u)", "Image distance (v)"],
+      steps: [
+        {
+          step: 1,
+          title: "Express v in terms of u from magnification",
+          work: "m = v/u\n−3 = v/u\nv = −3u\nSince u < 0 (real object), v = −3u > 0 → image on right → real ✓",
+        },
+        {
+          step: 2,
+          title: "Substitute into lens formula",
+          work: "1/v − 1/u = 1/f\n1/(−3u) − 1/u = 1/12",
+        },
+        {
+          step: 3,
+          title: "Solve for u",
+          work: "Multiply through by 3u:\n1/(−3u) − 1/u = 1/12\n[−1 − 3]/(3u) = 1/12\n−4/(3u) = 1/12\n3u = −48\nu = −16 cm",
+        },
+        {
+          step: 4,
+          title: "Find v and verify",
+          work: "v = −3u = −3 × (−16) = +48 cm\nCheck: 1/48 − 1/(−16) = 1/48 + 1/16 = 1/48 + 3/48 = 4/48 = 1/12 ✓",
+        },
+      ],
+      answer: "u = −16 cm (between f and 2f), v = +48 cm (beyond 2f). Confirms projector geometry.",
+      realLifeConnect: "Film projectors are set up using this exact reverse calculation — the projectionist knows the required magnification (screen size ÷ film frame size) and lens focal length, then calculates the precise projector-to-screen distance.",
+    },
+  ],
 };

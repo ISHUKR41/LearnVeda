@@ -724,144 +724,183 @@ The point where the optic nerve exits the eye (onto the retina) has NO photorece
       question: "Why does a thick piece of glass appear less thick than it really is? A glass block 6 cm thick (n = 1.5) is placed over a coin. Where does the coin appear to be, and by how much is it shifted upward? Compare this to the same experiment done underwater (n = 1.33).",
       correctAnswer: "A glass block 6 cm thick (n = 1.5) makes the coin appear at: Apparent thickness = Real thickness / n = 6 / 1.5 = 4 cm. The coin appears to be 4 cm below the top of the glass (shifted UP by 6 − 4 = 2 cm). For water (n = 1.33): Apparent thickness = 6 / 1.33 = 4.51 cm. Shift upward = 6 − 4.51 = 1.49 cm. Comparison: Glass (n=1.5) shifts the coin MORE (2 cm) than water (n=1.33) because glass has a higher refractive index → greater apparent depth reduction → more apparent upward shift. The formula for the upward apparent shift is: shift = real depth × (1 − 1/n).",
     },
-  ],,
+  ],
 
+  /* ══════════════════════════════════════════════════════
+   * WORKED EXAMPLES — 5 step-by-step numericals
+   * Atmospheric Phenomena, Scattering, Rainbow Angles
+   * ══════════════════════════════════════════════════════ */
   workedExamples: [
     {
-      id: "ex1",
-      title: "Rainbow Geometry — Angle of 42°",
-      difficulty: "hard",
-      topic: "Rainbow Formation",
-      given: ["n(water) for red = 1.330", "Light enters raindrop at angle of incidence = 59.6°", "One internal reflection inside drop"],
-      find: ["Angle of refraction r inside drop", "Total deviation of red ray"],
+      id: "ex1-t10",
+      title: "Rainbow Angle Calculation — Primary Rainbow",
+      difficulty: "medium",
+      topic: "Rainbow — Refraction + TIR + Dispersion in Water Droplets",
+      given: [
+        "Refractive index of water for Violet light: nᵥ = 1.342",
+        "Refractive index of water for Red light: n_R = 1.331",
+        "Light enters a spherical water droplet at angle of incidence i = 60°",
+      ],
+      find: ["Minimum angle of deviation for Violet and Red (rainbow angles)"],
       steps: [
         {
           step: 1,
-          title: "Refraction at entry",
-          work: "1.0 × sin(59.6°) = 1.330 × sin(r)\nsin(59.6°) = 0.862\nsin(r) = 0.862/1.330 = 0.648\nr = sin⁻¹(0.648) = 40.4°"
+          title: "Find refraction angle at entry (Snell's Law)",
+          work: "For Violet: sin r_V = sin 60° / 1.342 = 0.8660 / 1.342 = 0.6453 → r_V ≈ 40.2°\nFor Red: sin r_R = sin 60° / 1.331 = 0.8660 / 1.331 = 0.6507 → r_R ≈ 40.6°",
         },
         {
           step: 2,
-          title: "Deviation at each surface",
-          work: "Entry refraction: D1 = 59.6 - 40.4 = 19.2°\nInternal reflection: D2 = 180 - 2 × 40.4 = 99.2°\nExit refraction: D3 = 59.6 - 40.4 = 19.2°\nTotal deviation = D1 + D2 + D3 = 19.2 + 99.2 + 19.2 = 137.6°"
+          title: "Trace the ray inside the droplet",
+          work: "Inside the droplet, ray reflects off the back surface (TIR or partial reflection), then exits.\nMinimum deviation angle: D_min = 180° + 2i − 4r (for primary rainbow, one internal reflection)\nFor Violet: D_V = 180° + 2(60°) − 4(40.2°) = 180° + 120° − 160.8° = 139.2°\nFor Red: D_R = 180° + 2(60°) − 4(40.6°) = 180° + 120° − 162.4° = 137.6°",
+          note: "The minimum deviation angle determines which direction light exits most strongly — this is the rainbow angle.",
         },
         {
           step: 3,
-          title: "Rainbow angle",
-          work: "Deviation = 137.6° means ray exits at 180 - 137.6 = 42.4° to the incoming sunlight direction.\n\nFor violet (n = 1.343): similar calculation gives ~40°.\nThis is why rainbow spans from 40° (violet, inner) to 42° (red, outer)."
-        }
+          title: "Convert to 'rainbow angles' (from anti-solar point)",
+          work: "Rainbow angle = 180° − D_min\nViolet rainbow angle = 180° − 139.2° = 40.8°\nRed rainbow angle = 180° − 137.6° = 42.4°\nAngular width of rainbow = 42.4° − 40.8° = 1.6°",
+          note: "Red is always on the OUTSIDE of the rainbow (larger angle); Violet is on the inside (smaller angle). The rainbow is about 1.8° wide in practice.",
+        },
       ],
-      answer: "r = 40.4°. Total deviation = 137.6°. Red exits at 42.4° → rainbow is seen at ~42° from the anti-solar point.",
-      realLifeConnect: "The rainbow is always at 42° from your anti-solar point (the shadow of your head). It is a full circle — but the horizon blocks the bottom half. From an airplane, you can see the complete circular rainbow below you!"
+      answer: "Violet rainbow angle ≈ 40.8°, Red ≈ 42.4°. Rainbow width ≈ 1.6°. Red arcs above Violet in primary rainbow.",
+      realLifeConnect: "This is the actual physics of every rainbow you've ever seen! The exact angles (Red at 42°, Violet at 40°) were first calculated by René Descartes in 1637 — the same calculation you just did, but without a calculator.",
     },
     {
-      id: "ex2",
-      title: "Twinkling Stars — Atmospheric Refraction",
+      id: "ex2-t10",
+      title: "Atmospheric Refraction — Apparent Height of the Sun",
       difficulty: "medium",
-      topic: "Atmospheric Refraction",
-      given: ["Stars: angular size < 0.0001 arcseconds", "Planets: Jupiter ≈ 50 arcseconds, Mars ≈ 25 arcseconds", "Atmospheric turbulence scale ≈ 1 arcsecond"],
-      find: ["Explain why stars twinkle but planets don't"],
+      topic: "Atmospheric Refraction — Sunset Delay",
+      given: [
+        "Speed of light in air at ground level ≈ 0.9997c (n_ground ≈ 1.0003)",
+        "The Sun is actually below the horizon by about 0.5° at apparent sunrise",
+        "Angular diameter of Sun = 0.5°",
+      ],
+      find: ["By how many minutes is sunrise advanced (how early do we see the Sun due to atmospheric refraction)", "Conceptual explanation"],
       steps: [
         {
           step: 1,
-          title: "Effect of atmospheric turbulence",
-          work: "Atmosphere = thousands of cells, each with slightly different n.\nEach cell deflects light by ≈ ±0.5-1 arcsecond randomly."
+          title: "Understand the mechanism",
+          work: "Light from the Sun curves as it enters Earth's denser atmosphere.\nThe atmosphere acts like a lens — denser near the ground, rarer at altitude.\nRays from the Sun below the horizon are bent downward by the atmosphere, making them reach our eyes.",
+          note: "This is called atmospheric refraction — the same phenomenon that makes stars twinkle and the sky remain bright after sunset.",
         },
         {
           step: 2,
-          title: "Stars: point sources",
-          work: "Stars have angular size << 1 arcsecond (effectively zero).\nThe single beam from a star is deflected randomly by atmospheric cells.\nEach deflection changes apparent brightness → we see intensity flickering = TWINKLING."
-        },
-        {
-          step: 3,
-          title: "Planets: extended discs",
-          work: "Planets have angular size of 10-60 arcseconds (much larger than 1 arcsecond turbulence scale).\nMany independent beams from different parts of the disc arrive via different paths.\nTheir random fluctuations AVERAGE OUT → steady, non-twinkling light."
-        }
-      ],
-      answer: "Stars twinkle because their point-source light is fully deflected by each atmospheric cell. Planets don't twinkle because their disc (10-60 arcsec) averages out random deflections (~1 arcsec).",
-      realLifeConnect: "Astronomical telescopes are built at high altitudes (Mauna Kea 4200 m, Atacama 5000 m) to reduce atmospheric turbulence. The Hubble Space Telescope in orbit has zero atmospheric twinkling — this is why it can image 0.05 arcsecond details impossible from the ground."
-    },
-    {
-      id: "ex3",
-      title: "Atmospheric Refraction — Earlier Sunrise",
-      difficulty: "medium",
-      topic: "Atmospheric Refraction",
-      given: ["Atmospheric refraction at horizon ≈ 0.5°", "Sun's actual position = 0.5° below geometric horizon at apparent sunrise", "Earth rotates 0.25° per minute"],
-      find: ["How many minutes earlier does the Sun appear to rise?", "Total extra daily daylight"],
-      steps: [
-        {
-          step: 1,
-          title: "Geometry of atmospheric bending",
-          work: "When Sun is 0.5° below geometric horizon:\nAtmospheric refraction bends sunlight upward by 0.5°.\nMakes Sun appear at the horizon — even though not yet risen geometrically."
-        },
-        {
-          step: 2,
-          title: "Time equivalent of 0.5°",
-          work: "Earth rotates 360° in 24 × 60 = 1440 minutes.\nAngular speed = 360/1440 = 0.25° per minute.\nTime for 0.5° = 0.5/0.25 = 2 minutes."
+          title: "Calculate time advance",
+          work: "The atmosphere refracts the Sun's image upward by approximately 0.5° (equal to the Sun's angular diameter).\nEarth rotates 360° in 24 hours = 1° per 4 minutes.\n0.5° × 4 min/degree = 2 minutes\nSunrise appears 2 minutes EARLIER than actual sunrise.\nSimilarly, sunset appears 2 minutes LATER than actual sunset.",
         },
         {
           step: 3,
           title: "Total extra daylight",
-          work: "Sunrise is 2 minutes early.\nSunset is 2 minutes late (same effect at other horizon).\nTotal extra daylight from refraction = 2 + 2 = 4 minutes per day."
-        }
+          work: "Extra daylight = 2 min (early sunrise) + 2 min (late sunset) = 4 minutes per day.\nOver a year: 4 × 365 = 1,460 extra minutes ≈ 24 extra hours of daylight purely due to atmospheric refraction!",
+        },
       ],
-      answer: "Sunrise appears 2 minutes early. Sunset 2 minutes late. Total extra daylight = 4 minutes from atmospheric refraction alone.",
-      realLifeConnect: "In polar regions near the March equinox, atmospheric refraction keeps the Sun visible even at the exact 12-hour day boundary. Explorers like Roald Amundsen relied on this effect — the Sun was technically below the horizon during their polar marches but was still visible due to refraction."
+      answer: "Sunrise is advanced by ~2 minutes; sunset is delayed by ~2 minutes. Total extra daylight: ~4 minutes/day due to atmospheric refraction.",
+      realLifeConnect: "Before GPS and atomic clocks, sailors used a table of atmospheric refraction corrections to determine exact local time from Sun/star observations. A 0.5° error in the Sun's position meant a 2-minute time error, which at sea translates to 50 km longitude error at the equator!",
     },
     {
-      id: "ex4",
-      title: "Diamond Critical Angle vs Glass — Sparkle Comparison",
-      difficulty: "medium",
-      topic: "TIR in Nature",
-      given: ["n(diamond) = 2.42", "n(glass) = 1.5", "White light enters both at 30°"],
-      find: ["Critical angles for both", "Explain why diamond sparkles more than glass"],
-      steps: [
-        {
-          step: 1,
-          title: "Critical angles",
-          work: "Glass: sin C = 1/1.5 = 0.667 → C = 41.8°\nDiamond: sin C = 1/2.42 = 0.413 → C = 24.4°"
-        },
-        {
-          step: 2,
-          title: "Range of TIR angles",
-          work: "Glass TIR: angles 41.8° to 90° (range = 48.2°)\nDiamond TIR: angles 24.4° to 90° (range = 65.6°)\n\nDiamond traps a much wider range of angles inside."
-        },
-        {
-          step: 3,
-          title: "Effect on brilliance",
-          work: "A Brilliant-cut diamond has 58 facets at specific angles.\nFor diamond (C = 24.4°): nearly all light entering from the top undergoes multiple TIR — exits only upward (toward observer) → MAXIMUM BRILLIANCE.\n\nFor glass (C = 41.8°): many rays leak out the sides and bottom → LESS brilliant."
-        }
-      ],
-      answer: "C(glass) = 41.8°, C(diamond) = 24.4°. Diamond traps 65.6° of angle range vs glass's 48.2° — plus diamond disperses colours more (higher n) → unmatched brilliance.",
-      realLifeConnect: "Cubic zirconia (fake diamond, n = 2.17) has C = 27.5°, closer to diamond than glass. It sparkles better than glass but less than diamond. This is why synthetic diamond simulants have high refractive indices — they're engineered to maximize TIR."
-    },
-    {
-      id: "ex5",
-      title: "Optical Fibre — Telecom Wavelength Choice",
+      id: "ex3-t10",
+      title: "Rayleigh Scattering — Blue Sky Intensity Ratio",
       difficulty: "hard",
-      topic: "Optical Fibre Applications",
-      given: ["Silica glass optical fibre", "Attenuation at 850 nm = 2.0 dB/km", "Attenuation at 1550 nm = 0.2 dB/km", "Rayleigh scattering: I ∝ 1/λ⁴", "Fibre length = 100 km"],
-      find: ["Ratio of scattering at 850 nm vs 1550 nm", "Why 1550 nm is standard for long-haul telecoms"],
+      topic: "Rayleigh Scattering: I ∝ 1/λ⁴",
+      given: [
+        "Wavelength of Blue light (λ_B) = 450 nm",
+        "Wavelength of Red light (λ_R) = 700 nm",
+        "Rayleigh Scattering: Scattering intensity I ∝ 1/λ⁴",
+      ],
+      find: ["Ratio of scattering of Blue to Red light", "Why sky is blue"],
       steps: [
         {
           step: 1,
-          title: "Calculate scattering ratio",
-          work: "I_850/I_1550 = (λ_1550/λ_850)⁴ = (1550/850)⁴ = (1.824)⁴\n= (1.824²)² = (3.327)² = 11.07 ≈ 11x"
+          title: "Write the Rayleigh scattering ratio",
+          work: "I_Blue / I_Red = (λ_R / λ_B)⁴\n= (700 / 450)⁴\n= (1.556)⁴",
         },
         {
           step: 2,
-          title: "Total loss at each wavelength",
-          work: "At 850 nm over 100 km: 2.0 × 100 = 200 dB → signal reduced by 10^(200/10) = 10²⁰ times (completely gone!)\nAt 1550 nm over 100 km: 0.2 × 100 = 20 dB → signal reduced by 100x (manageable with amplifiers)"
+          title: "Calculate",
+          work: "(1.556)² = 2.421\n(1.556)⁴ = (2.421)² = 5.86 ≈ 5.9",
+          note: "Blue light is scattered ~5.9 times more intensely than red light by air molecules!",
         },
         {
           step: 3,
-          title: "Engineering consequence",
-          work: "At 850 nm: amplifier every 1-2 km required\nAt 1550 nm: amplifier every 80-100 km (EDFA optical amplifiers)\n→ 1550 nm makes transoceanic cables economically feasible."
-        }
+          title: "Interpret for sky colour",
+          work: "Blue light (λ = 450 nm) is scattered 5.9× more than red light (λ = 700 nm).\nLooking at the sky (not directly at the Sun), we see scattered light — predominantly blue.\nAt sunset: light travels through much more atmosphere → even more red transmission (less blue survives) → orange/red sunset.\nTyndall effect: same principle — milk appears blue-ish in scattered light because milk particles scatter blue more.",
+        },
       ],
-      answer: "Scattering at 850 nm is 11x more than at 1550 nm. Total loss at 850 nm is 200 dB/100 km vs 20 dB/100 km at 1550 nm. 1550 nm is used because it falls at the minimum absorption + scattering window of silica glass.",
-      realLifeConnect: "The undersea cable carrying your internet traffic uses 1550 nm light in silica fibres. Without this wavelength choice, the trans-Atlantic cable (6000 km) would need 3000+ amplifiers (one every 2 km) instead of 60. Rayleigh scattering physics directly determines the economics of global internet infrastructure."
-    }
-  ]
+      answer: "Blue is scattered 5.9× more intensely than red. This makes the sky appear blue in all directions except toward the Sun.",
+      realLifeConnect: "Mars has a thin atmosphere (100× less dense than Earth), so Rayleigh scattering is negligible. Mars's sky appears butterscotch/orange — coloured by dust, not scattered blue light. The Curiosity rover's photos confirm this!",
+    },
+    {
+      id: "ex4-t10",
+      title: "Twinkling of Stars — Scintillation Calculation",
+      difficulty: "medium",
+      topic: "Star Twinkling vs Planet Steadiness",
+      given: [
+        "Angular diameter of a star (as seen from Earth) ≈ 0.00001 arcseconds (essentially a point source)",
+        "Angular diameter of Jupiter (as seen from Earth) ≈ 40 arcseconds",
+        "Atmospheric turbulence deflects light by up to ±0.5 arcseconds",
+      ],
+      find: [
+        "Why stars twinkle but planets do not",
+        "Quantitative explanation using angular sizes",
+      ],
+      steps: [
+        {
+          step: 1,
+          title: "Understand the physics",
+          work: "Stars appear as point sources (angular size ≈ 0.00001 arcsec).\nPlanets are extended sources (Jupiter ≈ 40 arcsec across).\nAtmospheric turbulence causes random deflections of ±0.5 arcsec.",
+        },
+        {
+          step: 2,
+          title: "Effect on stars (point sources)",
+          work: "Turbulence deflects the single beam from a star by ±0.5 arcsec.\nThis deflection is enormous compared to the star's angular size (0.00001 arcsec).\nResult: star appears to jump around rapidly → TWINKLES (scintillation).",
+        },
+        {
+          step: 3,
+          title: "Effect on planets (extended sources)",
+          work: "Jupiter's disc is 40 arcsec wide — emitting light from thousands of different directions.\nTurbulence shifts each point on Jupiter by ±0.5 arcsec.\nBut 0.5 arcsec is only 0.5/40 = 1.25% of Jupiter's disc width → random shifts average out.\nResult: planet's image is stable → DOES NOT TWINKLE.",
+          note: "Ratio: deflection/planet size = 0.5/40 = 1.25% — so twinkling averages out across the disc.",
+        },
+      ],
+      answer: "Stars twinkle because turbulence deflection (±0.5 arcsec) >> star angular size. Planets don't twinkle because turbulence (0.5 arcsec) << planet size (40 arcsec) — deflections average out.",
+      realLifeConnect: "Adaptive optics in modern telescopes (like the VLT in Chile) measure this turbulence 1000 times per second and deform a mirror to cancel it — allowing ground-based telescopes to achieve Hubble-like resolution without going to space.",
+    },
+    {
+      id: "ex5-t10",
+      title: "Mirage — Critical Angle in Atmosphere",
+      difficulty: "hard",
+      topic: "Mirage — Atmospheric TIR (Gradient Refraction)",
+      given: [
+        "Temperature at ground level: 50°C (desert road surface)",
+        "Temperature at 1 m height: 30°C (normal air)",
+        "Refractive index of air: n ≈ 1 + 0.000293 × (273/T) where T is in Kelvin",
+      ],
+      find: ["Refractive index at ground vs 1 m height", "Why mirage forms (qualitative + quantitative)"],
+      steps: [
+        {
+          step: 1,
+          title: "Calculate n at 1 m (T = 303 K = 30°C + 273)",
+          work: "n₁ᵐ = 1 + 0.000293 × (273/303) = 1 + 0.000293 × 0.9010 = 1 + 0.0002640 = 1.000264",
+        },
+        {
+          step: 2,
+          title: "Calculate n at ground (T = 323 K = 50°C + 273)",
+          work: "n_ground = 1 + 0.000293 × (273/323) = 1 + 0.000293 × 0.8452 = 1 + 0.0002476 = 1.000248",
+          note: "n_ground (1.000248) < n₁ᵐ (1.000264) — the HOT ground air is LESS dense (lower n) than cooler air above!",
+        },
+        {
+          step: 3,
+          title: "Explain TIR in atmosphere",
+          work: "Light from sky travels downward through progressively hotter (less dense, lower n) air layers.\nAs it nears the ground, n decreases → light bends AWAY from normal at each layer.\nEventually the bending becomes so large that the ray curves back upward → complete reflection.\nThis is atmospheric TIR — the ray never touches the ground but appears to come from below → mirage!",
+        },
+        {
+          step: 4,
+          title: "Approximate critical angle",
+          work: "Using Snell's Law between 1m air and ground air:\nsin θ_c = n_ground / n₁ᵐ = 1.000248 / 1.000264 = 0.999984\nθ_c = sin⁻¹(0.999984) ≈ 89.9°\nThis critical angle is nearly 90° — light must travel almost perfectly horizontal to undergo this atmospheric TIR!",
+          note: "This explains why mirages appear only near the horizon — at very shallow angles, nearly horizontal rays undergo the atmospheric TIR.",
+        },
+      ],
+      answer: "n at 30°C = 1.000264 > n at 50°C = 1.000248. Rays at ~90° to vertical (nearly horizontal) undergo atmospheric TIR, creating the mirage.",
+      realLifeConnect: "Desert mirages, road mirages on hot tarmac, and the 'Fata Morgana' (superior mirage) over cold lakes all arise from this same physics — varying air temperature creates varying refractive index gradients that bend light just like a glass lens. Sailors in polar regions see ships appear to float above the horizon due to the opposite effect (cold air near water is denser).",
+    },
+  ],
 
 };

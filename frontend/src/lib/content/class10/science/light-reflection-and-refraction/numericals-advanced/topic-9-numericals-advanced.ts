@@ -993,4 +993,189 @@ $$h' = m \\times h = \\left(-\\frac{v}{u}\\right) \\times h$$
     }
   ],
 
+  /* ══════════════════════════════════════════════════════
+   * WORKED EXAMPLES — 5 step-by-step numericals
+   * Advanced Mixed Problems: Mirror + Lens, Sign Issues
+   * ══════════════════════════════════════════════════════ */
+  workedExamples: [
+    {
+      id: "ex1-t9",
+      title: "Mirror + Refraction — Two-Step Problem",
+      difficulty: "hard",
+      topic: "Combined Mirror and Refraction",
+      given: [
+        "Object is 30 cm in front of a concave mirror (f = −20 cm)",
+        "Image from mirror passes through water (n = 4/3) before being observed",
+        "Water depth = 12 cm",
+      ],
+      find: ["Image formed by mirror", "Apparent position of the image as seen through water"],
+      steps: [
+        {
+          step: 1,
+          title: "Find image from the concave mirror",
+          work: "1/v + 1/u = 1/f\n1/v + 1/(−30) = 1/(−20)\n1/v = −1/20 + 1/30 = (−3 + 2)/60 = −1/60\nv = −60 cm",
+          note: "Image is real (v negative), formed 60 cm in front of mirror.",
+        },
+        {
+          step: 2,
+          title: "This real image is 'inside' the water — find apparent depth",
+          work: "Real depth of image in water = 12 cm\nApparent depth = Real depth / n_water = 12 / (4/3) = 12 × 3/4 = 9 cm\nThe image appears to be 9 cm deep instead of 12 cm.",
+        },
+        {
+          step: 3,
+          title: "Final apparent position",
+          work: "The real image was 60 cm from the mirror, submerged 12 cm into water.\nAs seen from above air: it appears at 60 − 12 + 9 = 57 cm from the mirror.",
+          note: "This type of problem appears in JEE and Olympiad papers — always handle each optical element in sequence.",
+        },
+      ],
+      answer: "Mirror forms image at 60 cm. After water refraction (apparent depth 9 cm vs real 12 cm), apparent image position = 57 cm from mirror.",
+      realLifeConnect: "Underwater photography must account for both the lens optics AND the water-air interface refraction. Camera systems on submarines correct for this double effect to produce undistorted images.",
+    },
+    {
+      id: "ex2-t9",
+      title: "Sign Convention Trap — Convex Mirror with Virtual Object",
+      difficulty: "hard",
+      topic: "Virtual Object in Convex Mirror",
+      given: [
+        "Converging beam would meet at a point 15 cm BEHIND a convex mirror",
+        "Convex mirror focal length f = +20 cm",
+      ],
+      find: ["Image distance (v) for this virtual object", "Nature of image"],
+      steps: [
+        {
+          step: 1,
+          title: "Identify the virtual object",
+          work: "The converging beam would meet 15 cm BEHIND the mirror (same side as image space for a convex mirror).\nSince the 'object' is behind the mirror → Virtual object → u = +15 cm (positive!)",
+          note: "Virtual object: when incident converging rays would meet on the SAME side as reflected rays → u is positive.",
+        },
+        {
+          step: 2,
+          title: "Apply Mirror Formula",
+          work: "1/v + 1/u = 1/f\n1/v + 1/(+15) = 1/(+20)\n1/v = 1/20 − 1/15",
+        },
+        {
+          step: 3,
+          title: "Solve",
+          work: "LCM(20, 15) = 60\n1/v = 3/60 − 4/60 = −1/60\nv = −60 cm",
+          note: "v = −60 cm → image is 60 cm IN FRONT of the mirror → REAL image!",
+        },
+        {
+          step: 4,
+          title: "Interpret — counterintuitive result",
+          work: "Convex mirrors normally give virtual images. But with a virtual object, a convex mirror CAN give a real image.\nThis demonstrates why sign convention mastery is crucial — intuition can fail for virtual objects.",
+        },
+      ],
+      answer: "v = −60 cm. Despite using a convex mirror, the image is REAL (60 cm in front of mirror). Virtual object + convex mirror = real image!",
+      realLifeConnect: "Optical system design (multi-element camera lenses, telescopes) regularly involves virtual objects — each lens element creates an image that serves as the (sometimes virtual) object for the next element.",
+    },
+    {
+      id: "ex3-t9",
+      title: "Three-Mirror Problem — Image in Mirror A and B",
+      difficulty: "hard",
+      topic: "Sequential Mirror Reflections",
+      given: [
+        "Object O is placed 10 cm in front of concave mirror A (f = −15 cm)",
+        "Mirror B (plane mirror) is placed such that the image from A is 5 cm in front of B",
+      ],
+      find: ["Image I₁ from mirror A", "Image I₂ from mirror B (using I₁ as object)"],
+      steps: [
+        {
+          step: 1,
+          title: "Find image I₁ from concave mirror A",
+          work: "u = −10 cm, f = −15 cm\n1/v + 1/(−10) = 1/(−15)\n1/v = −1/15 + 1/10 = (−2 + 3)/30 = 1/30\nv = +30 cm",
+          note: "v = +30 cm (positive) → image I₁ is BEHIND mirror A (virtual, erect, magnified). Object was inside focal length.",
+        },
+        {
+          step: 2,
+          title: "Determine position of I₁ relative to mirror B",
+          work: "I₁ is 30 cm behind mirror A (virtual image).\nMirror B is 5 cm in front of mirror A (as stated).\nI₁ is 30 + 5 = 35 cm behind mirror B → I₁ serves as a virtual object for B at u = +35 cm? \n\nWait — I₁ is behind A, and B is in front of A. So I₁ is 30 cm behind A = 30 + 5 = 35 cm behind B.\nFor plane mirror B: image forms 35 cm in front of B.",
+        },
+        {
+          step: 3,
+          title: "Apply plane mirror property for I₂",
+          work: "Object distance from B = 35 cm (behind B, so u = +35 cm for plane mirror convention).\nPlane mirror: image distance = object distance = 35 cm in front of B.\nI₂ is 35 cm in front of mirror B → 35 − 5 = 30 cm in front of mirror A.",
+        },
+      ],
+      answer: "I₁ = 30 cm behind mirror A (virtual). I₂ = 35 cm in front of mirror B (30 cm in front of mirror A).",
+      realLifeConnect: "Multi-mirror optical systems like periscopes, kaleidoscopes, and laser cavities involve sequential image formation like this. Every telescope uses this principle to trace the final image through multiple reflecting surfaces.",
+    },
+    {
+      id: "ex4-t9",
+      title: "Lens — Object at Various Positions (Summary Table)",
+      difficulty: "medium",
+      topic: "Convex Lens — 6 Position Summary",
+      given: [
+        "Convex lens, f = +10 cm",
+        "Positions: u = −∞, −30 cm, −20 cm, −15 cm, −10 cm, −5 cm",
+      ],
+      find: ["v and nature of image for each position"],
+      steps: [
+        {
+          step: 1,
+          title: "u = −∞ (Object at infinity)",
+          work: "1/v = 1/f + 0 = 1/10 → v = +10 cm = f\nImage: at F, real, inverted, highly diminished (point image)",
+        },
+        {
+          step: 2,
+          title: "u = −30 cm (Object beyond 2f)",
+          work: "1/v = 1/10 − 1/30 = 2/30 → v = +15 cm\nm = 15/(−30) = −0.5 → Real, inverted, diminished",
+        },
+        {
+          step: 3,
+          title: "u = −20 cm (Object at 2f)",
+          work: "1/v = 1/10 − 1/20 = 1/20 → v = +20 cm = 2f\nm = −1 → Real, inverted, SAME SIZE",
+          note: "At 2f, image is always at 2f and same size — useful for copying without size change.",
+        },
+        {
+          step: 4,
+          title: "u = −15 cm (Object between f and 2f)",
+          work: "1/v = 1/10 − 1/15 = 1/30 → v = +30 cm\nm = −2 → Real, inverted, enlarged (projector configuration)",
+        },
+        {
+          step: 5,
+          title: "u = −5 cm (Object inside f — magnifying glass)",
+          work: "1/v = 1/10 − 1/5 = −1/10 → v = −10 cm\nm = +2 → Virtual, erect, enlarged (magnifying glass)",
+        },
+      ],
+      answer: "Summary: ∞→point at F; beyond 2f→diminished; at 2f→same size; between f and 2f→enlarged (projector); inside f→virtual magnified (magnifying glass).",
+      realLifeConnect: "This table is the master reference for ALL optical instruments: camera (beyond 2f), projector (between f and 2f), magnifier (inside f). Memorise this and you can explain every optical device.",
+    },
+    {
+      id: "ex5-t9",
+      title: "Equivalent Mirror — Lens + Mirror System",
+      difficulty: "hard",
+      topic: "Equivalent Mirror (Advanced)",
+      given: [
+        "A convex lens (f_L = +20 cm) is placed in front of a concave mirror (f_M = −10 cm)",
+        "Distance between lens and mirror = 30 cm",
+        "Object is placed 40 cm in front of the lens",
+      ],
+      find: ["Final image position after refraction through lens and reflection from mirror"],
+      steps: [
+        {
+          step: 1,
+          title: "Step 1: Image through convex lens",
+          work: "u₁ = −40 cm, f_L = +20 cm\n1/v₁ = 1/20 + 1/40 = Wait: 1/v₁ − 1/(−40) = 1/20\n1/v₁ = 1/20 − 1/40 = 1/40\nv₁ = +40 cm (40 cm to the right of lens)",
+        },
+        {
+          step: 2,
+          title: "Step 2: This image becomes object for the mirror",
+          work: "The lens-to-mirror distance is 30 cm.\nv₁ is 40 cm to the right of the lens → 40 − 30 = 10 cm BEHIND the mirror.\nSo the object for the mirror is 10 cm BEHIND it → virtual object → u₂ = +10 cm",
+        },
+        {
+          step: 3,
+          title: "Step 3: Mirror formula for concave mirror",
+          work: "1/v₂ + 1/(+10) = 1/(−10)\n1/v₂ = −1/10 − 1/10 = −2/10 = −1/5\nv₂ = −5 cm\nImage is 5 cm in front of the mirror.",
+        },
+        {
+          step: 4,
+          title: "Final position",
+          work: "Mirror is 30 cm from lens.\nFinal image is 5 cm in front of mirror = 30 − 5 = 25 cm to the right of lens.\nThis is a real image (v negative from mirror, so in front of mirror).",
+        },
+      ],
+      answer: "Final image is 5 cm in front of the concave mirror (25 cm from the lens). Real image formed.",
+      realLifeConnect: "DSLR camera autofocus systems perform this exact multi-step ray tracing in milliseconds — calculating through the zoom lens elements AND the internal mirror (in SLR cameras) to position the sensor at the exact image plane.",
+    },
+  ],
+
 };

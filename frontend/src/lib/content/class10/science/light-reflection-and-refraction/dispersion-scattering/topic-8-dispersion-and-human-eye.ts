@@ -896,5 +896,179 @@ The ability of the crystalline lens to adjust its focal length to focus objects 
       explanation: "This beautiful question connects apparent angular size (optics), atmospheric turbulence (fluid physics), and averaging of random processes (statistics) to explain a familiar phenomenon.",
       points: 25
     }
-  ]
+  ],
+
+  /* ══════════════════════════════════════════════════════
+   * WORKED EXAMPLES — 5 step-by-step numericals
+   * Prism Dispersion, Angle of Deviation, Eye Defects
+   * ══════════════════════════════════════════════════════ */
+  workedExamples: [
+    {
+      id: "ex1-t8",
+      title: "Angle of Deviation by a Prism",
+      difficulty: "medium",
+      topic: "Prism — Angle of Deviation",
+      given: [
+        "Angle of prism (A) = 60°",
+        "Angle of incidence (i₁) = 45°",
+        "Refractive index of glass for yellow light (n) = 1.5",
+      ],
+      find: ["Angle of refraction at first face (r₁)", "Angle of incidence at second face (r₂)", "Angle of emergence (i₂)", "Angle of deviation (δ)"],
+      steps: [
+        {
+          step: 1,
+          title: "Find angle of refraction at face 1 (Snell's Law)",
+          work: "n₁ sin i₁ = n₂ sin r₁\n1.0 × sin 45° = 1.5 × sin r₁\nsin r₁ = sin 45° / 1.5 = 0.7071 / 1.5 = 0.4714\nr₁ = sin⁻¹(0.4714) ≈ 28.1°",
+        },
+        {
+          step: 2,
+          title: "Find angle at second face using prism geometry",
+          work: "For a prism: r₁ + r₂ = A\nr₂ = A − r₁ = 60° − 28.1° = 31.9°",
+          note: "This geometry relation (r₁ + r₂ = A) is specific to prisms and comes from the triangle formed by the refracted ray inside.",
+        },
+        {
+          step: 3,
+          title: "Find angle of emergence (i₂) at face 2",
+          work: "n₂ sin r₂ = n₁ sin i₂\n1.5 × sin 31.9° = 1.0 × sin i₂\nsin i₂ = 1.5 × 0.5284 = 0.7926\ni₂ = sin⁻¹(0.7926) ≈ 52.4°",
+        },
+        {
+          step: 4,
+          title: "Calculate angle of deviation",
+          work: "δ = (i₁ + i₂) − A = (45° + 52.4°) − 60° = 97.4° − 60° = 37.4°",
+          note: "Angle of deviation δ is the angle between the original direction of the ray and the emergent ray.",
+        },
+      ],
+      answer: "r₁ ≈ 28.1°, r₂ ≈ 31.9°, i₂ ≈ 52.4°, Angle of deviation δ ≈ 37.4°",
+      realLifeConnect: "Spectroscopes use exactly this calculation to design prisms that separate different wavelengths (colours) of light. Astronomers use prism spectroscopes to identify elements in distant stars by their emission spectra.",
+    },
+    {
+      id: "ex2-t8",
+      title: "Correction for Myopia (Short-sightedness)",
+      difficulty: "easy",
+      topic: "Eye Defects — Myopia and Corrective Lens",
+      given: [
+        "A student can see clearly only up to a maximum of 2 m",
+        "They want to see objects at infinity clearly",
+      ],
+      find: ["Focal length of corrective lens (f)", "Power of the lens (P)", "Type of lens"],
+      steps: [
+        {
+          step: 1,
+          title: "Understand the physics",
+          work: "Myopia: The far point is at 2 m (not at infinity). The eye forms the image IN FRONT of retina for objects beyond 2 m.\nCorrection: We need a lens that makes parallel rays (from infinity) appear to come from 2 m — the eye's far point.",
+        },
+        {
+          step: 2,
+          title: "Apply Lens Formula",
+          work: "Object at infinity: u = −∞\nVirtual image at far point: v = −2 m = −200 cm\n1/f = 1/v − 1/u = 1/(−2) − 0 = −0.5\nf = −2 m = −200 cm",
+        },
+        {
+          step: 3,
+          title: "Calculate Power and identify lens",
+          work: "P = 1/f = 1/(−2) = −0.5 D\nNegative power → CONCAVE (diverging) lens\nPrescription: −0.5 D spectacle lens",
+        },
+      ],
+      answer: "f = −2 m, P = −0.5 D. A concave (diverging) lens of power −0.5 D corrects this myopia.",
+      realLifeConnect: "Every '−0.5D' spectacle prescription directly comes from this calculation. If your prescription says '−3.0D', your far point is 1/3 m = 33 cm — you cannot see clearly beyond 33 cm without glasses!",
+    },
+    {
+      id: "ex3-t8",
+      title: "Correction for Hypermetropia — Minimum Reading Distance",
+      difficulty: "medium",
+      topic: "Eye Defects — Hypermetropia",
+      given: [
+        "A person's near point is at 50 cm (instead of normal 25 cm)",
+        "They want to read a book held at 25 cm",
+      ],
+      find: ["Power of corrective lens"],
+      steps: [
+        {
+          step: 1,
+          title: "Set up the problem",
+          work: "The book is at u = −25 cm (25 cm from eye).\nThe corrective lens must form a virtual image at v = −50 cm (the eye's near point).\nThis virtual image can then be focused by the hypermetropic eye.",
+        },
+        {
+          step: 2,
+          title: "Apply Lens Formula",
+          work: "1/f = 1/v − 1/u\n1/f = 1/(−50) − 1/(−25)\n1/f = −1/50 + 1/25 = −1/50 + 2/50 = 1/50\nf = +50 cm = +0.5 m",
+        },
+        {
+          step: 3,
+          title: "Calculate Power",
+          work: "P = 1/f = 1/(+0.5) = +2 D\nPositive → CONVEX lens — correct for hypermetropia ✓",
+        },
+      ],
+      answer: "f = +50 cm = +0.5 m, P = +2 D. A convex (converging) lens of +2 D corrects this hypermetropia.",
+      realLifeConnect: "Reading glasses for presbyopia (age-related hypermetropia) are simply convex lenses. The '+2D' reading glasses available at pharmacies for ₹50 use precisely this calculation for average near-point correction.",
+    },
+    {
+      id: "ex4-t8",
+      title: "Dispersion: Angular Spread of Spectrum",
+      difficulty: "medium",
+      topic: "Prism Dispersion — Chromatic Dispersion",
+      given: [
+        "Refractive index of glass for Violet light: nᵥ = 1.53",
+        "Refractive index of glass for Red light: n_R = 1.51",
+        "Angle of prism A = 60°",
+        "Angle of incidence i = 30° for all colours",
+      ],
+      find: ["Angle of refraction for Violet and Red at face 1", "Angular dispersion (spread between Violet and Red)"],
+      steps: [
+        {
+          step: 1,
+          title: "Find r₁ for Violet (Snell's Law)",
+          work: "sin r_V = sin 30° / nᵥ = 0.5 / 1.53 = 0.3268\nr_V = sin⁻¹(0.3268) ≈ 19.1°",
+        },
+        {
+          step: 2,
+          title: "Find r₁ for Red",
+          work: "sin r_R = sin 30° / n_R = 0.5 / 1.51 = 0.3311\nr_R = sin⁻¹(0.3311) ≈ 19.3°",
+        },
+        {
+          step: 3,
+          title: "Find emergence angles (r₂ = A − r₁)",
+          work: "r₂_V = 60° − 19.1° = 40.9°\nr₂_R = 60° − 19.3° = 40.7°\n\ni₂_V: 1.53 × sin 40.9° = sin i₂_V → i₂_V = sin⁻¹(1.53 × 0.6539) ≈ sin⁻¹(1.0005) ≈ 87° (near TIR!)\ni₂_R: 1.51 × sin 40.7° = sin i₂_R → i₂_R = sin⁻¹(1.51 × 0.6521) ≈ sin⁻¹(0.9847) ≈ 80°",
+        },
+        {
+          step: 4,
+          title: "Calculate angular dispersion",
+          work: "Angular dispersion = i₂_V − i₂_R = 87° − 80° = 7°\nViolet bends MORE (higher n → more bending); Red bends LESS.",
+          note: "Angular dispersion = spread of the spectrum. Dense flint glass gives higher dispersion than crown glass.",
+        },
+      ],
+      answer: "Violet emerges at ~87°, Red at ~80°. Angular dispersion ≈ 7° — this is the width of the rainbow-like spectrum.",
+      realLifeConnect: "The rainbow appears as an arc 2° wide because water droplets produce exactly this kind of angular dispersion — Violet at 40° and Red at 42° from the anti-solar point. The 2° spread is the rainbow's visible thickness.",
+    },
+    {
+      id: "ex5-t8",
+      title: "Human Eye — Power of Lens for Near Vision",
+      difficulty: "hard",
+      topic: "Human Eye Optics — Crystalline Lens Power",
+      given: [
+        "Eye diameter (distance from lens to retina): d = 2.5 cm = 0.025 m",
+        "Object distance: u = −25 cm = −0.25 m (normal near point)",
+      ],
+      find: ["Required focal length of eye lens", "Power of eye lens for near vision", "Power for far vision (object at ∞)"],
+      steps: [
+        {
+          step: 1,
+          title: "Find f for near vision (u = −25 cm, v = +2.5 cm)",
+          work: "1/f = 1/v − 1/u\n1/f = 1/(0.025) − 1/(−0.25)\n1/f = 40 + 4 = 44 D (approximately)\nf = 1/44 ≈ 0.0227 m ≈ 2.27 cm",
+        },
+        {
+          step: 2,
+          title: "Find f for far vision (u = ∞, v = +2.5 cm)",
+          work: "1/f = 1/v − 1/u = 1/(0.025) − 0 = 40 D\nf = 1/40 = 0.025 m = 2.5 cm",
+        },
+        {
+          step: 3,
+          title: "Calculate accommodation range",
+          work: "Power for near vision: P_near = 44 D\nPower for far vision: P_far = 40 D\nAccommodation = P_near − P_far = 44 − 40 = 4 D",
+          note: "The ciliary muscles change the eye lens power by 4 D to shift focus from infinity to 25 cm. This 4D range REDUCES with age (presbyopia).",
+        },
+      ],
+      answer: "f_near = 2.27 cm (P = 44D), f_far = 2.5 cm (P = 40D). Accommodation range = 4 Dioptres.",
+      realLifeConnect: "A healthy 20-year-old has about 10D of accommodation. By age 45, it drops to 4D (presbyopia begins). By 60, it's barely 1D. This is why reading glasses become essential with age — the eye lens hardens and loses its zoom ability.",
+    },
+  ],
 };

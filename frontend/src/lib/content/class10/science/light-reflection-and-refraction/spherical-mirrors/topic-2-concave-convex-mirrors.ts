@@ -698,5 +698,178 @@ The mirror formula $\\frac{1}{v} + \\frac{1}{u} = \\frac{1}{f}$ applies only for
       explanation: "This continuity analysis reveals the full behaviour of virtual image formation in concave mirrors — the magnification grows unboundedly as the object approaches the focal point from inside.",
       points: 25
     }
-  ]
+  ],
+
+  /* ══════════════════════════════════════════════════════
+   * WORKED EXAMPLES — 5 step-by-step numericals
+   * ══════════════════════════════════════════════════════ */
+  workedExamples: [
+    {
+      id: "ex1-t2",
+      title: "Focal Length from Radius of Curvature",
+      difficulty: "easy",
+      topic: "Spherical Mirror Terminology",
+      given: ["Radius of Curvature (R) = 30 cm", "Mirror type: Concave"],
+      find: ["Focal length (f)"],
+      steps: [
+        {
+          step: 1,
+          title: "Recall the R–f relationship",
+          work: "For spherical mirrors of small aperture:\nf = R / 2\nThis relationship holds for BOTH concave and convex mirrors.",
+          note: "This works because the centre of curvature is twice as far from the pole as the principal focus.",
+        },
+        {
+          step: 2,
+          title: "Substitute and calculate",
+          work: "f = R / 2 = 30 / 2 = 15 cm",
+        },
+        {
+          step: 3,
+          title: "Apply sign convention",
+          work: "For a CONCAVE mirror, the focus is in front of the mirror (real focus).\nBy New Cartesian Sign Convention: f = −15 cm (negative, since it is in front of the mirror, i.e., in the direction opposite to incident light).",
+          note: "Concave mirror: f is negative. Convex mirror: f is positive.",
+        },
+      ],
+      answer: "Focal length f = −15 cm (concave mirror, real focus in front of mirror)",
+      realLifeConnect: "A car headlight uses a parabolic concave mirror with R ≈ 20 cm (f = 10 cm). The bulb is placed exactly at the focus, so reflected rays emerge as a powerful parallel beam.",
+    },
+    {
+      id: "ex2-t2",
+      title: "Image Position: Object Beyond Centre of Curvature",
+      difficulty: "medium",
+      topic: "Image Formation by Concave Mirror",
+      given: [
+        "Object distance (u) = −40 cm",
+        "Focal length (f) = −15 cm",
+        "Mirror type: Concave",
+      ],
+      find: ["Image distance (v)", "Nature of image"],
+      steps: [
+        {
+          step: 1,
+          title: "Write the Mirror Formula",
+          work: "Mirror formula: 1/v + 1/u = 1/f",
+        },
+        {
+          step: 2,
+          title: "Substitute the values",
+          work: "1/v + 1/(−40) = 1/(−15)\n1/v = 1/(−15) − 1/(−40)\n1/v = −1/15 + 1/40",
+        },
+        {
+          step: 3,
+          title: "Find LCM and simplify",
+          work: "LCM of 15 and 40 = 120\n1/v = (−8 + 3)/120 = −5/120 = −1/24\nv = −24 cm",
+          note: "Since u = −40 cm (beyond C where R = 30 cm), the object is beyond C, so image is between F and C.",
+        },
+        {
+          step: 4,
+          title: "Determine nature of image",
+          work: "v = −24 cm → negative → image is in front of mirror → REAL\nImage is between F (−15) and C (−30) ✓\nNature: Real, Inverted, Diminished (since |v| < |u|)",
+        },
+      ],
+      answer: "v = −24 cm. Image is real, inverted, and diminished, formed between F and C",
+      realLifeConnect: "When you hold an object beyond 2f in front of a concave shaving mirror, you see a smaller, inverted image — this is the 'beyond C' case every morning!",
+    },
+    {
+      id: "ex3-t2",
+      title: "Magnification and Image Height",
+      difficulty: "medium",
+      topic: "Magnification in Spherical Mirrors",
+      given: [
+        "Object distance (u) = −20 cm",
+        "Object height (h) = 2 cm",
+        "Focal length (f) = −30 cm",
+        "Mirror type: Concave",
+      ],
+      find: ["Image distance (v)", "Magnification (m)", "Image height (h')"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply Mirror Formula",
+          work: "1/v + 1/u = 1/f\n1/v + 1/(−20) = 1/(−30)\n1/v = −1/30 + 1/20 = (−2 + 3)/60 = 1/60\nv = +60 cm",
+        },
+        {
+          step: 2,
+          title: "Find magnification",
+          work: "m = −v/u = −(+60)/(−20) = +3",
+          note: "Positive m (+3) → image is VIRTUAL and ERECT. |m| = 3 → image is 3× enlarged.",
+        },
+        {
+          step: 3,
+          title: "Find image height",
+          work: "m = h'/h\nh' = m × h = 3 × 2 = 6 cm\nImage height = 6 cm (erect, same side as object in virtual image)",
+        },
+      ],
+      answer: "v = +60 cm (virtual, behind mirror), m = +3, Image height = 6 cm (enlarged, erect)",
+      realLifeConnect: "This is exactly how a dental/ENT mirror works! When placed within the focal length (object between F and P), the concave mirror gives a magnified, erect, virtual image — making it easy for the doctor to examine teeth or throat.",
+    },
+    {
+      id: "ex4-t2",
+      title: "Convex Mirror — Driver's Rear-View Mirror",
+      difficulty: "medium",
+      topic: "Image Formation by Convex Mirror",
+      given: [
+        "Object distance (u) = −3 m = −300 cm",
+        "Focal length (f) = +15 cm (convex mirror, positive f)",
+      ],
+      find: ["Image distance (v)", "Magnification (m)", "Nature of image"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply Mirror Formula for convex mirror",
+          work: "1/v + 1/u = 1/f\n1/v + 1/(−300) = 1/(+15)\n1/v = 1/15 + 1/300",
+        },
+        {
+          step: 2,
+          title: "Simplify",
+          work: "LCM(15, 300) = 300\n1/v = 20/300 + 1/300 = 21/300\nv = 300/21 ≈ +14.3 cm",
+          note: "v is POSITIVE → image is behind the mirror (virtual) — always true for convex mirror.",
+        },
+        {
+          step: 3,
+          title: "Find magnification",
+          work: "m = −v/u = −(+14.3)/(−300) = +0.048\nImage is highly diminished (only 4.8% of object size) and erect.",
+        },
+      ],
+      answer: "v ≈ +14.3 cm (virtual, behind mirror), m ≈ +0.048 (diminished, erect)",
+      realLifeConnect: "A car's convex rear-view mirror always gives a virtual, erect, diminished image — allowing the driver to see a wide field of view. The warning 'Objects in mirror are closer than they appear' is precisely because the image is diminished (appears smaller = looks farther away).",
+    },
+    {
+      id: "ex5-t2",
+      title: "Finding Focal Length from Image and Object Distance",
+      difficulty: "hard",
+      topic: "Mirror Formula — Reverse Calculation",
+      given: [
+        "Object distance (u) = −50 cm",
+        "Image distance (v) = −25 cm",
+        "Image nature: Real",
+      ],
+      find: ["Focal length (f)", "Type of mirror", "Radius of Curvature (R)"],
+      steps: [
+        {
+          step: 1,
+          title: "Apply Mirror Formula",
+          work: "1/f = 1/v + 1/u\n1/f = 1/(−25) + 1/(−50)\n1/f = −1/25 − 1/50",
+        },
+        {
+          step: 2,
+          title: "Calculate f",
+          work: "LCM(25, 50) = 50\n1/f = −2/50 − 1/50 = −3/50\nf = −50/3 ≈ −16.7 cm",
+          note: "f is negative → the mirror is CONCAVE (real, negative focal length).",
+        },
+        {
+          step: 3,
+          title: "Find Radius of Curvature",
+          work: "R = 2f = 2 × (−50/3) = −100/3 ≈ −33.3 cm\n|R| = 33.3 cm",
+        },
+        {
+          step: 4,
+          title: "Verify: object is beyond C?",
+          work: "|u| = 50 cm, |R| = 33.3 cm → Object (50 cm) IS beyond C (33.3 cm) ✓\nFor concave mirror with object beyond C: image is between F and C, real, inverted, diminished ✓",
+        },
+      ],
+      answer: "f = −16.7 cm (concave mirror), R = −33.3 cm. Mirror is CONCAVE.",
+      realLifeConnect: "Solar cooker design uses this reverse calculation — engineers specify where to focus sunlight (image position = cooking pot) and where the sunlight source effectively is (object = sun at ∞), then compute the needed focal length for the parabolic reflector.",
+    },
+  ],
 };
