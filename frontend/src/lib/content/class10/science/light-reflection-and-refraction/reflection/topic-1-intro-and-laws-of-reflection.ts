@@ -14,6 +14,8 @@ export const topic1IntroAndLawsOfReflection: Topic = {
   title: "1. Introduction to Light and Laws of Reflection",
   estimatedMinutes: 45,
   simulationIds: [
+    /* ULTRA 2026: Fully interactive reflection laws lab with glow rays + photons */
+    "ultra-reflection-lab",       /* ∠i=∠r live · diffuse mode · AMBULANCE lateral inversion */
     /* NEW 2026: Shadow formation — umbra/penumbra/eclipses */
     "shadow-formation-sim",      /* point vs extended source · solar/lunar eclipse modes */
     /* NEW 2026: Additive RGB colour mixing lab */

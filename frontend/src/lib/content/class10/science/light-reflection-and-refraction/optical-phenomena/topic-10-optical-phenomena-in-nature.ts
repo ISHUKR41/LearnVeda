@@ -44,6 +44,12 @@ export const topic10OpticalPhenomena: Topic = {
   imageUrl: "/images/light/topic10-optical-phenomena.png",
 
   simulationIds: [
+    /* ULTRA 2026: Prism + rainbow mode */
+    "ultra-prism-sim",               /* VIBGYOR with Cauchy eq · rainbow droplet formation */
+    /* ULTRA 2026: TIR + fibre + diamond */
+    "ultra-tir-sim",                 /* TIR lab · optical fibre · diamond brilliance */
+    /* ULTRA 2026: Human eye defects */
+    "ultra-human-eye-sim",           /* Normal/Myopia/Hypermetropia · corrective lens */
     /* NEW 2026 dedicated simulations */
     "rainbow-droplet-sim",           /* NEW: Real Snell's law through 1 droplet → VIBGYOR */
     "scattering-blue-sky-sim",       /* Time-of-day → blue sky / red sunset */

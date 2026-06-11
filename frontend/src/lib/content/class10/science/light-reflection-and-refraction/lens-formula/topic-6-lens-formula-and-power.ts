@@ -12,6 +12,10 @@ export const topic6LensFormulaAndPower: Topic = {
   title: "6. Lens Formula and Power of a Lens",
   estimatedMinutes: 50,
   simulationIds: [
+    /* ULTRA 2026: P₁+P₂ combination · 1/v−1/u=1/f auto-solved · image on canvas */
+    "ultra-lens-formula-sim",       /* two lens sliders · equivalent focal length · P in dioptres */
+    /* ULTRA 2026: Drag object with 3 glow rays */
+    "ultra-lens-ray-sim",           /* convex/concave toggle · all 6 positions · Power display */
     /* NEW 2026: Virtual optics bench — drag object · all 3 rays · 1/v−1/u=1/f live */
     "lens-ray-tracer-sim",          /* convex/concave toggle · f slider · image nature auto-detected */
     /* NEW 2026: Dedicated Lens Formula Interactive Lab */

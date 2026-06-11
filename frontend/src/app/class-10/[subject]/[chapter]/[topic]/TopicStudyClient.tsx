@@ -47,6 +47,7 @@ import FlashCards from "@/components/chapter/FlashCards";
 import MindMap from "@/components/chapter/MindMap";
 import SmartSimulationRenderer from "@/components/simulations/SmartSimulationRenderer";
 import { getDiagramForTopic } from "@/components/chapter/light/TopicDiagrams";
+import { getSimulationInfo } from "@/components/simulations/light/SimulationRegistry";
 
 /* ─────────────────────────────────────────────
  * Types for study tab system
@@ -72,6 +73,18 @@ const TABS: { id: StudyTab; label: string; icon: string }[] = [
   { id: "practice",    label: "Practice",    icon: "❓" },
   { id: "exam",        label: "Exam Prep",   icon: "📋" },
 ];
+
+/* ─────────────────────────────────────────────
+ * Simulation category colors for spotlight cards
+ * ───────────────────────────────────────────── */
+const CATEGORY_CONFIG: Record<string, { color: string; bg: string; border: string; label: string }> = {
+  reflection:  { color: "#818cf8", bg: "rgba(129,140,248,0.1)",  border: "rgba(129,140,248,0.2)",  label: "Reflection"  },
+  mirrors:     { color: "#38bdf8", bg: "rgba(56,189,248,0.1)",   border: "rgba(56,189,248,0.2)",   label: "Mirrors"     },
+  refraction:  { color: "#34d399", bg: "rgba(52,211,153,0.1)",   border: "rgba(52,211,153,0.2)",   label: "Refraction"  },
+  lenses:      { color: "#a78bfa", bg: "rgba(167,139,250,0.1)",  border: "rgba(167,139,250,0.2)",  label: "Lenses"      },
+  dispersion:  { color: "#fb923c", bg: "rgba(251,146,60,0.1)",   border: "rgba(251,146,60,0.2)",   label: "Dispersion"  },
+  eye:         { color: "#f472b6", bg: "rgba(244,114,182,0.1)",  border: "rgba(244,114,182,0.2)",  label: "Human Eye"   },
+};
 
 /* ─────────────────────────────────────────────
  * Component props
@@ -472,36 +485,34 @@ export default function TopicStudyClient({
 
         {/* SIMULATIONS — dedicated interactive physics lab panel */}
         {activeTab === "simulations" && (
-          <div style={{ padding: "24px 0 32px 0" }}>
+          <div className={styles.simLabPanel}>
             {topic.simulationIds && topic.simulationIds.length > 0 ? (
               <>
-                {/* Intro banner */}
-                <div style={{
-                  background: "linear-gradient(135deg, rgba(129,140,248,0.08) 0%, rgba(16,185,129,0.05) 100%)",
-                  border: "1px solid rgba(129,140,248,0.18)",
-                  borderRadius: "14px",
-                  padding: "18px 22px",
-                  marginBottom: "24px",
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: "14px",
-                }}>
-                  <div style={{
-                    width: "40px", height: "40px", borderRadius: "10px",
-                    background: "rgba(129,140,248,0.15)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "18px", flexShrink: 0,
-                  }}>🔬</div>
-                  <div>
-                    <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "#c7d2fe", marginBottom: "4px" }}>
-                      {topic.simulationIds.length} Interactive Simulation{topic.simulationIds.length !== 1 ? "s" : ""}
-                    </div>
-                    <div style={{ fontSize: "0.8rem", color: "#94a3b8", lineHeight: 1.5 }}>
-                      Drag sliders, move objects, and watch the physics happen in real time. Each simulation is based on real CBSE formulas.
+                {/* Header bar */}
+                <div className={styles.simLabHeader}>
+                  <div className={styles.simLabHeaderLeft}>
+                    <div className={styles.simLabHeaderIcon}>⚗️</div>
+                    <div>
+                      <div className={styles.simLabHeaderTitle}>Interactive Physics Lab</div>
+                      <div className={styles.simLabHeaderSub}>
+                        {topic.simulationIds.length} simulations · Drag, click &amp; explore real CBSE physics
+                      </div>
                     </div>
                   </div>
+                  <div className={styles.simLabHeaderBadge}>
+                    {topic.simulationIds.filter(id => id.startsWith("ultra-")).length} ULTRA
+                  </div>
                 </div>
-                {/* Render all simulations in expanded mode (with metadata headers) */}
+
+                {/* Simulation spotlight card grid — rich metadata cards */}
+                <SimulationSpotlightGallery simulationIds={topic.simulationIds} />
+
+                {/* Divider */}
+                <div className={styles.simLabDivider}>
+                  <span>▼ Launch Simulations Below ▼</span>
+                </div>
+
+                {/* Render all simulations */}
                 <SmartSimulationRenderer
                   simulationIds={topic.simulationIds}
                   expandedMode={true}
@@ -597,6 +608,73 @@ export default function TopicStudyClient({
         )}
 
       </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+ * SUB-COMPONENT: SimulationSpotlightGallery
+ * Shows a rich card grid for every simulation in the
+ * Simulations tab — icon, title, description, category
+ * badge, and an ULTRA badge for ultra-* prefixed IDs.
+ * ═══════════════════════════════════════════════════ */
+function SimulationSpotlightGallery({ simulationIds }: { simulationIds: string[] }) {
+  /* Build enriched list — merge registry metadata with ID */
+  const cards = useMemo(() => {
+    return simulationIds.map((id) => {
+      const info = getSimulationInfo(id);
+      return { id, info };
+    }).filter(({ info }) => info !== null) as Array<{ id: string; info: NonNullable<ReturnType<typeof getSimulationInfo>> }>;
+  }, [simulationIds]);
+
+  if (cards.length === 0) return null;
+
+  return (
+    <div className={styles.spotlightGallery}>
+      {cards.map(({ id, info }) => {
+        const isUltra   = id.startsWith("ultra-");
+        const catCfg    = CATEGORY_CONFIG[info.category] || CATEGORY_CONFIG.reflection;
+        return (
+          <div
+            key={id}
+            className={`${styles.spotlightCard} ${isUltra ? styles.spotlightCardUltra : ""}`}
+            style={isUltra ? {
+              borderColor: "rgba(251,146,60,0.3)",
+              background: "linear-gradient(135deg, rgba(251,146,60,0.06) 0%, rgba(5,13,26,0.8) 60%)",
+            } : undefined}
+          >
+            {/* ULTRA badge */}
+            {isUltra && (
+              <div className={styles.spotlightUltraBadge}>⚡ ULTRA</div>
+            )}
+
+            {/* Icon + category */}
+            <div className={styles.spotlightTop}>
+              <div className={styles.spotlightIcon}
+                style={{ background: isUltra ? "rgba(251,146,60,0.15)" : catCfg.bg,
+                          border: `1px solid ${isUltra ? "rgba(251,146,60,0.25)" : catCfg.border}` }}>
+                {info.icon}
+              </div>
+              <span className={styles.spotlightCat}
+                style={{ color: catCfg.color, background: catCfg.bg, borderColor: catCfg.border }}>
+                {catCfg.label}
+              </span>
+            </div>
+
+            {/* Title */}
+            <div className={styles.spotlightTitle}>{info.title}</div>
+
+            {/* Description — split on " · " for feature bullets */}
+            <div className={styles.spotlightDesc}>
+              {info.description.split(" · ").map((feat, i) => (
+                <span key={i} className={styles.spotlightFeat}>
+                  <span className={styles.spotlightFeatDot}>·</span>{feat}
+                </span>
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

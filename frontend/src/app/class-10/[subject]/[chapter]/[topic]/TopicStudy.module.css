@@ -976,6 +976,229 @@
 }
 
 /* ═══════════════════════════════════════════════════
+ * SIMULATION LAB PANEL — dedicated Simulations tab
+ * skills.sh-inspired card gallery + lab header
+ * ═══════════════════════════════════════════════════ */
+
+.simLabPanel {
+  padding: 32px 40px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Top header bar */
+.simLabHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  background: linear-gradient(135deg,
+    rgba(129,140,248,0.08) 0%,
+    rgba(56,189,248,0.05) 50%,
+    rgba(52,211,153,0.04) 100%);
+  border: 1px solid rgba(129,140,248,0.18);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.simLabHeader::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 300px; height: 100%;
+  background: radial-gradient(ellipse 80% 100% at 100% 50%,
+    rgba(56,189,248,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.simLabHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.simLabHeaderIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(129,140,248,0.15);
+  border: 1px solid rgba(129,140,248,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.simLabHeaderTitle {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #e2e8f0;
+  margin-bottom: 3px;
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+}
+
+.simLabHeaderSub {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.simLabHeaderBadge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(251,146,60,0.15), rgba(251,146,60,0.08));
+  border: 1px solid rgba(251,146,60,0.3);
+  color: #fb923c;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Spotlight card grid */
+.spotlightGallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.spotlightCard {
+  position: relative;
+  padding: 18px 18px 16px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  transition: border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+.spotlightCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 20% 0%,
+    rgba(129,140,248,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.spotlightCard:hover {
+  border-color: rgba(129,140,248,0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.spotlightCardUltra {
+  background: linear-gradient(135deg, rgba(251,146,60,0.06) 0%, rgba(15,23,42,0.9) 60%) !important;
+}
+
+.spotlightCardUltra:hover {
+  border-color: rgba(251,146,60,0.4) !important;
+  box-shadow: 0 8px 32px rgba(251,146,60,0.1) !important;
+}
+
+/* ULTRA badge top-right */
+.spotlightUltraBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fb923c;
+  background: rgba(251,146,60,0.12);
+  border: 1px solid rgba(251,146,60,0.25);
+  border-radius: 6px;
+  padding: 2px 7px;
+}
+
+.spotlightTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.spotlightIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.spotlightCat {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 5px;
+  border: 1px solid;
+}
+
+.spotlightTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+}
+
+.spotlightDesc {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.spotlightFeat {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  font-size: 0.75rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.spotlightFeatDot {
+  color: #334155;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Divider between gallery and actual sims */
+.simLabDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px 0 28px;
+  color: #334155;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.simLabDivider::before,
+.simLabDivider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.05);
+}
+
+/* ═══════════════════════════════════════════════════
  * EMPTY STATE
  * ═══════════════════════════════════════════════════ */
 
@@ -1009,6 +1232,12 @@
 
   .topBarChapter { max-width: 120px; }
   .topBarTopic   { max-width: 160px; }
+
+  /* Sim lab panel responsive */
+  .simLabPanel { padding: 24px 20px 40px; }
+  .simLabHeader { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .simLabHeaderBadge { align-self: flex-start; }
+  .spotlightGallery { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
 }
 
 @media (max-width: 600px) {
@@ -1033,6 +1262,12 @@
   .tabs::-webkit-scrollbar { display: none; }
   .tab  { padding: 12px 14px; flex-shrink: 0; white-space: nowrap; }
   .qTypeRow { flex-direction: column; align-items: flex-start; }
+
+  /* Sim lab on small screens */
+  .simLabPanel { padding: 16px 14px 32px; }
+  .simLabHeaderIcon { width: 40px; height: 40px; font-size: 18px; }
+  .spotlightGallery { grid-template-columns: 1fr; gap: 10px; }
+  .spotlightCard { padding: 14px; }
 
   /* Table horizontal scroll on mobile */
   .learnPanel table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }

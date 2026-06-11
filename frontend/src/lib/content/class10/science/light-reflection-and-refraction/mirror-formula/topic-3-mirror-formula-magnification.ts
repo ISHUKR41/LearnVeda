@@ -12,6 +12,10 @@ export const topic3MirrorFormulaMagnification: Topic = {
   title: "3. Sign Convention, Mirror Formula, and Magnification",
   estimatedMinutes: 50,
   simulationIds: [
+    /* ULTRA 2026: u/f sliders · 6 labelled positions · sign convention color-coded */
+    "ultra-mirror-formula-sim",   /* real-time image computation · magnification bar chart */
+    /* ULTRA 2026: Drag object live mirror with formula */
+    "ultra-concave-mirror-sim",   /* concave/convex toggle · 3 glow rays · image properties */
     /* NEW: Purpose-built mirror formula interactive lab */
     "mirror-formula-lab-sim",
     /* NEW: Object-image lab — all 6 positions */

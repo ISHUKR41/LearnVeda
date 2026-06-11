@@ -34,6 +34,10 @@ export const topic8DispersionAndHumanEye: Topic = {
   title: "8. Dispersion, Scattering, Atmosphere & the Human Eye",
   estimatedMinutes: 70,
   simulationIds: [
+    /* ULTRA 2026: Prism with real Cauchy dispersion + rainbow mode */
+    "ultra-prism-sim",               /* VIBGYOR with real n values · apex slider · rainbow droplet mode */
+    /* ULTRA 2026: Human eye with animated anatomy + defect correction */
+    "ultra-human-eye-sim",           /* Normal/Myopia/Hypermetropia · corrective lens toggle · near/far */
     /* NEW 2026: Interactive human eye anatomy — pupil dilation, accommodation, defects */
     "light-biology-sim",             /* light level → pupil · obj distance → lens · Normal/Myopia/Hypermetropia */
     /* NEW 2026: Dedicated Rayleigh scattering sky sim */

@@ -841,6 +841,93 @@ const SIMULATION_REGISTRY: Record<string, SimulationInfo> = {
     icon: "🏊",
     component: lazyLoad(() => import("./refraction/ApparentDepthSim")),
   },
+
+  /* ═══════════════════════════════════════════════════
+   * ULTRA SIMULATIONS — June 2026 Mega-Enhancement
+   * Brand-new ultra-realistic Canvas2D simulations
+   * with proper physics, glow effects, drag interaction
+   * ═══════════════════════════════════════════════════ */
+
+  /* ── Ultra Concave/Convex Mirror with full ray diagram ── */
+  "ultra-concave-mirror-sim": {
+    title: "Ultra Mirror Lab — Drag Object · Live Ray Diagram",
+    description: "Drag object arrow anywhere · 3 principal rays with glow · real-time image properties · toggle concave/convex · mirror formula 1/v+1/u=1/f live",
+    category: "mirrors",
+    icon: "🔍",
+    component: lazyLoad(() => import("./mirrors/UltraConcaveMirrorSim")),
+  },
+
+  /* ── Ultra Mirror Formula Calculator ── */
+  "ultra-mirror-formula-sim": {
+    title: "Ultra Mirror Formula — 6-Position Explorer",
+    description: "Slider for u and f · real-time image computation · labelled positions (Beyond C, At C, etc.) · magnification visualizer · sign convention color-coded",
+    category: "mirrors",
+    icon: "🧮",
+    component: lazyLoad(() => import("./mirrors/UltraMirrorFormulaSim")),
+  },
+
+  /* ── Ultra Snell's Law with TIR detection ── */
+  "ultra-snells-law-sim": {
+    title: "Ultra Snell's Law Lab — TIR Detection",
+    description: "Angle slider + material selector (Air/Water/Glass/Diamond) · wavefronts animate · TIR flash when θ > θ_c · n₁sinθ₁=n₂sinθ₂ live display",
+    category: "refraction",
+    icon: "🌊",
+    component: lazyLoad(() => import("./refraction/UltraSnellsLawSim")),
+  },
+
+  /* ── Ultra TIR + Optical Fibre + Diamond ── */
+  "ultra-tir-sim": {
+    title: "Ultra TIR Lab — Optical Fibre & Diamond",
+    description: "Drag angle past critical angle · TIR flash · Optical Fibre mode with animated photon bouncing · Diamond brilliance mode with VIBGYOR internal reflections",
+    category: "refraction",
+    icon: "⚡",
+    component: lazyLoad(() => import("./refraction/UltraTIRSim")),
+  },
+
+  /* ── Ultra Convex/Concave Lens Ray Tracer ── */
+  "ultra-lens-ray-sim": {
+    title: "Ultra Lens Lab — Drag Object · 3 Principal Rays",
+    description: "Drag object · convex/concave toggle · all 3 principal rays with glow · real-time image nature · 1/v−1/u=1/f + Power P shown · all 6 positions labelled",
+    category: "lenses",
+    icon: "🔬",
+    component: lazyLoad(() => import("./lenses/UltraLensRaySim")),
+  },
+
+  /* ── Ultra Lens Formula + Power Combination ── */
+  "ultra-lens-formula-sim": {
+    title: "Ultra Lens Formula — Power Combination Lab",
+    description: "Two lens sliders → P = P₁ + P₂ live · equivalent focal length · 1/v−1/u=1/f auto-solved · object distance slider · image formation on canvas",
+    category: "lenses",
+    icon: "💪",
+    component: lazyLoad(() => import("./lenses/UltraLensFormulaSim")),
+  },
+
+  /* ── Ultra Prism Dispersion + Rainbow ── */
+  "ultra-prism-sim": {
+    title: "Ultra Prism Lab — VIBGYOR + Rainbow Formation",
+    description: "Real Cauchy dispersion per wavelength · apex & incidence sliders · animated photons · Rainbow droplet mode showing refraction+TIR+dispersion",
+    category: "dispersion",
+    icon: "🌈",
+    component: lazyLoad(() => import("./dispersion/UltraPrismSim")),
+  },
+
+  /* ── Ultra Human Eye — Myopia/Hypermetropia/Normal ── */
+  "ultra-human-eye-sim": {
+    title: "Ultra Eye Lab — Defects + Animated Anatomy",
+    description: "Animated eye anatomy · Normal/Myopia/Hypermetropia modes · corrective lens toggle · near/far object slider · focus point on/off retina shown · ciliary muscle animation",
+    category: "eye",
+    icon: "👁️",
+    component: lazyLoad(() => import("./eye/UltraHumanEyeSim")),
+  },
+
+  /* ── Ultra Reflection Lab — Laws + Diffuse + Lateral Inversion ── */
+  "ultra-reflection-lab": {
+    title: "Ultra Reflection Lab — Laws · Diffuse · AMBULANCE",
+    description: "Click/drag to set angle · animated photons · regular vs diffuse mode · AMBULANCE lateral inversion demo · wavefront animation · ∠i = ∠r arcs live",
+    category: "reflection",
+    icon: "🪞",
+    component: lazyLoad(() => import("./reflection/UltraReflectionLab")),
+  },
 };
 
 /* ═══════════════════════════════════════════════════

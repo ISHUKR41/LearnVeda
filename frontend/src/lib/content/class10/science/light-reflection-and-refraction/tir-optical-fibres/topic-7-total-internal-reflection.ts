@@ -38,6 +38,10 @@ export const topic7TotalInternalReflection: Topic = {
   title: "7. Total Internal Reflection and Optical Fibres",
   estimatedMinutes: 55,
   simulationIds: [
+    /* ULTRA 2026: TIR lab + Optical Fibre + Diamond brilliance in one component */
+    "ultra-tir-sim",              /* drag angle past θ_c · TIR flash · fibre mode · diamond mode */
+    /* ULTRA 2026: Snell's law full lab with TIR detection */
+    "ultra-snells-law-sim",       /* n₁sinθ₁=n₂sinθ₂ · TIR flash on · material selector */
     /* NEW 2026: Dedicated animated optical-fibre TIR component */
     "optical-fibre-tir-sim",      /* photons bounce inside bent fibre — bend slider + material selector */
     /* NEW: Apparent depth + refraction illusion (connects n to TIR) */

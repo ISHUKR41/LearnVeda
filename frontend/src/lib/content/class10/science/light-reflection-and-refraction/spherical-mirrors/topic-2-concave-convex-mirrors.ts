@@ -13,6 +13,8 @@ export const topic2SphericalMirrors: Topic = {
   title: "2. Spherical Mirrors: Concave and Convex",
   estimatedMinutes: 60,
   simulationIds: [
+    /* ULTRA 2026: Drag object · 3 principal rays glow · mirror formula live */
+    "ultra-concave-mirror-sim",  /* concave/convex toggle · image properties card · formula 1/v+1/u=1/f */
     /* NEW 2026: Real-world mirror applications gallery */
     "mirror-applications-sim",   /* 6 scenes: torch, furnace, makeup, rear-view, telescope, security */
     /* All-6-positions interactive object-image lab — NEW */

@@ -25,6 +25,14 @@ export const topic9NumericalsAdvanced: Topic = {
   title: "9. Numericals, Formulas & Advanced Optics",
   estimatedMinutes: 75,
   simulationIds: [
+    /* ULTRA 2026: Mirror formula explorer with 6 labelled positions */
+    "ultra-mirror-formula-sim",      /* u/f sliders · positions · image type auto */
+    /* ULTRA 2026: Lens formula with power combination */
+    "ultra-lens-formula-sim",        /* P = P₁+P₂ · 1/v−1/u=1/f live */
+    /* ULTRA 2026: Full drag-object mirror lab */
+    "ultra-concave-mirror-sim",      /* concave/convex · 3 glow rays · formula */
+    /* ULTRA 2026: Full drag-object lens lab */
+    "ultra-lens-ray-sim",            /* convex/concave · Power P display */
     /* NEW 2026: Full virtual optics bench for mirror/lens revision */
     "mirror-formula-lab-sim",        /* 3 principal rays live · concave/convex · f slider */
     "lens-ray-tracer-sim",           /* 3 rays · 1/v−1/u=1/f · image nature auto-detected */

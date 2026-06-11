@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0c1a35"/>
+      <stop offset="100%" stop-color="#050a18"/>
+    </radialGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffde59" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ff8a00" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rainbow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#ff0000" stop-opacity="0.7"/>
+      <stop offset="17%"  stop-color="#ff8800" stop-opacity="0.7"/>
+      <stop offset="33%"  stop-color="#ffff00" stop-opacity="0.7"/>
+      <stop offset="50%"  stop-color="#00ff00" stop-opacity="0.7"/>
+      <stop offset="67%"  stop-color="#0088ff" stop-opacity="0.7"/>
+      <stop offset="83%"  stop-color="#4400ff" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#aa00ff" stop-opacity="0.7"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Stars -->
+  <circle cx="100" cy="80"  r="1.5" fill="white" opacity="0.6"/>
+  <circle cx="200" cy="40"  r="1"   fill="white" opacity="0.5"/>
+  <circle cx="350" cy="90"  r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="500" cy="30"  r="1"   fill="white" opacity="0.4"/>
+  <circle cx="700" cy="60"  r="1.5" fill="white" opacity="0.6"/>
+  <circle cx="850" cy="25"  r="1"   fill="white" opacity="0.5"/>
+  <circle cx="1000" cy="70" r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="1100" cy="45" r="1"   fill="white" opacity="0.4"/>
+  <circle cx="150"  cy="150" r="1"  fill="white" opacity="0.3"/>
+  <circle cx="950"  cy="120" r="1.5" fill="white" opacity="0.5"/>
+
+  <!-- Atmospheric glow — horizon -->
+  <ellipse cx="600" cy="520" rx="600" ry="120" fill="#ff6600" opacity="0.15"/>
+  <ellipse cx="600" cy="520" rx="500" ry="80"  fill="#ff4400" opacity="0.12"/>
+
+  <!-- Sun setting at horizon -->
+  <circle cx="600" cy="490" r="80" fill="url(#sun)"/>
+  <circle cx="600" cy="490" r="45" fill="#ffde59" opacity="0.8"/>
+  <circle cx="600" cy="490" r="25" fill="#fff8cc" opacity="0.9"/>
+
+  <!-- Horizon line (sea) -->
+  <rect x="0" y="480" width="1200" height="150" fill="#02081a" opacity="0.8"/>
+  <line x1="0" y1="480" x2="1200" y2="480" stroke="#1e40af" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Rainbow arc -->
+  <path d="M 80 480 Q 600 50 1120 480" fill="none" stroke="url(#rainbow)" stroke-width="28" opacity="0.55" filter="url(#glow)"/>
+  <path d="M 80 480 Q 600 50 1120 480" fill="none" stroke="url(#rainbow)" stroke-width="12" opacity="0.35"/>
+
+  <!-- Optical fibre — left panel decoration -->
+  <path d="M 60 200 Q 120 250 80 320 Q 50 380 100 430" fill="none" stroke="#38bdf8" stroke-width="4" opacity="0.6" filter="url(#softglow)"/>
+  <circle cx="100" cy="430" r="6" fill="#38bdf8" opacity="0.8" filter="url(#glow)"/>
+  <!-- Photon dots along fibre -->
+  <circle cx="80" cy="250" r="3" fill="#67e8f9" opacity="0.9"/>
+  <circle cx="72" cy="300" r="3" fill="#67e8f9" opacity="0.8"/>
+  <circle cx="90" cy="380" r="3" fill="#67e8f9" opacity="0.9"/>
+
+  <!-- Diamond sparkle — right panel -->
+  <polygon points="1100,200 1115,230 1100,260 1085,230" fill="none" stroke="#c7d2fe" stroke-width="1.5" opacity="0.7"/>
+  <polygon points="1100,215 1120,230 1100,245 1080,230" fill="none" stroke="#818cf8" stroke-width="1" opacity="0.5"/>
+  <!-- Sparkle rays -->
+  <line x1="1100" y1="190" x2="1100" y2="175" stroke="#a5b4fc" stroke-width="1.5" opacity="0.7"/>
+  <line x1="1115" y1="208" x2="1128" y2="196" stroke="#a5b4fc" stroke-width="1.5" opacity="0.6"/>
+  <line x1="1085" y1="208" x2="1072" y2="196" stroke="#a5b4fc" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Twinkling star sparkles scattered -->
+  <g opacity="0.7" filter="url(#softglow)">
+    <line x1="250" y1="140" x2="250" y2="128" stroke="#fbbf24" stroke-width="1.5"/>
+    <line x1="244" y1="146" x2="236" y2="138" stroke="#fbbf24" stroke-width="1.5"/>
+    <line x1="256" y1="146" x2="264" y2="138" stroke="#fbbf24" stroke-width="1.5"/>
+    <circle cx="250" cy="140" r="3" fill="#fef3c7"/>
+  </g>
+  <g opacity="0.6" filter="url(#softglow)">
+    <line x1="900" y1="100" x2="900" y2="88"  stroke="#fbbf24" stroke-width="1.5"/>
+    <line x1="894" y1="106" x2="886" y2="98"  stroke="#fbbf24" stroke-width="1.5"/>
+    <line x1="906" y1="106" x2="914" y2="98"  stroke="#fbbf24" stroke-width="1.5"/>
+    <circle cx="900" cy="100" r="3" fill="#fef3c7"/>
+  </g>
+
+  <!-- Mirage waves at bottom -->
+  <path d="M 150 530 Q 200 515 250 530 Q 300 545 350 530 Q 400 515 450 530" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0.3"/>
+  <path d="M 750 540 Q 800 525 850 540 Q 900 555 950 540 Q 1000 525 1050 540" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Title text -->
+  <text x="600" y="570" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#e2e8f0" opacity="0.9">
+    Optical Phenomena in Nature &amp; Technology
+  </text>
+  <text x="600" y="598" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="500" fill="#64748b">
+    Rainbow · Twinkling Stars · Mirage · Optical Fibre · Diamond Sparkle
+  </text>
+</svg>
