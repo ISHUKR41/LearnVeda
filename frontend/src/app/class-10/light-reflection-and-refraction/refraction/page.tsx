@@ -551,8 +551,7 @@ export default function RefractionPage() {
                 { src: '/images/light/media__1781206235525.png', caption: 'Pencil in water appears bent — classic example of refraction' },
               ].map((img, i) => (
                 <motion.div key={i} className={styles.imageCard} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </motion.div>
               ))}
@@ -576,12 +575,12 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/light_snells_law_1781203083554.png', caption: "Snell's Law: n₁ sin θ₁ = n₂ sin θ₂" },
+                { src: '/images/light/snells-law-vector-diagram.png', caption: "Snell's Law vector diagram — n₁ sin θ₁ = n₂ sin θ₂ with wavefront compression shown" },
+                { src: '/images/light/light_snells_law_1781203083554.png', caption: "Snell's Law: incident ray bends toward normal when entering denser medium" },
                 { src: '/images/light/light_refractive_index_1781203095581.png', caption: 'Refractive indices: denser medium → higher n, slower light, more bending' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -614,8 +613,7 @@ export default function RefractionPage() {
                 { src: '/images/light/light_absolute_refractive_nano_banana_1781204408083.png', caption: 'Absolute refractive index: n = c/v (speed in vacuum ÷ speed in medium)' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -657,11 +655,11 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/light_glass_slab_nano_banana_1781204391585.png', caption: 'Glass slab: emergent ray parallel to incident ray but laterally displaced' },
+                { src: '/images/light/refraction-glass-slab-lateral.png', caption: 'Glass slab refraction — emergent ray parallel, laterally displaced by d = t·sin(i−r)/cos(r)' },
+                { src: '/images/light/light_glass_slab_nano_banana_1781204391585.png', caption: 'Glass slab with parallel surfaces — no net angular deviation, only lateral shift' },
               ].map((img, i) => (
-                <div key={i} className={styles.imageCard} style={{ gridColumn: '1 / -1' }}>
-                  <Image src={img.src} alt={img.caption} width={800} height={260}
-                    style={{ width: '100%', height: '220px', objectFit: 'cover' }} />
+                <div key={i} className={styles.imageCard}>
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -698,12 +696,13 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/tir-optical-fibre-detail.png', caption: 'Optical fibre cross-section — TIR keeps light trapped in core, bouncing at angles > critical angle' },
+                { src: '/images/light/rainbow-formation-tir.png', caption: 'Rainbow: water droplets act as prisms — light refracts, internally reflects, refracts again, creating the arc' },
                 { src: '/images/light/media__1781206240893.png', caption: 'TIR stages: normal refraction → grazing refraction at critical angle → total reflection' },
-                { src: '/images/light/light_absolute_refractive_nano_banana_1781204408083.png', caption: 'Critical angle depends on refractive index: sin C = n₂/n₁ = 1/n' },
+                { src: '/images/light/light_absolute_refractive_nano_banana_1781204408083.png', caption: 'Critical angle formula sin C = 1/n — smaller critical angle in denser medium' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}

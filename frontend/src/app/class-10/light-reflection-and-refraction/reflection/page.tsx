@@ -544,8 +544,7 @@ export default function ReflectionPage() {
                 { src: '/images/light/media__1781201710451.png', caption: 'Visible light is a tiny part of the electromagnetic spectrum (400–700 nm)' },
               ].map((img, i) => (
                 <motion.div key={i} className={styles.imageCard} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </motion.div>
               ))}
@@ -579,8 +578,7 @@ export default function ReflectionPage() {
                 { src: '/images/light/light_laws_reflection_1781203058464.png', caption: 'All three (incident ray, normal, reflected ray) lie in the same plane' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -613,8 +611,8 @@ export default function ReflectionPage() {
             <div className={styles.imageGrid}>
               {[{ src: '/images/light/regular-vs-diffuse.png', caption: 'Regular (Specular) vs Diffuse (Irregular) Reflection — surface smoothness determines the type' }].map((img, i) => (
                 <div key={i} className={styles.imageCard} style={{ gridColumn: '1 / -1' }}>
-                  <Image src={img.src} alt={img.caption} width={800} height={260}
-                    style={{ width: '100%', height: '220px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy"
+                    style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -651,8 +649,7 @@ export default function ReflectionPage() {
                 { src: '/images/light/lateral-inversion.png', caption: 'Lateral inversion — AMBULANCE written in reverse so drivers read it correctly in rear mirror' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -687,13 +684,13 @@ export default function ReflectionPage() {
             </p>
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/concave-mirror-all-cases.png', caption: 'Concave mirror — all 5 image formation cases with color-coded ray diagrams' },
                 { src: '/images/light/concave-mirror-diagram.png', caption: 'Concave Mirror — parallel rays converge to focal point F (converging mirror)' },
                 { src: '/images/light/convex-mirror-diagram.png', caption: 'Convex Mirror — rays diverge; virtual focal point behind mirror (diverging mirror)' },
                 { src: '/images/light/light_spherical_mirrors_1781203071616.png', caption: 'Spherical mirror terms: Pole P, Centre of Curvature C, Focus F, Principal Axis' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -736,8 +733,7 @@ export default function ReflectionPage() {
                 { src: '/images/light/light_magnification_formula_nano_banana_1781204215500.png', caption: 'Magnification formula m = h′/h = −v/u' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -777,8 +773,7 @@ export default function ReflectionPage() {
                 { src: '/images/light/light_mirror_formula_nano_banana_1781204199040.png', caption: '🔭 Reflecting Telescope — large concave mirror collects faint starlight' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}

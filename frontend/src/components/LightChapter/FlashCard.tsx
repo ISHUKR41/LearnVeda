@@ -34,54 +34,65 @@ export default function FlashCard({ front, back, accentColor = '#00ffcc' }: Flas
     >
       <div className={styles.flashcardInner}>
 
-        {/* ── FRONT: dark navy, neon-cyan border ── */}
+        {/* ── FRONT: vivid deep blue, ultra bright text ── */}
         <div
           className={styles.flashcardFront}
-          style={{ borderColor: accentColor, boxShadow: `0 0 20px ${accentColor}22, 0 8px 32px rgba(0,0,0,0.5)` }}
+          style={{
+            borderColor: accentColor,
+            boxShadow: `0 0 30px ${accentColor}33, 0 0 60px ${accentColor}10, 0 8px 32px rgba(0,0,0,0.6)`,
+            background: `linear-gradient(135deg, #0f3460 0%, #16213e 50%, #0d2137 100%)`,
+          }}
         >
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', width: '100%' }}>
-            {/* Category dot */}
             <span style={{
-              width: 8, height: 8, borderRadius: '50%',
+              width: 10, height: 10, borderRadius: '50%',
               background: accentColor,
-              boxShadow: `0 0 8px ${accentColor}`,
+              boxShadow: `0 0 12px ${accentColor}, 0 0 24px ${accentColor}60`,
               marginBottom: '0.25rem',
+              flexShrink: 0,
             }} />
             <span style={{
-              fontSize: 'clamp(0.95rem, 2.5vw, 1.25rem)',
+              fontSize: 'clamp(0.92rem, 2.5vw, 1.15rem)',
               fontWeight: 700,
-              color: '#f0fffe',
+              color: '#ffffff',
               textAlign: 'center',
-              lineHeight: 1.35,
+              lineHeight: 1.4,
+              textShadow: '0 1px 3px rgba(0,0,0,0.4)',
             }}>
               {front}
             </span>
-            <span style={{ fontSize: '0.65rem', color: accentColor + '88', marginTop: '0.5rem', letterSpacing: '0.08em' }}>
+            <span style={{ fontSize: '0.62rem', color: accentColor, marginTop: '0.5rem', letterSpacing: '0.1em', fontWeight: 600, textTransform: 'uppercase' }}>
               ↺ tap to reveal answer
             </span>
           </div>
         </div>
 
-        {/* ── BACK: dark purple, light-violet text ── */}
-        <div className={styles.flashcardBack}>
+        {/* ── BACK: vivid emerald green, bright white text ── */}
+        <div className={styles.flashcardBack}
+          style={{
+            background: 'linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)',
+            borderColor: '#34d399',
+            boxShadow: '0 0 30px rgba(52,211,153,0.22), 0 0 60px rgba(52,211,153,0.08), 0 8px 32px rgba(0,0,0,0.6)',
+          }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', width: '100%' }}>
             <span style={{
-              fontSize: '0.68rem',
+              fontSize: '0.65rem',
               textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              color: '#a78bfa',
+              letterSpacing: '0.12em',
+              color: '#6ee7b7',
               marginBottom: '0.35rem',
               fontWeight: 700,
             }}>
-              Answer
+              ✓ Answer
             </span>
             <span style={{
-              fontSize: 'clamp(0.85rem, 2vw, 1.05rem)',
+              fontSize: 'clamp(0.82rem, 2vw, 1rem)',
               fontWeight: 500,
-              color: '#ede9fe',
+              color: '#ffffff',
               textAlign: 'center',
-              lineHeight: 1.75,
+              lineHeight: 1.8,
               whiteSpace: 'pre-line',
+              textShadow: '0 1px 3px rgba(0,0,0,0.3)',
             }}>
               {back}
             </span>

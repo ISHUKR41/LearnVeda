@@ -367,7 +367,7 @@ function EyeDefectsSim() {
 
             {/* Description */}
             <foreignObject x="10" y="235" width="540" height="40">
-              <div xmlns="http://www.w3.org/1999/xhtml" style={{ fontSize: '10px', color: '#71717a', lineHeight: 1.5, fontFamily: 'Inter' }}>
+              <div style={{ fontSize: '10px', color: '#71717a', lineHeight: 1.5, fontFamily: 'Inter' }}>
                 {ed.desc}
               </div>
             </foreignObject>
@@ -510,8 +510,7 @@ export default function LensesPage() {
                 { src: '/images/light/light_lenses_nano_banana_1781202878730.png', caption: 'Real-life lens applications: camera, spectacles, microscope, telescope' },
               ].map((img, i) => (
                 <motion.div key={i} className={styles.imageCard} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </motion.div>
               ))}
@@ -556,8 +555,7 @@ export default function LensesPage() {
                 { src: '/images/light/light_concave_lens_numerical_nano_banana_1781204487446.png', caption: 'Concave lens — always virtual, erect, diminished regardless of object position' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -602,12 +600,13 @@ export default function LensesPage() {
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/light_lens_magnification_nano_banana_1781204503146.png', caption: 'Magnification by lens: m = v/u = h′/h' },
-                { src: '/images/light/light_lens_power_1781203118675.png', caption: 'Power of lens: P = 1/f — unit Dioptre (D)' },
+                { src: '/images/light/convex-lens-magnifying-glass.png', caption: 'Convex lens as magnifying glass — object between F and O gives virtual, erect, magnified image' },
+                { src: '/images/light/lens-power-dioptre.png', caption: 'Power of lens (Dioptre) — shorter focal length = higher power; P_total = P₁ + P₂' },
+                { src: '/images/light/light_lens_magnification_nano_banana_1781204503146.png', caption: 'Magnification by lens: m = v/u = h′/h (note: no minus sign, unlike mirrors)' },
+                { src: '/images/light/light_lens_power_1781203118675.png', caption: 'Lens power applications: reading glasses (+D), myopia glasses (−D)' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <Image src={img.src} alt={img.caption} width={400} height={200}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -659,6 +658,17 @@ export default function LensesPage() {
               on the retina. It can automatically adjust its focal length — a property called <strong style={{ color: '#00ffcc' }}>accommodation</strong>.
             </p>
 
+            <div className={styles.imageGrid}>
+              {[
+                { src: '/images/light/human-eye-anatomy-detail.png', caption: 'Human eye anatomy — cornea, lens, retina, optic nerve; crystalline lens adjusts focal length for accommodation' },
+              ].map((img, i) => (
+                <motion.div key={i} className={styles.imageCard} style={{ gridColumn: '1 / -1' }} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block' }} />
+                  <div className={styles.imageCardCaption}>{img.caption}</div>
+                </motion.div>
+              ))}
+            </div>
+
             <div className={styles.glassPanel} style={{ borderColor: 'rgba(0,255,204,0.25)' }}>
               <strong>Parts of the Eye and their functions:</strong>
               <ul>
@@ -690,6 +700,16 @@ export default function LensesPage() {
               The three common defects are Myopia, Hypermetropia, and Presbyopia.
             </p>
 
+            <div className={styles.imageGrid}>
+              {[
+                { src: '/images/light/myopia-hypermetropia-correction.png', caption: 'Myopia vs Hypermetropia — concave lens corrects short-sight; convex lens corrects long-sight' },
+              ].map((img, i) => (
+                <motion.div key={i} className={styles.imageCard} style={{ gridColumn: '1 / -1' }} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block' }} />
+                  <div className={styles.imageCardCaption}>{img.caption}</div>
+                </motion.div>
+              ))}
+            </div>
             <div className={styles.grid2}>
               <div className={styles.glassPanel} style={{ borderColor: 'rgba(244,63,94,0.3)' }}>
                 <strong>🔴 Myopia (Short-sightedness):</strong><br />

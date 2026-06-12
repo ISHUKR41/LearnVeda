@@ -233,14 +233,13 @@ export default function MindMap() {
               x1={A.x} y1={A.y}
               x2={B.x} y2={B.y}
               stroke={edge.color}
-              strokeWidth={isHot ? 2.8 : 1.6}
-              strokeOpacity={isHot ? 1 : 0.55}
-              strokeDasharray={isHot ? undefined : '7 4'}
-              markerEnd={isHot ? `url(#${marker})` : undefined}
+              strokeWidth={isHot ? 3.5 : 2.2}
+              strokeOpacity={isHot ? 1 : 0.88}
+              markerEnd={`url(#${marker})`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: i * 0.04 }}
-              style={{ filter: isHot ? `drop-shadow(0 0 5px ${edge.color})` : 'none' }}
+              style={{ filter: isHot ? `drop-shadow(0 0 8px ${edge.color})` : `drop-shadow(0 0 3px ${edge.color}60)` }}
             />
           );
         })}
