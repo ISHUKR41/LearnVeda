@@ -1,0 +1,303 @@
+iska use karo jo maine niche mai tumko link diya hai pls dono link ka use karo yaar 
+https://www.skills.sh/
+https://getdesign.md/
+
+
+
+
+
+mujhe kisi bhe topic mai pic q nhi show ho raha hai jabki maine bola hai 
+
+
+
+and mind map ka bhe color chnge karo normal human eye se visible nhi hai aahca se 
+
+
+and maine pictures ke liye bhe bhout kuch bola hai 
+use the nano banana
+and bhout hee jada reseach and deepthinking and deeplogic and deepmind and sab cheez ka aacha se use karna pls 
+
+
+Mujhe class 10th ke liye jo maine upar mein Tumko topic Diya Hai iske andar Tum acche se jab research karoge to tumko bahut 
+Bahut sare Tumko topic milega and 
+And uski subtopic bhi hai and sub topic ka sub topic bhi hai 
+
+
+And Mujhe har EK topic sab topic and sub topic ka sab topic ka Mujhe picture generate karke do and Aisa picture generate karke dena jismein sab chij mention Rahe and usko agar ek bar student dekh le to usko sab chij samajh mein a Jana chahie matlab har EK sab topic ke sab topic ke liye atlist char se panch picture rahana chahie 
+
+
+
+
+
+and maine image ke liye bhe instruction de rakha hai 
+and haar ek topic and subtpoic and subtopic se related  4 se 5 examples bhe doo taki numericals ko solve karna mai easy rahe and aacha se explains bhe karna taki mujhe numericals solve karna mai thoda sa bhe dikkat nhi hoo 
+and examples ko simulations se upar rakhna pls 
+
+and and flash card ke colors ko sahi karo ye normal human eye se aacha se visible nhi ho paa raaha hai 
+
+
+
+and simulations mai haar ek chota se chota detaling likha hua hona chiaye and aacha se visible bhe hona chiaye and iss se simulations par koi bhe impact nhi ana chiaye matlab tum kaam karo but mera kaam kharab mat kar dena 
+
+
+
+haar ek simulation mujhe or bhe jada real chiaye and ek dum bhout hee jada real lagna chiaye and bhout hee jada animted and modern and iske liye tumko jitna bhe lirabies and tools and repo ka need ho and jitna bhe technlogies ka use hoo sab use kar lena pls 
+
+
+
+
+and add more simulations and concept according to you also 
+
+
+
+concept ko or bhe jada engaging kar dena pls 
+
+like sab cheez ko bhout hee jada engaging rakho pls jitna jada engaging rakh sakte hoo and intersting bhe like stundents ko haar cheez padhne mai bhout hee jada maza aana chaiye haar ek topic and subtopic and subtopic ke subtopic ko bhe padhne mai usko bhout hee jad maza aana chiaye and bhout hee jada engaging hona chiaye sab cheez okay i hope u understand that  
+
+https://www.skills.sh/
+
+and iska bhe use karna pls pls and aacha se website ko analize karke use karna pls
+
+and maine jo upar mai tumko ye https://www.skills.sh/  link diya hai iska bhout hee jada use karna iss chapter mai jitna jada tum use kar sakte hoo isme bhout sare .md files and folder hai to sabko aacha se padh kar and soch samaj kar mera Light – Reflection and Refraction iss chapter mai implement karna pls and bhout hee jada aacha se implemet karna yaar 
+ 
+
+
+
+
+https://getdesign.md/
+
+and maine jo upar mai tumko ye https://getdesign.md/  link diya hai iska bhout hee jada use karna iss chapter mai jitna jada tum use kar sakte hoo isme bhout sare .md files and folder hai to sabko aacha se padh kar and soch samaj kar mera Light – Reflection and Refraction iss chapter mai implement karna pls and bhout hee jada aacha se implemet karna yaar 
+
+
+
+
+
+
+
+class 10th ke folder ke andar class 10th ka Light – Reflection and Refraction
+
+
+
+
+haar ek simulation mujhe or bhe jada real chiaye and ek dum bhout hee jada real lagna chiaye and bhout hee jada animted and modern and iske liye tumko jitna bhe lirabies and tools and repo ka need ho and jitna bhe technlogies ka use hoo sab use kar lena pls 
+
+
+iss folder mai sab cheez karna and iske liye tumko sab cheez starrting se hee karna hai class 9th se kuch bhe refercence mat lena pls jo maine tumko details diya hai uska use karo pls pls pls baby 
+
+world mai jitna bhe skiils hai sabka use karna pls 
+
+
+
+
+
+
+
+
+and haar ek topic and subtpoic and subtopic se related  4 se 5 examples bhe doo taki numericals ko solve karna mai easy rahe and aacha se explains bhe karna taki mujhe numericals solve karna mai thoda sa bhe dikkat nhi hoo 
+
+
+
+
+
+
+
+
+and jitna jada tum technlogies use kar sakte hoo karo and jitna bhe lirabies and tools use karna hai karo and jitna bhe repo use karna hai karo 
+
+
+bus mera webiste fully responive and lag free rahna chaiye
+
+
+
+
+
+/references/agent/skills#import-skills-from-other-ai-coding-tools
+
+
+npx rulesync init
+npx rulesync import --targets claudecode --features skills
+npx rulesync generate --targets replit --features skills
+
+
+
+for the class 10th Light – Reflection and Refraction  simulations 
+
+https://docs.google.com/document/d/1jzcaLNaZxPrtkk0b4jbSG5VEKCjr4lz8gUjpR6z5M0U/edit?usp=sharing
+
+https://docs.google.com/document/d/e/2PACX-1vQeO6j61dMAZObfNbwcxPpJ0Kkv9nkWk0OHFAEjewn3g-82XYzV19DfZ7s16B4Y3i1pEhLJ9z59aQw3/pub
+
+<iframe src="https://docs.google.com/document/d/e/2PACX-1vQeO6j61dMAZObfNbwcxPpJ0Kkv9nkWk0OHFAEjewn3g-82XYzV19DfZ7s16B4Y3i1pEhLJ9z59aQw3/pub?embedded=true"></iframe>
+
+
+
+
+
+
+
+/references/agent/skills#import-skills-from-other-ai-coding-tools
+
+
+npx rulesync init
+npx rulesync import --targets claudecode --features skills
+npx rulesync generate --targets replit --features skills
+
+
+
+
+
+
+and simulations mai haar ek chota se chota detaling likha hua hona chiaye and aacha se visible bhe hona chiaye and iss se simulations par koi bhe impact nhi ana chiaye matlab tum kaam karo but mera kaam kharab mat kar dena 
+
+
+
+
+
+for the class 10th Light – Reflection and Refraction  simulations 
+
+https://docs.google.com/document/d/1jzcaLNaZxPrtkk0b4jbSG5VEKCjr4lz8gUjpR6z5M0U/edit?usp=sharing
+
+https://docs.google.com/document/d/e/2PACX-1vQeO6j61dMAZObfNbwcxPpJ0Kkv9nkWk0OHFAEjewn3g-82XYzV19DfZ7s16B4Y3i1pEhLJ9z59aQw3/pub
+
+<iframe src="https://docs.google.com/document/d/e/2PACX-1vQeO6j61dMAZObfNbwcxPpJ0Kkv9nkWk0OHFAEjewn3g-82XYzV19DfZ7s16B4Y3i1pEhLJ9z59aQw3/pub?embedded=true"></iframe>
+
+
+
+
+
+
+and add aur more simualtions related to their topic and subtopic and subtopic ke subtopic and and related to the class 10th 
+
+and simulation bhout hee jada real and modern and animated and professional hona chiaye iske liye tumko jitna bhe libraeis and tools and repo ka need ho sab use kar lena simuations mujhe bhout hee real and best hee chiaye 
+
+
+
+
+
+add more content and add more questions pls 
+
+and or aacha se and detailed way mai and real life example ke sath padhao bhai aise padho ki koi bhe new student aaya to bhe usko sab cheez aacha se samaj mai aaye 
+
+
+
+
+and jab mai class 9th ke force and laws of motion wale chapter ke kisi bhe topic par jata hu and uss par mai focus mode mai jata hu to bhout sare simulations add rahte hai but aise normal mai nhi rahta hai but mai chata hu ki normal mai bhe utna hee simuation dikhe pls and ye haar ek topic and subtopic ke liye bol raha hu mai 
+
+
+
+
+
+
+
+
+
+
+and add more pictures pls by the help of nano banana and class 10th ke liye bol raha hu yaar and ye mujhe haar ek topic and subtopic and subtopic ke subtopic ke liye chiaye pls yaar 
+
+
+
+and also read the [class%2010th%20document.txt](file;file:///c%3A/Users/MR.ROBOT/OneDrive%20-%20Park%20University/Desktop/New%20folder%20%283%29/education/education/class%2010th%20document.txt) pls 
+
+
+
+
+
+
+and simulation ko or jada detailing mai karo and simulations mai sab cheez mention hona chaiye pls isko bhe mind mai rakhna 
+
+pictures par bhe work karna hai bhai 
+
+
+
+
+and vercel par deploy karna mai koi bhe error nhi aana chaiye pls isko mind mai rakhna pls
+
+
+
+
+artifacts ko hata doo bro 
+
+
+
+
+
+jo bhe work karna hai mera project par hee karna pls and abhi mera se koi bhe api key mat magna pls 
+
+
+and niche mai tumko mai ek txt file de raha hu usko aacha se padh lena pls pls pls and uske accoding hee work karna bro pls 
+
+
+
+and also use the all the agent skills pls 
+
+
+
+
+
+and color and fonts ka aacha se use karo bro 
+
+
+
+https://www.skills.sh/
+
+and iska bhe use karna pls pls and aacha se website ko analize karke use karna pls 
+
+
+https://getdesign.md/
+Isme jitna bhe .md files hai haar ek.md files se bhout hee jada inspiration lena and implement karna
+
+
+
+isko class 10th mai Light – Reflection and Refraction iss chapter mai implement karo pls 
+
+
+
+
+
+
+
+
+
+
+
+
+
+iska use karo jo maine niche mai tumko link diya hai pls dono link ka use karo yaar 
+https://www.skills.sh/
+https://getdesign.md/
+
+
+
+
+https://www.skills.sh/
+
+and iska bhe use karna pls pls and aacha se website ko analize karke use karna pls
+
+and maine jo upar mai tumko ye https://www.skills.sh/  link diya hai iska bhout hee jada use karna iss chapter mai jitna jada tum use kar sakte hoo isme bhout sare .md files and folder hai to sabko aacha se padh kar and soch samaj kar mera Light – Reflection and Refraction iss chapter mai implement karna pls and bhout hee jada aacha se implemet karna yaar 
+ 
+
+
+
+
+
+
+
+https://getdesign.md/
+
+and maine jo upar mai tumko ye https://getdesign.md/  link diya hai iska bhout hee jada use karna iss chapter mai jitna jada tum use kar sakte hoo isme bhout sare .md files and folder hai to sabko aacha se padh kar and soch samaj kar mera Light – Reflection and Refraction iss chapter mai implement karna pls and bhout hee jada aacha se implemet karna yaar
+
+
+
+
+
+
+
+
+[class%2010th%20document.txt](file;file:///c%3A/Users/MR.ROBOT/OneDrive%20-%20Park%20University/Desktop/New%20folder%20%283%29/education/education/class%2010th%20document.txt) [class%2010th%20document.txt](file;file:///c%3A/Users/MR.ROBOT/OneDrive%20-%20Park%20University/Desktop/New%20folder%20%283%29/education/education/class%2010th%20document.txt) 
+
+
+
+and vercel par deploy karna par koi bhe single error nhi aana chaiye 
+
+
+and maine pictures ke liye bhe bhout kuch bola hai 
+use the nano banana
