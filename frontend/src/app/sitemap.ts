@@ -65,13 +65,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/community",
     "/leaderboard",
     "/events",
+    // ── Class 10 Light Chapter (all subtopic pages, high educational value) ──
+    "/class-10/light-reflection-and-refraction",
+    "/class-10/light-reflection-and-refraction/reflection",
+    "/class-10/light-reflection-and-refraction/refraction",
+    "/class-10/light-reflection-and-refraction/lenses",
+    "/class-10/light-reflection-and-refraction/summary",
   ];
 
   const sitemapItems: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: route === "" ? "daily" : "weekly",
-    priority: route === "" ? 1.0 : route.startsWith("/class-") || route === "/engineering" ? 0.9 : 0.6,
+    // Light chapter subtopic pages get highest priority (0.95) — rich educational content
+    priority:
+      route === "" ? 1.0
+      : route.includes("/light-reflection-and-refraction/") ? 0.95
+      : route === "/class-10/light-reflection-and-refraction" ? 0.92
+      : route.startsWith("/class-") || route === "/engineering" ? 0.9
+      : 0.6,
   }));
 
   // 2. Fetch dynamic subjects from the live database
