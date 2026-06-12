@@ -12,7 +12,7 @@
  *          Security controls:
  *          - Session cookie required (401 if missing or expired)
  *          - Name: 1–60 characters, trimmed
- *          - Track: must be one of the five valid LearnVeda learning tracks
+ *          - Track: must be one of the five valid Zingpath learning tracks
  *          - All SQL queries use parameterised inputs (no SQL injection risk)
  *
  * USED BY: src/app/settings/page.tsx, src/app/profile/page.tsx
@@ -33,7 +33,7 @@ export const runtime = "nodejs";
  * ───────────────────────────────────────────── */
 
 /**
- * All valid learning tracks on the LearnVeda platform.
+ * All valid learning tracks on the Zingpath platform.
  * A user's track determines their subject list, day plan, and dashboard shortcuts.
  */
 const VALID_TRACKS = [

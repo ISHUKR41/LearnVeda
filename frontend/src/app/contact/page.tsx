@@ -1,7 +1,7 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/contact/page.tsx
- * PURPOSE: Professional contact page for LearnVeda.
+ * PURPOSE: Professional contact page for Zingpath.
  *          Ultra-modern design with: animated hero, contact method cards,
  *          an inline contact form, comprehensive FAQ accordion,
  *          response-time SLA badges, trust signals, and a CTA.
@@ -34,12 +34,12 @@ import ContactFormClient from "./ContactFormClient";
 export const revalidate = 86400;
 
 export const metadata = {
-  title: "Contact LearnVeda by Ishu — Support & Help Center",
+  title: "Contact Zingpath by Ishu — Support & Help Center",
   description:
-    "Contact LearnVeda by Ishu for student support, school partnerships, and community help. India's #1 gamified education platform. Response within 24 hours.",
+    "Contact Zingpath by Ishu for student support, school partnerships, and community help. India's #1 gamified education platform. Response within 24 hours.",
   keywords: [
-    "contact LearnVeda", "LearnVeda support", "ishu LearnVeda contact",
-    "LearnVeda help", "LearnVeda India contact", "ishu education contact",
+    "contact Zingpath", "Zingpath support", "ishu Zingpath contact",
+    "Zingpath help", "Zingpath India contact", "ishu education contact",
   ],
 };
 
@@ -54,7 +54,7 @@ const CONTACT_METHODS = [
     title: "Student Support",
     description:
       "Account issues, study plan help, or battle system bugs? Our support team is standing by.",
-    detail: "support@learnveda.in",
+    detail: "support@zingpath.in",
     detailType: "email" as const,
     sla: "< 24 h",
     slaColor: "#10B981",
@@ -66,7 +66,7 @@ const CONTACT_METHODS = [
     title: "Schools & Institutions",
     description:
       "Bulk onboarding, institutional licensing, and white-label solutions for coaching centers.",
-    detail: "partners@learnveda.in",
+    detail: "partners@zingpath.in",
     detailType: "email" as const,
     sla: "< 48 h",
     slaColor: "#F59E0B",
@@ -78,7 +78,7 @@ const CONTACT_METHODS = [
     title: "Events & Sponsorship",
     description:
       "Co-sponsor an olympiad, hackathon, or championship. Tell us your proposal.",
-    detail: "events@learnveda.in",
+    detail: "events@zingpath.in",
     detailType: "email" as const,
     sla: "< 48 h",
     slaColor: "#F59E0B",
@@ -103,7 +103,7 @@ const CONTACT_METHODS = [
     title: "Content Creators",
     description:
       "Want to contribute chapter notes, solved examples, or video walkthroughs? We'd love to work with you.",
-    detail: "creators@learnveda.in",
+    detail: "creators@zingpath.in",
     detailType: "email" as const,
     sla: "< 72 h",
     slaColor: "#F59E0B",
@@ -115,7 +115,7 @@ const CONTACT_METHODS = [
     title: "Press & General",
     description:
       "Media inquiries, career opportunities, or anything else that doesn't fit the categories above.",
-    detail: "hello@learnveda.in",
+    detail: "hello@zingpath.in",
     detailType: "email" as const,
     sla: "< 72 h",
     slaColor: "#F59E0B",
@@ -127,14 +127,14 @@ const CONTACT_METHODS = [
  * ───────────────────────────────────────────────────── */
 const FAQ_ITEMS = [
   {
-    question: "Is LearnVeda completely free?",
+    question: "Is Zingpath completely free?",
     answer:
       "Yes — the free tier gives you full access to all class subjects (9–12), coding tracks, the community forum, and real-time quiz battles. Advanced analytics, offline mode, and premium event access may require a subscription.",
   },
   {
     question: "Which classes and subjects are covered?",
     answer:
-      "LearnVeda covers Class 9–12 with NCERT-aligned curricula including Mathematics, Science (Physics, Chemistry, Biology), English, Social Science, and Hindi. Class 11–12 includes stream-specific subjects (Science, Commerce, Arts). The Engineering track covers 12+ programming languages.",
+      "Zingpath covers Class 9–12 with NCERT-aligned curricula including Mathematics, Science (Physics, Chemistry, Biology), English, Social Science, and Hindi. Class 11–12 includes stream-specific subjects (Science, Commerce, Arts). The Engineering track covers 12+ programming languages.",
   },
   {
     question: "How does the Battle Arena work?",
@@ -144,12 +144,12 @@ const FAQ_ITEMS = [
   {
     question: "How is my personal data protected?",
     answer:
-      "LearnVeda uses Clerk for authentication, session management, Google sign-in support, and protected route checks. Sensitive APIs validate the signed-in user before returning dashboard, wallet, activity, or achievement data.",
+      "Zingpath uses Clerk for authentication, session management, Google sign-in support, and protected route checks. Sensitive APIs validate the signed-in user before returning dashboard, wallet, activity, or achievement data.",
   },
   {
-    question: "Can I access LearnVeda on mobile?",
+    question: "Can I access Zingpath on mobile?",
     answer:
-      "Absolutely. LearnVeda is fully responsive and works on every device — desktop, tablet, and mobile. A dedicated Android & iOS app is on our 2026 roadmap.",
+      "Absolutely. Zingpath is fully responsive and works on every device — desktop, tablet, and mobile. A dedicated Android & iOS app is on our 2026 roadmap.",
   },
   {
     question: "How do XP and levels work?",
@@ -159,12 +159,12 @@ const FAQ_ITEMS = [
   {
     question: "How do I report a bug or suggest a feature?",
     answer:
-      "Post in the Community forum under 'Bug Reports' or 'Feature Requests'. You can also email support@learnveda.in with screenshots and reproduction steps — we read every ticket.",
+      "Post in the Community forum under 'Bug Reports' or 'Feature Requests'. You can also email support@zingpath.in with screenshots and reproduction steps — we read every ticket.",
   },
   {
     question: "Can my school get a dashboard to track all students?",
     answer:
-      "Yes. Institutional plans include a teacher/admin dashboard with class-level analytics, assignment creation, leaderboards, and CSV export. Email partners@learnveda.in for a demo.",
+      "Yes. Institutional plans include a teacher/admin dashboard with class-level analytics, assignment creation, leaderboards, and CSV export. Email partners@zingpath.in for a demo.",
   },
 ];
 
@@ -195,7 +195,7 @@ export default function ContactPage() {
 
           <h1 className={styles.heroTitle}>
             Reach the right&nbsp;
-            <span className={styles.heroGradient}>LearnVeda team</span>
+            <span className={styles.heroGradient}>Zingpath team</span>
           </h1>
 
           <p className={styles.heroSubtitle}>
@@ -289,7 +289,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className={styles.infoItemLabel}>Email</div>
-                  <div className={styles.infoItemValue}>support@learnveda.in</div>
+                  <div className={styles.infoItemValue}>support@zingpath.in</div>
                 </div>
               </div>
               <div className={styles.infoItem}>
@@ -356,7 +356,7 @@ export default function ContactPage() {
           <div className={styles.ctaBadge}>
             <Sparkles size={12} /> Join 50,000+ students
           </div>
-          <h2 className={styles.ctaTitle}>Start learning on LearnVeda — it&apos;s free</h2>
+          <h2 className={styles.ctaTitle}>Start learning on Zingpath — it&apos;s free</h2>
           <p className={styles.ctaSubtitle}>
             Structured CBSE study plans, real-time quiz battles, XP rewards, and
             a global leaderboard. No credit card needed.

@@ -31,8 +31,8 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
       "description": data.description,
       "provider": {
         "@type": "Organization",
-        "name": "LearnVeda",
-        "sameAs": "https://learnveda.in"
+        "name": "Zingpath",
+        "sameAs": "https://zingpath.in"
       }
     };
   } else if (type === 'Event') {
@@ -64,7 +64,7 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
       "description": data.description,
       "author": {
         "@type": "Organization",
-        "name": "LearnVeda"
+        "name": "Zingpath"
       }
     };
   }

@@ -1,7 +1,7 @@
 "use client";
 /**
  * FILE: SimCanvas.tsx
- * PURPOSE: Professional, animated physics simulation canvas for LearnVeda.
+ * PURPOSE: Professional, animated physics simulation canvas for Zingpath.
  *
  * Supports three rendering/physics modes:
  *   "force"     — A single block on a surface with configurable left/right forces + friction.

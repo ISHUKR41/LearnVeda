@@ -1,7 +1,7 @@
 /*
  * FILE: HackathonClient.tsx
  * LOCATION: src/app/hackathon/HackathonClient.tsx
- * PURPOSE: Interactive client-side interface for LearnVeda Hackathons.
+ * PURPOSE: Interactive client-side interface for Zingpath Hackathons.
  *          Implements filtering, registration triggers, validation-rich
  *          project submission forms, live leaderboard standings, and an
  *          interactive rules/FAQ accordion.
@@ -99,12 +99,12 @@ const HACKATHON_CATALOG: HackathonEvent[] = [
 // ─────────────────────────────────────────────
 const RULES_FAQ = [
   {
-    q: "Who is eligible to participate in LearnVeda Hackathons?",
+    q: "Who is eligible to participate in Zingpath Hackathons?",
     a: "Any active school student (Class 9-12) or engineering/BTech undergraduate student in India is fully eligible to participate. Ensure your profile track matches the hackathon stream."
   },
   {
     q: "What is the team size limit?",
-    a: "Teams can consist of 1 to 4 members. Team members must register individually on LearnVeda, then coordinate submissions using the Project Submission form."
+    a: "Teams can consist of 1 to 4 members. Team members must register individually on Zingpath, then coordinate submissions using the Project Submission form."
   },
   {
     q: "How are projects evaluated by the judges?",
@@ -167,7 +167,7 @@ export default function HackathonClient() {
   // Load registration state from localStorage for state persistence and fetch leaderboard
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("learnveda-registered-hackathons");
+      const stored = localStorage.getItem("zingpath-registered-hackathons");
       if (stored) {
         setRegisteredIds(JSON.parse(stored));
       }
@@ -193,7 +193,7 @@ export default function HackathonClient() {
     
     const updated = [...registeredIds, id];
     setRegisteredIds(updated);
-    localStorage.setItem("learnveda-registered-hackathons", JSON.stringify(updated));
+    localStorage.setItem("zingpath-registered-hackathons", JSON.stringify(updated));
 
     // Increment participants locally to show fully working reactivity
     setEvents(prev =>

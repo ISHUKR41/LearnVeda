@@ -69,7 +69,7 @@ export function requireSameOriginRequest(
   /* Production: enforce strict same-origin */
   return apiError(
     "INVALID_ORIGIN",
-    "This action must be submitted from the LearnVeda website.",
+    "This action must be submitted from the Zingpath website.",
     403,
     undefined,
     NO_STORE_HEADERS,

@@ -42,14 +42,14 @@ export async function generateMetadata({
 
   if (!plan) {
     return {
-      title: "Class 12 Subject Plan | LearnVeda",
-      description: "Explore the Class 12 subject learning plan on LearnVeda.",
+      title: "Class 12 Subject Plan | Zingpath",
+      description: "Explore the Class 12 subject learning plan on Zingpath.",
     };
   }
 
-  const title = `${plan.title} — ${formatLabel(stream)} Stream | LearnVeda`;
+  const title = `${plan.title} — ${formatLabel(stream)} Stream | Zingpath`;
   const description = plan.description;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnveda.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://zingpath.in";
 
   return {
     title,
@@ -81,11 +81,11 @@ export default async function Class12SubjectPage({ params }: { params: Promise<{
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnveda.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://zingpath.in";
   const courseSchema = generateCourseSchema({
     name: `${plan.title} — ${formatLabel(stream)} Stream`,
     description: plan.description,
-    providerName: "LearnVeda Board & Entrance Team",
+    providerName: "Zingpath Board & Entrance Team",
   });
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: baseUrl },

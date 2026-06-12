@@ -4,8 +4,8 @@ import { BookOpen, Flame, Trophy, Zap } from "lucide-react";
 import styles from "../SignIn.module.css";
 
 export const metadata = {
-  title: "Sign In — LearnVeda",
-  description: "Sign in to your LearnVeda account to continue learning, competing, and levelling up.",
+  title: "Sign In — Zingpath",
+  description: "Sign in to your Zingpath account to continue learning, competing, and levelling up.",
 };
 
 const FEATURES = [
@@ -21,7 +21,7 @@ export default function SignInPage() {
         <div className={styles.panel}>
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, color: "#60A5FA", textDecoration: "none", fontWeight: 700, fontSize: 18, marginBottom: 24 }}>
             <BookOpen size={22} aria-hidden="true" />
-            <span>LearnVeda</span>
+            <span>Zingpath</span>
           </Link>
           <div className={styles.panelBody}>
             <h1 className={styles.panelTitle}>Resume your<br />learning journey</h1>
@@ -44,7 +44,7 @@ export default function SignInPage() {
             </div>
           </div>
           <p className={styles.switchLink} style={{ marginTop: "auto" }}>
-            New to LearnVeda?{" "}
+            New to Zingpath?{" "}
             <Link href="/sign-up" style={{ color: "#60A5FA", textDecoration: "none" }}>
               Create a free account →
             </Link>

@@ -1,8 +1,8 @@
-# EduQuest — Gamified Educational Platform
+# Zingpath — Gamified Educational Platform
 
 ## Project Overview
 
-EduQuest is a production-level gamified learning platform for Indian students (Class 9–12 + Engineering). Students follow structured day-wise study plans, compete in real-time quiz battles, earn XP, build streaks, and climb a global leaderboard.
+Zingpath is a production-level gamified learning platform for Indian students (Class 9–12 + Engineering). Students follow structured day-wise study plans, compete in real-time quiz battles, earn XP, build streaks, and climb a global leaderboard.
 
 ## Tech Stack
 
@@ -53,15 +53,15 @@ src/
 
 ## Database
 
-All tables live in PostgreSQL with the `eduquest_` prefix:
-- `eduquest_users` — students with XP, streak, level, track
-- `eduquest_community_posts` — forum posts with likes/comments/views
-- `eduquest_events` — competitions and assessments
-- `eduquest_event_registrations` — who registered for what
-- `eduquest_matchmaking_tickets` — battle queue
-- `eduquest_audit_logs` — security audit trail
-- `eduquest_background_jobs` — async job intents
-- `eduquest_schema_migrations` — migration tracking
+All tables live in PostgreSQL with the `zingpath_` prefix:
+- `zingpath_users` — students with XP, streak, level, track
+- `zingpath_community_posts` — forum posts with likes/comments/views
+- `zingpath_events` — competitions and assessments
+- `zingpath_event_registrations` — who registered for what
+- `zingpath_matchmaking_tickets` — battle queue
+- `zingpath_audit_logs` — security audit trail
+- `zingpath_background_jobs` — async job intents
+- `zingpath_schema_migrations` — migration tracking
 
 Run migrations: `npm run db:migrate`
 

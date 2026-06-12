@@ -7,10 +7,10 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://learnveda.in';
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://zingpath.in';
 
 export const metadata: Metadata = {
-  title: 'Light Reflection & Refraction – Chapter Summary | Quick Revision Class 10 | LearnVeda',
+  title: 'Light Reflection & Refraction – Chapter Summary | Quick Revision Class 10 | Zingpath',
   description:
     'Quick revision summary of the complete Light – Reflection and Refraction chapter for Class 10 CBSE. All formulas, key terms, image formation tables, mind map, flashcards, and 30+ MCQs in one place. Perfect for last-minute board exam revision.',
   keywords: [
@@ -23,13 +23,13 @@ export const metadata: Metadata = {
     'reflection refraction flashcards',
     'class 10 physics quick revision',
     'light chapter important questions',
-    'LearnVeda class 10 revision',
+    'Zingpath class 10 revision',
     'board exam light chapter',
     'class 10 optics summary',
   ],
-  authors: [{ name: 'LearnVeda' }],
-  creator: 'LearnVeda',
-  publisher: 'LearnVeda',
+  authors: [{ name: 'Zingpath' }],
+  creator: 'Zingpath',
+  publisher: 'Zingpath',
   robots: {
     index: true,
     follow: true,
@@ -40,11 +40,11 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'article',
-    title: 'Light Reflection & Refraction – Complete Summary | Class 10 Revision | LearnVeda',
+    title: 'Light Reflection & Refraction – Complete Summary | Class 10 Revision | Zingpath',
     description:
       'All formulas, key points, MCQs and flashcards for Light chapter in one place. Best for last-minute Class 10 board exam revision.',
     url: `${BASE}/class-10/light-reflection-and-refraction/summary`,
-    siteName: 'LearnVeda',
+    siteName: 'Zingpath',
     images: [
       {
         url: `${BASE}/images/light/concave-mirror-5-cases.png`,
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Light Chapter Summary – Class 10 Quick Revision | LearnVeda',
+    title: 'Light Chapter Summary – Class 10 Quick Revision | Zingpath',
     description: 'All formulas, MCQs, flashcards for Light Reflection & Refraction. Best Class 10 revision resource.',
     images: [`${BASE}/images/light/concave-mirror-5-cases.png`],
   },
@@ -82,12 +82,12 @@ const jsonLd = {
     'Eye Defects',
   ],
   inLanguage: 'en-IN',
-  provider: { '@type': 'EducationalOrganization', name: 'LearnVeda', url: BASE },
+  provider: { '@type': 'EducationalOrganization', name: 'Zingpath', url: BASE },
   isPartOf: {
     '@type': 'Course',
     name: 'Class 10 Science: Light – Reflection and Refraction',
     url: `${BASE}/class-10/light-reflection-and-refraction`,
-    provider: { '@type': 'EducationalOrganization', name: 'LearnVeda', url: BASE },
+    provider: { '@type': 'EducationalOrganization', name: 'Zingpath', url: BASE },
   },
 };
 

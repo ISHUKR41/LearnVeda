@@ -20,19 +20,19 @@ import BattleLoadingSkeleton from "./BattleLoadingSkeleton";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "Quiz Battle Arena — LearnVeda by Ishu | Real-Time Quiz Battles India",
+  title: "Quiz Battle Arena — Zingpath by Ishu | Real-Time Quiz Battles India",
   description:
-    "LearnVeda by Ishu — Real-time quiz battle platform for Indian students. Challenge opponents, win XP, climb the leaderboard. CBSE Class 9-12, Engineering. India's #1 gamified quiz battle platform.",
+    "Zingpath by Ishu — Real-time quiz battle platform for Indian students. Challenge opponents, win XP, climb the leaderboard. CBSE Class 9-12, Engineering. India's #1 gamified quiz battle platform.",
   keywords: [
     "quiz battle India", "real-time quiz battles India", "online quiz competition India",
     "CBSE quiz battle", "student quiz battle platform India",
-    "LearnVeda battle", "ishu quiz battle", "earn XP quiz India",
+    "Zingpath battle", "ishu quiz battle", "earn XP quiz India",
     "competitive quiz India students", "live quiz battles India",
     "quiz battle leaderboard India", "gamified quiz India",
   ],
   icons: { icon: "/favicons/battle.svg" },
   openGraph: {
-    title: "Quiz Battle Arena — LearnVeda by Ishu | Real-Time India",
+    title: "Quiz Battle Arena — Zingpath by Ishu | Real-Time India",
     description: "Real-time quiz battles by Ishu. Challenge, win XP, climb leaderboard. India's #1 gamified quiz battle.",
     type: "website",
   },

@@ -19,7 +19,7 @@ export async function GET() {
 
   return apiSuccess({
     status: backend.readiness.status === "ready" ? "ok" : "degraded",
-    service: "learnveda-web",
+    service: "zingpath-web",
     checkedAt: new Date().toISOString(),
     backend,
   }, { headers: NO_STORE_HEADERS });

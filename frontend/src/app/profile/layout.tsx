@@ -13,7 +13,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "User Profile — Track Your Achievements",
-  description: "View your badges, unlocked milestones, course progress, and active streaks on your LearnVeda profile.",
+  description: "View your badges, unlocked milestones, course progress, and active streaks on your Zingpath profile.",
   icons: {
     icon: "/favicons/profile.svg",
     shortcut: "/favicons/profile.svg",

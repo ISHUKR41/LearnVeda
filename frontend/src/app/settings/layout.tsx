@@ -13,7 +13,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Account Settings — Customize Your Account",
-  description: "Configure your LearnVeda account settings, adjust notification preferences, and manage security settings.",
+  description: "Configure your Zingpath account settings, adjust notification preferences, and manage security settings.",
   icons: {
     icon: "/favicons/settings.svg",
     shortcut: "/favicons/settings.svg",

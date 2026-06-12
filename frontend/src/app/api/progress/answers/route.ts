@@ -62,7 +62,7 @@ const STARS_REWARDS: Record<string, number> = {
  *   MILESTONE_75:  30 correct answers = "75% chapter complete"  → +1 level
  *   MILESTONE_100: 40 correct answers = "100% chapter complete" → +1 level
  *
- * Rationale: A standard LearnVeda chapter has ~40 questions per topic ×
+ * Rationale: A standard Zingpath chapter has ~40 questions per topic ×
  * multiple topics. These thresholds map to practical study milestones
  * (~10 questions per session) that are achievable and motivating.
  */

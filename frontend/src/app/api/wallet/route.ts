@@ -4,7 +4,7 @@
  * PURPOSE: Wallet API — returns the authenticated user's Stars balance,
  *          transaction history, and lifetime earn/spend totals.
  *
- *          Stars are LearnVeda's virtual currency:
+ *          Stars are Zingpath's virtual currency:
  *          - Earned by answering questions correctly, winning battles, streaks
  *          - Spent on battle wagers
  *          - Never convertible to real money (compliant with RBI guidelines)

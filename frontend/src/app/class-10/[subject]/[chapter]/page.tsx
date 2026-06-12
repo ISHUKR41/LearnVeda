@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (resolvedParams.subject === "science" && CLASS10_SCIENCE_CHAPTERS[resolvedParams.chapter]) {
     const chapterData = CLASS10_SCIENCE_CHAPTERS[resolvedParams.chapter];
     return {
-      title: `${chapterData.title} | Deep Research | LearnVeda`,
+      title: `${chapterData.title} | Deep Research | Zingpath`,
       description: `Comprehensive deep-dive study material, interactive simulations, and practice questions for ${chapterData.title}.`,
     };
   }
@@ -43,13 +43,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data) {
     return {
-      title: "Chapter Practice | LearnVeda",
-      description: "Practice concept questions on LearnVeda.",
+      title: "Chapter Practice | Zingpath",
+      description: "Practice concept questions on Zingpath.",
     };
   }
 
   return {
-    title: `${data.chapterName} - Chapter Practice | LearnVeda`,
+    title: `${data.chapterName} - Chapter Practice | Zingpath`,
     description: `Take interactive multiple choice questions on ${data.chapterName} for Class 10 ${data.subjectName}. Earn XP points and clear your concepts.`,
   };
 }

@@ -86,7 +86,7 @@ interface CategoryMeta {
  * for the filter tab navigation.
  * ───────────────────────────────────────────── */
 const CATEGORIES: CategoryMeta[] = [
-  { id: "getting-started", label: "Getting Started", icon: Zap, description: "New to LearnVeda? Start here." },
+  { id: "getting-started", label: "Getting Started", icon: Zap, description: "New to Zingpath? Start here." },
   { id: "academics", label: "Academics", icon: BookOpen, description: "Class tracks, subjects, and study plans." },
   { id: "engineering", label: "Engineering", icon: Code2, description: "Coding tracks, languages, and DSA." },
   { id: "battles", label: "Battles & XP", icon: Swords, description: "Battle arena, XP, and rankings." },
@@ -99,39 +99,39 @@ const CATEGORIES: CategoryMeta[] = [
 /* ─────────────────────────────────────────────
  * FAQ Content Database
  *
- * Comprehensive Q&A covering all aspects of the LearnVeda platform.
+ * Comprehensive Q&A covering all aspects of the Zingpath platform.
  * Each item has a unique ID for anchor linking and analytics tracking.
  * ───────────────────────────────────────────── */
 const FAQ_DATA: FAQItem[] = [
   /* ── Getting Started ── */
   {
-    id: "what-is-learnveda",
-    question: "What is LearnVeda?",
-    answer: "LearnVeda is a gamified education platform designed for Indian students in Class 9-12 and Engineering. It combines structured NCERT-aligned academic content, 12+ programming language tracks, real-time quiz battles, and a full XP/leveling system to make daily study genuinely rewarding. Think of it as a learning RPG where your character levels up by mastering real subjects.",
+    id: "what-is-zingpath",
+    question: "What is Zingpath?",
+    answer: "Zingpath is a gamified education platform designed for Indian students in Class 9-12 and Engineering. It combines structured NCERT-aligned academic content, 12+ programming language tracks, real-time quiz battles, and a full XP/leveling system to make daily study genuinely rewarding. Think of it as a learning RPG where your character levels up by mastering real subjects.",
     category: "getting-started",
   },
   {
     id: "how-to-sign-up",
     question: "How do I create an account?",
-    answer: "Visit learnveda.in/sign-up and enter your name, email, and password. You will be asked to select your class level (9-12 or Engineering) and stream (Science, Commerce, Arts). Account creation is completely free and takes less than 60 seconds. You will receive 100 starter Stars in your wallet immediately.",
+    answer: "Visit zingpath.in/sign-up and enter your name, email, and password. You will be asked to select your class level (9-12 or Engineering) and stream (Science, Commerce, Arts). Account creation is completely free and takes less than 60 seconds. You will receive 100 starter Stars in your wallet immediately.",
     category: "getting-started",
   },
   {
     id: "what-is-free",
-    question: "Is LearnVeda really free?",
+    question: "Is Zingpath really free?",
     answer: "Yes. Every core feature is free forever — all class tracks (9-12), all 12 engineering language plans, the battle arena, XP system, streak tracking, leaderboard, community forums, and event registration. We are building premium features (Pro plan) for serious exam aspirants, but the free tier will never lose features.",
     category: "getting-started",
   },
   {
     id: "who-is-it-for",
-    question: "Who is LearnVeda built for?",
-    answer: "LearnVeda serves three main groups: (1) Class 9-12 CBSE/ICSE students who need structured, day-wise study plans for board exam preparation, (2) Engineering students learning programming languages and Data Structures, and (3) Competitive exam aspirants (JEE, NEET preparation tracks coming soon). Parents and teachers can also use the platform to monitor student progress.",
+    question: "Who is Zingpath built for?",
+    answer: "Zingpath serves three main groups: (1) Class 9-12 CBSE/ICSE students who need structured, day-wise study plans for board exam preparation, (2) Engineering students learning programming languages and Data Structures, and (3) Competitive exam aspirants (JEE, NEET preparation tracks coming soon). Parents and teachers can also use the platform to monitor student progress.",
     category: "getting-started",
   },
   {
     id: "platforms-supported",
-    question: "What devices can I use LearnVeda on?",
-    answer: "LearnVeda is a fully responsive web application that works on any device with a modern web browser — desktops, laptops, tablets, and smartphones. We support Chrome, Firefox, Safari, and Edge. A native mobile app (iOS and Android) is planned for the next major release.",
+    question: "What devices can I use Zingpath on?",
+    answer: "Zingpath is a fully responsive web application that works on any device with a modern web browser — desktops, laptops, tablets, and smartphones. We support Chrome, Firefox, Safari, and Edge. A native mobile app (iOS and Android) is planned for the next major release.",
     category: "getting-started",
   },
 
@@ -150,14 +150,14 @@ const FAQ_DATA: FAQItem[] = [
   },
   {
     id: "board-exams",
-    question: "Does LearnVeda help with board exam preparation?",
+    question: "Does Zingpath help with board exam preparation?",
     answer: "Absolutely. All academic content is NCERT-aligned with board exam patterns in mind. We provide chapter-wise notes, important formulas, previous year question patterns, and mock tests. The upcoming Pro plan will add timed board-style mock exams with detailed performance analytics.",
     category: "academics",
   },
   {
     id: "question-types",
     question: "What types of questions are available?",
-    answer: "LearnVeda offers four question types: (1) Multiple Choice Questions (MCQs) — with explanation for correct answers, (2) Short Answer Questions — for conceptual understanding, (3) Long Answer Questions — for comprehensive responses, (4) Thinking Questions — higher-order problems that test application and analysis. Each question has difficulty tags (Easy, Medium, Hard) and bloom's taxonomy alignment.",
+    answer: "Zingpath offers four question types: (1) Multiple Choice Questions (MCQs) — with explanation for correct answers, (2) Short Answer Questions — for conceptual understanding, (3) Long Answer Questions — for comprehensive responses, (4) Thinking Questions — higher-order problems that test application and analysis. Each question has difficulty tags (Easy, Medium, Hard) and bloom's taxonomy alignment.",
     category: "academics",
   },
   {
@@ -171,7 +171,7 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: "programming-languages",
     question: "Which programming languages are available?",
-    answer: "LearnVeda offers structured learning plans for 12+ languages: C, C++, Python, Java, JavaScript, TypeScript, Go, Rust, Ruby, Swift, Kotlin, and SQL. Each language has a complete curriculum from basics to advanced topics, with hands-on coding problems and real-world project ideas. Additional languages (PHP, Scala, Dart) are in development.",
+    answer: "Zingpath offers structured learning plans for 12+ languages: C, C++, Python, Java, JavaScript, TypeScript, Go, Rust, Ruby, Swift, Kotlin, and SQL. Each language has a complete curriculum from basics to advanced topics, with hands-on coding problems and real-world project ideas. Additional languages (PHP, Scala, Dart) are in development.",
     category: "engineering",
   },
   {
@@ -209,13 +209,13 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: "streaks",
     question: "What are daily streaks?",
-    answer: "A streak is the number of consecutive days you have used LearnVeda for active learning (completing at least one lesson or practice session). Streaks are a powerful motivation tool — they are displayed on your profile, the dashboard, and the leaderboard. Maintaining a streak earns bonus XP. If you miss a day, your streak resets to zero, but your highest streak is always preserved.",
+    answer: "A streak is the number of consecutive days you have used Zingpath for active learning (completing at least one lesson or practice session). Streaks are a powerful motivation tool — they are displayed on your profile, the dashboard, and the leaderboard. Maintaining a streak earns bonus XP. If you miss a day, your streak resets to zero, but your highest streak is always preserved.",
     category: "battles",
   },
   {
     id: "leaderboard",
     question: "How does the leaderboard work?",
-    answer: "LearnVeda has multiple leaderboard views: Global (all users), Class-specific (your class level), Weekly (resets every Monday), and Battle (ranked by win rate). Rankings are based on XP. The top 10 users receive special badges and Stars rewards. The leaderboard is updated in real-time as users earn XP.",
+    answer: "Zingpath has multiple leaderboard views: Global (all users), Class-specific (your class level), Weekly (resets every Monday), and Battle (ranked by win rate). Rankings are based on XP. The top 10 users receive special badges and Stars rewards. The leaderboard is updated in real-time as users earn XP.",
     category: "battles",
   },
   {
@@ -241,7 +241,7 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: "data-privacy",
     question: "How is my data protected?",
-    answer: "LearnVeda takes data security seriously. Passwords are hashed with PBKDF2-SHA512 (100,000 iterations). Sessions use httpOnly cookies. All communication is encrypted via HTTPS. We do not sell user data to third parties. We follow GDPR-inspired data handling practices and will comply with India's DPDP Act requirements.",
+    answer: "Zingpath takes data security seriously. Passwords are hashed with PBKDF2-SHA512 (100,000 iterations). Sessions use httpOnly cookies. All communication is encrypted via HTTPS. We do not sell user data to third parties. We follow GDPR-inspired data handling practices and will comply with India's DPDP Act requirements.",
     category: "account",
   },
   {
@@ -254,8 +254,8 @@ const FAQ_DATA: FAQItem[] = [
   /* ── Billing ── */
   {
     id: "pricing-plans",
-    question: "What plans does LearnVeda offer?",
-    answer: "Currently, LearnVeda is completely free. We offer three tiers: (1) Student Free — all core features forever at ₹0, (2) Student Pro (coming soon, ₹299/month) — advanced analytics, mock tests, AI study planner, (3) School Partner (custom pricing) — institutional deployment with admin dashboards. Visit /pricing for full details.",
+    question: "What plans does Zingpath offer?",
+    answer: "Currently, Zingpath is completely free. We offer three tiers: (1) Student Free — all core features forever at ₹0, (2) Student Pro (coming soon, ₹299/month) — advanced analytics, mock tests, AI study planner, (3) School Partner (custom pricing) — institutional deployment with admin dashboards. Visit /pricing for full details.",
     category: "billing",
   },
   {
@@ -267,7 +267,7 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: "school-pricing",
     question: "How does School Partner pricing work?",
-    answer: "School Partner pricing is customized based on the number of students, required features, and deployment needs. It includes teacher dashboards, bulk enrollment, school-wide analytics, and dedicated support. Contact us at support@learnveda.in or visit /contact for a custom quote.",
+    answer: "School Partner pricing is customized based on the number of students, required features, and deployment needs. It includes teacher dashboards, bulk enrollment, school-wide analytics, and dedicated support. Contact us at support@zingpath.in or visit /contact for a custom quote.",
     category: "billing",
   },
 
@@ -275,19 +275,19 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: "discussion-forums",
     question: "How do the community forums work?",
-    answer: "LearnVeda has chapter-specific and general discussion forums where students can ask doubts, share study tips, and help each other. You can create posts, comment on others' posts, and upvote helpful content. Forum participation earns XP. Moderators ensure discussions stay respectful and on-topic.",
+    answer: "Zingpath has chapter-specific and general discussion forums where students can ask doubts, share study tips, and help each other. You can create posts, comment on others' posts, and upvote helpful content. Forum participation earns XP. Moderators ensure discussions stay respectful and on-topic.",
     category: "community",
   },
   {
     id: "hackathons",
-    question: "What are LearnVeda Hackathons?",
-    answer: "We host periodic hackathons — coding competitions where students solve real-world problems in teams. Hackathons have themes (e.g., health tech, education tools, sustainability), time limits (24-48 hours), and prizes (Stars, premium badges, certificates). Registration is free and open to all LearnVeda users.",
+    question: "What are Zingpath Hackathons?",
+    answer: "We host periodic hackathons — coding competitions where students solve real-world problems in teams. Hackathons have themes (e.g., health tech, education tools, sustainability), time limits (24-48 hours), and prizes (Stars, premium badges, certificates). Registration is free and open to all Zingpath users.",
     category: "community",
   },
   {
     id: "events",
-    question: "What events does LearnVeda host?",
-    answer: "LearnVeda hosts weekly quiz tournaments, monthly coding challenges, seasonal hackathons, and special board exam preparation workshops. All events are free to join and visible on the Events page. Winners earn Stars, XP, and exclusive profile badges. Past events and their results are archived for reference.",
+    question: "What events does Zingpath host?",
+    answer: "Zingpath hosts weekly quiz tournaments, monthly coding challenges, seasonal hackathons, and special board exam preparation workshops. All events are free to join and visible on the Events page. Winners earn Stars, XP, and exclusive profile badges. Past events and their results are archived for reference.",
     category: "community",
   },
 
@@ -295,25 +295,25 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: "browser-support",
     question: "Which browsers are supported?",
-    answer: "LearnVeda works best on the latest versions of Google Chrome, Mozilla Firefox, Apple Safari, and Microsoft Edge. We recommend Chrome for the best experience. Internet Explorer is not supported. JavaScript must be enabled.",
+    answer: "Zingpath works best on the latest versions of Google Chrome, Mozilla Firefox, Apple Safari, and Microsoft Edge. We recommend Chrome for the best experience. Internet Explorer is not supported. JavaScript must be enabled.",
     category: "technical",
   },
   {
     id: "offline-access",
-    question: "Can I use LearnVeda offline?",
-    answer: "Currently, LearnVeda requires an active internet connection. Offline access (downloadable lessons and practice sets) is a planned Pro feature. We will implement Progressive Web App (PWA) capabilities to enable limited offline functionality.",
+    question: "Can I use Zingpath offline?",
+    answer: "Currently, Zingpath requires an active internet connection. Offline access (downloadable lessons and practice sets) is a planned Pro feature. We will implement Progressive Web App (PWA) capabilities to enable limited offline functionality.",
     category: "technical",
   },
   {
     id: "report-bug",
     question: "How do I report a bug?",
-    answer: "If you find a bug, please report it through the Contact page (/contact) or email us at support@learnveda.in. Include: (1) What you were doing, (2) What you expected to happen, (3) What actually happened, (4) Your browser and device. Screenshots are very helpful. We triage all bug reports within 24 hours.",
+    answer: "If you find a bug, please report it through the Contact page (/contact) or email us at support@zingpath.in. Include: (1) What you were doing, (2) What you expected to happen, (3) What actually happened, (4) Your browser and device. Screenshots are very helpful. We triage all bug reports within 24 hours.",
     category: "technical",
   },
   {
     id: "api-access",
-    question: "Does LearnVeda have a public API?",
-    answer: "Yes. LearnVeda exposes a RESTful API at /api with endpoints for content, progress, battles, leaderboards, and more. The API is documented at /api (root endpoint). Public API access for third-party integrations (School Partner plan) is planned for launch alongside the Pro plan.",
+    question: "Does Zingpath have a public API?",
+    answer: "Yes. Zingpath exposes a RESTful API at /api with endpoints for content, progress, battles, leaderboards, and more. The API is documented at /api (root endpoint). Public API access for third-party integrations (School Partner plan) is planned for launch alongside the Pro plan.",
     category: "technical",
   },
 ];
@@ -394,7 +394,7 @@ export default function FAQPage() {
             <span className={styles.heroHighlight}>Questions</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            Everything you need to know about LearnVeda — from getting started to
+            Everything you need to know about Zingpath — from getting started to
             mastering the battle arena. Can&apos;t find your answer? Reach out to our team.
           </p>
 

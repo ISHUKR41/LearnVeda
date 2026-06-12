@@ -146,7 +146,7 @@ export default function HackathonDetailClient({ id }: HackathonDetailClientProps
   // Sync user's registration state from localStorage or API
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("learnveda-registered-hackathons");
+      const stored = localStorage.getItem("zingpath-registered-hackathons");
       if (stored) {
         const ids: string[] = JSON.parse(stored);
         if (ids.includes(id)) {
@@ -212,11 +212,11 @@ export default function HackathonDetailClient({ id }: HackathonDetailClientProps
 
       // Save to localStorage persistence
       if (typeof window !== "undefined") {
-        const stored = localStorage.getItem("learnveda-registered-hackathons");
+        const stored = localStorage.getItem("zingpath-registered-hackathons");
         const list = stored ? JSON.parse(stored) : [];
         if (!list.includes(id)) {
           list.push(id);
-          localStorage.setItem("learnveda-registered-hackathons", JSON.stringify(list));
+          localStorage.setItem("zingpath-registered-hackathons", JSON.stringify(list));
         }
       }
 

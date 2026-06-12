@@ -2,7 +2,7 @@
  * FILE: CTA.tsx
  * LOCATION: src/components/Home/CTA/CTA.tsx
  * PURPOSE: A call-to-action component for the Home page.
- * AUTHOR: LearnVeda Team
+ * AUTHOR: Zingpath Team
  * LAST UPDATED: 2026-05-18
  */
 

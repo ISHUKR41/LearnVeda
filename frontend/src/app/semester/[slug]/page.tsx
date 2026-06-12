@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: PageProps) {
       title: semester.seoTitle,
       description: semester.metaDescription,
       type: "website",
-      url: `https://learnveda.in/semester/${slug}`,
+      url: `https://zingpath.in/semester/${slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -71,7 +71,7 @@ export default async function SemesterSlugPage({ params }: PageProps) {
   const courseSchema = generateCourseSchema({
     name: semester.title,
     description: semester.metaDescription,
-    providerName: "LearnVeda Academic Board",
+    providerName: "Zingpath Academic Board",
   });
 
   const howToSteps = semester.checklist.map((item) => ({
