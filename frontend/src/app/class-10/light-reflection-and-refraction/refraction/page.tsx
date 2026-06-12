@@ -655,8 +655,8 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/refraction-glass-slab-lateral.png', caption: 'Glass slab refraction — emergent ray parallel, laterally displaced by d = t·sin(i−r)/cos(r)' },
-                { src: '/images/light/light_glass_slab_nano_banana_1781204391585.png', caption: 'Glass slab with parallel surfaces — no net angular deviation, only lateral shift' },
+                { src: '/images/light/light_glass_slab_nano_banana_1781204391585.png', caption: 'Glass slab refraction — emergent ray is parallel to incident ray but laterally displaced' },
+                { src: '/images/light/snells-law-vector-diagram.png', caption: 'Snell\'s Law applied at both surfaces: n₁ sin i = n₂ sin r → emergent ray parallel, shifted' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />

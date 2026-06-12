@@ -459,15 +459,19 @@
    10. SIMULATION CONTAINER
 ═══════════════════════════════════════════════════ */
 .simulationContainer {
-  background: #050508;
-  border: 1px solid rgba(0, 255, 204, 0.2);
+  background: linear-gradient(135deg, #04060f 0%, #080d1a 100%);
+  border: 1.5px solid rgba(0, 255, 204, 0.35);
+  border-top: 3px solid #00ffcc;
   border-radius: 14px;
   padding: 1.5rem;
-  margin: 1.5rem 0;
+  margin: 2rem 0;
   position: relative;
   overflow: hidden;
   min-height: 420px;
-  box-shadow: 0 0 40px rgba(0, 255, 204, 0.05);
+  box-shadow:
+    0 0 0 1px rgba(0,255,204,0.06),
+    0 0 40px rgba(0, 255, 204, 0.12),
+    0 20px 60px rgba(0,0,0,0.5);
 }
 
 .simulationLabel {

@@ -2,23 +2,30 @@
 
 /**
  * FILE: MindMap.tsx
- * PURPOSE: Interactive SVG mind-map for the Light chapter.
- *          All edges are always fully visible with bright neon colors.
- *          Nodes glow when clicked/active.
- *          Covers all subtopics: Reflection, Refraction, TIR, Mirrors, Lenses.
+ * PURPOSE: Interactive SVG mind-map for the Class 10 Light chapter.
+ *          MAXIMUM VISIBILITY — all nodes and edges clearly readable on dark background.
+ *          Nodes have solid colored fills (not transparent) for crisp visibility.
+ *          Inspired by skills.sh dark terminal aesthetic.
+ * DESIGN: Bright neon fills, thick edges, glow effects, animated connections.
  */
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
-/* ─────────── Color palette — all vivid and readable on dark bg ─────────── */
+/* ─────────── Color palette — MAXIMUM contrast on #09090b dark background ─────────── */
 const COLORS = {
-  root:       { fill: '#00ffcc', text: '#09090b', stroke: '#00ffcc' },
-  reflection: { fill: '#3b82f6', text: '#fff',    stroke: '#3b82f6' },
-  refraction: { fill: '#f59e0b', text: '#09090b', stroke: '#f59e0b' },
-  mirrors:    { fill: '#6366f1', text: '#fff',    stroke: '#6366f1' },
-  lenses:     { fill: '#10b981', text: '#fff',    stroke: '#10b981' },
-  leaf:       { fill: '#1c1c2e', text: '#e4e4e7', stroke: '#4b5563' },
+  root:       { fill: '#00ffcc', text: '#0a0a0a', stroke: '#00ffcc', edge: '#00ffcc' },
+  reflection: { fill: '#2563eb', text: '#ffffff', stroke: '#60a5fa', edge: '#60a5fa' },
+  refraction: { fill: '#d97706', text: '#ffffff', stroke: '#fbbf24', edge: '#fbbf24' },
+  mirrors:    { fill: '#7c3aed', text: '#ffffff', stroke: '#a78bfa', edge: '#a78bfa' },
+  lenses:     { fill: '#059669', text: '#ffffff', stroke: '#34d399', edge: '#34d399' },
+  tir:        { fill: '#dc2626', text: '#ffffff', stroke: '#f87171', edge: '#f87171' },
+  /* Leaf nodes: dark-but-visible bg with bright border */
+  leaf_blue:  { fill: '#0f172a', text: '#93c5fd', stroke: '#3b82f6', edge: '#60a5fa' },
+  leaf_amber: { fill: '#1c1107', text: '#fcd34d', stroke: '#f59e0b', edge: '#fbbf24' },
+  leaf_green: { fill: '#022c22', text: '#6ee7b7', stroke: '#10b981', edge: '#34d399' },
+  leaf_red:   { fill: '#1a0505', text: '#fca5a5', stroke: '#ef4444', edge: '#f87171' },
+  leaf_indigo:{ fill: '#13111c', text: '#c4b5fd', stroke: '#8b5cf6', edge: '#a78bfa' },
 };
 
 interface NodeDef {
@@ -35,139 +42,144 @@ interface NodeDef {
 interface EdgeDef {
   from: string;
   to: string;
-  /** Full-opacity color — always visible */
   color: string;
 }
 
-/* ─────────── Node layout — arranged left (reflection) | center | right (refraction) ─────────── */
+/* ─────────── Node layout ─────────── */
 const nodes: NodeDef[] = [
   /* ── Root ── */
-  { id: 'light',       label: 'LIGHT',              emoji: '☀️',  x: 520,  y: 290, color: COLORS.root,       w: 130, h: 48 },
+  { id: 'light',       label: 'LIGHT',              emoji: '☀️',  x: 540,  y: 295, color: COLORS.root,       w: 140, h: 52 },
 
   /* ── Reflection branch (left) ── */
-  { id: 'refl',        label: 'Reflection',          emoji: '🪞',  x: 240,  y: 150, color: COLORS.reflection, w: 150, h: 42 },
-  { id: 'laws_refl',   label: '∠i = ∠r',                          x: 55,   y: 60,  color: COLORS.leaf,       w: 110, h: 38 },
-  { id: 'plane_m',     label: 'Plane Mirror',                       x: 55,   y: 140, color: COLORS.leaf,       w: 120, h: 38 },
-  { id: 'concave',     label: 'Concave Mirror',                     x: 55,   y: 220, color: COLORS.leaf,       w: 135, h: 38 },
-  { id: 'convex',      label: 'Convex Mirror',                      x: 55,   y: 298, color: COLORS.leaf,       w: 132, h: 38 },
-  { id: 'mirror_f',    label: '1/v + 1/u = 1/f',                    x: 55,   y: 378, color: COLORS.mirrors,   w: 155, h: 38 },
-  { id: 'magnif',      label: 'm = −v/u',                           x: 55,   y: 450, color: COLORS.leaf,       w: 120, h: 38 },
+  { id: 'refl',        label: 'Reflection',          emoji: '🪞',  x: 240,  y: 155, color: COLORS.reflection, w: 155, h: 44 },
+  { id: 'laws_refl',   label: '∠i = ∠r',                          x: 52,   y: 58,  color: COLORS.leaf_blue,  w: 115, h: 40 },
+  { id: 'plane_m',     label: 'Plane Mirror',                       x: 52,   y: 138, color: COLORS.leaf_blue,  w: 125, h: 40 },
+  { id: 'concave',     label: 'Concave Mirror',                     x: 52,   y: 218, color: COLORS.leaf_blue,  w: 140, h: 40 },
+  { id: 'convex',      label: 'Convex Mirror',                      x: 52,   y: 298, color: COLORS.leaf_blue,  w: 138, h: 40 },
+  { id: 'mirror_f',    label: '1/v + 1/u = 1/f',                    x: 52,   y: 378, color: COLORS.leaf_indigo,w: 158, h: 40 },
+  { id: 'magnif',      label: 'm = −v/u',                           x: 52,   y: 452, color: COLORS.leaf_indigo,w: 125, h: 40 },
 
   /* ── Refraction branch (right) ── */
-  { id: 'refr',        label: 'Refraction',          emoji: '🔬',  x: 800,  y: 150, color: COLORS.refraction, w: 148, h: 42 },
-  { id: 'snell',       label: "Snell's Law",                        x: 990,  y: 60,  color: COLORS.leaf,       w: 122, h: 38 },
-  { id: 'ri',          label: 'Refractive Index n',                  x: 990,  y: 140, color: COLORS.leaf,       w: 154, h: 38 },
-  { id: 'glass_slab',  label: 'Glass Slab',                         x: 990,  y: 220, color: COLORS.leaf,       w: 118, h: 38 },
-  { id: 'lens_convex', label: 'Convex Lens',                        x: 990,  y: 298, color: COLORS.lenses,     w: 122, h: 38 },
-  { id: 'lens_concave',label: 'Concave Lens',                       x: 990,  y: 375, color: COLORS.lenses,     w: 128, h: 38 },
-  { id: 'lens_f',      label: '1/v − 1/u = 1/f',                    x: 990,  y: 450, color: COLORS.lenses,     w: 156, h: 38 },
+  { id: 'refr',        label: 'Refraction',          emoji: '🌊',  x: 840,  y: 155, color: COLORS.refraction, w: 152, h: 44 },
+  { id: 'snell',       label: "Snell's Law",                        x: 1025, y: 58,  color: COLORS.leaf_amber, w: 128, h: 40 },
+  { id: 'ri',          label: 'Refractive Index n',                  x: 1025, y: 138, color: COLORS.leaf_amber, w: 158, h: 40 },
+  { id: 'glass_slab',  label: 'Glass Slab',                         x: 1025, y: 218, color: COLORS.leaf_amber, w: 122, h: 40 },
+  { id: 'lens_convex', label: 'Convex Lens',                        x: 1025, y: 298, color: COLORS.leaf_green, w: 128, h: 40 },
+  { id: 'lens_concave',label: 'Concave Lens',                       x: 1025, y: 375, color: COLORS.leaf_green, w: 132, h: 40 },
+  { id: 'lens_f',      label: '1/v − 1/u = 1/f',                    x: 1025, y: 452, color: COLORS.leaf_green, w: 160, h: 40 },
 
   /* ── TIR branch (center-bottom) ── */
-  { id: 'tir',         label: 'Total Internal\nReflection', emoji: '💎', x: 520, y: 430, color: COLORS.refraction, w: 155, h: 48 },
-  { id: 'critical',    label: 'Critical Angle',                      x: 390,  y: 530, color: COLORS.leaf,       w: 132, h: 38 },
-  { id: 'opt_fibre',   label: 'Optical Fibre',                       x: 650,  y: 530, color: COLORS.leaf,       w: 128, h: 38 },
+  { id: 'tir',         label: 'Total Internal\nReflection', emoji: '💎', x: 540, y: 438, color: COLORS.tir, w: 162, h: 52 },
+  { id: 'critical',    label: 'Critical Angle',                      x: 390,  y: 545, color: COLORS.leaf_red,   w: 138, h: 40 },
+  { id: 'opt_fibre',   label: 'Optical Fibre',                       x: 690,  y: 545, color: COLORS.leaf_red,   w: 132, h: 40 },
 ];
 
-/* ─────────── All edges use FULL opacity — always visible ─────────── */
+/* ─────────── Edges — all thick and bright ─────────── */
 const edges: EdgeDef[] = [
-  /* root → branches */
-  { from: 'light',    to: 'refl',        color: '#3b82f6' },
-  { from: 'light',    to: 'refr',        color: '#f59e0b' },
-  { from: 'light',    to: 'tir',         color: '#f59e0b' },
-  /* reflection → leaves */
-  { from: 'refl',     to: 'laws_refl',   color: '#60a5fa' },
-  { from: 'refl',     to: 'plane_m',     color: '#60a5fa' },
-  { from: 'refl',     to: 'concave',     color: '#60a5fa' },
-  { from: 'refl',     to: 'convex',      color: '#60a5fa' },
-  { from: 'refl',     to: 'mirror_f',    color: '#818cf8' },
-  { from: 'refl',     to: 'magnif',      color: '#60a5fa' },
-  /* refraction → leaves */
-  { from: 'refr',     to: 'snell',       color: '#fbbf24' },
-  { from: 'refr',     to: 'ri',          color: '#fbbf24' },
-  { from: 'refr',     to: 'glass_slab',  color: '#fbbf24' },
-  { from: 'refr',     to: 'lens_convex', color: '#34d399' },
-  { from: 'refr',     to: 'lens_concave',color: '#34d399' },
-  { from: 'refr',     to: 'lens_f',      color: '#34d399' },
-  /* TIR → leaves */
-  { from: 'tir',      to: 'critical',    color: '#fbbf24' },
-  { from: 'tir',      to: 'opt_fibre',   color: '#fbbf24' },
+  { from: 'light',    to: 'refl',        color: '#60a5fa' },
+  { from: 'light',    to: 'refr',        color: '#fbbf24' },
+  { from: 'light',    to: 'tir',         color: '#f87171' },
+  { from: 'refl',     to: 'laws_refl',   color: '#93c5fd' },
+  { from: 'refl',     to: 'plane_m',     color: '#93c5fd' },
+  { from: 'refl',     to: 'concave',     color: '#93c5fd' },
+  { from: 'refl',     to: 'convex',      color: '#93c5fd' },
+  { from: 'refl',     to: 'mirror_f',    color: '#c4b5fd' },
+  { from: 'refl',     to: 'magnif',      color: '#c4b5fd' },
+  { from: 'refr',     to: 'snell',       color: '#fcd34d' },
+  { from: 'refr',     to: 'ri',          color: '#fcd34d' },
+  { from: 'refr',     to: 'glass_slab',  color: '#fcd34d' },
+  { from: 'refr',     to: 'lens_convex', color: '#6ee7b7' },
+  { from: 'refr',     to: 'lens_concave',color: '#6ee7b7' },
+  { from: 'refr',     to: 'lens_f',      color: '#6ee7b7' },
+  { from: 'tir',      to: 'critical',    color: '#fca5a5' },
+  { from: 'tir',      to: 'opt_fibre',   color: '#fca5a5' },
 ];
 
-/* ─────────── Tooltip data for each node ─────────── */
+/* ─────────── Tooltip data ─────────── */
 const TOOLTIPS: Record<string, string> = {
-  light:       'Electromagnetic wave; λ = 400–700 nm; speed = 3×10⁸ m/s in vacuum',
-  refl:        'Bouncing of light off a surface back into the same medium',
-  laws_refl:   'Angle of incidence = Angle of reflection; all in same plane',
-  plane_m:     'Virtual, erect, same-size image; d(object) = d(image) from mirror',
-  concave:     'Converging mirror; used in torches, solar cookers, dentist mirrors',
-  convex:      'Diverging mirror; always virtual, erect, diminished — used in rear-view mirrors',
-  mirror_f:    'Mirror formula: 1/f = 1/v + 1/u (sign convention applies)',
-  magnif:      'Magnification m = h′/h = −v/u; m < 0 → real & inverted',
-  refr:        'Bending of light as it moves between media of different optical densities',
-  snell:       'n₁ sin θ₁ = n₂ sin θ₂',
-  ri:          'n = c/v = sin i / sin r; n(water)=1.33, n(glass)=1.52, n(diamond)=2.42',
-  glass_slab:  'Emergent ray is parallel to incident ray but laterally displaced',
-  lens_convex: 'Converging lens; can form real & virtual images depending on object distance',
-  lens_concave:'Diverging lens; always forms virtual, erect, diminished images',
-  lens_f:      'Lens formula: 1/f = 1/v − 1/u; P = 1/f (dioptre)',
-  tir:         'Occurs when light in denser medium hits boundary at angle > critical angle',
-  critical:    'sin C = n₂/n₁; at C, refracted ray grazes the surface (90°)',
-  opt_fibre:   'Uses TIR to transmit light over long distances; basis of internet cables',
+  light:       'Electromagnetic radiation visible to human eye. Speed = 3×10⁸ m/s in vacuum. Wavelength λ = 400–700 nm.',
+  refl:        'Bouncing of light off a surface. Follows two laws: ∠i = ∠r, and all rays lie in same plane.',
+  laws_refl:   '1st Law: ∠i = ∠r | 2nd Law: incident ray, normal, reflected ray all in same plane.',
+  plane_m:     'Virtual + Erect + Same-size image. Image distance = Object distance. Lateral inversion occurs.',
+  concave:     'Converging mirror. Forms Real/Inverted (beyond F) or Virtual/Erect (between F and P). Used: torch, solar cooker, dentist mirror.',
+  convex:      'Diverging mirror. Always Virtual + Erect + Diminished. Wide field of view. Used: rear-view mirrors.',
+  mirror_f:    '1/f = 1/v + 1/u. Sign convention: distances from Pole P. Concave f = −ve, Convex f = +ve.',
+  magnif:      'm = −v/u = h′/h. m < 0 → Real & Inverted. m > 0 → Virtual & Erect. |m| > 1 → Magnified.',
+  refr:        'Bending of light at interface of two media due to change in speed. Dense→Rare: bends away from normal.',
+  snell:       'n₁ sin θ₁ = n₂ sin θ₂. Also: sin i / sin r = n₂₁ = constant for given pair of media.',
+  ri:          'n = c/v = sin i / sin r. Air: 1.00 | Water: 1.33 | Glass: 1.52 | Diamond: 2.42 (highest known natural).',
+  glass_slab:  'Emergent ray parallel to incident ray but shifted sideways (lateral displacement). No change in direction.',
+  lens_convex: 'Converging lens. Can form Real (inverted) or Virtual (erect) images depending on object position.',
+  lens_concave:'Diverging lens. Always forms Virtual + Erect + Diminished image regardless of object position.',
+  lens_f:      '1/f = 1/v − 1/u. Power P = 1/f (dioptre D). Convex: +ve power. Concave: −ve power.',
+  tir:         'Light in denser medium hits boundary at angle ≥ critical angle → 100% reflected back. Used in fibre optics.',
+  critical:    'sin C = n₂/n₁ = 1/n. For glass-air: C ≈ 42°. For water-air: C ≈ 49°. Diamond: only 24° → extreme sparkle!',
+  opt_fibre:   'TIR keeps light trapped in glass core. Used for: internet data cables, endoscopy, telephone, sensors.',
 };
 
 /* ─────────── Single node rendering ─────────── */
 function NodeBox({ node, active, onClick }: { node: NodeDef; active: boolean; onClick: () => void }) {
   const w = node.w ?? 130;
   const h = node.h ?? 40;
+
   return (
     <motion.g
-      key={node.id}
-      initial={{ opacity: 0, scale: 0.6 }}
+      initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.4, type: 'spring', stiffness: 180, damping: 18 }}
-      whileHover={{ scale: 1.1 }}
+      transition={{ duration: 0.5, type: 'spring', stiffness: 200, damping: 20 }}
+      whileHover={{ scale: 1.08 }}
       onClick={onClick}
       style={{ cursor: 'pointer' }}
     >
-      {/* Glow effect when active */}
+      {/* Outer glow ring when active */}
       {active && (
         <rect
-          x={node.x - w / 2 - 4}
-          y={node.y - h / 2 - 4}
-          width={w + 8}
-          height={h + 8}
-          rx="12"
+          x={node.x - w / 2 - 6}
+          y={node.y - h / 2 - 6}
+          width={w + 12}
+          height={h + 12}
+          rx="13"
           fill="none"
           stroke={node.color.stroke}
-          strokeWidth="1"
-          opacity="0.25"
-          style={{ filter: `blur(6px)` }}
+          strokeWidth="3"
+          opacity="0.5"
+          style={{ filter: `blur(4px)` }}
         />
       )}
-      {/* Node box */}
+
+      {/* Node body — solid fill always */}
       <rect
         x={node.x - w / 2}
         y={node.y - h / 2}
         width={w}
         height={h}
-        rx="8"
-        fill={active ? node.color.fill : node.color.fill + '28'}
+        rx="9"
+        fill={active ? node.color.fill : node.color.fill}
         stroke={node.color.stroke}
-        strokeWidth={active ? 2.5 : 1.5}
-        style={{ filter: active ? `drop-shadow(0 0 10px ${node.color.stroke})` : 'none' }}
+        strokeWidth={active ? 2.5 : 1.8}
+        opacity={active ? 1 : 0.85}
+        style={{
+          filter: active
+            ? `drop-shadow(0 0 12px ${node.color.stroke}) drop-shadow(0 0 4px ${node.color.stroke})`
+            : `drop-shadow(0 0 4px ${node.color.stroke}60)`,
+        }}
       />
-      {/* Label text */}
+
+      {/* Label */}
       {node.label.split('\n').map((line, li, arr) => (
         <text
           key={li}
           x={node.x}
-          y={node.y + (arr.length > 1 ? (li - 0.5) * 14 : 0)}
-          fill={active ? node.color.text : (node.color.text === '#09090b' ? '#e4e4e7' : node.color.text)}
+          y={node.y + (arr.length > 1 ? (li - (arr.length - 1) / 2) * 15 : 0)}
+          fill={node.color.text}
           textAnchor="middle"
           dominantBaseline="middle"
           fontSize="11.5"
-          fontWeight="700"
-          fontFamily="'Inter', system-ui, sans-serif"
+          fontWeight="800"
+          fontFamily="'Inter', 'Sora', system-ui, sans-serif"
+          style={{
+            filter: active ? `drop-shadow(0 0 4px ${node.color.stroke})` : 'none',
+          }}
         >
           {node.emoji && li === 0 ? `${node.emoji} ${line}` : line}
         </text>
@@ -183,63 +195,93 @@ export default function MindMap() {
   const tooltip = TOOLTIPS[activeNode] ?? '';
 
   return (
-    <div style={{ background: '#09090b', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)', padding: '1rem', overflowX: 'auto' }}>
-      <p style={{ fontSize: '0.72rem', color: '#52525b', textAlign: 'center', marginBottom: '0.5rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-        ↓ Click any node to see its detail
+    <div style={{
+      background: 'linear-gradient(135deg, #0a0a12 0%, #0d1020 100%)',
+      borderRadius: '16px',
+      border: '1px solid rgba(255,255,255,0.10)',
+      padding: '1.25rem',
+      overflowX: 'auto',
+      boxShadow: '0 0 40px rgba(0,255,204,0.04)',
+    }}>
+      <p style={{
+        fontSize: '0.72rem',
+        color: '#52525b',
+        textAlign: 'center',
+        marginBottom: '0.75rem',
+        letterSpacing: '0.08em',
+        textTransform: 'uppercase',
+      }}>
+        ↓ Click any node to see its detail · drag to scroll
       </p>
 
       <svg
         width="100%"
-        viewBox="0 0 1100 590"
-        style={{ minWidth: '720px', display: 'block' }}
+        viewBox="0 0 1100 615"
+        style={{ minWidth: '740px', display: 'block' }}
       >
-        {/* Grid background */}
         <defs>
-          <pattern id="mmgrid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.025)" strokeWidth="1" />
+          {/* Subtle dot grid */}
+          <pattern id="mmgrid2" width="32" height="32" patternUnits="userSpaceOnUse">
+            <circle cx="16" cy="16" r="0.8" fill="rgba(255,255,255,0.04)" />
           </pattern>
-          <marker id="arrowBlue"  markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L6,3 Z" fill="#60a5fa" />
-          </marker>
-          <marker id="arrowAmber" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L6,3 Z" fill="#fbbf24" />
-          </marker>
-          <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L6,3 Z" fill="#34d399" />
-          </marker>
-          <marker id="arrowCyan"  markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L6,3 Z" fill="#00ffcc" />
-          </marker>
-          <marker id="arrowIndigo" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L6,3 Z" fill="#818cf8" />
-          </marker>
-        </defs>
-        <rect width="1100" height="590" fill="url(#mmgrid)" />
 
-        {/* ── Edges (drawn first, under nodes) ── */}
+          {/* Arrow markers for each color */}
+          {[
+            { id: 'arr-cyan',   fill: '#00ffcc' },
+            { id: 'arr-blue',   fill: '#93c5fd' },
+            { id: 'arr-amber',  fill: '#fcd34d' },
+            { id: 'arr-green',  fill: '#6ee7b7' },
+            { id: 'arr-red',    fill: '#fca5a5' },
+            { id: 'arr-indigo', fill: '#c4b5fd' },
+          ].map(({ id, fill }) => (
+            <marker key={id} id={id} markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,1 L0,7 L7,4 Z" fill={fill} />
+            </marker>
+          ))}
+
+          {/* Glow filter */}
+          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+            <feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+        </defs>
+
+        {/* Background */}
+        <rect width="1100" height="615" fill="url(#mmgrid2)" rx="12" />
+
+        {/* ── Edges (drawn first, below nodes) ── */}
         {edges.map((edge, i) => {
           const A = nodes.find(n => n.id === edge.from)!;
           const B = nodes.find(n => n.id === edge.to)!;
           const isHot = activeNode === edge.from || activeNode === edge.to;
-          /* Pick arrowhead marker matching edge color */
-          const marker = edge.color.startsWith('#60') || edge.color === '#3b82f6' ? 'arrowBlue'
-                       : edge.color.startsWith('#fb') || edge.color === '#f59e0b' ? 'arrowAmber'
-                       : edge.color.startsWith('#34') ? 'arrowGreen'
-                       : edge.color.startsWith('#81') ? 'arrowIndigo'
-                       : 'arrowCyan';
+
+          /* Map color → arrow marker */
+          const marker =
+            edge.color.startsWith('#93') || edge.color === '#60a5fa' ? 'arr-blue'
+            : edge.color.startsWith('#fc') || edge.color === '#fcd34d' ? 'arr-amber'
+            : edge.color.startsWith('#6e') || edge.color === '#34d399' ? 'arr-green'
+            : edge.color.startsWith('#fc') || edge.color === '#fca5a5' ? 'arr-red'
+            : edge.color.startsWith('#c4') ? 'arr-indigo'
+            : edge.color === '#00ffcc'     ? 'arr-cyan'
+            : 'arr-blue';
+
           return (
             <motion.line
-              key={`e-${i}`}
+              key={`e${i}`}
               x1={A.x} y1={A.y}
               x2={B.x} y2={B.y}
               stroke={edge.color}
-              strokeWidth={isHot ? 3.5 : 2.2}
-              strokeOpacity={isHot ? 1 : 0.88}
+              strokeWidth={isHot ? 3.5 : 2.0}
+              strokeOpacity={isHot ? 1 : 0.75}
               markerEnd={`url(#${marker})`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: i * 0.04 }}
-              style={{ filter: isHot ? `drop-shadow(0 0 8px ${edge.color})` : `drop-shadow(0 0 3px ${edge.color}60)` }}
+              initial={{ opacity: 0, pathLength: 0 }}
+              animate={{ opacity: 1, pathLength: 1 }}
+              transition={{ duration: 0.9, delay: i * 0.05, ease: 'easeOut' }}
+              style={{
+                filter: isHot
+                  ? `drop-shadow(0 0 8px ${edge.color}) drop-shadow(0 0 2px ${edge.color})`
+                  : `drop-shadow(0 0 3px ${edge.color}80)`,
+              }}
             />
           );
         })}
@@ -250,47 +292,69 @@ export default function MindMap() {
             key={node.id}
             node={node}
             active={activeNode === node.id}
-            onClick={() => setActiveNode(activeNode === node.id ? '' : node.id)}
+            onClick={() => setActiveNode(activeNode === node.id ? 'light' : node.id)}
           />
         ))}
       </svg>
 
       {/* ── Tooltip panel ── */}
-      {tooltip && (
-        <motion.div
-          key={activeNode}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{
-            marginTop: '0.75rem',
-            padding: '0.75rem 1.25rem',
-            background: 'rgba(0,255,204,0.05)',
-            border: '1px solid rgba(0,255,204,0.2)',
-            borderRadius: '10px',
-            color: '#a1a1aa',
-            fontSize: '0.88rem',
-            lineHeight: 1.6,
-          }}
-        >
-          <span style={{ color: '#00ffcc', fontWeight: 700 }}>
-            {nodes.find(n => n.id === activeNode)?.label.replace('\n', ' ')}:
-          </span>{' '}
-          {tooltip}
-        </motion.div>
-      )}
+      <AnimatePresence mode="wait">
+        {tooltip && (
+          <motion.div
+            key={activeNode}
+            initial={{ opacity: 0, y: 8, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.2 }}
+            style={{
+              marginTop: '0.85rem',
+              padding: '0.85rem 1.25rem',
+              background: 'linear-gradient(135deg, rgba(0,255,204,0.06) 0%, rgba(0,0,0,0) 100%)',
+              border: '1px solid rgba(0,255,204,0.22)',
+              borderLeft: '3px solid #00ffcc',
+              borderRadius: '10px',
+              color: '#d4d4d8',
+              fontSize: '0.88rem',
+              lineHeight: 1.7,
+            }}
+          >
+            <span style={{ color: '#00ffcc', fontWeight: 800, marginRight: '0.5rem' }}>
+              {nodes.find(n => n.id === activeNode)?.emoji ?? '🔹'}
+              {' '}
+              {nodes.find(n => n.id === activeNode)?.label.replace('\n', ' ')}:
+            </span>
+            {tooltip}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── Color legend ── */}
-      <div style={{ display: 'flex', gap: '1.25rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '0.85rem' }}>
+      <div style={{
+        display: 'flex',
+        gap: '1.25rem',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        marginTop: '0.85rem',
+        paddingTop: '0.75rem',
+        borderTop: '1px solid rgba(255,255,255,0.06)',
+      }}>
         {[
-          { color: '#00ffcc', label: 'Root' },
-          { color: '#3b82f6', label: 'Reflection' },
-          { color: '#f59e0b', label: 'Refraction / TIR' },
-          { color: '#6366f1', label: 'Formulas' },
-          { color: '#10b981', label: 'Lenses' },
+          { color: '#00ffcc', label: 'Root (Light)' },
+          { color: '#60a5fa', label: 'Reflection' },
+          { color: '#fbbf24', label: 'Refraction' },
+          { color: '#f87171', label: 'TIR' },
+          { color: '#34d399', label: 'Lenses' },
+          { color: '#a78bfa', label: 'Formulas' },
         ].map(item => (
-          <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <span style={{ width: 9, height: 9, borderRadius: '50%', background: item.color, boxShadow: `0 0 5px ${item.color}`, display: 'inline-block' }} />
-            <span style={{ fontSize: '0.72rem', color: '#71717a' }}>{item.label}</span>
+          <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{
+              width: 10, height: 10, borderRadius: '50%',
+              background: item.color,
+              boxShadow: `0 0 6px ${item.color}, 0 0 12px ${item.color}40`,
+              display: 'inline-block',
+              flexShrink: 0,
+            }} />
+            <span style={{ fontSize: '0.72rem', color: '#a1a1aa', fontWeight: 500 }}>{item.label}</span>
           </div>
         ))}
       </div>

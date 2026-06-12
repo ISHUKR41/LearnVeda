@@ -574,8 +574,9 @@ export default function ReflectionPage() {
             </div>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/reflection-laws-diagram.png', caption: 'Laws of Reflection — ∠i = ∠r, measured from normal' },
-                { src: '/images/light/light_laws_reflection_1781203058464.png', caption: 'All three (incident ray, normal, reflected ray) lie in the same plane' },
+                { src: '/images/light/reflection-laws-angles-labeled.png', caption: 'Laws of Reflection — full ray diagram: incident ray, normal, reflected ray, ∠i = ∠r labeled' },
+                { src: '/images/light/reflection-laws-diagram.png', caption: 'Laws of Reflection — ∠i = ∠r, measured from normal to mirror surface' },
+                { src: '/images/light/light_laws_reflection_1781203058464.png', caption: 'Coplanar property: incident ray, normal, reflected ray all lie in the same plane' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
@@ -609,10 +610,13 @@ export default function ReflectionPage() {
           <section className={styles.contentSection} id="types">
             <h2>🪟 Types of Reflection</h2>
             <div className={styles.imageGrid}>
-              {[{ src: '/images/light/regular-vs-diffuse.png', caption: 'Regular (Specular) vs Diffuse (Irregular) Reflection — surface smoothness determines the type' }].map((img, i) => (
-                <div key={i} className={styles.imageCard} style={{ gridColumn: '1 / -1' }}>
+              {[
+                { src: '/images/light/regular-diffuse-reflection-detail.png', caption: 'Regular vs Diffuse reflection — smooth mirror → parallel beam; rough surface → scattered rays', wide: true },
+                { src: '/images/light/regular-vs-diffuse.png', caption: 'Surface texture determines type: polished = regular, rough = diffuse', wide: false },
+              ].map((img, i) => (
+                <div key={i} className={styles.imageCard} style={{ gridColumn: img.wide ? '1 / -1' : 'auto' }}>
                   <img src={img.src} alt={img.caption} loading="lazy"
-                    style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block' }} />
+                    style={{ width: '100%', height: img.wide ? '220px' : '200px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -645,8 +649,11 @@ export default function ReflectionPage() {
             </p>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/plane-mirror-image.png', caption: 'Plane mirror image — same distance behind mirror, same size, virtual' },
-                { src: '/images/light/lateral-inversion.png', caption: 'Lateral inversion — AMBULANCE written in reverse so drivers read it correctly in rear mirror' },
+                { src: '/images/light/plane-mirror-image-formation.png', caption: 'Plane mirror image formation — virtual, erect, same size; image behind mirror = object distance in front' },
+                { src: '/images/light/plane-mirror-image.png', caption: 'Plane mirror — image appears as far behind mirror as object is in front' },
+                { src: '/images/light/lateral-inversion-demo.png', caption: 'Lateral inversion — left-right swap: AMBULANCE written reversed for driver clarity' },
+                { src: '/images/light/lateral-inversion.png', caption: 'Lateral inversion: your right hand appears as left hand in mirror — NOT top-bottom flip!' },
+                { src: '/images/light/angled-mirrors-multiple-images.png', caption: 'Two mirrors at θ° angle form n = (360°/θ)−1 images: at 60°→ 5 images, 90°→ 3 images' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
@@ -684,10 +691,12 @@ export default function ReflectionPage() {
             </p>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/concave-mirror-all-cases.png', caption: 'Concave mirror — all 5 image formation cases with color-coded ray diagrams' },
-                { src: '/images/light/concave-mirror-diagram.png', caption: 'Concave Mirror — parallel rays converge to focal point F (converging mirror)' },
-                { src: '/images/light/convex-mirror-diagram.png', caption: 'Convex Mirror — rays diverge; virtual focal point behind mirror (diverging mirror)' },
-                { src: '/images/light/light_spherical_mirrors_1781203071616.png', caption: 'Spherical mirror terms: Pole P, Centre of Curvature C, Focus F, Principal Axis' },
+                { src: '/images/light/concave-mirror-5-cases.png', caption: 'Concave Mirror — all 5 image formation cases (beyond C, at C, between C&F, at F, between F&P)' },
+                { src: '/images/light/spherical-mirror-parts-labeled.png', caption: 'Spherical mirror anatomy — Pole P, Centre of Curvature C, Focus F, Radius R, Aperture labeled' },
+                { src: '/images/light/concave-mirror-diagram.png', caption: 'Concave Mirror — parallel rays converge at focal point F (converging mirror)' },
+                { src: '/images/light/convex-mirror-ray-diagram.png', caption: 'Convex Mirror — rays diverge after reflection; virtual focus behind mirror (diverging mirror)' },
+                { src: '/images/light/convex-mirror-diagram.png', caption: 'Convex Mirror — always forms virtual, erect, diminished image' },
+                { src: '/images/light/light_spherical_mirrors_1781203071616.png', caption: 'Mirror terminology: Pole P, Centre C, Focus F and all key definitions' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
@@ -728,9 +737,10 @@ export default function ReflectionPage() {
             <h2>📐 Mirror Formula & Magnification</h2>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/mirror-formula-diagram.png', caption: '1/v + 1/u = 1/f — Mirror formula with ray diagram' },
-                { src: '/images/light/light_sign_convention_nano_banana_1781204233503.png', caption: 'New Cartesian Sign Convention for mirrors' },
-                { src: '/images/light/light_magnification_formula_nano_banana_1781204215500.png', caption: 'Magnification formula m = h′/h = −v/u' },
+                { src: '/images/light/mirror-formula-derivation.png', caption: 'Mirror formula derivation — geometric proof of 1/f = 1/v + 1/u using similar triangles' },
+                { src: '/images/light/mirror-formula-diagram.png', caption: '1/v + 1/u = 1/f — Mirror formula with labeled ray diagram' },
+                { src: '/images/light/light_sign_convention_nano_banana_1781204233503.png', caption: 'New Cartesian Sign Convention — all distances from Pole P' },
+                { src: '/images/light/light_magnification_formula_nano_banana_1781204215500.png', caption: 'Magnification: m = h′/h = −v/u (negative → real, inverted)' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
@@ -768,9 +778,10 @@ export default function ReflectionPage() {
             <h2>🌟 Real-Life Applications</h2>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/solar-cooker.png', caption: '☀️ Solar Cooker — concave mirror focuses sunlight to cook food without fuel' },
-                { src: '/images/light/rearview-mirror.png', caption: '🚗 Rear-View Mirror — convex mirror gives wide field of view for road safety' },
-                { src: '/images/light/light_mirror_formula_nano_banana_1781204199040.png', caption: '🔭 Reflecting Telescope — large concave mirror collects faint starlight' },
+                { src: '/images/light/concave-mirror-applications.png', caption: '🌟 Concave mirror applications — solar cooker, headlight, satellite dish (all use converging property)' },
+                { src: '/images/light/solar-cooker.png', caption: '☀️ Solar Cooker — parabolic concave mirror focuses sunlight; reaches 150–200°C without fuel' },
+                { src: '/images/light/rearview-mirror.png', caption: '🚗 Rear-View Mirror — convex mirror; wide 120° field of view vs 30° for plane mirror' },
+                { src: '/images/light/light_mirror_formula_nano_banana_1781204199040.png', caption: '🔭 Reflecting Telescope — large concave primary mirror gathers faint starlight' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
