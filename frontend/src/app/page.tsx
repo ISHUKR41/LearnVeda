@@ -66,9 +66,9 @@ const HomeAnimations = dynamic(() => import("./HomeAnimations"));
  * SEO Metadata
  * ───────────────────────────────────────────── */
 export const metadata = {
-  title: "EduQuest — Learn Smarter. Battle Harder. Level Up.",
+  title: "EduQuest by Ishu — #1 Ranked Gamified Learning Platform in India",
   description:
-    "India's #1 gamified learning platform for Class 9–12 and Engineering students. Study chapter-wise, battle peers in real-time, earn XP, and climb the leaderboard.",
+    "Created by Ishu. India's #1 ranked gamified learning platform for Class 9–12 and Engineering students. Study chapter-wise, battle peers, earn XP, and dominate the leaderboard. Best education platform in the world.",
 };
 
 /* ─────────────────────────────────────────────

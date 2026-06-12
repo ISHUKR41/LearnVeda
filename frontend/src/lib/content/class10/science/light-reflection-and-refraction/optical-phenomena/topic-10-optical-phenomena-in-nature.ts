@@ -70,19 +70,13 @@ export const topic10OpticalPhenomena: Topic = {
   content: `
 ### Optical Phenomena in Nature and Technology
 
-![Optical Phenomena in Nature and Technology](/images/light/light_spherical_mirrors_1781203071616.png)
-
 This topic is your **"See the Physics Everywhere"** tour. Every concept from reflection, refraction, TIR, dispersion, and scattering appears daily — in the sky, in diamonds, inside your phone's internet connection, and in your own eyes.
-
-![Optical Phenomena](/images/light/topic10-optical-phenomena.png)
 
 ---
 
 ## 1. Why Is the Sky Blue?
 
 ### Rayleigh Scattering
-
-![Rayleigh Scattering](/images/light/light_convex_concave_1781203107265.png)
 When sunlight (white light) enters the Earth's atmosphere, it collides with tiny gas molecules (N₂, O₂, Ar). These molecules scatter the sunlight in all directions. This process is called **Rayleigh Scattering**.
 
 The key formula is:
@@ -97,8 +91,6 @@ This means:
 - When you look anywhere in the sky (except directly at the sun), scattered blue light enters your eye → **sky appears blue**.
 
 ### Why Not Violet?
-
-![Why Not Violet](/images/light/light_reflection_nano_banana_1781202845384.png)
 Although violet (λ ≈ 400 nm) is scattered even more than blue, it appears blue to us because:
 1. The Sun emits less violet light than blue.
 2. The human eye is less sensitive to violet.
@@ -141,8 +133,6 @@ When clouds become very thick, less light passes through → they appear **grey 
 A rainbow is the most spectacular optical phenomenon — it requires three processes happening simultaneously inside **millions of water droplets**.
 
 ### How a Rainbow Forms (Step by Step)
-
-![How a Rainbow Forms Step by Step](/images/light/light_glass_slab_nano_banana_1781204391585.png)
 
 **Step 1 — Refraction (Entry):** White sunlight enters a water droplet. Since different colours have different refractive indices in water, they bend by different amounts (**dispersion**). Violet bends the most, red the least.
 

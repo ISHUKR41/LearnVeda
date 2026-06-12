@@ -43,9 +43,17 @@ import { toast } from "react-hot-toast";
 import styles from "./TopicStudy.module.css";
 import type { Topic, Chapter, Question, WorkedExample } from "@/lib/content/class10/science/shared-types";
 import { parseMarkdown } from "@/lib/utils/parseMarkdown";
-import FlashCards from "@/components/chapter/FlashCards";
-import MindMap from "@/components/chapter/MindMap";
-import SmartSimulationRenderer from "@/components/simulations/SmartSimulationRenderer";
+import dynamic from "next/dynamic";
+
+const FlashCards = dynamic(() => import("@/components/chapter/FlashCards"), {
+  loading: () => <div style={{ padding: "2rem", textAlign: "center", color: "#94a3b8", animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite" }}>Loading Flash Cards...</div>,
+});
+const MindMap = dynamic(() => import("@/components/chapter/MindMap"), {
+  loading: () => <div style={{ padding: "2rem", textAlign: "center", color: "#94a3b8", animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite" }}>Loading Concept Map...</div>,
+});
+const SmartSimulationRenderer = dynamic(() => import("@/components/simulations/SmartSimulationRenderer"), {
+  loading: () => <div style={{ padding: "2rem", textAlign: "center", color: "#94a3b8", animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite" }}>Loading Interactive Physics Engine...</div>,
+});
 import { getDiagramForTopic } from "@/components/chapter/light/TopicDiagrams";
 import { getSimulationInfo } from "@/components/simulations/light/SimulationRegistry";
 

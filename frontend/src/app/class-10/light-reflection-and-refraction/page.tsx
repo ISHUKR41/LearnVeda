@@ -8,9 +8,33 @@
 
 import React from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import styles from '@/styles/LightChapter.module.css';
+
+const ChapterVisualGallery = dynamic(() => import('@/components/LightChapter/ChapterVisualGallery'), {
+  loading: () => (
+    <section style={{ marginTop: '2rem', padding: '1.25rem', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)' }}>
+      <style>{`@keyframes shimmer { 0% { background-position: -600px 0; } 100% { background-position: 600px 0; } }`}</style>
+      <div style={{ height: '16px', width: '180px', borderRadius: '999px', background: 'rgba(255,255,255,0.07)', marginBottom: '0.75rem' }} />
+      <div style={{ height: '24px', width: '360px', borderRadius: '8px', background: 'rgba(255,255,255,0.08)', marginBottom: '0.5rem' }} />
+      <div style={{ height: '16px', width: '76%', borderRadius: '8px', background: 'rgba(255,255,255,0.06)', marginBottom: '1.25rem' }} />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} style={{ borderRadius: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', overflow: 'hidden' }}>
+            <div style={{ height: '220px', background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0.04) 80%)', backgroundSize: '1200px 100%', animation: 'shimmer 1.6s infinite linear' }} />
+            <div style={{ padding: '0.9rem 1rem 1rem' }}>
+              <div style={{ height: '12px', width: '140px', borderRadius: '999px', background: 'rgba(255,255,255,0.07)', marginBottom: '0.75rem' }} />
+              <div style={{ height: '14px', width: '100%', borderRadius: '8px', background: 'rgba(255,255,255,0.06)', marginBottom: '0.45rem' }} />
+              <div style={{ height: '14px', width: '82%', borderRadius: '8px', background: 'rgba(255,255,255,0.05)' }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ),
+});
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://eduquest.replit.app';
 
@@ -18,27 +42,44 @@ const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://eduquest.replit.app';
    SEO METADATA
 ───────────────────────────────────────────────────── */
 export const metadata: Metadata = {
-  title: 'Light – Reflection and Refraction | Class 10 Science CBSE | EduQuest',
+  metadataBase: new URL(BASE),
+  title: 'Light – Reflection and Refraction | Ishu Website | Class 10 Science CBSE | EduQuest',
   description:
-    "Complete interactive Class 10 CBSE chapter on Light – Reflection and Refraction. Study reflection laws, spherical mirrors, Snell's Law, TIR, optical fibre, lenses, human eye and eye defects with 15 live simulations, 40+ AI diagrams, 18 solved numericals, MCQs and flashcards.",
+    "Complete interactive Class 10 CBSE chapter on Light – Reflection and Refraction on Ishu Website. Ranked #1! Study reflection laws, spherical mirrors, Snell's law, refractive index, total internal reflection, optical fibre, lenses, human eye and eye defects with lazy-loaded diagrams, simulations, solved numericals, MCQs, flashcards and summary notes by Ishu.",
   keywords: [
-    'light reflection refraction class 10',
-    'class 10 science chapter 10',
-    'NCERT class 10 light',
-    'CBSE class 10 light reflection refraction',
-    'mirror formula class 10',
-    'lens formula class 10',
-    "snell's law class 10",
-    'total internal reflection',
-    'human eye class 10',
-    'myopia hypermetropia class 10',
-    'optical fibre class 10',
-    'class 10 physics numericals',
-    'EduQuest class 10',
+    'ishu', 'ishu website', 'ishu class 10', 'ishu physics', 'ishu education',
+    'ishu class 10 physics', 'ishu science class 10', 'ishu light chapter',
+    'light reflection refraction class 10', 'light reflection and refraction',
+    'class 10 science chapter 10', 'NCERT class 10 light',
+    'CBSE class 10 light reflection refraction', 'NCERT solutions light class 10',
+    'class 10 physics light chapter', 'light chapter class 10 notes',
+    'light class 10 important questions', 'laws of reflection class 10',
+    'plane mirror image formation', 'spherical mirrors class 10',
+    'concave mirror image formation cases', 'convex mirror applications',
+    'mirror formula class 10', 'mirror formula numericals',
+    'magnification formula mirror', 'new cartesian sign convention',
+    'concave mirror ray diagram', 'convex mirror ray diagram',
+    "snell's law class 10", 'refractive index class 10',
+    'refraction of light class 10', 'glass slab refraction lateral displacement',
+    'total internal reflection class 10', 'critical angle formula',
+    'optical fibre working principle', 'prism dispersion VIBGYOR',
+    'lens formula class 10', 'convex lens image formation',
+    'concave lens image formation', 'power of lens dioptre',
+    'human eye class 10', 'myopia correction concave lens',
+    'hypermetropia correction convex lens', 'defects of vision class 10',
+    'class 10 physics simulation', 'interactive physics class 10',
+    'class 10 light diagrams', 'class 10 physics numericals solved',
+    'class 10 flashcards physics', 'class 10 mind map light',
+    'class 10 MCQ light chapter', 'CBSE board exam physics notes',
+    'class 10 board exam preparation light', 'class 10 one shot revision light',
+    'prakaash ka pratyavartan aur apvartan', 'kaksha 10 vigyan prakash',
+    'best website for class 10 science', 'best physics notes class 10',
+    'free online class 10 physics', 'interactive physics learning class 10',
+    'EduQuest class 10', 'EduQuest by Ishu', '#1 ishu physics website',
   ],
-  authors: [{ name: 'EduQuest' }],
-  creator: 'EduQuest',
-  publisher: 'EduQuest',
+  authors: [{ name: 'Ishu / EduQuest' }],
+  creator: 'Ishu',
+  publisher: 'EduQuest by Ishu',
   robots: {
     index: true,
     follow: true,
@@ -47,37 +88,109 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE}/class-10/light-reflection-and-refraction` },
   openGraph: {
     type: 'website',
-    title: 'Light – Reflection and Refraction | Class 10 CBSE | EduQuest',
-    description: 'Interactive Class 10 chapter: 15 live simulations, 40+ diagrams, 18 numericals, MCQs & flashcards.',
+    title: 'Light – Reflection and Refraction | Ishu Website | Class 10 CBSE | EduQuest',
+    description: 'Interactive Class 10 chapter by Ishu: 15 live simulations, 40+ diagrams, 18 numericals, MCQs & flashcards.',
     url: `${BASE}/class-10/light-reflection-and-refraction`,
-    siteName: 'EduQuest',
-    images: [{ url: `${BASE}/images/light/concave-mirror-5-cases.png`, width: 1200, height: 900, alt: 'Class 10 Light Chapter' }],
+    siteName: 'Ishu / EduQuest',
+    images: [{ url: `${BASE}/images/light/concave-mirror-5-cases.png`, width: 1200, height: 900, alt: 'Class 10 Light Chapter by Ishu' }],
     locale: 'en_IN',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Class 10 Light – Reflection & Refraction | EduQuest',
-    description: '15 interactive simulations, numericals, MCQs & flashcards for CBSE board exam.',
+    title: 'Class 10 Light – Reflection & Refraction | Ishu Website',
+    description: '15 interactive simulations, numericals, MCQs & flashcards for CBSE board exam by Ishu.',
     images: [`${BASE}/images/light/concave-mirror-5-cases.png`],
   },
 };
 
-/* JSON-LD Course structured data */
+const lightFaqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is the best way to study Light – Reflection and Refraction?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Start with the visual chapter map, then study one topic at a time with the simulation, solved examples, and flashcards on the same page.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Which formulas are most important in this chapter?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The mirror formula, Snell\'s law, refractive index relation, lens formula, magnification, and power of lens are the core formulas.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does this chapter include diagrams and numericals?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. The chapter includes lazy-loaded diagrams, interactive simulations, and solved numericals for reflection, refraction, lenses, and human eye topics.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I revise this chapter quickly before the exam?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Use the summary page for the mind map, flashcards, formula reference, and topic links to revise quickly.',
+      },
+    },
+  ],
+};
+
+const lightBreadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${BASE}/` },
+    { '@type': 'ListItem', position: 2, name: 'Class 10', item: `${BASE}/class-10` },
+    { '@type': 'ListItem', position: 3, name: 'Light – Reflection and Refraction', item: `${BASE}/class-10/light-reflection-and-refraction` },
+  ],
+};
+
+/* JSON-LD Course structured data — enhanced for AI search */
 const courseJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Course',
-  name: 'Class 10 Science: Light – Reflection and Refraction',
-  description: 'Complete interactive course module on Light Reflection and Refraction for CBSE Class 10. Includes 15 live simulations, 40+ AI diagrams, 18 solved numericals, MCQs and flashcards.',
+  name: 'Class 10 Science: Light – Reflection and Refraction | Ishu Website',
+  description: 'Complete interactive course on Light Reflection and Refraction for CBSE Class 10 by Ishu. Includes 15+ live simulations, 50+ AI diagrams, 20 solved numericals, MCQs and flashcards. Best study material for board exam preparation.',
   url: `${BASE}/class-10/light-reflection-and-refraction`,
-  provider: { '@type': 'EducationalOrganization', name: 'EduQuest', url: BASE },
+  provider: { '@type': 'EducationalOrganization', name: 'EduQuest by Ishu', url: BASE },
   educationalLevel: 'Class 10 / Grade 10',
   inLanguage: 'en-IN',
+  isAccessibleForFree: true,
+  teaches: 'Laws of Reflection, Mirror Formula, Spherical Mirrors, Snell\'s Law, Refractive Index, Total Internal Reflection, Lens Formula, Power of Lens, Human Eye Defects',
   hasCourseInstance: [
     { '@type': 'CourseInstance', name: 'Reflection of Light', url: `${BASE}/class-10/light-reflection-and-refraction/reflection`, courseMode: 'online' },
     { '@type': 'CourseInstance', name: 'Refraction of Light', url: `${BASE}/class-10/light-reflection-and-refraction/refraction`, courseMode: 'online' },
     { '@type': 'CourseInstance', name: 'Spherical Lenses & Human Eye', url: `${BASE}/class-10/light-reflection-and-refraction/lenses`, courseMode: 'online' },
     { '@type': 'CourseInstance', name: 'Chapter Summary & Quick Revision', url: `${BASE}/class-10/light-reflection-and-refraction/summary`, courseMode: 'online' },
   ],
+};
+
+/* JSON-LD WebPage schema for AI search engines */
+const webPageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Light – Reflection and Refraction | Ishu Website',
+  description: 'Best interactive Class 10 CBSE chapter on Light by Ishu with simulations, diagrams, numericals, MCQs and flashcards.',
+  url: `${BASE}/class-10/light-reflection-and-refraction`,
+  inLanguage: 'en-IN',
+  isPartOf: { '@type': 'WebSite', name: 'EduQuest by Ishu', url: BASE },
+  author: { '@type': 'Person', name: 'Ishu' },
+  datePublished: '2026-01-01',
+  dateModified: '2026-06-12',
+  about: {
+    '@type': 'Thing',
+    name: 'Light – Reflection and Refraction',
+    description: 'CBSE Class 10 Science Chapter 10 covering reflection, refraction, mirrors, lenses, and human eye',
+  },
+  educationalLevel: 'Class 10',
+  audience: { '@type': 'EducationalAudience', educationalRole: 'student' },
 };
 
 /* Topic cards data */
@@ -131,6 +244,24 @@ export default function LightChapterLanding() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
         strategy="beforeInteractive"
       />
+      <Script
+        id="light-faq-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(lightFaqJsonLd) }}
+        strategy="beforeInteractive"
+      />
+      <Script
+        id="light-breadcrumb-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(lightBreadcrumbJsonLd) }}
+        strategy="beforeInteractive"
+      />
+      <Script
+        id="light-webpage-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
+        strategy="beforeInteractive"
+      />
 
       <div className={styles.chapterContainer}>
         {/* ── HEADER ── */}
@@ -177,6 +308,9 @@ export default function LightChapterLanding() {
               ))}
             </div>
           </section>
+
+          {/* ── VISUAL LEARNING BOARD ── */}
+          <ChapterVisualGallery />
 
           {/* ── WHAT YOU WILL LEARN ── */}
           <section className={styles.section}>

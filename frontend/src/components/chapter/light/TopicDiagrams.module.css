@@ -4,259 +4,289 @@
  *
  * PURPOSE: Scoped styles for the TopicDiagrams SVG illustration components.
  *          Provides the wrapper layout, title typography, and all
- *          keyframe animation classes used inside the SVGs to create highly
- *          realistic, extremely modern, and animated simulations.
+ *          keyframe animation classes used inside the SVGs.
+ *
+ * ANIMATIONS:
+ *   animatedRay        — light beam drawing effect (strokeDashoffset trick)
+ *   animatedRayDelayed — same but starts 0.5s later (for reflected/refracted rays)
+ *   pulseDot           — gentle breathing glow on focal point / key-point dots
+ *   glowDot            — stronger pulsing glow on light source indicators
+ *   glowCard           — subtle border glow animation on formula cards
+ *   fiberRay           — bouncing light inside optical fiber animation
+ *
+ * USED BY: Every Diagram* component in TopicDiagrams.tsx
+ * LAST UPDATED: 2026-06-09
  */
 
 /* ══════════════════════════════════════════════════════
- * WRAPPER & TYPOGRAPHY
+ * WRAPPER: outer container for each SVG diagram
  * ══════════════════════════════════════════════════════ */
 
 .diagramWrapper {
+  /* Full-width block inside the Learn tab */
   width: 100%;
-  margin: 32px 0 16px;
+  margin: 24px 0 8px;
   padding: 0;
-  animation: fadeSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  perspective: 1000px;
+  animation: fadeSlideIn 0.6s ease both;
 }
 
+/* Caption row below the diagram */
 .diagramCaption {
   text-align: center;
-  font-size: 0.8rem;
-  color: #94a3b8;
-  margin-top: 12px;
+  font-size: 0.75rem;
+  color: #475569;
+  margin-top: 10px;
   font-style: italic;
   font-family: "Inter", sans-serif;
-  opacity: 0.8;
 }
 
+/* ══════════════════════════════════════════════════════
+ * DIAGRAM TITLE: label shown above the SVG
+ * ══════════════════════════════════════════════════════ */
+
 .diagramTitle {
-  font-size: 0.75rem;
+  /* Small all-caps label with gradient underline */
+  font-size: 0.7rem;
   font-family: "Inter", "Plus Jakarta Sans", system-ui, sans-serif;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #818cf8;
-  margin-bottom: 16px;
-  padding: 6px 12px 6px 4px;
+  margin-bottom: 14px;
+  padding: 4px 10px 4px 4px;
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  text-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+  gap: 6px;
 }
 
+/* Dot icon before the title */
 .diagramTitle::before {
-  content: "✦";
-  font-size: 0.7rem;
-  color: #a5b4fc;
-  filter: drop-shadow(0 0 4px #a5b4fc);
-  animation: spinStar 4s linear infinite;
+  content: "◆";
+  font-size: 0.5rem;
+  color: #6366f1;
+  opacity: 0.8;
 }
 
 .diagramTitle::after {
+  /* Glowing underline accent */
   content: "";
   position: absolute;
   bottom: -4px;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 1.5px;
   background: linear-gradient(90deg, #6366f1, #818cf8, transparent);
-  border-radius: 2px;
-  box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+  border-radius: 1px;
 }
 
 /* ══════════════════════════════════════════════════════
- * SVG CONTAINER: Glassmorphism, 3D effect, extremely modern
+ * SVG: the main illustration element
  * ══════════════════════════════════════════════════════ */
 
 .svg {
+  /* Responsive: scales to container width */
   width: 100%;
   height: auto;
+
+  /* Rounded container with glass-morphism border */
   display: block;
   border-radius: 16px;
-  
-  /* Very high-end glassmorphism borders */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
-  
-  /* Deep layered shadow for 3D realism */
-  box-shadow:
-    inset 0 0 30px rgba(0, 0, 0, 0.8),
-    0 2px 10px rgba(0, 0, 0, 0.5),
-    0 10px 40px rgba(0, 0, 0, 0.6),
-    0 0 80px rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 
-  /* Inner background with subtle grid happens in SVG, but we ensure blending here */
-  background: linear-gradient(135deg, #050a15, #081020);
-  
-  animation: svgEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  /* Subtle outer glow */
+  box-shadow:
+    0 0 0 1px rgba(59, 130, 246, 0.08),
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(59, 130, 246, 0.04);
+
+  /* Smooth entrance */
+  animation: svgEntrance 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: 0.1s;
-  overflow: hidden; /* Contains internal effects perfectly */
+
+  overflow: visible;
 }
 
 /* ══════════════════════════════════════════════════════
- * RAY ANIMATIONS: Flowing energy look
+ * ANIMATION: LIGHT RAY DRAWING
+ * Uses stroke-dashoffset to create the "ray shooting out" effect.
+ * The SVG element must have strokeDasharray="1000" or similar to work.
+ * Applied to: incident ray, reflected ray, refracted ray lines.
  * ══════════════════════════════════════════════════════ */
 
-/* The solid core of the ray that draws in */
 .animatedRay {
   stroke-dasharray: 800;
   stroke-dashoffset: 800;
-  animation: drawRay 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+  animation: drawRay 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
 }
 
 .animatedRayDelayed {
   stroke-dasharray: 800;
   stroke-dashoffset: 800;
-  animation: drawRay 1s cubic-bezier(0.4, 0, 0.2, 1) 1.1s forwards;
-}
-
-.animatedRayDelayedMore {
-  stroke-dasharray: 800;
-  stroke-dashoffset: 800;
-  animation: drawRay 1s cubic-bezier(0.4, 0, 0.2, 1) 1.9s forwards;
-}
-
-/* The "energy flow" - small dashes moving continuously along the ray */
-.energyFlow {
-  stroke-dasharray: 10, 15;
-  animation: flowEnergy 0.8s linear infinite;
-  opacity: 0; /* hidden until drawn */
-  animation: fadeIn FlowEnergy 0.3s 1s forwards, flowEnergy 0.8s linear infinite 1s;
-}
-
-.energyFlowDelayed {
-  stroke-dasharray: 10, 15;
-  opacity: 0;
-  animation: fadeIn FlowEnergy 0.3s 1.8s forwards, flowEnergy 0.8s linear infinite 1.8s;
+  animation: drawRay 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards;
 }
 
 /* ══════════════════════════════════════════════════════
- * DOT & GLOW ANIMATIONS
+ * ANIMATION: PULSING DOT (focal points, key positions)
+ * Gentle scale + opacity pulse for dots at P, F, C positions.
  * ══════════════════════════════════════════════════════ */
 
 .pulseDot {
-  animation: pulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulseDot 2.5s ease-in-out infinite;
   transform-origin: center;
   transform-box: fill-box;
 }
+
+/* ══════════════════════════════════════════════════════
+ * ANIMATION: GLOW DOT (light source indicator)
+ * Stronger pulsing glow for the "light source" circle.
+ * ══════════════════════════════════════════════════════ */
 
 .glowDot {
-  animation: glowPulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: glowPulse 2s ease-in-out infinite;
   transform-origin: center;
   transform-box: fill-box;
 }
 
-/* For glass elements like lenses/prisms */
-.glassEffect {
-  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
-  animation: float 6s ease-in-out infinite;
-}
+/* ══════════════════════════════════════════════════════
+ * ANIMATION: GLOW CARD (formula cards border glow)
+ * Subtle animated border for formula reference cards.
+ * ══════════════════════════════════════════════════════ */
 
 .glowCard {
-  transition: all 0.3s ease;
-  animation: glowCard 4s ease-in-out infinite;
-}
-.glowCard:hover {
-  transform: translateY(-2px);
-  filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
+  animation: glowCard 3s ease-in-out infinite;
 }
 
+/* ══════════════════════════════════════════════════════
+ * ANIMATION: FIBER RAY (optical fiber bouncing light)
+ * Makes the diagonal lines inside the optical fiber
+ * appear to travel from left to right.
+ * ══════════════════════════════════════════════════════ */
+
 .fiberRay {
-  stroke-dasharray: 60, 60;
-  stroke-dashoffset: 120;
-  animation: fiberTravel 1s linear infinite;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  animation: fiberTravel 0.8s linear infinite;
 }
-.fiberRay:nth-child(odd)  { animation-delay: 0s; }
-.fiberRay:nth-child(even) { animation-delay: 0.2s; }
+
+/* Each fiber ray starts slightly later to create a "wave" effect */
+.fiberRay:nth-child(odd) {
+  animation-delay: 0s;
+}
+
+.fiberRay:nth-child(even) {
+  animation-delay: 0.15s;
+}
 
 /* ══════════════════════════════════════════════════════
  * KEYFRAMES
  * ══════════════════════════════════════════════════════ */
 
+/* Light ray shooting animation */
 @keyframes drawRay {
-  from { stroke-dashoffset: 800; }
-  to   { stroke-dashoffset: 0; }
-}
-
-@keyframes flowEnergy {
-  from { stroke-dashoffset: 50; }
-  to   { stroke-dashoffset: 0; }
-}
-
-@keyframes fadeIn {
-  to { opacity: 0.8; }
-}
-
-@keyframes pulseDot {
-  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 2px currentColor); }
-  50%       { opacity: 0.6; transform: scale(1.3); filter: drop-shadow(0 0 8px currentColor); }
-}
-
-@keyframes glowPulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 16px currentColor);
+  from {
+    stroke-dashoffset: 800;
   }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Gentle dot pulse (scale only) */
+@keyframes pulseDot {
+
+  0%,
+  100% {
+    opacity: 1;
+    r: 5px;
+  }
+
+  50% {
+    opacity: 0.7;
+    r: 7px;
+  }
+}
+
+/* Stronger glow dot pulse */
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px currentColor);
+  }
+
   50% {
     opacity: 0.8;
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 16px currentColor) drop-shadow(0 0 32px currentColor);
+    filter: drop-shadow(0 0 12px currentColor);
   }
 }
 
+/* Formula card border glow */
 @keyframes glowCard {
-  0%, 100% { box-shadow: inset 0 0 10px rgba(255,255,255,0.02), 0 0 0px rgba(99,102,241,0); }
-  50%       { box-shadow: inset 0 0 20px rgba(255,255,255,0.05), 0 0 20px rgba(99,102,241,0.25); }
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0px rgba(99, 102, 241, 0));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.4));
+  }
 }
 
+/* Fiber ray travel animation */
 @keyframes fiberTravel {
-  from { stroke-dashoffset: 120; }
-  to   { stroke-dashoffset: 0; }
+  from {
+    stroke-dashoffset: 80;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
+/* SVG container fade-in entrance */
 @keyframes svgEntrance {
   from {
     opacity: 0;
-    transform: translateY(24px) scale(0.96) rotateX(2deg);
+    transform: translateY(16px) scale(0.98);
   }
+
   to {
     opacity: 1;
-    transform: translateY(0) scale(1) rotateX(0deg);
+    transform: translateY(0) scale(1);
   }
 }
 
+/* Wrapper fade+slide */
 @keyframes fadeSlideIn {
   from {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes spinStar {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-
 /* ══════════════════════════════════════════════════════
- * RESPONSIVE
+ * RESPONSIVE: Scale down on small screens
  * ══════════════════════════════════════════════════════ */
 
 @media (max-width: 600px) {
-  .diagramWrapper { margin: 24px 0 12px; }
-  .diagramTitle { font-size: 0.7rem; }
-  .svg { border-radius: 12px; }
-}
+  .diagramWrapper {
+    margin: 20px 0;
+  }
 
+  .diagramTitle {
+    font-size: 0.7rem;
+  }
+
+  .svg {
+    border-radius: 10px;
+  }
+}

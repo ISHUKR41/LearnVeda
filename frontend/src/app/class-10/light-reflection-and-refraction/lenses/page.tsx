@@ -13,6 +13,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, Zap, Eye, BookOpen, RotateCcw, Lightbulb, Award, Target, Focus } from 'lucide-react';
+import { ImageWithSkeleton } from '@/components/LightChapter/SkeletonLoader';
 import styles from '@/styles/LightChapter.module.css';
 
 /* ─────────────────────────────────────────────────────────
@@ -867,11 +868,13 @@ export default function LensesPage() {
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/convex_lens_focus_1781257440661.png', caption: 'Convex Lens — Converging parallel rays to the principal focus' },
+                { src: '/images/light/concave_lens_diverge_1781257452861.png', caption: 'Concave Lens — Diverging parallel rays from a virtual focus' },
                 { src: '/images/light/light_convex_concave_1781203107265.png', caption: 'Convex (converging) lens vs Concave (diverging) lens — opposite effect on light' },
                 { src: '/images/light/light_lenses_nano_banana_1781202878730.png', caption: 'Real-life lens applications: camera, spectacles, microscope, telescope' },
               ].map((img, i) => (
                 <motion.div key={i} className={styles.imageCard} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </motion.div>
               ))}
@@ -917,7 +920,7 @@ export default function LensesPage() {
                 { src: '/images/light/light_concave_lens_numerical_nano_banana_1781204487446.png', caption: 'Concave lens — always virtual, erect, diminished regardless of object position' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -1043,13 +1046,14 @@ m = v/u = 24/(−24) = `}<span className={styles.highlight}>−1</span>{`   (Sam
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/lens_power_1781257463123.png', caption: 'Lens Power — strong thick lens vs weak thin lens and their converging ability' },
                 { src: '/images/light/convex-lens-magnifying-glass.png', caption: 'Convex lens as magnifying glass — object between F and O gives virtual, erect, magnified image' },
                 { src: '/images/light/lens-power-dioptre.png', caption: 'Power of lens (Dioptre) — shorter focal length = higher power; P_total = P₁ + P₂' },
                 { src: '/images/light/light_lens_magnification_nano_banana_1781204503146.png', caption: 'Magnification by lens: m = v/u = h′/h (note: no minus sign, unlike mirrors)' },
                 { src: '/images/light/light_lens_power_1781203118675.png', caption: 'Lens power applications: reading glasses (+D), myopia glasses (−D)' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -1171,7 +1175,7 @@ f = `}<span className={styles.highlight}>45/4 = 11.25 cm</span>
                 { src: '/images/light/human-eye-anatomy-detail.png', caption: 'Human eye — crystalline lens changes shape (accommodation) to focus near and far objects', wide: false },
               ].map((img, i) => (
                 <motion.div key={i} className={styles.imageCard} style={{ gridColumn: img.wide ? '1 / -1' : 'auto' }} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: img.wide ? '260px' : '220px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={img.wide ? 260 : 220} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </motion.div>
               ))}
@@ -1264,6 +1268,18 @@ P = 1/f = 3/100 × 100 = `}<span className={styles.highlight}>+3.0 D</span>
               When the eye cannot correctly focus light on the retina, defects of vision occur.
               The three common defects are Myopia, Hypermetropia, and Presbyopia.
             </p>
+
+            <div className={styles.imageGrid}>
+              {[
+                { src: '/images/light/myopia_defect_1781257602644.png', caption: 'Myopia (Short-sightedness) — light focuses in front of the retina' },
+                { src: '/images/light/hypermetropia_defect_1781257620762.png', caption: 'Hypermetropia (Long-sightedness) — light focuses behind the retina' },
+              ].map((img, i) => (
+                <div key={i} className={styles.imageCard}>
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
+                  <div className={styles.imageCardCaption}>{img.caption}</div>
+                </div>
+              ))}
+            </div>
 
             {/* Defect comparison table */}
             <div style={{ overflowX: 'auto', marginBottom: '1.5rem' }}>

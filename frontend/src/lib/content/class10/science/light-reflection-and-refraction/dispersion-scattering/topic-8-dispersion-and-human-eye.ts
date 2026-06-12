@@ -73,8 +73,6 @@ export const topic8DispersionAndHumanEye: Topic = {
   content: `
 ### Dispersion of White Light Through a Prism
 
-![Dispersion of White Light Through a Prism](/images/light/light_spherical_mirrors_1781203071616.png)
-
 In 1666, Sir Isaac Newton showed that white sunlight is not a single colour — it is a mixture of all colours. When white light passes through a glass prism, it splits into its constituent colours. This splitting of white light into its component colours is called **Dispersion of Light**.
 
 **Why does dispersion occur?**
@@ -84,8 +82,6 @@ When white light enters the prism, each colour (wavelength) of light slows down 
 *   **Red light:** Lowest refractive index ($n_r \\approx 1.515$) → bends the LEAST.
 
 The result is that white light fans out into a band of colours called the **spectrum**.
-
-![Dispersion](/images/light/light_absolute_refractive_nano_banana_1781204408083.png)
 
 ---
 
@@ -144,8 +140,6 @@ A rainbow is the most beautiful natural example of dispersion. It is formed by t
 
 **Why do you need to face away from the sun to see a rainbow?**
 Because rainbows are formed by backscattering — the water droplets redirect light back toward the observer who must face away from the sun (anti-solar direction).
-
-![Rainbow Formation](/images/light/light_convex_concave_1781203107265.png)
 
 ---
 
@@ -248,8 +242,6 @@ Danger signals (traffic lights, fire trucks, stop signs) are red because:
 
 The human eye is an extraordinary natural optical instrument that works like a camera with an adjustable lens system.
 
-![The Human Eye Anatomy](/images/light/light_lenses_nano_banana_1781202878730.png)
-
 #### Structure of the Human Eye
 
 **Diagram Description:**
@@ -291,8 +283,6 @@ The ability of the crystalline lens to adjust its focal length to focus objects 
 | :--- | :--- |
 | **Near Point** | Minimum distance for clear vision ≈ **25 cm** for a normal eye (also called Least Distance of Distinct Vision) |
 | **Far Point** | Maximum distance for clear vision = **Infinity** for a normal eye (a relaxed eye focuses at infinity) |
-
-![Accommodation Diagram](/images/light/light_lens_magnification_nano_banana_1781204503146.png)
 
 ---
 

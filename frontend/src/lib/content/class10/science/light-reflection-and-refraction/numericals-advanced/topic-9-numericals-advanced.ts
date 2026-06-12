@@ -50,15 +50,11 @@ export const topic9NumericalsAdvanced: Topic = {
 
 This topic is the backbone of the entire Light chapter. Every numerical, every board question, every entrance problem traces back to these formulas. Master them cold and you're guaranteed marks.
 
-![Numericals](/images/light/topic9-numericals.png)
-
 ---
 
 ## 📐 Part 1: New Cartesian Sign Convention
 
 ### What is the Sign Convention?
-
-![What is the Sign Convention](/images/light/light_convex_concave_1781203107265.png)
 
 Before using any formula, you MUST assign correct signs to distances. This is the **New Cartesian Sign Convention** — the universal rule for all mirrors and lenses in Class 10.
 
@@ -146,8 +142,6 @@ $$P = \\frac{1}{f(\\text{in metres})}$$
 ---
 
 ## 🔢 Part 4: Solved Numerical Examples
-
-![Convex Lens Numericals](/images/light/light_convex_lens_numerical_nano_banana_1781204470042.png)
 
 ### Example 1: Concave Mirror — Finding Image Position
 
@@ -240,8 +234,6 @@ $$v = +15 \\text{ cm}$$
 
 ---
 
-![Concave Lens Numericals](/images/light/light_concave_lens_numerical_nano_banana_1781204487446.png)
-
 ### Example 5: Concave Lens
 
 **Problem:** Object at 30 cm from a concave lens of focal length 15 cm. Find image position.
@@ -319,8 +311,6 @@ So v = 3u = −48 cm
 **Answer:** Object at **16 cm in front**, image at **48 cm in front** (real, inverted, 3× enlarged)
 
 ---
-
-![Lens Magnification](/images/light/light_lens_magnification_nano_banana_1781204503146.png)
 
 ### Example 9: Lens — Finding Focal Length from Object and Image Positions
 

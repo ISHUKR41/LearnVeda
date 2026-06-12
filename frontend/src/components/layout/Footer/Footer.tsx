@@ -63,6 +63,13 @@ export default function Footer() {
             <Link href="/terms" className={styles.link}>Terms of Service</Link>
           </div>
 
+          {/* Resources Col */}
+          <div className={styles.linkCol}>
+            <h4 className={styles.colTitle}>Resources & Partners</h4>
+            <a href="https://www.skills.sh/" target="_blank" rel="noopener noreferrer" className={styles.link}>skills.sh</a>
+            <a href="https://getdesign.md/" target="_blank" rel="noopener noreferrer" className={styles.link}>getdesign.md</a>
+          </div>
+
         </div>
 
         <div className={styles.bottomBar}>

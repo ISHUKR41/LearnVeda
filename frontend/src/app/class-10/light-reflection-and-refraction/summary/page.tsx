@@ -9,11 +9,32 @@
  */
 
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import FlashCard from '@/components/LightChapter/FlashCard';
-import MindMap from '@/components/LightChapter/MindMap';
+import { SkeletonCard } from '@/components/LightChapter/SkeletonLoader';
 import styles from '@/styles/LightChapter.module.css';
+
+const FlashCard = dynamic(() => import('@/components/LightChapter/FlashCard'), {
+  ssr: false,
+  loading: () => <SkeletonCard height={190} />,
+});
+
+const MindMap = dynamic(() => import('@/components/LightChapter/MindMap'), {
+  ssr: false,
+  loading: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+      {Array.from({ length: 6 }).map((_, i) => (
+        <SkeletonCard key={i} height={220} />
+      ))}
+    </div>
+  ),
+});
+
+const ChapterVisualGallery = dynamic(() => import('@/components/LightChapter/ChapterVisualGallery'), {
+  ssr: false,
+  loading: () => <SkeletonCard height={280} />,
+});
 
 /* ─── Formula Quick Reference Card ─── */
 function FormulaCard({ title, formula, desc, color = '#00ffcc' }: {
@@ -88,6 +109,15 @@ export default function SummaryPage() {
       </header>
 
       <main className={styles.contentWrapper}>
+
+        {/* ══ VISUAL ATLAS ══ */}
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>🖼️ Visual Atlas</h2>
+          <p className={styles.textBlock}>
+            Chapter diagrams and study boards are lazy loaded here so the revision page stays fast while still showing the core visuals.
+          </p>
+          <ChapterVisualGallery />
+        </section>
 
         {/* ══ CONCEPT MAP ══ */}
         <section className={styles.section}>

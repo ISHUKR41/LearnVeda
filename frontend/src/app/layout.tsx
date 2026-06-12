@@ -69,11 +69,17 @@ export const metadata: Metadata = {
   },
   description: SITE_CONFIG.description,
   keywords: [
+    "ishu", "ishu website", "ishu education", "EduQuest by Ishu",
+    "1st rank education platform", "best education platform in world",
+    "top learning platform ishu", "India's #1 learning platform",
     "education platform India", "gamified learning", "CBSE Class 9",
     "CBSE Class 10", "CBSE Class 11", "CBSE Class 12", "engineering coding",
     "JEE preparation", "NEET preparation", "competitive programming India",
     "online quiz battles", "streak learning", "XP points education",
-    "learn coding India", "study platform",
+    "learn coding India", "study platform", "best education website India",
+    "interactive physics simulations", "class 10 science notes",
+    "free online education platform", "CBSE board exam preparation",
+    "skills.sh", "getdesign.md"
   ],
   authors: [{ name: SITE_CONFIG.name }],
   creator: SITE_CONFIG.name,
@@ -157,6 +163,28 @@ export default function RootLayout({ children }: RootLayoutProps) {
     >
       <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} dark`} data-theme="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
         <body>
+          {/* JSON-LD Schema for Google SEO & AI Bots */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "EducationalOrganization",
+                "name": "EduQuest by Ishu",
+                "url": SITE_CONFIG.url,
+                "logo": `${SITE_CONFIG.url}/favicons/home.svg`,
+                "sameAs": [
+                  "https://www.skills.sh/",
+                  "https://getdesign.md/"
+                ],
+                "description": "India's #1 gamified learning platform created by Ishu.",
+                "founder": {
+                  "@type": "Person",
+                  "name": "Ishu"
+                }
+              })
+            }}
+          />
           {/*
            * Providers wraps everything that needs client-side context.
            * It is a "use client" component but keeps the layout itself as a server component.

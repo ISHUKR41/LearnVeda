@@ -14,18 +14,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 /* ─── Color palette — ALL BRIGHT, VIVID, HIGH-CONTRAST on #09090b ─── */
 const COLORS = {
-  root:        { fill: '#00ffcc', text: '#0a0a0a',   stroke: '#00ffcc', edge: '#00ffcc' },
-  reflection:  { fill: '#2563eb', text: '#ffffff',   stroke: '#93c5fd', edge: '#60a5fa' },
-  refraction:  { fill: '#d97706', text: '#ffffff',   stroke: '#fcd34d', edge: '#fbbf24' },
-  tir:         { fill: '#dc2626', text: '#ffffff',   stroke: '#fca5a5', edge: '#f87171' },
-  /* Leaf nodes — BRIGHT vivid fills, NOT dark! */
-  leaf_blue:   { fill: '#1d4ed8', text: '#dbeafe',   stroke: '#60a5fa', edge: '#93c5fd' },
-  leaf_amber:  { fill: '#b45309', text: '#fef3c7',   stroke: '#fbbf24', edge: '#fcd34d' },
-  leaf_green:  { fill: '#059669', text: '#d1fae5',   stroke: '#34d399', edge: '#6ee7b7' },
-  leaf_red:    { fill: '#b91c1c', text: '#fee2e2',   stroke: '#f87171', edge: '#fca5a5' },
-  leaf_indigo: { fill: '#7c3aed', text: '#ede9fe',   stroke: '#a78bfa', edge: '#c4b5fd' },
-  leaf_teal:   { fill: '#0e7490', text: '#cffafe',   stroke: '#22d3ee', edge: '#67e8f9' },
-  leaf_rose:   { fill: '#be185d', text: '#fce7f3',   stroke: '#f472b6', edge: '#fbcfe8' },
+  root:        { fill: '#00ffcc', text: '#000000', stroke: '#00ffcc', edge: '#00ffcc' },
+  reflection:  { fill: '#3b82f6', text: '#ffffff', stroke: '#60a5fa', edge: '#60a5fa' },
+  refraction:  { fill: '#f59e0b', text: '#000000', stroke: '#fbbf24', edge: '#fbbf24' },
+  tir:         { fill: '#ef4444', text: '#ffffff', stroke: '#f87171', edge: '#f87171' },
+  /* Leaf nodes — ULTRA BRIGHT fills for maximum visibility on dark bg */
+  leaf_blue:   { fill: '#2563eb', text: '#ffffff', stroke: '#60a5fa', edge: '#60a5fa' },
+  leaf_amber:  { fill: '#d97706', text: '#ffffff', stroke: '#f59e0b', edge: '#fbbf24' },
+  leaf_green:  { fill: '#059669', text: '#ffffff', stroke: '#10b981', edge: '#34d399' },
+  leaf_red:    { fill: '#dc2626', text: '#ffffff', stroke: '#ef4444', edge: '#f87171' },
+  leaf_indigo: { fill: '#6366f1', text: '#ffffff', stroke: '#818cf8', edge: '#a78bfa' },
+  leaf_teal:   { fill: '#0d9488', text: '#ffffff', stroke: '#14b8a6', edge: '#22d3ee' },
+  leaf_rose:   { fill: '#e11d48', text: '#ffffff', stroke: '#f43f5e', edge: '#f472b6' },
 };
 
 interface NodeDef {
@@ -301,7 +301,7 @@ export default function MindMap() {
               d={`M ${A.x} ${A.y} Q ${mx} ${my} ${B.x} ${B.y}`}
               fill="none"
               stroke={edge.color}
-              strokeWidth={isHot ? 3.5 : 2.0}
+              strokeWidth={isHot ? 4 : 2.6}
               strokeOpacity={isHot ? 1 : 0.7}
               markerEnd={`url(#${marker})`}
               initial={{ opacity: 0, pathLength: 0 }}
@@ -385,7 +385,7 @@ export default function MindMap() {
               boxShadow: `0 0 8px ${item.color}, 0 0 16px ${item.color}40`,
               display: 'inline-block', flexShrink: 0,
             }} />
-            <span style={{ fontSize: '0.7rem', color: '#a1a1aa', fontWeight: 500 }}>{item.label}</span>
+            <span style={{ fontSize: '0.8rem', color: '#e5e7eb', fontWeight: 600 }}>{item.label}</span>
           </div>
         ))}
       </div>

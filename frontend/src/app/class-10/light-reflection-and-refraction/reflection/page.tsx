@@ -13,6 +13,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, Zap, Eye, BookOpen, RotateCcw, Lightbulb, Award, Target, Sun, Camera } from 'lucide-react';
+import { ImageWithSkeleton } from '@/components/LightChapter/SkeletonLoader';
 import styles from '@/styles/LightChapter.module.css';
 
 /* ─────────────────────────────────────────────────────────
@@ -259,36 +260,36 @@ function ConcaveMirrorSim() {
       label: 'Beyond C', objX: 85, objY: AY - 75,
       imgX: 282, imgY: AY + 40, imgReal: true, imgErect: false, imgSize: 'Diminished',
       desc: 'Image: Real, Inverted, Diminished — between F and C',
-      r1: { x1: 85, y1: AY - 75, xm: 476, ym: AY - 75, xe: 346, ye: AY, xf: 230, yf: AY + 55 } as Record<string,number>,
-      r2: { x1: 85, y1: AY - 75, xm: 476, ym: AY + 65, xe: 216, ye: AY, xf: 100, yf: AY - 60 } as Record<string,number>,
+      r1: { x1: 85, y1: AY - 75, xm: 476, ym: AY - 75, xe: 346, ye: AY, xf: 230, yf: AY + 55 } as Record<string, number>,
+      r2: { x1: 85, y1: AY - 75, xm: 476, ym: AY + 65, xe: 216, ye: AY, xf: 100, yf: AY - 60 } as Record<string, number>,
     },
     {
       label: 'At C', objX: 216, objY: AY - 75,
       imgX: 216, imgY: AY + 75, imgReal: true, imgErect: false, imgSize: 'Same size',
       desc: 'Image: Real, Inverted, Same size — at C',
-      r1: { x1: 216, y1: AY - 75, xm: 476, ym: AY - 75, xe: 346, ye: AY, xf: 216, yf: AY + 75 } as Record<string,number>,
-      r2: { x1: 216, y1: AY - 75, xm: 476, ym: AY + 75, xe: 216, ye: AY, xf: 60, yf: AY - 75 } as Record<string,number>,
+      r1: { x1: 216, y1: AY - 75, xm: 476, ym: AY - 75, xe: 346, ye: AY, xf: 216, yf: AY + 75 } as Record<string, number>,
+      r2: { x1: 216, y1: AY - 75, xm: 476, ym: AY + 75, xe: 216, ye: AY, xf: 60, yf: AY - 75 } as Record<string, number>,
     },
     {
       label: 'Between C & F', objX: 290, objY: AY - 75,
       imgX: 80, imgY: AY + 125, imgReal: true, imgErect: false, imgSize: 'Magnified',
       desc: 'Image: Real, Inverted, Magnified — beyond C',
-      r1: { x1: 290, y1: AY - 75, xm: 476, ym: AY - 75, xe: 346, ye: AY, xf: 80, yf: AY + 355 } as Record<string,number>,
-      r2: { x1: 290, y1: AY - 75, xm: 476, ym: AY + 85, xe: 216, ye: AY, xf: 70, yf: AY - 130 } as Record<string,number>,
+      r1: { x1: 290, y1: AY - 75, xm: 476, ym: AY - 75, xe: 346, ye: AY, xf: 80, yf: AY + 355 } as Record<string, number>,
+      r2: { x1: 290, y1: AY - 75, xm: 476, ym: AY + 85, xe: 216, ye: AY, xf: 70, yf: AY - 130 } as Record<string, number>,
     },
     {
       label: 'At F', objX: 346, objY: AY - 75,
       imgX: -1, imgY: 0, imgReal: false, imgErect: false, imgSize: 'At infinity',
       desc: 'Image: At Infinity — reflected rays are parallel',
-      r1: { x1: 346, y1: AY - 75, xm: 476, ym: AY - 75, xe: 60, ye: AY - 75, xf: 60, yf: AY - 75 } as Record<string,number>,
-      r2: { x1: 346, y1: AY - 75, xm: 476, ym: AY + 55, xe: 216, ye: AY, xf: 60, yf: AY - 75 } as Record<string,number>,
+      r1: { x1: 346, y1: AY - 75, xm: 476, ym: AY - 75, xe: 60, ye: AY - 75, xf: 60, yf: AY - 75 } as Record<string, number>,
+      r2: { x1: 346, y1: AY - 75, xm: 476, ym: AY + 55, xe: 216, ye: AY, xf: 60, yf: AY - 75 } as Record<string, number>,
     },
     {
       label: 'Between F & P', objX: 420, objY: AY - 75,
       imgX: 555, imgY: AY - 145, imgReal: false, imgErect: true, imgSize: 'Magnified',
       desc: 'Image: Virtual, Erect, Magnified — behind mirror',
-      r1: { x1: 420, y1: AY - 75, xm: 476, ym: AY - 75, xe: 346, ye: AY, xf: 220, yf: AY + 350 } as Record<string,number>,
-      r2: { x1: 420, y1: AY - 75, xm: 476, ym: AY + 40, xe: 216, ye: AY, xf: 100, yf: AY - 90 } as Record<string,number>,
+      r1: { x1: 420, y1: AY - 75, xm: 476, ym: AY - 75, xe: 346, ye: AY, xf: 220, yf: AY + 350 } as Record<string, number>,
+      r2: { x1: 420, y1: AY - 75, xm: 476, ym: AY + 40, xe: 216, ye: AY, xf: 100, yf: AY - 90 } as Record<string, number>,
     },
   ];
 
@@ -474,9 +475,8 @@ function MirrorFormulaCalcSim() {
 
   const nature = isInfinity
     ? 'Image at Infinity'
-    : `${isReal ? 'Real' : 'Virtual'}, ${isErect ? 'Erect' : 'Inverted'}, ${
-        Math.abs(m) > 1.05 ? 'Magnified' : Math.abs(m) < 0.95 ? 'Diminished' : 'Same Size'
-      }`;
+    : `${isReal ? 'Real' : 'Virtual'}, ${isErect ? 'Erect' : 'Inverted'}, ${Math.abs(m) > 1.05 ? 'Magnified' : Math.abs(m) < 0.95 ? 'Diminished' : 'Same Size'
+    }`;
 
   const natColor = isInfinity ? '#f59e0b' : isReal ? '#00ffcc' : '#a78bfa';
   const isConcave = f < 0;
@@ -485,8 +485,8 @@ function MirrorFormulaCalcSim() {
   const px = 320; const ay = 130; const sc = 2.2;
   const objH = 45;
   const objX = px + u * sc;   /* u negative → left of mirror */
-  const fX   = px + f * sc;
-  const c2X  = px + 2 * f * sc;
+  const fX = px + f * sc;
+  const c2X = px + 2 * f * sc;
   const imgX = isInfinity ? px - 350 : px + v * sc;
   const imgH = isInfinity ? 0 : m * objH;
 
@@ -551,32 +551,32 @@ function MirrorFormulaCalcSim() {
         {/* Mirror surface (right side) */}
         <path
           d={isConcave
-            ? `M ${px} ${ay-90} Q ${px+30} ${ay} ${px} ${ay+90}`
-            : `M ${px} ${ay-90} Q ${px-30} ${ay} ${px} ${ay+90}`}
+            ? `M ${px} ${ay - 90} Q ${px + 30} ${ay} ${px} ${ay + 90}`
+            : `M ${px} ${ay - 90} Q ${px - 30} ${ay} ${px} ${ay + 90}`}
           fill="none" stroke={isConcave ? '#60a5fa' : '#f87171'} strokeWidth="4" strokeLinecap="round" />
 
         {/* Mirror fill */}
         <path
           d={isConcave
-            ? `M ${px} ${ay-90} Q ${px+30} ${ay} ${px} ${ay+90} L ${px+8} ${ay+90} Q ${px+40} ${ay} ${px+8} ${ay-90} Z`
-            : `M ${px} ${ay-90} Q ${px-30} ${ay} ${px} ${ay+90} L ${px-8} ${ay+90} Q ${px-40} ${ay} ${px-8} ${ay-90} Z`}
+            ? `M ${px} ${ay - 90} Q ${px + 30} ${ay} ${px} ${ay + 90} L ${px + 8} ${ay + 90} Q ${px + 40} ${ay} ${px + 8} ${ay - 90} Z`
+            : `M ${px} ${ay - 90} Q ${px - 30} ${ay} ${px} ${ay + 90} L ${px - 8} ${ay + 90} Q ${px - 40} ${ay} ${px - 8} ${ay - 90} Z`}
           fill={isConcave ? 'rgba(96,165,250,0.07)' : 'rgba(248,113,113,0.07)'} />
 
         {/* Pole P */}
         <circle cx={px} cy={ay} r="3.5" fill="#ffffff60" />
-        <text x={px} y={ay+15} fill="#ffffff60" fontSize="10" textAnchor="middle" fontFamily="Inter">P</text>
+        <text x={px} y={ay + 15} fill="#ffffff60" fontSize="10" textAnchor="middle" fontFamily="Inter">P</text>
 
         {/* Focal point F and 2F */}
         {fX > 10 && fX < 555 && (
           <>
             <circle cx={fX} cy={ay} r="4.5" fill="#f59e0b" style={{ filter: 'drop-shadow(0 0 4px #f59e0b)' }} />
-            <text x={fX} y={ay-11} fill="#f59e0b" fontSize="10" textAnchor="middle" fontFamily="Inter" fontWeight="700">F</text>
+            <text x={fX} y={ay - 11} fill="#f59e0b" fontSize="10" textAnchor="middle" fontFamily="Inter" fontWeight="700">F</text>
           </>
         )}
         {c2X > 10 && c2X < 555 && (
           <>
             <circle cx={c2X} cy={ay} r="3.5" fill="#a78bfa80" />
-            <text x={c2X} y={ay-11} fill="#a78bfa80" fontSize="10" textAnchor="middle" fontFamily="Inter">C</text>
+            <text x={c2X} y={ay - 11} fill="#a78bfa80" fontSize="10" textAnchor="middle" fontFamily="Inter">C</text>
           </>
         )}
 
@@ -584,8 +584,8 @@ function MirrorFormulaCalcSim() {
         {objX > 10 && objX < px - 5 && (
           <g>
             <line x1={objX} y1={ay} x2={objX} y2={ay - objH} stroke="#ef4444" strokeWidth="2.5" style={{ filter: 'drop-shadow(0 0 4px #ef444460)' }} />
-            <polygon fill="#ef4444" points={`${objX},${ay-objH} ${objX-6},${ay-objH+11} ${objX+6},${ay-objH+11}`} />
-            <text x={objX} y={ay-objH-8} fill="#ef444499" fontSize="10" textAnchor="middle" fontFamily="Inter">Object</text>
+            <polygon fill="#ef4444" points={`${objX},${ay - objH} ${objX - 6},${ay - objH + 11} ${objX + 6},${ay - objH + 11}`} />
+            <text x={objX} y={ay - objH - 8} fill="#ef444499" fontSize="10" textAnchor="middle" fontFamily="Inter">Object</text>
           </g>
         )}
 
@@ -598,9 +598,9 @@ function MirrorFormulaCalcSim() {
               style={{ filter: `drop-shadow(0 0 4px ${isReal ? '#00ffcc60' : '#a78bfa60'})` }} />
             <polygon fill={isReal ? '#00ffcc' : '#a78bfa'}
               points={imgH > 0
-                ? `${imgX},${ay+imgH} ${imgX-6},${ay+imgH-11} ${imgX+6},${ay+imgH-11}`
-                : `${imgX},${ay+imgH} ${imgX-6},${ay+imgH+11} ${imgX+6},${ay+imgH+11}`} />
-            <text x={imgX} y={imgH > 0 ? ay+imgH+14 : ay+imgH-9}
+                ? `${imgX},${ay + imgH} ${imgX - 6},${ay + imgH - 11} ${imgX + 6},${ay + imgH - 11}`
+                : `${imgX},${ay + imgH} ${imgX - 6},${ay + imgH + 11} ${imgX + 6},${ay + imgH + 11}`} />
+            <text x={imgX} y={imgH > 0 ? ay + imgH + 14 : ay + imgH - 9}
               fill={isReal ? '#00ffcc99' : '#a78bfa99'} fontSize="10" textAnchor="middle" fontFamily="Inter">
               {isReal ? 'Image (Real)' : 'Image (Virtual)'}
             </text>
@@ -609,12 +609,12 @@ function MirrorFormulaCalcSim() {
         {isInfinity && (
           <text x="50" y={ay - 30} fill="#f59e0b" fontSize="28" fontFamily="JetBrains Mono" fontWeight="700" opacity="0.6">∞</text>
         )}
-        <text x="10" y="250" fill="#444" fontSize="9" fontFamily="Inter">Scale ≈ {(1/sc).toFixed(1)} cm/px | {isConcave ? 'Concave mirror' : 'Convex mirror'}</text>
+        <text x="10" y="250" fill="#444" fontSize="9" fontFamily="Inter">Scale ≈ {(1 / sc).toFixed(1)} cm/px | {isConcave ? 'Concave mirror' : 'Convex mirror'}</text>
       </svg>
 
       {/* Step-by-step working */}
       <div style={{ marginTop: '0.75rem', padding: '0.65rem 1rem', background: 'rgba(0,255,204,0.04)', borderRadius: '8px', border: '1px solid rgba(0,255,204,0.1)', fontSize: '0.83rem', color: '#71717a' }}>
-        💡 <strong>Working:</strong> 1/v = 1/f − 1/u = 1/{f} − 1/{u} = {(1/f).toFixed(3)} − ({(1/u).toFixed(3)}) = {(1/f - 1/u).toFixed(3)}
+        💡 <strong>Working:</strong> 1/v = 1/f − 1/u = 1/{f} − 1/{u} = {(1 / f).toFixed(3)} − ({(1 / u).toFixed(3)}) = {(1 / f - 1 / u).toFixed(3)}
         → v = <strong style={{ color: natColor }}>{isInfinity ? '∞' : v.toFixed(1)} cm</strong>
         &nbsp;|&nbsp; m = −v/u = <strong style={{ color: natColor }}>{isInfinity ? '∞' : m.toFixed(2)}</strong>
       </div>
@@ -632,30 +632,46 @@ export default function ReflectionPage() {
   const [flipped, setFlipped] = useState<Record<number, boolean>>({});
 
   const mcqs = [
-    { q: 'The angle of reflection is measured from the ___.',
+    {
+      q: 'The angle of reflection is measured from the ___.',
       opts: ['Reflecting surface', 'Normal to the surface', 'Incident ray', 'Horizontal line'],
-      ans: 1, exp: 'Both ∠i and ∠r are always measured from the NORMAL (perpendicular) to the reflecting surface — not from the surface itself.' },
-    { q: 'A plane mirror produces which type of image?',
+      ans: 1, exp: 'Both ∠i and ∠r are always measured from the NORMAL (perpendicular) to the reflecting surface — not from the surface itself.'
+    },
+    {
+      q: 'A plane mirror produces which type of image?',
       opts: ['Real, inverted, same size', 'Virtual, erect, same size', 'Real, erect, magnified', 'Virtual, inverted, diminished'],
-      ans: 1, exp: 'Plane mirror: image is Virtual (can\'t be projected), Erect (upright), Same size (m=1), and at same distance behind mirror.' },
-    { q: 'Which mirror is used by dentists to see an enlarged image of teeth?',
+      ans: 1, exp: 'Plane mirror: image is Virtual (can\'t be projected), Erect (upright), Same size (m=1), and at same distance behind mirror.'
+    },
+    {
+      q: 'Which mirror is used by dentists to see an enlarged image of teeth?',
       opts: ['Plane mirror', 'Convex mirror', 'Concave mirror', 'Parabolic mirror'],
-      ans: 2, exp: 'Concave mirror with object between F and P gives virtual, erect, magnified image — exactly what a dentist needs!' },
-    { q: 'If radius of curvature = 30 cm, the focal length is:',
+      ans: 2, exp: 'Concave mirror with object between F and P gives virtual, erect, magnified image — exactly what a dentist needs!'
+    },
+    {
+      q: 'If radius of curvature = 30 cm, the focal length is:',
       opts: ['60 cm', '15 cm', '30 cm', '10 cm'],
-      ans: 1, exp: 'f = R/2 = 30/2 = 15 cm. The focal length is always half the radius of curvature.' },
-    { q: 'An object is 30 cm from a concave mirror of f = 10 cm. Image distance = ?',
+      ans: 1, exp: 'f = R/2 = 30/2 = 15 cm. The focal length is always half the radius of curvature.'
+    },
+    {
+      q: 'An object is 30 cm from a concave mirror of f = 10 cm. Image distance = ?',
       opts: ['−15 cm', '−20 cm', '+15 cm', '−30 cm'],
-      ans: 0, exp: '1/v + 1/u = 1/f → 1/v = 1/(−10) − 1/(−30) = −1/10 + 1/30 = −2/30 → v = −15 cm (real, in front).' },
-    { q: 'Magnification by convex mirror is always:',
+      ans: 0, exp: '1/v + 1/u = 1/f → 1/v = 1/(−10) − 1/(−30) = −1/10 + 1/30 = −2/30 → v = −15 cm (real, in front).'
+    },
+    {
+      q: 'Magnification by convex mirror is always:',
       opts: ['Greater than 1', 'Less than 1, positive', 'Equal to 1', 'Negative'],
-      ans: 1, exp: 'Convex: m = −v/u. v is always positive (virtual); u is negative; so m is positive and less than 1 (diminished).' },
-    { q: 'Object at infinity before a concave mirror → image forms at:',
+      ans: 1, exp: 'Convex: m = −v/u. v is always positive (virtual); u is negative; so m is positive and less than 1 (diminished).'
+    },
+    {
+      q: 'Object at infinity before a concave mirror → image forms at:',
       opts: ['Pole P', 'Centre C', 'Focus F', 'Between F and P'],
-      ans: 2, exp: 'Parallel rays from infinity converge at F (focal point) after reflection from a concave mirror.' },
-    { q: 'Which is NOT an application of concave mirrors?',
+      ans: 2, exp: 'Parallel rays from infinity converge at F (focal point) after reflection from a concave mirror.'
+    },
+    {
+      q: 'Which is NOT an application of concave mirrors?',
       opts: ['Solar cooker', 'Vehicle headlights', 'Rear-view mirror', 'Shaving mirror'],
-      ans: 2, exp: 'Rear-view mirrors use CONVEX mirrors (wide field of view). Solar cooker, headlights, and shaving mirrors all use CONCAVE.' },
+      ans: 2, exp: 'Rear-view mirrors use CONVEX mirrors (wide field of view). Solar cooker, headlights, and shaving mirrors all use CONCAVE.'
+    },
   ];
 
   const flashcards = [
@@ -755,7 +771,7 @@ export default function ReflectionPage() {
                 { src: '/images/light/media__1781201710451.png', caption: 'Visible light is a tiny part of the electromagnetic spectrum (400–700 nm)' },
               ].map((img, i) => (
                 <motion.div key={i} className={styles.imageCard} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </motion.div>
               ))}
@@ -791,7 +807,7 @@ export default function ReflectionPage() {
                 { src: '/images/light/light_laws_reflection_1781203058464.png', caption: 'Coplanar property: incident ray, normal, and reflected ray all lie in one plane' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -895,8 +911,7 @@ If mirror rotates by 20°: reflected ray rotates by = 2 × 20° = `}<span classN
                 { src: '/images/light/regular-vs-diffuse.png', caption: 'Surface texture determines type: polished = regular, rough = diffuse', wide: false },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard} style={{ gridColumn: img.wide ? '1 / -1' : 'auto' }}>
-                  <img src={img.src} alt={img.caption} loading="lazy"
-                    style={{ width: '100%', height: img.wide ? '220px' : '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={img.wide ? 220 : 200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -929,6 +944,7 @@ If mirror rotates by 20°: reflected ray rotates by = 2 × 20° = `}<span classN
             </p>
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/plane_mirror.png', caption: 'Plane mirror characteristics — real object, virtual & erect laterally inverted image' },
                 { src: '/images/light/plane-mirror-image-formation.png', caption: 'Plane mirror image formation — virtual, erect, same size; image behind mirror = object distance in front' },
                 { src: '/images/light/plane-mirror-image.png', caption: 'Plane mirror — image appears as far behind mirror as object is in front' },
                 { src: '/images/light/lateral-inversion-demo.png', caption: 'Lateral inversion — left-right swap: AMBULANCE written reversed for driver clarity' },
@@ -936,7 +952,7 @@ If mirror rotates by 20°: reflected ray rotates by = 2 × 20° = `}<span classN
                 { src: '/images/light/angled-mirrors-multiple-images.png', caption: 'Two mirrors at θ° angle form n = (360°/θ)−1 images: at 60°→ 5 images, 90°→ 3 images' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -971,15 +987,20 @@ If mirror rotates by 20°: reflected ray rotates by = 2 × 20° = `}<span classN
             </p>
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/concave_mirror.png', caption: 'Concave Mirror — converging parallel rays to a single focal point F' },
+                { src: '/images/light/convex_mirror.png', caption: 'Convex Mirror — diverging parallel light rays, virtual focus behind mirror' },
                 { src: '/images/light/concave-mirror-all-cases-detailed.png', caption: 'Concave Mirror — all 5 image formation cases with ray diagrams: ∞, beyond C, at C, between C&F, at F, between F&P' },
                 { src: '/images/light/spherical-mirror-all-parts-labeled.png', caption: 'Spherical mirror complete anatomy — Pole P, Centre C, Focus F, Principal Axis, Aperture, Radius R' },
                 { src: '/images/light/convex-mirror-image-formation.png', caption: 'Convex Mirror — diverging rays form virtual, erect, diminished image; wide field of view' },
                 { src: '/images/light/concave-mirror-diagram.png', caption: 'Concave Mirror — parallel rays converge at focal point F (converging mirror)' },
                 { src: '/images/light/convex-mirror-ray-diagram.png', caption: 'Convex Mirror — virtual focus behind mirror; used in rear-view mirrors for wide angle' },
                 { src: '/images/light/spherical-mirror-parts-labeled.png', caption: 'Pole P, Radius R = 2f, Aperture — key parts of any spherical mirror' },
+                { src: '/images/light/concave_mirror_apps_1781258005449.png', caption: 'Concave Mirror Applications — solar cooker, dentist mirror, headlight, shaving mirror, satellite dish' },
+                { src: '/images/light/convex_mirror_apps_1781258024462.png', caption: 'Convex Mirror Applications — rear-view mirrors, shop security mirrors, ATM mirrors, road blind spots' },
+                { src: '/images/light/mirror_formula_derivation_1781258042847.png', caption: 'Mirror Formula: 1/v + 1/u = 1/f — derivation with ray diagram showing u, v, f, P, F, C' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -1099,6 +1120,7 @@ m = −v/u = −1.15/(−5) = `}<span className={styles.highlight}>+0.23</span>{
             <h2>📐 Mirror Formula & Magnification</h2>
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/sign_convention.png', caption: 'New Cartesian Sign Convention — sleek minimalist layout for mirror distances' },
                 { src: '/images/light/mirror-formula-geometric-proof.png', caption: 'Mirror formula derivation — geometric proof using similar triangles: 1/v + 1/u = 1/f' },
                 { src: '/images/light/new-cartesian-sign-convention.png', caption: 'New Cartesian Sign Convention — all distances from Pole P; toward incident light = positive' },
                 { src: '/images/light/magnification-formula-illustrated.png', caption: 'Magnification m = h′/h = −v/u | negative m → Real, Inverted | positive m → Virtual, Erect' },
@@ -1107,7 +1129,7 @@ m = −v/u = −1.15/(−5) = `}<span className={styles.highlight}>+0.23</span>{
                 { src: '/images/light/light_magnification_formula_nano_banana_1781204215500.png', caption: 'm = −v/u: |m| > 1 magnified | |m| < 1 diminished | |m| = 1 same size' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -1253,24 +1275,36 @@ u = `}<span className={styles.highlight}>−60 cm</span>{`   v = −(−60)/3 = 
           <section className={styles.contentSection} id="numericals">
             <h2>🔢 Solved Numericals</h2>
             {[
-              { title: 'Numerical 1 — Image Position & Nature',
+              {
+                title: 'Numerical 1 — Image Position & Nature',
                 prob: 'An object is placed 15 cm in front of a concave mirror of focal length 10 cm. Find image position and nature.',
-                steps: ['Given: u = −15 cm (object in front), f = −10 cm (concave mirror)', '1/v = 1/f − 1/u = 1/(−10) − 1/(−15) = −1/10 + 1/15', '1/v = (−3 + 2)/30 = −1/30 → v = −30 cm', 'v is negative → image is REAL (in front of mirror)', 'm = −v/u = −(−30)/(−15) = −2', 'Magnification = −2 → Image is Inverted and Magnified (twice the size)'] },
-              { title: 'Numerical 2 — Focal Length from R',
+                steps: ['Given: u = −15 cm (object in front), f = −10 cm (concave mirror)', '1/v = 1/f − 1/u = 1/(−10) − 1/(−15) = −1/10 + 1/15', '1/v = (−3 + 2)/30 = −1/30 → v = −30 cm', 'v is negative → image is REAL (in front of mirror)', 'm = −v/u = −(−30)/(−15) = −2', 'Magnification = −2 → Image is Inverted and Magnified (twice the size)']
+              },
+              {
+                title: 'Numerical 2 — Focal Length from R',
                 prob: 'A concave mirror has radius of curvature R = 24 cm. Find its focal length.',
-                steps: ['Relationship: f = R/2', 'f = 24/2 = 12 cm', 'For concave mirror (by sign convention): f = −12 cm', 'Note: Focal length is always half the radius of curvature'] },
-              { title: 'Numerical 3 — Object Position for Given Magnification',
+                steps: ['Relationship: f = R/2', 'f = 24/2 = 12 cm', 'For concave mirror (by sign convention): f = −12 cm', 'Note: Focal length is always half the radius of curvature']
+              },
+              {
+                title: 'Numerical 3 — Object Position for Given Magnification',
                 prob: 'A concave mirror of focal length 15 cm produces a virtual image with magnification +3. Where is the object?',
-                steps: ['Given: f = −15 cm, m = +3 (virtual, erect)', 'm = −v/u → 3 = −v/u → v = −3u', 'Substituting in 1/f = 1/v + 1/u:', '1/(−15) = 1/(−3u) + 1/u = (−1 + 3)/(3u) = 2/(3u)', '−1/15 = 2/(3u) → u = 2 × 15/(−3) = −10 cm', 'Object is placed 10 cm in front (between F and P)'] },
-              { title: 'Numerical 4 — Convex Mirror Image',
+                steps: ['Given: f = −15 cm, m = +3 (virtual, erect)', 'm = −v/u → 3 = −v/u → v = −3u', 'Substituting in 1/f = 1/v + 1/u:', '1/(−15) = 1/(−3u) + 1/u = (−1 + 3)/(3u) = 2/(3u)', '−1/15 = 2/(3u) → u = 2 × 15/(−3) = −10 cm', 'Object is placed 10 cm in front (between F and P)']
+              },
+              {
+                title: 'Numerical 4 — Convex Mirror Image',
                 prob: 'An object 6 cm tall is 24 cm in front of a convex mirror of focal length 16 cm. Find image distance and size.',
-                steps: ['u = −24 cm, f = +16 cm (convex), h = 6 cm', '1/v + 1/(−24) = 1/16 → 1/v = 1/16 + 1/24 = (3+2)/48 = 5/48', 'v = +48/5 = +9.6 cm (positive → virtual, behind mirror)', 'm = −v/u = −9.6/(−24) = +0.4', 'h′ = m × h = 0.4 × 6 = 2.4 cm (erect, diminished)'] },
-              { title: 'Numerical 5 — Sun-Earth Distance',
+                steps: ['u = −24 cm, f = +16 cm (convex), h = 6 cm', '1/v + 1/(−24) = 1/16 → 1/v = 1/16 + 1/24 = (3+2)/48 = 5/48', 'v = +48/5 = +9.6 cm (positive → virtual, behind mirror)', 'm = −v/u = −9.6/(−24) = +0.4', 'h′ = m × h = 0.4 × 6 = 2.4 cm (erect, diminished)']
+              },
+              {
+                title: 'Numerical 5 — Sun-Earth Distance',
                 prob: 'Sunlight takes 8 minutes 20 seconds to reach Earth. Calculate the Sun-Earth distance.',
-                steps: ['Time = 8 min 20 sec = (8 × 60 + 20) = 500 seconds', 'Speed of light c = 3 × 10⁸ m/s', 'Distance = Speed × Time = 3 × 10⁸ × 500', 'd = 1500 × 10⁸ m = 1.5 × 10¹¹ m', 'This distance is called 1 Astronomical Unit (1 AU)'] },
-              { title: 'Numerical 6 — Images in Angled Mirrors',
+                steps: ['Time = 8 min 20 sec = (8 × 60 + 20) = 500 seconds', 'Speed of light c = 3 × 10⁸ m/s', 'Distance = Speed × Time = 3 × 10⁸ × 500', 'd = 1500 × 10⁸ m = 1.5 × 10¹¹ m', 'This distance is called 1 Astronomical Unit (1 AU)']
+              },
+              {
+                title: 'Numerical 6 — Images in Angled Mirrors',
                 prob: 'Two plane mirrors are placed at 60° to each other. How many images are formed of an object between them?',
-                steps: ['Formula: n = (360°/θ) − 1', 'n = (360°/60°) − 1 = 6 − 1 = 5 images', 'This is the principle behind kaleidoscopes!', 'Verification: 360/60 = 6 (even), so n = 6 − 1 = 5'] },
+                steps: ['Formula: n = (360°/θ) − 1', 'n = (360°/60°) − 1 = 6 − 1 = 5 images', 'This is the principle behind kaleidoscopes!', 'Verification: 360/60 = 6 (even), so n = 6 − 1 = 5']
+              },
             ].map((num, i) => (
               <div key={i} className={styles.numericalBox}>
                 <div className={styles.numericalTitle}>📝 {num.title}</div>

@@ -13,6 +13,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, Zap, Eye, BookOpen, RotateCcw, Lightbulb, Award, Target, Waves } from 'lucide-react';
+import { ImageWithSkeleton } from '@/components/LightChapter/SkeletonLoader';
 import styles from '@/styles/LightChapter.module.css';
 
 /* ─────────────────────────────────────────────────────────
@@ -1018,12 +1019,13 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/refraction_intro_laser_1781257564736.png', caption: 'Laser refraction — Dark neon visual of light bending in water' },
                 { src: '/images/light/refraction-real-life-examples.png', caption: 'Real-life refraction — pencil bent in water, pool depth illusion, mirage, star twinkling' },
                 { src: '/images/light/light_snells_law_1781203083554.png', caption: 'Light bending at air-glass interface — angle changes because speed changes' },
                 { src: '/images/light/media__1781206235525.png', caption: 'Pencil in water appears bent — classic example of refraction' },
               ].map((img, i) => (
                 <motion.div key={i} className={styles.imageCard} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </motion.div>
               ))}
@@ -1047,13 +1049,14 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/refractive_index_concept_1781257584192.png', caption: 'Refractive Index — Light slowing down in denser diamond medium' },
                 { src: '/images/light/snells-law-complete-diagram.png', caption: "Snell's Law — n₁sinθ₁=n₂sinθ₂: light bends toward normal entering denser medium, wavefronts compress" },
                 { src: '/images/light/snells-law-vector-diagram.png', caption: "Snell's Law vector diagram — angle i vs angle r with Cartesian sign convention labeled" },
                 { src: '/images/light/light_snells_law_1781203083554.png', caption: "Snell's Law: incident ray bends toward normal when entering denser medium" },
                 { src: '/images/light/light_refractive_index_1781203095581.png', caption: 'Refractive indices: denser medium → higher n, slower light, more bending' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -1165,7 +1168,7 @@ sin θ_B = 0.667 × 0.643 = 0.429
                 { src: '/images/light/light_absolute_refractive_nano_banana_1781204408083.png', caption: 'Absolute refractive index: n = c/v (speed in vacuum ÷ speed in medium)' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -1207,12 +1210,13 @@ sin θ_B = 0.667 × 0.643 = 0.429
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/glass_slab_refraction_1781257428519.png', caption: 'Glass slab refraction — detailed dark neon schematic of lateral displacement' },
                 { src: '/images/light/glass-slab-lateral-displacement.png', caption: 'Glass slab lateral displacement — formula d=t·sin(i−r)/cos(r); emergent ray parallel but shifted sideways' },
                 { src: '/images/light/light_glass_slab_nano_banana_1781204391585.png', caption: 'Glass slab refraction — emergent ray is parallel to incident ray but laterally displaced' },
                 { src: '/images/light/snells-law-vector-diagram.png', caption: 'Snell\'s Law at both surfaces: n₁ sin i = n₂ sin r → net deviation = zero, lateral shift only' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -1295,6 +1299,8 @@ Shift = 9 × (1 − 1/1.5) = 9 × (1 − 0.667) = 9 × 0.333 = `}<span className
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/tir_concept_1781257693465.png', caption: 'Total Internal Reflection — Light trapped in denser medium, bouncing off boundary' },
+                { src: '/images/light/optical_fibre_1781257710837.png', caption: 'Optical Fibre TIR — Pulsing laser bouncing perfectly inside fibre core' },
                 { src: '/images/light/tir-three-stages.png', caption: 'TIR stages — angle<C: refraction, angle=C: grazing ray, angle>C: total internal reflection (no refraction)' },
                 { src: '/images/light/diamond-tir-sparkle.png', caption: 'Diamond brilliance via TIR — n=2.42, critical angle only 24°; multiple internal reflections create sparkle' },
                 { src: '/images/light/optical-fibre-cross-section.png', caption: 'Optical fibre — core(n=1.52) + cladding(n=1.46); TIR traps light for internet, endoscopy, sensors' },
@@ -1303,7 +1309,7 @@ Shift = 9 × (1 − 1/1.5) = 9 × (1 − 0.667) = 9 × 0.333 = `}<span className
                 { src: '/images/light/media__1781206240893.png', caption: 'TIR stages: normal refraction → critical angle grazing → total internal reflection' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
@@ -1453,7 +1459,7 @@ Used in: Periscopes, binoculars, endoscopes, submarine viewing systems.`}
                 { src: '/images/light/rainbow-formation-tir.png', caption: 'Rainbow formation — refraction + TIR inside water droplets separates sunlight into VIBGYOR arc' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}
