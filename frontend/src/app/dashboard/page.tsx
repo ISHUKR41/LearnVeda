@@ -14,8 +14,8 @@ import dynamic from "next/dynamic";
 import DashboardLoadingSkeleton from "./DashboardLoadingSkeleton";
 
 export const metadata = {
-  title: "Dashboard | EduQuest",
-  description: "Your EduQuest learning progress, streaks, XP, battles, and quick actions.",
+  title: "Dashboard | VidyaBolt",
+  description: "Your VidyaBolt learning progress, streaks, XP, battles, and quick actions.",
   icons: {
     icon: "/favicons/dashboard.svg",
   },

@@ -141,7 +141,7 @@ export default function SearchPage() {
 
         {/* PAGE HEADER */}
         <div className={styles.header}>
-          <h1 className={styles.title}>Search EduQuest</h1>
+          <h1 className={styles.title}>Search VidyaBolt</h1>
           <p className={styles.subtitle}>
             Find chapters, subjects, community posts, and students across the platform.
           </p>

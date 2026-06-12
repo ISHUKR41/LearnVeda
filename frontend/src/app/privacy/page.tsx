@@ -1,7 +1,7 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/privacy/page.tsx
- * PURPOSE: Comprehensive, professional privacy policy for EduQuest.
+ * PURPOSE: Comprehensive, professional privacy policy for VidyaBolt.
  *          Covers data collection, third-party services, DPDP Act 2023,
  *          user rights, cookies, retention, security, and contact.
  * LAST UPDATED: 2026-06-01
@@ -28,9 +28,9 @@ import {
 import styles from "./Privacy.module.css";
 
 export const metadata = {
-  title: "Privacy Policy | EduQuest",
+  title: "Privacy Policy | VidyaBolt",
   description:
-    "How EduQuest collects, uses, stores, and protects student data — including accounts, learning progress, authentication sessions, analytics, and contact requests. Updated June 2026.",
+    "How VidyaBolt collects, uses, stores, and protects student data — including accounts, learning progress, authentication sessions, analytics, and contact requests. Updated June 2026.",
 };
 
 const DATA_GROUPS = [
@@ -81,12 +81,12 @@ const POLICY_SECTIONS = [
   {
     icon: KeyRound,
     title: "Authentication & Sessions",
-    body: "EduQuest uses Clerk for all sign-in, sign-up, session validation, and social login flows. Passwords and OAuth credentials are handled entirely by Clerk — they are never stored in our database. Clerk sessions are validated server-side before any protected API endpoint returns data. If a session expires, Clerk will prompt re-authentication.",
+    body: "VidyaBolt uses Clerk for all sign-in, sign-up, session validation, and social login flows. Passwords and OAuth credentials are handled entirely by Clerk — they are never stored in our database. Clerk sessions are validated server-side before any protected API endpoint returns data. If a session expires, Clerk will prompt re-authentication.",
   },
   {
     icon: Cookie,
     title: "Cookies & Local Storage",
-    body: "Clerk places a secure, HttpOnly session cookie to keep you signed in between visits. EduQuest may store non-sensitive UI preferences (theme, sidebar state) in localStorage. No advertising cookies, cross-site tracking cookies, or fingerprinting scripts are used. Clearing cookies will sign you out and may reset interface preferences.",
+    body: "Clerk places a secure, HttpOnly session cookie to keep you signed in between visits. VidyaBolt may store non-sensitive UI preferences (theme, sidebar state) in localStorage. No advertising cookies, cross-site tracking cookies, or fingerprinting scripts are used. Clearing cookies will sign you out and may reset interface preferences.",
   },
   {
     icon: Database,
@@ -101,12 +101,12 @@ const POLICY_SECTIONS = [
   {
     icon: Globe2,
     title: "International Data Transfers",
-    body: "EduQuest is headquartered in India and primarily serves Indian students. Data may be stored on servers in the United States or Europe via hosting and database providers. By using EduQuest, you acknowledge this transfer. We require our providers to maintain adequate data protection standards equivalent to those required under Indian law.",
+    body: "VidyaBolt is headquartered in India and primarily serves Indian students. Data may be stored on servers in the United States or Europe via hosting and database providers. By using VidyaBolt, you acknowledge this transfer. We require our providers to maintain adequate data protection standards equivalent to those required under Indian law.",
   },
   {
     icon: Users,
     title: "Students Under 18 & Children",
-    body: "EduQuest serves students aged 14 and above (Class 9 and higher). Students under 18 should have parental or guardian consent before registering. We do not knowingly collect personal data from children under 13. If you believe a child under 13 has created an account, contact us immediately at privacy@eduquest.in for removal.",
+    body: "VidyaBolt serves students aged 14 and above (Class 9 and higher). Students under 18 should have parental or guardian consent before registering. We do not knowingly collect personal data from children under 13. If you believe a child under 13 has created an account, contact us immediately at privacy@vidyabolt.in for removal.",
   },
   {
     icon: Clock,
@@ -121,7 +121,7 @@ const POLICY_SECTIONS = [
   {
     icon: Zap,
     title: "How We Use Your Data",
-    body: "Your data is used exclusively to: (1) provide and improve the EduQuest learning platform, (2) personalise your dashboard and study recommendations, (3) maintain fair competition in battles and leaderboards, (4) send account-related notifications — never unsolicited marketing without consent, and (5) detect and prevent fraud, cheating, or abuse.",
+    body: "Your data is used exclusively to: (1) provide and improve the VidyaBolt learning platform, (2) personalise your dashboard and study recommendations, (3) maintain fair competition in battles and leaderboards, (4) send account-related notifications — never unsolicited marketing without consent, and (5) detect and prevent fraud, cheating, or abuse.",
   },
   {
     icon: CheckCircle2,
@@ -142,7 +142,7 @@ export default function PrivacyPage() {
         </div>
         <h1>Privacy Policy</h1>
         <p>
-          EduQuest is built for students. We collect only what is necessary to run
+          VidyaBolt is built for students. We collect only what is necessary to run
           a safe, gamified education platform — and we never sell your data.
           This policy explains exactly what we collect, why, and how it is protected.
         </p>
@@ -188,7 +188,7 @@ export default function PrivacyPage() {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <span>Third-Party Services</span>
-          <h2>Partners that help run EduQuest</h2>
+          <h2>Partners that help run VidyaBolt</h2>
         </div>
         <div className={styles.policyList}>
           {THIRD_PARTY_SERVICES.map((svc) => (
@@ -226,7 +226,7 @@ export default function PrivacyPage() {
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <span>Full Policy</span>
-          <h2>How your privacy is protected across EduQuest</h2>
+          <h2>How your privacy is protected across VidyaBolt</h2>
         </div>
         <div className={styles.policyList}>
           {POLICY_SECTIONS.map((item) => {
@@ -252,17 +252,17 @@ export default function PrivacyPage() {
         <p>
           For data access, correction, deletion requests, or any privacy concern,
           email{" "}
-          <a href="mailto:privacy@eduquest.in" style={{ color: "var(--color-primary)" }}>
-            privacy@eduquest.in
+          <a href="mailto:privacy@vidyabolt.in" style={{ color: "var(--color-primary)" }}>
+            privacy@vidyabolt.in
           </a>{" "}
           or use the{" "}
           <Link href="/contact" style={{ color: "var(--color-primary)" }}>
             Contact page
           </Link>
-          . Include the email address associated with your EduQuest account.
+          . Include the email address associated with your VidyaBolt account.
           We respond to all privacy requests within 7 business days.
           You may also contact us at:{" "}
-          <strong>EduQuest Academic Pvt Ltd, New Delhi, India 110001.</strong>
+          <strong>VidyaBolt Academic Pvt Ltd, New Delhi, India 110001.</strong>
         </p>
       </section>
 

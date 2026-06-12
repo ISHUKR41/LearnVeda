@@ -1,7 +1,7 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/about/page.tsx
- * PURPOSE: About page — explains EduQuest's learning mission, core platform
+ * PURPOSE: About page — explains VidyaBolt's learning mission, core platform
  *          pillars, real-time statistics from PostgreSQL, value propositions,
  *          and a CTA section. Fetches real user/chapter/question counts via ISR.
  * USED BY: Footer platform links, navbar "About" link
@@ -37,9 +37,9 @@ export const revalidate = 3600;
 
 /** SEO metadata */
 export const metadata = {
-  title: "About EduQuest — Our Mission & Vision",
+  title: "About VidyaBolt — Our Mission & Vision",
   description:
-    "Learn why EduQuest combines structured academics, coding tracks, and safe learning battles to create the most effective gamified education platform for Class 9-12 and Engineering students.",
+    "Learn why VidyaBolt combines structured academics, coding tracks, and safe learning battles to create the most effective gamified education platform for Class 9-12 and Engineering students.",
 };
 
 /* ─────────────────────────────────────────────
@@ -93,7 +93,7 @@ function fmt(n: number, suffix = "+"): string {
 }
 
 /* ─────────────────────────────────────────────
- * Value propositions — key reasons students choose EduQuest
+ * Value propositions — key reasons students choose VidyaBolt
  * ───────────────────────────────────────────── */
 const VALUE_PROPOSITIONS = [
   {
@@ -163,7 +163,7 @@ const PLATFORM_VALUES = [
   { icon: Lightbulb, title: "Clarity over content dumps",   desc: "Students don't need more content — they need clear paths through existing content." },
   { icon: Heart,     title: "Consistency beats intensity",   desc: "Daily 30-minute sessions beat weekend marathons. Our streak system proves this." },
   { icon: Globe2,    title: "India-first education",         desc: "Built for CBSE, for Indian students, with competitive exam patterns in mind." },
-  { icon: Users,     title: "Community accelerates learning", desc: "The EduQuest community lets students learn from and teach each other." },
+  { icon: Users,     title: "Community accelerates learning", desc: "The VidyaBolt community lets students learn from and teach each other." },
   { icon: Zap,       title: "Instant feedback loops",        desc: "Every question answered gives immediate XP, explanation, and progress tracking." },
   { icon: Clock,     title: "Study at your pace",            desc: "Pause, resume, or restart any plan. Your progress is always saved." },
 ];
@@ -236,7 +236,7 @@ export default async function AboutPage() {
         <div className={styles.heroInner}>
           <div className={styles.kicker}>
             <Sparkles size={14} />
-            About EduQuest
+            About VidyaBolt
           </div>
 
           <h1 className={styles.heroTitle}>
@@ -245,7 +245,7 @@ export default async function AboutPage() {
           </h1>
 
           <p className={styles.heroSubtitle}>
-            EduQuest is built for Class 9–12 and Engineering learners who need clear
+            VidyaBolt is built for Class 9–12 and Engineering learners who need clear
             study paths, healthy competition, and progress they can understand at a glance.
             We combine NCERT-aligned academics with gaming mechanics to make daily study
             genuinely rewarding — not a chore.
@@ -270,14 +270,14 @@ export default async function AboutPage() {
       {/* ==================== MISSION SECTION ==================== */}
       <section className={styles.missionSection}>
         <span className={styles.sectionLabel}>Our Mission</span>
-        <h2 className={styles.sectionTitle}>Why We Built EduQuest</h2>
+        <h2 className={styles.sectionTitle}>Why We Built VidyaBolt</h2>
 
         <div className={styles.missionGrid}>
           {/* Left column — mission statement */}
           <div className={styles.missionText}>
             <p>
               Education platforms often overwhelm students with content dumps and
-              generic video playlists. EduQuest takes a different approach:{" "}
+              generic video playlists. VidyaBolt takes a different approach:{" "}
               <strong>every student gets a clear, day-wise learning path</strong> that
               breaks complex syllabi into manageable daily tasks.
             </p>
@@ -286,12 +286,12 @@ export default async function AboutPage() {
               We believe that <strong>consistency beats intensity</strong>. Our streak
               system, XP progression, and battle mechanics are designed to make daily
               study feel like progress — not punishment. Whether preparing for Class 10
-              boards or learning the first programming language, EduQuest provides
+              boards or learning the first programming language, VidyaBolt provides
               structure, motivation, and community support.
             </p>
             <br />
             <p>
-              Built by a team that understands the Indian education landscape, EduQuest
+              Built by a team that understands the Indian education landscape, VidyaBolt
               combines <strong>NCERT-aligned academic content</strong> with practical
               coding skills and fair competitive gaming to prepare students for both
               exams and real-world problem solving.
@@ -341,7 +341,7 @@ export default async function AboutPage() {
             <span className={styles.sectionLabel}>Platform Pillars</span>
             <h2 className={styles.sectionTitle}>Three Pillars of Learning</h2>
             <p className={styles.heroSubtitle}>
-              EduQuest is built on three core capabilities that work together to create
+              VidyaBolt is built on three core capabilities that work together to create
               a complete learning ecosystem for Indian students.
             </p>
           </div>

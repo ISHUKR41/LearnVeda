@@ -26,14 +26,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!plan) {
     return {
-      title: "Engineering Plan | EduQuest",
-      description: "Explore engineering learning plans on EduQuest.",
+      title: "Engineering Plan | VidyaBolt",
+      description: "Explore engineering learning plans on VidyaBolt.",
     };
   }
 
-  const title = `${plan.title} — ${plan.eyebrow} | EduQuest`;
+  const title = `${plan.title} — ${plan.eyebrow} | VidyaBolt`;
   const description = plan.description;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://eduquest.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vidyabolt.in";
 
   return {
     title,
@@ -61,11 +61,11 @@ export default async function EngineeringPlanPage({ params }: { params: Promise<
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://eduquest.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vidyabolt.in";
   const courseSchema = generateCourseSchema({
     name: `${plan.title} — ${plan.eyebrow}`,
     description: plan.description,
-    providerName: "EduQuest Engineering Faculty",
+    providerName: "VidyaBolt Engineering Faculty",
   });
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: baseUrl },

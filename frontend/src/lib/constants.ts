@@ -120,10 +120,10 @@ export const POINT_VALUES = {
 
 /** Site-wide metadata for SEO */
 export const SITE_CONFIG = {
-  name: "EduQuest",
+  name: "VidyaBolt",
   tagline: "Learn. Battle. Level Up.",
-  description: "India's gamified learning platform for Class 9-12 and Engineering students.",
-  url: "https://eduquest.in",
+  description: "India's #1 gamified learning platform by Ishu — for Class 9-12 and Engineering students. Learn faster, battle smarter, level up daily.",
+  url: "https://vidyabolt.in",
 } as const;
 
 /** Footer link columns */

@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (!res.ok) {
       return {
-        title: "Hackathon Detail | EduQuest",
+        title: "Hackathon Detail | VidyaBolt",
         description: "Join national level coding hackathons and prove your software engineering skills."
       };
     }
@@ -47,14 +47,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (!hackathon) {
       return {
-        title: "Hackathon Not Found | EduQuest",
+        title: "Hackathon Not Found | VidyaBolt",
         description: "The requested hackathon event is either completed or not active."
       };
     }
 
     return {
-      title: `${hackathon.title} — National Engineering Hackathon | EduQuest`,
-      description: `${hackathon.description} Join ${hackathon.collegeName}'s event on EduQuest. Prize Pool: ${hackathon.venue || "Online"}. Aligned with BTech/MCA syllabus.`,
+      title: `${hackathon.title} — National Engineering Hackathon | VidyaBolt`,
+      description: `${hackathon.description} Join ${hackathon.collegeName}'s event on VidyaBolt. Prize Pool: ${hackathon.venue || "Online"}. Aligned with BTech/MCA syllabus.`,
       openGraph: {
         title: hackathon.title,
         description: hackathon.description,
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   } catch (error) {
     console.error("[hackathon/[id]/page] Error generating SEO metadata:", error);
     return {
-      title: "EduQuest Hackathon Details",
+      title: "VidyaBolt Hackathon Details",
       description: "Learn, compete, and showcase your engineering projects on India's largest competitive learning portal."
     };
   }

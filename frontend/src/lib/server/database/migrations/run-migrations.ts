@@ -114,7 +114,7 @@ async function main(): Promise<void> {
   const pendingMigrations = migrationDefinitions.filter((migration) => !appliedMigrations.has(migration.name));
 
   if (pendingMigrations.length === 0) {
-    console.log("EduQuest database is already up to date.");
+    console.log("VidyaBolt database is already up to date.");
     return;
   }
 
@@ -123,12 +123,12 @@ async function main(): Promise<void> {
     await applyMigration(migration);
   }
 
-  console.log(`Applied ${pendingMigrations.length} EduQuest migration(s).`);
+  console.log(`Applied ${pendingMigrations.length} VidyaBolt migration(s).`);
 }
 
 main()
   .catch((error) => {
-    console.error("EduQuest database migration failed.");
+    console.error("VidyaBolt database migration failed.");
     console.error(error);
     process.exitCode = 1;
   })

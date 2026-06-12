@@ -1,7 +1,7 @@
 /**
  * FILE: cbse-catalog.ts
  * LOCATION: src/lib/curriculum/cbse-catalog.ts
- * PURPOSE: Complete CBSE curriculum catalog for EduQuest.
+ * PURPOSE: Complete CBSE curriculum catalog for VidyaBolt.
  *          Contains all subjects, chapters, and day plans for:
  *          - Class 9 (6 subjects, 87 chapters total)
  *          - Class 10 (5 subjects, 75 chapters total)

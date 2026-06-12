@@ -29,7 +29,7 @@
  * Types — API client contracts
  * ───────────────────────────────────────────── */
 
-/** Standard API response shape from the EduQuest backend */
+/** Standard API response shape from the VidyaBolt backend */
 export interface ApiResponse<T = unknown> {
   ok: boolean;
   data?: T;

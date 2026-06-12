@@ -8,7 +8,7 @@
  *          • Real-time telemetry (forces, velocities, acceleration, momentum)
  *          • 60 fps requestAnimationFrame loop
  *          • Interactive sliders that update live physics state
- *          • Professional dark-navy UI matching EduQuest design system
+ *          • Professional dark-navy UI matching VidyaBolt design system
  * TOPICS:  1-Balanced/Unbalanced · 2-Inertia · 3-Newton 2nd · 4-Newton 3rd · 5-Momentum
  * LAST UPDATED: 2026-06-01
  */

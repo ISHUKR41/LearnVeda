@@ -1,7 +1,7 @@
 "use client";
 /**
  * FILE: SimCanvas.tsx
- * PURPOSE: Professional, animated physics simulation canvas for EduQuest.
+ * PURPOSE: Professional, animated physics simulation canvas for VidyaBolt.
  *
  * Supports three rendering/physics modes:
  *   "force"     — A single block on a surface with configurable left/right forces + friction.

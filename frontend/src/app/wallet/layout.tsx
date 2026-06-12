@@ -13,7 +13,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Stars Wallet — Virtual Earning Rewards",
-  description: "Check your Stars balance, earn rewards through consistency milestones, and view bet limits on EduQuest.",
+  description: "Check your Stars balance, earn rewards through consistency milestones, and view bet limits on VidyaBolt.",
   icons: {
     icon: "/favicons/wallet.svg",
     shortcut: "/favicons/wallet.svg",

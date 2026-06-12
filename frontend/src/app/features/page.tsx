@@ -1,7 +1,7 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/features/page.tsx
- * PURPOSE: Features page — comprehensive showcase of EduQuest's platform
+ * PURPOSE: Features page — comprehensive showcase of VidyaBolt's platform
  *          capabilities organized into sections with comparison grid,
  *          stats banner, and strong CTA.
  * LAST UPDATED: 2026-06-01
@@ -35,9 +35,9 @@ import styles from "./Features.module.css";
 export const revalidate = 43200;
 
 export const metadata = {
-  title: "Features — EduQuest Platform",
+  title: "Features — VidyaBolt Platform",
   description:
-    "Explore EduQuest: NCERT-aligned day-wise study plans, animated physics simulations, XP leveling, real-time quiz battles, streaks, smart analytics, community forums, and anti-cheat protection for Class 9-12 and Engineering students.",
+    "Explore VidyaBolt: NCERT-aligned day-wise study plans, animated physics simulations, XP leveling, real-time quiz battles, streaks, smart analytics, community forums, and anti-cheat protection for Class 9-12 and Engineering students.",
 };
 
 const FEATURES = [
@@ -126,7 +126,7 @@ const FEATURES = [
     gradient: "linear-gradient(135deg, #14B8A6, #06B6D4)",
     title: "Events & Competitions",
     description:
-      "Browse and register for academic olympiads, coding hackathons, and subject championships directly within EduQuest. Event registrations are saved to your account and visible from your notifications dashboard.",
+      "Browse and register for academic olympiads, coding hackathons, and subject championships directly within VidyaBolt. Event registrations are saved to your account and visible from your notifications dashboard.",
     tags: ["Olympiads", "Hackathons", "Registration API", "Notifications"],
   },
   {
@@ -144,7 +144,7 @@ const COMPARISONS = [
     icon: Layers,
     title: "Structure Over Content Dumps",
     description:
-      "Unlike video playlists that leave students wondering what to watch next, EduQuest provides clear day-wise paths through every subject. Open the app, see today's task, get it done.",
+      "Unlike video playlists that leave students wondering what to watch next, VidyaBolt provides clear day-wise paths through every subject. Open the app, see today's task, get it done.",
   },
   {
     icon: Zap,
@@ -251,10 +251,10 @@ export default function FeaturesPage() {
       <section className={styles.comparisonSection}>
         <div className={styles.comparisonInner}>
           <div className={styles.comparisonHeader}>
-            <span className={styles.sectionLabel}>Why EduQuest</span>
+            <span className={styles.sectionLabel}>Why VidyaBolt</span>
             <h2 className={styles.sectionTitle}>Built Different</h2>
             <p className={styles.sectionSubtitle}>
-              EduQuest is not just another content library. It is a complete
+              VidyaBolt is not just another content library. It is a complete
               learning system designed for consistent daily progress and healthy
               academic competition.
             </p>

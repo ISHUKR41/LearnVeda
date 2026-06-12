@@ -47,15 +47,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     if (topic) {
       const displayTitle = topic.title.replace(/^\d+\.\s*/, "");
       return {
-        title: `${displayTitle} — Class 9 Science Study Notes | EduQuest`,
+        title: `${displayTitle} — Class 9 Science Study Notes | VidyaBolt`,
         description: `Master ${displayTitle} with deep concept explanations, real-world examples, interactive simulations, MCQs, and HOTS questions.`,
       };
     }
   }
 
   return {
-    title: "Study Subtopic | EduQuest",
-    description: "Learn and practice your concepts step-by-step with EduQuest.",
+    title: "Study Subtopic | VidyaBolt",
+    description: "Learn and practice your concepts step-by-step with VidyaBolt.",
   };
 }
 

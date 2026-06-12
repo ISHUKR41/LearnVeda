@@ -1,7 +1,7 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/events/host/page.tsx
- * PURPOSE: Application form for colleges and institutions to host an event on EduQuest.
+ * PURPOSE: Application form for colleges and institutions to host an event on VidyaBolt.
  *          This page allows organisers to apply to run:
  *            - Coding competitions
  *            - Subject-based quiz battles
@@ -10,7 +10,7 @@
  *          The form collects: institution details, event type, expected participants,
  *          preferred date, safe browser requirements, and special requests.
  *          On submission, it posts to /api/events/host-application and shows a
- *          success confirmation. The EduQuest team reviews applications within 48 hours.
+ *          success confirmation. The VidyaBolt team reviews applications within 48 hours.
  * USED BY: src/app/events/page.tsx "Host an Event" button, Footer links
  * DEPENDENCIES: HostEvent.module.css, lucide-react, react-hook-form
  * LAST UPDATED: 2026-05-16
@@ -77,7 +77,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Is there a fee to host an event?",
-    answer: "Hosting on EduQuest is free for educational institutions. Large corporate events may involve a platform partnership fee — discussed after review.",
+    answer: "Hosting on VidyaBolt is free for educational institutions. Large corporate events may involve a platform partnership fee — discussed after review.",
   },
   {
     question: "Can we use our own question bank?",
@@ -254,7 +254,7 @@ export default function HostEventPage() {
           For Institutions
         </span>
         <h1 className={styles.heroTitle}>
-          Host your next competition on EduQuest
+          Host your next competition on VidyaBolt
         </h1>
         <p className={styles.heroSubtitle}>
           Bring the excitement of gamified learning to your college or school.
@@ -315,7 +315,7 @@ export default function HostEventPage() {
               </div>
               <h2 className={styles.successTitle}>Application Submitted!</h2>
               <p className={styles.successText}>
-                Thank you for applying to host an event on EduQuest. Our team will
+                Thank you for applying to host an event on VidyaBolt. Our team will
                 review your application and contact you at the email you provided
                 within 48 working hours.
               </p>
@@ -580,7 +580,7 @@ export default function HostEventPage() {
                   {...register("agreeToTerms", { required: "You must agree to the terms" })}
                 />
                 <span className={styles.checkboxLabel}>
-                  <strong>I agree to EduQuest&apos;s Event Hosting Terms</strong>
+                  <strong>I agree to VidyaBolt&apos;s Event Hosting Terms</strong>
                   I confirm this is a legitimate educational or skill competition and agree to the{" "}
                   <Link href="/terms" className={styles.termsLink}>Terms of Service</Link>{" "}
                   and{" "}

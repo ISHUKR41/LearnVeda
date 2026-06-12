@@ -1,5 +1,5 @@
 {
-  "name": "eduquest",
+  "name": "vidyabolt",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--max-old-space-size=6144 next dev --webpack",

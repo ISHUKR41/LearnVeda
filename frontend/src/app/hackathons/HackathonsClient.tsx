@@ -26,7 +26,7 @@ export default function HackathonsClient({ hackathons }: HackathonsClientProps) 
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <div className={styles.badge}>EduQuest Professional</div>
+          <div className={styles.badge}>VidyaBolt Professional</div>
           <h1 className={styles.heroTitle}>
             Build the Future.<br/>
             <span className={styles.gradientText}>Compete Globally.</span>

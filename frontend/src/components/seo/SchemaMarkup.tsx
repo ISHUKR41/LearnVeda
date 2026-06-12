@@ -31,8 +31,8 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
       "description": data.description,
       "provider": {
         "@type": "Organization",
-        "name": "EduQuest",
-        "sameAs": "https://eduquest.com"
+        "name": "VidyaBolt",
+        "sameAs": "https://vidyabolt.in"
       }
     };
   } else if (type === 'Event') {
@@ -64,7 +64,7 @@ export default function SchemaMarkup({ type, data }: SchemaMarkupProps) {
       "description": data.description,
       "author": {
         "@type": "Organization",
-        "name": "EduQuest"
+        "name": "VidyaBolt"
       }
     };
   }

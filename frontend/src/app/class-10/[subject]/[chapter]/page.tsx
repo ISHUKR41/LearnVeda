@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (resolvedParams.subject === "science" && CLASS10_SCIENCE_CHAPTERS[resolvedParams.chapter]) {
     const chapterData = CLASS10_SCIENCE_CHAPTERS[resolvedParams.chapter];
     return {
-      title: `${chapterData.title} | Deep Research | EduQuest`,
+      title: `${chapterData.title} | Deep Research | VidyaBolt`,
       description: `Comprehensive deep-dive study material, interactive simulations, and practice questions for ${chapterData.title}.`,
     };
   }
@@ -43,13 +43,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data) {
     return {
-      title: "Chapter Practice | EduQuest",
-      description: "Practice concept questions on EduQuest.",
+      title: "Chapter Practice | VidyaBolt",
+      description: "Practice concept questions on VidyaBolt.",
     };
   }
 
   return {
-    title: `${data.chapterName} - Chapter Practice | EduQuest`,
+    title: `${data.chapterName} - Chapter Practice | VidyaBolt`,
     description: `Take interactive multiple choice questions on ${data.chapterName} for Class 10 ${data.subjectName}. Earn XP points and clear your concepts.`,
   };
 }

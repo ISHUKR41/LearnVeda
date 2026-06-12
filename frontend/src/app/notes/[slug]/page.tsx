@@ -81,7 +81,7 @@ export default async function NotesSlugPage({ params }: PageProps) {
   const articleSchema = generateArticleSchema({
     title: notes.title,
     description: notes.metaDescription,
-    url: `https://eduquest.vercel.app/notes/${slug}`,
+    url: `https://vidyabolt.in/notes/${slug}`,
     datePublished: "2026-01-15T08:00:00.000Z",
     dateModified: new Date().toISOString(),
     authorName: notes.author.name,

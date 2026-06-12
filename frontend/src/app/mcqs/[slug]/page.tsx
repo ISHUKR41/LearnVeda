@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: PageProps) {
       title: mcq.seoTitle,
       description: mcq.metaDescription,
       type: "website",
-      url: `https://eduquest.vercel.app/mcqs/${slug}`,
+      url: `https://vidyabolt.in/mcqs/${slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -71,7 +71,7 @@ export default async function MCQSlugPage({ params }: PageProps) {
   const courseSchema = generateCourseSchema({
     name: mcq.title,
     description: mcq.metaDescription,
-    providerName: "EduQuest Curriculum Board",
+    providerName: "VidyaBolt Curriculum Board",
   });
 
   const faqItems = mcq.questions.map((q) => ({

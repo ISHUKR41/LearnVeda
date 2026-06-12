@@ -42,14 +42,14 @@ export async function generateMetadata({
 
   if (!plan) {
     return {
-      title: "Class 11 Subject Plan | EduQuest",
-      description: "Explore the Class 11 subject learning plan on EduQuest.",
+      title: "Class 11 Subject Plan | VidyaBolt",
+      description: "Explore the Class 11 subject learning plan on VidyaBolt.",
     };
   }
 
-  const title = `${plan.title} — ${formatLabel(stream)} Stream | EduQuest`;
+  const title = `${plan.title} — ${formatLabel(stream)} Stream | VidyaBolt`;
   const description = plan.description;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://eduquest.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vidyabolt.in";
 
   return {
     title,
@@ -81,11 +81,11 @@ export default async function Class11SubjectPage({ params }: { params: Promise<{
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://eduquest.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vidyabolt.in";
   const courseSchema = generateCourseSchema({
     name: `${plan.title} — ${formatLabel(stream)} Stream`,
     description: plan.description,
-    providerName: "EduQuest Senior Secondary Board",
+    providerName: "VidyaBolt Senior Secondary Board",
   });
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: baseUrl },

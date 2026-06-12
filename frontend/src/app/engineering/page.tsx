@@ -39,7 +39,7 @@ import styles from "./Engineering.module.css";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Engineering Track — 12+ Languages & CS Subjects | EduQuest",
+  title: "Engineering Track — 12+ Languages & CS Subjects | VidyaBolt",
   description:
     "Master programming languages and core CS subjects with structured day-wise plans. From C to Rust, DSA to System Design — become interview-ready.",
   icons: {

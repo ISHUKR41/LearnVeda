@@ -500,7 +500,7 @@ function generateFallbackQuestionsForChapter(
       difficulty: "medium",
       options: ["Memorizing dates blindly", "Rote learning definitions", "Developing critical thinking and analytical analysis", "Passing exams with minimum effort"],
       answer: "Developing critical thinking and analytical analysis",
-      explanation: "EduQuest focuses on building conceptual clarity and analytical logic rather than mechanical memorization.",
+      explanation: "VidyaBolt focuses on building conceptual clarity and analytical logic rather than mechanical memorization.",
       points: 20,
       youtubeHintUrl: null,
     },

@@ -34,13 +34,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data) {
     return {
-      title: "Chapter Practice | EduQuest",
-      description: "Practice concept questions on EduQuest.",
+      title: "Chapter Practice | VidyaBolt",
+      description: "Practice concept questions on VidyaBolt.",
     };
   }
 
   return {
-    title: `${data.chapterName} - Chapter Practice | EduQuest`,
+    title: `${data.chapterName} - Chapter Practice | VidyaBolt`,
     description: `Take interactive multiple choice questions on ${data.chapterName} for Class 12 ${data.subjectName} (${params.stream}). Earn XP points and clear your concepts.`,
   };
 }

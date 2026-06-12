@@ -14,7 +14,7 @@ import { twMerge } from "tailwind-merge";
 
 /**
  * Merges multiple class names together, resolving Tailwind CSS conflicts.
- * This is the standard way to combine conditional classes in EduQuest.
+ * This is the standard way to combine conditional classes in VidyaBolt.
  *
  * @param inputs - Any number of class name strings, arrays, or objects
  * @returns A single merged class name string with conflicts resolved

@@ -19,7 +19,7 @@ import styles from "./Class12.module.css";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Class 12 — Board & Entrance Exam Prep | EduQuest",
+  title: "Class 12 — Board & Entrance Exam Prep | VidyaBolt",
   description:
     "Complete Class 12 preparation: CBSE board exams + JEE/NEET/CUET entrance. Structured plans for all streams — Science, Commerce, and Arts.",
   icons: {

@@ -30,14 +30,14 @@ export async function generateMetadata({ params }: { params: Promise<{ subject: 
 
   if (!plan) {
     return {
-      title: "Class 10 Subject Plan | EduQuest",
-      description: "Explore the Class 10 board exam learning plan on EduQuest.",
+      title: "Class 10 Subject Plan | VidyaBolt",
+      description: "Explore the Class 10 board exam learning plan on VidyaBolt.",
     };
   }
 
-  const title = `${plan.title} — ${plan.eyebrow} | EduQuest`;
+  const title = `${plan.title} — ${plan.eyebrow} | VidyaBolt`;
   const description = plan.description;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://eduquest.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vidyabolt.in";
 
   return {
     title,
@@ -68,11 +68,11 @@ export default async function Class10SubjectPage({ params }: { params: Promise<{
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://eduquest.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vidyabolt.in";
   const courseSchema = generateCourseSchema({
     name: `${plan.title} — ${plan.eyebrow}`,
     description: plan.description,
-    providerName: "EduQuest Board Prep Team",
+    providerName: "VidyaBolt Board Prep Team",
   });
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: baseUrl },

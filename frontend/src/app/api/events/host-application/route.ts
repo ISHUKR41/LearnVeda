@@ -3,7 +3,7 @@
  * LOCATION: src/app/api/events/host-application/route.ts
  * PURPOSE: API endpoint for college/institution event hosting applications.
  *          Accepts POST requests from the /events/host form and stores the
- *          application in the database for the EduQuest team to review.
+ *          application in the database for the VidyaBolt team to review.
  *          Every accepted application is written to the dedicated
  *          eduquest_host_applications table and mirrored into audit logs for
  *          operational traceability. An acknowledgement email would be
@@ -308,7 +308,7 @@ export async function POST(request: NextRequest) {
      * In production, trigger an automated acknowledgement email here:
      * await sendEmail({
      *   to: body.organizerEmail as string,
-     *   subject: "EduQuest Host Application Received",
+     *   subject: "VidyaBolt Host Application Received",
      *   template: "host-application-received",
      *   data: { organizerName: body.organizerName, eventName: body.eventName },
      * });

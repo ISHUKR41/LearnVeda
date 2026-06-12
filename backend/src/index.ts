@@ -177,7 +177,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.get("/health", (_req: Request, res: Response) => {
   res.status(200).json({
     status: "ok",
-    service: "eduquest-backend",
+    service: "vidyabolt-backend",
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV ?? "development",
     version: process.env.npm_package_version ?? "1.0.0",
@@ -373,7 +373,7 @@ app.use(globalErrorHandler);
  * SECTION 8: Start Server with Graceful Shutdown
  * ───────────────────────────────────────────── */
 server.listen(PORT, "0.0.0.0", () => {
-  logger.info(`EduQuest backend started on port ${PORT}`, { environment: IS_DEV ? "development" : "production" });
+  logger.info(`VidyaBolt backend started on port ${PORT}`, { environment: IS_DEV ? "development" : "production" });
 
   /* Start production services */
   startScheduler();
@@ -381,7 +381,7 @@ server.listen(PORT, "0.0.0.0", () => {
 
   console.log("");
   console.log("╔══════════════════════════════════════════════════════════════╗");
-  console.log("║                    EduQuest Backend v2.0                    ║");
+  console.log("║                    VidyaBolt Backend v2.0                    ║");
   console.log("╠══════════════════════════════════════════════════════════════╣");
   console.log(`║  Status:      RUNNING                                      ║`);
   console.log(`║  Port:        ${String(PORT).padEnd(46)}║`);
@@ -432,37 +432,37 @@ server.listen(PORT, "0.0.0.0", () => {
  * before the process exits. Critical for zero-downtime deployments.
  * ───────────────────────────────────────────── */
 async function gracefulShutdown(signal: string) {
-  console.log(`\n[EduQuest] Received ${signal}. Shutting down gracefully...`);
+  console.log(`\n[VidyaBolt] Received ${signal}. Shutting down gracefully...`);
 
   /* Stop accepting new connections */
   server.close(async () => {
-    console.log("[EduQuest] HTTP server closed.");
+    console.log("[VidyaBolt] HTTP server closed.");
 
     /* Stop production services in order */
     stopScheduler();
-    console.log("[EduQuest] Job scheduler stopped.");
+    console.log("[VidyaBolt] Job scheduler stopped.");
 
     await stopAnalyticsFlushTimer();
-    console.log("[EduQuest] Analytics buffer flushed.");
+    console.log("[VidyaBolt] Analytics buffer flushed.");
 
     await stopAuditFlushTimer();
-    console.log("[EduQuest] Audit buffer flushed.");
+    console.log("[VidyaBolt] Audit buffer flushed.");
 
     /* Close database pool */
     await closeDatabasePool();
-    console.log("[EduQuest] Database pool closed.");
+    console.log("[VidyaBolt] Database pool closed.");
 
     /* Close Redis client pool */
     await closeRedisClient();
-    console.log("[EduQuest] Redis connection closed.");
+    console.log("[VidyaBolt] Redis connection closed.");
 
-    console.log("[EduQuest] All resources released. Goodbye!");
+    console.log("[VidyaBolt] All resources released. Goodbye!");
     process.exit(0);
   });
 
   /* Force shutdown after 30 seconds if graceful fails */
   setTimeout(() => {
-    console.error("[EduQuest] Forced shutdown after 30s timeout.");
+    console.error("[VidyaBolt] Forced shutdown after 30s timeout.");
     process.exit(1);
   }, 30_000);
 }
@@ -473,11 +473,11 @@ process.on("SIGINT", () => gracefulShutdown("SIGINT"));
 
 /* Handle uncaught errors (last resort — should never reach here) */
 process.on("unhandledRejection", (reason) => {
-  console.error("[EduQuest] Unhandled Promise Rejection:", reason);
+  console.error("[VidyaBolt] Unhandled Promise Rejection:", reason);
 });
 
 process.on("uncaughtException", (err) => {
-  console.error("[EduQuest] Uncaught Exception:", err);
+  console.error("[VidyaBolt] Uncaught Exception:", err);
   process.exit(1);
 });
 

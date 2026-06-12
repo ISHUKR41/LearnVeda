@@ -21,7 +21,7 @@ export const revalidate = 300;
 
 export const metadata = {
   title: "Battle Arena",
-  description: "Challenge opponents in real-time quiz battles. Win XP and climb the ranks on EduQuest.",
+  description: "Challenge opponents in real-time quiz battles. Win XP and climb the ranks on VidyaBolt.",
   icons: {
     icon: "/favicons/battle.svg",
   },

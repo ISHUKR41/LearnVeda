@@ -1,7 +1,7 @@
 /**
  * FILE: layout.tsx
  * LOCATION: src/app/layout.tsx
- * PURPOSE: Root layout for the entire EduQuest application.
+ * PURPOSE: Root layout for the entire VidyaBolt application.
  *          Wraps every page with the Navbar, Footer, all global providers
  *          (TanStack Query, React Hot Toast, Zustand theme sync), global styles,
  *          font imports, and SEO metadata defaults.
@@ -69,16 +69,64 @@ export const metadata: Metadata = {
   },
   description: SITE_CONFIG.description,
   keywords: [
-    "ishu", "ishu website", "ishu education", "EduQuest by Ishu",
-    "1st rank education platform", "best education platform in world",
-    "top learning platform ishu", "India's #1 learning platform",
-    "education platform India", "gamified learning", "CBSE Class 9",
-    "CBSE Class 10", "CBSE Class 11", "CBSE Class 12", "engineering coding",
-    "JEE preparation", "NEET preparation", "competitive programming India",
-    "online quiz battles", "streak learning", "XP points education",
-    "learn coding India", "study platform", "best education website India",
-    "interactive physics simulations", "class 10 science notes",
-    "free online education platform", "CBSE board exam preparation",
+    /* Brand & Creator */
+    "VidyaBolt", "VidyaBolt by Ishu", "VidyaBolt India", "vidyabolt.in",
+    "ishu", "ishu website", "ishu education", "ishu learning platform",
+    "ishu study platform", "ishu gamified learning", "education by ishu",
+    "ishu India", "ishu CBSE", "ishu class 9", "ishu class 10",
+    "ishu class 11", "ishu class 12", "ishu engineering",
+    "ishu quiz battles", "ishu leaderboard", "ishu XP",
+    "best education platform by ishu", "ishu's learning platform",
+    /* Platform */
+    "India's #1 gamified learning platform", "best education platform India",
+    "best education website India 2025", "1st rank education platform India",
+    "top learning platform India", "free online education platform India",
+    "gamified learning India", "quiz battle platform India",
+    "study and earn XP", "learn and battle India", "XP points education",
+    "streak learning India", "level up learning platform",
+    "online study platform India", "India education gamification",
+    "competitive learning India", "battle quiz India",
+    /* CBSE Classes */
+    "CBSE Class 9", "CBSE Class 10", "CBSE Class 11", "CBSE Class 12",
+    "CBSE board exam preparation", "CBSE online study",
+    "class 9 study platform", "class 10 study platform",
+    "class 11 study platform", "class 12 study platform",
+    "class 10 science notes", "class 10 light reflection refraction",
+    "class 10 maths", "class 9 science", "class 11 physics",
+    "class 12 chemistry", "CBSE chapter-wise study",
+    "day-wise study plan India", "CBSE revision platform",
+    /* Engineering & Coding */
+    "engineering coding India", "learn coding India",
+    "competitive programming India", "Python learning India",
+    "Java learning platform India", "C++ tutorials India",
+    "engineering coding roadmap", "30-day coding plan India",
+    "programming for students India", "coding battles India",
+    /* Exams */
+    "JEE preparation online", "NEET preparation online",
+    "JEE study platform", "NEET study platform",
+    "entrance exam India", "competitive exam India",
+    /* All-India State Coverage */
+    "study platform Maharashtra", "study platform Delhi",
+    "study platform UP", "study platform Bihar",
+    "study platform Rajasthan", "study platform MP",
+    "study platform Tamil Nadu", "study platform Karnataka",
+    "study platform Kerala", "study platform Gujarat",
+    "study platform West Bengal", "study platform Andhra Pradesh",
+    "study platform Telangana", "study platform Punjab",
+    "study platform Haryana", "study platform Odisha",
+    "CBSE students India all states", "Hindi medium students online",
+    /* Features */
+    "online quiz battles", "real-time quiz platform",
+    "interactive physics simulations", "study leaderboard India",
+    "global leaderboard students", "student XP ranking",
+    "flashcards online India", "mind maps study",
+    "mock tests online CBSE", "chapter-wise tests India",
+    /* Long-tail SEO */
+    "VidyaBolt login", "VidyaBolt sign up", "VidyaBolt app",
+    "VidyaBolt dashboard", "VidyaBolt battle arena",
+    "VidyaBolt community", "VidyaBolt leaderboard",
+    "best app to study for CBSE board", "gamified study for Indian students",
+    "study platform with games India", "learn CBSE with battles",
     "skills.sh", "getdesign.md"
   ],
   authors: [{ name: SITE_CONFIG.name }],
@@ -94,10 +142,10 @@ export const metadata: Metadata = {
     url: SITE_CONFIG.url,
     images: [
       {
-        url: "/images/eduquest-home-hero.png",
+        url: "/images/vidyabolt-home-hero.png",
         width: 1200,
         height: 630,
-        alt: "EduQuest — India's Gamified Learning Platform",
+        alt: "VidyaBolt — India's Gamified Learning Platform",
       },
     ],
   },
@@ -105,7 +153,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`,
     description: SITE_CONFIG.description,
-    images: ["/images/eduquest-home-hero.png"],
+    images: ["/images/vidyabolt-home-hero.png"],
   },
   robots: {
     index: true,
@@ -134,7 +182,7 @@ interface RootLayoutProps {
 }
 
 /**
- * RootLayout — the outermost shell of the EduQuest application.
+ * RootLayout — the outermost shell of the VidyaBolt application.
  *
  * Structure:
  *   <html>
@@ -170,7 +218,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "EducationalOrganization",
-                "name": "EduQuest by Ishu",
+                "name": "VidyaBolt by Ishu",
                 "url": SITE_CONFIG.url,
                 "logo": `${SITE_CONFIG.url}/favicons/home.svg`,
                 "sameAs": [

@@ -32,7 +32,7 @@ import { resolveCurriculumIcon } from "@/lib/ui/lucide-icon-map";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Class 9 — All CBSE Subjects | EduQuest",
+  title: "Class 9 — All CBSE Subjects | VidyaBolt",
   description:
     "CBSE Class 9 complete learning path — Mathematics, Science, Social Science, English, Hindi, Computer Applications and more. Study chapter-wise, earn XP, and build daily streaks.",
   icons: {

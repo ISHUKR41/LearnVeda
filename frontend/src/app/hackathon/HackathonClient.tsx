@@ -1,7 +1,7 @@
 /*
  * FILE: HackathonClient.tsx
  * LOCATION: src/app/hackathon/HackathonClient.tsx
- * PURPOSE: Interactive client-side interface for EduQuest Hackathons.
+ * PURPOSE: Interactive client-side interface for VidyaBolt Hackathons.
  *          Implements filtering, registration triggers, validation-rich
  *          project submission forms, live leaderboard standings, and an
  *          interactive rules/FAQ accordion.
@@ -99,12 +99,12 @@ const HACKATHON_CATALOG: HackathonEvent[] = [
 // ─────────────────────────────────────────────
 const RULES_FAQ = [
   {
-    q: "Who is eligible to participate in EduQuest Hackathons?",
+    q: "Who is eligible to participate in VidyaBolt Hackathons?",
     a: "Any active school student (Class 9-12) or engineering/BTech undergraduate student in India is fully eligible to participate. Ensure your profile track matches the hackathon stream."
   },
   {
     q: "What is the team size limit?",
-    a: "Teams can consist of 1 to 4 members. Team members must register individually on EduQuest, then coordinate submissions using the Project Submission form."
+    a: "Teams can consist of 1 to 4 members. Team members must register individually on VidyaBolt, then coordinate submissions using the Project Submission form."
   },
   {
     q: "How are projects evaluated by the judges?",
@@ -167,7 +167,7 @@ export default function HackathonClient() {
   // Load registration state from localStorage for state persistence and fetch leaderboard
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("eduquest-registered-hackathons");
+      const stored = localStorage.getItem("vidyabolt-registered-hackathons");
       if (stored) {
         setRegisteredIds(JSON.parse(stored));
       }
@@ -193,7 +193,7 @@ export default function HackathonClient() {
     
     const updated = [...registeredIds, id];
     setRegisteredIds(updated);
-    localStorage.setItem("eduquest-registered-hackathons", JSON.stringify(updated));
+    localStorage.setItem("vidyabolt-registered-hackathons", JSON.stringify(updated));
 
     // Increment participants locally to show fully working reactivity
     setEvents(prev =>

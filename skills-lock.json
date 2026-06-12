@@ -79,6 +79,12 @@
       "skillPath": "skills/docker-expert/SKILL.md",
       "computedHash": "0974b5f64fcd284c1bd662810e2388f7beb9be6784c597de4d0ad4213ccbd6af"
     },
+    "embedding-strategies": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/llm-application-dev/skills/embedding-strategies/SKILL.md",
+      "computedHash": "e6dd2296aaea6f70f34e978203fb89693ccfa27071158aeae97d7d5707a729e9"
+    },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
@@ -96,6 +102,12 @@
       "sourceType": "github",
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "4eabc66183767153e404b39d1b839b1c37f2d82d86f0a0d7e880a579d8d62336"
+    },
+    "hybrid-search-implementation": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/llm-application-dev/skills/hybrid-search-implementation/SKILL.md",
+      "computedHash": "c08422c3d75a09709912ed71e5568a737ad7bb3b3f01479520b44479cf31fafc"
     },
     "next-best-practices": {
       "source": "vercel-labs/next-skills",
@@ -127,6 +139,18 @@
       "skillPath": "skills/programmatic-seo/SKILL.md",
       "computedHash": "0bbdcbacfbe46fd78d774041ee49afd313505bb435b775dc246f4b8e6981d797"
     },
+    "rag-implementation": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/llm-application-dev/skills/rag-implementation/SKILL.md",
+      "computedHash": "b2c65d9929448481586adb195214a14b35e3d9b6a2ad6f42b0013224985b4e2c"
+    },
+    "remembering-conversations": {
+      "source": "obra/episodic-memory",
+      "sourceType": "github",
+      "skillPath": "skills/remembering-conversations/SKILL.md",
+      "computedHash": "d263ffa90964a884a460f1127e9fee97cecb707ea83d3a482b1627e6e6482c27"
+    },
     "remotion-best-practices": {
       "source": "remotion-dev/skills",
       "sourceType": "github",
@@ -144,6 +168,12 @@
       "sourceType": "github",
       "skillPath": "guides/writing/seo-content-brief/SKILL.md",
       "computedHash": "b2334861cc16ab9bce83f5c6a26a2fde4d46f3d81680425ae7794a8bf4515534"
+    },
+    "similarity-search-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/llm-application-dev/skills/similarity-search-patterns/SKILL.md",
+      "computedHash": "407f799354cd50f0588d37a576fc50c8e2ba536be90c600850265f8765286808"
     },
     "skill-creator": {
       "source": "anthropics/skills",
@@ -168,6 +198,12 @@
       "sourceType": "github",
       "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
       "computedHash": "0a413bf988d06481f69bb81df2070741c3ba12dd9f1be2706d57f259c905992d"
+    },
+    "vector-index-tuning": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/llm-application-dev/skills/vector-index-tuning/SKILL.md",
+      "computedHash": "54304fb341e648a840165a38104c5a6f317e4d3dc519d66b2748d5503943e325"
     },
     "vercel-composition-patterns": {
       "source": "vercel-labs/agent-skills",

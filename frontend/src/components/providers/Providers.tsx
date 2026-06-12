@@ -36,7 +36,7 @@ function getQueryClient() {
 function ThemeInitializer() {
   const setTheme = useUIStore((state) => state.setTheme);
   useEffect(() => {
-    const stored = localStorage.getItem("eduquest-theme");
+    const stored = localStorage.getItem("vidyabolt-theme");
     const shouldBeDark = stored ? stored === "dark" : true;
     if (shouldBeDark) {
       document.documentElement.classList.add("dark");

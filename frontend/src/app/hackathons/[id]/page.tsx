@@ -5,8 +5,8 @@ import HackathonDetailClient from "./HackathonDetailClient";
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   return {
-    title: `Hackathon: ${resolvedParams.id} | EduQuest`,
-    description: "Join this hackathon on EduQuest to build real-world projects, win prizes, and showcase your skills.",
+    title: `Hackathon: ${resolvedParams.id} | VidyaBolt`,
+    description: "Join this hackathon on VidyaBolt to build real-world projects, win prizes, and showcase your skills.",
   };
 }
 

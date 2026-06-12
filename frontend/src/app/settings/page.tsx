@@ -44,7 +44,7 @@ import styles from "./Settings.module.css";
  * ───────────────────────────────────────────── */
 
 /**
- * All five EduQuest learning tracks with display names and brand colours.
+ * All five VidyaBolt learning tracks with display names and brand colours.
  * The value must match the track identifiers used in the database.
  */
 const TRACKS = [
@@ -430,7 +430,7 @@ export default function SettingsPage() {
 
             <div className={styles.securityNote}>
               <Info size={14} />
-              Your password is hashed with argon2id — EduQuest never stores plain-text passwords.
+              Your password is hashed with argon2id — VidyaBolt never stores plain-text passwords.
             </div>
 
             {/* Current password */}
@@ -623,20 +623,20 @@ export default function SettingsPage() {
             {/* Sign out */}
             <button className={styles.signOutBtn} onClick={handleSignOut}>
               <LogOut size={16} />
-              Sign Out of EduQuest
+              Sign Out of VidyaBolt
             </button>
 
             <div className={styles.dangerZone}>
               <p className={styles.dangerZoneTitle}>Danger Zone</p>
               <p className={styles.dangerZoneDesc}>
                 Account deletion is permanent. All XP, streaks, and progress will be lost and cannot
-                be recovered. Contact <strong>support@eduquest.in</strong> if you need help instead.
+                be recovered. Contact <strong>support@vidyabolt.in</strong> if you need help instead.
               </p>
               <button
                 className={styles.dangerBtn}
                 onClick={() =>
                   toast.error(
-                    "To delete your account please email support@eduquest.in with subject: Account Deletion Request",
+                    "To delete your account please email support@vidyabolt.in with subject: Account Deletion Request",
                     { duration: 6000 }
                   )
                 }

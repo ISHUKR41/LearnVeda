@@ -2,7 +2,7 @@
  * FILE: Features.tsx
  * LOCATION: src/components/Home/Features/Features.tsx
  * PURPOSE: Highlights the core benefits and features of the platform.
- * AUTHOR: EduQuest Team
+ * AUTHOR: VidyaBolt Team
  * LAST UPDATED: 2026-05-18
  */
 
@@ -55,7 +55,7 @@ export default function Features() {
       <div className={styles.sectionInner}>
         {/* Section Header */}
         <div className={`${styles.sectionHeader} animate-on-scroll`}>
-          <h2 className={styles.sectionTitle}>Why Choose EduQuest?</h2>
+          <h2 className={styles.sectionTitle}>Why Choose VidyaBolt?</h2>
           <p className={styles.sectionSubtitle}>
             We combine proven pedagogical methods with addictive game mechanics to make learning irresistible.
           </p>

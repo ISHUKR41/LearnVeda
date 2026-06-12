@@ -29,7 +29,7 @@ import styles from "./Class10.module.css";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Class 10 — CBSE Board Exam Preparation | EduQuest",
+  title: "Class 10 — CBSE Board Exam Preparation | VidyaBolt",
   description:
     "Structured CBSE Class 10 board exam preparation — Maths, Science, Social Science, English, Hindi. Chapter-wise day plans, practice questions, and mock tests.",
   icons: {
@@ -53,7 +53,7 @@ const ICON_STYLE_BY_SUBJECT: Record<string, string> = {
 
 /* ─────────────────────────────────────────────
  * WHY_CARDS Array
- * Four reasons why a Class 10 student should use EduQuest.
+ * Four reasons why a Class 10 student should use VidyaBolt.
  * ───────────────────────────────────────────── */
 const WHY_CARDS = [
   {
@@ -243,9 +243,9 @@ export default async function Class10Page() {
         {/* ==================== WHY CLASS 10 ==================== */}
         <div className={styles.whySection}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Why EduQuest for Class 10?</h2>
+            <h2 className={styles.sectionTitle}>Why VidyaBolt for Class 10?</h2>
             <p className={styles.sectionSubtitle}>
-              Board exams reward consistency and strategy. EduQuest provides both.
+              Board exams reward consistency and strategy. VidyaBolt provides both.
             </p>
           </div>
 
