@@ -66,9 +66,34 @@ const HomeAnimations = dynamic(() => import("./HomeAnimations"));
  * SEO Metadata
  * ───────────────────────────────────────────── */
 export const metadata = {
-  title: "LearnVeda by Ishu — #1 Ranked Gamified Learning Platform in India",
+  title: "LearnVeda by Ishu — India's #1 Free Gamified Learning Platform",
   description:
-    "Created by Ishu. India's #1 ranked gamified learning platform for Class 9–12 and Engineering students. Study chapter-wise, battle peers, earn XP, and dominate the leaderboard. Best education platform in the world.",
+    "LearnVeda by Ishu — India's #1 free gamified learning platform. CBSE Class 9, 10, 11, 12, JEE, NEET, Engineering. Study chapter-wise, earn XP, battle peers, dominate the leaderboard. Trusted by students across all 28 Indian states.",
+  keywords: [
+    "LearnVeda", "LearnVeda by Ishu", "LearnVeda India", "ishu",
+    "ishu education", "ishu website", "ishu learning platform",
+    "India gamified learning", "free CBSE study India",
+    "class 9 10 11 12 study platform India", "JEE NEET free preparation",
+    "engineering coding India free", "quiz battle students India",
+    "earn XP studying India", "student leaderboard India",
+    "best free education website India 2025",
+  ],
+  openGraph: {
+    title: "LearnVeda by Ishu — India's #1 Free Gamified Learning Platform",
+    description: "CBSE Class 9–12, JEE, NEET, Engineering. Study, Battle, Level Up. Free for all Indian students. Created by Ishu.",
+    type: "website",
+    url: "https://learnveda.in",
+    images: [{ url: "/images/learnveda-home-hero.png", width: 1200, height: 630, alt: "LearnVeda by Ishu — India's #1 Gamified Learning Platform" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LearnVeda by Ishu — India's #1 Free Gamified Learning",
+    description: "CBSE Class 9–12, JEE, NEET, Engineering. Free. Created by Ishu.",
+    images: ["/images/learnveda-home-hero.png"],
+  },
+  alternates: {
+    canonical: "https://learnveda.in",
+  },
 };
 
 /* ─────────────────────────────────────────────

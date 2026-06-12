@@ -351,6 +351,87 @@ export default function RootLayout({ children }: RootLayoutProps) {
               })
             }}
           />
+          {/* JSON-LD Schema Block 5: FAQPage — Google shows this as rich result with Q&A on search page */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                  {
+                    "@type": "Question",
+                    "name": "What is LearnVeda?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "LearnVeda is India's #1 free gamified learning platform created by Ishu, designed for CBSE Class 9-12 and Engineering students. Students study chapter-wise, earn XP, compete in quiz battles, and climb a global leaderboard."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "Who created LearnVeda? Who is Ishu?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "LearnVeda was created by Ishu — an Indian educator and tech builder passionate about making education gamified, competitive, and rewarding for every Indian student from Class 9 to Engineering."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "Is LearnVeda free for Indian students?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Yes! LearnVeda by Ishu is 100% free for all Indian students. CBSE Class 9, 10, 11, 12, Engineering, JEE and NEET preparation — all features including quiz battles, XP, leaderboard, and community are completely free."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "Which classes does LearnVeda cover?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "LearnVeda covers CBSE Class 9, Class 10, Class 11 (Science, Commerce, Arts), Class 12 (Science, Commerce, Arts), JEE preparation, NEET preparation, and Engineering coding tracks including C, C++, Java, Python, DSA, and System Design."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "How does LearnVeda help students rank #1 in India?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "LearnVeda uses gamification — students earn XP points, build daily study streaks, win real-time quiz battles against peers, and compete on a global leaderboard. This competitive system motivates students from all 28 Indian states to study consistently and rank higher."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "ishu website kya hai? ishu ka platform kaunsa hai?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Ishu ka website LearnVeda.in hai — India ka #1 gamified education platform. Ishu ne yeh platform Indian students ke liye banaya hai. CBSE Class 9-12, JEE, NEET, Engineering sab free mein available hai."
+                    }
+                  }
+                ]
+              })
+            }}
+          />
+          {/* JSON-LD Schema Block 6: BreadcrumbList — helps Google show page hierarchy in search results */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                "name": "LearnVeda Learning Paths",
+                "description": "All learning paths available on LearnVeda by Ishu",
+                "itemListElement": [
+                  { "@type": "ListItem", "position": 1, "name": "CBSE Class 9", "url": `${SITE_CONFIG.url}/class-9` },
+                  { "@type": "ListItem", "position": 2, "name": "CBSE Class 10 Board Prep", "url": `${SITE_CONFIG.url}/class-10` },
+                  { "@type": "ListItem", "position": 3, "name": "CBSE Class 11", "url": `${SITE_CONFIG.url}/class-11` },
+                  { "@type": "ListItem", "position": 4, "name": "CBSE Class 12 + JEE/NEET", "url": `${SITE_CONFIG.url}/class-12` },
+                  { "@type": "ListItem", "position": 5, "name": "Engineering Coding", "url": `${SITE_CONFIG.url}/engineering` },
+                  { "@type": "ListItem", "position": 6, "name": "Quiz Battle Arena", "url": `${SITE_CONFIG.url}/battle` },
+                  { "@type": "ListItem", "position": 7, "name": "Global Leaderboard", "url": `${SITE_CONFIG.url}/leaderboard` },
+                ]
+              })
+            }}
+          />
           {/*
            * Providers wraps everything that needs client-side context.
            * It is a "use client" component but keeps the layout itself as a server component.
