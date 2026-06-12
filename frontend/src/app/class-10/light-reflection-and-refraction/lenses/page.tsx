@@ -8,12 +8,51 @@
  *   Features: 6 AI images, 3 animated SVG simulations, 6 numericals, 8 MCQ, 8 flashcards
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, Zap, Eye, BookOpen, RotateCcw, Lightbulb, Award, Target, Focus } from 'lucide-react';
 import styles from '@/styles/LightChapter.module.css';
+
+/* ─────────────────────────────────────────────────────────
+   LAZY MOUNT — Renders children only when near the viewport.
+   Uses IntersectionObserver with 300px rootMargin.
+───────────────────────────────────────────────────────── */
+function SimSkeleton() {
+  return (
+    <div style={{
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.06)',
+      borderRadius: '14px',
+      padding: '2rem',
+      marginBottom: '2rem',
+      animation: 'pulse 2s ease-in-out infinite',
+    }}>
+      <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}`}</style>
+      <div style={{ height: '22px', width: '260px', background: 'rgba(255,255,255,0.07)', borderRadius: '6px', marginBottom: '1rem' }} />
+      <div style={{ height: '320px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px' }} />
+    </div>
+  );
+}
+
+function LazyMount({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setMounted(true); observer.disconnect(); } },
+      { rootMargin: '300px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return <div ref={ref}>{mounted ? children : <SimSkeleton />}</div>;
+}
 
 /* ═══════════════════════════════════════════════════════════
    SIMULATION 1 — Convex Lens Ray Tracer (All Image Formation Cases)
@@ -913,8 +952,89 @@ export default function LensesPage() {
               </table>
             </div>
 
-            {/* ★ SIMULATION 1 — Lens Ray Tracer */}
-            <LensRayTracerSim />
+            {/* ★ SOLVED EXAMPLES — Lenses (before simulation) */}
+            <div className={styles.solvedExamples}>
+              <h3 className={styles.solvedExamplesTitle}>📝 Solved Examples — Convex & Concave Lenses</h3>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 1 — Convex Lens, Real Image</div>
+                <p className={styles.exampleQ}>An object 4 cm tall is placed 30 cm from a convex lens of focal length 20 cm. Find the position, size and nature of the image.</p>
+                <div className={styles.exampleSol}>{`Given: u = −30 cm, f = +20 cm (convex), h = 4 cm
+
+Lens Formula: 1/v − 1/u = 1/f
+1/v = 1/f + 1/u = 1/20 + 1/(−30) = 1/20 − 1/30 = (3 − 2)/60 = 1/60
+
+v = `}<span className={styles.highlight}>+60 cm</span>{`   (positive → Real, on other side of lens)
+
+m = v/u = 60/(−30) = `}<span className={styles.highlight}>−2</span>{`   (negative → Real, Inverted, 2× magnified)
+
+h' = m × h = −2 × 4 = `}<span className={styles.highlight}>−8 cm</span>{`   (8 cm tall, inverted)`}
+                  <span className={styles.answer}>∴ Image at 60 cm (opposite side) | Real | Inverted | Magnified 2× | 8 cm tall</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 2 — Convex Lens, Virtual Image</div>
+                <p className={styles.exampleQ}>An object is placed 10 cm from a convex lens of focal length 15 cm. Find the image position and nature.</p>
+                <div className={styles.exampleSol}>{`Given: u = −10 cm, f = +15 cm (object between F and lens)
+
+Lens Formula: 1/v = 1/f + 1/u
+1/v = 1/15 + 1/(−10) = 1/15 − 1/10 = (2 − 3)/30 = −1/30
+
+v = `}<span className={styles.highlight}>−30 cm</span>{`   (negative → Virtual, on SAME side as object)
+
+m = v/u = (−30)/(−10) = `}<span className={styles.highlight}>+3</span>{`   (positive → Virtual, Erect, 3× magnified)`}
+                  <span className={styles.answer}>∴ Virtual image 30 cm on same side as object | Erect | Magnified 3× — acts as magnifying glass!</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 3 — Concave Lens</div>
+                <p className={styles.exampleQ}>An object is placed 20 cm from a concave lens of focal length 15 cm. Find the image position, magnification and nature.</p>
+                <div className={styles.exampleSol}>{`Given: u = −20 cm, f = −15 cm (concave → f negative)
+
+Lens Formula: 1/v = 1/f + 1/u
+1/v = 1/(−15) + 1/(−20) = −1/15 − 1/20 = (−4 − 3)/60 = −7/60
+
+v = `}<span className={styles.highlight}>−60/7 ≈ −8.57 cm</span>{`   (Virtual, same side as object)
+
+m = v/u = (−8.57)/(−20) = `}<span className={styles.highlight}>+0.43</span>{`   (Erect, Diminished)`}
+                  <span className={styles.answer}>∴ Virtual image 8.57 cm, same side as object | Erect | Diminished — Concave lens ALWAYS this!</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 4 — Combined Lens Power</div>
+                <p className={styles.exampleQ}>Two lenses of focal lengths +25 cm and −50 cm are placed in contact. Find (a) combined focal length, (b) combined power, (c) nature of combined lens.</p>
+                <div className={styles.exampleSol}>{`Given: f₁ = +25 cm = +0.25 m, f₂ = −50 cm = −0.50 m
+
+P₁ = 1/f₁ = 1/0.25 = `}<span className={styles.highlight}>+4 D</span>{`
+P₂ = 1/f₂ = 1/(−0.50) = `}<span className={styles.highlight}>−2 D</span>{`
+
+Combined power: P = P₁ + P₂ = 4 + (−2) = `}<span className={styles.highlight}>+2 D</span>{`
+
+Combined focal length: f = 1/P = 1/2 m = `}<span className={styles.highlight}>50 cm</span>
+                  <span className={styles.answer}>∴ P = +2 D | f = 50 cm | Convex (positive power → converging)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 5 — Object at 2F</div>
+                <p className={styles.exampleQ}>An object is placed at 2F from a convex lens (f = 12 cm). Without calculation, describe the image. Verify using the lens formula.</p>
+                <div className={styles.exampleSol}>{`Object at 2F means: u = −2f = −24 cm, f = +12 cm
+
+Verification: 1/v = 1/f + 1/u = 1/12 + 1/(−24) = (2 − 1)/24 = 1/24
+
+v = `}<span className={styles.highlight}>+24 cm = 2f</span>{`   (Image also at 2F on other side)
+
+m = v/u = 24/(−24) = `}<span className={styles.highlight}>−1</span>{`   (Same size)`}
+                  <span className={styles.answer}>∴ When object at 2F: Image at 2F | Real | Inverted | Same size | This is the rule for object at 2F!</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ★ SIMULATION 1 — Lens Ray Tracer (lazy-loaded) */}
+            <LazyMount><LensRayTracerSim /></LazyMount>
           </section>
 
           {/* LENS FORMULA */}
@@ -969,11 +1089,72 @@ export default function LensesPage() {
               </p>
             </div>
 
-            {/* ★ SIMULATION 4 — Lens Formula Live Calculator */}
-            <LensFormulaCalcSim />
+            {/* ★ SOLVED EXAMPLES — Lens Formula & Power (before calculators) */}
+            <div className={styles.solvedExamples}>
+              <h3 className={styles.solvedExamplesTitle}>📝 Solved Examples — Lens Formula & Power of Lens</h3>
 
-            {/* ★ SIMULATION 2 — Power Calculator */}
-            <PowerOfLensSim />
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 1 — Power of Spectacle Lens</div>
+                <p className={styles.exampleQ}>A person with myopia needs a concave lens of focal length 50 cm to correct their vision. Find the power of this lens. Also find the far point of this person.</p>
+                <div className={styles.exampleSol}>{`Given: f = −50 cm = −0.50 m (concave for myopia)
+
+Power P = 1/f = 1/(−0.50) = `}<span className={styles.highlight}>−2.0 Dioptre</span>{`
+
+Far point = 50 cm (the myopic person cannot see beyond 50 cm clearly)
+The concave lens makes distant objects appear to be at 50 cm.`}
+                  <span className={styles.answer}>∴ P = −2.0 D | Far point = 50 cm | Prescription: −2.0 D concave lens</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 2 — Find Focal Length from Power</div>
+                <p className={styles.exampleQ}>A doctor prescribes +2.5 D lenses for a patient. Find the focal length and type of lens. What eye defect is being corrected?</p>
+                <div className={styles.exampleSol}>{`Given: P = +2.5 D (positive → Convex lens)
+
+f = 1/P = 1/2.5 = `}<span className={styles.highlight}>0.4 m = 40 cm</span>{`
+
+Positive power → Convex (converging) lens
+Used for Hypermetropia (far-sightedness) — near objects appear blurred`}
+                  <span className={styles.answer}>∴ f = 40 cm | Convex lens | Corrects Hypermetropia (near-sightedness — cannot see near objects)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 3 — Object at Infinity</div>
+                <p className={styles.exampleQ}>A convex lens of focal length 20 cm. An object is placed: (a) at infinity, (b) at 60 cm. Find image positions.</p>
+                <div className={styles.exampleSol}>{`(a) Object at infinity: u = ∞ → 1/u = 0
+
+1/v = 1/f + 1/u = 1/20 + 0 = 1/20 → v = `}<span className={styles.highlight}>+20 cm</span>{`   (at Focus F, Real, Point-sized)
+
+(b) Object at 60 cm: u = −60 cm
+
+1/v = 1/20 + 1/(−60) = 3/60 − 1/60 = 2/60 = 1/30
+v = `}<span className={styles.highlight}>+30 cm</span>{`   (beyond F, Real, Inverted, Diminished)`}
+                  <span className={styles.answer}>∴ (a) Image at f = 20 cm [at F, real, point] | (b) Image at 30 cm [real, inverted, diminished]</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 4 — Magnification Problem</div>
+                <p className={styles.exampleQ}>A convex lens forms a real, inverted image 3× the size of the object. If the image is at 45 cm from the lens, find the focal length.</p>
+                <div className={styles.exampleSol}>{`Given: m = −3 (real, inverted), v = +45 cm (real image)
+
+From m = v/u:  −3 = 45/u → u = `}<span className={styles.highlight}>−15 cm</span>{`
+
+Lens Formula: 1/f = 1/v − 1/u = 1/45 − 1/(−15) = 1/45 + 1/15
+= 1/45 + 3/45 = 4/45
+
+f = `}<span className={styles.highlight}>45/4 = 11.25 cm</span>
+                  <span className={styles.answer}>∴ f = 11.25 cm | Object at 15 cm | Image at 45 cm (3× magnified, real, inverted)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ★ SIMULATION 4 — Lens Formula Live Calculator (lazy-loaded) */}
+            <LazyMount><LensFormulaCalcSim /></LazyMount>
+
+            {/* ★ SIMULATION 2 — Power Calculator (lazy-loaded) */}
+            <LazyMount><PowerOfLensSim /></LazyMount>
           </section>
 
           {/* HUMAN EYE */}
@@ -1009,8 +1190,62 @@ export default function LensesPage() {
               </ul>
             </div>
 
-            {/* ★ SIMULATION 5 — Eye Accommodation */}
-            <EyeAccommodationSim />
+            {/* ★ SOLVED EXAMPLES — Human Eye (before accommodation sim) */}
+            <div className={styles.solvedExamples}>
+              <h3 className={styles.solvedExamplesTitle}>📝 Solved Examples — Human Eye & Vision</h3>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 1 — Near & Far Point</div>
+                <p className={styles.exampleQ}>A normal human eye has a near point of 25 cm and far point at infinity. Explain what this means in terms of accommodation.</p>
+                <div className={styles.exampleSol}>{`Near Point (D = 25 cm): `}<span className={styles.highlight}>Closest distance for clear vision</span>{`
+→ Ciliary muscles contract maximally → lens becomes most curved (shortest f)
+→ Also called "Least Distance of Distinct Vision"
+
+Far Point (∞ = infinity): `}<span className={styles.highlight}>Farthest distance for clear vision</span>{`
+→ Ciliary muscles fully relaxed → lens becomes flattest (longest f)
+
+Power of accommodation = Power(near) − Power(far)
+At near: f_min → P_max | At far: f_max → P_min
+
+A young person can accommodate: roughly +4 to +6 D range`}
+                  <span className={styles.answer}>∴ Normal eye: near point 25 cm, far point ∞ | Accommodates by changing lens curvature using ciliary muscles</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 2 — Myopia Correction Calculation</div>
+                <p className={styles.exampleQ}>A myopic person's far point is 80 cm. What power lens is required to correct this defect? (The corrected lens should make distant objects appear at 80 cm)</p>
+                <div className={styles.exampleSol}>{`Given: Far point of person = 80 cm
+The corrective lens must form virtual image of distant object (u = ∞) at far point (v = −80 cm)
+
+Using Lens Formula: 1/f = 1/v − 1/u = 1/(−80) − 1/(∞) = −1/80 − 0
+
+f = `}<span className={styles.highlight}>−80 cm = −0.80 m</span>{`
+
+P = 1/f = 1/(−0.80) = `}<span className={styles.highlight}>−1.25 D</span>
+                  <span className={styles.answer}>∴ Concave lens of power −1.25 D needed | This makes ∞ → appear at 80 cm (the far point)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 3 — Hypermetropia Correction</div>
+                <p className={styles.exampleQ}>A hypermetropic person's near point is 100 cm. What power convex lens corrects this to normal near point of 25 cm?</p>
+                <div className={styles.exampleSol}>{`The corrective lens must form virtual image of object at 25 cm → at the person's near point (100 cm)
+
+Given: u = −25 cm, v = −100 cm (both virtual image and object on same side)
+
+1/f = 1/v − 1/u = 1/(−100) − 1/(−25) = −1/100 + 1/25 = (−1 + 4)/100 = 3/100
+
+f = `}<span className={styles.highlight}>100/3 ≈ +33.3 cm</span>{`
+
+P = 1/f = 3/100 × 100 = `}<span className={styles.highlight}>+3.0 D</span>
+                  <span className={styles.answer}>∴ Convex lens of P = +3.0 D | Makes objects at 25 cm appear to be at 100 cm (near point) ✓</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ★ SIMULATION 5 — Eye Accommodation (lazy-loaded) */}
+            <LazyMount><EyeAccommodationSim /></LazyMount>
 
             <div className={styles.formulaBox}>
               <h3>👁 Power of Accommodation</h3>
@@ -1089,8 +1324,58 @@ export default function LensesPage() {
               Today, progressive lenses (variable focal length) are preferred over bifocal.
             </div>
 
-            {/* ★ SIMULATION 3 — Eye Defects */}
-            <EyeDefectsSim />
+            {/* ★ SOLVED EXAMPLES — Eye Defects (before simulation) */}
+            <div className={styles.solvedExamples}>
+              <h3 className={styles.solvedExamplesTitle}>📝 Solved Examples — Eye Defects & Corrections</h3>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 1 — Identify Defect from Power</div>
+                <p className={styles.exampleQ}>A student wears spectacles of power −3.5 D. (a) What defect does the student have? (b) What is the far point? (c) What type of lens corrects it?</p>
+                <div className={styles.exampleSol}>{`Given: P = −3.5 D (negative power)
+
+(a) Negative power → `}<span className={styles.highlight}>Concave lens → Myopia (near-sightedness)</span>{`
+
+(b) Far point: f = 1/P = 1/(−3.5) = −0.286 m = `}<span className={styles.highlight}>−28.6 cm</span>{`
+   Far point = 28.6 cm (the lens creates virtual image at 28.6 cm from eye for distant objects)
+
+(c) Correction: `}<span className={styles.highlight}>Concave (diverging) lens of −3.5 D</span>
+                  <span className={styles.answer}>∴ Myopia | Far point = 28.6 cm | Correction = −3.5 D concave lens</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 2 — Presbyopia vs Myopia</div>
+                <p className={styles.exampleQ}>An elderly person can see clearly between 50 cm and 2 m only. What combination of lenses is needed for full correction?</p>
+                <div className={styles.exampleSol}>{`Analysis: Person cannot see beyond 2 m (Myopia) AND cannot see closer than 50 cm (Hypermetropia)
+This is `}<span className={styles.highlight}>Presbyopia</span>{` (age-related both defects)
+
+For distance vision (myopia correction, far point = 2 m = 200 cm):
+P_dist = −100/200 = `}<span className={styles.highlight}>−0.5 D</span>{`  (top half of bifocal)
+
+For near vision (hypermetropia, near point = 50 cm, need 25 cm):
+1/f = 1/(−50) − 1/(−25) = −1/50 + 1/25 = 1/50
+P_near = `}<span className={styles.highlight}>+2.0 D</span>{`  (bottom half of bifocal)`}
+                  <span className={styles.answer}>∴ Bifocal: Top = −0.5 D (myopia), Bottom = +2.0 D (hypermetropia) | Or progressive lenses today</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 3 — Visual Angle & Magnification</div>
+                <p className={styles.exampleQ}>A simple microscope (magnifying glass) has f = 5 cm. A person with normal near point (25 cm) uses it. Find the maximum magnification.</p>
+                <div className={styles.exampleSol}>{`Maximum magnification of simple microscope:
+M = 1 + D/f   (when image at near point, D = near point distance)
+
+M = 1 + 25/5 = 1 + 5 = `}<span className={styles.highlight}>6×</span>{`
+
+Minimum magnification (image at infinity):
+M = D/f = 25/5 = `}<span className={styles.highlight}>5×</span>
+                  <span className={styles.answer}>∴ Magnifying power ranges from 5× to 6× | Object must be placed between F and lens</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ★ SIMULATION 3 — Eye Defects (lazy-loaded) */}
+            <LazyMount><EyeDefectsSim /></LazyMount>
           </section>
 
           {/* OPTICAL INSTRUMENTS */}

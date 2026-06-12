@@ -2,10 +2,11 @@
 
 /**
  * FILE: FlashCard.tsx
- * PURPOSE: Interactive 3-D flip flashcard component for the Light chapter.
- *          Front: dark navy with neon-cyan border (high contrast on dark bg).
- *          Back:  dark purple gradient with violet border + light text (fully readable).
- * LAST UPDATED: 2026-06-11
+ * PURPOSE: Interactive 3-D flip flashcard for the Light chapter.
+ *          MAXIMUM VISIBILITY design:
+ *          Front: Electric vivid blue gradient — ultra bright, pops on dark page
+ *          Back:  Vivid amber/gold gradient — warm, easy to read, high contrast
+ *          All text is bright white with text-shadow for extra punch.
  */
 
 import React, { useState } from 'react';
@@ -15,11 +16,11 @@ import styles from '@/styles/LightChapter.module.css';
 interface FlashCardProps {
   front: string;
   back: string;
-  /** Optional accent colour override for the front border */
+  /** Optional accent colour for the glow (defaults to electric blue) */
   accentColor?: string;
 }
 
-export default function FlashCard({ front, back, accentColor = '#00ffcc' }: FlashCardProps) {
+export default function FlashCard({ front, back, accentColor = '#60a5fa' }: FlashCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
@@ -29,70 +30,93 @@ export default function FlashCard({ front, back, accentColor = '#00ffcc' }: Flas
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      whileHover={{ scale: 1.03 }}
+      whileHover={{ scale: 1.03, y: -4 }}
       transition={{ duration: 0.3 }}
+      style={{ cursor: 'pointer' }}
     >
       <div className={styles.flashcardInner}>
 
-        {/* ── FRONT: vivid deep blue, ultra bright text ── */}
+        {/* ── FRONT: Vivid electric blue — maximum visibility ── */}
         <div
           className={styles.flashcardFront}
           style={{
-            borderColor: accentColor,
-            boxShadow: `0 0 30px ${accentColor}33, 0 0 60px ${accentColor}10, 0 8px 32px rgba(0,0,0,0.6)`,
-            background: `linear-gradient(135deg, #0f3460 0%, #16213e 50%, #0d2137 100%)`,
+            background: 'linear-gradient(135deg, #1e40af 0%, #2563eb 45%, #3b82f6 100%)',
+            border: '3px solid #93c5fd',
+            boxShadow: '0 0 40px rgba(59,130,246,0.45), 0 0 80px rgba(59,130,246,0.2), 0 12px 40px rgba(0,0,0,0.7)',
+            color: '#ffffff',
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', width: '100%' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', width: '100%' }}>
+            {/* Pulsing glow dot */}
             <span style={{
-              width: 10, height: 10, borderRadius: '50%',
-              background: accentColor,
-              boxShadow: `0 0 12px ${accentColor}, 0 0 24px ${accentColor}60`,
-              marginBottom: '0.25rem',
+              width: 12, height: 12, borderRadius: '50%',
+              background: '#ffffff',
+              boxShadow: '0 0 16px #93c5fd, 0 0 32px #60a5fa80',
               flexShrink: 0,
             }} />
+            {/* Front question text */}
             <span style={{
-              fontSize: 'clamp(0.92rem, 2.5vw, 1.15rem)',
-              fontWeight: 700,
+              fontSize: 'clamp(1rem, 2.8vw, 1.25rem)',
+              fontWeight: 800,
               color: '#ffffff',
               textAlign: 'center',
               lineHeight: 1.4,
-              textShadow: '0 1px 3px rgba(0,0,0,0.4)',
+              textShadow: '0 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(147,197,253,0.4)',
+              letterSpacing: '0.01em',
             }}>
               {front}
             </span>
-            <span style={{ fontSize: '0.62rem', color: accentColor, marginTop: '0.5rem', letterSpacing: '0.1em', fontWeight: 600, textTransform: 'uppercase' }}>
-              ↺ tap to reveal answer
+            {/* Category badge */}
+            <span style={{
+              fontSize: '0.65rem',
+              background: 'rgba(255,255,255,0.15)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              borderRadius: '20px',
+              padding: '0.25rem 0.75rem',
+              color: '#e0f2fe',
+              fontWeight: 600,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+            }}>
+              ↺ Tap to reveal
             </span>
           </div>
         </div>
 
-        {/* ── BACK: vivid emerald green, bright white text ── */}
-        <div className={styles.flashcardBack}
+        {/* ── BACK: Vivid amber/gold — warm, high contrast ── */}
+        <div
+          className={styles.flashcardBack}
           style={{
-            background: 'linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)',
-            borderColor: '#34d399',
-            boxShadow: '0 0 30px rgba(52,211,153,0.22), 0 0 60px rgba(52,211,153,0.08), 0 8px 32px rgba(0,0,0,0.6)',
-          }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', width: '100%' }}>
+            background: 'linear-gradient(135deg, #92400e 0%, #b45309 45%, #d97706 100%)',
+            border: '3px solid #fcd34d',
+            boxShadow: '0 0 40px rgba(217,119,6,0.45), 0 0 80px rgba(217,119,6,0.2), 0 12px 40px rgba(0,0,0,0.7)',
+            color: '#ffffff',
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.6rem', width: '100%' }}>
+            {/* Answer badge */}
             <span style={{
               fontSize: '0.65rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.12em',
-              color: '#6ee7b7',
-              marginBottom: '0.35rem',
+              background: 'rgba(255,255,255,0.2)',
+              border: '1px solid rgba(255,255,255,0.35)',
+              borderRadius: '20px',
+              padding: '0.2rem 0.75rem',
+              color: '#fef3c7',
               fontWeight: 700,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
             }}>
               ✓ Answer
             </span>
+            {/* Back answer text */}
             <span style={{
-              fontSize: 'clamp(0.82rem, 2vw, 1rem)',
-              fontWeight: 500,
+              fontSize: 'clamp(0.88rem, 2.2vw, 1.05rem)',
+              fontWeight: 600,
               color: '#ffffff',
               textAlign: 'center',
-              lineHeight: 1.8,
+              lineHeight: 1.85,
               whiteSpace: 'pre-line',
-              textShadow: '0 1px 3px rgba(0,0,0,0.3)',
+              textShadow: '0 2px 8px rgba(0,0,0,0.5), 0 0 20px rgba(252,211,77,0.25)',
             }}>
               {back}
             </span>

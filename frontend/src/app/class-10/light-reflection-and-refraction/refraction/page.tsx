@@ -8,12 +8,51 @@
  *   Features: 7 AI images, 6 animated SVG simulations, 6 numericals, 8 MCQ, 8 flashcards
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, Zap, Eye, BookOpen, RotateCcw, Lightbulb, Award, Target, Waves } from 'lucide-react';
 import styles from '@/styles/LightChapter.module.css';
+
+/* ─────────────────────────────────────────────────────────
+   LAZY MOUNT — Renders children only when near the viewport.
+   Uses IntersectionObserver with 300px rootMargin.
+───────────────────────────────────────────────────────── */
+function SimSkeleton() {
+  return (
+    <div style={{
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.06)',
+      borderRadius: '14px',
+      padding: '2rem',
+      marginBottom: '2rem',
+      animation: 'pulse 2s ease-in-out infinite',
+    }}>
+      <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}`}</style>
+      <div style={{ height: '22px', width: '260px', background: 'rgba(255,255,255,0.07)', borderRadius: '6px', marginBottom: '1rem' }} />
+      <div style={{ height: '320px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px' }} />
+    </div>
+  );
+}
+
+function LazyMount({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setMounted(true); observer.disconnect(); } },
+      { rootMargin: '300px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return <div ref={ref}>{mounted ? children : <SimSkeleton />}</div>;
+}
 
 /* ═══════════════════════════════════════════════════════════
    SIMULATION 1 — Snell's Law Interactive Lab
@@ -1029,11 +1068,86 @@ export default function RefractionPage() {
               </p>
             </div>
 
-            {/* ★ SIMULATION 1 — Snell's Law Lab */}
-            <SnellsLawSim />
+            {/* ★ SOLVED EXAMPLES — Snell's Law & Refractive Index (before simulation) */}
+            <div className={styles.solvedExamples}>
+              <h3 className={styles.solvedExamplesTitle}>📝 Solved Examples — Snell's Law & Refractive Index</h3>
 
-            {/* ★ SIMULATION 6 — Refractive Index & Critical Angle Calculator */}
-            <RefractiveIndexCalcSim />
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 1 — Angle of Refraction</div>
+                <p className={styles.exampleQ}>A ray of light passes from air into glass (n = 1.5) at an angle of incidence of 30°. Find the angle of refraction in glass.</p>
+                <div className={styles.exampleSol}>{`Given: n₁ = 1 (air), n₂ = 1.5 (glass), θ₁ = 30°
+
+Snell's Law: n₁ sin θ₁ = n₂ sin θ₂
+
+sin θ₂ = (n₁/n₂) × sin θ₁ = (1/1.5) × sin 30° = (1/1.5) × 0.5
+
+sin θ₂ = 0.333 → θ₂ = `}<span className={styles.highlight}>sin⁻¹(0.333) ≈ 19.47°</span>
+                  <span className={styles.answer}>∴ Angle of refraction in glass ≈ 19.5° (bends toward normal, as it goes into denser medium)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 2 — Speed of Light in Medium</div>
+                <p className={styles.exampleQ}>The refractive index of diamond is 2.42. Find (a) the speed of light in diamond, (b) its critical angle for total internal reflection.</p>
+                <div className={styles.exampleSol}>{`Given: n_diamond = 2.42, c = 3 × 10⁸ m/s
+
+(a) Speed in diamond:
+n = c/v → v = c/n = (3 × 10⁸) / 2.42 = `}<span className={styles.highlight}>1.24 × 10⁸ m/s</span>{`
+
+(b) Critical angle:
+sin C = 1/n = 1/2.42 = 0.413
+C = sin⁻¹(0.413) = `}<span className={styles.highlight}>24.4°</span>
+                  <span className={styles.answer}>∴ Speed in diamond = 1.24×10⁸ m/s | Critical angle = 24.4° (small → extreme TIR → brilliant sparkle!)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 3 — Apparent Depth</div>
+                <p className={styles.exampleQ}>A fish is 12 cm below the surface of water (n = 1.33). What is its apparent depth when seen from outside?</p>
+                <div className={styles.exampleSol}>{`Given: Real depth = 12 cm, n_water = 1.33
+
+Formula: Apparent depth = Real depth / n
+
+Apparent depth = 12 / 1.33 = `}<span className={styles.highlight}>9.02 cm ≈ 9 cm</span>
+
+                  <span className={styles.answer}>∴ Fish appears at 9 cm depth (closer than actual 12 cm) — objects in water always look shallower!</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 4 — Refractive Index from Angles</div>
+                <p className={styles.exampleQ}>A ray of light traveling in air has angle of incidence 45° and angle of refraction 30° when entering a medium. Find the refractive index of the medium.</p>
+                <div className={styles.exampleSol}>{`Given: i = 45°, r = 30° (in medium)
+
+n = sin i / sin r = sin 45° / sin 30°
+
+n = (√2/2) / (1/2) = √2 = `}<span className={styles.highlight}>1.414</span>
+                  <span className={styles.answer}>∴ n = √2 ≈ 1.414 (approximately glass)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 5 — Combined Snell's Law</div>
+                <p className={styles.exampleQ}>Light goes from medium A (n=1.2) to medium B (n=1.8). If angle of incidence in A is 40°, find angle of refraction in B.</p>
+                <div className={styles.exampleSol}>{`Given: n_A = 1.2, n_B = 1.8, θ_A = 40°
+
+Snell's Law: n_A sin θ_A = n_B sin θ_B
+
+sin θ_B = (n_A / n_B) × sin θ_A = (1.2/1.8) × sin 40°
+
+sin θ_B = 0.667 × 0.643 = 0.429
+
+θ_B = sin⁻¹(0.429) = `}<span className={styles.highlight}>25.4°</span>
+                  <span className={styles.answer}>∴ Refraction angle = 25.4° (bends toward normal since B is denser than A)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ★ SIMULATION 1 — Snell's Law Lab (lazy-loaded) */}
+            <LazyMount><SnellsLawSim /></LazyMount>
+
+            {/* ★ SIMULATION 6 — Refractive Index & Critical Angle Calculator (lazy-loaded) */}
+            <LazyMount><RefractiveIndexCalcSim /></LazyMount>
           </section>
 
           {/* REFRACTIVE INDEX */}
@@ -1113,8 +1227,54 @@ export default function RefractionPage() {
               </p>
             </div>
 
-            {/* ★ SIMULATION 2 — Glass Slab */}
-            <GlassSlabSim />
+            {/* ★ SOLVED EXAMPLES — Glass Slab (before simulation) */}
+            <div className={styles.solvedExamples}>
+              <h3 className={styles.solvedExamplesTitle}>📝 Solved Examples — Glass Slab & Lateral Displacement</h3>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 1 — Lateral Displacement</div>
+                <p className={styles.exampleQ}>A glass slab of thickness 6 cm and refractive index 1.5 is kept in air. A ray of light is incident at 60°. Find the lateral displacement of the emergent ray. [sin 60° = 0.866, sin r = ?]</p>
+                <div className={styles.exampleSol}>{`Given: t = 6 cm, n = 1.5, i = 60°
+
+Step 1: Find angle of refraction r using Snell's law
+sin r = sin i / n = 0.866 / 1.5 = 0.577 → r = 35.26°
+
+Step 2: cos r = cos 35.26° = 0.816
+
+Step 3: d = t × sin(i − r) / cos r
+d = 6 × sin(60° − 35.26°) / cos(35.26°)
+d = 6 × sin(24.74°) / 0.816
+d = 6 × 0.419 / 0.816 = `}<span className={styles.highlight}>3.08 cm</span>
+                  <span className={styles.answer}>∴ Lateral displacement = 3.08 cm</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 2 — Normal Incidence</div>
+                <p className={styles.exampleQ}>A ray falls normally (perpendicularly) on a glass slab. What is the lateral displacement?</p>
+                <div className={styles.exampleSol}>{`Given: angle of incidence i = 0° (normal incidence)
+
+When i = 0°: angle of refraction r = 0° (by Snell's law)
+
+Lateral displacement d = t × sin(i − r) / cos r = t × sin(0°) / cos(0°)
+d = t × 0 / 1 = `}<span className={styles.highlight}>0</span>
+                  <span className={styles.answer}>∴ Lateral displacement = 0 when ray is normal to slab. Ray passes straight through without shifting!</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 3 — Apparent Shift in Slab</div>
+                <p className={styles.exampleQ}>A glass slab of thickness 9 cm and n = 1.5 is placed over a coin. How much does the coin appear to be raised?</p>
+                <div className={styles.exampleSol}>{`Formula: Apparent shift = t × (1 − 1/n)
+
+Shift = 9 × (1 − 1/1.5) = 9 × (1 − 0.667) = 9 × 0.333 = `}<span className={styles.highlight}>3 cm</span>
+                  <span className={styles.answer}>∴ The coin appears raised by 3 cm (appears at 9−3 = 6 cm, not 9 cm deep)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ★ SIMULATION 2 — Glass Slab (lazy-loaded) */}
+            <LazyMount><GlassSlabSim /></LazyMount>
           </section>
 
           {/* TOTAL INTERNAL REFLECTION */}
@@ -1167,8 +1327,72 @@ export default function RefractionPage() {
               </ol>
             </div>
 
-            {/* ★ SIMULATION 3 — TIR */}
-            <TIRSim />
+            {/* ★ SOLVED EXAMPLES — Total Internal Reflection (before simulation) */}
+            <div className={styles.solvedExamples}>
+              <h3 className={styles.solvedExamplesTitle}>📝 Solved Examples — Total Internal Reflection (TIR)</h3>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 1 — Critical Angle Calculation</div>
+                <p className={styles.exampleQ}>The refractive index of glass is 1.52. Find the critical angle for a glass-air interface.</p>
+                <div className={styles.exampleSol}>{`Given: n_glass = 1.52, n_air = 1.00
+
+Formula: sin C = n_air / n_glass = 1/n (when going from glass to air)
+
+sin C = 1 / 1.52 = 0.658
+
+C = sin⁻¹(0.658) = `}<span className={styles.highlight}>41.1°</span>
+                  <span className={styles.answer}>∴ Critical angle for glass-air = 41.1° (TIR occurs if angle ≥ 41.1° inside glass)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 2 — Will TIR Occur?</div>
+                <p className={styles.exampleQ}>Light travels from water (n=1.33) to glass (n=1.52) at 40°. Will TIR occur? What about glass to water at 40°?</p>
+                <div className={styles.exampleSol}>{`Case 1: Water → Glass (rare to dense — TIR CANNOT occur!)
+TIR only possible when going from DENSE to RARE medium.
+Water (n=1.33) is less dense than Glass (n=1.52) → `}<span className={styles.highlight}>No TIR possible</span>{`
+
+Case 2: Glass → Water (dense to rare — TIR CAN occur)
+Critical angle: sin C = n_water/n_glass = 1.33/1.52 = 0.875
+C = sin⁻¹(0.875) = 61.0°
+
+Angle of incidence = 40° < 61° → `}<span className={styles.highlight}>No TIR (refraction occurs)</span>
+                  <span className={styles.answer}>∴ For glass→water, TIR needs angle ≥ 61°. At 40°, only refraction occurs.</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 3 — Optical Fibre Application</div>
+                <p className={styles.exampleQ}>An optical fibre has glass core (n=1.60) and cladding (n=1.50). Find the critical angle for TIR at core-cladding interface.</p>
+                <div className={styles.exampleSol}>{`Given: n_core = 1.60, n_cladding = 1.50
+
+Light travels from core (denser) to cladding (rarer) → TIR possible!
+
+sin C = n_cladding / n_core = 1.50 / 1.60 = 0.9375
+
+C = sin⁻¹(0.9375) = `}<span className={styles.highlight}>69.6°</span>
+                  <span className={styles.answer}>∴ Critical angle = 69.6° | Any ray hitting core-cladding at ≥ 69.6° is totally internally reflected — trapped in fibre!</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 4 — Periscope Prism</div>
+                <p className={styles.exampleQ}>A 45°–45°–90° glass prism (n=1.5, C≈42°) is used in a periscope. Explain how TIR works here.</p>
+                <div className={styles.exampleSol}>{`In the prism, light hits the hypotenuse face at 45° (since it enters perpendicular to one face)
+
+Critical angle of glass = 42° (calculated from sin C = 1/1.5)
+
+Since angle of incidence (45°) > Critical angle (42°) → `}<span className={styles.highlight}>TIR occurs</span>{`
+
+Light is reflected at exactly 90° → redirected perfectly.
+Used in: Periscopes, binoculars, endoscopes, submarine viewing systems.`}
+                  <span className={styles.answer}>∴ The prism TIR reflects light 90° without any loss — more efficient than a silvered mirror!</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ★ SIMULATION 3 — TIR (lazy-loaded) */}
+            <LazyMount><TIRSim /></LazyMount>
           </section>
 
           {/* OPTICAL FIBRE */}
@@ -1259,8 +1483,60 @@ export default function RefractionPage() {
               </p>
             </div>
 
-            {/* ★ SIMULATION 4 — Prism Dispersion */}
-            <PrismDispersionSim />
+            {/* ★ SOLVED EXAMPLES — Prism Dispersion (before simulation) */}
+            <div className={styles.solvedExamples}>
+              <h3 className={styles.solvedExamplesTitle}>📝 Solved Examples — Prism & Dispersion</h3>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 1 — Angle of Deviation</div>
+                <p className={styles.exampleQ}>A prism has apex angle A = 60°. A light ray passes through it with angle of incidence i = 45° and angle of emergence e = 55°. Find the angle of deviation.</p>
+                <div className={styles.exampleSol}>{`Given: A = 60°, i = 45°, e = 55°
+
+Formula: δ = i + e − A
+
+δ = 45° + 55° − 60° = `}<span className={styles.highlight}>40°</span>
+                  <span className={styles.answer}>∴ Angle of deviation δ = 40°</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 2 — VIBGYOR Order</div>
+                <p className={styles.exampleQ}>When white light passes through a prism, which colour deviates most and which least? Give wavelength ranges.</p>
+                <div className={styles.exampleSol}>{`VIBGYOR = Violet, Indigo, Blue, Green, Yellow, Orange, Red
+
+Most deviation = `}<span className={styles.highlight}>VIOLET</span>{` (λ ≈ 400 nm, highest n, bends most)
+Least deviation = `}<span className={styles.highlight}>RED</span>{`    (λ ≈ 700 nm, lowest n, bends least)
+
+Mnemonic: "VIBGYOR — Violet Is Bent Greatest, yours only remember"
+
+Why: Higher frequency → higher refractive index → more bending
+Violet: n ≈ 1.532 in glass | Red: n ≈ 1.514 in glass (for crown glass)`}
+                  <span className={styles.answer}>∴ Violet deviates most | Red deviates least | Difference = Angular dispersion</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 3 — Rainbow Formation</div>
+                <p className={styles.exampleQ}>Explain how a rainbow forms using prism dispersion principles. At what angle is the rainbow seen?</p>
+                <div className={styles.exampleSol}>{`Mechanism: Water droplets in air act as tiny prisms + mirrors
+
+Step 1: Sunlight enters spherical water droplet — REFRACTION (dispersion)
+Step 2: Light reflects off the back of droplet — INTERNAL REFLECTION
+Step 3: Light exits the front of droplet — REFRACTION again
+
+Result: Each colour exits at different angle
+Red: exits at `}<span className={styles.highlight}>42°</span>{` from incident direction (outer arc)
+Violet: exits at `}<span className={styles.highlight}>40°</span>{` from incident direction (inner arc)
+
+Primary rainbow: Red on outside, Violet inside
+Secondary rainbow: Colors reversed (double internal reflection)`}
+                  <span className={styles.answer}>∴ Rainbow = Dispersion + TIR inside water droplets | Always appears opposite to sun</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ★ SIMULATION 4 — Prism Dispersion (lazy-loaded) */}
+            <LazyMount><PrismDispersionSim /></LazyMount>
 
             <div className={styles.formulaBox}>
               <h3>📐 Angle of Deviation</h3>

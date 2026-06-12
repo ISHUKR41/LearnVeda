@@ -8,12 +8,57 @@
  *   Features: 10 AI images, 4 animated SVG simulations, 6 numericals, 8 MCQ, 8 flashcards
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, Zap, Eye, BookOpen, RotateCcw, Lightbulb, Award, Target, Sun, Camera } from 'lucide-react';
 import styles from '@/styles/LightChapter.module.css';
+
+/* ─────────────────────────────────────────────────────────
+   LAZY MOUNT — Renders children only when near the viewport.
+   Uses IntersectionObserver with 300px rootMargin so
+   simulations load just before user scrolls to them.
+   Shows a skeleton card while waiting.
+───────────────────────────────────────────────────────── */
+function SimSkeleton() {
+  return (
+    <div style={{
+      background: 'rgba(255,255,255,0.03)',
+      border: '1px solid rgba(255,255,255,0.06)',
+      borderRadius: '14px',
+      padding: '2rem',
+      marginBottom: '2rem',
+      animation: 'pulse 2s ease-in-out infinite',
+    }}>
+      <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}`}</style>
+      <div style={{ height: '22px', width: '260px', background: 'rgba(255,255,255,0.07)', borderRadius: '6px', marginBottom: '1rem' }} />
+      <div style={{ height: '320px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px' }} />
+    </div>
+  );
+}
+
+function LazyMount({ children, id }: { children: React.ReactNode; id?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setMounted(true); observer.disconnect(); } },
+      { rootMargin: '300px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} id={id}>
+      {mounted ? children : <SimSkeleton />}
+    </div>
+  );
+}
 
 /* ═══════════════════════════════════════════════════════════
    SIMULATION 1 — Laws of Reflection Interactive Ray Tracer
@@ -740,9 +785,10 @@ export default function ReflectionPage() {
             </div>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/reflection-laws-angles-labeled.png', caption: 'Laws of Reflection — full ray diagram: incident ray, normal, reflected ray, ∠i = ∠r labeled' },
-                { src: '/images/light/reflection-laws-diagram.png', caption: 'Laws of Reflection — ∠i = ∠r, measured from normal to mirror surface' },
-                { src: '/images/light/light_laws_reflection_1781203058464.png', caption: 'Coplanar property: incident ray, normal, reflected ray all lie in the same plane' },
+                { src: '/images/light/laws-reflection-labeled-diagram.png', caption: 'Laws of Reflection — complete labeled ray diagram: ∠i = ∠r, incident, normal, reflected rays' },
+                { src: '/images/light/reflection-laws-angles-labeled.png', caption: 'Angle of incidence = Angle of reflection — both measured from the normal line' },
+                { src: '/images/light/reflection-laws-diagram.png', caption: 'Laws of Reflection — geometric proof with labeled angles on mirror surface' },
+                { src: '/images/light/light_laws_reflection_1781203058464.png', caption: 'Coplanar property: incident ray, normal, and reflected ray all lie in one plane' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
@@ -768,8 +814,76 @@ export default function ReflectionPage() {
                 <li><strong>∠r (Angle of Reflection):</strong> Angle between reflected ray and normal</li>
               </ul>
             </div>
-            {/* ★ SIMULATION 1 — after examples */}
-            <LawsOfReflectionSim />
+            {/* ★ SOLVED EXAMPLES — Laws of Reflection (before simulation) */}
+            <div className={styles.solvedExamples}>
+              <h3 className={styles.solvedExamplesTitle}>📝 Solved Examples — Laws of Reflection</h3>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 1 — Board Level</div>
+                <p className={styles.exampleQ}>A ray of light strikes a plane mirror making an angle of 35° with the mirror surface. Find (a) angle of incidence, (b) angle of reflection, and (c) angle between the incident and reflected rays.</p>
+                <div className={styles.exampleSol}>{`Given: Angle with mirror surface = 35°
+
+Step 1: ∠i (from normal) = 90° − 35° = `}<span className={styles.highlight}>55°</span>{`
+
+Step 2: By Law of Reflection → ∠r = ∠i = `}<span className={styles.highlight}>55°</span>{`
+
+Step 3: Angle between incident & reflected ray = ∠i + ∠r = 55° + 55° = `}<span className={styles.highlight}>110°</span>
+                  <span className={styles.answer}>∴ ∠i = 55°, ∠r = 55°, Angle between rays = 110°</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 2 — Multiple Images</div>
+                <p className={styles.exampleQ}>Two plane mirrors are inclined at 60° to each other. An object is placed between them. How many images are formed? Also find images at 90°.</p>
+                <div className={styles.exampleSol}>{`Formula: n = (360°/θ) − 1
+
+At θ = 60°:  n = (360/60) − 1 = 6 − 1 = `}<span className={styles.highlight}>5 images</span>{`
+At θ = 90°:  n = (360/90) − 1 = 4 − 1 = `}<span className={styles.highlight}>3 images</span>{`
+At θ = 45°:  n = (360/45) − 1 = 8 − 1 = `}<span className={styles.highlight}>7 images</span>
+                  <span className={styles.answer}>∴ At 60°: 5 images | At 90°: 3 images | At 45°: 7 images</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 3 — Person & Image Distance</div>
+                <p className={styles.exampleQ}>An object is placed 20 cm in front of a plane mirror. A person stands 50 cm from the mirror looking at the object's image. Find the distance between the person and the image.</p>
+                <div className={styles.exampleSol}>{`Given: Object distance from mirror = 20 cm; Person at 50 cm from mirror
+
+Step 1: Image forms 20 cm BEHIND mirror (image dist = object dist for plane mirror)
+
+Step 2: Person-to-image distance = Person-to-mirror + Mirror-to-image
+       = 50 cm + 20 cm = `}<span className={styles.highlight}>70 cm</span>
+                  <span className={styles.answer}>∴ Person is 70 cm from the image</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 4 — Minimum Mirror Height</div>
+                <p className={styles.exampleQ}>A person 1.8 m tall stands in front of a plane mirror. What is the minimum length of the mirror needed for the person to see their full image?</p>
+                <div className={styles.exampleSol}>{`Key principle: Minimum mirror length = Half the height of the person.
+(Due to geometry: eye-level rays from top and bottom meet midway)
+
+Minimum mirror length = 1.8/2 = `}<span className={styles.highlight}>0.9 m</span>{`
+
+Position: Top edge at midpoint between eye and top of head.
+Bottom edge at midpoint between eye and feet.`}
+                  <span className={styles.answer}>∴ Minimum mirror height needed = 0.9 m (irrespective of person-mirror distance)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 5 — Rotation of Mirror</div>
+                <p className={styles.exampleQ}>A plane mirror is rotated by 20°. By how much does the reflected ray rotate?</p>
+                <div className={styles.exampleSol}>{`Rule: When mirror rotates by angle α, reflected ray rotates by 2α.
+
+If mirror rotates by 20°: reflected ray rotates by = 2 × 20° = `}<span className={styles.highlight}>40°</span>
+                  <span className={styles.answer}>∴ Reflected ray rotates by 40° (twice the mirror rotation)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ★ SIMULATION 1 — after examples (lazy-loaded via IntersectionObserver) */}
+            <LazyMount><LawsOfReflectionSim /></LazyMount>
           </section>
 
           {/* TYPES OF REFLECTION */}
@@ -857,12 +971,12 @@ export default function ReflectionPage() {
             </p>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/concave-mirror-5-cases.png', caption: 'Concave Mirror — all 5 image formation cases (beyond C, at C, between C&F, at F, between F&P)' },
-                { src: '/images/light/spherical-mirror-parts-labeled.png', caption: 'Spherical mirror anatomy — Pole P, Centre of Curvature C, Focus F, Radius R, Aperture labeled' },
+                { src: '/images/light/concave-mirror-all-cases-detailed.png', caption: 'Concave Mirror — all 5 image formation cases with ray diagrams: ∞, beyond C, at C, between C&F, at F, between F&P' },
+                { src: '/images/light/spherical-mirror-all-parts-labeled.png', caption: 'Spherical mirror complete anatomy — Pole P, Centre C, Focus F, Principal Axis, Aperture, Radius R' },
+                { src: '/images/light/convex-mirror-image-formation.png', caption: 'Convex Mirror — diverging rays form virtual, erect, diminished image; wide field of view' },
                 { src: '/images/light/concave-mirror-diagram.png', caption: 'Concave Mirror — parallel rays converge at focal point F (converging mirror)' },
-                { src: '/images/light/convex-mirror-ray-diagram.png', caption: 'Convex Mirror — rays diverge after reflection; virtual focus behind mirror (diverging mirror)' },
-                { src: '/images/light/convex-mirror-diagram.png', caption: 'Convex Mirror — always forms virtual, erect, diminished image' },
-                { src: '/images/light/light_spherical_mirrors_1781203071616.png', caption: 'Mirror terminology: Pole P, Centre C, Focus F and all key definitions' },
+                { src: '/images/light/convex-mirror-ray-diagram.png', caption: 'Convex Mirror — virtual focus behind mirror; used in rear-view mirrors for wide angle' },
+                { src: '/images/light/spherical-mirror-parts-labeled.png', caption: 'Pole P, Radius R = 2f, Aperture — key parts of any spherical mirror' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
@@ -892,10 +1006,92 @@ export default function ReflectionPage() {
               <li><strong>Principal Axis:</strong> Straight line passing through P and C</li>
               <li><strong>Aperture:</strong> Diameter of the reflecting surface (determines light-collecting ability)</li>
             </ul>
-            {/* ★ SIMULATION 2 — Concave Mirror image formation */}
-            <ConcaveMirrorSim />
-            {/* ★ SIMULATION 3 — Convex Mirror */}
-            <ConvexMirrorSim />
+            {/* ★ SOLVED EXAMPLES — Spherical Mirrors (before simulations) */}
+            <div className={styles.solvedExamples}>
+              <h3 className={styles.solvedExamplesTitle}>📝 Solved Examples — Spherical Mirrors</h3>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 1 — Concave Mirror, Real Image</div>
+                <p className={styles.exampleQ}>An object 2 cm tall is placed 30 cm in front of a concave mirror of focal length 15 cm. Find the image position, magnification and nature of image.</p>
+                <div className={styles.exampleSol}>{`Given: u = −30 cm, f = −15 cm, h = 2 cm (concave → f negative, object → u negative)
+
+Using Mirror Formula: 1/v = 1/f − 1/u
+1/v = 1/(−15) − 1/(−30) = −1/15 + 1/30 = −2/30 + 1/30 = −1/30
+
+v = `}<span className={styles.highlight}>−30 cm</span>{`   (negative → Real, in front of mirror)
+
+m = −v/u = −(−30)/(−30) = `}<span className={styles.highlight}>−1</span>{`
+
+h' = m × h = −1 × 2 = −2 cm   (inverted)`}
+                  <span className={styles.answer}>∴ Image at 30 cm in front of mirror | Real | Inverted | Same size (at C)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 2 — Concave Mirror, Virtual Image</div>
+                <p className={styles.exampleQ}>An object is placed 8 cm in front of a concave mirror of radius of curvature 24 cm. Find the image position and state its nature.</p>
+                <div className={styles.exampleSol}>{`Given: u = −8 cm, R = 24 cm → f = R/2 = −12 cm
+
+Using Mirror Formula: 1/v = 1/f − 1/u
+1/v = 1/(−12) − 1/(−8) = −1/12 + 1/8 = (−2 + 3)/24 = 1/24
+
+v = `}<span className={styles.highlight}>+24 cm</span>{`   (positive → Virtual, behind mirror)
+
+m = −v/u = −(24)/(−8) = `}<span className={styles.highlight}>+3</span>{`   (positive → Virtual, Erect, 3× magnified)`}
+                  <span className={styles.answer}>∴ Image 24 cm BEHIND mirror | Virtual | Erect | Magnified 3× (between P and F case)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 3 — Convex Mirror</div>
+                <p className={styles.exampleQ}>An object is placed 25 cm in front of a convex mirror of focal length 20 cm. Find the image distance and magnification.</p>
+                <div className={styles.exampleSol}>{`Given: u = −25 cm, f = +20 cm (convex → f positive)
+
+Using Mirror Formula: 1/v = 1/f − 1/u
+1/v = 1/20 − 1/(−25) = 1/20 + 1/25 = (5 + 4)/100 = 9/100
+
+v = `}<span className={styles.highlight}>100/9 ≈ +11.1 cm</span>{`   (positive → Virtual, behind mirror)
+
+m = −v/u = −(100/9)/(−25) = `}<span className={styles.highlight}>+4/9 ≈ +0.44</span>{`   (Diminished, Erect)`}
+                  <span className={styles.answer}>∴ Image ≈ 11.1 cm behind mirror | Virtual | Erect | Diminished (convex always!)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 4 — Find Focal Length from Magnification</div>
+                <p className={styles.exampleQ}>A concave mirror produces 3× magnified real image of an object placed 10 cm in front of it. Find the focal length of the mirror.</p>
+                <div className={styles.exampleSol}>{`Given: u = −10 cm, m = −3 (real image → m is negative)
+
+From m = −v/u:   −3 = −v/(−10) → v = −30 cm
+
+Using Mirror Formula: 1/f = 1/v + 1/u
+1/f = 1/(−30) + 1/(−10) = −1/30 − 3/30 = −4/30 = −2/15
+
+f = `}<span className={styles.highlight}>−7.5 cm</span>
+                  <span className={styles.answer}>∴ Focal length = 7.5 cm (concave)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 5 — Rear-View Mirror</div>
+                <p className={styles.exampleQ}>A convex mirror used as a rear-view mirror has radius of curvature 3.0 m. A car is 5 m behind the mirror. Find image position and magnification.</p>
+                <div className={styles.exampleSol}>{`Given: R = 3 m → f = R/2 = +1.5 m (convex), u = −5 m
+
+1/v = 1/f − 1/u = 1/1.5 − 1/(−5) = 1/1.5 + 1/5
+1/v = 0.667 + 0.2 = 0.867
+
+v = `}<span className={styles.highlight}>1/0.867 ≈ +1.15 m</span>{`   (behind mirror → Virtual)
+
+m = −v/u = −1.15/(−5) = `}<span className={styles.highlight}>+0.23</span>{`   (strongly diminished → wide field of view!)`}
+                  <span className={styles.answer}>∴ Image 1.15 m behind mirror | Virtual | Erect | Diminished | Wide field → safe for driving</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ★ SIMULATION 2 — Concave Mirror image formation (lazy-loaded) */}
+            <LazyMount><ConcaveMirrorSim /></LazyMount>
+            {/* ★ SIMULATION 3 — Convex Mirror (lazy-loaded) */}
+            <LazyMount><ConvexMirrorSim /></LazyMount>
           </section>
 
           {/* MIRROR FORMULA */}
@@ -903,10 +1099,12 @@ export default function ReflectionPage() {
             <h2>📐 Mirror Formula & Magnification</h2>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/mirror-formula-derivation.png', caption: 'Mirror formula derivation — geometric proof of 1/f = 1/v + 1/u using similar triangles' },
-                { src: '/images/light/mirror-formula-diagram.png', caption: '1/v + 1/u = 1/f — Mirror formula with labeled ray diagram' },
-                { src: '/images/light/light_sign_convention_nano_banana_1781204233503.png', caption: 'New Cartesian Sign Convention — all distances from Pole P' },
-                { src: '/images/light/light_magnification_formula_nano_banana_1781204215500.png', caption: 'Magnification: m = h′/h = −v/u (negative → real, inverted)' },
+                { src: '/images/light/mirror-formula-geometric-proof.png', caption: 'Mirror formula derivation — geometric proof using similar triangles: 1/v + 1/u = 1/f' },
+                { src: '/images/light/new-cartesian-sign-convention.png', caption: 'New Cartesian Sign Convention — all distances from Pole P; toward incident light = positive' },
+                { src: '/images/light/magnification-formula-illustrated.png', caption: 'Magnification m = h′/h = −v/u | negative m → Real, Inverted | positive m → Virtual, Erect' },
+                { src: '/images/light/mirror-formula-diagram.png', caption: '1/v + 1/u = 1/f — Mirror formula: f, v, u all measured from Pole P along principal axis' },
+                { src: '/images/light/light_sign_convention_nano_banana_1781204233503.png', caption: 'Sign Convention summary: Real object u < 0 | Concave f < 0 | Convex f > 0' },
+                { src: '/images/light/light_magnification_formula_nano_banana_1781204215500.png', caption: 'm = −v/u: |m| > 1 magnified | |m| < 1 diminished | |m| = 1 same size' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
@@ -938,8 +1136,78 @@ export default function ReflectionPage() {
               </ul>
             </div>
 
-            {/* ★ SIMULATION 4 — Mirror Formula Live Calculator */}
-            <MirrorFormulaCalcSim />
+            {/* ★ SOLVED EXAMPLES — Mirror Formula (before calculator) */}
+            <div className={styles.solvedExamples}>
+              <h3 className={styles.solvedExamplesTitle}>📝 Solved Examples — Mirror Formula & Magnification</h3>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 1 — Standard Board Numerical</div>
+                <p className={styles.exampleQ}>An object is placed at 40 cm from a concave mirror of focal length 20 cm. Using the mirror formula, find the position, size (if object h=3cm) and nature of image.</p>
+                <div className={styles.exampleSol}>{`Given: u = −40 cm, f = −20 cm, h = 3 cm
+
+1/v = 1/f − 1/u = 1/(−20) − 1/(−40) = −1/20 + 1/40 = −1/40
+
+v = `}<span className={styles.highlight}>−40 cm</span>{`   → Real image, 40 cm in front of mirror (at C)
+
+m = −v/u = −(−40)/(−40) = `}<span className={styles.highlight}>−1</span>{`
+
+h' = m × h = −1 × 3 = `}<span className={styles.highlight}>−3 cm</span>{`   (inverted, same size)`}
+                  <span className={styles.answer}>∴ Image at 40 cm in front | Real | Inverted | Same size as object</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 2 — Find Object Position</div>
+                <p className={styles.exampleQ}>A concave mirror of focal length 10 cm forms a real image 3× magnified. Find the object distance.</p>
+                <div className={styles.exampleSol}>{`Given: f = −10 cm, m = −3 (real → negative m)
+
+From m = −v/u:  −3 = −v/u → v = 3u
+
+Using Mirror Formula: 1/v + 1/u = 1/f
+1/(3u) + 1/u = 1/(−10)
+(1 + 3)/(3u) = −1/10
+4/(3u) = −1/10
+u = `}<span className={styles.highlight}>−40/3 ≈ −13.3 cm</span>
+                  <span className={styles.answer}>∴ Object placed at 13.3 cm in front of mirror | v = 3×13.3 = 40 cm in front</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 3 — Power & Focal Length Relationship</div>
+                <p className={styles.exampleQ}>A spherical mirror has focal length 25 cm. Find its radius of curvature. If an object is placed at infinity, where does its image form?</p>
+                <div className={styles.exampleSol}>{`Given: f = 25 cm (concave) → f = −25 cm
+
+R = 2f = 2 × 25 = `}<span className={styles.highlight}>50 cm</span>{`
+
+Object at infinity: 1/u = 0
+1/v = 1/f − 1/u = 1/(−25) − 0 = 1/(−25)
+
+v = `}<span className={styles.highlight}>−25 cm</span>{`   → Image forms at Focus F`}
+                  <span className={styles.answer}>∴ R = 50 cm | Image at Focus F (25 cm in front) — Real, Point-sized, Inverted</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 4 — Negative Magnification Problem</div>
+                <p className={styles.exampleQ}>The magnification produced by a spherical mirror is +1/3. Is it concave or convex? Also find object distance if focal length is 30 cm.</p>
+                <div className={styles.exampleSol}>{`Given: m = +1/3 (positive → Virtual, Erect, Diminished → CONVEX mirror!)
+
+From m = −v/u:  +1/3 = −v/u → v = −u/3
+
+Given f = +30 cm (convex), Using mirror formula:
+1/v + 1/u = 1/f
+1/(−u/3) + 1/u = 1/30
+−3/u + 1/u = 1/30
+−2/u = 1/30
+
+u = `}<span className={styles.highlight}>−60 cm</span>{`   v = −(−60)/3 = +20 cm`}
+                  <span className={styles.answer}>∴ It is a CONVEX mirror | Object at 60 cm in front | Image 20 cm behind mirror</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ★ SIMULATION 4 — Mirror Formula Live Calculator (lazy-loaded) */}
+            <LazyMount><MirrorFormulaCalcSim /></LazyMount>
           </section>
 
           {/* APPLICATIONS */}
@@ -947,10 +1215,11 @@ export default function ReflectionPage() {
             <h2>🌟 Real-Life Applications</h2>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/concave-mirror-applications.png', caption: '🌟 Concave mirror applications — solar cooker, headlight, satellite dish (all use converging property)' },
-                { src: '/images/light/solar-cooker.png', caption: '☀️ Solar Cooker — parabolic concave mirror focuses sunlight; reaches 150–200°C without fuel' },
-                { src: '/images/light/rearview-mirror.png', caption: '🚗 Rear-View Mirror — convex mirror; wide 120° field of view vs 30° for plane mirror' },
-                { src: '/images/light/light_mirror_formula_nano_banana_1781204199040.png', caption: '🔭 Reflecting Telescope — large concave primary mirror gathers faint starlight' },
+                { src: '/images/light/concave-mirror-real-applications.png', caption: '🌟 Concave mirror applications — solar cooker, dentist mirror, headlight torch, satellite dish' },
+                { src: '/images/light/concave-mirror-applications.png', caption: '☀️ Solar cooker (concave) focuses sunlight to 150–200°C; headlight creates parallel beam' },
+                { src: '/images/light/solar-cooker.png', caption: '☀️ Solar Cooker — parabolic concave mirror; object at F → parallel reflected beam (reverse!)' },
+                { src: '/images/light/rearview-mirror.png', caption: '🚗 Rear-View Mirror (convex) — always virtual, erect, diminished image; 120° wide field vs 30° plane' },
+                { src: '/images/light/light_mirror_formula_nano_banana_1781204199040.png', caption: '🔭 Reflecting Telescope — large concave primary mirror gathers faint light from distant stars' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
