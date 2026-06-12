@@ -21,7 +21,7 @@ export const revalidate = 300;
 
 export const metadata = {
   title: "Leaderboard",
-  description: "See where you stand among the best learners on VidyaBolt. Global and class-specific rankings.",
+  description: "See where you stand among the best learners on LearnVeda. Global and class-specific rankings.",
   icons: {
     icon: "/favicons/leaderboard.svg",
   },

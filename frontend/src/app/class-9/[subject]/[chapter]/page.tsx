@@ -59,13 +59,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data) {
     return {
-      title: "Chapter Practice | VidyaBolt",
-      description: "Practice concept questions on VidyaBolt.",
+      title: "Chapter Practice | LearnVeda",
+      description: "Practice concept questions on LearnVeda.",
     };
   }
 
   return {
-    title: `${data.chapterName} - Chapter Practice | VidyaBolt`,
+    title: `${data.chapterName} - Chapter Practice | LearnVeda`,
     description: `Interactive questions on ${data.chapterName} for Class 9 ${data.subjectName}. Earn XP points and clear your concepts.`,
   };
 }

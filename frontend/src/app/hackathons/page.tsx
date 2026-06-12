@@ -4,7 +4,7 @@ import HackathonsClient from "./HackathonsClient";
 import SchemaMarkup from "@/components/seo/SchemaMarkup";
 
 export const metadata: Metadata = {
-  title: "Hackathons & Challenges | VidyaBolt",
+  title: "Hackathons & Challenges | LearnVeda",
   description: "Discover and participate in premium coding hackathons. Build real-world projects, win prizes, and showcase your skills.",
 };
 
@@ -49,7 +49,7 @@ export default function HackathonsPage() {
       <SchemaMarkup 
         type="FAQPage" 
         data={[
-          { question: "What is an VidyaBolt Hackathon?", answer: "It is a coding competition to build real-world projects." },
+          { question: "What is an LearnVeda Hackathon?", answer: "It is a coding competition to build real-world projects." },
           { question: "Is it free to join?", answer: "Yes, all our hackathons are free to join." }
         ]}
       />

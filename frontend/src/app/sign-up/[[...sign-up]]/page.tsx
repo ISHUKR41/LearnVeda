@@ -3,7 +3,7 @@
  * LOCATION: src/app/sign-up/[[...sign-up]]/page.tsx
  * PURPOSE: Clerk-powered sign-up page. [[...sign-up]] catch-all lets Clerk handle
  *          OAuth callbacks and multi-step email verification. Left panel shows
- *          VidyaBolt benefits; right panel renders Clerk's <SignUp> component.
+ *          LearnVeda benefits; right panel renders Clerk's <SignUp> component.
  * LAST UPDATED: 2026-06-01
  */
 
@@ -13,11 +13,11 @@ import { BookOpen, Brain, Star, Users } from "lucide-react";
 import styles from "../SignUp.module.css";
 
 export const metadata = {
-  title: "Create Account — VidyaBolt",
-  description: "Join thousands of Indian students on VidyaBolt. Study smarter with gamified learning, XP, streaks, and live quiz battles.",
+  title: "Create Account — LearnVeda",
+  description: "Join thousands of Indian students on LearnVeda. Study smarter with gamified learning, XP, streaks, and live quiz battles.",
 };
 
-/* Clerk component appearance — matches VidyaBolt dark design system.
+/* Clerk component appearance — matches LearnVeda dark design system.
  * Note: @clerk/nextjs v7+ uses inline appearance config directly. */
 const clerkAppearance = {
   variables: {
@@ -80,7 +80,7 @@ export default function SignUpPage() {
           {/* Logo */}
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, color: "#34D399", textDecoration: "none", fontWeight: 700, fontSize: 18 }}>
             <BookOpen size={22} aria-hidden="true" />
-            <span>VidyaBolt</span>
+            <span>LearnVeda</span>
           </Link>
 
           {/* Middle: benefit cards */}

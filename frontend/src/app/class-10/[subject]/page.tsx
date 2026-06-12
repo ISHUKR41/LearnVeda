@@ -30,14 +30,14 @@ export async function generateMetadata({ params }: { params: Promise<{ subject: 
 
   if (!plan) {
     return {
-      title: "Class 10 Subject Plan | VidyaBolt",
-      description: "Explore the Class 10 board exam learning plan on VidyaBolt.",
+      title: "Class 10 Subject Plan | LearnVeda",
+      description: "Explore the Class 10 board exam learning plan on LearnVeda.",
     };
   }
 
-  const title = `${plan.title} — ${plan.eyebrow} | VidyaBolt`;
+  const title = `${plan.title} — ${plan.eyebrow} | LearnVeda`;
   const description = plan.description;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vidyabolt.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnveda.in";
 
   return {
     title,
@@ -68,11 +68,11 @@ export default async function Class10SubjectPage({ params }: { params: Promise<{
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vidyabolt.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnveda.in";
   const courseSchema = generateCourseSchema({
     name: `${plan.title} — ${plan.eyebrow}`,
     description: plan.description,
-    providerName: "VidyaBolt Board Prep Team",
+    providerName: "LearnVeda Board Prep Team",
   });
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: baseUrl },

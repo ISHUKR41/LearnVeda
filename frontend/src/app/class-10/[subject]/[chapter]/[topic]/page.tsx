@@ -48,25 +48,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   /* Only deep-research chapters are served by this route */
   if (subject !== "science" || !CLASS10_SCIENCE_CHAPTERS[chapter]) {
-    return { title: "Topic Study | VidyaBolt" };
+    return { title: "Topic Study | LearnVeda" };
   }
 
   const chapterData = CLASS10_SCIENCE_CHAPTERS[chapter];
   const topicData   = chapterData.topics.find((t) => t.id === topic);
 
   if (!topicData) {
-    return { title: "Topic Not Found | VidyaBolt" };
+    return { title: "Topic Not Found | LearnVeda" };
   }
 
   const topicTitle = topicData.title.replace(/^\d+\.\s*/, ""); /* Strip "1. " prefix */
 
   return {
-    title: `${topicTitle} — ${chapterData.title} | Class 10 Science | VidyaBolt`,
+    title: `${topicTitle} — ${chapterData.title} | Class 10 Science | LearnVeda`,
     description: `Study ${topicTitle} from the ${chapterData.title} chapter. ` +
       `Includes detailed notes, flash cards, mind map, ${topicData.questions.length} practice questions, ` +
       `and exam summaries for CBSE Class 10.`,
     openGraph: {
-      title:       `${topicTitle} | VidyaBolt`,
+      title:       `${topicTitle} | LearnVeda`,
       description: `Class 10 Science — ${chapterData.title}: ${topicTitle}`,
       images:      topicData.imageUrl ? [topicData.imageUrl] : [],
     },

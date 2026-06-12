@@ -120,10 +120,10 @@ export const POINT_VALUES = {
 
 /** Site-wide metadata for SEO */
 export const SITE_CONFIG = {
-  name: "VidyaBolt",
+  name: "LearnVeda",
   tagline: "Learn. Battle. Level Up.",
-  description: "India's #1 gamified learning platform by Ishu — for Class 9-12 and Engineering students. Learn faster, battle smarter, level up daily.",
-  url: "https://vidyabolt.in",
+  description: "LearnVeda by Ishu — India's #1 gamified learning platform. CBSE Class 9-12, JEE, NEET, Engineering. Study, Battle, Level Up. Trusted by students across all 28 Indian states.",
+  url: "https://learnveda.in",
 } as const;
 
 /** Footer link columns */

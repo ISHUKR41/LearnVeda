@@ -40,7 +40,7 @@ const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
  */
 function getLevelUpMessage(level: number): string {
   if (level >= 100) return "You've reached the pinnacle — LEGEND status. An incredible achievement.";
-  if (level >= 75)  return "MASTER tier unlocked. You are in the top 1% of all VidyaBolt students.";
+  if (level >= 75)  return "MASTER tier unlocked. You are in the top 1% of all LearnVeda students.";
   if (level >= 50)  return "EXPERT status achieved. The hard work is paying off — keep going!";
   if (level >= 25)  return "SKILLED tier unlocked. Your consistency is building real knowledge.";
   if (level >= 10)  return "APPRENTICE tier achieved. The journey is just getting started — stay consistent!";

@@ -1,7 +1,7 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/test/page.tsx
- * PURPOSE: Test Center — the hub for all assessment activity on VidyaBolt.
+ * PURPOSE: Test Center — the hub for all assessment activity on LearnVeda.
  *          Presents three main assessment categories (Chapter Practice,
  *          Timed Mock Exams, and Coding Checkpoints) plus live subject
  *          stats pulled from the database so students see real chapter counts.
@@ -55,7 +55,7 @@ import styles from "./TestCenter.module.css";
 export const revalidate = 1800;
 
 export const metadata = {
-  title: "Test Center — Practice, Mocks & Assessments | VidyaBolt",
+  title: "Test Center — Practice, Mocks & Assessments | LearnVeda",
   description:
     "Chapter quizzes, full-length CBSE mock exams, and coding checkpoints — all in one focused assessment hub. Track your progress with instant analytics.",
 };
@@ -387,12 +387,12 @@ export default function TestCenterPage() {
       <section className={styles.trustSection}>
         <div className={styles.trustInner}>
           <div className={styles.trustCopy}>
-            <div className={styles.sectionLabel}><span>Why VidyaBolt Tests?</span></div>
+            <div className={styles.sectionLabel}><span>Why LearnVeda Tests?</span></div>
             <h2 className={styles.trustTitle}>
               Tests built for real growth — not just numbers on a screen.
             </h2>
             <p className={styles.trustDesc}>
-              Every assessment on VidyaBolt is aligned to the NCERT syllabus, reviewed
+              Every assessment on LearnVeda is aligned to the NCERT syllabus, reviewed
               by subject experts, and backed by an analytics engine that shows you exactly
               where to improve — not just your final score.
             </p>

@@ -1,7 +1,7 @@
 /**
  * FILE: layout.tsx
  * LOCATION: src/app/layout.tsx
- * PURPOSE: Root layout for the entire VidyaBolt application.
+ * PURPOSE: Root layout for the entire LearnVeda application.
  *          Wraps every page with the Navbar, Footer, all global providers
  *          (TanStack Query, React Hot Toast, Zustand theme sync), global styles,
  *          font imports, and SEO metadata defaults.
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   description: SITE_CONFIG.description,
   keywords: [
     /* Brand & Creator */
-    "VidyaBolt", "VidyaBolt by Ishu", "VidyaBolt India", "vidyabolt.in",
+    "LearnVeda", "LearnVeda by Ishu", "LearnVeda India", "learnveda.in",
     "ishu", "ishu website", "ishu education", "ishu learning platform",
     "ishu study platform", "ishu gamified learning", "education by ishu",
     "ishu India", "ishu CBSE", "ishu class 9", "ishu class 10",
@@ -122,9 +122,9 @@ export const metadata: Metadata = {
     "flashcards online India", "mind maps study",
     "mock tests online CBSE", "chapter-wise tests India",
     /* Long-tail SEO */
-    "VidyaBolt login", "VidyaBolt sign up", "VidyaBolt app",
-    "VidyaBolt dashboard", "VidyaBolt battle arena",
-    "VidyaBolt community", "VidyaBolt leaderboard",
+    "LearnVeda login", "LearnVeda sign up", "LearnVeda app",
+    "LearnVeda dashboard", "LearnVeda battle arena",
+    "LearnVeda community", "LearnVeda leaderboard",
     "best app to study for CBSE board", "gamified study for Indian students",
     "study platform with games India", "learn CBSE with battles",
     "skills.sh", "getdesign.md"
@@ -142,10 +142,10 @@ export const metadata: Metadata = {
     url: SITE_CONFIG.url,
     images: [
       {
-        url: "/images/vidyabolt-home-hero.png",
+        url: "/images/learnveda-home-hero.png",
         width: 1200,
         height: 630,
-        alt: "VidyaBolt — India's Gamified Learning Platform",
+        alt: "LearnVeda — India's Gamified Learning Platform",
       },
     ],
   },
@@ -153,7 +153,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`,
     description: SITE_CONFIG.description,
-    images: ["/images/vidyabolt-home-hero.png"],
+    images: ["/images/learnveda-home-hero.png"],
   },
   robots: {
     index: true,
@@ -182,7 +182,7 @@ interface RootLayoutProps {
 }
 
 /**
- * RootLayout — the outermost shell of the VidyaBolt application.
+ * RootLayout — the outermost shell of the LearnVeda application.
  *
  * Structure:
  *   <html>
@@ -218,7 +218,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "EducationalOrganization",
-                "name": "VidyaBolt by Ishu",
+                "name": "LearnVeda by Ishu",
                 "url": SITE_CONFIG.url,
                 "logo": `${SITE_CONFIG.url}/favicons/home.svg`,
                 "sameAs": [

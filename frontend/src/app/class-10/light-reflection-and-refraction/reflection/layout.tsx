@@ -9,10 +9,10 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://vidyabolt.in';
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://learnveda.in';
 
 export const metadata: Metadata = {
-  title: 'Reflection of Light – Class 10 Physics | Ishu Website | Mirror Formula, Ray Diagrams | VidyaBolt',
+  title: 'Reflection of Light – Class 10 Physics | Ishu Website | Mirror Formula, Ray Diagrams | LearnVeda',
   description:
     'Master Reflection of Light for Class 10 CBSE Boards on Ishu Website. Ranked #1 for laws of reflection, plane mirrors, concave & convex spherical mirrors, mirror formula (1/v + 1/u = 1/f), magnification, image formation cases, real-life applications. Interactive simulations, 20+ images, 5 solved numericals, flashcards & mind map.',
   keywords: [
@@ -39,13 +39,13 @@ export const metadata: Metadata = {
     'radius of curvature focal length relationship',
     'R=2f mirror formula', 'image distance object distance mirror',
     'prakaash pratyavartan kaksha 10', 'darpan sutra',
-    'VidyaBolt class 10 physics', '#1 class 10 physics website',
+    'LearnVeda class 10 physics', '#1 class 10 physics website',
     'best class 10 reflection notes', 'interactive reflection simulation',
     'class 10 board exam preparation', 'CBSE board exam physics notes',
   ],
-  authors: [{ name: 'Ishu / VidyaBolt' }],
+  authors: [{ name: 'Ishu / LearnVeda' }],
   creator: 'Ishu',
-  publisher: 'VidyaBolt by Ishu',
+  publisher: 'LearnVeda by Ishu',
   robots: {
     index: true,
     follow: true,
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     description:
       'Complete interactive notes on Reflection of Light for Class 10 by Ishu. Mirror formula, all image cases, 5 numericals, simulations, flashcards & mind map. #1 ranked study material.',
     url: `${BASE}/class-10/light-reflection-and-refraction/reflection`,
-    siteName: 'Ishu / VidyaBolt',
+    siteName: 'Ishu / LearnVeda',
     images: [
       {
         url: `${BASE}/images/light/concave-mirror-5-cases.png`,
@@ -105,14 +105,14 @@ const jsonLd = {
   author: { '@type': 'Person', name: 'Ishu' },
   provider: {
     '@type': 'EducationalOrganization',
-    name: 'VidyaBolt by Ishu',
+    name: 'LearnVeda by Ishu',
     url: BASE,
   },
   isPartOf: {
     '@type': 'Course',
     name: 'Class 10 Science: Light – Reflection and Refraction',
     url: `${BASE}/class-10/light-reflection-and-refraction`,
-    provider: { '@type': 'EducationalOrganization', name: 'VidyaBolt by Ishu', url: BASE },
+    provider: { '@type': 'EducationalOrganization', name: 'LearnVeda by Ishu', url: BASE },
   },
 };
 

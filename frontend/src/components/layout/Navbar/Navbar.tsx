@@ -42,10 +42,10 @@ function NavbarShell({ pathname }: { pathname: string }) {
 
   useEffect(() => {
     setMounted(true);
-    const stored = localStorage.getItem("vidyabolt-theme");
+    const stored = localStorage.getItem("learnveda-theme");
     const prefersDark = stored ? stored === "dark" : true;
     setIsDark(prefersDark);
-    if (!stored) localStorage.setItem("vidyabolt-theme", "dark");
+    if (!stored) localStorage.setItem("learnveda-theme", "dark");
   }, []);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ function NavbarShell({ pathname }: { pathname: string }) {
   const toggleTheme = () => {
     const newDark = !isDark;
     setIsDark(newDark);
-    localStorage.setItem("vidyabolt-theme", newDark ? "dark" : "light");
+    localStorage.setItem("learnveda-theme", newDark ? "dark" : "light");
   };
 
   /* Sign out — calls the API to clear the server session cookie, then clears local state */
@@ -120,7 +120,7 @@ function NavbarShell({ pathname }: { pathname: string }) {
 
         <Link href="/" className={styles.logo}>
           <BookOpen className={styles.logoIcon} size={20} />
-          <span className={styles.logoText}>VidyaBolt</span>
+          <span className={styles.logoText}>LearnVeda</span>
         </Link>
 
         <ul className={styles.navLinks}>
@@ -216,7 +216,7 @@ function NavbarShell({ pathname }: { pathname: string }) {
           <div className={styles.mobileOverlay} onClick={() => setIsMobileMenuOpen(false)} />
           <div className={styles.mobileDrawer}>
             <div className={styles.drawerHeader}>
-              <span className={styles.logoText}>VidyaBolt</span>
+              <span className={styles.logoText}>LearnVeda</span>
               <button onClick={() => setIsMobileMenuOpen(false)} className={styles.closeBtn}><X size={24} /></button>
             </div>
             <div className={styles.drawerSection}>

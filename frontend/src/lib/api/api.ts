@@ -1,7 +1,7 @@
 /**
  * FILE: api.ts
  * LOCATION: frontend/src/lib/api/api.ts
- * PURPOSE: Central API client for communicating with VidyaBolt Next.js API routes.
+ * PURPOSE: Central API client for communicating with LearnVeda Next.js API routes.
  *          Uses relative URLs (/api/*) so it works both locally and in production
  *          without any environment variable changes.
  *
@@ -52,7 +52,7 @@ export function clearTokens(): void {
 }
 
 /* ─────────────────────────────────────────────
- * Axios Instance — all VidyaBolt API calls go through this
+ * Axios Instance — all LearnVeda API calls go through this
  * ───────────────────────────────────────────── */
 const api: AxiosInstance = axios.create({
   baseURL:         API_BASE_URL,

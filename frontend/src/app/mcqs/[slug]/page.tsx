@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: PageProps) {
       title: mcq.seoTitle,
       description: mcq.metaDescription,
       type: "website",
-      url: `https://vidyabolt.in/mcqs/${slug}`,
+      url: `https://learnveda.in/mcqs/${slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -71,7 +71,7 @@ export default async function MCQSlugPage({ params }: PageProps) {
   const courseSchema = generateCourseSchema({
     name: mcq.title,
     description: mcq.metaDescription,
-    providerName: "VidyaBolt Curriculum Board",
+    providerName: "LearnVeda Curriculum Board",
   });
 
   const faqItems = mcq.questions.map((q) => ({

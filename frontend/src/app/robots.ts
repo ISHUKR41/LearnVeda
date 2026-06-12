@@ -1,7 +1,7 @@
 /**
  * FILE: robots.ts
  * LOCATION: src/app/robots.ts
- * PURPOSE: Dynamically generates the robots.txt rules for VidyaBolt.
+ * PURPOSE: Dynamically generates the robots.txt rules for LearnVeda.
  *          Tells search engines how to crawl the site, which paths are disallowed,
  *          and dynamically sets the absolute canonical path to our XML sitemap.
  *
@@ -17,7 +17,7 @@
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vidyabolt.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://learnveda.in";
 
   return {
     rules: {

@@ -13,7 +13,7 @@
  *   5. Sim_light_snell_tir_calc       — n₁/n₂ sliders → live critical angle formula
  *
  * DESIGN SYSTEM:
- *   - Background: #0B1120 → #0a1628 gradient (VidyaBolt dark navy)
+ *   - Background: #0B1120 → #0a1628 gradient (LearnVeda dark navy)
  *   - Light rays: glowing cyan/yellow with shadowBlur
  *   - Labels: amber (#fbbf24), axis: #334155
  *   - All simulations are touch-friendly (mouse + pointer events)

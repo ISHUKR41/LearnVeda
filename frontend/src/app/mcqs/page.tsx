@@ -31,9 +31,9 @@ export default function MCQCatalogPage() {
 
   // Generate aggregate Course schema for crawl bots representation
   const catalogSchema = generateCourseSchema({
-    name: "VidyaBolt Curriculum MCQ Assessments & Online Quizzes",
+    name: "LearnVeda Curriculum MCQ Assessments & Online Quizzes",
     description: "Verified academic CBSE chapter tests and SDE screening practice mock assessments.",
-    providerName: "VidyaBolt Board of Assessments"
+    providerName: "LearnVeda Board of Assessments"
   });
 
   return (

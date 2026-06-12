@@ -1,7 +1,7 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/pricing/page.tsx
- * PURPOSE: Professional pricing page for VidyaBolt. Shows three clear tiers —
+ * PURPOSE: Professional pricing page for LearnVeda. Shows three clear tiers —
  *          Free, Student Pro, and School Partner — with feature comparisons and
  *          a clear hierarchy of value. The Free tier covers all current features.
  *          Pro and School tiers are future-positioned with honest messaging.
@@ -24,7 +24,7 @@ export const revalidate = 86400;
 
 export const metadata = {
   title: "Pricing",
-  description: "VidyaBolt is free for all students. Explore our plans and see exactly what's included.",
+  description: "LearnVeda is free for all students. Explore our plans and see exactly what's included.",
 };
 
 /**
@@ -93,7 +93,7 @@ const PRICING_PLANS = [
     badge: "For Institutions",
     price: "Custom",
     period: "per institution",
-    description: "Complete VidyaBolt deployment for schools with teacher dashboards and bulk enrollment.",
+    description: "Complete LearnVeda deployment for schools with teacher dashboards and bulk enrollment.",
     gradient: "linear-gradient(135deg, #0F766E, #10B981)",
     badgeClass: "badgeSchool",
     popular: false,
@@ -158,7 +158,7 @@ export default function PricingPage() {
             Start free. Upgrade when you&apos;re ready.
           </h1>
           <p className={styles.heroSubtitle}>
-            Every core VidyaBolt feature is free forever — class tracks, battles, streaks, leaderboard.
+            Every core LearnVeda feature is free forever — class tracks, battles, streaks, leaderboard.
             Pro tools for serious exam prep are coming soon.
           </p>
         </div>
@@ -311,7 +311,7 @@ export default function PricingPage() {
           {/* Bottom CTA */}
           <div className={styles.finalCta}>
             <h2>Ready to start learning?</h2>
-            <p>Join thousands of students already using VidyaBolt — completely free.</p>
+            <p>Join thousands of students already using LearnVeda — completely free.</p>
             <Link href="/sign-up" className={styles.finalCtaBtn}>
               Create Free Account
               <ArrowRight size={15} />

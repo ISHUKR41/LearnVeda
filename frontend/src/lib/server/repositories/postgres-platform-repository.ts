@@ -1,7 +1,7 @@
 /**
  * FILE: postgres-platform-repository.ts
  * LOCATION: src/lib/server/repositories/postgres-platform-repository.ts
- * PURPOSE: PostgreSQL implementation of the VidyaBolt backend repository
+ * PURPOSE: PostgreSQL implementation of the LearnVeda backend repository
  *          contracts. It stores durable production data while preserving the
  *          same service-facing API used by the local JSON adapter.
  * USED BY: get-platform-repository.ts when EDUQUEST_PERSISTENCE_ADAPTER=postgres

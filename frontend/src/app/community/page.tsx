@@ -17,7 +17,7 @@ export const revalidate = 120;
 
 export const metadata = {
   title: "Community",
-  description: "Join discussions, ask questions, and help others on the VidyaBolt community forums.",
+  description: "Join discussions, ask questions, and help others on the LearnVeda community forums.",
   icons: {
     icon: "/favicons/community.svg",
   },

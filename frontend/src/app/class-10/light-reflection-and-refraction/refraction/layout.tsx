@@ -9,10 +9,10 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://vidyabolt.in';
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://learnveda.in';
 
 export const metadata: Metadata = {
-  title: "Refraction of Light – Class 10 Physics | Ishu Website | Snell's Law, TIR, Optical Fibre | VidyaBolt",
+  title: "Refraction of Light – Class 10 Physics | Ishu Website | Snell's Law, TIR, Optical Fibre | LearnVeda",
   description:
     "Master Refraction of Light for Class 10 CBSE Boards on Ishu Website. #1 ranked study material on Snell's Law, refractive index, glass slab lateral displacement, Total Internal Reflection, critical angle, optical fibre, prism & dispersion. Interactive simulations, 30+ images, 5 solved numericals, flashcards & mind map by Ishu.",
   keywords: [
@@ -34,12 +34,12 @@ export const metadata: Metadata = {
     'why pencil looks bent in water', 'atmospheric refraction twinkling stars',
     'apvartan class 10', 'prakaash apvartan',
     'class 10 board exam preparation', 'best refraction notes class 10',
-    'interactive refraction simulation', 'VidyaBolt class 10 physics',
+    'interactive refraction simulation', 'LearnVeda class 10 physics',
     '#1 class 10 refraction notes', 'best physics notes refraction',
   ],
-  authors: [{ name: 'Ishu / VidyaBolt' }],
+  authors: [{ name: 'Ishu / LearnVeda' }],
   creator: 'Ishu',
-  publisher: 'VidyaBolt by Ishu',
+  publisher: 'LearnVeda by Ishu',
   robots: {
     index: true,
     follow: true,
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     description:
       "#1 Interactive notes on Refraction of Light by Ishu. Snell's Law, refractive index, TIR, critical angle, optical fibre, prism dispersion with solved numericals and simulations.",
     url: `${BASE}/class-10/light-reflection-and-refraction/refraction`,
-    siteName: 'VidyaBolt by Ishu',
+    siteName: 'LearnVeda by Ishu',
     images: [
       {
         url: `${BASE}/images/light/snells-law-complete-diagram.png`,
@@ -94,12 +94,12 @@ const jsonLd = {
   ],
   inLanguage: 'en-IN',
   author: { '@type': 'Person', name: 'Ishu' },
-  provider: { '@type': 'EducationalOrganization', name: 'VidyaBolt by Ishu', url: BASE },
+  provider: { '@type': 'EducationalOrganization', name: 'LearnVeda by Ishu', url: BASE },
   isPartOf: {
     '@type': 'Course',
     name: 'Class 10 Science: Light – Reflection and Refraction',
     url: `${BASE}/class-10/light-reflection-and-refraction`,
-    provider: { '@type': 'EducationalOrganization', name: 'VidyaBolt by Ishu', url: BASE },
+    provider: { '@type': 'EducationalOrganization', name: 'LearnVeda by Ishu', url: BASE },
   },
 };
 

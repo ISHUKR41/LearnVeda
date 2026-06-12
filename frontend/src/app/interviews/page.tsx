@@ -31,9 +31,9 @@ export default function InterviewCatalogPage() {
 
   // Generate aggregate Course schema for crawler visibility
   const catalogSchema = generateCourseSchema({
-    name: "VidyaBolt SDE Technical Interview Catalog & Solved Sheets",
+    name: "LearnVeda SDE Technical Interview Catalog & Solved Sheets",
     description: "Verified computer science placement lecture sheets and viva answers prepared by top IIT CSE professors.",
-    providerName: "VidyaBolt SDE Review Board"
+    providerName: "LearnVeda SDE Review Board"
   });
 
   return (
@@ -110,7 +110,7 @@ export default function InterviewCatalogPage() {
 
         {/* Structured FAQ or Zero-Click snippets block */}
         <section className={styles.featuresSection}>
-          <h3 className={styles.featuresTitle}>Why Use VidyaBolt Solved Placement Sheets?</h3>
+          <h3 className={styles.featuresTitle}>Why Use LearnVeda Solved Placement Sheets?</h3>
           <div className={styles.featuresGrid}>
             <div className={styles.featureItem}>
               <Sparkles size={32} className="text-cyan-600 mb-2" />

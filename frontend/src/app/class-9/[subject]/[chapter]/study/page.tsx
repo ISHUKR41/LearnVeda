@@ -78,7 +78,7 @@ export async function generateMetadata({
   /* If chapter doesn't exist in registry, return fallback metadata */
   if (!chapter) {
     return {
-      title: "Chapter Study | VidyaBolt",
+      title: "Chapter Study | LearnVeda",
       description:
         "Deep-dive into chapter concepts with interactive study material and question bank.",
     };
@@ -92,7 +92,7 @@ export async function generateMetadata({
   );
 
   return {
-    title: `${content.title} — ${content.classLevel} ${content.subject} Study | VidyaBolt`,
+    title: `${content.title} — ${content.classLevel} ${content.subject} Study | LearnVeda`,
     description: `${content.overview} Covers ${topicCount} topics and ${subtopicCount} subtopics with key formulas, real-world examples, and a 100-question bank. NCERT aligned.`,
     keywords: [
       content.title,
@@ -108,7 +108,7 @@ export async function generateMetadata({
       "inertia",
     ],
     openGraph: {
-      title: `${content.title} — Complete Study Guide | VidyaBolt`,
+      title: `${content.title} — Complete Study Guide | LearnVeda`,
       description: content.overview,
       type: "article",
     },
@@ -132,7 +132,7 @@ export default async function ChapterStudyPage({ params }: PageProps) {
   /* Construct the back navigation URL to the parent chapter page */
   const backUrl = `/class-9/${resolvedParams.subject}/${resolvedParams.chapter}`;
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vidyabolt.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://learnveda.in";
 
   // 1. Dynamic Course Schema
   const courseSchema = {
@@ -142,7 +142,7 @@ export default async function ChapterStudyPage({ params }: PageProps) {
     "description": chapter.content.overview,
     "provider": {
       "@type": "Organization",
-      "name": "VidyaBolt",
+      "name": "LearnVeda",
       "sameAs": baseUrl
     }
   };

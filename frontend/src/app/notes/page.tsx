@@ -32,9 +32,9 @@ export default function NotesCatalogPage() {
 
   // Generate aggregate Course schema block to declare this catalog list to search bots
   const catalogSchema = generateCourseSchema({
-    name: "VidyaBolt Academic Lecture Notes & Study Syllabus",
+    name: "LearnVeda Academic Lecture Notes & Study Syllabus",
     description: "Verified semester exam revision guides and school curriculum syllabus handouts prepared by university professors.",
-    providerName: "VidyaBolt Board of CSE Studies"
+    providerName: "LearnVeda Board of CSE Studies"
   });
 
   return (
@@ -115,7 +115,7 @@ export default function NotesCatalogPage() {
 
         {/* Zero-Click Study Checklist Section */}
         <section className={styles.studyFeatures}>
-          <h3 className={styles.featuresTitle}>Why Study on VidyaBolt Knowledge Hub?</h3>
+          <h3 className={styles.featuresTitle}>Why Study on LearnVeda Knowledge Hub?</h3>
           <div className={styles.featuresGrid}>
             <div className={styles.featureItem}>
               <GraduationCap size={32} className="text-blue-600 mb-2" />

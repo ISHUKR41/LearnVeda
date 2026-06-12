@@ -19,7 +19,7 @@ import styles from "./Class11.module.css";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Class 11 — Choose Your Stream | VidyaBolt",
+  title: "Class 11 — Choose Your Stream | LearnVeda",
   description:
     "Class 11 learning tracks for Science, Commerce, and Arts streams. Deep subject coverage with structured day-wise plans for every subject.",
   icons: {
@@ -43,7 +43,7 @@ const Class11StreamSelector = dynamic(() => import("./Class11StreamSelector"), {
 });
 
 /* ─────────────────────────────────────────────
- * WHY_CARDS — reasons to choose VidyaBolt for Class 11
+ * WHY_CARDS — reasons to choose LearnVeda for Class 11
  * ───────────────────────────────────────────── */
 const WHY_CARDS = [
   {
@@ -136,7 +136,7 @@ export default function Class11Page() {
         {/* ==================== WHY CLASS 11 ==================== */}
         <div className={styles.whySection}>
           <div className={styles.whySectionHeader}>
-            <h2 className={styles.sectionTitle}>Why VidyaBolt for Class 11?</h2>
+            <h2 className={styles.sectionTitle}>Why LearnVeda for Class 11?</h2>
           </div>
 
           <div className={styles.whyGrid}>
