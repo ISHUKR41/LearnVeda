@@ -69,65 +69,87 @@ export const metadata: Metadata = {
   },
   description: SITE_CONFIG.description,
   keywords: [
-    /* Brand & Creator */
-    "LearnVeda", "LearnVeda by Ishu", "LearnVeda India", "learnveda.in",
-    "ishu", "ishu website", "ishu education", "ishu learning platform",
-    "ishu study platform", "ishu gamified learning", "education by ishu",
+    /* ── Brand: LearnVeda ── */
+    "LearnVeda", "LearnVeda India", "LearnVeda by Ishu", "learnveda.in",
+    "LearnVeda login", "LearnVeda sign up", "LearnVeda app", "LearnVeda free",
+    "LearnVeda dashboard", "LearnVeda battle arena", "LearnVeda community",
+    "LearnVeda leaderboard", "LearnVeda CBSE", "LearnVeda Class 10",
+    "LearnVeda Class 9", "LearnVeda Class 11", "LearnVeda Class 12",
+    "LearnVeda engineering", "LearnVeda review", "LearnVeda platform",
+    "what is LearnVeda", "LearnVeda kya hai", "LearnVeda for students",
+    /* ── Creator: Ishu (every possible search variation) ── */
+    "ishu", "ishu education", "ishu website", "ishu learning",
+    "ishu learning platform", "ishu study platform", "ishu gamified",
     "ishu India", "ishu CBSE", "ishu class 9", "ishu class 10",
-    "ishu class 11", "ishu class 12", "ishu engineering",
-    "ishu quiz battles", "ishu leaderboard", "ishu XP",
+    "ishu class 11", "ishu class 12", "ishu engineering platform",
+    "ishu quiz", "ishu quiz battles", "ishu leaderboard", "ishu XP",
+    "ishu ka website", "ishu education platform", "ishu study app",
+    "ishu online classes", "ishu competitive learning", "ishu board exam",
+    "education by ishu", "platform by ishu", "created by ishu",
+    "ishu JEE", "ishu NEET", "ishu coding", "ishu programming",
     "best education platform by ishu", "ishu's learning platform",
-    /* Platform */
-    "India's #1 gamified learning platform", "best education platform India",
-    "best education website India 2025", "1st rank education platform India",
-    "top learning platform India", "free online education platform India",
-    "gamified learning India", "quiz battle platform India",
-    "study and earn XP", "learn and battle India", "XP points education",
-    "streak learning India", "level up learning platform",
+    "ishu student platform", "ishu gamification education",
+    /* ── Platform & Mission ── */
+    "India's #1 gamified learning platform", "best education platform India 2025",
+    "best education website India", "top learning platform India",
+    "free online education India", "gamified learning India",
+    "quiz battle platform India", "study and earn XP India",
+    "learn and battle India", "XP points education platform",
+    "streak learning India", "level up learning India",
     "online study platform India", "India education gamification",
-    "competitive learning India", "battle quiz India",
-    /* CBSE Classes */
+    "competitive learning India", "battle quiz India students",
+    "study platform with leaderboard India", "earn XP while studying",
+    /* ── CBSE Classes ── */
     "CBSE Class 9", "CBSE Class 10", "CBSE Class 11", "CBSE Class 12",
-    "CBSE board exam preparation", "CBSE online study",
+    "CBSE board exam preparation", "CBSE online study 2025",
     "class 9 study platform", "class 10 study platform",
     "class 11 study platform", "class 12 study platform",
     "class 10 science notes", "class 10 light reflection refraction",
     "class 10 maths", "class 9 science", "class 11 physics",
     "class 12 chemistry", "CBSE chapter-wise study",
     "day-wise study plan India", "CBSE revision platform",
-    /* Engineering & Coding */
-    "engineering coding India", "learn coding India",
+    "class 10 board exam tips", "class 12 board exam tips",
+    /* ── Engineering & Coding ── */
+    "engineering coding India", "learn coding India free",
     "competitive programming India", "Python learning India",
     "Java learning platform India", "C++ tutorials India",
     "engineering coding roadmap", "30-day coding plan India",
     "programming for students India", "coding battles India",
-    /* Exams */
+    "DSA learning platform India", "web development course India",
+    /* ── Entrance Exams ── */
     "JEE preparation online", "NEET preparation online",
-    "JEE study platform", "NEET study platform",
-    "entrance exam India", "competitive exam India",
-    /* All-India State Coverage */
+    "JEE study platform India", "NEET study platform India",
+    "JEE Main 2025", "NEET 2025", "entrance exam India online",
+    "competitive exam India online", "JEE mock tests free",
+    /* ── All 28 Indian States ── */
     "study platform Maharashtra", "study platform Delhi",
-    "study platform UP", "study platform Bihar",
-    "study platform Rajasthan", "study platform MP",
+    "study platform Uttar Pradesh", "study platform Bihar",
+    "study platform Rajasthan", "study platform Madhya Pradesh",
     "study platform Tamil Nadu", "study platform Karnataka",
     "study platform Kerala", "study platform Gujarat",
     "study platform West Bengal", "study platform Andhra Pradesh",
     "study platform Telangana", "study platform Punjab",
     "study platform Haryana", "study platform Odisha",
+    "study platform Jharkhand", "study platform Assam",
+    "study platform Chhattisgarh", "study platform Uttarakhand",
+    "study platform Himachal Pradesh", "study platform Goa",
+    "study platform Manipur", "study platform Meghalaya",
+    "study platform Nagaland", "study platform Tripura",
+    "study platform Jammu Kashmir", "study platform Sikkim",
     "CBSE students India all states", "Hindi medium students online",
-    /* Features */
-    "online quiz battles", "real-time quiz platform",
-    "interactive physics simulations", "study leaderboard India",
-    "global leaderboard students", "student XP ranking",
-    "flashcards online India", "mind maps study",
-    "mock tests online CBSE", "chapter-wise tests India",
-    /* Long-tail SEO */
-    "LearnVeda login", "LearnVeda sign up", "LearnVeda app",
-    "LearnVeda dashboard", "LearnVeda battle arena",
-    "LearnVeda community", "LearnVeda leaderboard",
+    /* ── Features ── */
+    "online quiz battles education", "real-time quiz platform India",
+    "interactive physics simulations India", "study leaderboard India",
+    "global leaderboard students India", "student XP ranking India",
+    "flashcards online India", "mind maps study India",
+    "mock tests online CBSE free", "chapter-wise tests India",
+    "day-wise study plan CBSE", "gamified education streaks",
+    /* ── Long-tail Questions ── */
     "best app to study for CBSE board", "gamified study for Indian students",
     "study platform with games India", "learn CBSE with battles",
-    "skills.sh", "getdesign.md"
+    "how to rank 1 in class India", "best study website for class 10",
+    "best study website for class 12 India", "free CBSE study platform",
+    "online learning platform free India students", "study and win prizes India",
   ],
   authors: [{ name: SITE_CONFIG.name }],
   creator: SITE_CONFIG.name,
@@ -211,24 +233,120 @@ export default function RootLayout({ children }: RootLayoutProps) {
     >
       <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} dark`} data-theme="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
         <body>
-          {/* JSON-LD Schema for Google SEO & AI Bots */}
+          {/* JSON-LD Schema Block 1: WebSite with SearchAction — enables Google Sitelinks Search Box */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "LearnVeda",
+                "alternateName": ["LearnVeda by Ishu", "LearnVeda India", "learnveda.in"],
+                "url": SITE_CONFIG.url,
+                "description": SITE_CONFIG.description,
+                "inLanguage": "en-IN",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": `${SITE_CONFIG.url}/search?q={search_term_string}`
+                  },
+                  "query-input": "required name=search_term_string"
+                }
+              })
+            }}
+          />
+          {/* JSON-LD Schema Block 2: EducationalOrganization — tells Google this is a school/edu platform */}
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "EducationalOrganization",
-                "name": "LearnVeda by Ishu",
+                "name": "LearnVeda",
+                "alternateName": "LearnVeda by Ishu",
                 "url": SITE_CONFIG.url,
-                "logo": `${SITE_CONFIG.url}/favicons/home.svg`,
-                "sameAs": [
-                  "https://www.skills.sh/",
-                  "https://getdesign.md/"
-                ],
-                "description": "India's #1 gamified learning platform created by Ishu.",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": `${SITE_CONFIG.url}/favicons/home.svg`,
+                  "caption": "LearnVeda — India's #1 Gamified Learning Platform"
+                },
+                "description": "LearnVeda by Ishu — India's #1 gamified learning platform for CBSE Class 9–12 and Engineering students. Study, Battle, Level Up.",
+                "foundingDate": "2024",
                 "founder": {
                   "@type": "Person",
-                  "name": "Ishu"
+                  "name": "Ishu",
+                  "jobTitle": "Founder & Creator of LearnVeda",
+                  "description": "Ishu is the creator of LearnVeda, India's #1 gamified education platform for students.",
+                  "url": SITE_CONFIG.url,
+                  "sameAs": [SITE_CONFIG.url]
+                },
+                "areaServed": {
+                  "@type": "Country",
+                  "name": "India"
+                },
+                "knowsAbout": [
+                  "CBSE Class 9", "CBSE Class 10", "CBSE Class 11", "CBSE Class 12",
+                  "JEE Preparation", "NEET Preparation", "Engineering Coding",
+                  "Gamified Learning", "Quiz Battles", "Student Leaderboard"
+                ],
+                "audience": {
+                  "@type": "EducationalAudience",
+                  "educationalRole": "student",
+                  "geographicArea": "India"
+                }
+              })
+            }}
+          />
+          {/* JSON-LD Schema Block 3: Person schema for "Ishu" — makes Ishu searchable on Google */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "name": "Ishu",
+                "jobTitle": "Educator & Founder of LearnVeda",
+                "description": "Ishu is the founder and creator of LearnVeda — India's #1 gamified learning platform for CBSE Class 9–12 and Engineering students. Search 'ishu education' or 'ishu LearnVeda' to find this platform.",
+                "url": SITE_CONFIG.url,
+                "knowsAbout": [
+                  "Education Technology", "Gamified Learning", "CBSE Curriculum",
+                  "JEE Preparation", "NEET Preparation", "Engineering Education",
+                  "Online Learning Platforms", "India Education"
+                ],
+                "worksFor": {
+                  "@type": "EducationalOrganization",
+                  "name": "LearnVeda",
+                  "url": SITE_CONFIG.url
+                },
+                "nationality": {
+                  "@type": "Country",
+                  "name": "India"
+                }
+              })
+            }}
+          />
+          {/* JSON-LD Schema Block 4: SoftwareApplication — helps rank as an app in Google */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "LearnVeda",
+                "operatingSystem": "Web Browser",
+                "applicationCategory": "EducationApplication",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "INR"
+                },
+                "description": "LearnVeda by Ishu — Free gamified learning app for Indian students. CBSE Class 9–12, JEE, NEET, Engineering. Study, Battle, Level Up.",
+                "url": SITE_CONFIG.url,
+                "inLanguage": "en-IN",
+                "audience": {
+                  "@type": "EducationalAudience",
+                  "educationalRole": "student"
                 }
               })
             }}

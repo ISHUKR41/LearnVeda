@@ -20,8 +20,13 @@ import LeaderboardLoadingSkeleton from "./LeaderboardLoadingSkeleton";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "Leaderboard",
-  description: "See where you stand among the best learners on LearnVeda. Global and class-specific rankings.",
+  title: "Leaderboard — LearnVeda by Ishu | Top Students India",
+  description: "See India's top students on LearnVeda by Ishu. Global and class-specific rankings, XP scores, and streaks. Climb the leaderboard and become #1!",
+  keywords: [
+    "LearnVeda leaderboard", "ishu leaderboard", "top students India",
+    "student ranking India", "CBSE leaderboard online", "XP leaderboard India",
+    "best students leaderboard India", "ishu LearnVeda ranking",
+  ],
   icons: {
     icon: "/favicons/leaderboard.svg",
   },

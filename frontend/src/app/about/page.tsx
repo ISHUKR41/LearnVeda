@@ -37,9 +37,22 @@ export const revalidate = 3600;
 
 /** SEO metadata */
 export const metadata = {
-  title: "About LearnVeda — Our Mission & Vision",
+  title: "About LearnVeda by Ishu — Our Mission & Vision",
   description:
-    "Learn why LearnVeda combines structured academics, coding tracks, and safe learning battles to create the most effective gamified education platform for Class 9-12 and Engineering students.",
+    "LearnVeda was created by Ishu — India's #1 gamified learning platform for CBSE Class 9-12 and Engineering students. Learn about Ishu's mission to make education fun, competitive, and rewarding for every Indian student.",
+  keywords: [
+    "about LearnVeda", "LearnVeda by Ishu", "who created LearnVeda",
+    "ishu", "ishu education", "ishu LearnVeda creator", "ishu founder",
+    "ishu India education platform", "ishu gamified learning",
+    "LearnVeda mission", "LearnVeda vision", "LearnVeda story",
+    "gamified education India", "best education platform India",
+    "CBSE gamified learning", "ishu CBSE platform",
+  ],
+  openGraph: {
+    title: "About LearnVeda by Ishu — Our Mission & Vision",
+    description: "LearnVeda was created by Ishu — India's #1 gamified learning platform for CBSE Class 9–12 and Engineering students.",
+    type: "website",
+  },
 };
 
 /* ─────────────────────────────────────────────

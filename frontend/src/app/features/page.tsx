@@ -35,9 +35,14 @@ import styles from "./Features.module.css";
 export const revalidate = 43200;
 
 export const metadata = {
-  title: "Features — LearnVeda Platform",
+  title: "Features — LearnVeda by Ishu | Gamified Learning Platform India",
   description:
-    "Explore LearnVeda: NCERT-aligned day-wise study plans, animated physics simulations, XP leveling, real-time quiz battles, streaks, smart analytics, community forums, and anti-cheat protection for Class 9-12 and Engineering students.",
+    "LearnVeda by Ishu: NCERT-aligned day-wise study plans, animated simulations, XP leveling, real-time quiz battles, streaks, leaderboard, community forums. India's best free gamified education platform for CBSE Class 9-12 and Engineering.",
+  keywords: [
+    "LearnVeda features", "ishu LearnVeda features", "gamified learning features India",
+    "CBSE study platform features", "quiz battle platform India", "XP learning India",
+    "streak study India", "leaderboard students India", "free education features India",
+  ],
 };
 
 const FEATURES = [

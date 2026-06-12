@@ -34,9 +34,13 @@ import ContactFormClient from "./ContactFormClient";
 export const revalidate = 86400;
 
 export const metadata = {
-  title: "Contact LearnVeda — Support, Partnerships & Help Center",
+  title: "Contact LearnVeda by Ishu — Support & Help Center",
   description:
-    "Contact LearnVeda for student support, school partnerships, event sponsorship, and community questions. Response within 24 hours.",
+    "Contact LearnVeda by Ishu for student support, school partnerships, and community help. India's #1 gamified education platform. Response within 24 hours.",
+  keywords: [
+    "contact LearnVeda", "LearnVeda support", "ishu LearnVeda contact",
+    "LearnVeda help", "LearnVeda India contact", "ishu education contact",
+  ],
 };
 
 /* ─────────────────────────────────────────────────────
