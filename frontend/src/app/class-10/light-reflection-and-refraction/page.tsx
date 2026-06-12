@@ -20,7 +20,7 @@ const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://eduquest.replit.app';
 export const metadata: Metadata = {
   title: 'Light – Reflection and Refraction | Class 10 Science CBSE | EduQuest',
   description:
-    "Complete interactive Class 10 CBSE chapter on Light – Reflection and Refraction. Study reflection laws, spherical mirrors, Snell's Law, TIR, optical fibre, lenses, human eye and eye defects with simulations, 40+ AI diagrams, 18 solved numericals, MCQs and flashcards.",
+    "Complete interactive Class 10 CBSE chapter on Light – Reflection and Refraction. Study reflection laws, spherical mirrors, Snell's Law, TIR, optical fibre, lenses, human eye and eye defects with 15 live simulations, 40+ AI diagrams, 18 solved numericals, MCQs and flashcards.",
   keywords: [
     'light reflection refraction class 10',
     'class 10 science chapter 10',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     title: 'Light – Reflection and Refraction | Class 10 CBSE | EduQuest',
-    description: 'Interactive Class 10 chapter: simulations, 40+ diagrams, 18 numericals, MCQs & flashcards.',
+    description: 'Interactive Class 10 chapter: 15 live simulations, 40+ diagrams, 18 numericals, MCQs & flashcards.',
     url: `${BASE}/class-10/light-reflection-and-refraction`,
     siteName: 'EduQuest',
     images: [{ url: `${BASE}/images/light/concave-mirror-5-cases.png`, width: 1200, height: 900, alt: 'Class 10 Light Chapter' }],
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Class 10 Light – Reflection & Refraction | EduQuest',
-    description: 'Interactive simulations, numericals, MCQs & flashcards for CBSE board exam.',
+    description: '15 interactive simulations, numericals, MCQs & flashcards for CBSE board exam.',
     images: [`${BASE}/images/light/concave-mirror-5-cases.png`],
   },
 };
@@ -67,7 +67,7 @@ const courseJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Course',
   name: 'Class 10 Science: Light – Reflection and Refraction',
-  description: 'Complete interactive course module on Light Reflection and Refraction for CBSE Class 10.',
+  description: 'Complete interactive course module on Light Reflection and Refraction for CBSE Class 10. Includes 15 live simulations, 40+ AI diagrams, 18 solved numericals, MCQs and flashcards.',
   url: `${BASE}/class-10/light-reflection-and-refraction`,
   provider: { '@type': 'EducationalOrganization', name: 'EduQuest', url: BASE },
   educationalLevel: 'Class 10 / Grade 10',
@@ -140,7 +140,7 @@ export default function LightChapterLanding() {
             Class 10 Science (Physics) · Chapter 10 · CBSE / NCERT
           </p>
           <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.88rem', marginTop: '0.5rem' }}>
-            Interactive simulations · 40+ AI-generated diagrams · 18 solved numericals · MCQs · Flashcards
+            15 interactive simulations · 40+ AI-generated diagrams · 18 solved numericals · MCQs · Flashcards
           </p>
         </header>
 

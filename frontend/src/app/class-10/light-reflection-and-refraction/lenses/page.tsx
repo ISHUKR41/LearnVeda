@@ -379,6 +379,328 @@ function EyeDefectsSim() {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   SIMULATION 4 — Lens Formula Live Calculator
+   User inputs u (object distance) and f (focal length).
+   Real-time calculation of v, m, and image nature.
+═══════════════════════════════════════════════════════════ */
+function LensFormulaCalcSim() {
+  const [u, setU] = useState(-30);
+  const [f, setF] = useState(20);
+
+  /* Apply lens formula: 1/v - 1/u = 1/f  →  v = uf/(u+f) */
+  const v = (u * f) / (u + f);
+  const m = isFinite(v / u) ? v / u : Infinity;
+  const isReal = v > 0;
+  const isErect = m > 0;
+  const isInfinity = !isFinite(v) || Math.abs(v) > 9999;
+
+  const nature = isInfinity
+    ? 'Image at Infinity'
+    : `${isReal ? 'Real' : 'Virtual'}, ${isErect ? 'Erect' : 'Inverted'}, ${
+        Math.abs(m) > 1.05 ? 'Magnified' : Math.abs(m) < 0.95 ? 'Diminished' : 'Same Size'
+      }`;
+
+  const natColor = isInfinity ? '#f59e0b' : isReal ? '#00ffcc' : '#a78bfa';
+
+  /* Mini ray diagram: lens at cx=240, axis at ay=110 */
+  const cx = 240; const ay = 110;
+  const scale = 2.5;
+  const objH = 40;
+  const objX = cx + u * scale;       /* u is negative → left of lens */
+  const imgX = isInfinity ? cx + 340 : cx + v * scale;
+  const imgH = isInfinity ? 0 : m * (-objH);  /* inverted when m < 0 */
+
+  return (
+    <div className={styles.simulationContainer}>
+      <div className={styles.simulationLabel}>🧮 Lens Formula Live Calculator — 1/v − 1/u = 1/f</div>
+
+      {/* Controls */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.25rem' }}>
+        <div>
+          <label style={{ fontSize: '0.82rem', color: '#a1a1aa', display: 'block', marginBottom: '0.35rem' }}>
+            Object distance u = <strong style={{ color: '#ef4444' }}>{u} cm</strong> (negative = in front of lens)
+          </label>
+          <input type="range" min={-120} max={-5} value={u} step={1}
+            onChange={e => setU(+e.target.value)}
+            style={{ width: '100%', accentColor: '#ef4444' }} />
+        </div>
+        <div>
+          <label style={{ fontSize: '0.82rem', color: '#a1a1aa', display: 'block', marginBottom: '0.35rem' }}>
+            Focal length f = <strong style={{ color: '#00ffcc' }}>{f} cm</strong>
+            &nbsp;<span style={{ color: '#555', fontSize: '0.72rem' }}>(+ convex, − concave)</span>
+          </label>
+          <input type="range" min={-60} max={60} value={f} step={1}
+            onChange={e => setF(+e.target.value === 0 ? 1 : +e.target.value)}
+            style={{ width: '100%', accentColor: '#00ffcc' }} />
+        </div>
+      </div>
+
+      {/* Computed results */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '0.75rem', marginBottom: '1.25rem' }}>
+        {[
+          { label: 'Image distance v', val: isInfinity ? '∞' : `${v.toFixed(1)} cm`, col: isReal ? '#00ffcc' : '#a78bfa' },
+          { label: 'Magnification m', val: isInfinity ? '∞' : m.toFixed(2), col: Math.abs(m) > 1 ? '#f59e0b' : '#60a5fa' },
+          { label: 'Power P', val: `${(100 / f).toFixed(2)} D`, col: f > 0 ? '#34d399' : '#f43f5e' },
+        ].map(r => (
+          <div key={r.label} style={{ textAlign: 'center', background: 'rgba(255,255,255,0.03)', borderRadius: '10px', padding: '0.75rem', border: `1px solid ${r.col}30` }}>
+            <div style={{ fontSize: '0.72rem', color: '#71717a', marginBottom: '0.25rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{r.label}</div>
+            <div style={{ fontSize: '1.4rem', fontWeight: 800, color: r.col, fontFamily: 'JetBrains Mono, monospace' }}>{r.val}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Image nature badge */}
+      <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: natColor, background: `${natColor}15`, padding: '0.4rem 1rem', borderRadius: '20px', border: `1px solid ${natColor}40` }}>
+          📸 Image: {nature}
+        </span>
+      </div>
+
+      {/* Mini ray diagram */}
+      <svg width="100%" viewBox="0 0 480 220" style={{ display: 'block', maxWidth: '480px', margin: '0 auto', borderRadius: '10px', background: 'rgba(0,0,0,0.3)' }}>
+        {/* Grid */}
+        <defs>
+          <pattern id="calcgrid" width="24" height="24" patternUnits="userSpaceOnUse">
+            <path d="M24 0L0 0 0 24" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="0.6" />
+          </pattern>
+        </defs>
+        <rect width="480" height="220" fill="url(#calcgrid)" />
+
+        {/* Principal axis */}
+        <line x1="10" y1={ay} x2="470" y2={ay} stroke="rgba(255,255,255,0.15)" strokeWidth="1" strokeDasharray="5 3" />
+
+        {/* Lens */}
+        {f > 0 ? (
+          /* Convex */
+          <>
+            <path d={`M ${cx} ${ay-70} Q ${cx+22} ${ay} ${cx} ${ay+70}`} fill="none" stroke="#60a5fa" strokeWidth="3" />
+            <path d={`M ${cx} ${ay-70} Q ${cx-22} ${ay} ${cx} ${ay+70}`} fill="none" stroke="#60a5fa" strokeWidth="3" />
+            <path d={`M ${cx} ${ay-70} Q ${cx+22} ${ay} ${cx} ${ay+70} Q ${cx-22} ${ay} ${cx} ${ay-70}`} fill="rgba(96,165,250,0.07)" />
+            {/* Focal points */}
+            <circle cx={cx + f*scale} cy={ay} r="5" fill="#f59e0b" />
+            <text x={cx + f*scale} y={ay-10} fill="#f59e0b" fontSize="10" textAnchor="middle" fontFamily="Inter" fontWeight="700">F₂</text>
+            <circle cx={cx - f*scale} cy={ay} r="5" fill="#f59e0b" />
+            <text x={cx - f*scale} y={ay-10} fill="#f59e0b" fontSize="10" textAnchor="middle" fontFamily="Inter" fontWeight="700">F₁</text>
+          </>
+        ) : (
+          /* Concave */
+          <>
+            <path d={`M ${cx} ${ay-70} Q ${cx-22} ${ay} ${cx} ${ay+70}`} fill="none" stroke="#f43f5e" strokeWidth="3" />
+            <path d={`M ${cx} ${ay-70} Q ${cx+22} ${ay} ${cx} ${ay+70}`} fill="none" stroke="#f43f5e" strokeWidth="3" />
+            <circle cx={cx + f*scale} cy={ay} r="4" fill="#f59e0b60" strokeDasharray="3 2" />
+            <circle cx={cx - f*scale} cy={ay} r="4" fill="#f59e0b60" />
+            <text x={cx - f*scale} y={ay-10} fill="#f59e0b99" fontSize="10" textAnchor="middle" fontFamily="Inter">F</text>
+          </>
+        )}
+
+        {/* Optical centre */}
+        <circle cx={cx} cy={ay} r="3" fill="#ffffff60" />
+        <text x={cx} y={ay+14} fill="#ffffff60" fontSize="10" textAnchor="middle" fontFamily="Inter">O</text>
+
+        {/* Object arrow — only if it fits in viewbox */}
+        {objX > 10 && objX < cx - 5 && (
+          <g>
+            <line x1={objX} y1={ay} x2={objX} y2={ay - objH} stroke="#ef4444" strokeWidth="2.5" style={{ filter: 'drop-shadow(0 0 4px #ef444460)' }} />
+            <polygon fill="#ef4444" points={`${objX},${ay-objH} ${objX-6},${ay-objH+10} ${objX+6},${ay-objH+10}`} />
+            <text x={objX} y={ay-objH-8} fill="#ef444499" fontSize="10" textAnchor="middle" fontFamily="Inter">Object</text>
+          </g>
+        )}
+
+        {/* Image — if within viewbox and not at infinity */}
+        {!isInfinity && imgX > 10 && imgX < 470 && (
+          <g opacity={isReal ? 1 : 0.75}>
+            <line x1={imgX} y1={ay} x2={imgX} y2={ay + imgH}
+              stroke={isReal ? '#00ffcc' : '#a78bfa'} strokeWidth="2.5"
+              strokeDasharray={isReal ? 'none' : '5 3'}
+              style={{ filter: `drop-shadow(0 0 4px ${isReal ? '#00ffcc60' : '#a78bfa60'})` }} />
+            <polygon fill={isReal ? '#00ffcc' : '#a78bfa'}
+              points={imgH > 0
+                ? `${imgX},${ay+imgH} ${imgX-6},${ay+imgH-10} ${imgX+6},${ay+imgH-10}`
+                : `${imgX},${ay+imgH} ${imgX-6},${ay+imgH+10} ${imgX+6},${ay+imgH+10}`} />
+            <text x={imgX} y={imgH > 0 ? ay+imgH+15 : ay+imgH-8}
+              fill={isReal ? '#00ffcc99' : '#a78bfa99'} fontSize="10" textAnchor="middle" fontFamily="Inter">Image</text>
+          </g>
+        )}
+
+        {isInfinity && (
+          <text x="420" y={ay-20} fill="#f59e0b" fontSize="28" fontFamily="JetBrains Mono" fontWeight="700" opacity="0.6">∞</text>
+        )}
+
+        <text x="10" y="210" fill="#555" fontSize="9.5" fontFamily="Inter">Scale: 1px = {(1/scale).toFixed(1)} cm</text>
+      </svg>
+
+      <div style={{ marginTop: '0.75rem', padding: '0.65rem 1rem', background: 'rgba(0,255,204,0.04)', borderRadius: '8px', border: '1px solid rgba(0,255,204,0.12)', fontSize: '0.84rem', color: '#71717a' }}>
+        💡 <strong>Step-by-step:</strong> 1/v = 1/f + 1/u = 1/{f} + 1/{u} = {(1/f).toFixed(3)} + {(1/u).toFixed(3)} = {(1/f + 1/u).toFixed(3)} → v = {isInfinity ? '∞' : v.toFixed(1)} cm &nbsp;|&nbsp; m = v/u = {isInfinity ? '∞' : m.toFixed(2)}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SIMULATION 5 — Human Eye Accommodation Animation
+   Shows the lens of the eye getting fatter (near object) or
+   thinner (far object) as ciliary muscles contract/relax.
+═══════════════════════════════════════════════════════════ */
+function EyeAccommodationSim() {
+  const [mode, setMode] = useState<'far' | 'near'>('far');
+  const [animating, setAnimating] = useState(false);
+
+  /* Lens bulge amount: far = thin, near = fat */
+  const bulge = mode === 'near' ? 38 : 16;
+  const focalLength = mode === 'near' ? 'Short f (high power)' : 'Long f (low power)';
+  const ciliary = mode === 'near' ? 'Contracted (tense)' : 'Relaxed (stretched lens)';
+
+  const EX = 300; const EY = 130; /* eye centre */
+
+  const handleSwitch = (m: 'far' | 'near') => {
+    if (m === mode) return;
+    setAnimating(true);
+    setTimeout(() => { setMode(m); setAnimating(false); }, 300);
+  };
+
+  return (
+    <div className={styles.simulationContainer}>
+      <div className={styles.simulationLabel}>👁 Human Eye Accommodation — Lens Shape Changes</div>
+
+      <div className={styles.simControls} style={{ marginBottom: '1rem' }}>
+        <button className={`${styles.simButton} ${mode === 'far' ? styles.active : ''}`} onClick={() => handleSwitch('far')}>
+          🌅 Far Object (Relaxed Eye)
+        </button>
+        <button className={`${styles.simButton} ${mode === 'near' ? styles.active : ''}`} onClick={() => handleSwitch('near')}>
+          📖 Near Object (Accommodated)
+        </button>
+      </div>
+
+      <svg width="100%" viewBox="0 0 600 260" style={{ display: 'block', maxWidth: '600px', margin: '0 auto', overflow: 'visible', transition: 'all 0.3s' }}>
+        <defs>
+          <radialGradient id="eyeGrad" cx="42%" cy="45%" r="55%">
+            <stop offset="0%" stopColor="#1a3a4a" />
+            <stop offset="100%" stopColor="#0a1520" />
+          </radialGradient>
+          <radialGradient id="irisGrad" cx="50%" cy="40%" r="50%">
+            <stop offset="0%" stopColor="#1e4060" />
+            <stop offset="100%" stopColor="#0d2030" />
+          </radialGradient>
+        </defs>
+
+        {/* ── Eyeball ── */}
+        <ellipse cx={EX} cy={EY} rx="155" ry="130" fill="url(#eyeGrad)" stroke="#2a4a5a" strokeWidth="2.5" />
+
+        {/* Cornea (front curved surface) */}
+        <path d={`M ${EX-100} ${EY} Q ${EX-155} ${EY-55} ${EX-100} ${EY-90} M ${EX-100} ${EY} Q ${EX-155} ${EY+55} ${EX-100} ${EY+90}`}
+          fill="none" stroke="#60a5fa" strokeWidth="2" opacity="0.6" />
+
+        {/* Retina (back curved surface) */}
+        <path d={`M ${EX+130} ${EY-60} Q ${EX+170} ${EY} ${EX+130} ${EY+60}`}
+          fill="none" stroke="#ef4444" strokeWidth="2.5" opacity="0.7" />
+        <text x={EX+165} y={EY+5} fill="#ef444490" fontSize="10" fontFamily="Inter" textAnchor="middle">Retina</text>
+
+        {/* Fovea (dot on retina) */}
+        <circle cx={EX+148} cy={EY} r="5" fill="#ef444480" style={{ filter: 'drop-shadow(0 0 5px #ef4444)' }} />
+        <text x={EX+148} y={EY+16} fill="#ef444499" fontSize="8.5" fontFamily="Inter" textAnchor="middle">Fovea</text>
+
+        {/* Iris */}
+        <ellipse cx={EX-82} cy={EY} rx="28" ry="42" fill="url(#irisGrad)" stroke="#2563eb" strokeWidth="1.5" />
+        {/* Pupil */}
+        <ellipse cx={EX-82} cy={EY} rx="14" ry="22" fill="#000000" />
+        <text x={EX-82} y={EY+58} fill="#3b82f699" fontSize="9" fontFamily="Inter" textAnchor="middle">Iris / Pupil</text>
+
+        {/* Aqueous humor label */}
+        <text x={EX-30} y={EY-95} fill="#71717a" fontSize="9" fontFamily="Inter" textAnchor="middle">Aqueous humor</text>
+
+        {/* ── Crystalline Lens (changes shape based on mode) ── */}
+        <ellipse
+          cx={EX - 20} cy={EY}
+          rx={bulge} ry={50}
+          fill="rgba(250,204,21,0.22)"
+          stroke="#fbbf24" strokeWidth="2.5"
+          style={{ transition: 'all 0.45s cubic-bezier(0.4,0,0.2,1)', filter: 'drop-shadow(0 0 8px rgba(251,191,36,0.4))' }}
+        />
+        <text x={EX-20} y={EY+64} fill="#fbbf24aa" fontSize="9" fontFamily="Inter" textAnchor="middle">Crystalline Lens</text>
+
+        {/* Ciliary muscle indicator */}
+        {mode === 'near' ? (
+          <>
+            <ellipse cx={EX-20} cy={EY} rx="60" ry="68" fill="none" stroke="rgba(16,185,129,0.5)" strokeWidth="2" strokeDasharray="5 3" />
+            <text x={EX-20} y={EY-74} fill="#10b981aa" fontSize="9" fontFamily="Inter" textAnchor="middle">Ciliary muscles CONTRACTED</text>
+          </>
+        ) : (
+          <>
+            <ellipse cx={EX-20} cy={EY} rx="72" ry="65" fill="none" stroke="rgba(161,161,170,0.3)" strokeWidth="1.5" strokeDasharray="4 3" />
+            <text x={EX-20} y={EY-71} fill="#71717a" fontSize="9" fontFamily="Inter" textAnchor="middle">Ciliary muscles relaxed</text>
+          </>
+        )}
+
+        {/* ── Light rays ── */}
+        {mode === 'far' ? (
+          /* Parallel rays (from far object) → converge on retina */
+          <>
+            <line x1="10" y1={EY-45} x2={EX-100} y2={EY-45} stroke="#fbbf24" strokeWidth="1.5" opacity="0.7" />
+            <line x1="10" y1={EY} x2={EX-100} y2={EY} stroke="#fbbf24" strokeWidth="2" opacity="0.9" />
+            <line x1="10" y1={EY+45} x2={EX-100} y2={EY+45} stroke="#fbbf24" strokeWidth="1.5" opacity="0.7" />
+            {/* Rays refracted through cornea+lens → converge on fovea */}
+            <line x1={EX-100} y1={EY-45} x2={EX+148} y2={EY} stroke="#fbbf24" strokeWidth="1.5" opacity="0.5" strokeDasharray="4 2" />
+            <line x1={EX-100} y1={EY} x2={EX+148} y2={EY} stroke="#fbbf24" strokeWidth="1.5" opacity="0.5" strokeDasharray="4 2" />
+            <line x1={EX-100} y1={EY+45} x2={EX+148} y2={EY} stroke="#fbbf24" strokeWidth="1.5" opacity="0.5" strokeDasharray="4 2" />
+          </>
+        ) : (
+          /* Diverging rays (from near object) → eye must converge harder */
+          <>
+            <line x1="55" y1={EY-55} x2={EX-100} y2={EY-25} stroke="#f97316" strokeWidth="1.5" opacity="0.7" />
+            <line x1="55" y1={EY} x2={EX-100} y2={EY} stroke="#f97316" strokeWidth="2" opacity="0.9" />
+            <line x1="55" y1={EY+55} x2={EX-100} y2={EY+25} stroke="#f97316" strokeWidth="1.5" opacity="0.7" />
+            <line x1={EX-100} y1={EY-25} x2={EX+148} y2={EY} stroke="#f97316" strokeWidth="1.5" opacity="0.5" strokeDasharray="4 2" />
+            <line x1={EX-100} y1={EY} x2={EX+148} y2={EY} stroke="#f97316" strokeWidth="1.5" opacity="0.5" strokeDasharray="4 2" />
+            <line x1={EX-100} y1={EY+25} x2={EX+148} y2={EY} stroke="#f97316" strokeWidth="1.5" opacity="0.5" strokeDasharray="4 2" />
+            {/* Near object */}
+            <line x1="55" y1={EY} x2="55" y2={EY-60} stroke="#ef4444" strokeWidth="2" />
+            <polygon fill="#ef4444" points={`55,${EY-60} 49,${EY-50} 61,${EY-50}`} />
+            <text x="55" y={EY-68} fill="#ef444490" fontSize="9" fontFamily="Inter" textAnchor="middle">Near</text>
+            <text x="55" y={EY-68+11} fill="#ef444090" fontSize="9" fontFamily="Inter" textAnchor="middle">object</text>
+          </>
+        )}
+
+        {/* Optic nerve */}
+        <line x1={EX+150} y1={EY} x2={EX+170} y2={EY} stroke="#6366f1" strokeWidth="3" />
+        <text x={EX+172} y={EY+4} fill="#6366f190" fontSize="9" fontFamily="Inter">→ Brain</text>
+
+        {/* Cornea label */}
+        <text x={EX-142} y={EY-55} fill="#60a5fa80" fontSize="9" fontFamily="Inter">Cornea</text>
+
+        {/* Vitreous humor */}
+        <text x={EX+40} y={EY-80} fill="#71717a" fontSize="9" fontFamily="Inter" textAnchor="middle">Vitreous humor</text>
+      </svg>
+
+      {/* Info panel */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginTop: '1rem' }}>
+        <div style={{ padding: '0.75rem', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', border: '1px solid rgba(251,191,36,0.2)' }}>
+          <div style={{ fontSize: '0.72rem', color: '#fbbf24', fontWeight: 700, marginBottom: '0.25rem', textTransform: 'uppercase' }}>Crystalline Lens</div>
+          <div style={{ fontSize: '0.88rem', color: '#f4f4f5' }}>{mode === 'near' ? 'Fat & bulging — shorter focal length' : 'Thin & flat — longer focal length'}</div>
+        </div>
+        <div style={{ padding: '0.75rem', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', border: '1px solid rgba(16,185,129,0.2)' }}>
+          <div style={{ fontSize: '0.72rem', color: '#10b981', fontWeight: 700, marginBottom: '0.25rem', textTransform: 'uppercase' }}>Ciliary Muscles</div>
+          <div style={{ fontSize: '0.88rem', color: '#f4f4f5' }}>{ciliary}</div>
+        </div>
+        <div style={{ padding: '0.75rem', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', border: '1px solid rgba(96,165,250,0.2)' }}>
+          <div style={{ fontSize: '0.72rem', color: '#60a5fa', fontWeight: 700, marginBottom: '0.25rem', textTransform: 'uppercase' }}>Focal Length</div>
+          <div style={{ fontSize: '0.88rem', color: '#f4f4f5' }}>{focalLength}</div>
+        </div>
+        <div style={{ padding: '0.75rem', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', border: '1px solid rgba(161,161,170,0.2)' }}>
+          <div style={{ fontSize: '0.72rem', color: '#a1a1aa', fontWeight: 700, marginBottom: '0.25rem', textTransform: 'uppercase' }}>Light Rays</div>
+          <div style={{ fontSize: '0.88rem', color: '#f4f4f5' }}>{mode === 'near' ? 'Diverging from close object' : 'Parallel (from infinity)'}</div>
+        </div>
+      </div>
+
+      <div style={{ marginTop: '0.75rem', padding: '0.65rem 1rem', background: 'rgba(0,255,204,0.04)', borderRadius: '8px', border: '1px solid rgba(0,255,204,0.1)', fontSize: '0.83rem', color: '#71717a' }}>
+        💡 <strong>Accommodation</strong> is the ability of the eye to change its focal length by changing the shape of the crystalline lens.
+        Maximum accommodation (shortest f) occurs when looking at the <em>near point</em> (25 cm for a normal eye).
+        Minimum accommodation (longest f) occurs when looking at the <em>far point</em> (∞ for a normal eye).
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    MAIN PAGE
 ═══════════════════════════════════════════════════════════ */
 export default function LensesPage() {
@@ -647,6 +969,9 @@ export default function LensesPage() {
               </p>
             </div>
 
+            {/* ★ SIMULATION 4 — Lens Formula Live Calculator */}
+            <LensFormulaCalcSim />
+
             {/* ★ SIMULATION 2 — Power Calculator */}
             <PowerOfLensSim />
           </section>
@@ -683,6 +1008,9 @@ export default function LensesPage() {
                 <li><strong>Vitreous Humour:</strong> Jelly-like fluid filling the eyeball</li>
               </ul>
             </div>
+
+            {/* ★ SIMULATION 5 — Eye Accommodation */}
+            <EyeAccommodationSim />
 
             <div className={styles.formulaBox}>
               <h3>👁 Power of Accommodation</h3>

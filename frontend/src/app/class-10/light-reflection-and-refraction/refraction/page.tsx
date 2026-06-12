@@ -5,7 +5,7 @@
  * PURPOSE: Class 10 — Light: Refraction of Light
  *   Topics: Refraction phenomenon, Snell's Law, Refractive Index, Glass Slab,
  *           Total Internal Reflection (TIR), Optical Fibre, Applications
- *   Features: 7 AI images, 3 animated SVG simulations, 6 numericals, 8 MCQ, 8 flashcards
+ *   Features: 7 AI images, 6 animated SVG simulations, 6 numericals, 8 MCQ, 8 flashcards
  */
 
 import React, { useState, useEffect } from 'react';
@@ -671,6 +671,183 @@ function OpticalFibreSim() {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   SIMULATION 6 — Refractive Index & Critical Angle Calculator
+   Dual sliders for n₁, n₂ and incident angle; shows:
+   - Angle of refraction (Snell's Law)
+   - Critical angle for TIR
+   - Interactive ray diagram
+═══════════════════════════════════════════════════════════ */
+function RefractiveIndexCalcSim() {
+  const [n1, setN1] = useState(1.0);
+  const [n2, setN2] = useState(1.52);
+  const [theta_i, setThetaI] = useState(30);
+
+  /* Snell's Law: n1·sin(θ1) = n2·sin(θ2) */
+  const sinR = (n1 * Math.sin((theta_i * Math.PI) / 180)) / n2;
+  const tir = sinR > 1; /* Total internal reflection */
+  const theta_r = tir ? null : Math.asin(sinR) * (180 / Math.PI);
+
+  /* Critical angle (only if n1 > n2) */
+  const hasCritical = n1 > n2;
+  const criticalAngle = hasCritical ? Math.asin(n2 / n1) * (180 / Math.PI) : null;
+
+  /* Speed of light in each medium */
+  const v1 = (3e8 / n1 / 1e8).toFixed(3);
+  const v2 = (3e8 / n2 / 1e8).toFixed(3);
+
+  /* SVG layout */
+  const cx = 240; const cy = 200; /* interface midpoint */
+  const rayLen = 130;
+  /* incident ray from top-left */
+  const iRad = (theta_i * Math.PI) / 180;
+  const ix1 = cx - rayLen * Math.sin(iRad);
+  const iy1 = cy - rayLen * Math.cos(iRad);
+  /* reflected ray */
+  const rx2 = cx + rayLen * Math.sin(iRad);
+  const ry2 = cy - rayLen * Math.cos(iRad);
+  /* refracted ray */
+  const rRad = theta_r !== null ? (theta_r * Math.PI) / 180 : null;
+  const rfx2 = rRad !== null ? cx + rayLen * Math.sin(rRad) : null;
+  const rfy2 = rRad !== null ? cy + rayLen * Math.cos(rRad) : null;
+
+  return (
+    <div className={styles.simulationContainer}>
+      <div className={styles.simulationLabel}>🔬 Refractive Index & Critical Angle Calculator</div>
+
+      {/* Sliders */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.85rem', marginBottom: '1.25rem' }}>
+        {[
+          { label: 'n₁ (Medium 1)', val: n1, set: setN1, min: 1.0, max: 3.0, step: 0.01, col: '#60a5fa', presets: [['Air', 1.0], ['Water', 1.33], ['Glass', 1.52]] },
+          { label: 'n₂ (Medium 2)', val: n2, set: setN2, min: 1.0, max: 3.0, step: 0.01, col: '#f59e0b', presets: [['Water', 1.33], ['Glass', 1.52], ['Diamond', 2.42]] },
+          { label: 'Angle of Incidence', val: theta_i, set: setThetaI, min: 0, max: 89, step: 1, col: '#00ffcc', presets: [] },
+        ].map(s => (
+          <div key={s.label}>
+            <label style={{ fontSize: '0.78rem', color: '#a1a1aa', display: 'block', marginBottom: '0.3rem' }}>
+              {s.label} = <strong style={{ color: s.col, fontFamily: 'JetBrains Mono, monospace' }}>{s.val.toFixed(s.step < 1 ? 2 : 0)}{s.label.includes('Angle') ? '°' : ''}</strong>
+            </label>
+            <input type="range" min={s.min} max={s.max} value={s.val} step={s.step}
+              onChange={e => s.set(+e.target.value)}
+              style={{ width: '100%', accentColor: s.col }} />
+            {s.presets.length > 0 && (
+              <div style={{ display: 'flex', gap: '0.3rem', marginTop: '0.3rem', flexWrap: 'wrap' }}>
+                {s.presets.map(([name, val]) => (
+                  <button key={String(name)} onClick={() => s.set(+val)}
+                    style={{ fontSize: '0.65rem', padding: '0.15rem 0.5rem', background: `${s.col}15`, border: `1px solid ${s.col}40`, borderRadius: '4px', color: s.col, cursor: 'pointer' }}>
+                    {String(name)}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Results row */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '0.6rem', marginBottom: '1.1rem' }}>
+        {[
+          { label: 'Angle of Refraction', val: tir ? 'TIR ∞' : `${theta_r!.toFixed(1)}°`, col: tir ? '#f43f5e' : '#00ffcc' },
+          { label: 'Critical Angle', val: criticalAngle !== null ? `${criticalAngle.toFixed(1)}°` : 'N/A (n₁ < n₂)', col: hasCritical ? '#f59e0b' : '#52525b' },
+          { label: 'Speed in n₁', val: `${v1} ×10⁸ m/s`, col: '#60a5fa' },
+          { label: 'Speed in n₂', val: `${v2} ×10⁸ m/s`, col: '#f59e0b' },
+        ].map(r => (
+          <div key={r.label} style={{ textAlign: 'center', background: 'rgba(255,255,255,0.02)', borderRadius: '8px', padding: '0.6rem 0.4rem', border: `1px solid ${r.col}25` }}>
+            <div style={{ fontSize: '0.65rem', color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '0.2rem' }}>{r.label}</div>
+            <div style={{ fontSize: '1.0rem', fontWeight: 800, color: r.col, fontFamily: 'JetBrains Mono, monospace', lineHeight: 1.2 }}>{r.val}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* TIR banner */}
+      {tir && (
+        <div style={{ textAlign: 'center', marginBottom: '0.9rem' }}>
+          <span style={{ background: '#f43f5e20', border: '1px solid #f43f5e50', borderRadius: '20px', padding: '0.4rem 1.2rem', color: '#f43f5e', fontWeight: 700, fontSize: '0.9rem' }}>
+            ⚡ Total Internal Reflection! θᵢ ({theta_i}°) {'>'} θ_c ({criticalAngle?.toFixed(1) ?? '—'}°)
+          </span>
+        </div>
+      )}
+
+      {/* SVG Ray Diagram */}
+      <svg width="100%" viewBox="0 0 480 380" style={{ display: 'block', maxWidth: '480px', margin: '0 auto', borderRadius: '10px', background: 'rgba(0,0,0,0.3)' }}>
+        <defs>
+          <pattern id="refgrid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M20 0L0 0 0 20" fill="none" stroke="rgba(255,255,255,0.025)" strokeWidth="0.5" />
+          </pattern>
+          <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#60a5fa" />
+          </marker>
+          <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#00ffcc" />
+          </marker>
+          <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#f43f5e" />
+          </marker>
+        </defs>
+        <rect width="480" height="380" fill="url(#refgrid)" />
+
+        {/* Media labels */}
+        <rect x="0" y="0" width="480" height={cy} fill={`rgba(96,165,250,${Math.min(0.04 + n1*0.015, 0.15)})`} />
+        <rect x="0" y={cy} width="480" height={380-cy} fill={`rgba(245,158,11,${Math.min(0.04 + n2*0.015, 0.15)})`} />
+        <text x="8" y="22" fill="#60a5fa" fontSize="11" fontFamily="Inter" fontWeight="700">Medium 1 (n₁ = {n1.toFixed(2)})</text>
+        <text x="8" y={cy + 20} fill="#f59e0b" fontSize="11" fontFamily="Inter" fontWeight="700">Medium 2 (n₂ = {n2.toFixed(2)})</text>
+
+        {/* Interface line */}
+        <line x1="0" y1={cy} x2="480" y2={cy} stroke="rgba(255,255,255,0.25)" strokeWidth="2" strokeDasharray="8 4" />
+
+        {/* Normal (vertical dashed) */}
+        <line x1={cx} y1={cy-150} x2={cx} y2={cy+150} stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="4 4" />
+        <text x={cx+5} y={cy-140} fill="rgba(255,255,255,0.3)" fontSize="9" fontFamily="Inter">Normal</text>
+
+        {/* Incident ray */}
+        <line x1={ix1} y1={iy1} x2={cx} y2={cy} stroke="#60a5fa" strokeWidth="2.5" markerEnd="url(#arrowBlue)" style={{ filter: 'drop-shadow(0 0 4px #60a5fa60)' }} />
+        <text x={ix1-5} y={iy1-6} fill="#60a5fa99" fontSize="10" textAnchor="middle" fontFamily="Inter">Incident Ray</text>
+
+        {/* Angle of incidence arc */}
+        <path d={`M ${cx} ${cy-40} A 40 40 0 0 0 ${cx - 40*Math.sin(iRad)} ${cy - 40*Math.cos(iRad)}`}
+          fill="none" stroke="#60a5fa" strokeWidth="1.5" opacity="0.5" />
+        <text x={cx - 55*Math.sin(iRad/2)} y={cy - 50*Math.cos(iRad/2)} fill="#60a5fa" fontSize="10" textAnchor="middle" fontFamily="JetBrains Mono">{theta_i}°</text>
+
+        {/* Reflected ray */}
+        <line x1={cx} y1={cy} x2={rx2} y2={ry2} stroke="#a78bfa" strokeWidth="1.5" strokeDasharray="6 3" markerEnd="url(#arrowRed)" opacity="0.6" />
+        <text x={rx2+4} y={ry2-6} fill="#a78bfa80" fontSize="9" textAnchor="start" fontFamily="Inter">Reflected</text>
+
+        {/* Refracted ray (or TIR label) */}
+        {!tir && rRad !== null && rfx2 !== null && rfy2 !== null && (
+          <>
+            <line x1={cx} y1={cy} x2={rfx2} y2={rfy2} stroke="#00ffcc" strokeWidth="2.5" markerEnd="url(#arrowGreen)" style={{ filter: 'drop-shadow(0 0 4px #00ffcc60)' }} />
+            <text x={rfx2+4} y={rfy2+4} fill="#00ffcc99" fontSize="10" textAnchor="start" fontFamily="Inter">Refracted ({theta_r!.toFixed(1)}°)</text>
+            {/* Angle of refraction arc */}
+            <path d={`M ${cx} ${cy+40} A 40 40 0 0 1 ${cx + 40*Math.sin(rRad)} ${cy + 40*Math.cos(rRad)}`}
+              fill="none" stroke="#00ffcc" strokeWidth="1.5" opacity="0.5" />
+          </>
+        )}
+        {tir && (
+          <>
+            <text x={cx} y={cy+60} fill="#f43f5e" fontSize="14" textAnchor="middle" fontFamily="Inter" fontWeight="700">
+              ⚡ Total Internal Reflection
+            </text>
+            <text x={cx} y={cy+82} fill="#f43f5e80" fontSize="10" textAnchor="middle" fontFamily="Inter">No refracted ray — all light reflects back</text>
+          </>
+        )}
+
+        {/* Critical angle indicator */}
+        {criticalAngle !== null && (
+          <text x={cx+5} y={cy-6} fill="#f59e0b80" fontSize="9" fontFamily="JetBrains Mono">θ_c = {criticalAngle.toFixed(1)}°</text>
+        )}
+
+        <text x="8" y="375" fill="#333" fontSize="9" fontFamily="Inter">Snell&apos;s Law: n₁ sin θ₁ = n₂ sin θ₂</text>
+      </svg>
+
+      {/* Working */}
+      <div style={{ marginTop: '0.65rem', padding: '0.6rem 0.9rem', background: 'rgba(0,255,204,0.04)', borderRadius: '8px', border: '1px solid rgba(0,255,204,0.1)', fontSize: '0.82rem', color: '#71717a' }}>
+        💡 <strong>Snell&apos;s Law:</strong> n₁ sin θᵢ = n₂ sin θᵣ → {n1.toFixed(2)} × sin({theta_i}°) = {n2.toFixed(2)} × sin θᵣ
+        → sin θᵣ = {sinR.toFixed(4)} {tir ? '> 1 → TIR!' : `→ θᵣ = ${theta_r!.toFixed(1)}°`}
+        {hasCritical && <> | <strong style={{ color: '#f59e0b' }}>Critical: sin θ_c = n₂/n₁ = {(n2/n1).toFixed(3)} → θ_c = {criticalAngle!.toFixed(1)}°</strong></>}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    MAIN PAGE
 ═══════════════════════════════════════════════════════════ */
 export default function RefractionPage() {
@@ -854,6 +1031,9 @@ export default function RefractionPage() {
 
             {/* ★ SIMULATION 1 — Snell's Law Lab */}
             <SnellsLawSim />
+
+            {/* ★ SIMULATION 6 — Refractive Index & Critical Angle Calculator */}
+            <RefractiveIndexCalcSim />
           </section>
 
           {/* REFRACTIVE INDEX */}
