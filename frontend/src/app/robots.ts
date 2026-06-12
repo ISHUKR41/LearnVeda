@@ -30,7 +30,6 @@ export default function robots(): MetadataRoute.Robots {
         "/forgot-password/",
         "/api/auth/",
         "/api/progress/",
-        "/test/",
       ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,

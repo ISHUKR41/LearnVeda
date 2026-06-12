@@ -29,11 +29,25 @@ import styles from "./Class10.module.css";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Class 10 — CBSE Board Exam Preparation | LearnVeda",
+  title: "CBSE Class 10 Board Exam Prep — LearnVeda by Ishu | Free Online",
   description:
-    "Structured CBSE Class 10 board exam preparation — Maths, Science, Social Science, English, Hindi. Chapter-wise day plans, practice questions, and mock tests.",
-  icons: {
-    icon: "/favicons/school.svg",
+    "LearnVeda by Ishu — Best free CBSE Class 10 board exam preparation platform. Maths Standard & Basic, Science, Social Science, English, Hindi. Chapter-wise day plans, mock tests, XP, quiz battles. India's #1 Class 10 gamified study platform.",
+  keywords: [
+    "CBSE Class 10", "class 10 board exam preparation", "class 10 online study India",
+    "class 10 maths", "class 10 science", "class 10 social science",
+    "class 10 English", "class 10 Hindi", "class 10 NCERT solutions",
+    "class 10 light reflection refraction", "class 10 electricity",
+    "LearnVeda class 10", "ishu class 10", "best class 10 website India",
+    "free class 10 board prep India", "class 10 mock tests free",
+    "class 10 gamified learning", "class 10 chapter wise study",
+    "CBSE 10th board exam 2025", "10th class study app India",
+    "class 10 science notes India", "class 10 maths solutions India",
+  ],
+  icons: { icon: "/favicons/school.svg" },
+  openGraph: {
+    title: "CBSE Class 10 Board Prep — LearnVeda by Ishu | Free Gamified",
+    description: "Best free CBSE Class 10 board prep by Ishu. Mock tests, XP, quiz battles, chapter-wise plans. India's #1.",
+    type: "website",
   },
 };
 

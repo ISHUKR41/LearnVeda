@@ -23,8 +23,21 @@ import styles from "./Pricing.module.css";
 export const revalidate = 86400;
 
 export const metadata = {
-  title: "Pricing",
-  description: "LearnVeda is free for all students. Explore our plans and see exactly what's included.",
+  title: "Pricing — LearnVeda by Ishu | Free for All Indian Students",
+  description:
+    "LearnVeda by Ishu is 100% free for all Indian students. CBSE Class 9-12, Engineering, JEE, NEET — all chapters, quiz battles, XP, leaderboard. No hidden charges. India's #1 free gamified learning platform.",
+  keywords: [
+    "LearnVeda pricing", "LearnVeda free", "free education platform India",
+    "ishu free learning platform", "free CBSE study India",
+    "free JEE preparation India", "free NEET preparation India",
+    "free online classes India students", "no cost learning India",
+    "gamified learning free India", "best free study app India",
+  ],
+  openGraph: {
+    title: "Pricing — LearnVeda by Ishu | 100% Free for Indian Students",
+    description: "LearnVeda by Ishu is completely free. All CBSE classes, JEE, NEET, Engineering. No hidden charges.",
+    type: "website",
+  },
 };
 
 /**

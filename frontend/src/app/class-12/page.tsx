@@ -19,11 +19,25 @@ import styles from "./Class12.module.css";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Class 12 — Board & Entrance Exam Prep | LearnVeda",
+  title: "CBSE Class 12 Board + JEE NEET Prep — LearnVeda by Ishu | Free",
   description:
-    "Complete Class 12 preparation: CBSE board exams + JEE/NEET/CUET entrance. Structured plans for all streams — Science, Commerce, and Arts.",
-  icons: {
-    icon: "/favicons/school.svg",
+    "LearnVeda by Ishu — Best free CBSE Class 12 board exam + JEE/NEET/CUET preparation platform. Physics, Chemistry, Biology, Maths, Accountancy. Chapter-wise plans, mock tests, XP, quiz battles. India's #1 Class 12 gamified study platform.",
+  keywords: [
+    "CBSE Class 12", "class 12 board exam preparation", "class 12 JEE preparation",
+    "class 12 NEET preparation", "class 12 Physics", "class 12 Chemistry",
+    "class 12 Biology", "class 12 Maths", "class 12 Accountancy",
+    "class 12 online study India", "class 12 NCERT solutions",
+    "LearnVeda class 12", "ishu class 12", "best class 12 website India",
+    "free class 12 board prep India", "class 12 mock tests free India",
+    "class 12 gamified learning", "CBSE 12th board exam 2025",
+    "12th class study app India", "JEE Main 2025 preparation free",
+    "NEET 2025 preparation free India", "CUET preparation online",
+  ],
+  icons: { icon: "/favicons/school.svg" },
+  openGraph: {
+    title: "CBSE Class 12 Board + JEE/NEET — LearnVeda by Ishu | Free",
+    description: "Best free Class 12 board + entrance exam prep by Ishu. JEE, NEET, CUET. XP, battles, mock tests. India's #1.",
+    type: "website",
   },
 };
 

@@ -39,11 +39,26 @@ import styles from "./Engineering.module.css";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Engineering Track — 12+ Languages & CS Subjects | LearnVeda",
+  title: "Engineering Coding Track — LearnVeda by Ishu | Free Programming India",
   description:
-    "Master programming languages and core CS subjects with structured day-wise plans. From C to Rust, DSA to System Design — become interview-ready.",
-  icons: {
-    icon: "/favicons/engineering.svg",
+    "LearnVeda by Ishu — Best free engineering coding platform India. Learn C, C++, Java, Python, JavaScript, Rust, DSA, System Design. Structured 30-45 day plans, coding battles, XP. India's #1 gamified engineering study platform.",
+  keywords: [
+    "engineering coding India", "learn programming India free",
+    "C language course India", "C++ course India", "Java course India",
+    "Python course India", "JavaScript course India", "Rust course India",
+    "DSA learning India", "Data Structures Algorithms India",
+    "system design course India", "web development course India free",
+    "competitive programming India", "coding roadmap India",
+    "30 day coding plan India", "engineering study platform India",
+    "LearnVeda engineering", "ishu engineering platform", "ishu coding",
+    "best coding website India free", "coding battles online India",
+    "interview preparation India", "GATE preparation India",
+  ],
+  icons: { icon: "/favicons/engineering.svg" },
+  openGraph: {
+    title: "Engineering Coding — LearnVeda by Ishu | Free Programming India",
+    description: "Free engineering coding platform by Ishu. C, C++, Java, Python, DSA, System Design. 30-day plans, coding battles. India's #1.",
+    type: "website",
   },
 };
 

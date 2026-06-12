@@ -17,10 +17,21 @@ import EventsLoadingSkeleton from "./EventsLoadingSkeleton";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "Events",
-  description: "Participate in academic competitions, coding hackathons, and knowledge tournaments.",
-  icons: {
-    icon: "/favicons/events.svg",
+  title: "Events & Competitions — LearnVeda by Ishu | Students India",
+  description:
+    "LearnVeda by Ishu — Academic competitions, coding hackathons, and knowledge tournaments for Indian students. Win prizes, earn XP, climb leaderboard. CBSE Class 9-12 + Engineering events India.",
+  keywords: [
+    "student events India", "academic competitions India", "coding hackathon India students",
+    "knowledge tournament India", "CBSE competition online India",
+    "LearnVeda events", "ishu events platform", "student quiz competition India",
+    "win prizes study India", "online competition Indian students",
+    "gamified events India", "LearnVeda tournaments",
+  ],
+  icons: { icon: "/favicons/events.svg" },
+  openGraph: {
+    title: "Events & Competitions — LearnVeda by Ishu | India",
+    description: "Competitions, hackathons, tournaments for Indian students by Ishu. Win prizes, earn XP. India's #1.",
+    type: "website",
   },
 };
 

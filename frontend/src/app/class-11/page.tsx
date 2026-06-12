@@ -19,11 +19,24 @@ import styles from "./Class11.module.css";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Class 11 — Choose Your Stream | LearnVeda",
+  title: "CBSE Class 11 Science Commerce Arts — LearnVeda by Ishu | Free",
   description:
-    "Class 11 learning tracks for Science, Commerce, and Arts streams. Deep subject coverage with structured day-wise plans for every subject.",
-  icons: {
-    icon: "/favicons/school.svg",
+    "LearnVeda by Ishu — Best free CBSE Class 11 study platform. Science (Physics, Chemistry, Biology, Maths), Commerce (Accountancy, Business), Arts streams. Chapter-wise plans, XP, quiz battles. India's #1 Class 11 gamified learning platform.",
+  keywords: [
+    "CBSE Class 11", "class 11 Science stream", "class 11 Commerce stream",
+    "class 11 Arts stream", "class 11 Physics", "class 11 Chemistry",
+    "class 11 Biology", "class 11 Maths", "class 11 Accountancy",
+    "class 11 online study India", "class 11 NCERT solutions",
+    "LearnVeda class 11", "ishu class 11", "best class 11 website India",
+    "free class 11 study India", "class 11 gamified learning India",
+    "class 11 JEE preparation", "class 11 NEET preparation",
+    "11th class study app India", "CBSE 11th standard online",
+  ],
+  icons: { icon: "/favicons/school.svg" },
+  openGraph: {
+    title: "CBSE Class 11 — LearnVeda by Ishu | Free Gamified Study",
+    description: "Best free CBSE Class 11 platform by Ishu. Science, Commerce, Arts streams. XP, battles, chapter-wise plans.",
+    type: "website",
   },
 };
 
