@@ -14,7 +14,7 @@ import { getAuthenticatedUserFromToken } from "@/lib/server/auth/current-user";
 import styles from "./AdminHostApplications.module.css";
 
 export const metadata = {
-  title: "Host Applications Review | Learnova Admin",
+  title: "Host Applications Review | LearnVeda Admin",
   description: "Review and manage institution event hosting applications.",
 };
 

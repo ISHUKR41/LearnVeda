@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (!res.ok) {
       return {
-        title: "Hackathon Detail | Learnova",
+        title: "Hackathon Detail | LearnVeda",
         description: "Join national level coding hackathons and prove your software engineering skills."
       };
     }
@@ -47,14 +47,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (!hackathon) {
       return {
-        title: "Hackathon Not Found | Learnova",
+        title: "Hackathon Not Found | LearnVeda",
         description: "The requested hackathon event is either completed or not active."
       };
     }
 
     return {
-      title: `${hackathon.title} — National Engineering Hackathon | Learnova`,
-      description: `${hackathon.description} Join ${hackathon.collegeName}'s event on Learnova. Prize Pool: ${hackathon.venue || "Online"}. Aligned with BTech/MCA syllabus.`,
+      title: `${hackathon.title} — National Engineering Hackathon | LearnVeda`,
+      description: `${hackathon.description} Join ${hackathon.collegeName}'s event on LearnVeda. Prize Pool: ${hackathon.venue || "Online"}. Aligned with BTech/MCA syllabus.`,
       openGraph: {
         title: hackathon.title,
         description: hackathon.description,
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   } catch (error) {
     console.error("[hackathon/[id]/page] Error generating SEO metadata:", error);
     return {
-      title: "Learnova Hackathon Details",
+      title: "LearnVeda Hackathon Details",
       description: "Learn, compete, and showcase your engineering projects on India's largest competitive learning portal."
     };
   }

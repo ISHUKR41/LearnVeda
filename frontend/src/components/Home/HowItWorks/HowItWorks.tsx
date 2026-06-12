@@ -2,7 +2,7 @@
  * FILE: HowItWorks.tsx
  * LOCATION: src/components/Home/HowItWorks/HowItWorks.tsx
  * PURPOSE: A clean, 3-step grid explaining how the platform works.
- * AUTHOR: Learnova Team
+ * AUTHOR: LearnVeda Team
  * LAST UPDATED: 2026-05-18
  */
 
@@ -45,7 +45,7 @@ export default function HowItWorks() {
         <div className={`${styles.sectionHeader} animate-on-scroll`}>
           <h2 className={styles.sectionTitle}>Your Path to Mastery</h2>
           <p className={styles.sectionSubtitle}>
-            Simple, structured, and highly rewarding. Here is how you learn on Learnova.
+            Simple, structured, and highly rewarding. Here is how you learn on LearnVeda.
           </p>
         </div>
 

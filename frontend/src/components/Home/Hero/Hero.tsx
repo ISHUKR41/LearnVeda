@@ -4,7 +4,7 @@
  * PURPOSE: The Hero component represents the very first section of the Home Page.
  * It contains the main hook, call-to-action buttons, and key platform statistics.
  * The design is modern, minimalistic, and built for high-performance (lazy loaded images).
- * AUTHOR: Learnova Team
+ * AUTHOR: LearnVeda Team
  * LAST UPDATED: 2026-05-18
  */
 
@@ -29,7 +29,7 @@ export default function Hero() {
         Using Next.js Image component for automatic optimization and WebP conversion.
       */}
       <Image
-        src="/images/learnova-home-hero.png" // Placeholder for a professional image
+        src="/images/learnveda-home-hero.png" // Placeholder for a professional image
         alt="Students learning and coding in a futuristic environment"
         fill
         priority

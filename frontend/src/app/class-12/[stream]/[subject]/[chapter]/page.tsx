@@ -34,13 +34,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data) {
     return {
-      title: "Chapter Practice | Learnova",
-      description: "Practice concept questions on Learnova.",
+      title: "Chapter Practice | LearnVeda",
+      description: "Practice concept questions on LearnVeda.",
     };
   }
 
   return {
-    title: `${data.chapterName} - Chapter Practice | Learnova`,
+    title: `${data.chapterName} - Chapter Practice | LearnVeda`,
     description: `Take interactive multiple choice questions on ${data.chapterName} for Class 12 ${data.subjectName} (${params.stream}). Earn XP points and clear your concepts.`,
   };
 }

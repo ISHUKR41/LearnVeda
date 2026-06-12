@@ -16,18 +16,18 @@ import CommunityLoadingSkeleton from "./CommunityLoadingSkeleton";
 export const revalidate = 120;
 
 export const metadata = {
-  title: "Student Community Forum — Learnova by Ishu | India Students",
+  title: "Student Community Forum — LearnVeda by Ishu | India Students",
   description:
-    "Learnova by Ishu — Student community forum for Indian students. Ask doubts, share notes, discuss CBSE, JEE, NEET, Engineering. Join India's #1 gamified learning community.",
+    "LearnVeda by Ishu — Student community forum for Indian students. Ask doubts, share notes, discuss CBSE, JEE, NEET, Engineering. Join India's #1 gamified learning community.",
   keywords: [
-    "student community India", "CBSE doubt forum India", "Learnova community",
+    "student community India", "CBSE doubt forum India", "LearnVeda community",
     "ishu community platform", "student forum India online", "JEE doubt community",
-    "NEET doubt forum India", "study community India", "Learnova forum",
+    "NEET doubt forum India", "study community India", "LearnVeda forum",
     "gamified student community India", "ishu student forum",
   ],
   icons: { icon: "/favicons/community.svg" },
   openGraph: {
-    title: "Student Community — Learnova by Ishu | India",
+    title: "Student Community — LearnVeda by Ishu | India",
     description: "Student forum by Ishu. Ask doubts, share notes, CBSE, JEE, NEET discussions. India's #1 learning community.",
     type: "website",
   },

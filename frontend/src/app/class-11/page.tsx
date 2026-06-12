@@ -19,22 +19,22 @@ import styles from "./Class11.module.css";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "CBSE Class 11 Science Commerce Arts — Learnova by Ishu | Free",
+  title: "CBSE Class 11 Science Commerce Arts — LearnVeda by Ishu | Free",
   description:
-    "Learnova by Ishu — Best free CBSE Class 11 study platform. Science (Physics, Chemistry, Biology, Maths), Commerce (Accountancy, Business), Arts streams. Chapter-wise plans, XP, quiz battles. India's #1 Class 11 gamified learning platform.",
+    "LearnVeda by Ishu — Best free CBSE Class 11 study platform. Science (Physics, Chemistry, Biology, Maths), Commerce (Accountancy, Business), Arts streams. Chapter-wise plans, XP, quiz battles. India's #1 Class 11 gamified learning platform.",
   keywords: [
     "CBSE Class 11", "class 11 Science stream", "class 11 Commerce stream",
     "class 11 Arts stream", "class 11 Physics", "class 11 Chemistry",
     "class 11 Biology", "class 11 Maths", "class 11 Accountancy",
     "class 11 online study India", "class 11 NCERT solutions",
-    "Learnova class 11", "ishu class 11", "best class 11 website India",
+    "LearnVeda class 11", "ishu class 11", "best class 11 website India",
     "free class 11 study India", "class 11 gamified learning India",
     "class 11 JEE preparation", "class 11 NEET preparation",
     "11th class study app India", "CBSE 11th standard online",
   ],
   icons: { icon: "/favicons/school.svg" },
   openGraph: {
-    title: "CBSE Class 11 — Learnova by Ishu | Free Gamified Study",
+    title: "CBSE Class 11 — LearnVeda by Ishu | Free Gamified Study",
     description: "Best free CBSE Class 11 platform by Ishu. Science, Commerce, Arts streams. XP, battles, chapter-wise plans.",
     type: "website",
   },
@@ -56,7 +56,7 @@ const Class11StreamSelector = dynamic(() => import("./Class11StreamSelector"), {
 });
 
 /* ─────────────────────────────────────────────
- * WHY_CARDS — reasons to choose Learnova for Class 11
+ * WHY_CARDS — reasons to choose LearnVeda for Class 11
  * ───────────────────────────────────────────── */
 const WHY_CARDS = [
   {
@@ -149,7 +149,7 @@ export default function Class11Page() {
         {/* ==================== WHY CLASS 11 ==================== */}
         <div className={styles.whySection}>
           <div className={styles.whySectionHeader}>
-            <h2 className={styles.sectionTitle}>Why Learnova for Class 11?</h2>
+            <h2 className={styles.sectionTitle}>Why LearnVeda for Class 11?</h2>
           </div>
 
           <div className={styles.whyGrid}>

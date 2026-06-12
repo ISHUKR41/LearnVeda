@@ -1,7 +1,7 @@
 /**
  * FILE: sitemap.ts
  * LOCATION: src/app/sitemap.ts
- * PURPOSE: Dynamically generates the XML Sitemap for Learnova in production.
+ * PURPOSE: Dynamically generates the XML Sitemap for LearnVeda in production.
  *          Queries live PGlite PostgreSQL database (via `queryPostgres` pool on port 5432)
  *          to automatically register all Class 9-12 subjects, chapters, community posts,
  *          and dynamic Programmatic SEO routes mapping to high-authority hubs.
@@ -47,7 +47,7 @@ interface TopicalAuthorityMap {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://learnova.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://learnveda.in";
 
   // 1. Define high-level static marketing and hub pages
   const staticRoutes = [

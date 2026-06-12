@@ -2,7 +2,7 @@
  * FILE: ClassTracks.tsx
  * LOCATION: src/components/Home/ClassTracks/ClassTracks.tsx
  * PURPOSE: Displays the primary learning tracks available (Class 9-12, Engineering, Battle Arena).
- * AUTHOR: Learnova Team
+ * AUTHOR: LearnVeda Team
  * LAST UPDATED: 2026-05-18
  */
 

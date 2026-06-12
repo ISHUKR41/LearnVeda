@@ -1,7 +1,7 @@
 /*
  * FILE: page.tsx
  * LOCATION: src/app/page.tsx
- * PURPOSE: Home page — The main marketing landing page of Learnova.
+ * PURPOSE: Home page — The main marketing landing page of LearnVeda.
  *          Sections:
  *            1. Hero
  *            2. Class Tracks
@@ -11,7 +11,7 @@
  *            6. Student Testimonials  (new — 2026-05-25)
  *            7. Platform Stats (real DB counts)
  *            8. Top Leaderboard Preview (real DB users)
- *            9. Why Learnova?
+ *            9. Why LearnVeda?
  *           10. Final CTA
  *          Async Server Component. Fetches stats + top leaderboard users
  *          from PostgreSQL at render time. Revalidated every 10 minutes (ISR).
@@ -66,11 +66,11 @@ const HomeAnimations = dynamic(() => import("./HomeAnimations"));
  * SEO Metadata
  * ───────────────────────────────────────────── */
 export const metadata = {
-  title: "Learnova by Ishu — India's #1 Free Gamified Learning Platform",
+  title: "LearnVeda by Ishu — India's #1 Free Gamified Learning Platform",
   description:
-    "Learnova by Ishu — India's #1 free gamified learning platform. CBSE Class 9, 10, 11, 12, JEE, NEET, Engineering. Study chapter-wise, earn XP, battle peers, dominate the leaderboard. Trusted by students across all 28 Indian states.",
+    "LearnVeda by Ishu — India's #1 free gamified learning platform. CBSE Class 9, 10, 11, 12, JEE, NEET, Engineering. Study chapter-wise, earn XP, battle peers, dominate the leaderboard. Trusted by students across all 28 Indian states.",
   keywords: [
-    "Learnova", "Learnova by Ishu", "Learnova India", "ishu",
+    "LearnVeda", "LearnVeda by Ishu", "LearnVeda India", "ishu",
     "ishu education", "ishu website", "ishu learning platform",
     "India gamified learning", "free CBSE study India",
     "class 9 10 11 12 study platform India", "JEE NEET free preparation",
@@ -79,20 +79,20 @@ export const metadata = {
     "best free education website India 2025",
   ],
   openGraph: {
-    title: "Learnova by Ishu — India's #1 Free Gamified Learning Platform",
+    title: "LearnVeda by Ishu — India's #1 Free Gamified Learning Platform",
     description: "CBSE Class 9–12, JEE, NEET, Engineering. Study, Battle, Level Up. Free for all Indian students. Created by Ishu.",
     type: "website",
-    url: "https://learnova.in",
-    images: [{ url: "/images/learnova-home-hero.png", width: 1200, height: 630, alt: "Learnova by Ishu — India's #1 Gamified Learning Platform" }],
+    url: "https://learnveda.in",
+    images: [{ url: "/images/learnveda-home-hero.png", width: 1200, height: 630, alt: "LearnVeda by Ishu — India's #1 Gamified Learning Platform" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Learnova by Ishu — India's #1 Free Gamified Learning",
+    title: "LearnVeda by Ishu — India's #1 Free Gamified Learning",
     description: "CBSE Class 9–12, JEE, NEET, Engineering. Free. Created by Ishu.",
-    images: ["/images/learnova-home-hero.png"],
+    images: ["/images/learnveda-home-hero.png"],
   },
   alternates: {
-    canonical: "https://learnova.in",
+    canonical: "https://learnveda.in",
   },
 };
 
@@ -332,7 +332,7 @@ const TESTIMONIALS = [
   {
     name:     "Priya Sharma",
     meta:     "Class 12 · Jaipur · 14-day streak",
-    text:     "Learnova changed how I study for boards. The streak system keeps me consistent and the battle mode is addictive. I went from 71% to 89% in Physics in just 4 weeks!",
+    text:     "LearnVeda changed how I study for boards. The streak system keeps me consistent and the battle mode is addictive. I went from 71% to 89% in Physics in just 4 weeks!",
     initials: "PS",
     color:    "#2563EB",
   },
@@ -354,7 +354,7 @@ const TESTIMONIALS = [
 
 /* ─────────────────────────────────────────────
  * WHY_US Array
- * Differentiators shown in the "Why Learnova?" section.
+ * Differentiators shown in the "Why LearnVeda?" section.
  * ───────────────────────────────────────────── */
 const WHY_US = [
   { icon: Globe2,    title: "India-First Content",  desc: "CBSE NCERT-aligned chapters, Indian board exam patterns, regional language support." },
@@ -438,7 +438,7 @@ export default async function HomePage() {
        * ================================================================= */}
       <section className={styles.heroSection}>
         <Image
-          src="/images/learnova-home-hero.png"
+          src="/images/learnveda-home-hero.png"
           alt=""
           fill
           priority
@@ -698,7 +698,7 @@ export default async function HomePage() {
             <span className={styles.sectionEyebrow}>Student Stories</span>
             <h2 className={styles.sectionTitle}>Loved by Students Across India</h2>
             <p className={styles.sectionSubtitle}>
-              Real results from students who made Learnova their daily study partner.
+              Real results from students who made LearnVeda their daily study partner.
             </p>
           </div>
 
@@ -912,7 +912,7 @@ export default async function HomePage() {
       <section className={styles.whySection}>
         <div className={styles.sectionInner}>
           <div className={`${styles.sectionHeader} animate-on-scroll`}>
-            <span className={styles.sectionEyebrow}>Why Learnova?</span>
+            <span className={styles.sectionEyebrow}>Why LearnVeda?</span>
             <h2 className={styles.sectionTitle}>Built Different</h2>
             <p className={styles.sectionSubtitle}>
               We obsessed over every detail — from lesson structure to real-time battle latency.

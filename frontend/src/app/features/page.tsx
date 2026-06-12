@@ -1,7 +1,7 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/features/page.tsx
- * PURPOSE: Features page — comprehensive showcase of Learnova's platform
+ * PURPOSE: Features page — comprehensive showcase of LearnVeda's platform
  *          capabilities organized into sections with comparison grid,
  *          stats banner, and strong CTA.
  * LAST UPDATED: 2026-06-01
@@ -35,11 +35,11 @@ import styles from "./Features.module.css";
 export const revalidate = 43200;
 
 export const metadata = {
-  title: "Features — Learnova by Ishu | Gamified Learning Platform India",
+  title: "Features — LearnVeda by Ishu | Gamified Learning Platform India",
   description:
-    "Learnova by Ishu: NCERT-aligned day-wise study plans, animated simulations, XP leveling, real-time quiz battles, streaks, leaderboard, community forums. India's best free gamified education platform for CBSE Class 9-12 and Engineering.",
+    "LearnVeda by Ishu: NCERT-aligned day-wise study plans, animated simulations, XP leveling, real-time quiz battles, streaks, leaderboard, community forums. India's best free gamified education platform for CBSE Class 9-12 and Engineering.",
   keywords: [
-    "Learnova features", "ishu Learnova features", "gamified learning features India",
+    "LearnVeda features", "ishu LearnVeda features", "gamified learning features India",
     "CBSE study platform features", "quiz battle platform India", "XP learning India",
     "streak study India", "leaderboard students India", "free education features India",
   ],
@@ -131,7 +131,7 @@ const FEATURES = [
     gradient: "linear-gradient(135deg, #14B8A6, #06B6D4)",
     title: "Events & Competitions",
     description:
-      "Browse and register for academic olympiads, coding hackathons, and subject championships directly within Learnova. Event registrations are saved to your account and visible from your notifications dashboard.",
+      "Browse and register for academic olympiads, coding hackathons, and subject championships directly within LearnVeda. Event registrations are saved to your account and visible from your notifications dashboard.",
     tags: ["Olympiads", "Hackathons", "Registration API", "Notifications"],
   },
   {
@@ -149,7 +149,7 @@ const COMPARISONS = [
     icon: Layers,
     title: "Structure Over Content Dumps",
     description:
-      "Unlike video playlists that leave students wondering what to watch next, Learnova provides clear day-wise paths through every subject. Open the app, see today's task, get it done.",
+      "Unlike video playlists that leave students wondering what to watch next, LearnVeda provides clear day-wise paths through every subject. Open the app, see today's task, get it done.",
   },
   {
     icon: Zap,
@@ -256,10 +256,10 @@ export default function FeaturesPage() {
       <section className={styles.comparisonSection}>
         <div className={styles.comparisonInner}>
           <div className={styles.comparisonHeader}>
-            <span className={styles.sectionLabel}>Why Learnova</span>
+            <span className={styles.sectionLabel}>Why LearnVeda</span>
             <h2 className={styles.sectionTitle}>Built Different</h2>
             <p className={styles.sectionSubtitle}>
-              Learnova is not just another content library. It is a complete
+              LearnVeda is not just another content library. It is a complete
               learning system designed for consistent daily progress and healthy
               academic competition.
             </p>

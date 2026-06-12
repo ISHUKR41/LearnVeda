@@ -33,7 +33,7 @@ export default function ForgotPasswordPage() {
         <h1 className={styles.title}>{submitted ? "Check your inbox" : "Reset your password"}</h1>
         <p className={styles.subtitle}>
           {submitted
-            ? "If this email exists, Learnova will send password reset instructions after email delivery is connected."
+            ? "If this email exists, LearnVeda will send password reset instructions after email delivery is connected."
             : "Enter your account email and we will prepare a secure reset flow for your account."}
         </p>
         {!submitted && (

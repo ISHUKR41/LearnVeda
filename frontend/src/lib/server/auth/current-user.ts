@@ -6,7 +6,7 @@
  *   2. A legacy httpOnly cookie session (fallback — legacy email/password logins)
  *
  *   When a Clerk user is found whose email is not yet in the database, a new
- *   Learnova user row is created just-in-time (JIT provisioning) so the student
+ *   LearnVeda user row is created just-in-time (JIT provisioning) so the student
  *   can immediately access their dashboard after first Google sign-in.
  *
  * CRITICAL NOTE: auth() and currentUser() MUST be statically imported at module
@@ -32,7 +32,7 @@ const DEFAULT_TRACK: LearningTrack = "class-9";
 const DEFAULT_ROLE: UserRole       = "student";
 const ENABLE_LEGACY_AUTH = process.env.EDUQUEST_ENABLE_LEGACY_AUTH === "true";
 
-interface LearnovaUserRow {
+interface LearnVedaUserRow {
   id:         string;
   name:       string;
   email:      string;
@@ -44,7 +44,7 @@ interface LearnovaUserRow {
   created_at: string;
 }
 
-function rowToPublicUser(row: LearnovaUserRow): PublicUser {
+function rowToPublicUser(row: LearnVedaUserRow): PublicUser {
   return {
     id:        row.id,
     name:      row.name,
@@ -60,7 +60,7 @@ function rowToPublicUser(row: LearnovaUserRow): PublicUser {
 
 /* ─────────────────────────────────────────────
  * findOrCreateClerkUser
- * Looks up an Learnova user by email from Clerk data.
+ * Looks up an LearnVeda user by email from Clerk data.
  * If no row exists, inserts one (JIT provisioning).
  * ───────────────────────────────────────────── */
 async function findOrCreateClerkUser(
@@ -71,8 +71,8 @@ async function findOrCreateClerkUser(
   try {
     const pool = getPostgresPool();
 
-    /* Try to find an existing Learnova account with this email */
-    const existing = await pool.query<LearnovaUserRow & { password_hash?: string }>(
+    /* Try to find an existing LearnVeda account with this email */
+    const existing = await pool.query<LearnVedaUserRow & { password_hash?: string }>(
       `SELECT id, name, email, track, role, level, xp, streak, created_at, password_hash
          FROM eduquest_users
         WHERE lower(email) = lower($1)`,
@@ -97,7 +97,7 @@ async function findOrCreateClerkUser(
      * Clerk users never use password auth, so this placeholder is never read for login.
      */
     const newId = randomUUID();
-    const inserted = await pool.query<LearnovaUserRow>(
+    const inserted = await pool.query<LearnVedaUserRow>(
       `INSERT INTO eduquest_users
          (id, name, email, password_hash, track, role, level, xp, streak)
        VALUES ($1, $2, $3, $4, $5, $6, 1, 0, 0)
@@ -138,7 +138,7 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Public
       /* Fast path: check if this Clerk user already has a DB row (avoids Clerk API call) */
       try {
         const pool = getPostgresPool();
-        const existing = await pool.query<LearnovaUserRow>(
+        const existing = await pool.query<LearnVedaUserRow>(
           `SELECT id, name, email, track, role, level, xp, streak, created_at
              FROM eduquest_users
             WHERE password_hash = $1`,
@@ -190,7 +190,7 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<Public
     if (!session) return null;
 
     const pool   = getPostgresPool();
-    const result = await pool.query<LearnovaUserRow>(
+    const result = await pool.query<LearnVedaUserRow>(
       `SELECT id, name, email, track, role, level, xp, streak, created_at
          FROM eduquest_users WHERE id = $1`,
       [session.sub],
@@ -215,7 +215,7 @@ export async function getAuthenticatedUserFromToken(
     const session = await verifySessionToken(token);
     if (!session) return null;
     const pool   = getPostgresPool();
-    const result = await pool.query<LearnovaUserRow>(
+    const result = await pool.query<LearnVedaUserRow>(
       `SELECT id, name, email, track, role, level, xp, streak, created_at
          FROM eduquest_users WHERE id = $1`,
       [session.sub],

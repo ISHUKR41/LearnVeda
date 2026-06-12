@@ -5,7 +5,7 @@
  *          currency balance, how to earn Stars, level milestone rewards,
  *          and the Level 10 gate for wagering Stars in battles.
  *
- *          Stars are Learnova's non-purchasable virtual currency earned ONLY
+ *          Stars are LearnVeda's non-purchasable virtual currency earned ONLY
  *          through learning and competing (per MCP Section 10 — Monetisation).
  *          They are separate from XP; Stars unlock premium battle features
  *          while XP drives levelling and leaderboard rank.
@@ -394,7 +394,7 @@ export default function WalletPage() {
             <li>Stars earned from community posts are capped at 50 per post per day</li>
             <li>Battle wagering is capped at ₹100 equivalent per day to prevent addiction</li>
             <li>Viewing a hint video does <strong>not</strong> earn or deduct Stars</li>
-            <li>Learnova reserves the right to adjust Stars balances for policy violations</li>
+            <li>LearnVeda reserves the right to adjust Stars balances for policy violations</li>
           </ul>
         </div>
 

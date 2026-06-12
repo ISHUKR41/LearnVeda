@@ -16,7 +16,7 @@ export default function Loading() {
     <div className={styles.statePage}>
       <div className={styles.stateCard} aria-busy="true" aria-live="polite">
         <div className={styles.stateIcon} />
-        <p className={styles.stateText}>Loading your Learnova workspace...</p>
+        <p className={styles.stateText}>Loading your LearnVeda workspace...</p>
         <div className={styles.loadingRows}>
           <span className={styles.loadingRow} />
           <span className={styles.loadingRow} />

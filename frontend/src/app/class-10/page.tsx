@@ -29,15 +29,15 @@ import styles from "./Class10.module.css";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "CBSE Class 10 Board Exam Prep — Learnova by Ishu | Free Online",
+  title: "CBSE Class 10 Board Exam Prep — LearnVeda by Ishu | Free Online",
   description:
-    "Learnova by Ishu — Best free CBSE Class 10 board exam preparation platform. Maths Standard & Basic, Science, Social Science, English, Hindi. Chapter-wise day plans, mock tests, XP, quiz battles. India's #1 Class 10 gamified study platform.",
+    "LearnVeda by Ishu — Best free CBSE Class 10 board exam preparation platform. Maths Standard & Basic, Science, Social Science, English, Hindi. Chapter-wise day plans, mock tests, XP, quiz battles. India's #1 Class 10 gamified study platform.",
   keywords: [
     "CBSE Class 10", "class 10 board exam preparation", "class 10 online study India",
     "class 10 maths", "class 10 science", "class 10 social science",
     "class 10 English", "class 10 Hindi", "class 10 NCERT solutions",
     "class 10 light reflection refraction", "class 10 electricity",
-    "Learnova class 10", "ishu class 10", "best class 10 website India",
+    "LearnVeda class 10", "ishu class 10", "best class 10 website India",
     "free class 10 board prep India", "class 10 mock tests free",
     "class 10 gamified learning", "class 10 chapter wise study",
     "CBSE 10th board exam 2025", "10th class study app India",
@@ -45,7 +45,7 @@ export const metadata = {
   ],
   icons: { icon: "/favicons/school.svg" },
   openGraph: {
-    title: "CBSE Class 10 Board Prep — Learnova by Ishu | Free Gamified",
+    title: "CBSE Class 10 Board Prep — LearnVeda by Ishu | Free Gamified",
     description: "Best free CBSE Class 10 board prep by Ishu. Mock tests, XP, quiz battles, chapter-wise plans. India's #1.",
     type: "website",
   },
@@ -67,7 +67,7 @@ const ICON_STYLE_BY_SUBJECT: Record<string, string> = {
 
 /* ─────────────────────────────────────────────
  * WHY_CARDS Array
- * Four reasons why a Class 10 student should use Learnova.
+ * Four reasons why a Class 10 student should use LearnVeda.
  * ───────────────────────────────────────────── */
 const WHY_CARDS = [
   {
@@ -257,9 +257,9 @@ export default async function Class10Page() {
         {/* ==================== WHY CLASS 10 ==================== */}
         <div className={styles.whySection}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Why Learnova for Class 10?</h2>
+            <h2 className={styles.sectionTitle}>Why LearnVeda for Class 10?</h2>
             <p className={styles.sectionSubtitle}>
-              Board exams reward consistency and strategy. Learnova provides both.
+              Board exams reward consistency and strategy. LearnVeda provides both.
             </p>
           </div>
 

@@ -1,7 +1,7 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/terms/page.tsx
- * PURPOSE: Comprehensive, professional Terms of Service for Learnova.
+ * PURPOSE: Comprehensive, professional Terms of Service for LearnVeda.
  *          Covers eligibility, account security, learning integrity, battle rules,
  *          community conduct, IP, disclaimers, liability limits, governing law.
  * LAST UPDATED: 2026-06-01
@@ -25,16 +25,16 @@ import {
 import styles from "./Terms.module.css";
 
 export const metadata = {
-  title: "Terms of Service | Learnova",
+  title: "Terms of Service | LearnVeda",
   description:
-    "Learnova Terms of Service — covering eligibility, account security, learning integrity, battle rules, community conduct, intellectual property, disclaimers, and governing law (India).",
+    "LearnVeda Terms of Service — covering eligibility, account security, learning integrity, battle rules, community conduct, intellectual property, disclaimers, and governing law (India).",
 };
 
 const TERM_CARDS = [
   {
     icon: UserCheck,
     title: "Account Responsibility",
-    body: "You are responsible for keeping your account credentials private. Do not share login details or allow others to use your account. Sign out from shared or public devices after every session. Suspicious activity should be reported immediately to support@learnova.in.",
+    body: "You are responsible for keeping your account credentials private. Do not share login details or allow others to use your account. Sign out from shared or public devices after every session. Suspicious activity should be reported immediately to support@learnveda.in.",
   },
   {
     icon: BookOpenCheck,
@@ -57,52 +57,52 @@ const DETAIL_SECTIONS = [
   {
     icon: GraduationCap,
     title: "Eligibility & Age Requirements",
-    body: "Learnova is designed for students aged 14 and above (Class 9 and higher). Users under 18 must have parental or guardian consent. By creating an account, you represent that you meet the age requirement or that a parent/guardian has approved your use. Learnova reserves the right to request verification and to suspend accounts that do not comply.",
+    body: "LearnVeda is designed for students aged 14 and above (Class 9 and higher). Users under 18 must have parental or guardian consent. By creating an account, you represent that you meet the age requirement or that a parent/guardian has approved your use. LearnVeda reserves the right to request verification and to suspend accounts that do not comply.",
   },
   {
     icon: LockKeyhole,
     title: "Authentication & Protected Access",
-    body: "Certain features — dashboards, wallets, battle arenas, achievements, and community posting — require a valid Clerk authentication session. If your session expires, Learnova will prompt you to sign in again. Attempting to access protected API routes without authentication or to forge session tokens is a violation of these Terms and applicable law.",
+    body: "Certain features — dashboards, wallets, battle arenas, achievements, and community posting — require a valid Clerk authentication session. If your session expires, LearnVeda will prompt you to sign in again. Attempting to access protected API routes without authentication or to forge session tokens is a violation of these Terms and applicable law.",
   },
   {
     icon: Medal,
     title: "XP, Levels, Streaks & Rewards",
-    body: "Gamification values (XP, levels, streaks, stars, ranks, battle records) are learning progress indicators — they hold no real-world monetary value, are non-transferable, and cannot be exchanged for cash. Learnova may correct, adjust, or reset these values if errors, duplicate submissions, bugs, or policy violations result in inaccurate data.",
+    body: "Gamification values (XP, levels, streaks, stars, ranks, battle records) are learning progress indicators — they hold no real-world monetary value, are non-transferable, and cannot be exchanged for cash. LearnVeda may correct, adjust, or reset these values if errors, duplicate submissions, bugs, or policy violations result in inaccurate data.",
   },
   {
     icon: CircleAlert,
     title: "Acceptable Use Policy",
-    body: "You agree not to: scrape or harvest content from Learnova without written permission, send spam through the Contact or Community features, attack authentication flows or attempt SQL injection, reverse-engineer the platform, automate answers to artificially inflate scores, or use Learnova in any manner that harms other users or disrupts platform operations.",
+    body: "You agree not to: scrape or harvest content from LearnVeda without written permission, send spam through the Contact or Community features, attack authentication flows or attempt SQL injection, reverse-engineer the platform, automate answers to artificially inflate scores, or use LearnVeda in any manner that harms other users or disrupts platform operations.",
   },
   {
     icon: FileText,
     title: "Intellectual Property",
-    body: "All Learnova content — including chapter notes, practice questions, simulation code, UI designs, brand assets, and platform software — is owned by Learnova or its licensors. Students retain ownership of their answers and community posts. You may use Learnova content solely for personal, non-commercial learning purposes. Reproducing or redistributing Learnova content without permission is prohibited.",
+    body: "All LearnVeda content — including chapter notes, practice questions, simulation code, UI designs, brand assets, and platform software — is owned by LearnVeda or its licensors. Students retain ownership of their answers and community posts. You may use LearnVeda content solely for personal, non-commercial learning purposes. Reproducing or redistributing LearnVeda content without permission is prohibited.",
   },
   {
     icon: Sparkles,
     title: "Community & User Content",
-    body: "When you post in community forums, you grant Learnova a non-exclusive, royalty-free licence to display that content on the platform. You are responsible for ensuring your posts do not infringe third-party intellectual property, contain false information, or violate these Terms. Learnova may remove content that violates community standards without prior notice.",
+    body: "When you post in community forums, you grant LearnVeda a non-exclusive, royalty-free licence to display that content on the platform. You are responsible for ensuring your posts do not infringe third-party intellectual property, contain false information, or violate these Terms. LearnVeda may remove content that violates community standards without prior notice.",
   },
   {
     icon: Scale,
     title: "Disclaimers of Warranties",
-    body: "Learnova is provided 'as is' and 'as available' without warranties of any kind, express or implied. We do not warrant that the platform will be error-free, uninterrupted, or free of viruses. Educational content is aligned to CBSE/NCERT syllabi to the best of our knowledge but should be verified against official textbooks for board examinations.",
+    body: "LearnVeda is provided 'as is' and 'as available' without warranties of any kind, express or implied. We do not warrant that the platform will be error-free, uninterrupted, or free of viruses. Educational content is aligned to CBSE/NCERT syllabi to the best of our knowledge but should be verified against official textbooks for board examinations.",
   },
   {
     icon: CircleAlert,
     title: "Limitation of Liability",
-    body: "To the maximum extent permitted by Indian law, Learnova's aggregate liability for any claim arising from your use of the platform is limited to INR 1,000 or the amount you paid Learnova in the 12 months preceding the claim, whichever is lower. Learnova is not liable for indirect, consequential, or punitive damages of any kind.",
+    body: "To the maximum extent permitted by Indian law, LearnVeda's aggregate liability for any claim arising from your use of the platform is limited to INR 1,000 or the amount you paid LearnVeda in the 12 months preceding the claim, whichever is lower. LearnVeda is not liable for indirect, consequential, or punitive damages of any kind.",
   },
   {
     icon: Scale,
     title: "Platform Changes & Availability",
-    body: "Features, simulations, practice questions, dashboards, and reward structures may evolve as Learnova improves. We aim to preserve genuine learning progress when systems are updated. Planned maintenance will be communicated in advance where possible. Learnova does not guarantee uninterrupted availability and is not liable for temporary outages.",
+    body: "Features, simulations, practice questions, dashboards, and reward structures may evolve as LearnVeda improves. We aim to preserve genuine learning progress when systems are updated. Planned maintenance will be communicated in advance where possible. LearnVeda does not guarantee uninterrupted availability and is not liable for temporary outages.",
   },
   {
     icon: FileText,
     title: "Governing Law & Dispute Resolution",
-    body: "These Terms are governed by the laws of India. Any disputes arising from your use of Learnova shall first be attempted to be resolved amicably through our support team. If unresolved within 30 days, disputes shall be subject to the exclusive jurisdiction of the courts in New Delhi, India. For consumer disputes, you may also approach the Consumer Disputes Redressal Commission.",
+    body: "These Terms are governed by the laws of India. Any disputes arising from your use of LearnVeda shall first be attempted to be resolved amicably through our support team. If unresolved within 30 days, disputes shall be subject to the exclusive jurisdiction of the courts in New Delhi, India. For consumer disputes, you may also approach the Consumer Disputes Redressal Commission.",
   },
 ];
 
@@ -118,10 +118,10 @@ export default function TermsPage() {
         </div>
         <h1>Terms of Service</h1>
         <p>
-          Learnova is a learning platform built for structured study, physics simulations,
+          LearnVeda is a learning platform built for structured study, physics simulations,
           practice questions, dashboards, and fair academic competition. These terms keep
           the platform safe, honest, and genuinely useful for every learner. By using
-          Learnova, you agree to these terms.
+          LearnVeda, you agree to these terms.
         </p>
       </section>
 
@@ -131,7 +131,7 @@ export default function TermsPage() {
         <div>
           <strong>Effective June 1, 2026</strong>
           <span>
-            Use Learnova for genuine academic study, respectful peer competition,
+            Use LearnVeda for genuine academic study, respectful peer competition,
             and honest progress tracking. Governed by the laws of India.
           </span>
         </div>
@@ -185,14 +185,14 @@ export default function TermsPage() {
       <section className={styles.notice}>
         <h2>Amendments & questions</h2>
         <p>
-          Learnova may update these Terms as the platform evolves. Material changes
+          LearnVeda may update these Terms as the platform evolves. Material changes
           will be communicated via dashboard notification or email at least 7 days before
-          taking effect. Continued use of Learnova after the effective date constitutes
+          taking effect. Continued use of LearnVeda after the effective date constitutes
           acceptance of the updated Terms.
           <br /><br />
           For questions about these Terms, contact us at{" "}
-          <a href="mailto:legal@learnova.in" style={{ color: "var(--color-primary)" }}>
-            legal@learnova.in
+          <a href="mailto:legal@learnveda.in" style={{ color: "var(--color-primary)" }}>
+            legal@learnveda.in
           </a>{" "}
           or visit the{" "}
           <Link href="/contact" style={{ color: "var(--color-primary)" }}>

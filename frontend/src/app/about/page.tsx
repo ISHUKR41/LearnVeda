@@ -1,7 +1,7 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/about/page.tsx
- * PURPOSE: About page — explains Learnova's learning mission, core platform
+ * PURPOSE: About page — explains LearnVeda's learning mission, core platform
  *          pillars, real-time statistics from PostgreSQL, value propositions,
  *          and a CTA section. Fetches real user/chapter/question counts via ISR.
  * USED BY: Footer platform links, navbar "About" link
@@ -37,20 +37,20 @@ export const revalidate = 3600;
 
 /** SEO metadata */
 export const metadata = {
-  title: "About Learnova by Ishu — Our Mission & Vision",
+  title: "About LearnVeda by Ishu — Our Mission & Vision",
   description:
-    "Learnova was created by Ishu — India's #1 gamified learning platform for CBSE Class 9-12 and Engineering students. Learn about Ishu's mission to make education fun, competitive, and rewarding for every Indian student.",
+    "LearnVeda was created by Ishu — India's #1 gamified learning platform for CBSE Class 9-12 and Engineering students. Learn about Ishu's mission to make education fun, competitive, and rewarding for every Indian student.",
   keywords: [
-    "about Learnova", "Learnova by Ishu", "who created Learnova",
-    "ishu", "ishu education", "ishu Learnova creator", "ishu founder",
+    "about LearnVeda", "LearnVeda by Ishu", "who created LearnVeda",
+    "ishu", "ishu education", "ishu LearnVeda creator", "ishu founder",
     "ishu India education platform", "ishu gamified learning",
-    "Learnova mission", "Learnova vision", "Learnova story",
+    "LearnVeda mission", "LearnVeda vision", "LearnVeda story",
     "gamified education India", "best education platform India",
     "CBSE gamified learning", "ishu CBSE platform",
   ],
   openGraph: {
-    title: "About Learnova by Ishu — Our Mission & Vision",
-    description: "Learnova was created by Ishu — India's #1 gamified learning platform for CBSE Class 9–12 and Engineering students.",
+    title: "About LearnVeda by Ishu — Our Mission & Vision",
+    description: "LearnVeda was created by Ishu — India's #1 gamified learning platform for CBSE Class 9–12 and Engineering students.",
     type: "website",
   },
 };
@@ -106,7 +106,7 @@ function fmt(n: number, suffix = "+"): string {
 }
 
 /* ─────────────────────────────────────────────
- * Value propositions — key reasons students choose Learnova
+ * Value propositions — key reasons students choose LearnVeda
  * ───────────────────────────────────────────── */
 const VALUE_PROPOSITIONS = [
   {
@@ -176,7 +176,7 @@ const PLATFORM_VALUES = [
   { icon: Lightbulb, title: "Clarity over content dumps",   desc: "Students don't need more content — they need clear paths through existing content." },
   { icon: Heart,     title: "Consistency beats intensity",   desc: "Daily 30-minute sessions beat weekend marathons. Our streak system proves this." },
   { icon: Globe2,    title: "India-first education",         desc: "Built for CBSE, for Indian students, with competitive exam patterns in mind." },
-  { icon: Users,     title: "Community accelerates learning", desc: "The Learnova community lets students learn from and teach each other." },
+  { icon: Users,     title: "Community accelerates learning", desc: "The LearnVeda community lets students learn from and teach each other." },
   { icon: Zap,       title: "Instant feedback loops",        desc: "Every question answered gives immediate XP, explanation, and progress tracking." },
   { icon: Clock,     title: "Study at your pace",            desc: "Pause, resume, or restart any plan. Your progress is always saved." },
 ];
@@ -249,7 +249,7 @@ export default async function AboutPage() {
         <div className={styles.heroInner}>
           <div className={styles.kicker}>
             <Sparkles size={14} />
-            About Learnova
+            About LearnVeda
           </div>
 
           <h1 className={styles.heroTitle}>
@@ -258,7 +258,7 @@ export default async function AboutPage() {
           </h1>
 
           <p className={styles.heroSubtitle}>
-            Learnova is built for Class 9–12 and Engineering learners who need clear
+            LearnVeda is built for Class 9–12 and Engineering learners who need clear
             study paths, healthy competition, and progress they can understand at a glance.
             We combine NCERT-aligned academics with gaming mechanics to make daily study
             genuinely rewarding — not a chore.
@@ -283,14 +283,14 @@ export default async function AboutPage() {
       {/* ==================== MISSION SECTION ==================== */}
       <section className={styles.missionSection}>
         <span className={styles.sectionLabel}>Our Mission</span>
-        <h2 className={styles.sectionTitle}>Why We Built Learnova</h2>
+        <h2 className={styles.sectionTitle}>Why We Built LearnVeda</h2>
 
         <div className={styles.missionGrid}>
           {/* Left column — mission statement */}
           <div className={styles.missionText}>
             <p>
               Education platforms often overwhelm students with content dumps and
-              generic video playlists. Learnova takes a different approach:{" "}
+              generic video playlists. LearnVeda takes a different approach:{" "}
               <strong>every student gets a clear, day-wise learning path</strong> that
               breaks complex syllabi into manageable daily tasks.
             </p>
@@ -299,12 +299,12 @@ export default async function AboutPage() {
               We believe that <strong>consistency beats intensity</strong>. Our streak
               system, XP progression, and battle mechanics are designed to make daily
               study feel like progress — not punishment. Whether preparing for Class 10
-              boards or learning the first programming language, Learnova provides
+              boards or learning the first programming language, LearnVeda provides
               structure, motivation, and community support.
             </p>
             <br />
             <p>
-              Built by a team that understands the Indian education landscape, Learnova
+              Built by a team that understands the Indian education landscape, LearnVeda
               combines <strong>NCERT-aligned academic content</strong> with practical
               coding skills and fair competitive gaming to prepare students for both
               exams and real-world problem solving.
@@ -354,7 +354,7 @@ export default async function AboutPage() {
             <span className={styles.sectionLabel}>Platform Pillars</span>
             <h2 className={styles.sectionTitle}>Three Pillars of Learning</h2>
             <p className={styles.heroSubtitle}>
-              Learnova is built on three core capabilities that work together to create
+              LearnVeda is built on three core capabilities that work together to create
               a complete learning ecosystem for Indian students.
             </p>
           </div>

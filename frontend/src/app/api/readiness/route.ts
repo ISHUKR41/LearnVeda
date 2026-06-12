@@ -23,7 +23,7 @@ export async function GET() {
   return apiSuccess(
     {
       status: backend.readiness.status,
-      service: "learnova-web",
+      service: "learnveda-web",
       checkedAt: new Date().toISOString(),
       backend,
     },

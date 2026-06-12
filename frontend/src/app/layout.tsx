@@ -1,7 +1,7 @@
 /**
  * FILE: layout.tsx
  * LOCATION: src/app/layout.tsx
- * PURPOSE: Root layout for the entire Learnova application.
+ * PURPOSE: Root layout for the entire LearnVeda application.
  *          Wraps every page with the Navbar, Footer, all global providers
  *          (TanStack Query, React Hot Toast, Zustand theme sync), global styles,
  *          font imports, and SEO metadata defaults.
@@ -69,14 +69,14 @@ export const metadata: Metadata = {
   },
   description: SITE_CONFIG.description,
   keywords: [
-    /* ── Brand: Learnova ── */
-    "Learnova", "Learnova India", "Learnova by Ishu", "learnova.in",
-    "Learnova login", "Learnova sign up", "Learnova app", "Learnova free",
-    "Learnova dashboard", "Learnova battle arena", "Learnova community",
-    "Learnova leaderboard", "Learnova CBSE", "Learnova Class 10",
-    "Learnova Class 9", "Learnova Class 11", "Learnova Class 12",
-    "Learnova engineering", "Learnova review", "Learnova platform",
-    "what is Learnova", "Learnova kya hai", "Learnova for students",
+    /* ── Brand: LearnVeda ── */
+    "LearnVeda", "LearnVeda India", "LearnVeda by Ishu", "learnveda.in",
+    "LearnVeda login", "LearnVeda sign up", "LearnVeda app", "LearnVeda free",
+    "LearnVeda dashboard", "LearnVeda battle arena", "LearnVeda community",
+    "LearnVeda leaderboard", "LearnVeda CBSE", "LearnVeda Class 10",
+    "LearnVeda Class 9", "LearnVeda Class 11", "LearnVeda Class 12",
+    "LearnVeda engineering", "LearnVeda review", "LearnVeda platform",
+    "what is LearnVeda", "LearnVeda kya hai", "LearnVeda for students",
     /* ── Creator: Ishu (every possible search variation) ── */
     "ishu", "ishu education", "ishu website", "ishu learning",
     "ishu learning platform", "ishu study platform", "ishu gamified",
@@ -164,10 +164,10 @@ export const metadata: Metadata = {
     url: SITE_CONFIG.url,
     images: [
       {
-        url: "/images/learnova-home-hero.png",
+        url: "/images/learnveda-home-hero.png",
         width: 1200,
         height: 630,
-        alt: "Learnova — India's Gamified Learning Platform",
+        alt: "LearnVeda — India's Gamified Learning Platform",
       },
     ],
   },
@@ -175,7 +175,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`,
     description: SITE_CONFIG.description,
-    images: ["/images/learnova-home-hero.png"],
+    images: ["/images/learnveda-home-hero.png"],
   },
   robots: {
     index: true,
@@ -204,7 +204,7 @@ interface RootLayoutProps {
 }
 
 /**
- * RootLayout — the outermost shell of the Learnova application.
+ * RootLayout — the outermost shell of the LearnVeda application.
  *
  * Structure:
  *   <html>
@@ -240,8 +240,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "WebSite",
-                "name": "Learnova",
-                "alternateName": ["Learnova by Ishu", "Learnova India", "learnova.in"],
+                "name": "LearnVeda",
+                "alternateName": ["LearnVeda by Ishu", "LearnVeda India", "learnveda.in"],
                 "url": SITE_CONFIG.url,
                 "description": SITE_CONFIG.description,
                 "inLanguage": "en-IN",
@@ -263,21 +263,21 @@ export default function RootLayout({ children }: RootLayoutProps) {
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "EducationalOrganization",
-                "name": "Learnova",
-                "alternateName": "Learnova by Ishu",
+                "name": "LearnVeda",
+                "alternateName": "LearnVeda by Ishu",
                 "url": SITE_CONFIG.url,
                 "logo": {
                   "@type": "ImageObject",
                   "url": `${SITE_CONFIG.url}/favicons/home.svg`,
-                  "caption": "Learnova — India's #1 Gamified Learning Platform"
+                  "caption": "LearnVeda — India's #1 Gamified Learning Platform"
                 },
-                "description": "Learnova by Ishu — India's #1 gamified learning platform for CBSE Class 9–12 and Engineering students. Study, Battle, Level Up.",
+                "description": "LearnVeda by Ishu — India's #1 gamified learning platform for CBSE Class 9–12 and Engineering students. Study, Battle, Level Up.",
                 "foundingDate": "2024",
                 "founder": {
                   "@type": "Person",
                   "name": "Ishu",
-                  "jobTitle": "Founder & Creator of Learnova",
-                  "description": "Ishu is the creator of Learnova, India's #1 gamified education platform for students.",
+                  "jobTitle": "Founder & Creator of LearnVeda",
+                  "description": "Ishu is the creator of LearnVeda, India's #1 gamified education platform for students.",
                   "url": SITE_CONFIG.url,
                   "sameAs": [SITE_CONFIG.url]
                 },
@@ -306,8 +306,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 "@context": "https://schema.org",
                 "@type": "Person",
                 "name": "Ishu",
-                "jobTitle": "Educator & Founder of Learnova",
-                "description": "Ishu is the founder and creator of Learnova — India's #1 gamified learning platform for CBSE Class 9–12 and Engineering students. Search 'ishu education' or 'ishu Learnova' to find this platform.",
+                "jobTitle": "Educator & Founder of LearnVeda",
+                "description": "Ishu is the founder and creator of LearnVeda — India's #1 gamified learning platform for CBSE Class 9–12 and Engineering students. Search 'ishu education' or 'ishu LearnVeda' to find this platform.",
                 "url": SITE_CONFIG.url,
                 "knowsAbout": [
                   "Education Technology", "Gamified Learning", "CBSE Curriculum",
@@ -316,7 +316,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 ],
                 "worksFor": {
                   "@type": "EducationalOrganization",
-                  "name": "Learnova",
+                  "name": "LearnVeda",
                   "url": SITE_CONFIG.url
                 },
                 "nationality": {
@@ -333,7 +333,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "SoftwareApplication",
-                "name": "Learnova",
+                "name": "LearnVeda",
                 "operatingSystem": "Web Browser",
                 "applicationCategory": "EducationApplication",
                 "offers": {
@@ -341,7 +341,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   "price": "0",
                   "priceCurrency": "INR"
                 },
-                "description": "Learnova by Ishu — Free gamified learning app for Indian students. CBSE Class 9–12, JEE, NEET, Engineering. Study, Battle, Level Up.",
+                "description": "LearnVeda by Ishu — Free gamified learning app for Indian students. CBSE Class 9–12, JEE, NEET, Engineering. Study, Battle, Level Up.",
                 "url": SITE_CONFIG.url,
                 "inLanguage": "en-IN",
                 "audience": {
@@ -361,42 +361,42 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 "mainEntity": [
                   {
                     "@type": "Question",
-                    "name": "What is Learnova?",
+                    "name": "What is LearnVeda?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "Learnova is India's #1 free gamified learning platform created by Ishu, designed for CBSE Class 9-12 and Engineering students. Students study chapter-wise, earn XP, compete in quiz battles, and climb a global leaderboard."
+                      "text": "LearnVeda is India's #1 free gamified learning platform created by Ishu, designed for CBSE Class 9-12 and Engineering students. Students study chapter-wise, earn XP, compete in quiz battles, and climb a global leaderboard."
                     }
                   },
                   {
                     "@type": "Question",
-                    "name": "Who created Learnova? Who is Ishu?",
+                    "name": "Who created LearnVeda? Who is Ishu?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "Learnova was created by Ishu — an Indian educator and tech builder passionate about making education gamified, competitive, and rewarding for every Indian student from Class 9 to Engineering."
+                      "text": "LearnVeda was created by Ishu — an Indian educator and tech builder passionate about making education gamified, competitive, and rewarding for every Indian student from Class 9 to Engineering."
                     }
                   },
                   {
                     "@type": "Question",
-                    "name": "Is Learnova free for Indian students?",
+                    "name": "Is LearnVeda free for Indian students?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "Yes! Learnova by Ishu is 100% free for all Indian students. CBSE Class 9, 10, 11, 12, Engineering, JEE and NEET preparation — all features including quiz battles, XP, leaderboard, and community are completely free."
+                      "text": "Yes! LearnVeda by Ishu is 100% free for all Indian students. CBSE Class 9, 10, 11, 12, Engineering, JEE and NEET preparation — all features including quiz battles, XP, leaderboard, and community are completely free."
                     }
                   },
                   {
                     "@type": "Question",
-                    "name": "Which classes does Learnova cover?",
+                    "name": "Which classes does LearnVeda cover?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "Learnova covers CBSE Class 9, Class 10, Class 11 (Science, Commerce, Arts), Class 12 (Science, Commerce, Arts), JEE preparation, NEET preparation, and Engineering coding tracks including C, C++, Java, Python, DSA, and System Design."
+                      "text": "LearnVeda covers CBSE Class 9, Class 10, Class 11 (Science, Commerce, Arts), Class 12 (Science, Commerce, Arts), JEE preparation, NEET preparation, and Engineering coding tracks including C, C++, Java, Python, DSA, and System Design."
                     }
                   },
                   {
                     "@type": "Question",
-                    "name": "How does Learnova help students rank #1 in India?",
+                    "name": "How does LearnVeda help students rank #1 in India?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "Learnova uses gamification — students earn XP points, build daily study streaks, win real-time quiz battles against peers, and compete on a global leaderboard. This competitive system motivates students from all 28 Indian states to study consistently and rank higher."
+                      "text": "LearnVeda uses gamification — students earn XP points, build daily study streaks, win real-time quiz battles against peers, and compete on a global leaderboard. This competitive system motivates students from all 28 Indian states to study consistently and rank higher."
                     }
                   },
                   {
@@ -404,7 +404,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     "name": "ishu website kya hai? ishu ka platform kaunsa hai?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "Ishu ka website Learnova.in hai — India ka #1 gamified education platform. Ishu ne yeh platform Indian students ke liye banaya hai. CBSE Class 9-12, JEE, NEET, Engineering sab free mein available hai."
+                      "text": "Ishu ka website LearnVeda.in hai — India ka #1 gamified education platform. Ishu ne yeh platform Indian students ke liye banaya hai. CBSE Class 9-12, JEE, NEET, Engineering sab free mein available hai."
                     }
                   }
                 ]
@@ -418,8 +418,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "ItemList",
-                "name": "Learnova Learning Paths",
-                "description": "All learning paths available on Learnova by Ishu",
+                "name": "LearnVeda Learning Paths",
+                "description": "All learning paths available on LearnVeda by Ishu",
                 "itemListElement": [
                   { "@type": "ListItem", "position": 1, "name": "CBSE Class 9", "url": `${SITE_CONFIG.url}/class-9` },
                   { "@type": "ListItem", "position": 2, "name": "CBSE Class 10 Board Prep", "url": `${SITE_CONFIG.url}/class-10` },

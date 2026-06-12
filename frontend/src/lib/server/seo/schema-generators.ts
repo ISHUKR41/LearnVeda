@@ -17,7 +17,7 @@
  * LAST UPDATED: 2026-05-26
  */
 
-const CANONICAL_DOMAIN = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnova.in";
+const CANONICAL_DOMAIN = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnveda.in";
 
 interface FAQItem {
   question: string;
@@ -52,7 +52,7 @@ export function generateCourseSchema(input: {
     "description": input.description,
     "provider": {
       "@type": "Organization",
-      "name": input.providerName ?? "Learnova India",
+      "name": input.providerName ?? "LearnVeda India",
       "sameAs": CANONICAL_DOMAIN
     }
   };
@@ -101,7 +101,7 @@ export function generateArticleSchema(input: {
     "@type": "TechArticle",
     "headline": input.title,
     "description": input.description,
-    "image": input.imageUrl ?? `${CANONICAL_DOMAIN}/images/learnova-home-hero.png`,
+    "image": input.imageUrl ?? `${CANONICAL_DOMAIN}/images/learnveda-home-hero.png`,
     "datePublished": input.datePublished,
     "dateModified": input.dateModified,
     "author": {
@@ -110,12 +110,12 @@ export function generateArticleSchema(input: {
       "jobTitle": input.authorTitle ?? "Academic Subject Matter Expert",
       "affiliation": {
         "@type": "Organization",
-        "name": "Learnova Faculty Board"
+        "name": "LearnVeda Faculty Board"
       }
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Learnova",
+      "name": "LearnVeda",
       "logo": {
         "@type": "ImageObject",
         "url": `${CANONICAL_DOMAIN}/favicons/home.svg`

@@ -31,9 +31,9 @@ export default function SemesterCatalogPage() {
 
   // Generate aggregate Course schema for crawl visibility
   const catalogSchema = generateCourseSchema({
-    name: "Learnova BTech CSE Semester Exam Blueprints & Survival Guides",
+    name: "LearnVeda BTech CSE Semester Exam Blueprints & Survival Guides",
     description: "Verified computer science curriculum blueprints and numerical revision safety sheets prepared by university department heads.",
-    providerName: "Learnova Academic Affairs Office"
+    providerName: "LearnVeda Academic Affairs Office"
   });
 
   return (
@@ -110,7 +110,7 @@ export default function SemesterCatalogPage() {
 
         {/* Structured trust signals */}
         <section className={styles.featuresSection}>
-          <h3 className={styles.featuresTitle}>Why Trust Learnova Blueprints?</h3>
+          <h3 className={styles.featuresTitle}>Why Trust LearnVeda Blueprints?</h3>
           <div className={styles.featuresGrid}>
             <div className={styles.featureItem}>
               <ShieldCheck size={32} className="text-emerald-600 mb-2" />

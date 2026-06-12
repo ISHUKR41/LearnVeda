@@ -2,7 +2,7 @@
  * FILE: XPToast.tsx
  * LOCATION: src/components/gamification/XPToast.tsx
  * PURPOSE: Utility function for showing XP-earned toast notifications.
- *          Wraps react-hot-toast with a styled Learnova XP notification that
+ *          Wraps react-hot-toast with a styled LearnVeda XP notification that
  *          shows the XP amount gained (e.g. "+50 XP") with the correct colour.
  *          Call this function anywhere after awarding XP to the student.
  * USED BY: Question pages, battle result screen, chapter completion handler

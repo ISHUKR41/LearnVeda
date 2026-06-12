@@ -26,14 +26,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!plan) {
     return {
-      title: "Engineering Plan | Learnova",
-      description: "Explore engineering learning plans on Learnova.",
+      title: "Engineering Plan | LearnVeda",
+      description: "Explore engineering learning plans on LearnVeda.",
     };
   }
 
-  const title = `${plan.title} — ${plan.eyebrow} | Learnova`;
+  const title = `${plan.title} — ${plan.eyebrow} | LearnVeda`;
   const description = plan.description;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnova.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnveda.in";
 
   return {
     title,
@@ -61,11 +61,11 @@ export default async function EngineeringPlanPage({ params }: { params: Promise<
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnova.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnveda.in";
   const courseSchema = generateCourseSchema({
     name: `${plan.title} — ${plan.eyebrow}`,
     description: plan.description,
-    providerName: "Learnova Engineering Faculty",
+    providerName: "LearnVeda Engineering Faculty",
   });
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: baseUrl },

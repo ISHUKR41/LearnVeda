@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
       return apiError("USER_ALREADY_EXISTS", "An account with this email already exists.", 409);
     }
 
-    console.error("Learnova sign-up failed", error);
+    console.error("LearnVeda sign-up failed", error);
     return apiError("SIGN_UP_FAILED", "Unable to create account right now.", 500);
   }
 }

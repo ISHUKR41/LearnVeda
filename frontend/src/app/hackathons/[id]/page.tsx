@@ -5,8 +5,8 @@ import HackathonDetailClient from "./HackathonDetailClient";
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   return {
-    title: `Hackathon: ${resolvedParams.id} | Learnova`,
-    description: "Join this hackathon on Learnova to build real-world projects, win prizes, and showcase your skills.",
+    title: `Hackathon: ${resolvedParams.id} | LearnVeda`,
+    description: "Join this hackathon on LearnVeda to build real-world projects, win prizes, and showcase your skills.",
   };
 }
 

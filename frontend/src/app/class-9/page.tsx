@@ -32,21 +32,21 @@ import { resolveCurriculumIcon } from "@/lib/ui/lucide-icon-map";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "CBSE Class 9 Study Platform — Learnova by Ishu | Free Online Learning",
+  title: "CBSE Class 9 Study Platform — LearnVeda by Ishu | Free Online Learning",
   description:
-    "Learnova by Ishu — Best free CBSE Class 9 study platform. Mathematics, Science, Social Science, English, Hindi, Computer, AI. Chapter-wise day plans, XP streaks, quiz battles. India's #1 gamified Class 9 learning platform.",
+    "LearnVeda by Ishu — Best free CBSE Class 9 study platform. Mathematics, Science, Social Science, English, Hindi, Computer, AI. Chapter-wise day plans, XP streaks, quiz battles. India's #1 gamified Class 9 learning platform.",
   keywords: [
     "CBSE Class 9", "class 9 study platform", "class 9 online study India",
     "class 9 maths", "class 9 science", "class 9 social science",
     "class 9 English", "class 9 Hindi", "class 9 chapter wise",
-    "Learnova class 9", "ishu class 9", "best class 9 website India",
+    "LearnVeda class 9", "ishu class 9", "best class 9 website India",
     "free class 9 study India", "class 9 NCERT solutions", "class 9 notes India",
     "class 9 gamified learning", "class 9 XP study", "class 9 quiz battle",
     "CBSE 9th standard online", "9th class study app India",
   ],
   icons: { icon: "/favicons/school.svg" },
   openGraph: {
-    title: "CBSE Class 9 — Learnova by Ishu | Free Gamified Learning",
+    title: "CBSE Class 9 — LearnVeda by Ishu | Free Gamified Learning",
     description: "Best free CBSE Class 9 study platform by Ishu. Chapter-wise plans, XP, battles, leaderboard. India's #1.",
     type: "website",
   },

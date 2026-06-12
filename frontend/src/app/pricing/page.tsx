@@ -1,7 +1,7 @@
 /**
  * FILE: page.tsx
  * LOCATION: src/app/pricing/page.tsx
- * PURPOSE: Professional pricing page for Learnova. Shows three clear tiers —
+ * PURPOSE: Professional pricing page for LearnVeda. Shows three clear tiers —
  *          Free, Student Pro, and School Partner — with feature comparisons and
  *          a clear hierarchy of value. The Free tier covers all current features.
  *          Pro and School tiers are future-positioned with honest messaging.
@@ -23,19 +23,19 @@ import styles from "./Pricing.module.css";
 export const revalidate = 86400;
 
 export const metadata = {
-  title: "Pricing — Learnova by Ishu | Free for All Indian Students",
+  title: "Pricing — LearnVeda by Ishu | Free for All Indian Students",
   description:
-    "Learnova by Ishu is 100% free for all Indian students. CBSE Class 9-12, Engineering, JEE, NEET — all chapters, quiz battles, XP, leaderboard. No hidden charges. India's #1 free gamified learning platform.",
+    "LearnVeda by Ishu is 100% free for all Indian students. CBSE Class 9-12, Engineering, JEE, NEET — all chapters, quiz battles, XP, leaderboard. No hidden charges. India's #1 free gamified learning platform.",
   keywords: [
-    "Learnova pricing", "Learnova free", "free education platform India",
+    "LearnVeda pricing", "LearnVeda free", "free education platform India",
     "ishu free learning platform", "free CBSE study India",
     "free JEE preparation India", "free NEET preparation India",
     "free online classes India students", "no cost learning India",
     "gamified learning free India", "best free study app India",
   ],
   openGraph: {
-    title: "Pricing — Learnova by Ishu | 100% Free for Indian Students",
-    description: "Learnova by Ishu is completely free. All CBSE classes, JEE, NEET, Engineering. No hidden charges.",
+    title: "Pricing — LearnVeda by Ishu | 100% Free for Indian Students",
+    description: "LearnVeda by Ishu is completely free. All CBSE classes, JEE, NEET, Engineering. No hidden charges.",
     type: "website",
   },
 };
@@ -106,7 +106,7 @@ const PRICING_PLANS = [
     badge: "For Institutions",
     price: "Custom",
     period: "per institution",
-    description: "Complete Learnova deployment for schools with teacher dashboards and bulk enrollment.",
+    description: "Complete LearnVeda deployment for schools with teacher dashboards and bulk enrollment.",
     gradient: "linear-gradient(135deg, #0F766E, #10B981)",
     badgeClass: "badgeSchool",
     popular: false,
@@ -171,7 +171,7 @@ export default function PricingPage() {
             Start free. Upgrade when you&apos;re ready.
           </h1>
           <p className={styles.heroSubtitle}>
-            Every core Learnova feature is free forever — class tracks, battles, streaks, leaderboard.
+            Every core LearnVeda feature is free forever — class tracks, battles, streaks, leaderboard.
             Pro tools for serious exam prep are coming soon.
           </p>
         </div>
@@ -324,7 +324,7 @@ export default function PricingPage() {
           {/* Bottom CTA */}
           <div className={styles.finalCta}>
             <h2>Ready to start learning?</h2>
-            <p>Join thousands of students already using Learnova — completely free.</p>
+            <p>Join thousands of students already using LearnVeda — completely free.</p>
             <Link href="/sign-up" className={styles.finalCtaBtn}>
               Create Free Account
               <ArrowRight size={15} />
