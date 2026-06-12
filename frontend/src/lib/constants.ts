@@ -120,10 +120,10 @@ export const POINT_VALUES = {
 
 /** Site-wide metadata for SEO */
 export const SITE_CONFIG = {
-  name: "Zingpath",
+  name: "Learnova",
   tagline: "Learn. Battle. Level Up.",
-  description: "Zingpath by Ishu — India's #1 gamified learning platform. CBSE Class 9-12, JEE, NEET, Engineering. Study, Battle, Level Up. Trusted by students across all 28 Indian states.",
-  url: "https://zingpath.in",
+  description: "Learnova by Ishu — India's #1 gamified learning platform. CBSE Class 9-12, JEE, NEET, Engineering. Study, Battle, Level Up. Trusted by students across all 28 Indian states.",
+  url: "https://learnova.in",
 } as const;
 
 /** Footer link columns */

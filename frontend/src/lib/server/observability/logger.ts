@@ -24,10 +24,10 @@ export function getLogger(): pino.Logger {
   const globalForLogger = globalThis as LoggerGlobal;
 
   globalForLogger.__eduquestLogger ??= pino({
-    name: "zingpath-web",
+    name: "learnova-web",
     level: process.env.LOG_LEVEL ?? (process.env.NODE_ENV === "production" ? "info" : "debug"),
     base: {
-      service: "zingpath-web",
+      service: "learnova-web",
       environment: process.env.NODE_ENV ?? "development",
     },
   });

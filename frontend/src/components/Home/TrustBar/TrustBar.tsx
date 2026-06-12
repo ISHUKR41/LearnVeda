@@ -2,7 +2,7 @@
  * FILE: TrustBar.tsx
  * LOCATION: src/components/Home/TrustBar/TrustBar.tsx
  * PURPOSE: A minimalist bar displaying the core offerings/features as trust signals right below the hero.
- * AUTHOR: Zingpath Team
+ * AUTHOR: Learnova Team
  * LAST UPDATED: 2026-05-18
  */
 

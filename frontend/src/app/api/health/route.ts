@@ -19,7 +19,7 @@ export async function GET() {
 
   return apiSuccess({
     status: backend.readiness.status === "ready" ? "ok" : "degraded",
-    service: "zingpath-web",
+    service: "learnova-web",
     checkedAt: new Date().toISOString(),
     backend,
   }, { headers: NO_STORE_HEADERS });

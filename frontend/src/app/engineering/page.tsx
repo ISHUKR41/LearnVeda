@@ -39,9 +39,9 @@ import styles from "./Engineering.module.css";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Engineering Coding Track — Zingpath by Ishu | Free Programming India",
+  title: "Engineering Coding Track — Learnova by Ishu | Free Programming India",
   description:
-    "Zingpath by Ishu — Best free engineering coding platform India. Learn C, C++, Java, Python, JavaScript, Rust, DSA, System Design. Structured 30-45 day plans, coding battles, XP. India's #1 gamified engineering study platform.",
+    "Learnova by Ishu — Best free engineering coding platform India. Learn C, C++, Java, Python, JavaScript, Rust, DSA, System Design. Structured 30-45 day plans, coding battles, XP. India's #1 gamified engineering study platform.",
   keywords: [
     "engineering coding India", "learn programming India free",
     "C language course India", "C++ course India", "Java course India",
@@ -50,13 +50,13 @@ export const metadata = {
     "system design course India", "web development course India free",
     "competitive programming India", "coding roadmap India",
     "30 day coding plan India", "engineering study platform India",
-    "Zingpath engineering", "ishu engineering platform", "ishu coding",
+    "Learnova engineering", "ishu engineering platform", "ishu coding",
     "best coding website India free", "coding battles online India",
     "interview preparation India", "GATE preparation India",
   ],
   icons: { icon: "/favicons/engineering.svg" },
   openGraph: {
-    title: "Engineering Coding — Zingpath by Ishu | Free Programming India",
+    title: "Engineering Coding — Learnova by Ishu | Free Programming India",
     description: "Free engineering coding platform by Ishu. C, C++, Java, Python, DSA, System Design. 30-day plans, coding battles. India's #1.",
     type: "website",
   },

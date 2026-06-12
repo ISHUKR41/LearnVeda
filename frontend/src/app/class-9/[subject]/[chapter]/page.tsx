@@ -59,13 +59,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data) {
     return {
-      title: "Chapter Practice | Zingpath",
-      description: "Practice concept questions on Zingpath.",
+      title: "Chapter Practice | Learnova",
+      description: "Practice concept questions on Learnova.",
     };
   }
 
   return {
-    title: `${data.chapterName} - Chapter Practice | Zingpath`,
+    title: `${data.chapterName} - Chapter Practice | Learnova`,
     description: `Interactive questions on ${data.chapterName} for Class 9 ${data.subjectName}. Earn XP points and clear your concepts.`,
   };
 }

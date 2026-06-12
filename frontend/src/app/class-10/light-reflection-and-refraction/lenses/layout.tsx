@@ -8,10 +8,10 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://zingpath.in';
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://learnova.in';
 
 export const metadata: Metadata = {
-  title: 'Lenses & Human Eye – Class 10 Physics | Ishu Website | Lens Formula, Power, Eye Defects | Zingpath',
+  title: 'Lenses & Human Eye – Class 10 Physics | Ishu Website | Lens Formula, Power, Eye Defects | Learnova',
   description:
     'Master Lenses and Human Eye for Class 10 CBSE Boards on Ishu Website. #1 study material: Convex & concave lenses, lens formula (1/v − 1/u = 1/f), magnification, power of lens (Dioptre), human eye anatomy, accommodation, myopia, hypermetropia corrections. Interactive simulations, 30+ images, 5 solved numericals by Ishu.',
   keywords: [
@@ -36,11 +36,11 @@ export const metadata: Metadata = {
     'netra ka lens kaksha 10', 'drishti dosh',
     'class 10 board exam preparation lenses',
     'best lens notes class 10', 'interactive lens simulation',
-    'Zingpath class 10 physics', '#1 class 10 lenses notes',
+    'Learnova class 10 physics', '#1 class 10 lenses notes',
   ],
-  authors: [{ name: 'Ishu / Zingpath' }],
+  authors: [{ name: 'Ishu / Learnova' }],
   creator: 'Ishu',
-  publisher: 'Zingpath by Ishu',
+  publisher: 'Learnova by Ishu',
   robots: {
     index: true,
     follow: true,
@@ -51,11 +51,11 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'article',
-    title: 'Lenses & Human Eye – Class 10 Physics | Ishu Website | Zingpath',
+    title: 'Lenses & Human Eye – Class 10 Physics | Ishu Website | Learnova',
     description:
       '#1 Interactive notes on Lenses & Human Eye by Ishu. Lens formula, power, image formation for 5 positions, myopia, hypermetropia corrections with simulations and numericals.',
     url: `${BASE}/class-10/light-reflection-and-refraction/lenses`,
-    siteName: 'Zingpath by Ishu',
+    siteName: 'Learnova by Ishu',
     images: [
       {
         url: `${BASE}/images/light/human-eye-full-anatomy.png`,
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Lenses & Human Eye – Class 10 | Ishu Website | Zingpath',
+    title: 'Lenses & Human Eye – Class 10 | Ishu Website | Learnova',
     description: 'Interactive notes on lenses, lens formula, power & eye defects for CBSE Class 10 by Ishu.',
     images: [`${BASE}/images/light/human-eye-full-anatomy.png`],
   },
@@ -99,12 +99,12 @@ const jsonLd = {
   ],
   inLanguage: 'en-IN',
   author: { '@type': 'Person', name: 'Ishu' },
-  provider: { '@type': 'EducationalOrganization', name: 'Zingpath by Ishu', url: BASE },
+  provider: { '@type': 'EducationalOrganization', name: 'Learnova by Ishu', url: BASE },
   isPartOf: {
     '@type': 'Course',
     name: 'Class 10 Science: Light – Reflection and Refraction',
     url: `${BASE}/class-10/light-reflection-and-refraction`,
-    provider: { '@type': 'EducationalOrganization', name: 'Zingpath by Ishu', url: BASE },
+    provider: { '@type': 'EducationalOrganization', name: 'Learnova by Ishu', url: BASE },
   },
 };
 

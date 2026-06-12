@@ -1,7 +1,7 @@
 /**
  * FILE: platform-store.ts
  * LOCATION: src/lib/server/data/platform-store.ts
- * PURPOSE: Durable local backend data adapter for Zingpath. It stores users,
+ * PURPOSE: Durable local backend data adapter for Learnova. It stores users,
  *          matchmaking tickets, community posts, event registrations, and basic
  *          progress data in a JSON file with serialized writes.
  *
@@ -104,7 +104,7 @@ function getRuntime(): StoreRuntime {
 function getStoreFilePath(): string {
   return process.env.EDUQUEST_DATA_FILE
     ? path.resolve(process.env.EDUQUEST_DATA_FILE)
-    : path.join(process.cwd(), ".data", "zingpath-store.json");
+    : path.join(process.cwd(), ".data", "learnova-store.json");
 }
 
 /** Default data keeps community/event surfaces useful before real users arrive. */

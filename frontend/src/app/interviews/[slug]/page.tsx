@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PageProps) {
       title: interview.seoTitle,
       description: interview.metaDescription,
       type: "website",
-      url: `https://zingpath.in/interviews/${slug}`,
+      url: `https://learnova.in/interviews/${slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -70,7 +70,7 @@ export default async function InterviewSlugPage({ params }: PageProps) {
   const courseSchema = generateCourseSchema({
     name: interview.title,
     description: interview.metaDescription,
-    providerName: "Zingpath CS Faculty Board",
+    providerName: "Learnova CS Faculty Board",
   });
 
   const faqItems = interview.questions.map((q) => ({

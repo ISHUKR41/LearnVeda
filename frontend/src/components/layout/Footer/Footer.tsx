@@ -24,7 +24,7 @@ export default function Footer() {
           <div className={styles.brandCol}>
             <Link href="/" className={styles.logo}>
               <BookOpen size={24} className={styles.logoIcon} />
-              <span className={styles.logoText}>Zingpath</span>
+              <span className={styles.logoText}>Learnova</span>
             </Link>
             <p className={styles.tagline}>
               India&apos;s #1 gamified learning platform for CBSE & Engineering students.
@@ -74,7 +74,7 @@ export default function Footer() {
 
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
-            © 2026 Zingpath | Made with ♥ for Indian students
+            © 2026 Learnova | Made with ♥ for Indian students
           </p>
           <div className={styles.bottomLinks}>
             <Link href="/contact" className={styles.bottomLink}>Support</Link>

@@ -114,7 +114,7 @@ async function main(): Promise<void> {
   const pendingMigrations = migrationDefinitions.filter((migration) => !appliedMigrations.has(migration.name));
 
   if (pendingMigrations.length === 0) {
-    console.log("Zingpath database is already up to date.");
+    console.log("Learnova database is already up to date.");
     return;
   }
 
@@ -123,12 +123,12 @@ async function main(): Promise<void> {
     await applyMigration(migration);
   }
 
-  console.log(`Applied ${pendingMigrations.length} Zingpath migration(s).`);
+  console.log(`Applied ${pendingMigrations.length} Learnova migration(s).`);
 }
 
 main()
   .catch((error) => {
-    console.error("Zingpath database migration failed.");
+    console.error("Learnova database migration failed.");
     console.error(error);
     process.exitCode = 1;
   })

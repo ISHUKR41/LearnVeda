@@ -1,7 +1,7 @@
 /*
  * FILE: route.ts
  * LOCATION: src/app/api/subjects/route.ts
- * PURPOSE: REST API endpoint for fetching Zingpath CBSE subjects.
+ * PURPOSE: REST API endpoint for fetching Learnova CBSE subjects.
  *          Supports filtering by learning track (e.g. class-9) and optionally
  *          by stream (science / commerce / arts) for Class 11 and 12.
  *          Returns subjects from PostgreSQL in sequence_order.

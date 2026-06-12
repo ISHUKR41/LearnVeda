@@ -30,14 +30,14 @@ export async function generateMetadata({ params }: { params: Promise<{ subject: 
 
   if (!plan) {
     return {
-      title: "Class 10 Subject Plan | Zingpath",
-      description: "Explore the Class 10 board exam learning plan on Zingpath.",
+      title: "Class 10 Subject Plan | Learnova",
+      description: "Explore the Class 10 board exam learning plan on Learnova.",
     };
   }
 
-  const title = `${plan.title} — ${plan.eyebrow} | Zingpath`;
+  const title = `${plan.title} — ${plan.eyebrow} | Learnova`;
   const description = plan.description;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://zingpath.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnova.in";
 
   return {
     title,
@@ -68,11 +68,11 @@ export default async function Class10SubjectPage({ params }: { params: Promise<{
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://zingpath.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnova.in";
   const courseSchema = generateCourseSchema({
     name: `${plan.title} — ${plan.eyebrow}`,
     description: plan.description,
-    providerName: "Zingpath Board Prep Team",
+    providerName: "Learnova Board Prep Team",
   });
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: baseUrl },

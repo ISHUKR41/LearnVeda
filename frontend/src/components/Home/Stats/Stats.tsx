@@ -2,7 +2,7 @@
  * FILE: Stats.tsx
  * LOCATION: src/components/Home/Stats/Stats.tsx
  * PURPOSE: A component to show platform statistics in a visually appealing grid.
- * AUTHOR: Zingpath Team
+ * AUTHOR: Learnova Team
  * LAST UPDATED: 2026-05-18
  */
 

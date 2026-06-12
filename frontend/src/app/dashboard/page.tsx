@@ -14,8 +14,8 @@ import dynamic from "next/dynamic";
 import DashboardLoadingSkeleton from "./DashboardLoadingSkeleton";
 
 export const metadata = {
-  title: "Dashboard | Zingpath",
-  description: "Your Zingpath learning progress, streaks, XP, battles, and quick actions.",
+  title: "Dashboard | Learnova",
+  description: "Your Learnova learning progress, streaks, XP, battles, and quick actions.",
   icons: {
     icon: "/favicons/dashboard.svg",
   },

@@ -29,7 +29,7 @@
  * Types — API client contracts
  * ───────────────────────────────────────────── */
 
-/** Standard API response shape from the Zingpath backend */
+/** Standard API response shape from the Learnova backend */
 export interface ApiResponse<T = unknown> {
   ok: boolean;
   data?: T;

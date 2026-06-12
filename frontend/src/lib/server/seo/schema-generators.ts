@@ -17,7 +17,7 @@
  * LAST UPDATED: 2026-05-26
  */
 
-const CANONICAL_DOMAIN = process.env.NEXT_PUBLIC_SITE_URL ?? "https://zingpath.in";
+const CANONICAL_DOMAIN = process.env.NEXT_PUBLIC_SITE_URL ?? "https://learnova.in";
 
 interface FAQItem {
   question: string;
@@ -52,7 +52,7 @@ export function generateCourseSchema(input: {
     "description": input.description,
     "provider": {
       "@type": "Organization",
-      "name": input.providerName ?? "Zingpath India",
+      "name": input.providerName ?? "Learnova India",
       "sameAs": CANONICAL_DOMAIN
     }
   };
@@ -101,7 +101,7 @@ export function generateArticleSchema(input: {
     "@type": "TechArticle",
     "headline": input.title,
     "description": input.description,
-    "image": input.imageUrl ?? `${CANONICAL_DOMAIN}/images/zingpath-home-hero.png`,
+    "image": input.imageUrl ?? `${CANONICAL_DOMAIN}/images/learnova-home-hero.png`,
     "datePublished": input.datePublished,
     "dateModified": input.dateModified,
     "author": {
@@ -110,12 +110,12 @@ export function generateArticleSchema(input: {
       "jobTitle": input.authorTitle ?? "Academic Subject Matter Expert",
       "affiliation": {
         "@type": "Organization",
-        "name": "Zingpath Faculty Board"
+        "name": "Learnova Faculty Board"
       }
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Zingpath",
+      "name": "Learnova",
       "logo": {
         "@type": "ImageObject",
         "url": `${CANONICAL_DOMAIN}/favicons/home.svg`

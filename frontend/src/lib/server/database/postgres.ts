@@ -57,7 +57,7 @@ export function getPostgresPool(): Pool {
   pool.setMaxListeners(25);
   globalForDatabase.__eduquestPostgresPool = pool;
 
-  // All Zingpath tables live in the public schema (eduquest_* prefix).
+  // All Learnova tables live in the public schema (eduquest_* prefix).
   // Set search_path once per new client connection using async/await
   // to avoid the "client already executing query" deprecation warning.
   pool.on('connect', async (client) => {

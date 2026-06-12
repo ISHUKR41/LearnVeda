@@ -31,9 +31,9 @@ export default function InterviewCatalogPage() {
 
   // Generate aggregate Course schema for crawler visibility
   const catalogSchema = generateCourseSchema({
-    name: "Zingpath SDE Technical Interview Catalog & Solved Sheets",
+    name: "Learnova SDE Technical Interview Catalog & Solved Sheets",
     description: "Verified computer science placement lecture sheets and viva answers prepared by top IIT CSE professors.",
-    providerName: "Zingpath SDE Review Board"
+    providerName: "Learnova SDE Review Board"
   });
 
   return (
@@ -110,7 +110,7 @@ export default function InterviewCatalogPage() {
 
         {/* Structured FAQ or Zero-Click snippets block */}
         <section className={styles.featuresSection}>
-          <h3 className={styles.featuresTitle}>Why Use Zingpath Solved Placement Sheets?</h3>
+          <h3 className={styles.featuresTitle}>Why Use Learnova Solved Placement Sheets?</h3>
           <div className={styles.featuresGrid}>
             <div className={styles.featureItem}>
               <Sparkles size={32} className="text-cyan-600 mb-2" />

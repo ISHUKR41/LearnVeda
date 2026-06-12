@@ -36,14 +36,14 @@ const ChapterVisualGallery = dynamic(() => import('@/components/LightChapter/Cha
   ),
 });
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://zingpath.in';
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://learnova.in';
 
 /* ─────────────────────────────────────────────────────
    SEO METADATA
 ───────────────────────────────────────────────────── */
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
-  title: 'Light – Reflection and Refraction | Ishu Website | Class 10 Science CBSE | Zingpath',
+  title: 'Light – Reflection and Refraction | Ishu Website | Class 10 Science CBSE | Learnova',
   description:
     "Complete interactive Class 10 CBSE chapter on Light – Reflection and Refraction on Ishu Website. Ranked #1! Study reflection laws, spherical mirrors, Snell's law, refractive index, total internal reflection, optical fibre, lenses, human eye and eye defects with lazy-loaded diagrams, simulations, solved numericals, MCQs, flashcards and summary notes by Ishu.",
   keywords: [
@@ -75,11 +75,11 @@ export const metadata: Metadata = {
     'prakaash ka pratyavartan aur apvartan', 'kaksha 10 vigyan prakash',
     'best website for class 10 science', 'best physics notes class 10',
     'free online class 10 physics', 'interactive physics learning class 10',
-    'Zingpath class 10', 'Zingpath by Ishu', '#1 ishu physics website',
+    'Learnova class 10', 'Learnova by Ishu', '#1 ishu physics website',
   ],
-  authors: [{ name: 'Ishu / Zingpath' }],
+  authors: [{ name: 'Ishu / Learnova' }],
   creator: 'Ishu',
-  publisher: 'Zingpath by Ishu',
+  publisher: 'Learnova by Ishu',
   robots: {
     index: true,
     follow: true,
@@ -88,10 +88,10 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE}/class-10/light-reflection-and-refraction` },
   openGraph: {
     type: 'website',
-    title: 'Light – Reflection and Refraction | Ishu Website | Class 10 CBSE | Zingpath',
+    title: 'Light – Reflection and Refraction | Ishu Website | Class 10 CBSE | Learnova',
     description: 'Interactive Class 10 chapter by Ishu: 15 live simulations, 40+ diagrams, 18 numericals, MCQs & flashcards.',
     url: `${BASE}/class-10/light-reflection-and-refraction`,
-    siteName: 'Ishu / Zingpath',
+    siteName: 'Ishu / Learnova',
     images: [{ url: `${BASE}/images/light/concave-mirror-5-cases.png`, width: 1200, height: 900, alt: 'Class 10 Light Chapter by Ishu' }],
     locale: 'en_IN',
   },
@@ -159,7 +159,7 @@ const courseJsonLd = {
   name: 'Class 10 Science: Light – Reflection and Refraction | Ishu Website',
   description: 'Complete interactive course on Light Reflection and Refraction for CBSE Class 10 by Ishu. Includes 15+ live simulations, 50+ AI diagrams, 20 solved numericals, MCQs and flashcards. Best study material for board exam preparation.',
   url: `${BASE}/class-10/light-reflection-and-refraction`,
-  provider: { '@type': 'EducationalOrganization', name: 'Zingpath by Ishu', url: BASE },
+  provider: { '@type': 'EducationalOrganization', name: 'Learnova by Ishu', url: BASE },
   educationalLevel: 'Class 10 / Grade 10',
   inLanguage: 'en-IN',
   isAccessibleForFree: true,
@@ -180,7 +180,7 @@ const webPageJsonLd = {
   description: 'Best interactive Class 10 CBSE chapter on Light by Ishu with simulations, diagrams, numericals, MCQs and flashcards.',
   url: `${BASE}/class-10/light-reflection-and-refraction`,
   inLanguage: 'en-IN',
-  isPartOf: { '@type': 'WebSite', name: 'Zingpath by Ishu', url: BASE },
+  isPartOf: { '@type': 'WebSite', name: 'Learnova by Ishu', url: BASE },
   author: { '@type': 'Person', name: 'Ishu' },
   datePublished: '2026-01-01',
   dateModified: '2026-06-12',

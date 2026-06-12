@@ -32,9 +32,9 @@ export default function NotesCatalogPage() {
 
   // Generate aggregate Course schema block to declare this catalog list to search bots
   const catalogSchema = generateCourseSchema({
-    name: "Zingpath Academic Lecture Notes & Study Syllabus",
+    name: "Learnova Academic Lecture Notes & Study Syllabus",
     description: "Verified semester exam revision guides and school curriculum syllabus handouts prepared by university professors.",
-    providerName: "Zingpath Board of CSE Studies"
+    providerName: "Learnova Board of CSE Studies"
   });
 
   return (
@@ -115,7 +115,7 @@ export default function NotesCatalogPage() {
 
         {/* Zero-Click Study Checklist Section */}
         <section className={styles.studyFeatures}>
-          <h3 className={styles.featuresTitle}>Why Study on Zingpath Knowledge Hub?</h3>
+          <h3 className={styles.featuresTitle}>Why Study on Learnova Knowledge Hub?</h3>
           <div className={styles.featuresGrid}>
             <div className={styles.featureItem}>
               <GraduationCap size={32} className="text-blue-600 mb-2" />

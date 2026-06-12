@@ -20,12 +20,12 @@ import LeaderboardLoadingSkeleton from "./LeaderboardLoadingSkeleton";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "Leaderboard — Zingpath by Ishu | Top Students India",
-  description: "See India's top students on Zingpath by Ishu. Global and class-specific rankings, XP scores, and streaks. Climb the leaderboard and become #1!",
+  title: "Leaderboard — Learnova by Ishu | Top Students India",
+  description: "See India's top students on Learnova by Ishu. Global and class-specific rankings, XP scores, and streaks. Climb the leaderboard and become #1!",
   keywords: [
-    "Zingpath leaderboard", "ishu leaderboard", "top students India",
+    "Learnova leaderboard", "ishu leaderboard", "top students India",
     "student ranking India", "CBSE leaderboard online", "XP leaderboard India",
-    "best students leaderboard India", "ishu Zingpath ranking",
+    "best students leaderboard India", "ishu Learnova ranking",
   ],
   icons: {
     icon: "/favicons/leaderboard.svg",

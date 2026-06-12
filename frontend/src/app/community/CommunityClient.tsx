@@ -185,7 +185,7 @@ export default function CommunityClient() {
       <div className={styles.inner}>
         <div className={styles.header}>
           <div className={styles.headerContent}>
-            <h1 className={styles.title}>Zingpath Community</h1>
+            <h1 className={styles.title}>Learnova Community</h1>
             <p className={styles.subtitle}>Collaborate with fellow students and share knowledge.</p>
           </div>
           <button 

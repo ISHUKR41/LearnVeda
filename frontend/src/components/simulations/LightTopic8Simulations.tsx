@@ -13,7 +13,7 @@
  *   5. Sim_light_vision_defect_fix     — Switch myopia/hyperopia → see lens correction
  *
  * DESIGN SYSTEM:
- *   - Background: #050c18 → #0a1628 dark gradient (Zingpath palette)
+ *   - Background: #050c18 → #0a1628 dark gradient (Learnova palette)
  *   - White light: #ffffff glow, dispersed: full spectrum colours
  *   - Labels: amber #fbbf24, axis: #334155
  *

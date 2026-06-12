@@ -1,7 +1,7 @@
 /**
  * FILE: seed.ts
  * LOCATION: src/lib/server/database/seed.ts
- * PURPOSE: Seeds the Zingpath PostgreSQL database with local/staging demo data.
+ * PURPOSE: Seeds the Learnova PostgreSQL database with local/staging demo data.
  *          Inserts: 10 leaderboard users, 10 community posts, 6 events.
  *          All INSERTs use ON CONFLICT DO NOTHING — safe to run multiple times.
  * USED BY: npm run db:seed
@@ -52,7 +52,7 @@ const DEMO_USERS = [
   { id: "11111111-1111-1111-1111-111111111108", name: "Meera Verma",      email: "meera@demo.edu",    track: "class-9",     level: 5,  xp: 3750, streak: 14 },
   { id: "11111111-1111-1111-1111-111111111109", name: "Aditya Joshi",     email: "aditya@demo.edu",   track: "class-10",    level: 5,  xp: 3100, streak: 5  },
   { id: "11111111-1111-1111-1111-111111111110", name: "Kavya Reddy",      email: "kavya@demo.edu",    track: "class-9",     level: 4,  xp: 2540, streak: 8  },
-  { id: "11111111-1111-1111-1111-111111111111", name: "Admin Ops",        email: "admin@zingpath.in", track: "engineering", level: 12, xp: 15200, streak: 120, role: "admin" },
+  { id: "11111111-1111-1111-1111-111111111111", name: "Admin Ops",        email: "admin@learnova.in", track: "engineering", level: 12, xp: 15200, streak: 120, role: "admin" },
 ];
 
 /*
@@ -71,7 +71,7 @@ const DEMO_POSTS = [
     id: "22222222-2222-2222-2222-222222222201",
     author_id: "11111111-1111-1111-1111-111111111101",
     author_name: "Aryan Sharma",
-    title: "How I cracked JEE Mains with Zingpath's 60-day plan",
+    title: "How I cracked JEE Mains with Learnova's 60-day plan",
     body: "I followed the structured day-wise plan for Class 12 Physics and Maths. The key is consistency — 3 hours daily for 60 days. The XP system kept me motivated through the tough weeks.",
     tags: ["class-12", "jee", "motivation"],
     likes: 142, comments: 28, views: 1840,
@@ -81,7 +81,7 @@ const DEMO_POSTS = [
     author_id: "11111111-1111-1111-1111-111111111103",
     author_name: "Rohan Mehta",
     title: "DSA in 45 days — my full journey from basics to interview-ready",
-    body: "Started with absolutely zero knowledge of data structures. The Zingpath DSA plan takes you from arrays and linked lists all the way to graphs and dynamic programming. The battle arena for DSA problems is a game changer.",
+    body: "Started with absolutely zero knowledge of data structures. The Learnova DSA plan takes you from arrays and linked lists all the way to graphs and dynamic programming. The battle arena for DSA problems is a game changer.",
     tags: ["engineering", "dsa", "placement"],
     likes: 98, comments: 19, views: 1220,
   },
@@ -126,7 +126,7 @@ const DEMO_POSTS = [
     author_id: "11111111-1111-1111-1111-111111111106",
     author_name: "Divya Krishnan",
     title: "Battle Arena strategies — how to win more quiz battles",
-    body: "Speed matters, but accuracy matters more. In Zingpath battles each correct answer is worth more. Skip questions you're unsure about, come back at the end.",
+    body: "Speed matters, but accuracy matters more. In Learnova battles each correct answer is worth more. Skip questions you're unsure about, come back at the end.",
     tags: ["battle", "strategy", "tips"],
     likes: 39, comments: 7, views: 480,
   },
@@ -144,7 +144,7 @@ const DEMO_POSTS = [
     author_id: "11111111-1111-1111-1111-111111111109",
     author_name: "Aditya Joshi",
     title: "C++ for beginners — is it really that hard?",
-    body: "C++ has a reputation for being difficult but the Zingpath plan breaks it into very manageable daily tasks. Week 1 is syntax, Week 2 is functions and arrays, Week 3 is OOP basics.",
+    body: "C++ has a reputation for being difficult but the Learnova plan breaks it into very manageable daily tasks. Week 1 is syntax, Week 2 is functions and arrays, Week 3 is OOP basics.",
     tags: ["engineering", "cpp", "beginner"],
     likes: 29, comments: 5, views: 360,
   },
@@ -152,7 +152,7 @@ const DEMO_POSTS = [
     id: "22222222-2222-2222-2222-222222222210",
     author_id: "11111111-1111-1111-1111-111111111110",
     author_name: "Kavya Reddy",
-    title: "My first week on Zingpath — honest review",
+    title: "My first week on Learnova — honest review",
     body: "I joined 7 days ago. The UI is clean, the chapters are well-organized, and I already have a 7-day streak going. The battle feature is surprisingly addictive.",
     tags: ["general", "review"],
     likes: 21, comments: 9, views: 290,
@@ -212,7 +212,7 @@ const DEMO_EVENTS = [
   {
     id: "dsa-battle-tournament-s2",
     title: "DSA Battle Tournament — Season 2",
-    description: "1v1 battle format across 64 participants. Single elimination, DSA medium difficulty. Prize: Zingpath Pro 6 months.",
+    description: "1v1 battle format across 64 participants. Single elimination, DSA medium difficulty. Prize: Learnova Pro 6 months.",
     event_date_label: "May 17 – 24, 2026",
     location: "Online",
     participant_count: 64,
@@ -347,7 +347,7 @@ async function seed(): Promise<void> {
   assertDemoSeedIsAllowed();
 
   const pool = getPostgresPool();
-  console.log("Zingpath seed: starting…");
+  console.log("Learnova seed: starting…");
 
   /* ── 1. Demo Users ───────────────────────────────────────────────────────── */
   console.log("  Seeding demo users…");
@@ -517,12 +517,12 @@ async function seed(): Promise<void> {
     );
   }
 
-  console.log("Zingpath seed: completed successfully.");
+  console.log("Learnova seed: completed successfully.");
 }
 
 seed()
   .catch((err) => {
-    console.error("Zingpath seed failed:", err);
+    console.error("Learnova seed failed:", err);
     process.exitCode = 1;
   })
   .finally(async () => {
