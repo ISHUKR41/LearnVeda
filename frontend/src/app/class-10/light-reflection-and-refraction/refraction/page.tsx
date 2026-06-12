@@ -416,6 +416,261 @@ function TIRSim() {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   SIMULATION 4 — Prism Dispersion (White Light → VIBGYOR)
+   Animates white light splitting into 7 colours through a prism.
+   User can adjust glass refractive index and input angle.
+═══════════════════════════════════════════════════════════ */
+function PrismDispersionSim() {
+  const [n, setN] = useState(1.52); /* refractive index of prism glass */
+  const [animate, setAnimate] = useState(true);
+  const [tick, setTick] = useState(0);
+
+  /* Animate a slow pulsing white beam */
+  useEffect(() => {
+    if (!animate) return;
+    const id = setInterval(() => setTick(t => t + 1), 80);
+    return () => clearInterval(id);
+  }, [animate]);
+
+  /* 7 colours with approximate refractive indices for flint glass */
+  const colours = [
+    { name: 'Violet',  hex: '#8B5CF6', dn: 0.018, wl: '380nm' },
+    { name: 'Indigo',  hex: '#6366f1', dn: 0.014, wl: '420nm' },
+    { name: 'Blue',    hex: '#3b82f6', dn: 0.010, wl: '450nm' },
+    { name: 'Green',   hex: '#10b981', dn: 0.005, wl: '520nm' },
+    { name: 'Yellow',  hex: '#fbbf24', dn: 0.002, wl: '580nm' },
+    { name: 'Orange',  hex: '#f97316', dn: 0.000, wl: '600nm' },
+    { name: 'Red',     hex: '#ef4444', dn: -0.004, wl: '700nm' },
+  ];
+
+  /* Prism geometry (equilateral, apex at top) */
+  const apex = { x: 300, y: 40 };
+  const baseL = { x: 160, y: 290 };
+  const baseR = { x: 440, y: 290 };
+
+  /* Incident white beam comes from left at 60° to left face */
+  const incidentAngle = 55; /* degrees from normal to left face */
+
+  /* Compute exit rays using Snell's law through equilateral prism (A=60°) */
+  const prismAngle = 60; /* degrees */
+  const rays = colours.map((col) => {
+    const nc = n + col.dn;
+    const r1Rad = Math.asin(Math.sin((incidentAngle * Math.PI) / 180) / nc);
+    const r2Rad = (prismAngle * Math.PI) / 180 - r1Rad;
+    const sinOut = nc * Math.sin(r2Rad);
+    const outAngle = Math.asin(Math.min(sinOut, 1)) * 180 / Math.PI;
+    return { ...col, nc, outAngle, r1Rad, r2Rad };
+  });
+
+  /* Entry point on left face */
+  const entryX = 215; const entryY = 175;
+  /* Exit point on right face */
+  const exitX = 318; const exitY = 200;
+
+  /* Pulse for animation */
+  const pulse = animate ? 0.7 + 0.3 * Math.sin(tick * 0.2) : 1;
+
+  return (
+    <div className={styles.simulationContainer}>
+      <div className={styles.simulationLabel}>🌈 Prism Dispersion — White Light Splits into VIBGYOR</div>
+
+      <svg width="100%" viewBox="0 0 600 350" style={{ display: 'block', maxWidth: '640px', margin: '0 auto' }}>
+        {/* Prism */}
+        <polygon
+          points={`${apex.x},${apex.y} ${baseL.x},${baseL.y} ${baseR.x},${baseR.y}`}
+          fill="rgba(96,165,250,0.08)" stroke="#60a5fa" strokeWidth="2"
+          style={{ filter: 'drop-shadow(0 0 8px rgba(96,165,250,0.3))' }}
+        />
+        <text x={apex.x} y={apex.y - 10} fill="#60a5fa88" textAnchor="middle" fontSize="11">A = 60°</text>
+
+        {/* Incident white beam */}
+        <line x1="60" y1={entryY - 40} x2={entryX} y2={entryY}
+          stroke="white" strokeWidth={4 * pulse}
+          style={{ filter: `drop-shadow(0 0 ${8 * pulse}px white)` }} />
+        <text x="38" y={entryY - 46} fill="#f4f4f5" fontSize="11" fontWeight="700">White</text>
+        <text x="35" y={entryY - 33} fill="#f4f4f5" fontSize="11" fontWeight="700">Light</text>
+
+        {/* Dispersed exit rays */}
+        {rays.map((ray, i) => {
+          const spread = (i - 3) * 22; /* vertical spread for VIBGYOR */
+          const exitAngleRad = ((35 + ray.outAngle * 0.3) * Math.PI) / 180;
+          const ex2 = exitX + 200 * Math.cos(exitAngleRad);
+          const ey2 = exitY + spread + 200 * Math.sin(exitAngleRad - 0.15);
+          const glow = animate ? 8 * pulse : 4;
+          return (
+            <g key={ray.name}>
+              <line x1={exitX} y1={exitY} x2={ex2} y2={ey2}
+                stroke={ray.hex} strokeWidth="2.5"
+                style={{ filter: `drop-shadow(0 0 ${glow}px ${ray.hex})`, opacity: pulse }} />
+              <text x={ex2 + 6} y={ey2 + 4} fill={ray.hex} fontSize="10.5" fontWeight="700">
+                {ray.name} ({ray.wl})
+              </text>
+            </g>
+          );
+        })}
+
+        {/* Internal refracted ray (inside prism) */}
+        <line x1={entryX} y1={entryY} x2={exitX} y2={exitY}
+          stroke="rgba(255,255,200,0.6)" strokeWidth="2" strokeDasharray="4 3" />
+
+        {/* Labels */}
+        <text x={baseL.x + 20} y={baseL.y + 18} fill="#71717a" fontSize="11">Left Face</text>
+        <text x={baseR.x - 60} y={baseR.y + 18} fill="#71717a" fontSize="11">Right Face</text>
+
+        {/* n value */}
+        <text x="295" y="175" fill="#60a5fa" fontSize="10.5" textAnchor="middle" fontFamily="'JetBrains Mono',monospace">
+          n = {n.toFixed(2)}
+        </text>
+      </svg>
+
+      {/* Controls */}
+      <div className={styles.simControls} style={{ flexWrap: 'wrap', gap: '0.75rem' }}>
+        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+          Glass n:
+          <strong style={{ color: '#60a5fa', fontFamily: 'JetBrains Mono', minWidth: '36px' }}>{n.toFixed(2)}</strong>
+          <input type="range" min="1.45" max="1.75" step="0.01" value={n}
+            onChange={e => setN(+e.target.value)} className={styles.simSlider} style={{ flex: 1 }} />
+        </label>
+        <button className={`${styles.simButton} ${animate ? styles.active : ''}`}
+          onClick={() => setAnimate(a => !a)}>
+          {animate ? '⏸ Pause' : '▶ Animate'}
+        </button>
+      </div>
+
+      <div className={styles.glassPanel} style={{ marginTop: '0.75rem' }}>
+        <strong>💡 Why does dispersion occur?</strong> Different colours have slightly different refractive indices.
+        Violet light bends MORE (higher n), Red light bends LESS (lower n).
+        The angular spread of VIBGYOR is called <strong>angular dispersion</strong>
+        = δ_violet − δ_red. Higher n → more dispersion!
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SIMULATION 5 — Optical Fibre TIR Animator
+   Animates light bouncing inside an optical fibre via TIR.
+   User can adjust the refractive index difference.
+═══════════════════════════════════════════════════════════ */
+function OpticalFibreSim() {
+  const [nCore, setNCore] = useState(1.52);
+  const nClad = 1.46; /* cladding index fixed */
+  const [animate, setAnimate] = useState(true);
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    if (!animate) return;
+    const id = setInterval(() => setTick(t => t + 1), 60);
+    return () => clearInterval(id);
+  }, [animate]);
+
+  const critAngle = (Math.asin(nClad / nCore) * 180) / Math.PI;
+  const fibreY1 = 100; /* top boundary */
+  const fibreY2 = 220; /* bottom boundary */
+  const fibreLen = 560;
+  const fibreMid = (fibreY1 + fibreY2) / 2;
+
+  /* Animated photon position along the zig-zag */
+  const period = 80; /* ticks per bounce cycle */
+  const phase = (tick % period) / period;
+  const segLen = 100;
+  const totalSegs = Math.floor(fibreLen / segLen);
+
+  /* Build zig-zag bounce path */
+  const zigPoints: Array<{ x: number; y: number }> = [{ x: 20, y: fibreMid }];
+  for (let i = 0; i <= totalSegs; i++) {
+    zigPoints.push({ x: 20 + (i + 1) * segLen, y: i % 2 === 0 ? fibreY1 + 12 : fibreY2 - 12 });
+  }
+
+  /* Photon position */
+  const segIdx = Math.floor(phase * totalSegs);
+  const segPhase = (phase * totalSegs) % 1;
+  const p1 = zigPoints[Math.min(segIdx, zigPoints.length - 2)];
+  const p2 = zigPoints[Math.min(segIdx + 1, zigPoints.length - 1)];
+  const photonX = p1.x + (p2.x - p1.x) * segPhase;
+  const photonY = p1.y + (p2.y - p1.y) * segPhase;
+
+  return (
+    <div className={styles.simulationContainer}>
+      <div className={styles.simulationLabel}>🌐 Optical Fibre — Total Internal Reflection in Action</div>
+
+      <svg width="100%" viewBox="0 0 580 320" style={{ display: 'block', maxWidth: '640px', margin: '0 auto' }}>
+        {/* Cladding background */}
+        <rect x="15" y="70" width={fibreLen} height={fibreY2 - fibreY1 + 60}
+          rx="8" fill="rgba(59,130,246,0.08)" stroke="#334155" strokeWidth="1.5" />
+        <text x="20" y="88" fill="#475569" fontSize="10">Cladding (n = {nClad})</text>
+
+        {/* Core */}
+        <rect x="15" y={fibreY1} width={fibreLen} height={fibreY2 - fibreY1}
+          rx="6" fill="rgba(96,165,250,0.12)" stroke="#3b82f6" strokeWidth="2"
+          style={{ filter: 'drop-shadow(0 0 6px rgba(96,165,250,0.3))' }} />
+        <text x="20" y={fibreY1 + 16} fill="#60a5fa" fontSize="10" fontWeight="600">
+          Core (n = {nCore.toFixed(2)})  |  Crit. angle = {critAngle.toFixed(1)}°
+        </text>
+
+        {/* TIR zig-zag path */}
+        {zigPoints.slice(0, -1).map((pt, i) => {
+          const next = zigPoints[i + 1];
+          return (
+            <line key={i} x1={pt.x} y1={pt.y} x2={next.x} y2={next.y}
+              stroke="rgba(0,255,204,0.35)" strokeWidth="1.8"
+              strokeDasharray="none" />
+          );
+        })}
+
+        {/* Animated photon (glowing dot) */}
+        {animate && (
+          <circle cx={photonX} cy={photonY} r="6" fill="#00ffcc"
+            style={{ filter: 'drop-shadow(0 0 12px #00ffcc) drop-shadow(0 0 4px white)' }} />
+        )}
+
+        {/* TIR reflection annotations at bounce points */}
+        {zigPoints.slice(1, -1).map((pt, i) => (
+          <g key={i}>
+            <text x={pt.x - 10} y={pt.y + (i % 2 === 0 ? -8 : 14)}
+              fill="#00ffcc88" fontSize="9.5" textAnchor="middle" fontFamily="'JetBrains Mono',monospace">
+              TIR
+            </text>
+          </g>
+        ))}
+
+        {/* Input / Output labels */}
+        <text x="8" y={fibreMid + 4} fill="#f4f4f5" fontSize="11" fontWeight="700" textAnchor="end">IN</text>
+        <text x={fibreLen + 22} y={fibreMid + 4} fill="#00ffcc" fontSize="11" fontWeight="700">OUT</text>
+
+        {/* Data label */}
+        <text x="295" y="300" fill="#71717a" fontSize="10.5" textAnchor="middle">
+          Light travels {fibreLen} units — data transmitted at speed of light!
+        </text>
+      </svg>
+
+      {/* Controls */}
+      <div className={styles.simControls} style={{ flexWrap: 'wrap', gap: '0.75rem' }}>
+        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+          Core n:
+          <strong style={{ color: '#00ffcc', fontFamily: 'JetBrains Mono', minWidth: '36px' }}>{nCore.toFixed(2)}</strong>
+          <input type="range" min="1.47" max="1.65" step="0.01" value={nCore}
+            onChange={e => setNCore(+e.target.value)} className={styles.simSlider} style={{ flex: 1 }} />
+        </label>
+        <button className={`${styles.simButton} ${animate ? styles.active : ''}`}
+          onClick={() => setAnimate(a => !a)}>
+          {animate ? '⏸ Pause' : '▶ Animate'}
+        </button>
+      </div>
+
+      <div className={styles.glassPanel} style={{ marginTop: '0.75rem', borderColor: 'rgba(0,255,204,0.25)' }}>
+        <strong>🌐 How Optical Fibre Works:</strong><br />
+        Core (n = {nCore.toFixed(2)}) surrounded by cladding (n = {nClad}).
+        Critical angle = {critAngle.toFixed(1)}°. Any light ray inside the core hitting the boundary
+        at angle {'>'} {critAngle.toFixed(1)}° undergoes TIR — bounces back perfectly,
+        zero energy lost! This is how the internet works — your data as light pulses, bouncing
+        thousands of times through glass thinner than a hair, over thousands of kilometres.
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    MAIN PAGE
 ═══════════════════════════════════════════════════════════ */
 export default function RefractionPage() {
@@ -547,6 +802,7 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/refraction-real-life-examples.png', caption: 'Real-life refraction — pencil bent in water, pool depth illusion, mirage, star twinkling' },
                 { src: '/images/light/light_snells_law_1781203083554.png', caption: 'Light bending at air-glass interface — angle changes because speed changes' },
                 { src: '/images/light/media__1781206235525.png', caption: 'Pencil in water appears bent — classic example of refraction' },
               ].map((img, i) => (
@@ -575,7 +831,8 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/snells-law-vector-diagram.png', caption: "Snell's Law vector diagram — n₁ sin θ₁ = n₂ sin θ₂ with wavefront compression shown" },
+                { src: '/images/light/snells-law-complete-diagram.png', caption: "Snell's Law — n₁sinθ₁=n₂sinθ₂: light bends toward normal entering denser medium, wavefronts compress" },
+                { src: '/images/light/snells-law-vector-diagram.png', caption: "Snell's Law vector diagram — angle i vs angle r with Cartesian sign convention labeled" },
                 { src: '/images/light/light_snells_law_1781203083554.png', caption: "Snell's Law: incident ray bends toward normal when entering denser medium" },
                 { src: '/images/light/light_refractive_index_1781203095581.png', caption: 'Refractive indices: denser medium → higher n, slower light, more bending' },
               ].map((img, i) => (
@@ -609,6 +866,7 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/refractive-index-comparison.png', caption: 'Refractive index visual: Air(1.00), Water(1.33), Glass(1.52), Diamond(2.42) — bending increases with n' },
                 { src: '/images/light/light_refractive_index_1781203095581.png', caption: 'Refractive index comparison: diamond(2.42) > glass(1.52) > water(1.33) > air(1.00)' },
                 { src: '/images/light/light_absolute_refractive_nano_banana_1781204408083.png', caption: 'Absolute refractive index: n = c/v (speed in vacuum ÷ speed in medium)' },
               ].map((img, i) => (
@@ -655,8 +913,9 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/glass-slab-lateral-displacement.png', caption: 'Glass slab lateral displacement — formula d=t·sin(i−r)/cos(r); emergent ray parallel but shifted sideways' },
                 { src: '/images/light/light_glass_slab_nano_banana_1781204391585.png', caption: 'Glass slab refraction — emergent ray is parallel to incident ray but laterally displaced' },
-                { src: '/images/light/snells-law-vector-diagram.png', caption: 'Snell\'s Law applied at both surfaces: n₁ sin i = n₂ sin r → emergent ray parallel, shifted' },
+                { src: '/images/light/snells-law-vector-diagram.png', caption: 'Snell\'s Law at both surfaces: n₁ sin i = n₂ sin r → net deviation = zero, lateral shift only' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
@@ -696,10 +955,12 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/tir-optical-fibre-detail.png', caption: 'Optical fibre cross-section — TIR keeps light trapped in core, bouncing at angles > critical angle' },
-                { src: '/images/light/rainbow-formation-tir.png', caption: 'Rainbow: water droplets act as prisms — light refracts, internally reflects, refracts again, creating the arc' },
-                { src: '/images/light/media__1781206240893.png', caption: 'TIR stages: normal refraction → grazing refraction at critical angle → total reflection' },
-                { src: '/images/light/light_absolute_refractive_nano_banana_1781204408083.png', caption: 'Critical angle formula sin C = 1/n — smaller critical angle in denser medium' },
+                { src: '/images/light/tir-three-stages.png', caption: 'TIR stages — angle<C: refraction, angle=C: grazing ray, angle>C: total internal reflection (no refraction)' },
+                { src: '/images/light/diamond-tir-sparkle.png', caption: 'Diamond brilliance via TIR — n=2.42, critical angle only 24°; multiple internal reflections create sparkle' },
+                { src: '/images/light/optical-fibre-cross-section.png', caption: 'Optical fibre — core(n=1.52) + cladding(n=1.46); TIR traps light for internet, endoscopy, sensors' },
+                { src: '/images/light/tir-optical-fibre-detail.png', caption: 'Optical fibre TIR detail — light bounces at >critical angle throughout entire length with 0% loss' },
+                { src: '/images/light/rainbow-formation-tir.png', caption: 'Rainbow — water droplets: refract on entry, internally reflect, refract on exit → spectrum arc' },
+                { src: '/images/light/media__1781206240893.png', caption: 'TIR stages: normal refraction → critical angle grazing → total internal reflection' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
@@ -749,6 +1010,9 @@ export default function RefractionPage() {
               </ul>
             </div>
 
+            {/* ★ SIMULATION 5 — Optical Fibre TIR */}
+            <OpticalFibreSim />
+
             <div className={styles.grid2}>
               <div className={styles.glassPanel} style={{ borderColor: 'rgba(0,255,204,0.2)' }}>
                 <strong>🌐 Internet & Telecommunications:</strong><br />
@@ -759,6 +1023,72 @@ export default function RefractionPage() {
                 <strong>🏥 Medical Endoscopes:</strong><br />
                 Doctors use bundles of optical fibres (endoscopes) to see inside the human body without surgery.
               </div>
+            </div>
+          </section>
+
+          {/* PRISM & DISPERSION */}
+          <section className={styles.contentSection} id="dispersion">
+            <h2>🌈 Prism and Dispersion of Light</h2>
+            <p>
+              When white light passes through a glass prism, it splits into its component colours (VIBGYOR).
+              This splitting is called <strong style={{ color: '#00ffcc' }}>dispersion</strong>.
+              It happens because different colours (wavelengths) have slightly different refractive indices in glass,
+              so they bend by different amounts at each surface.
+            </p>
+
+            <div className={styles.glassPanel} style={{ borderColor: 'rgba(251,191,36,0.3)', background: 'rgba(251,191,36,0.04)' }}>
+              <strong>🌈 Why does a rainbow form?</strong><br />
+              Raindrops act like tiny glass prisms! Sunlight enters a raindrop, undergoes refraction,
+              then total internal reflection at the back, then refraction again on the way out.
+              Different colours emerge at different angles (red at 42°, violet at 40°) — forming the rainbow arc!
+            </div>
+
+            <div className={styles.imageGrid}>
+              {[
+                { src: '/images/light/prism-dispersion-vibgyor.png', caption: 'White light dispersion through prism — VIBGYOR: violet bends most (highest n), red bends least (lowest n)' },
+                { src: '/images/light/rainbow-formation-tir.png', caption: 'Rainbow formation — refraction + TIR inside water droplets separates sunlight into VIBGYOR arc' },
+              ].map((img, i) => (
+                <div key={i} className={styles.imageCard}>
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <div className={styles.imageCardCaption}>{img.caption}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.glassPanel}>
+              <strong>📋 VIBGYOR — Order of Colours in Spectrum:</strong>
+              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem', flexWrap: 'wrap' }}>
+                {[
+                  { c: 'Violet', hex: '#8B5CF6', wl: '380–450 nm' },
+                  { c: 'Indigo', hex: '#6366f1', wl: '450–420 nm' },
+                  { c: 'Blue', hex: '#3b82f6', wl: '450–495 nm' },
+                  { c: 'Green', hex: '#10b981', wl: '495–570 nm' },
+                  { c: 'Yellow', hex: '#fbbf24', wl: '570–590 nm' },
+                  { c: 'Orange', hex: '#f97316', wl: '590–620 nm' },
+                  { c: 'Red', hex: '#ef4444', wl: '620–750 nm' },
+                ].map(col => (
+                  <div key={col.c} style={{ padding: '0.5rem 0.75rem', borderRadius: '6px', background: `${col.hex}20`, border: `1px solid ${col.hex}50`, textAlign: 'center', minWidth: '80px' }}>
+                    <div style={{ color: col.hex, fontWeight: 700, fontSize: '0.88rem' }}>{col.c}</div>
+                    <div style={{ color: '#71717a', fontSize: '0.7rem' }}>{col.wl}</div>
+                  </div>
+                ))}
+              </div>
+              <p style={{ marginTop: '0.75rem', color: '#a1a1aa', fontSize: '0.88rem' }}>
+                <strong>Violet bends most</strong> (highest refractive index, shortest wavelength) |{' '}
+                <strong>Red bends least</strong> (lowest refractive index, longest wavelength)
+              </p>
+            </div>
+
+            {/* ★ SIMULATION 4 — Prism Dispersion */}
+            <PrismDispersionSim />
+
+            <div className={styles.formulaBox}>
+              <h3>📐 Angle of Deviation</h3>
+              <span className={styles.mathEquation}>δ = (n − 1) × A</span>
+              <p>
+                δ = angle of deviation | n = refractive index | A = angle of prism<br />
+                Higher refractive index → larger angle of deviation → violet deviates more than red
+              </p>
             </div>
           </section>
 

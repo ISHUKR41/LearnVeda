@@ -551,7 +551,8 @@ export default function LensesPage() {
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/light_convex_lens_numerical_nano_banana_1781204470042.png', caption: 'Convex lens image formation — rays refract through lens and converge' },
+                { src: '/images/light/convex-lens-all-cases.png', caption: 'Convex lens — all 5 image cases: beyond 2F, at 2F, between F and 2F, at F, between F and O' },
+                { src: '/images/light/light_convex_lens_numerical_nano_banana_1781204470042.png', caption: 'Convex lens image formation — 3 principal rays: parallel ray, ray through optical centre, ray through F₁' },
                 { src: '/images/light/light_concave_lens_numerical_nano_banana_1781204487446.png', caption: 'Concave lens — always virtual, erect, diminished regardless of object position' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
@@ -660,10 +661,11 @@ export default function LensesPage() {
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/human-eye-anatomy-detail.png', caption: 'Human eye anatomy — cornea, lens, retina, optic nerve; crystalline lens adjusts focal length for accommodation' },
+                { src: '/images/light/human-eye-full-anatomy.png', caption: 'Human eye full anatomy — all labeled: cornea, aqueous humor, iris, crystalline lens, ciliary muscles, retina, fovea, optic nerve', wide: true },
+                { src: '/images/light/human-eye-anatomy-detail.png', caption: 'Human eye — crystalline lens changes shape (accommodation) to focus near and far objects', wide: false },
               ].map((img, i) => (
-                <motion.div key={i} className={styles.imageCard} style={{ gridColumn: '1 / -1' }} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block' }} />
+                <motion.div key={i} className={styles.imageCard} style={{ gridColumn: img.wide ? '1 / -1' : 'auto' }} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: img.wide ? '260px' : '220px', objectFit: 'cover', display: 'block' }} />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </motion.div>
               ))}
@@ -700,38 +702,63 @@ export default function LensesPage() {
               The three common defects are Myopia, Hypermetropia, and Presbyopia.
             </p>
 
-            <div className={styles.imageGrid}>
-              {[
-                { src: '/images/light/myopia-hypermetropia-correction.png', caption: 'Myopia vs Hypermetropia — concave lens corrects short-sight; convex lens corrects long-sight' },
-              ].map((img, i) => (
-                <motion.div key={i} className={styles.imageCard} style={{ gridColumn: '1 / -1' }} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block' }} />
-                  <div className={styles.imageCardCaption}>{img.caption}</div>
-                </motion.div>
-              ))}
+            {/* Defect comparison table */}
+            <div style={{ overflowX: 'auto', marginBottom: '1.5rem' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.88rem' }}>
+                <thead>
+                  <tr style={{ background: 'rgba(244,63,94,0.08)', borderBottom: '1px solid rgba(244,63,94,0.2)' }}>
+                    {['Defect', 'Also Called', 'Cannot See', 'Image Position', 'Cause', 'Correction (Lens)', 'Power'].map(h => (
+                      <th key={h} style={{ padding: '0.65rem 0.75rem', textAlign: 'left', color: '#f43f5e', fontWeight: 700, fontSize: '0.78rem' }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ['Myopia', 'Short-sight', 'Distant objects', 'In front of retina', 'Long eyeball / curved cornea', 'Concave (Diverging)', '−ve (e.g. −2.5 D)'],
+                    ['Hypermetropia', 'Long-sight', 'Near objects', 'Behind retina', 'Short eyeball / flat cornea', 'Convex (Converging)', '+ve (e.g. +1.5 D)'],
+                    ['Presbyopia', 'Old-age sight', 'Near + Far', 'Varies', 'Ciliary muscles weaken with age', 'Bifocal lens', '+ and −'],
+                  ].map((row, i) => (
+                    <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', background: i % 2 === 0 ? 'rgba(255,255,255,0.015)' : 'transparent' }}>
+                      {row.map((cell, j) => (
+                        <td key={j} style={{ padding: '0.6rem 0.75rem', color: j === 0 ? '#f4f4f5' : j === 5 ? (cell.includes('Concave') ? '#60a5fa' : cell.includes('Convex') ? '#34d399' : '#fbbf24') : '#a1a1aa', fontWeight: j === 0 ? 700 : 400 }}>{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
+
             <div className={styles.grid2}>
               <div className={styles.glassPanel} style={{ borderColor: 'rgba(244,63,94,0.3)' }}>
-                <strong>🔴 Myopia (Short-sightedness):</strong><br />
-                Cannot see <em>distant</em> objects clearly.
-                Image forms IN FRONT of retina.<br />
-                <strong>Cause:</strong> Eyeball too long OR cornea too curved<br />
-                <strong>Correction:</strong> Concave lens (negative power, e.g., −2.5 D)
+                <strong style={{ color: '#f43f5e' }}>🔴 Myopia (Short-sightedness)</strong><br /><br />
+                Cannot see <em>distant</em> objects clearly. Distant objects look blurred.<br />
+                <strong>Cause:</strong> Eyeball too long OR cornea too curved → focal length too short<br />
+                <strong>Result:</strong> Image forms IN FRONT of retina instead of ON it<br />
+                <strong>Correction:</strong> Concave lens (power = −ve, e.g., −2.5 D)<br />
+                <strong>Why concave?</strong> It diverges parallel rays, pushing the focal point back to the retina<br /><br />
+                <strong style={{ color: '#71717a', fontSize: '0.82rem' }}>
+                  Formula: P = 1/f where f = −(far point distance in metres)
+                </strong>
               </div>
               <div className={styles.glassPanel} style={{ borderColor: 'rgba(245,158,11,0.3)' }}>
-                <strong>🟡 Hypermetropia (Long-sightedness):</strong><br />
-                Cannot see <em>near</em> objects clearly.
-                Image forms BEHIND retina.<br />
-                <strong>Cause:</strong> Eyeball too short OR cornea too flat<br />
-                <strong>Correction:</strong> Convex lens (positive power, e.g., +1.5 D)
+                <strong style={{ color: '#f59e0b' }}>🟡 Hypermetropia (Long-sightedness)</strong><br /><br />
+                Cannot see <em>near</em> objects clearly. Near objects look blurred.<br />
+                <strong>Cause:</strong> Eyeball too short OR cornea too flat → focal length too long<br />
+                <strong>Result:</strong> Image forms BEHIND retina instead of ON it<br />
+                <strong>Correction:</strong> Convex lens (power = +ve, e.g., +1.5 D)<br />
+                <strong>Why convex?</strong> It converges light before it reaches the eye, bringing focal point forward<br /><br />
+                <strong style={{ color: '#71717a', fontSize: '0.82rem' }}>
+                  Formula: P = 1/f where object should form image at near point (−25 cm)
+                </strong>
               </div>
             </div>
 
-            <div className={styles.glassPanel} style={{ marginTop: '1rem' }}>
-              <strong>🟤 Presbyopia:</strong> Age-related loss of accommodation. The ciliary muscles weaken with age.
-              Cannot see clearly at near OR far distance. Corrected using <strong>bifocal lenses</strong>
-              (upper half = concave for far; lower half = convex for near).
-              Most people develop this after age 40–45.
+            <div className={styles.glassPanel} style={{ marginTop: '1rem', borderColor: 'rgba(161,161,170,0.25)' }}>
+              <strong style={{ color: '#a1a1aa' }}>🟤 Presbyopia (Age-related)</strong><br />
+              The ciliary muscles weaken with age (usually after 40–45 years). The crystalline lens becomes rigid
+              and loses its power of accommodation. Cannot see clearly at BOTH near and far distances.<br />
+              <strong>Correction:</strong> Bifocal lenses — upper half = concave (for far vision), lower half = convex (for near reading).
+              Today, progressive lenses (variable focal length) are preferred over bifocal.
             </div>
 
             {/* ★ SIMULATION 3 — Eye Defects */}

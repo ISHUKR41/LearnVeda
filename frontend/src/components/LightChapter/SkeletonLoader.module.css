@@ -1,0 +1,46 @@
+/**
+ * FILE: SkeletonLoader.module.css
+ * PURPOSE: CSS for skeleton loading shimmer animation.
+ *          Uses a gradient sweep (shimmer) to signal loading state.
+ *          Subtle, modern, respects prefers-reduced-motion.
+ */
+
+/* ── Base shimmer animation ── */
+@keyframes shimmer {
+  0% {
+    background-position: -600px 0;
+  }
+  100% {
+    background-position: 600px 0;
+  }
+}
+
+/* ── Skeleton base — applies shimmer gradient ── */
+.skeletonBase {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.09) 40%,
+    rgba(255, 255, 255, 0.04) 80%
+  );
+  background-size: 1200px 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: 6px;
+}
+
+/* ── Skeleton card wrapper ── */
+.skeletonCard {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 0.75rem;
+  overflow: hidden;
+}
+
+/* ── Respect reduced motion preference ── */
+@media (prefers-reduced-motion: reduce) {
+  .skeletonBase {
+    animation: none;
+    background: rgba(255, 255, 255, 0.06);
+  }
+}

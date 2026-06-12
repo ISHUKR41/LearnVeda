@@ -221,6 +221,52 @@
   transform: translateY(-2px);
 }
 
+/* ── Topic card — landing page chapter cards (CSS-only hover, no JS events) ── */
+.topicCard {
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.025);
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+  text-decoration: none;
+  display: block;
+}
+.topicCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+.topicCard.blue  { --tc: #60a5fa; }
+.topicCard.green { --tc: #34d399; }
+.topicCard.purple{ --tc: #a78bfa; }
+.topicCard.red   { --tc: #f43f5e; }
+.topicCard:hover { border-color: color-mix(in srgb, var(--tc) 40%, transparent); }
+.topicCardIcon   { font-size: 1.4rem; }
+.topicCardBadge  { color: #71717a; font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+.topicCardTitle  { font-weight: 700; font-size: 1rem; margin: 0.5rem 0; color: var(--tc, #00ffcc); }
+.topicCardDesc   { color: #a1a1aa; font-size: 0.83rem; line-height: 1.55; margin-bottom: 0.75rem; }
+.topicCardTags   { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.topicCardTag    {
+  font-size: 0.68rem; padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--tc) 10%, transparent);
+  color: var(--tc);
+  font-weight: 600; letter-spacing: 0.02em;
+}
+
+/* ── Formula preview card ── */
+.formulaPreviewCard {
+  padding: 0.85rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: border-color 0.2s;
+}
+.formulaPreviewCard:hover { border-color: rgba(255,255,255,0.15); }
+.formulaPreviewLabel { color: #71717a; font-size: 0.7rem; margin-bottom: 0.35rem; letter-spacing: 0.05em; }
+.formulaPreviewValue { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.95rem; }
+
 /* ═══════════════════════════════════════════════════
    5. GLASS PANEL — info / fact boxes
 ═══════════════════════════════════════════════════ */
