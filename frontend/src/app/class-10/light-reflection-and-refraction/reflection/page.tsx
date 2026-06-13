@@ -231,12 +231,12 @@ function LawsOfReflectionSim() {
 
       {reflType === 'regular' && (
         <div className={styles.simControls}>
-          <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1, flexWrap: 'wrap' }}>
+          <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1, flexWrap: 'wrap' }}>
             Angle of incidence:
             <strong style={{ color: '#fbbf24', fontFamily: 'JetBrains Mono', minWidth: '40px' }}>{angle}°</strong>
             <input type="range" min="10" max="80" value={angle}
               onChange={e => { setAngle(+e.target.value); setRunning(false); setPhotonT(0); }}
-              className={styles.simSlider} style={{ flex: 1, minWidth: '100px' }} />
+              className={styles.simSlider} style={{ flexGrow: 1, minWidth: '100px' }} />
           </label>
           <button className={styles.simButton} onClick={() => { setPhotonT(0); setRunning(true); }}>▶ Shoot Photon</button>
           <button className={styles.simButton} onClick={() => { setAngle(45); setRunning(false); setPhotonT(0); }}>↺ Reset</button>
@@ -687,6 +687,7 @@ export default function ReflectionPage() {
 
   return (
     <div className={styles.chapterContainer}>
+
       <div className={`${styles.chapterLayout} ${focusMode ? styles.focusModeActive : ''}`}>
 
         {/* ─────────── SIDEBAR ─────────── */}
@@ -945,12 +946,13 @@ If mirror rotates by 20°: reflected ray rotates by = 2 × 20° = `}<span classN
             </p>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/plane_mirror.png', caption: 'Plane mirror characteristics — real object, virtual & erect laterally inverted image' },
-                { src: '/images/light/plane-mirror-image-formation.png', caption: 'Plane mirror image formation — virtual, erect, same size; image behind mirror = object distance in front' },
-                { src: '/images/light/plane-mirror-image.png', caption: 'Plane mirror — image appears as far behind mirror as object is in front' },
-                { src: '/images/light/lateral-inversion-demo.png', caption: 'Lateral inversion — left-right swap: AMBULANCE written reversed for driver clarity' },
-                { src: '/images/light/lateral-inversion.png', caption: 'Lateral inversion: your right hand appears as left hand in mirror — NOT top-bottom flip!' },
-                { src: '/images/light/angled-mirrors-multiple-images.png', caption: 'Two mirrors at θ° angle form n = (360°/θ)−1 images: at 60°→ 5 images, 90°→ 3 images' },
+                { src: '/images/light/plane-mirror-lateral-inversion-diagram.png', caption: 'Lateral Inversion — AMBULANCE reversed in mirror; left↔right swap explained with ray diagram' },
+                { src: '/images/light/plane-mirror-virtual-image-formation.png', caption: 'Plane mirror image formation — virtual, erect, same-size image; object & image equidistant from mirror' },
+                { src: '/images/light/plane_mirror.png', caption: 'Plane mirror characteristics — all four properties: virtual, erect, same-size, laterally inverted' },
+                { src: '/images/light/plane-mirror-image-formation.png', caption: 'Ray construction for plane mirror — two rays traced to locate virtual image behind mirror' },
+                { src: '/images/light/lateral-inversion-demo.png', caption: 'Lateral inversion — left-right swap: AMBULANCE written reversed so driver reads it correctly' },
+                { src: '/images/light/lateral-inversion.png', caption: 'Lateral inversion: right hand → appears as left hand in mirror (NOT top-bottom flip!)' },
+                { src: '/images/light/angled-mirrors-multiple-images.png', caption: 'Two mirrors at angle θ: n = (360°/θ)−1 images. 60°→5 images | 90°→3 | 45°→7 (kaleidoscope!)' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
@@ -988,18 +990,19 @@ If mirror rotates by 20°: reflected ray rotates by = 2 × 20° = `}<span classN
             </p>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/concave-convex-mirror-comparison.png', caption: 'Concave vs Convex Mirror — side-by-side comparison: converging vs diverging, focal points labeled' },
-                { src: '/images/light/concave_mirror.png', caption: 'Concave Mirror — converging parallel rays to a single focal point F' },
-                { src: '/images/light/convex_mirror.png', caption: 'Convex Mirror — diverging parallel light rays, virtual focus behind mirror' },
-                { src: '/images/light/concave-mirror-all-cases-detailed.png', caption: 'Concave Mirror — all 5 image formation cases with ray diagrams: ∞, beyond C, at C, between C&F, at F, between F&P' },
-                { src: '/images/light/spherical-mirror-all-parts-labeled.png', caption: 'Spherical mirror complete anatomy — Pole P, Centre C, Focus F, Principal Axis, Aperture, Radius R' },
-                { src: '/images/light/convex-mirror-image-formation.png', caption: 'Convex Mirror — diverging rays form virtual, erect, diminished image; wide field of view' },
-                { src: '/images/light/concave-mirror-diagram.png', caption: 'Concave Mirror — parallel rays converge at focal point F (converging mirror)' },
-                { src: '/images/light/convex-mirror-ray-diagram.png', caption: 'Convex Mirror — virtual focus behind mirror; used in rear-view mirrors for wide angle' },
-                { src: '/images/light/spherical-mirror-parts-labeled.png', caption: 'Pole P, Radius R = 2f, Aperture — key parts of any spherical mirror' },
-                { src: '/images/light/concave_mirror_apps_1781258005449.png', caption: 'Concave Mirror Applications — solar cooker, dentist mirror, headlight, shaving mirror, satellite dish' },
-                { src: '/images/light/convex_mirror_apps_1781258024462.png', caption: 'Convex Mirror Applications — rear-view mirrors, shop security mirrors, ATM mirrors, road blind spots' },
-                { src: '/images/light/mirror_formula_derivation_1781258042847.png', caption: 'Mirror Formula: 1/v + 1/u = 1/f — derivation with ray diagram showing u, v, f, P, F, C' },
+                { src: '/images/light/concave-convex-mirror-comparison.png', caption: 'Concave vs Convex Mirror — converging (concave) vs diverging (convex), focal points compared' },
+                { src: '/images/light/concave_mirror.png', caption: 'Concave Mirror — parallel rays converge at focal point F (hollow, cave-like reflecting surface)' },
+                { src: '/images/light/convex_mirror.png', caption: 'Convex Mirror — parallel rays diverge; virtual focus F behind mirror (bulging reflecting surface)' },
+                { src: '/images/light/spherical-mirror-all-parts-labeled.png', caption: 'Spherical mirror anatomy — Pole P, Centre C, Focus F, Principal Axis, Aperture, R=2f labeled' },
+                { src: '/images/light/concave-mirror-case1-object-at-infinity.png', caption: 'Case 1: Object at ∞ → Parallel rays → Image at F. Real, Inverted, Point-size.' },
+                { src: '/images/light/concave-mirror-case2-object-beyond-C.png', caption: 'Case 2: Object beyond C → Image between F and C. Real, Inverted, Diminished.' },
+                { src: '/images/light/concave-mirror-case3-object-at-C.png', caption: 'Case 3: Object at C → Image at C. Real, Inverted, Same size. (m = −1)' },
+                { src: '/images/light/concave-mirror-case4-between-F-and-C.png', caption: 'Case 4: Object between F and C → Image beyond C. Real, Inverted, Magnified.' },
+                { src: '/images/light/concave-mirror-case5-between-F-and-P.png', caption: 'Case 5: Object between F and P → Virtual image behind mirror. Virtual, Erect, Magnified.' },
+                { src: '/images/light/concave-mirror-all-cases-detailed.png', caption: 'All 5 concave mirror cases on one diagram — complete reference for board exams' },
+                { src: '/images/light/convex-mirror-image-formation.png', caption: 'Convex mirror always: Virtual + Erect + Diminished (any object position). Wide FOV.' },
+                { src: '/images/light/concave_mirror_apps_1781258005449.png', caption: 'Concave mirror uses: solar cooker, dentist mirror, headlight, shaving mirror, telescope' },
+                { src: '/images/light/convex_mirror_apps_1781258024462.png', caption: 'Convex mirror uses: rear-view mirrors, ATM, security mirrors, road blind-spot mirrors' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
@@ -1229,6 +1232,41 @@ u = `}<span className={styles.highlight}>−60 cm</span>{`   v = −(−60)/3 = 
                   <span className={styles.answer}>∴ It is a CONVEX mirror | Object at 60 cm in front | Image 20 cm behind mirror</span>
                 </div>
               </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 5 — Two Step Problem (BOARD EXAM TYPE)</div>
+                <p className={styles.exampleQ}>A needle placed 45 cm in front of a concave mirror forms an image at 90 cm from the mirror. Find (a) focal length (b) magnification (c) nature of image.</p>
+                <div className={styles.exampleSol}>{`Given: u = −45 cm, v = −90 cm (image in front of mirror → Real)
+
+(a) Focal length:
+1/f = 1/v + 1/u = 1/(−90) + 1/(−45) = −1/90 − 2/90 = −3/90 = −1/30
+
+f = `}<span className={styles.highlight}>−30 cm</span>{`   → Concave mirror
+
+(b) Magnification:
+m = −v/u = −(−90)/(−45) = −90/45 = `}<span className={styles.highlight}>−2</span>{`
+
+(c) Nature: |m| = 2 > 1 → Enlarged; m negative → Real, Inverted`}
+                  <span className={styles.answer}>∴ f = 30 cm (concave) | m = −2 | Image: Real, Inverted, Magnified (2× size) at 90 cm in front</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 6 — Minimum Distance for Real Image</div>
+                <p className={styles.exampleQ}>For a concave mirror, what is the minimum distance between object and real image? (Express in terms of focal length f)</p>
+                <div className={styles.exampleSol}>{`For real image: both u and v are negative.
+Let: u = −a, v = −b (both positive values a, b)
+
+Mirror formula: 1/a + 1/b = 1/f
+For real image: need a > f and b > f
+
+Minimum distance = |v − u| = b − a (if b > a), minimize:
+Using AM ≥ GM: (1/a + 1/b)/2 ≥ 1/√(ab)
+At minimum: a = b → each equals 2f
+So minimum a + b = 2f + 2f = `}<span className={styles.highlight}>4f</span>
+                  <span className={styles.answer}>∴ Minimum distance between object and real image = 4f (when object is at C = 2f, image is also at C)</span>
+                </div>
+              </div>
             </div>
 
             {/* ★ SIMULATION 4 — Mirror Formula Live Calculator (lazy-loaded) */}
@@ -1240,14 +1278,14 @@ u = `}<span className={styles.highlight}>−60 cm</span>{`   v = −(−60)/3 = 
             <h2>🌟 Real-Life Applications</h2>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/concave-mirror-real-applications.png', caption: '🌟 Concave mirror applications — solar cooker, dentist mirror, headlight torch, satellite dish' },
-                { src: '/images/light/concave-mirror-applications.png', caption: '☀️ Solar cooker (concave) focuses sunlight to 150–200°C; headlight creates parallel beam' },
-                { src: '/images/light/solar-cooker.png', caption: '☀️ Solar Cooker — parabolic concave mirror; object at F → parallel reflected beam (reverse!)' },
-                { src: '/images/light/rearview-mirror.png', caption: '🚗 Rear-View Mirror (convex) — always virtual, erect, diminished image; 120° wide field vs 30° plane' },
-                { src: '/images/light/light_mirror_formula_nano_banana_1781204199040.png', caption: '🔭 Reflecting Telescope — large concave primary mirror gathers faint light from distant stars' },
+                { src: '/images/light/concave-mirror-real-applications.png', caption: '🌟 Concave mirror: solar cooker, dentist mirror, headlight torch, satellite dish' },
+                { src: '/images/light/concave-mirror-applications.png', caption: '☀️ Solar cooker — concave mirror focuses sunlight to 150–200°C at focal point' },
+                { src: '/images/light/solar-cooker.png', caption: '☀️ Solar Cooker — parabolic concave mirror; parallel rays converge at F for cooking' },
+                { src: '/images/light/rearview-mirror.png', caption: '🚗 Rear-View Mirror (convex) — 120° wide field of view vs 30° for flat mirror' },
+                { src: '/images/light/light_mirror_formula_nano_banana_1781204199040.png', caption: '🔭 Reflecting Telescope — large concave primary mirror gathers faint starlight' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
-                  <img src={img.src} alt={img.caption} loading="lazy" style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />
+                  <ImageWithSkeleton src={img.src} alt={img.caption} height={200} objectFit="contain" />
                   <div className={styles.imageCardCaption}>{img.caption}</div>
                 </div>
               ))}

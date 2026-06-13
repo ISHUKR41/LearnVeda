@@ -12,20 +12,20 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-/* ─── Color palette — ALL BRIGHT, VIVID, HIGH-CONTRAST on #09090b ─── */
+/* ─── Color palette — MAXIMUM VISIBILITY on dark background ─── */
 const COLORS = {
-  root:        { fill: '#00ffcc', text: '#000000', stroke: '#00ffcc', edge: '#00ffcc' },
-  reflection:  { fill: '#3b82f6', text: '#ffffff', stroke: '#60a5fa', edge: '#60a5fa' },
-  refraction:  { fill: '#f59e0b', text: '#000000', stroke: '#fbbf24', edge: '#fbbf24' },
-  tir:         { fill: '#ef4444', text: '#ffffff', stroke: '#f87171', edge: '#f87171' },
-  /* Leaf nodes — ULTRA BRIGHT fills for maximum visibility on dark bg */
-  leaf_blue:   { fill: '#2563eb', text: '#ffffff', stroke: '#60a5fa', edge: '#60a5fa' },
-  leaf_amber:  { fill: '#d97706', text: '#ffffff', stroke: '#f59e0b', edge: '#fbbf24' },
-  leaf_green:  { fill: '#059669', text: '#ffffff', stroke: '#10b981', edge: '#34d399' },
-  leaf_red:    { fill: '#dc2626', text: '#ffffff', stroke: '#ef4444', edge: '#f87171' },
-  leaf_indigo: { fill: '#6366f1', text: '#ffffff', stroke: '#818cf8', edge: '#a78bfa' },
-  leaf_teal:   { fill: '#0d9488', text: '#ffffff', stroke: '#14b8a6', edge: '#22d3ee' },
-  leaf_rose:   { fill: '#e11d48', text: '#ffffff', stroke: '#f43f5e', edge: '#f472b6' },
+  root:        { fill: '#00ffcc', text: '#001a12', stroke: '#00ffcc', edge: '#00ffcc' },
+  reflection:  { fill: '#4f94ff', text: '#ffffff', stroke: '#93c5fd', edge: '#93c5fd' },
+  refraction:  { fill: '#ffb800', text: '#1a0e00', stroke: '#fcd34d', edge: '#fcd34d' },
+  tir:         { fill: '#ff4d4d', text: '#ffffff', stroke: '#fca5a5', edge: '#fca5a5' },
+  /* Leaf nodes — BRIGHT fills, white text, vivid strokes */
+  leaf_blue:   { fill: '#3b82f6', text: '#ffffff', stroke: '#93c5fd', edge: '#93c5fd' },
+  leaf_amber:  { fill: '#f59e0b', text: '#1a0e00', stroke: '#fde68a', edge: '#fde68a' },
+  leaf_green:  { fill: '#10b981', text: '#001a0e', stroke: '#6ee7b7', edge: '#6ee7b7' },
+  leaf_red:    { fill: '#ef4444', text: '#ffffff', stroke: '#fca5a5', edge: '#fca5a5' },
+  leaf_indigo: { fill: '#818cf8', text: '#ffffff', stroke: '#c4b5fd', edge: '#c4b5fd' },
+  leaf_teal:   { fill: '#22d3ee', text: '#001a1d', stroke: '#a5f3fc', edge: '#a5f3fc' },
+  leaf_rose:   { fill: '#f43f5e', text: '#ffffff', stroke: '#fda4af', edge: '#fda4af' },
 };
 
 interface NodeDef {
@@ -184,20 +184,21 @@ function NodeBox({ node, active, onClick }: { node: NodeDef; active: boolean; on
         }}
       />
 
-      {/* Text label — bright on vivid background */}
+      {/* Text label — bold, large, maximum readability */}
       {node.label.split('\n').map((line, li, arr) => (
         <text
           key={li}
           x={node.x}
-          y={node.y + (arr.length > 1 ? (li - (arr.length - 1) / 2) * 16 : 0)}
+          y={node.y + (arr.length > 1 ? (li - (arr.length - 1) / 2) * 17 : 0)}
           fill={node.color.text}
           textAnchor="middle"
           dominantBaseline="middle"
-          fontSize="12"
-          fontWeight="800"
-          fontFamily="'Inter','Sora',system-ui,sans-serif"
+          fontSize="13"
+          fontWeight="900"
+          fontFamily="'Inter','Plus Jakarta Sans',system-ui,sans-serif"
+          letterSpacing="0.01em"
           style={{
-            filter: active ? `drop-shadow(0 0 5px ${node.color.stroke})` : 'none',
+            filter: active ? `drop-shadow(0 0 6px ${node.color.stroke})` : `drop-shadow(0 1px 2px rgba(0,0,0,0.8))`,
             userSelect: 'none',
           }}
         >

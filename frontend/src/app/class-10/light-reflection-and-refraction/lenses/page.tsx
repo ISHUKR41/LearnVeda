@@ -284,10 +284,10 @@ function PowerOfLensSim() {
       </svg>
 
       <div className={styles.simControls}>
-        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1 }}>
           Focal length: <strong style={{ color: '#f59e0b', fontFamily: 'JetBrains Mono' }}>{focalCm} cm</strong>
           <input type="range" min="10" max="50" step="5" value={focalCm}
-            onChange={e => setFocalCm(+e.target.value)} className={styles.simSlider} style={{ flex: 1 }} />
+            onChange={e => setFocalCm(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
         </label>
       </div>
     </div>
@@ -789,6 +789,7 @@ export default function LensesPage() {
 
   return (
     <div className={styles.chapterContainer}>
+
       <div className={`${styles.chapterLayout} ${focusMode ? styles.focusModeActive : ''}`}>
 
         {/* SIDEBAR */}
@@ -915,10 +916,11 @@ export default function LensesPage() {
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/convex-lens-all-cases-diagram.png', caption: 'Convex lens all cases — 6 object positions: ∞, beyond 2F, at 2F, between F&2F, at F, between F&O — detailed labeled diagram' },
-                { src: '/images/light/convex-lens-all-cases.png', caption: 'Convex lens — all 5 image cases: beyond 2F, at 2F, between F and 2F, at F, between F and O' },
-                { src: '/images/light/light_convex_lens_numerical_nano_banana_1781204470042.png', caption: 'Convex lens image formation — 3 principal rays: parallel ray, ray through optical centre, ray through F₁' },
-                { src: '/images/light/light_concave_lens_numerical_nano_banana_1781204487446.png', caption: 'Concave lens — always virtual, erect, diminished regardless of object position' },
+                { src: '/images/light/lens-ray-construction-3-rules.png', caption: '3 Principal ray construction rules for lenses: (1) parallel→F₂, (2) through centre O, (3) through F₁→parallel' },
+                { src: '/images/light/convex-lens-all-cases-diagram.png', caption: 'Convex lens: all 6 object positions with image nature — beyond 2F, at 2F, between F&2F, at F, between F&O' },
+                { src: '/images/light/convex-lens-all-cases.png', caption: 'Complete convex lens image formation table — position, nature, size, and orientation for each case' },
+                { src: '/images/light/light_convex_lens_numerical_nano_banana_1781204470042.png', caption: 'Convex lens 3 principal rays traced — parallel ray, ray through optical centre, ray through F₁' },
+                { src: '/images/light/light_concave_lens_numerical_nano_banana_1781204487446.png', caption: 'Concave lens — ALWAYS: Virtual + Erect + Diminished regardless of object position' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
@@ -1151,6 +1153,40 @@ Lens Formula: 1/f = 1/v − 1/u = 1/45 − 1/(−15) = 1/45 + 1/15
 
 f = `}<span className={styles.highlight}>45/4 = 11.25 cm</span>
                   <span className={styles.answer}>∴ f = 11.25 cm | Object at 15 cm | Image at 45 cm (3× magnified, real, inverted)</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 5 — Virtual Magnified Image (BOARD EXAM TYPE)</div>
+                <p className={styles.exampleQ}>An object 3 cm tall is placed 10 cm from a convex lens of focal length 15 cm. Find image distance, magnification, image height and nature.</p>
+                <div className={styles.exampleSol}>{`Given: u = −10 cm (object between F and O), f = +15 cm, h = 3 cm
+
+Lens Formula: 1/v = 1/f + 1/u = 1/15 + 1/(−10) = 2/30 − 3/30 = −1/30
+
+v = `}<span className={styles.highlight}>−30 cm</span>{`   (negative → Virtual image, same side as object!)
+
+m = v/u = (−30)/(−10) = `}<span className={styles.highlight}>+3</span>{`   (positive → Virtual, Erect, Magnified)
+
+h' = m × h = 3 × 3 = `}<span className={styles.highlight}>+9 cm</span>{`   (upright, 3× taller)`}
+                  <span className={styles.answer}>∴ Image at 30 cm, same side as object | Virtual | Erect | 3× Magnified | Height 9 cm → THIS IS A MAGNIFYING GLASS!</span>
+                </div>
+              </div>
+
+              <div className={styles.exampleCard}>
+                <div className={styles.exampleBadge}>Example 6 — Spectacle Prescription Calculation</div>
+                <p className={styles.exampleQ}>A hypermetropic person can see clearly at a minimum distance of 75 cm. What power lens is needed to correct vision to normal near point (25 cm)?</p>
+                <div className={styles.exampleSol}>{`Given: Person's near point = 75 cm | Normal near point = 25 cm
+
+The lens must form virtual image of object at 25 cm → at person's near point 75 cm
+
+u = −25 cm (object at 25 cm), v = −75 cm (virtual image at 75 cm, same side)
+
+1/f = 1/v − 1/u = 1/(−75) − 1/(−25) = −1/75 + 3/75 = 2/75
+
+f = `}<span className={styles.highlight}>75/2 = 37.5 cm = 0.375 m</span>{`
+
+P = 1/f = 1/0.375 = `}<span className={styles.highlight}>+2.67 D</span>
+                  <span className={styles.answer}>∴ Convex lens of +2.67 D corrects hypermetropia | Prescription: +2.67 D reading glasses</span>
                 </div>
               </div>
             </div>

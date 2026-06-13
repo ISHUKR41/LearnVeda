@@ -467,14 +467,12 @@
   border-color: rgba(0, 255, 204, 0.25);
 }
 
-/* Target all img tags inside imageCard — including Next.js Image output */
+/* Target all img tags inside imageCard — educational diagrams need contain not cover */
 .imageCard img {
   width: 100% !important;
-  height: 200px !important;
-  object-fit: cover !important;
+  object-fit: contain !important;
   display: block !important;
-  background: #0d0d0f;
-  min-height: 200px;
+  background: #0d0d11;
 }
 
 /* Wrapper div for Next.js <Image fill> approach */
@@ -487,12 +485,14 @@
 }
 
 .imageCardCaption {
-  padding: 0.65rem 0.9rem;
-  font-size: 0.8rem;
-  color: #71717a;
-  background: #0d0d0f;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.79rem;
+  color: #c4c4cc;
+  background: #0d0d11;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.015em;
+  line-height: 1.45;
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 /* Large single image */

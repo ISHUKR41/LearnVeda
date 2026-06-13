@@ -207,16 +207,16 @@ function SnellsLawSim() {
       </svg>
 
       <div className={styles.simControls}>
-        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1, flexWrap: 'wrap' }}>
+        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1, flexWrap: 'wrap' }}>
           Angle of incidence: <strong style={{ color: '#fbbf24', fontFamily: 'JetBrains Mono', minWidth: '40px' }}>{angleI}°</strong>
           <input type="range" min="5" max={fromDense ? 85 : 80} value={angleI}
-            onChange={e => setAngleI(+e.target.value)} className={styles.simSlider} style={{ flex: 1 }} />
+            onChange={e => setAngleI(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
         </label>
         {!fromDense && (
           <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: '180px' }}>
             n₂: <strong style={{ color: '#00ffcc', fontFamily: 'JetBrains Mono', minWidth: '36px' }}>{n2.toFixed(2)}</strong>
             <input type="range" min="1.0" max="2.5" step="0.05" value={n2}
-              onChange={e => setN2(+e.target.value)} className={styles.simSlider} style={{ flex: 1 }} />
+              onChange={e => setN2(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
           </label>
         )}
       </div>
@@ -324,15 +324,15 @@ function GlassSlabSim() {
       </svg>
 
       <div className={styles.simControls}>
-        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1 }}>
           Angle: <strong style={{ color: '#fbbf24', fontFamily: 'JetBrains Mono' }}>{angleI}°</strong>
           <input type="range" min="10" max="70" value={angleI}
-            onChange={e => setAngleI(+e.target.value)} className={styles.simSlider} style={{ flex: 1 }} />
+            onChange={e => setAngleI(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
         </label>
-        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1 }}>
           Thickness: <strong style={{ color: '#00ffcc', fontFamily: 'JetBrains Mono' }}>{slabThick}px</strong>
           <input type="range" min="40" max="140" step="10" value={slabThick}
-            onChange={e => setSlabThick(+e.target.value)} className={styles.simSlider} style={{ flex: 1 }} />
+            onChange={e => setSlabThick(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
         </label>
       </div>
     </div>
@@ -435,11 +435,11 @@ function TIRSim() {
       </svg>
 
       <div className={styles.simControls}>
-        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1 }}>
           Angle inside glass:
           <strong style={{ color: statusColor, fontFamily: 'JetBrains Mono', minWidth: '42px' }}>{angle}°</strong>
           <input type="range" min="5" max="85" value={angle}
-            onChange={e => setAngle(+e.target.value)} className={styles.simSlider} style={{ flex: 1 }} />
+            onChange={e => setAngle(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
         </label>
       </div>
 
@@ -565,11 +565,11 @@ function PrismDispersionSim() {
 
       {/* Controls */}
       <div className={styles.simControls} style={{ flexWrap: 'wrap', gap: '0.75rem' }}>
-        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1 }}>
           Glass n:
           <strong style={{ color: '#60a5fa', fontFamily: 'JetBrains Mono', minWidth: '36px' }}>{n.toFixed(2)}</strong>
           <input type="range" min="1.45" max="1.75" step="0.01" value={n}
-            onChange={e => setN(+e.target.value)} className={styles.simSlider} style={{ flex: 1 }} />
+            onChange={e => setN(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
         </label>
         <button className={`${styles.simButton} ${animate ? styles.active : ''}`}
           onClick={() => setAnimate(a => !a)}>
@@ -686,11 +686,11 @@ function OpticalFibreSim() {
 
       {/* Controls */}
       <div className={styles.simControls} style={{ flexWrap: 'wrap', gap: '0.75rem' }}>
-        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+        <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1 }}>
           Core n:
           <strong style={{ color: '#00ffcc', fontFamily: 'JetBrains Mono', minWidth: '36px' }}>{nCore.toFixed(2)}</strong>
           <input type="range" min="1.47" max="1.65" step="0.01" value={nCore}
-            onChange={e => setNCore(+e.target.value)} className={styles.simSlider} style={{ flex: 1 }} />
+            onChange={e => setNCore(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
         </label>
         <button className={`${styles.simButton} ${animate ? styles.active : ''}`}
           onClick={() => setAnimate(a => !a)}>
@@ -936,6 +936,7 @@ export default function RefractionPage() {
 
   return (
     <div className={styles.chapterContainer}>
+
       <div className={`${styles.chapterLayout} ${focusMode ? styles.focusModeActive : ''}`}>
 
         {/* SIDEBAR */}
@@ -1164,8 +1165,9 @@ sin θ_B = 0.667 × 0.643 = 0.429
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/refractive-index-comparison.png', caption: 'Refractive index visual: Air(1.00), Water(1.33), Glass(1.52), Diamond(2.42) — bending increases with n' },
-                { src: '/images/light/light_refractive_index_1781203095581.png', caption: 'Refractive index comparison: diamond(2.42) > glass(1.52) > water(1.33) > air(1.00)' },
+                { src: '/images/light/real-vs-apparent-depth-diagram.png', caption: 'Real vs Apparent Depth — fish appears shallower than actual position; formula: apparent depth = real depth / n' },
+                { src: '/images/light/refractive-index-comparison.png', caption: 'Refractive index: Air(1.00), Water(1.33), Glass(1.52), Diamond(2.42) — bending increases with n' },
+                { src: '/images/light/light_refractive_index_1781203095581.png', caption: 'Refractive index comparison: higher n = slower light = more bending toward normal' },
                 { src: '/images/light/light_absolute_refractive_nano_banana_1781204408083.png', caption: 'Absolute refractive index: n = c/v (speed in vacuum ÷ speed in medium)' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
@@ -1211,8 +1213,9 @@ sin θ_B = 0.667 × 0.643 = 0.429
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/glass_slab_refraction_1781257428519.png', caption: 'Glass slab refraction — detailed dark neon schematic of lateral displacement' },
-                { src: '/images/light/glass-slab-lateral-displacement.png', caption: 'Glass slab lateral displacement — formula d=t·sin(i−r)/cos(r); emergent ray parallel but shifted sideways' },
+                { src: '/images/light/glass-slab-lateral-shift-formula.png', caption: 'Glass slab lateral shift derivation — thickness t, angles i and r labeled; d = t·sin(i−r)/cos(r)' },
+                { src: '/images/light/glass_slab_refraction_1781257428519.png', caption: 'Glass slab refraction — emergent ray parallel to incident ray; net deviation = 0, only lateral shift' },
+                { src: '/images/light/glass-slab-lateral-displacement.png', caption: 'Glass slab lateral displacement — wider slab = more shift; formula d=t·sin(i−r)/cos(r)' },
                 { src: '/images/light/light_glass_slab_nano_banana_1781204391585.png', caption: 'Glass slab refraction — emergent ray is parallel to incident ray but laterally displaced' },
                 { src: '/images/light/snells-law-vector-diagram.png', caption: 'Snell\'s Law at both surfaces: n₁ sin i = n₂ sin r → net deviation = zero, lateral shift only' },
               ].map((img, i) => (
