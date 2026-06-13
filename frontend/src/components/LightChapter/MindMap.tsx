@@ -237,8 +237,8 @@ export default function MindMap() {
 
       <svg
         width="100%"
-        viewBox="0 0 1145 620"
-        style={{ minWidth: '800px', display: 'block' }}
+        viewBox="0 0 1210 640"
+        style={{ minWidth: '820px', display: 'block' }}
       >
         <defs>
           {/* Dot grid background */}
@@ -270,7 +270,7 @@ export default function MindMap() {
         </defs>
 
         {/* Background */}
-        <rect width="1145" height="620" fill="url(#mmDotGrid)" rx="12" />
+        <rect width="1210" height="640" fill="url(#mmDotGrid)" rx="12" />
 
         {/* Edges — drawn first, behind nodes */}
         {edges.map((edge, i) => {

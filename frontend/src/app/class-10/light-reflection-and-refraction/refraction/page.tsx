@@ -1049,8 +1049,9 @@ export default function RefractionPage() {
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/refraction-two-media-snell.png', caption: "Refraction at Air-Glass interface — incident ray (yellow) bends toward normal in glass, Snell's Law labeled" },
                 { src: '/images/light/refractive_index_concept_1781257584192.png', caption: 'Refractive Index — Light slowing down in denser diamond medium' },
-                { src: '/images/light/snells-law-complete-diagram.png', caption: "Snell's Law — n₁sinθ₁=n₂sinθ₂: light bends toward normal entering denser medium, wavefronts compress" },
+                { src: '/images/light/snells-law-complete-diagram.png', caption: "Snell's Law — n₁sinθ₁=n₂sinθ₂: light bends toward normal entering denser medium" },
                 { src: '/images/light/snells-law-vector-diagram.png', caption: "Snell's Law vector diagram — angle i vs angle r with Cartesian sign convention labeled" },
                 { src: '/images/light/light_snells_law_1781203083554.png', caption: "Snell's Law: incident ray bends toward normal when entering denser medium" },
                 { src: '/images/light/light_refractive_index_1781203095581.png', caption: 'Refractive indices: denser medium → higher n, slower light, more bending' },
@@ -1299,6 +1300,8 @@ Shift = 9 × (1 − 1/1.5) = 9 × (1 − 0.667) = 9 × 0.333 = `}<span className
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/tir-three-stages-diagram.png', caption: 'TIR three stages — Stage 1: normal refraction, Stage 2: critical angle (grazing), Stage 3: total internal reflection' },
+                { src: '/images/light/optical-fibre-tir-diagram.png', caption: 'Optical fibre TIR — glass core (n=1.5) with cladding (n=1.48); light bounces along the entire length' },
                 { src: '/images/light/tir_concept_1781257693465.png', caption: 'Total Internal Reflection — Light trapped in denser medium, bouncing off boundary' },
                 { src: '/images/light/optical_fibre_1781257710837.png', caption: 'Optical Fibre TIR — Pulsing laser bouncing perfectly inside fibre core' },
                 { src: '/images/light/tir-three-stages.png', caption: 'TIR stages — angle<C: refraction, angle=C: grazing ray, angle>C: total internal reflection (no refraction)' },
@@ -1455,6 +1458,7 @@ Used in: Periscopes, binoculars, endoscopes, submarine viewing systems.`}
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/prism-dispersion-vibgyor-detailed.png', caption: 'Prism dispersion detailed — white light splits into VIBGYOR: violet (highest n, bends most) to red (lowest n, bends least)' },
                 { src: '/images/light/prism-dispersion-vibgyor.png', caption: 'White light dispersion through prism — VIBGYOR: violet bends most (highest n), red bends least (lowest n)' },
                 { src: '/images/light/rainbow-formation-tir.png', caption: 'Rainbow formation — refraction + TIR inside water droplets separates sunlight into VIBGYOR arc' },
               ].map((img, i) => (
@@ -1646,15 +1650,14 @@ Secondary rainbow: Colors reversed (double internal reflection)`}
                   <div className={styles.flashcardInner}>
                     <div className={styles.flashcardFront}>
                       <div style={{ textAlign: 'center', width: '100%' }}>
-                        <div style={{ fontSize: '0.6rem', color: '#00ffcc66', marginBottom: '0.5rem', letterSpacing: '0.1em' }}>QUESTION</div>
-                        <div style={{ fontSize: '1rem', fontWeight: 700, color: '#f0fffe', lineHeight: 1.4 }}>{card.q}</div>
-                        <div style={{ fontSize: '0.6rem', color: '#00ffcc33', marginTop: '0.7rem' }}>↺ tap to reveal</div>
+                        <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.8)', marginBottom: '0.6rem', letterSpacing: '0.14em', fontWeight: 700, textTransform: 'uppercase', textShadow: '0 0 12px rgba(147,197,253,0.6)' }}>Question</div>
+                        <div style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', lineHeight: 1.5, textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}>{card.q}</div>
                       </div>
                     </div>
                     <div className={styles.flashcardBack}>
                       <div style={{ textAlign: 'center', width: '100%' }}>
-                        <div style={{ fontSize: '0.6rem', color: '#a78bfa', marginBottom: '0.4rem', letterSpacing: '0.1em', fontWeight: 700 }}>ANSWER</div>
-                        <div style={{ fontSize: '0.84rem', color: '#ede9fe', lineHeight: 1.65, whiteSpace: 'pre-line' }}>{card.a}</div>
+                        <div style={{ fontSize: '0.65rem', color: '#fef3c7', marginBottom: '0.5rem', letterSpacing: '0.14em', fontWeight: 700, textTransform: 'uppercase', textShadow: '0 0 12px rgba(252,211,77,0.5)' }}>Answer</div>
+                        <div style={{ fontSize: '0.84rem', color: '#ffffff', lineHeight: 1.7, whiteSpace: 'pre-line', textShadow: '0 1px 6px rgba(0,0,0,0.4)' }}>{card.a}</div>
                       </div>
                     </div>
                   </div>

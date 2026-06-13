@@ -915,6 +915,7 @@ export default function LensesPage() {
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/convex-lens-all-cases-diagram.png', caption: 'Convex lens all cases — 6 object positions: ∞, beyond 2F, at 2F, between F&2F, at F, between F&O — detailed labeled diagram' },
                 { src: '/images/light/convex-lens-all-cases.png', caption: 'Convex lens — all 5 image cases: beyond 2F, at 2F, between F and 2F, at F, between F and O' },
                 { src: '/images/light/light_convex_lens_numerical_nano_banana_1781204470042.png', caption: 'Convex lens image formation — 3 principal rays: parallel ray, ray through optical centre, ray through F₁' },
                 { src: '/images/light/light_concave_lens_numerical_nano_banana_1781204487446.png', caption: 'Concave lens — always virtual, erect, diminished regardless of object position' },
@@ -1171,6 +1172,7 @@ f = `}<span className={styles.highlight}>45/4 = 11.25 cm</span>
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/human-eye-cross-section.png', caption: 'Human eye cross-section — all parts labeled: Cornea, Iris, Lens, Retina, Ciliary muscles, Optic nerve, Vitreous humour', wide: true },
                 { src: '/images/light/human-eye-full-anatomy.png', caption: 'Human eye full anatomy — all labeled: cornea, aqueous humor, iris, crystalline lens, ciliary muscles, retina, fovea, optic nerve', wide: true },
                 { src: '/images/light/human-eye-anatomy-detail.png', caption: 'Human eye — crystalline lens changes shape (accommodation) to focus near and far objects', wide: false },
               ].map((img, i) => (
@@ -1271,8 +1273,9 @@ P = 1/f = 3/100 × 100 = `}<span className={styles.highlight}>+3.0 D</span>
 
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/myopia_defect_1781257602644.png', caption: 'Myopia (Short-sightedness) — light focuses in front of the retina' },
-                { src: '/images/light/hypermetropia_defect_1781257620762.png', caption: 'Hypermetropia (Long-sightedness) — light focuses behind the retina' },
+                { src: '/images/light/myopia-hypermetropia-correction.png', caption: 'Myopia vs Hypermetropia correction — Myopia: concave lens (−D) corrects, Hypermetropia: convex lens (+D) corrects' },
+                { src: '/images/light/myopia_defect_1781257602644.png', caption: 'Myopia (Short-sightedness) — light focuses in front of the retina; corrected with concave lens' },
+                { src: '/images/light/hypermetropia_defect_1781257620762.png', caption: 'Hypermetropia (Long-sightedness) — light focuses behind the retina; corrected with convex lens' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
@@ -1507,15 +1510,14 @@ M = D/f = 25/5 = `}<span className={styles.highlight}>5×</span>
                   <div className={styles.flashcardInner}>
                     <div className={styles.flashcardFront}>
                       <div style={{ textAlign: 'center', width: '100%' }}>
-                        <div style={{ fontSize: '0.6rem', color: '#00ffcc66', marginBottom: '0.5rem', letterSpacing: '0.1em' }}>QUESTION</div>
-                        <div style={{ fontSize: '1rem', fontWeight: 700, color: '#f0fffe', lineHeight: 1.4 }}>{card.q}</div>
-                        <div style={{ fontSize: '0.6rem', color: '#00ffcc33', marginTop: '0.7rem' }}>↺ tap to reveal</div>
+                        <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.8)', marginBottom: '0.6rem', letterSpacing: '0.14em', fontWeight: 700, textTransform: 'uppercase', textShadow: '0 0 12px rgba(147,197,253,0.6)' }}>Question</div>
+                        <div style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', lineHeight: 1.5, textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}>{card.q}</div>
                       </div>
                     </div>
                     <div className={styles.flashcardBack}>
                       <div style={{ textAlign: 'center', width: '100%' }}>
-                        <div style={{ fontSize: '0.6rem', color: '#a78bfa', marginBottom: '0.4rem', letterSpacing: '0.1em', fontWeight: 700 }}>ANSWER</div>
-                        <div style={{ fontSize: '0.84rem', color: '#ede9fe', lineHeight: 1.65, whiteSpace: 'pre-line' }}>{card.a}</div>
+                        <div style={{ fontSize: '0.65rem', color: '#fef3c7', marginBottom: '0.5rem', letterSpacing: '0.14em', fontWeight: 700, textTransform: 'uppercase', textShadow: '0 0 12px rgba(252,211,77,0.5)' }}>Answer</div>
+                        <div style={{ fontSize: '0.84rem', color: '#ffffff', lineHeight: 1.7, whiteSpace: 'pre-line', textShadow: '0 1px 6px rgba(0,0,0,0.4)' }}>{card.a}</div>
                       </div>
                     </div>
                   </div>

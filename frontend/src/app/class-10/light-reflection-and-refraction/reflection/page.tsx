@@ -801,7 +801,8 @@ export default function ReflectionPage() {
             </div>
             <div className={styles.imageGrid}>
               {[
-                { src: '/images/light/laws-reflection-labeled-diagram.png', caption: 'Laws of Reflection — complete labeled ray diagram: ∠i = ∠r, incident, normal, reflected rays' },
+                { src: '/images/light/laws-reflection-angles-diagram.png', caption: 'Laws of Reflection — ∠i = ∠r: incident ray, normal, reflected ray with angles labeled' },
+                { src: '/images/light/laws-reflection-labeled-diagram.png', caption: 'Complete labeled ray diagram: incident ray (yellow), normal (dashed), reflected ray (cyan)' },
                 { src: '/images/light/reflection-laws-angles-labeled.png', caption: 'Angle of incidence = Angle of reflection — both measured from the normal line' },
                 { src: '/images/light/reflection-laws-diagram.png', caption: 'Laws of Reflection — geometric proof with labeled angles on mirror surface' },
                 { src: '/images/light/light_laws_reflection_1781203058464.png', caption: 'Coplanar property: incident ray, normal, and reflected ray all lie in one plane' },
@@ -987,6 +988,7 @@ If mirror rotates by 20°: reflected ray rotates by = 2 × 20° = `}<span classN
             </p>
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/concave-convex-mirror-comparison.png', caption: 'Concave vs Convex Mirror — side-by-side comparison: converging vs diverging, focal points labeled' },
                 { src: '/images/light/concave_mirror.png', caption: 'Concave Mirror — converging parallel rays to a single focal point F' },
                 { src: '/images/light/convex_mirror.png', caption: 'Convex Mirror — diverging parallel light rays, virtual focus behind mirror' },
                 { src: '/images/light/concave-mirror-all-cases-detailed.png', caption: 'Concave Mirror — all 5 image formation cases with ray diagrams: ∞, beyond C, at C, between C&F, at F, between F&P' },
@@ -1120,6 +1122,7 @@ m = −v/u = −1.15/(−5) = `}<span className={styles.highlight}>+0.23</span>{
             <h2>📐 Mirror Formula & Magnification</h2>
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/mirror-formula-proof-diagram.png', caption: 'Mirror formula derivation — geometric proof with labeled u, v, f, object AB, image A\'B\': 1/v + 1/u = 1/f' },
                 { src: '/images/light/sign_convention.png', caption: 'New Cartesian Sign Convention — sleek minimalist layout for mirror distances' },
                 { src: '/images/light/mirror-formula-geometric-proof.png', caption: 'Mirror formula derivation — geometric proof using similar triangles: 1/v + 1/u = 1/f' },
                 { src: '/images/light/new-cartesian-sign-convention.png', caption: 'New Cartesian Sign Convention — all distances from Pole P; toward incident light = positive' },
@@ -1375,15 +1378,14 @@ u = `}<span className={styles.highlight}>−60 cm</span>{`   v = −(−60)/3 = 
                   <div className={styles.flashcardInner}>
                     <div className={styles.flashcardFront}>
                       <div style={{ textAlign: 'center', width: '100%' }}>
-                        <div style={{ fontSize: '0.6rem', color: '#00ffcc66', marginBottom: '0.5rem', letterSpacing: '0.1em' }}>QUESTION</div>
-                        <div style={{ fontSize: '1rem', fontWeight: 700, color: '#f0fffe', lineHeight: 1.4 }}>{card.q}</div>
-                        <div style={{ fontSize: '0.6rem', color: '#00ffcc33', marginTop: '0.7rem' }}>↺ tap to reveal</div>
+                        <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.8)', marginBottom: '0.6rem', letterSpacing: '0.14em', fontWeight: 700, textTransform: 'uppercase', textShadow: '0 0 12px rgba(147,197,253,0.6)' }}>Question</div>
+                        <div style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', lineHeight: 1.5, textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}>{card.q}</div>
                       </div>
                     </div>
                     <div className={styles.flashcardBack}>
                       <div style={{ textAlign: 'center', width: '100%' }}>
-                        <div style={{ fontSize: '0.6rem', color: '#a78bfa', marginBottom: '0.4rem', letterSpacing: '0.1em', fontWeight: 700 }}>ANSWER</div>
-                        <div style={{ fontSize: '0.88rem', color: '#ede9fe', lineHeight: 1.7, whiteSpace: 'pre-line' }}>{card.a}</div>
+                        <div style={{ fontSize: '0.65rem', color: '#fef3c7', marginBottom: '0.5rem', letterSpacing: '0.14em', fontWeight: 700, textTransform: 'uppercase', textShadow: '0 0 12px rgba(252,211,77,0.5)' }}>Answer</div>
+                        <div style={{ fontSize: '0.88rem', color: '#ffffff', lineHeight: 1.75, whiteSpace: 'pre-line', textShadow: '0 1px 6px rgba(0,0,0,0.4)' }}>{card.a}</div>
                       </div>
                     </div>
                   </div>
