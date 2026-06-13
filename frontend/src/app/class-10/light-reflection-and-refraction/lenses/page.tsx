@@ -287,7 +287,7 @@ function PowerOfLensSim() {
         <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1 }}>
           Focal length: <strong style={{ color: '#f59e0b', fontFamily: 'JetBrains Mono' }}>{focalCm} cm</strong>
           <input type="range" min="10" max="50" step="5" value={focalCm}
-            onChange={e => setFocalCm(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
+            onChange={e => setFocalCm(+e.target.value)} className={styles.simSlider} />
         </label>
       </div>
     </div>
@@ -921,6 +921,7 @@ export default function LensesPage() {
                 { src: '/images/light/convex-lens-all-cases.png', caption: 'Complete convex lens image formation table — position, nature, size, and orientation for each case' },
                 { src: '/images/light/light_convex_lens_numerical_nano_banana_1781204470042.png', caption: 'Convex lens 3 principal rays traced — parallel ray, ray through optical centre, ray through F₁' },
                 { src: '/images/light/light_concave_lens_numerical_nano_banana_1781204487446.png', caption: 'Concave lens — ALWAYS: Virtual + Erect + Diminished regardless of object position' },
+                { src: '/images/light/convex-lens-all-6-cases.png', caption: 'Convex lens all 6 cases — from object at infinity to between F and O; each case shows position, nature, size of image' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
@@ -1312,6 +1313,8 @@ P = 1/f = 3/100 × 100 = `}<span className={styles.highlight}>+3.0 D</span>
                 { src: '/images/light/myopia-hypermetropia-correction.png', caption: 'Myopia vs Hypermetropia correction — Myopia: concave lens (−D) corrects, Hypermetropia: convex lens (+D) corrects' },
                 { src: '/images/light/myopia_defect_1781257602644.png', caption: 'Myopia (Short-sightedness) — light focuses in front of the retina; corrected with concave lens' },
                 { src: '/images/light/hypermetropia_defect_1781257620762.png', caption: 'Hypermetropia (Long-sightedness) — light focuses behind the retina; corrected with convex lens' },
+                { src: '/images/light/myopia-correction-concave-lens.png', caption: 'Myopia correction step-by-step — without correction (image in front of retina) vs with concave lens (image restored to retina)' },
+                { src: '/images/light/hypermetropia-correction-convex-lens.png', caption: 'Hypermetropia correction — convex lens diagram: image behind retina corrected to land exactly on retina' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />

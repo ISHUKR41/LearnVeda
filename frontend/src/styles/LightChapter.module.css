@@ -602,6 +602,8 @@
 
 .simSlider {
   width: 100%;
+  flex-grow: 1;
+  min-width: 80px;
   margin-top: 8px;
   accent-color: #00ffcc;
   height: 6px;

@@ -210,13 +210,13 @@ function SnellsLawSim() {
         <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1, flexWrap: 'wrap' }}>
           Angle of incidence: <strong style={{ color: '#fbbf24', fontFamily: 'JetBrains Mono', minWidth: '40px' }}>{angleI}°</strong>
           <input type="range" min="5" max={fromDense ? 85 : 80} value={angleI}
-            onChange={e => setAngleI(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
+            onChange={e => setAngleI(+e.target.value)} className={styles.simSlider} />
         </label>
         {!fromDense && (
           <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: '180px' }}>
             n₂: <strong style={{ color: '#00ffcc', fontFamily: 'JetBrains Mono', minWidth: '36px' }}>{n2.toFixed(2)}</strong>
             <input type="range" min="1.0" max="2.5" step="0.05" value={n2}
-              onChange={e => setN2(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
+              onChange={e => setN2(+e.target.value)} className={styles.simSlider} />
           </label>
         )}
       </div>
@@ -327,12 +327,12 @@ function GlassSlabSim() {
         <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1 }}>
           Angle: <strong style={{ color: '#fbbf24', fontFamily: 'JetBrains Mono' }}>{angleI}°</strong>
           <input type="range" min="10" max="70" value={angleI}
-            onChange={e => setAngleI(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
+            onChange={e => setAngleI(+e.target.value)} className={styles.simSlider} />
         </label>
         <label style={{ color: '#a1a1aa', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexGrow: 1 }}>
           Thickness: <strong style={{ color: '#00ffcc', fontFamily: 'JetBrains Mono' }}>{slabThick}px</strong>
           <input type="range" min="40" max="140" step="10" value={slabThick}
-            onChange={e => setSlabThick(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
+            onChange={e => setSlabThick(+e.target.value)} className={styles.simSlider} />
         </label>
       </div>
     </div>
@@ -439,7 +439,7 @@ function TIRSim() {
           Angle inside glass:
           <strong style={{ color: statusColor, fontFamily: 'JetBrains Mono', minWidth: '42px' }}>{angle}°</strong>
           <input type="range" min="5" max="85" value={angle}
-            onChange={e => setAngle(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
+            onChange={e => setAngle(+e.target.value)} className={styles.simSlider} />
         </label>
       </div>
 
@@ -569,7 +569,7 @@ function PrismDispersionSim() {
           Glass n:
           <strong style={{ color: '#60a5fa', fontFamily: 'JetBrains Mono', minWidth: '36px' }}>{n.toFixed(2)}</strong>
           <input type="range" min="1.45" max="1.75" step="0.01" value={n}
-            onChange={e => setN(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
+            onChange={e => setN(+e.target.value)} className={styles.simSlider} />
         </label>
         <button className={`${styles.simButton} ${animate ? styles.active : ''}`}
           onClick={() => setAnimate(a => !a)}>
@@ -690,7 +690,7 @@ function OpticalFibreSim() {
           Core n:
           <strong style={{ color: '#00ffcc', fontFamily: 'JetBrains Mono', minWidth: '36px' }}>{nCore.toFixed(2)}</strong>
           <input type="range" min="1.47" max="1.65" step="0.01" value={nCore}
-            onChange={e => setNCore(+e.target.value)} className={styles.simSlider} style={{ flexGrow: 1 }} />
+            onChange={e => setNCore(+e.target.value)} className={styles.simSlider} />
         </label>
         <button className={`${styles.simButton} ${animate ? styles.active : ''}`}
           onClick={() => setAnimate(a => !a)}>
@@ -1303,6 +1303,7 @@ Shift = 9 × (1 − 1/1.5) = 9 × (1 − 0.667) = 9 × 0.333 = `}<span className
 
             <div className={styles.imageGrid}>
               {[
+                { src: '/images/light/critical-angle-tir-stages.png', caption: 'Critical angle and TIR — Stage 1: angle<C → refraction + partial reflection, Stage 2: angle=C → grazing ray, Stage 3: angle>C → 100% TIR' },
                 { src: '/images/light/tir-three-stages-diagram.png', caption: 'TIR three stages — Stage 1: normal refraction, Stage 2: critical angle (grazing), Stage 3: total internal reflection' },
                 { src: '/images/light/optical-fibre-tir-diagram.png', caption: 'Optical fibre TIR — glass core (n=1.5) with cladding (n=1.48); light bounces along the entire length' },
                 { src: '/images/light/tir_concept_1781257693465.png', caption: 'Total Internal Reflection — Light trapped in denser medium, bouncing off boundary' },
@@ -1463,6 +1464,7 @@ Used in: Periscopes, binoculars, endoscopes, submarine viewing systems.`}
               {[
                 { src: '/images/light/prism-dispersion-vibgyor-detailed.png', caption: 'Prism dispersion detailed — white light splits into VIBGYOR: violet (highest n, bends most) to red (lowest n, bends least)' },
                 { src: '/images/light/prism-dispersion-vibgyor.png', caption: 'White light dispersion through prism — VIBGYOR: violet bends most (highest n), red bends least (lowest n)' },
+                { src: '/images/light/prism-dispersion-vibgyor-labeled.png', caption: 'Prism VIBGYOR dispersion labeled — wavelengths 380–750nm, angle of deviation for each color, Newton\'s recombination shown' },
                 { src: '/images/light/rainbow-formation-tir.png', caption: 'Rainbow formation — refraction + TIR inside water droplets separates sunlight into VIBGYOR arc' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>

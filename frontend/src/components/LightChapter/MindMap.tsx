@@ -193,7 +193,7 @@ function NodeBox({ node, active, onClick }: { node: NodeDef; active: boolean; on
           fill={node.color.text}
           textAnchor="middle"
           dominantBaseline="middle"
-          fontSize="13"
+          fontSize="15"
           fontWeight="900"
           fontFamily="'Inter','Plus Jakarta Sans',system-ui,sans-serif"
           letterSpacing="0.01em"

@@ -236,7 +236,7 @@ function LawsOfReflectionSim() {
             <strong style={{ color: '#fbbf24', fontFamily: 'JetBrains Mono', minWidth: '40px' }}>{angle}°</strong>
             <input type="range" min="10" max="80" value={angle}
               onChange={e => { setAngle(+e.target.value); setRunning(false); setPhotonT(0); }}
-              className={styles.simSlider} style={{ flexGrow: 1, minWidth: '100px' }} />
+              className={styles.simSlider} />
           </label>
           <button className={styles.simButton} onClick={() => { setPhotonT(0); setRunning(true); }}>▶ Shoot Photon</button>
           <button className={styles.simButton} onClick={() => { setAngle(45); setRunning(false); setPhotonT(0); }}>↺ Reset</button>
@@ -770,6 +770,8 @@ export default function ReflectionPage() {
               {[
                 { src: '/images/light/light_reflection_nano_banana_1781202845384.png', caption: 'Light travels in straight lines — proven by formation of sharp shadows' },
                 { src: '/images/light/media__1781201710451.png', caption: 'Visible light is a tiny part of the electromagnetic spectrum (400–700 nm)' },
+                { src: '/images/light/laws-of-reflection-diagram-detailed.png', caption: 'Laws of reflection — complete labeled diagram: incident ray (yellow), normal (dashed white), reflected ray (cyan), ∠i = ∠r' },
+                { src: '/images/light/sign-convention-mirrors-lenses.png', caption: 'New Cartesian Sign Convention — all distances from Pole P; incident light direction = positive' },
               ].map((img, i) => (
                 <motion.div key={i} className={styles.imageCard} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
                   <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
@@ -1003,6 +1005,7 @@ If mirror rotates by 20°: reflected ray rotates by = 2 × 20° = `}<span classN
                 { src: '/images/light/convex-mirror-image-formation.png', caption: 'Convex mirror always: Virtual + Erect + Diminished (any object position). Wide FOV.' },
                 { src: '/images/light/concave_mirror_apps_1781258005449.png', caption: 'Concave mirror uses: solar cooker, dentist mirror, headlight, shaving mirror, telescope' },
                 { src: '/images/light/convex_mirror_apps_1781258024462.png', caption: 'Convex mirror uses: rear-view mirrors, ATM, security mirrors, road blind-spot mirrors' },
+                { src: '/images/light/concave-mirror-6-cases-complete.png', caption: 'Concave mirror — all 6 object positions and corresponding images: from infinity to between F and P' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
@@ -1133,6 +1136,7 @@ m = −v/u = −1.15/(−5) = `}<span className={styles.highlight}>+0.23</span>{
                 { src: '/images/light/mirror-formula-diagram.png', caption: '1/v + 1/u = 1/f — Mirror formula: f, v, u all measured from Pole P along principal axis' },
                 { src: '/images/light/light_sign_convention_nano_banana_1781204233503.png', caption: 'Sign Convention summary: Real object u < 0 | Concave f < 0 | Convex f > 0' },
                 { src: '/images/light/light_magnification_formula_nano_banana_1781204215500.png', caption: 'm = −v/u: |m| > 1 magnified | |m| < 1 diminished | |m| = 1 same size' },
+                { src: '/images/light/sign-convention-mirrors-lenses.png', caption: 'Complete sign convention for mirrors and lenses: green = positive, red = negative; all distances from Pole P or Optical Centre O' },
               ].map((img, i) => (
                 <div key={i} className={styles.imageCard}>
                   <ImageWithSkeleton src={img.src} alt={img.caption} height={200} />
